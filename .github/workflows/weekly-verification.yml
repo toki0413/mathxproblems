@@ -1,0 +1,30 @@
+name: weekly-verification
+
+# 每周一 03:00 UTC 核验所有问题是否仍开放。
+# 触发后提交 monitor.json，push 即自动重新部署站点。
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run weekly verification
+        run: python3 scripts/verify.py
+      - name: Commit monitor.json
+        run: |
+          git config user.name "mathx-bot"
+          git config user.email "bot@mathxproblems.com"
+          git add public/monitor.json
+          git diff --cached --quiet || git commit -m "weekly verification $(date -u +%F)"
+          git push

@@ -1,0 +1,246 @@
+{
+  "generated_at": "2026-08-21T16:38:09.037787+00:00",
+  "since": "2026-08-14",
+  "problems": [
+    {
+      "id": "mp-001",
+      "title": "Validity of the Boltzmann–Grad Limit for Hard Spheres at All Times",
+      "query": "bbgky hierarchy boltzmann equation",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-002",
+      "title": "Sharp Exponential Mixing Rate for 2D Navier–Stokes with Degenerate Noise",
+      "query": "stochastic navier stokes mixing",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-003",
+      "title": "Thermalization Time of the Fermi–Pasta–Ulam–Tsingou Lattice",
+      "query": "fput thermalization",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-004",
+      "title": "Anderson Localization in Two Dimensions at Arbitrary Disorder",
+      "query": "anderson localization random schrodinger",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-005",
+      "title": "Spectral Gap of the Spin-2 AKLT Model on the Square Lattice",
+      "query": "aklt model spectral gap",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-006",
+      "title": "Growth of Higher Sobolev Norms for the Defocusing Cubic NLS on T²",
+      "query": "nonlinear schrodinger sobolev norms",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-007",
+      "title": "Localization–Delocalization Transition for Random Band Matrices",
+      "query": "band matrices anderson transition",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-008",
+      "title": "Anomalous Dissipation in the Zero-Viscosity Limit of Forced Navier–Stokes",
+      "query": "navier stokes turbulence",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mc-001",
+      "title": "The Global Attractor Conjecture for Complex-Balanced Reaction Networks",
+      "query": "crnt global attractor conjecture",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "The read operation timed out"
+        }
+      ]
+    },
+    {
+      "id": "mc-002",
+      "title": "The Persistence Conjecture for Weakly Reversible Reaction Networks",
+      "query": "crnt persistence",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mc-003",
+      "title": "Complete Classification of Spectra Realizable by Benzenoid Molecular Graphs",
+      "query": "molecular graphs inverse eigenvalue problem",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mc-004",
+      "title": "Classification of Small Reaction Networks Admitting Multistationarity",
+      "query": "multistationarity real algebraic geometry",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mc-005",
+      "title": "Structural Identifiability Classification of Mass-Action Rate Constants",
+      "query": "identifiability parameter estimation",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mb-001",
+      "title": "Exact Fixation Probability of a Mutant on Arbitrary Graphs",
+      "query": "evolutionary graph theory moran process",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mb-002",
+      "title": "Sharp Metastable Lifetime of the SIS Epidemic on Networks",
+      "query": "sis epidemic metastability",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mb-003",
+      "title": "Global Stability Classification of Replicator Dynamics with Mutation",
+      "query": "replicator dynamics mutation",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mb-004",
+      "title": "Permanence Criteria for General n-Species Lotka–Volterra Systems",
+      "query": "lotka volterra permanence",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-001",
+      "title": "Nonlinear Multi-Agent Consensus Convergence Rate",
+      "query": "multi agent systems spectral graph theory",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-002",
+      "title": "Tight Lower Bounds for Decentralized Optimization over Time-Varying Graphs",
+      "query": "decentralized optimization lower bounds",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-003",
+      "title": "Unconditional Flocking for Cucker–Smale Dynamics with Singular Kernels",
+      "query": "cucker smale flocking",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    }
+  ]
+}

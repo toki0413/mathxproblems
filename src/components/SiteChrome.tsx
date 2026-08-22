@@ -1,0 +1,156 @@
+import { Link, NavLink, useLocation } from 'react-router'
+import { useEffect, useState } from 'react'
+import { PROBLEMS } from '@/data/problems'
+import { GOAL_PROBLEMS } from '@/const'
+import { useI18n } from '@/i18n'
+import { useAuth } from '@/hooks/useAuth'
+
+const NAV = [
+  { to: '/problems', key: 'nav.problems' },
+  { to: '/graph', key: 'nav.graph' },
+  { to: '/impact', key: 'nav.impact' },
+  { to: '/stats', key: 'nav.stats' },
+  { to: '/about', key: 'nav.about' },
+  { to: '/api', key: 'nav.api' },
+]
+
+export function SiteHeader() {
+  const loc = useLocation()
+  const [open, setOpen] = useState(false)
+  const { lang, setLang, t } = useI18n()
+  const { isAuthenticated, user, logout } = useAuth()
+  useEffect(() => setOpen(false), [loc.pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [loc.pathname])
+
+  return (
+    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur hairline-b">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 h-14">
+        <Link to="/" className="flex items-baseline gap-2 group">
+          <span className="font-statement text-xl font-bold tracking-tight">
+            Math<span className="italic">X</span>
+          </span>
+          <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3 group-hover:text-ink transition-colors">
+            Problems
+          </span>
+        </Link>
+        <nav className="hidden md:flex items-center gap-1">
+          {NAV.map((n) => (
+            <NavLink
+              key={n.to}
+              to={n.to}
+              className={({ isActive }) =>
+                `px-3 py-1.5 text-sm transition-colors ${
+                  isActive ? 'text-ink font-medium' : 'text-ink-3 hover:text-ink'
+                }`
+              }
+            >
+              {t(n.key)}
+            </NavLink>
+          ))}
+          <Link
+            to="/submit"
+            className="ml-2 px-3 py-1.5 text-sm border border-line rounded-full text-ink-2 hover:bg-ink hover:text-paper hover:border-ink transition-colors"
+          >
+            {t('nav.submit')}
+          </Link>
+          <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
+            {PROBLEMS.length} {t('nav.count')}
+          </span>
+          <button
+            onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
+            className="ml-2 font-mono2 text-[11px] uppercase tracking-widest text-ink-3 hover:text-ink transition-colors"
+            title="Switch language / 切换语言"
+          >
+            {lang === 'zh' ? 'EN' : '中'}
+          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={logout}
+              className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
+              title={user?.name ?? ''}
+            >
+              {t('nav.logout')}
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
+            >
+              {t('nav.login')}
+            </Link>
+          )}
+        </nav>
+        <button
+          className="md:hidden font-mono2 text-xs uppercase tracking-widest text-ink-2"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? t('nav.close') : t('nav.menu')}
+        </button>
+      </div>
+      {open && (
+        <nav className="md:hidden hairline-t px-5 py-3 flex flex-col gap-1">
+          {NAV.map((n) => (
+            <NavLink key={n.to} to={n.to} className="py-2 text-sm text-ink-2">
+              {t(n.key)}
+            </NavLink>
+          ))}
+          <NavLink to="/submit" className="py-2 text-sm text-ink-2">
+            {t('nav.submit')}
+          </NavLink>
+          <button
+            onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
+            className="py-2 text-left text-sm text-ink-2"
+          >
+            {lang === 'zh' ? 'English' : '中文'}
+          </button>
+        </nav>
+      )}
+    </header>
+  )
+}
+
+export function SiteFooter() {
+  const { t } = useI18n()
+  return (
+    <footer className="hairline-t mt-24">
+      <div className="mx-auto max-w-6xl px-5 py-10 grid gap-8 md:grid-cols-3 text-sm">
+        <div>
+          <div className="font-statement text-lg font-bold">
+            Math<span className="italic">X</span>{' '}
+            <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3">
+              Problems
+            </span>
+          </div>
+          <p className="mt-3 text-ink-3 leading-relaxed max-w-xs">{t('footer.tagline')}</p>
+        </div>
+        <div className="text-ink-3 leading-loose">
+          <div className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-2 mb-2">
+            {t('footer.principles')}
+          </div>
+          {t('footer.principles.body')}
+          <br />
+          {t('footer.principles.body2')}
+        </div>
+        <div className="text-ink-3 leading-loose">
+          <div className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-2 mb-2">
+            {t('footer.criteria')}
+          </div>
+          {t('footer.criteria.body')}
+          <br />
+          {t('footer.criteria.body2')}
+        </div>
+      </div>
+      <div className="hairline-t">
+        <div className="mx-auto max-w-6xl px-5 py-4 font-mono2 text-[11px] text-ink-3 flex flex-wrap gap-x-6 gap-y-1">
+          <span>© 2026 MathX Problems</span>
+          <span>
+            {t('footer.collected')} {PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
+          </span>
+          <span>{t('footer.license')}</span>
+        </div>
+      </div>
+    </footer>
+  )
+}
