@@ -1,6 +1,13 @@
 import { Link } from 'react-router'
-import { DOMAINS, type Problem } from '@/data/problems'
-import { useI18n, pickLang, domainLabel } from '@/i18n'
+import { DOMAINS, type Problem, type ProblemStatus } from '@/data/problems'
+import { useI18n, pickLang, domainLabel, enumLabel } from '@/i18n'
+
+/** 解析状态的颜色：开放=中性、部分解决=琥珀、已解决=绿，与详情页观感一致 */
+const STATUS_COLOR: Record<ProblemStatus, string> = {
+  open: '#8b887c',
+  partial: '#9a5b13',
+  resolved: '#1e7a5a',
+}
 
 export const DIFFICULTY_STARS: Record<Problem['difficulty'], number> = {
   research: 3,
@@ -40,9 +47,16 @@ export function ProblemRow({ p, index }: { p: Problem; index: number }) {
           {pickLang(p, lang)}
         </span>
       </span>
-      <span className="hidden md:flex items-center gap-2 text-ink-2">
+      <span className="hidden md:inline-flex items-center gap-2 text-ink-2">
         <DomainDot domain={p.domain} />
         {domainLabel(DOMAINS[p.domain], lang)}
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono2 text-[10px] uppercase tracking-wider"
+          style={{ color: STATUS_COLOR[p.status], borderColor: STATUS_COLOR[p.status] }}
+        >
+          <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: STATUS_COLOR[p.status] }} />
+          {enumLabel(lang, 'status', p.status)}
+        </span>
       </span>
       <span className="hidden md:block">
         <Stars difficulty={p.difficulty} />

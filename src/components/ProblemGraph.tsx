@@ -98,6 +98,9 @@ export function ProblemGraph({
   const [hovered, setHovered] = useState<Problem | null>(null)
   const [hidden, setHidden] = useState<Set<Domain>>(new Set())
   const [hiddenRels, setHiddenRels] = useState<Set<RelationType>>(new Set())
+  // 额外两个可探索维度：按验证路径 / 按解决状态隐藏节点
+  const [hiddenVp, setHiddenVp] = useState<Set<string>>(new Set())
+  const [hiddenSt, setHiddenSt] = useState<Set<string>>(new Set())
   // 后台录入的近期更新问题；配合目录里的静态 updates 一起打标记
   const { data: dbRecent = [] } = trpc.updates.recent.useQuery(undefined, { staleTime: 60_000 })
   const recentIds = useMemo(() => {
@@ -133,7 +136,12 @@ export function ProblemGraph({
     const ctx = canvas.getContext('2d')!
     ctx.scale(dpr, dpr)
 
-    const problems = allProblems.filter((p) => !hidden.has(p.domain))
+    const problems = allProblems.filter(
+      (p) =>
+        !hidden.has(p.domain) &&
+        !hiddenVp.has(p.verification_path) &&
+        !hiddenSt.has(p.status),
+    )
     const idx = new Map(problems.map((p, i) => [p.id, i]))
     // seed positions clustered by domain quadrant for topological readability
     const centers: Record<Domain, [number, number]> = {
@@ -463,7 +471,7 @@ export function ProblemGraph({
       canvas.removeEventListener('wheel', onWheel)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, recentIds, nav])
+  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, hiddenVp, hiddenSt, recentIds, nav])
 
   const toggleDomain = (d: Domain) =>
     setHidden((s) => {
@@ -478,6 +486,22 @@ export function ProblemGraph({
       const n = new Set(s)
       if (n.has(r)) n.delete(r)
       else n.add(r)
+      return n
+    })
+
+  const toggleVp = (v: string) =>
+    setHiddenVp((s) => {
+      const n = new Set(s)
+      if (n.has(v)) n.delete(v)
+      else n.add(v)
+      return n
+    })
+
+  const toggleSt = (v: string) =>
+    setHiddenSt((s) => {
+      const n = new Set(s)
+      if (n.has(v)) n.delete(v)
+      else n.add(v)
       return n
     })
 
@@ -611,6 +635,32 @@ export function ProblemGraph({
                   style={{ background: DOMAINS[d].color }}
                 />
                 {domainLabel(DOMAINS[d], lang)}
+              </button>
+            ))}
+            <span className="text-line">|</span>
+            <span className="bg-paper/80 px-1">{t('pg.verify')}</span>
+            {(['analytical', 'numerical', 'experimental'] as const).map((v) => (
+              <button
+                key={v}
+                onClick={() => toggleVp(v)}
+                className={`bg-paper/80 px-1 transition-opacity ${
+                  hiddenVp.has(v) ? 'opacity-30 line-through' : ''
+                }`}
+              >
+                {enumLabel(lang, 'verification', v)}
+              </button>
+            ))}
+            <span className="text-line">|</span>
+            <span className="bg-paper/80 px-1">{t('pg.status')}</span>
+            {(['open', 'partial', 'resolved'] as const).map((v) => (
+              <button
+                key={v}
+                onClick={() => toggleSt(v)}
+                className={`bg-paper/80 px-1 transition-opacity ${
+                  hiddenSt.has(v) ? 'opacity-30 line-through' : ''
+                }`}
+              >
+                {enumLabel(lang, 'status', v)}
               </button>
             ))}
             <span className="text-line">|</span>

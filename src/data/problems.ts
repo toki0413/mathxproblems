@@ -7,6 +7,7 @@ export type Domain =
 export type FormalizationPotential = 'high' | 'medium' | 'low'
 export type VerificationPath = 'analytical' | 'numerical' | 'experimental'
 export type ProblemStatus = 'open' | 'partial' | 'resolved'
+export type OutputKind = 'verified_behavior' | 'verified_truth' | 'scaffolding'
 export type RelationType =
   | 'depends_on'
   | 'implies'
@@ -47,6 +48,8 @@ export interface Problem {
   obstacles: string[]
   engineering_value?: string
   impact_domains?: string[]
+  /** 完成时的产出类型：可运行行为判据 / 结构性真理解证书 / 纯学科骨架。决定对该领域是"直接消费"还是"间接信任"。 */
+  output: OutputKind
   formalization_notes: string
   references: { label: string; url: string }[]
   /** 判定形式：一个被认可的答案必须满足什么、如何被核验（证明证书 / 数值判据 / 反例构造…） */
@@ -64,6 +67,7 @@ export interface Problem {
 export const PROBLEMS: Problem[] = [
   {
     id: 'mp-001',
+    output: 'verified_truth',
     judgment: 'A pass is a rigorous proof certificate that the first BBGKY marginal converges to the solution of the Boltzmann hierarchy on arbitrary time intervals [0,T] under stated initial chaos assumptions, or a valid counterexample with certified initial data; the short-time result alone is not enough, the accepted form must cover all times.',
     title: 'Validity of the Boltzmann–Grad Limit for Hard Spheres at All Times',
     titleZh: '硬球体系 Boltzmann–Grad 极限的全时间有效性',
@@ -113,6 +117,7 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
   },
   {
     id: 'mp-002',
+    output: 'verified_truth',
     title: 'Sharp Exponential Mixing Rate for 2D Navier–Stokes with Degenerate Noise',
     titleZh: '退化噪声驱动二维 Navier–Stokes 的最优指数混合速率',
     domain: 'mathematical-physics',
@@ -160,6 +165,7 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
   },
   {
     id: 'mp-003',
+    output: 'verified_behavior',
     title: 'Thermalization Time of the Fermi–Pasta–Ulam–Tsingou Lattice',
     titleZh: 'FPUT 晶格热化时间的严格刻画',
     domain: 'mathematical-physics',
@@ -209,6 +215,7 @@ fix energy per particle $\\varepsilon > 0$. Prove that for generic initial data 
   },
   {
     id: 'mp-004',
+    output: 'verified_truth',
     title: 'Anderson Localization in Two Dimensions at Arbitrary Disorder',
     titleZh: '二维任意无序强度下的 Anderson 局域化',
     domain: 'mathematical-physics',
@@ -260,6 +267,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
   },
   {
     id: 'mp-005',
+    output: 'verified_truth',
     judgment: 'A pass proves a uniform positive spectral gap above the ground state in the thermodynamic limit for the spin-2 square-lattice AKLT model, or proves gaplessness; the honeycomb spin-3/2 companion must be settled by a fully analytic computer-free bound with a verifiable finite eigenvalue certificate.',
     title: 'Spectral Gap of the Spin-2 AKLT Model on the Square Lattice',
     titleZh: '四方晶格 spin-2 AKLT 模型的谱隙',
@@ -306,6 +314,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
   },
   {
     id: 'mp-006',
+    output: 'verified_truth',
     judgment: 'A pass establishes polynomial-in-time bounds ||u(t)||_H^s at most t^C(s) with the conjectured optimal exponent, and decides whether sup over t of the H^s norm can be infinite for s greater than 1, each via a rigorous proof certificate grounded in resonant frequency combinatorics.',
     title: 'Growth of Higher Sobolev Norms for the Defocusing Cubic NLS on T²',
     titleZh: '环面上调焦三次 NLS 高阶 Sobolev 范数增长',
@@ -349,6 +358,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
   },
   {
     id: 'mp-007',
+    output: 'verified_truth',
     title: 'Localization–Delocalization Transition for Random Band Matrices',
     titleZh: '随机带矩阵的局域化—退局域化转变',
     domain: 'mathematical-physics',
@@ -406,6 +416,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
   },
   {
     id: 'mp-008',
+    output: 'verified_truth',
     judgment: 'A pass proves or disproves the zeroth law, namely that the liminf as nu goes to 0 of nu times the L^2 gradient norm squared of stationary or long-time-averaged solutions is strictly positive, with the dissipation lower bound certified against the stated body forcing.',
     title: 'Anomalous Dissipation in the Zero-Viscosity Limit of Forced Navier–Stokes',
     titleZh: '受迫 Navier–Stokes 零粘性极限的反常耗散',
@@ -455,6 +466,7 @@ i.e. dissipation does not vanish with viscosity — the empirically universal si
   },
   {
     id: 'mc-001',
+    output: 'verified_truth',
     judgment: 'A pass proves global asymptotic stability of the unique positive equilibrium in each stoichiometric compatibility class, by certifying that no omega-limit set approaches the boundary of the positive orthant under the pseudo-Helmholtz Lyapunov function; a counterexample network is accepted only if the trajectory escaping to the boundary is rigorously verified.',
     title: 'The Global Attractor Conjecture for Complex-Balanced Reaction Networks',
     titleZh: '复平衡反应网络的全局吸引子猜想',
@@ -513,6 +525,7 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
   },
   {
     id: 'mc-002',
+    output: 'verified_truth',
     title: 'The Persistence Conjecture for Weakly Reversible Reaction Networks',
     titleZh: '弱可逆反应网络的持久性猜想',
     domain: 'mathematical-chemistry',
@@ -560,6 +573,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   },
   {
     id: 'mc-003',
+    output: 'verified_behavior',
     title: 'Complete Classification of Spectra Realizable by Benzenoid Molecular Graphs',
     titleZh: '苯环型分子图可实现谱的完全分类',
     domain: 'mathematical-chemistry',
@@ -597,6 +611,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   },
   {
     id: 'mc-004',
+    output: 'verified_truth',
     title: 'Classification of Small Reaction Networks Admitting Multistationarity',
     titleZh: '允许多重稳态的小规模反应网络的完全分类',
     domain: 'mathematical-chemistry',
@@ -640,6 +655,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   },
   {
     id: 'mc-005',
+    output: 'verified_behavior',
     judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model.',
     title: 'Structural Identifiability Classification of Mass-Action Rate Constants',
     titleZh: '质量作用速率常数的结构可辨识性分类',
@@ -677,6 +693,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   },
   {
     id: 'mb-001',
+    output: 'verified_behavior',
     judgment: 'A pass gives a closed-form or polynomial-time-computable expression for the fixation probability on general graphs, or a rigorous formula plus an exact amplifier characterization for specific graph families, and backs any hardness claim with a reduction certificate from an established hard problem.',
     title: 'Exact Fixation Probability of a Mutant on Arbitrary Graphs',
     titleZh: '任意图上突变体精确固定概率',
@@ -724,6 +741,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   },
   {
     id: 'mb-002',
+    output: 'verified_behavior',
     title: 'Sharp Metastable Lifetime of the SIS Epidemic on Networks',
     titleZh: '网络上 SIS 流行病亚稳态寿命的精确渐近',
     domain: 'mathematical-biology',
@@ -778,6 +796,7 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
   },
   {
     id: 'mb-003',
+    output: 'verified_truth',
     title: 'Global Stability Classification of Replicator Dynamics with Mutation',
     titleZh: '带突变复制子动力学的全局稳定性分类',
     domain: 'mathematical-biology',
@@ -825,6 +844,7 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
   },
   {
     id: 'mb-004',
+    output: 'verified_behavior',
     judgment: 'A pass gives necessary and sufficient conditions on (r,A) for permanence as a finite algorithmic criterion over the average Lyapunov exponents of boundary equilibria, with the growth computation for each boundary invariant set certified to be correct for all positive initial data.',
     title: 'Permanence Criteria for General n-Species Lotka–Volterra Systems',
     titleZh: '一般 n 物种 Lotka–Volterra 系统的持久性判据',
@@ -877,6 +897,7 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
   },
   {
     id: 'me-001',
+    output: 'verified_behavior',
     judgment: 'A pass proves asymptotic agreement for Lipschitz nonlinear coupling and gives an explicit convergence rate bound in terms of the Lipschitz constant, the sector bound and lambda_2(L), with a matching lower example so the rate is certified rather than merely exponential in an uncontrolled constant.',
     title: 'Nonlinear Multi-Agent Consensus Convergence Rate',
     titleZh: '非线性多智能体一致性的显式收敛速率',
@@ -935,6 +956,7 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
   },
   {
     id: 'me-002',
+    output: 'verified_truth',
     title: 'Tight Lower Bounds for Decentralized Optimization over Time-Varying Graphs',
     titleZh: '时变图上去中心化优化的紧下界',
     domain: 'mathematical-engineering',
@@ -982,6 +1004,7 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
   },
   {
     id: 'me-003',
+    output: 'verified_truth',
     title: 'Unconditional Flocking for Cucker–Smale Dynamics with Singular Kernels',
     titleZh: '奇异核 Cucker–Smale 集群动力学的无条件群集',
     domain: 'mathematical-engineering',
@@ -1035,6 +1058,7 @@ prove **unconditional flocking** (velocity alignment $\\|v_i(t) - v_j(t)\\| \\to
   },
   {
     id: 'mp-009',
+    output: 'verified_truth',
     title: 'Area Law for Ground States of Two-Dimensional Gapped Local Hamiltonians',
     titleZh: '二维有能隙局域哈密顿量基态的面积律',
     domain: 'mathematical-physics',
@@ -1087,6 +1111,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-010',
+    output: 'verified_truth',
     judgment: 'A pass must prove the existence of energies with absolutely continuous spectrum and extended eigenstates for sufficiently small lambda on Z^3, established by a rigorous resolvent or multiscale argument, and corroborated by certified numerical transfer-matrix scaling if the claim is stated as quantitative.',
     title: 'Delocalization of the Anderson Model at Weak Disorder in Dimension Three',
     titleZh: '三维 Anderson 模型弱无序区的离域化猜想',
@@ -1137,6 +1162,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-011',
+    output: 'verified_truth',
     judgment: 'A pass proves that the integrated density of states attains every allowed gap label for every irrational alpha including the critical coupling lambda=1 and Liouville rotations, via a proof certificate; for fixed rational approximants the minimal acceptable form is a finite certified-numerics gap-openness check on the Harper operator.',
     title: 'The Dry Ten Martini Problem for the Almost Mathieu Operator',
     titleZh: '殆 Mathieu 算子的“干十马提尼”问题',
@@ -1187,6 +1213,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-012',
+    output: 'verified_truth',
     title: 'Completeness of the Bethe Ansatz for Higher-Spin Heisenberg Chains',
     titleZh: '高自旋 Heisenberg 链 Bethe 拟设的完备性',
     domain: 'mathematical-physics',
@@ -1239,6 +1266,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-013',
+    output: 'verified_truth',
     judgment: 'A pass proves distributional convergence under 1:2:3 scaling of a genuinely non-integrable growth model to the KPZ fixed point with Tracy-Widom one-point statistics, established without algebraic integrability, and therefore requires a rigorous proof that does not pass through exact Fredholm-determinant formulas.',
     title: 'Universality of the KPZ Fixed Point Beyond Integrable Models',
     titleZh: '超越可积模型的 KPZ 不动点普适性',
@@ -1288,59 +1316,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     ],
   },
   {
-    id: 'mc-006',
-    judgment: 'A pass proves the existence of a positive eps such that eps is at most the liminf and the limsup is at most 1/eps for every species along every positive trajectory, and thereby rules out extinction or blow-up; the boundary-dynamics analysis yielding the uniform bound must be rigorously certified.',
-    title: 'Permanence Conjecture for Complex-Balanced Reaction Networks',
-    titleZh: '复平衡反应网络的持久性猜想',
-    domain: 'mathematical-chemistry',
-    subdomain: 'crnt',
-    status: 'partial',
-    difficulty: 'frontier',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['crnt', 'permanence', 'complex-balanced', 'dynamical-systems'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['化工过程安全', '合成生物学'],
-    related_problems: [
-      {
-        id: 'mc-001',
-        relation: 'generalizes',
-        note: 'The Global Attractor Conjecture asserts convergence to a positive equilibrium; permanence asserts uniform persistence of all species — stronger and still open in general.',
-      },
-    ],
-    statement: `Prove that every complex-balanced mass-action system is **permanent**: there exists $\\varepsilon > 0$ such that for every positive initial condition $x(0) \\in \\mathbb{R}^n_{>0}$, the trajectory satisfies
-$$\\varepsilon \\le \\liminf_{t\\to\\infty} x_i(t) \\le \\limsup_{t\\to\\infty} x_i(t) \\le 1/\\varepsilon \\quad \\text{for all } i,$$
-i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`,
-    origin:
-      'Permanence is the design-level guarantee that a chemical or biochemical network cannot silently drive a species to extinction — the key safety property of industrial reactors and engineered metabolic circuits.',
-    progress: [
-      '**Angel–De Leenheer–Sontag (2007)**: permanence for a class of networks via boundary dynamics analysis.',
-      '**Craciun–Nazarov–Pantea (2013)**: permanence for endotactic networks in 2D; later extended to 3D and strongly endotactic networks.',
-      '**General case**: open; closely tied to the (toric) Global Attractor Conjecture resolved by Craciun.',
-    ],
-    obstacles: [
-      '**Boundary dynamics are only partially understood**: the ω-limit sets on faces of the positive orthant can carry complicated dynamics in dimension $\\ge 4$.',
-      '**No general Lyapunov-type criterion** rules out slow approach to the boundary for non-endotactic networks.',
-    ],
-    engineering_value:
-      '持久性证书可直接翻译成化工安全联锁设计准则（无物种耗竭/爆炸性积累）与合成生物回路的鲁棒性验收条件。',
-    formalization_notes:
-      'Complex balance is decidable from the network graph and rate constants; the dynamical conclusion is the open part. Structural sufficient conditions (endotacticity) are checkable algorithms — a certification pipeline is feasible.',
-    references: [
-      {
-        label: 'Craciun, Nazarov, Pantea, Persistence and permanence of mass-action and power-law dynamical systems, SIAM J. Appl. Math. 73, 2013',
-        url: 'https://arxiv.org/abs/1010.3050',
-      },
-      {
-        label: 'Anderson, A proof of the Global Attractor Conjecture in the single linkage class case, SIAM J. Appl. Math. 71, 2011',
-        url: 'https://arxiv.org/abs/1101.0761',
-      },
-    ],
-  },
-  {
     id: 'mc-007',
+    output: 'verified_truth',
     title: 'Boundedness Conjecture for Complex-Balanced Systems',
     titleZh: '复平衡系统的有界性猜想',
     domain: 'mathematical-chemistry',
@@ -1356,7 +1333,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
     impact_domains: ['化工过程安全', '生物反应器设计'],
     related_problems: [
       {
-        id: 'mc-006',
+        id: 'mc-002',
         relation: 'depends_on',
         note: 'Boundedness is the upper half of permanence; a proof of permanence would subsume it, but boundedness may be accessible independently.',
       },
@@ -1375,7 +1352,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
     engineering_value:
       '有界性证明给出反应器浓度的先验上界，可直接用于安全壳设计与失控反应筛查的数学认证环节。',
     formalization_notes:
-      'As mc-006: the hypothesis is decidable from rate data; the conclusion is analytic. Amenable to computer-assisted search for counterexamples in parameterized families.',
+      'As mc-002: the hypothesis is decidable from rate data; the conclusion is analytic. Amenable to computer-assisted search for counterexamples in parameterized families.',
     references: [
       {
         label: 'Horn, Jackson, General mass action kinetics, Archive for Rational Mechanics and Analysis 47, 1972',
@@ -1390,6 +1367,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mc-008',
+    output: 'verified_behavior',
     title: 'Inverse Eigenvalue Problem for Chemical Graph Classes',
     titleZh: '化学图类的逆特征值问题',
     domain: 'mathematical-chemistry',
@@ -1440,6 +1418,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mb-005',
+    output: 'verified_behavior',
     title: 'Epidemic Threshold of SIR Epidemics on Clustered Networks',
     titleZh: '聚集性网络上 SIR 流行病阈值的严格刻画',
     domain: 'mathematical-biology',
@@ -1490,6 +1469,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mb-006',
+    output: 'verified_behavior',
     judgment: 'A pass gives a structural combinatorial criterion that decides whether a graph is a strong amplifier (fixation probability tending to 1) or strong suppressor (tending to 0) for the birth-death Moran process, and establishes whether strong amplification is decidable in polynomial time, with a correctness proof for the criterion.',
     title: 'Classification of Strong Amplifiers of Natural Selection',
     titleZh: '自然选择强放大器的图结构分类',
@@ -1540,6 +1520,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mb-007',
+    output: 'verified_behavior',
     title: 'Rigorous Click Rate of Muller’s Ratchet in the Speed-Limit Regime',
     titleZh: 'Muller 棘轮咔嗒速率的严格渐近',
     domain: 'mathematical-biology',
@@ -1590,6 +1571,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mb-008',
+    output: 'verified_truth',
     judgment: 'A pass characterizes the edge-weight matrices W for which the birth-death or death-birth fixation probability equals the well-mixed value, proving both necessity and sufficiency of equal vertex temperatures including non-stochastic matrices and weakly connected cases, as an algebraic statement about Markov-chain hitting probabilities.',
     title: 'Generalized Isothermal Theorem for Weighted and Directed Population Graphs',
     titleZh: '加权有向群体图的广义等温定理',
@@ -1640,6 +1622,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'me-004',
+    output: 'verified_truth',
     title: 'Optimal Round Complexity of Triangle Detection and Listing in the CONGEST Model',
     titleZh: 'CONGEST 模型中三角形检测与枚举的最优轮复杂度',
     domain: 'mathematical-engineering',
@@ -1690,6 +1673,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'me-005',
+    output: 'verified_truth',
     title: 'Tight Bounds for Randomized Consensus Against an Adaptive Adversary',
     titleZh: '自适应对手下随机共识的紧复杂度界',
     domain: 'mathematical-engineering',
@@ -1740,6 +1724,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'me-006',
+    output: 'verified_truth',
     judgment: 'A pass proves or disproves the O(log n / Phi(G)) universal bound for push-pull rumor spreading on every connected graph, or identifies the correct graph parameter (vertex expansion, diameter combined with conductance), supplying matching upper and lower bounds whose constants are made to coincide.',
     title: 'Optimal Oblivious Rumor Spreading: Push–Pull on General Graphs',
     titleZh: '一般图上 push–pull 谣言传播的最优无意识界',
@@ -1790,6 +1775,7 @@ i.e. no species concentration approaches $0$ or $\\infty$ along any trajectory.`
   },
   {
     id: 'mp-014',
+    output: 'verified_behavior',
     judgment: 'A pass proves normal heat conduction in the scaling limit: J equals -kappa(T) grad T with a finite positive temperature-dependent conductivity independent of chain length N, backed by a rigorous steady-state error bound showing the energy current scales as kappa delta T / N and kappa converges to a nonzero constant.',
     title: 'Derivation of Fourier\u2019s Law in Deterministic Hamiltonian Chains',
     titleZh: '确定性哈密顿链中傅里叶定律的推导',
@@ -1842,6 +1828,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mp-015',
+    output: 'verified_truth',
     title: 'Sharp Energy Conservation Threshold in the Onsager Theory of Turbulence',
     titleZh: 'Onsager 湍流理论中的能量守恒临界正则性',
     domain: 'mathematical-physics',
@@ -1894,6 +1881,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mc-009',
+    output: 'verified_truth',
     title: 'Hamiltonicity of Fullerene Graphs',
     titleZh: '富勒烯图的哈密顿性',
     domain: 'mathematical-chemistry',
@@ -1943,59 +1931,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     judgment: 'A pass proves or disproves that every fullerene graph is Hamiltonian; a positive result is a proof covering all 3-connected cubic planar pentagon–hexagon graphs, a negative one a verified non-Hamiltonian fullerene whose claimed Hamiltonian-cycle absence is certified; computational evidence for every fullerene up to large sizes is not proof.',
   },
   {
-    id: 'mc-010',
-    title: 'Wigner Crystallization: Ordered Ground States at Low Density',
-    titleZh: 'Wigner 结晶：低密度下的有序基态',
-    domain: 'mathematical-chemistry',
-    subdomain: 'condensed-matter-theory',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'low',
-    verification_path: 'numerical',
-    tags: ['wigner-crystal', 'coulomb', 'ground-state', 'crystallization'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['电子晶体材料', '二维材料物性'],
-    related_problems: [
-      {
-        id: 'mp-010',
-        relation: 'analog_of',
-        note: 'Order/disorder transitions in low-density matter: Anderson (mp-010) drives localization, Wigner drives crystallization — opposite sides of the same confining-potential dichotomy.',
-      },
-    ],
-    statement: `Prove that at sufficiently low density, a system of particles interacting via Coulomb (or Riesz) repulsion — specifically the classical or quantum jellium — develops **crystalline long-range order**: the minimizing ground-state density profile is periodic (a Bravais lattice, e.g. bcc in 3D or triangular in 2D), and the thermodynamic-limit energy per particle is attained by such a periodic configuration. Rigorously establish that the correlation function does not decay (long-range order) in the low-density regime.`,
-    origin:
-      'Wigner (1934) predicted that electrons at low density freeze into a crystal to minimize Coulomb repulsion; electron crystals are now observed in quantum dots, 2D semiconductors and ultracold ions. Despite the Nobel-level importance, a rigorous proof that the ground state is actually ordered remains open — the central unsolved step of the "crystallization conjecture".',
-    progress: [
-      '**Stability / thermodynamic limit**: the existence and boundedness of the essential ground-state energy density is established (Dyson\u2013Lenard; Lieb\u2013Thirring and successors).',
-      '**Riesz-gas crystallization**: rigorously proved for the singular log-gas ($\\log/|x|$) and for Riesz kernels approaching the hard-core limit, but still open at the physical Coulomb interaction ($\\alpha=d-1$) in $d \\ge 2$.',
-      '**Jellium ordering**: numerical/free-energy arguments strongly favour a lattice, yet the rigorous presence of long-range order is open.',
-    ],
-    obstacles: [
-      '**Mixing of scales**: long-range Coulomb energy is not simply a sum of local terms, defeating the cluster/Berezin \u201ctechnique\u201d that works for short-range crystallization.',
-      '**No order parameter with a provable gap**: proving the correlation function stays bounded away from zero requires controlling infinitely many competing periodic structures.',
-    ],
-    engineering_value:
-      '电子晶体（Wigner 晶格）的严格性证明将给出二维材料与量子点阵列物性的先验判据，为“规则点阵是否可长期稳定”的工程问题提供数学基准。',
-    formalization_notes:
-      'The thermodynamic-limit part is partially formalizable (energy density existence); the ordering step is a hard open analytic question. Certified numerics for small Wigner clusters (ground states of few Coulomb charges) is already an achievable, checkable sub-goal.',
-    references: [
-      {
-        label: 'Wigner, On the interaction of electrons in metals, Physical Review 46, 1934',
-        url: 'https://doi.org/10.1103/PhysRev.46.1002',
-      },
-      {
-        label: 'Saff, Totik, Logarithmic Potentials with External Fields, Springer, 1997',
-        url: 'https://doi.org/10.1007/978-3-642-57063-0',
-      },
-    ],
-    judgment: 'A pass proves that at sufficiently low density the Coulomb (or Riesz) jellium ground state exhibits crystalline long-range order — a periodic (Bravais-lattice) energy-minimizing density profile and a non-decaying correlation function in the thermodynamic limit — with the energy-density and ordering estimate certified; the open short-range-free ordering step must itself be resolved, not assumed.',
-    proposer: 'Wigner',
-    proposed_year: '1934',
-  },
-  {
     id: 'mb-009',
+    output: 'verified_truth',
     judgment: 'A pass proves that offspring breeding value is normally distributed in the many-loci limit with variance independent of the parental genotype, gives a rigorous convergence rate, and characterizes the effect sizes, linkage and dominance regimes where normality emerges or breaks down, via a certified central-limit-type proof.',
     title: 'Emergence of the Infinitesimal Model in Polygenic Inheritance',
     titleZh: '多基因遗传中无限小模型的涌现',
@@ -2046,6 +1983,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mb-010',
+    output: 'verified_behavior',
     judgment: 'A pass proves E[tau] is comparable to e^(c/delta) with the exact exponential constant c identified and the fluctuations of tau characterized, including a large-deviation and cutoff description, with the two-parameter large-deviation estimate for the largest supercritical cluster made rigorous.',
     title: 'Sharp Extinction-Time Asymptotics for the Subcritical Contact Process',
     titleZh: '次临界接触过程的灭绝时间精细渐近',
@@ -2096,6 +2034,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'me-007',
+    output: 'verified_truth',
     title: 'Optimal Competitive Ratio for Online (Metric) Facility Location',
     titleZh: '在线（度量）设施选址的最优竞争比',
     domain: 'mathematical-engineering',
@@ -2146,6 +2085,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'me-008',
+    output: 'verified_truth',
     judgment: 'A pass proves there exists an online algorithm with competitive ratio exactly k for the k-server problem on an arbitrary metric space, or demonstrates a different optimal constant, via a rigorous potential argument or dual-certificate construction with the matching lower-bound request sequence made explicit.',
     title: 'The k-Server Conjecture: Tight Competitive Ratio on Metric Spaces',
     titleZh: 'k 服务者猜想：度量空间上的紧竞争比',
@@ -2196,6 +2136,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mp-016',
+    output: 'verified_truth',
     judgment: 'A pass proves that every weak-* subsequential limit of |phi_j|^2 dg equals the normalized volume measure for a general compact negatively curved manifold without arithmetic structure, as a rigorous equidistribution statement, and therefore does not admit a fixed exceptional subsequence of scarring eigenfunctions.',
     title: 'Quantum Unique Ergodicity on Compact Negatively Curved Manifolds (General Case)',
     titleZh: '负曲率紧流形上的量子唯一遍历性（一般情形）',
@@ -2251,58 +2192,8 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
     ],
   },
   {
-    id: 'mp-017',
-    title: 'Rigorous Derivation of the Linear Boltzmann Equation from the Lorentz Gas',
-    titleZh: '由洛伦兹气体严格推导线性玻尔兹曼方程',
-    domain: 'mathematical-physics',
-    subdomain: 'kinetic-theory',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'low',
-    verification_path: 'analytical',
-    tags: ['lorentz-gas', 'boltzmann-grad', 'kinetic-limits', 'collision-kernel'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['中子输运', '光子散射传输'],
-    related_problems: [
-      {
-        id: 'mp-001',
-        relation: 'shares_tools',
-        note: 'mp-001 derives the (nonlinear) Boltzmann equation from hard spheres; mp-017 derives the linear Boltzmann from the Lorentz gas \u2014 the same kinetic-limit toolkit in a fixed-scatterer geometry.',
-      },
-    ],
-    statement: `Let a point particle move at unit speed through a static (periodic or random) array of scatterers of radius $\\varepsilon$, undergo elastic collisions, and rescale space\u2013time by $\\varepsilon^{-2}$ (Boltzmann\u2013Grad scaling). Prove that, for fixed times, the rescaled one-particle density $f^\\varepsilon(t,x,v)$ converges in suitable topology to the solution of the linear Boltzmann equation
-$$\\partial_t f + v\\cdot\\nabla_x f = \\mathcal{L}f, \\qquad \\mathcal{L}f(x,v)=\\int_{S^{d-1}} K(v,v')\\big[f(x,v')-f(x,v)\\big]\\,\\mathrm{d}\\!\\sigma(v'),$$
-with the collision kernel $K$ determined by the single-scatterer differential cross-section \u2014 rigorously, in the limit $\\varepsilon\\to0$.`,
-    origin:
-      'The Lorentz gas is the simplest model of a test particle in a fixed array of scatterers, and using it to justify the linear Boltzmann (or the low-density collision kernel) from first principles is a central open problem in kinetic theory. Only a rigorous derivation exists for special regimes (Markovian/non-periodic random assortments or for the Boltzmann\u2013Grad limit of the hard-sphere gas), not for generic deterministic periodic scatterer arrays.',
-    progress: [
-      '**poisson/Lorentz-Boltzmann in random media** established in some low-density random settings (e.g. via the "Gaussianity"/coupling methods).',
-      '**Periodic arrays long-time + collision events**: the scaling limit with repeated collisions on a periodic layout is not rigorously closed; the derived kernel vs. cross-section identity is conditional.',
-    ],
-    obstacles: [
-      '**Recollisions and clustering** in the deterministic lattice inject correlations that a naive Boltzmann ansatz ignores.',
-      '**Long-time validity**: the kinetic regime requires times $t\\sim\\varepsilon^{-2}$ where collisions repeatedly realign the velocity, where error accumulation is hard to control.',
-    ],
-    engineering_value:
-      '线性玻尔兹曼方程是中子与光子屏蔽、散射传输仿真的工作马；严格推导其碰撞核能校验蒙特卡洛输运代码对复杂周期/随机介质的等效截面假设。',
-    formalization_notes:
-      'Requires a genuine kinetic limit with controlled recollisions; current rigorous results are conditional break one main assumption, so a full formal proof is far off \u2014 marked low potential.',
-    references: [
-      {
-        label: 'Gallavotti, Rigorous theory of the Boltzmann equation in the Lorentz gas, Stat. Mech. (CIFM), 1972',
-        url: 'https://doi.org/10.1007/BFb0006495',
-      },
-      {
-        label: 'Sporer, Lorentz gas with almost periodic arrangement of scatterers, preprint 1992',
-        url: 'https://doi.org/10.1007/BF01048184',
-      },
-    ],
-    judgment: 'A pass rigorously proves convergence of the rescaled one-particle density to the linear Boltzmann equation, with the collision kernel equal to the single-scatterer cross-section, under Boltzmann–Grad scaling for a fixed periodic scatterer array, with recollision control certified; restricted/random-media or conditional results alone are insufficient.',
-  },
-  {
     id: 'mp-018',
+    output: 'verified_truth',
     title: 'Eigenstate Thermalization Hypothesis (ETH) from First Principles',
     titleZh: '从第一性原理建立本征态热化假设（ETH）',
     domain: 'mathematical-physics',
@@ -2361,6 +2252,7 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
   },
   {
     id: 'mc-011',
+    output: 'verified_behavior',
     title: 'Multistationarity vs. Monostationarity of Deficiency-One Reaction Networks',
     titleZh: '缺陷一反应网络的多稳态与单稳态判定',
     domain: 'mathematical-chemistry',
@@ -2417,6 +2309,7 @@ and when (by contrast) every such class contains a unique positive steady state.
   },
   {
     id: 'mc-012',
+    output: 'verified_truth',
     judgment: 'A pass identifies the exact graphs attaining the maximum and minimum Huckel energy over the given order and size or tree/fullerene classes and closes the gap to the upper bound, with the extremal graph and the value certified by a proof rather than a numerical search.',
     title: 'Extremal Hückel π-Electron Energy: Tight Bounds on Graph Energy',
     titleZh: 'Hückel π 电子能量的极值：图能量的紧界',
@@ -2466,6 +2359,7 @@ and when (by contrast) every such class contains a unique positive steady state.
   },
   {
     id: 'mb-011',
+    output: 'verified_behavior',
     title: 'Exact Critical Value of the Contact Process on the Integer Lattice',
     titleZh: '整格上接触过程的精确临界值',
     domain: 'mathematical-biology',
@@ -2517,6 +2411,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'mb-012',
+    output: 'verified_behavior',
     title: 'Coexistence Threshold of Cyclic Three-Species Competition on Lattices',
     titleZh: '格子环状三物种竞争的共存阈值',
     domain: 'mathematical-biology',
@@ -2566,6 +2461,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'mb-013',
+    output: 'verified_behavior',
     judgment: 'A pass proves the sharp threshold that the infectious population persists with probability tending to 1 if and only if R0 is greater than 1, and determines the exact distributional scaling of the extinction time including tau_N / N converging to a mean-1 exponential law at alpha=1 and the precise power gamma(alpha) elsewhere, with rigorous bounds.',
     title: 'Sharp Epidemic Threshold and Near-Critical Extinction Time for SIR with Demography',
     titleZh: '含人口的 SIR 模型尖锐传播阈值与近临界灭绝时间',
@@ -2615,6 +2511,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'me-009',
+    output: 'verified_truth',
     judgment: 'A pass proves that a competitive ratio of at least 1/e is achievable by a single online algorithm for every matroid, or determines the true optimal constant, via a rigorous threshold-algorithm argument whose output basis satisfies the stated expected-value inequality for all adversarial weight orderings.',
     title: 'The Matroid Secretary Conjecture',
     titleZh: '拟阵秘书猜想',
@@ -2666,6 +2563,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
   },
   {
     id: 'me-010',
+    output: 'verified_truth',
     title: 'Constant Approximability of the Graph Bandwidth Problem',
     titleZh: '图带宽问题的常数近似性',
     domain: 'mathematical-engineering',
@@ -2715,6 +2613,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
   },
   {
     id: 'me-011',
+    output: 'verified_truth',
     title: 'The 4/3-Conjecture and Near-3/2 Approximation for Graphic TSP',
     titleZh: '图旅行商问题的 4/3 猜想与近似 3/2 算法',
     domain: 'mathematical-engineering',
@@ -2766,6 +2665,7 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
   },
   {
     id: 'me-012',
+    output: 'verified_truth',
     title: 'Existence of a Strongly Polynomial Algorithm for Linear Programming',
     titleZh: '线性规划强多项式算法的存在性',
     domain: 'mathematical-engineering',
@@ -2824,6 +2724,7 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
   },
   {
     id: 'me-013',
+    output: 'verified_truth',
     judgment: 'A pass determines the exact infimum of asymptotic competitive ratios for deterministic online bin packing, proving tightness of the 1.58889 bound or finding a new value, via matching harmonic-type upper and weighting-function adversary constructions whose optimality is rigorous.',
     title: 'Optimal Asymptotic Competitive Ratio of Online Bin Packing',
     titleZh: '在线装箱问题的最优渐近竞争比',
@@ -2882,6 +2783,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
   },
   {
     id: 'me-014',
+    output: 'verified_truth',
     title: 'Algorithmic Threshold of the Planted Clique Detection Problem',
     titleZh: '植入团检测问题的算法阈值',
     domain: 'mathematical-engineering',
@@ -2931,6 +2833,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
   },
   {
     id: 'mp-019',
+    output: 'verified_truth',
     judgment: 'A pass proves or disproves the existence of smooth finite-energy compactly supported initial data for 3D incompressible Euler that lose regularity in finite time, i.e. whose gradient L^infinity norm is unbounded as t approaches the blow-up time, certified by a rigorous gradient-growth estimate of Beale-Kato-Majda type.',
     title: 'Finite-Time Singularity Formation for Smooth 3D Incompressible Euler',
     titleZh: '光滑三维不可压 Euler 方程的有限时间奇点',
@@ -2983,6 +2886,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mp-020',
+    output: 'verified_truth',
     title: 'Triviality of the Scalar λφ^4 Quantum Field Theory in 4 Dimensions',
     titleZh: '四维标量 λφ⁴ 量子场论的平凡性',
     domain: 'mathematical-physics',
@@ -3032,57 +2936,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     judgment: 'A pass proves that every Wick-renormalized subsequential scaling limit of the $d=4$ lattice scalar $\\lambda\\phi^4$ field is the Gaussian free field with the renormalized 1PI coupling tending to zero, satisfying the Osterwalder–Schrader axioms, or disproves triviality by constructing a verified non-Gaussian limit; the marginal $d=4$ case must be handled directly rather than by the $d>4$ correlation-inequality method.',
   },
   {
-    id: 'mp-021',
-    title: 'Thermalization of Fermi–Pasta–Ulam Chains: Approach to Gibbs on the Energy Shell',
-    titleZh: 'Fermi–Pasta–Ulam 链的热化：能量面上的 Gibbs 趋近',
-    domain: 'mathematical-physics',
-    subdomain: 'ergodic-theory',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'low',
-    verification_path: 'numerical',
-    tags: ['fpu', 'thermalization', 'ergodicity', 'statistical-mechanics'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['分子动力学', '能量输运设计', '晶格动力学'],
-    related_problems: [
-      {
-        id: 'mp-003',
-        relation: 'shares_tools',
-        note: 'Both address the long-time statistical behavior of Hamiltonian lattice dynamics; mp-003 on integrable soliton transport, mp-021 on equipartition and Gibbs convergence.',
-      },
-    ],
-    statement: `Fix a one-dimensional chain of $N$ particles with Hamiltonian $H = \\sum p_i^2/2 + V(q_{i} - q_{i-1})$ and an anharmonic nearest-neighbor potential that breaks integrability (e.g. the Fermi–Pasta–Ulam $\\alpha$ or $\\beta$ model). Prove or disprove that, in the mechanically relevant large-$N$ regime and at fixed positive energy density, every small open set of initial conditions converges in the long-time average to the microcanonical (Gibbs) measure on the conserved energy surface $\\{H = E\\}$ — establishing thermalization and the corresponding equipartition of energy among Fourier modes.`,
-    origin:
-      'The FPU experiment (1955) showed numerics far from equipartition, triggering the theory of integrable systems and KAM. Whether realistic FPU chains do eventually thermalize on the full energy shell, and at what time scale, is a foundational problem in statistical mechanics and molecular dynamics; genuine thermalization has never been rigorously proved for these non-integrable high-dimensional systems.',
-    progress: [
-      '**FPU (1955)**: numerical non-thermalization on accessible times, beginning the KAM theory.',
-      '**Berezin / retuning (2005+)**: long-time quasirecurrences and the "FPU paradox" resolved only heuristically on intermediate scales.',
-      '**Konstantinou–Mertens–Flytzanis (various)**: empirical equipartition thresholds by energy density; no rigorous proof.',
-    ],
-    obstacles: [
-      '**No microscopic ergodicity**: high-dimensional Hamiltonian systems with conserved quantities resist proof of ergodicity; small-divisor and KAM obstacles block genericity arguments at positive energy density.',
-      '**Two time scales**: linear phonons relax fast while the coupling between modes is weak, so a mixing estimate uniformly in $N$ is out of reach of current techniques.',
-    ],
-    engineering_value:
-      'Whether and how fast systems equilibrate sets the validity of molecular-dynamics thermostats and thermal-conductivity calculations; a proof would justify Gibbs sampling in MD.',
-    formalization_notes:
-      'The dynamics is ODE but the ergodicity content is analytic dynamical-systems theory; formalization is not a realistic early target, though the linearized (phonon) spectrum is.',
-    references: [
-      {
-        label: 'Fermi, Pasta, Ulam, Studies of nonlinear problems, Los Alamos Report LA-1940 (1955)',
-        url: 'https://www.osti.gov/biblio/4377577',
-      },
-      {
-        label: 'Gallavotti (ed.), The Fermi–Pasta–Ulam Problem: A Status Report, Lecture Notes in Physics 728, Springer (2008)',
-        url: 'https://doi.org/10.1007/978-3-540-72995-2',
-      },
-    ],
-    judgment: 'A pass proves or disproves that, at fixed positive energy density and large $N$, the long-time average of a small open ball of initial data converges to the microcanonical measure on the energy surface $\\{H=E\\}$, establishing equipartition among Fourier modes, with the mixing/time-scale obstruction resolved uniformly in $N$; a heuristic reconciliation of the FPU paradox or intermediate-scale quasirecrence alone is not accepted.',
-  },
-  {
     id: 'mp-022',
+    output: 'verified_truth',
     judgment: 'A pass proves that the many-electron ground-state Kubo conductance equals a non-commutative index that is an integer, stable under interactions and disorder preserving a spectral gap, and equals the measured Hall conductance, with the many-body invariant and the linear-response justification made rigorous.',
     title: 'Rigorous Kubo Conductance and Quantization for Interacting Electrons',
     titleZh: '相互作用电子体系的严格 Kubo 电导与量子化',
@@ -3133,6 +2988,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mc-014',
+    output: 'verified_truth',
     title: 'Rigorous Existence and Convexity of the Levy–Lieb Universal Density Functional',
     titleZh: 'Levy–Lieb 泛函的严格存在性、凸性与可达到性',
     domain: 'mathematical-chemistry',
@@ -3181,58 +3037,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     judgment: 'A pass proves convexity and pure-state attainability of the Levy–Lieb functional over all admissible densities (and existence/uniqueness of the Kohn–Sham minimizer up to constraint-qualified degeneracies), or exhibits an admissible density where attainability fails, resolving the $v$-representability characterization; the ensemble convexity already established by Lieb is not the full claim.',
   },
   {
-    id: 'mc-015',
-    judgment: 'A pass certifies for every N at least 1 that no configuration of N particles attains total Lennard-Jones energy below the recorded global minimum, or proves a new exact global minimum, delivering a global-optimization lower bound that rules out all competing configurations.',
-    title: 'Global Optimality of Ground-State Geometries for Lennard-Jones Clusters of Arbitrary Size',
-    titleZh: '任意尺寸 Lennard-Jones 团簇基态几何的全局最优性',
-    domain: 'mathematical-chemistry',
-    subdomain: 'cluster-geometry',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'low',
-    verification_path: 'numerical',
-    tags: ['lennard-jones', 'global-optimization', 'cluster-geometry', 'basin-hopping'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['纳米团簇设计', '分子吸附', '力场基准'],
-    related_problems: [
-      {
-        id: 'mc-009',
-        relation: 'shares_tools',
-        note: 'Both concern provable optimality of discrete structures in chemistry — mc-009 on Hamiltonian cycles of fullerene graphs, mc-015 on global energy minima of clusters.',
-      },
-    ],
-    statement: `For the $d$-dimensional Lennard-Jones potential $V(r) = r^{-12} - r^{-6}$ (or the shifted pairwise form), prove or disprove that, for every $N \\ge 1$, the global minimum of the total energy
-$$E_N(x_1,\\dots,x_N) = \\sum_{i<j} V(|x_i - x_j|)$$
-over configurations in $\\mathbb{R}^d$ with arbitrary relative distances is attained by the known lowest-energy structure (as tabulated in benchmark databases), i.e. certify that no configuration of $N$ particles has energy below the recorded putative global minimum for all $N$; in particular determine the exact global minimum for each $N$, not merely conjectural records.`,
-    origin:
-      'Finding global minima of atomic clusters is a prototypically NP-hard continuous optimization problem; for Lennard-Jones clusters the global optimum is known numerically (basin-hopping databases) up to $N \\approx 1000$ but is *proven* for very few $N$, and no strategy certifies optimality for arbitrary $N$. The problem is central to nanocluster and materials design.',
-    progress: [
-      '**Wales & Doye (1997)**: basin-hopping produced the reference list of lowest-energy Lennard-Jones structures for $N \\le 110$, plus subsequent extensions.',
-      '**Structure predictions**: icosahedral and decahedral motifs conjectured, but mathematical certification of global optimality is absent except in trivial/reduced dimensions.',
-    ],
-    obstacles: [
-      '**Nonconvexity**: the 12-6 potential is strongly nonconvex with an exponential number of local minima; no convex relaxation is known to certify the global optimum.',
-      '**Continuous hardness**: the configuration space is unbounded and energy is not coercive in the usual sense at the hard-core scale; standard global-optimization lower bounds are uselessly weak.',
-    ],
-    engineering_value:
-      'Certifying ground states enables error-controlled predictions for nanocluster catalysis and surface adsorption; rigorous global minima would anchor force-field benchmarking.',
-    formalization_notes:
-      'This is a global continuous/discrete optimization certification problem; formalizing the (few) known optimal configurations is feasible, but a general $\\forall N$ certification is the open hard part.',
-    references: [
-      {
-        label: 'Wales, Doye, Global optimization by basin-hopping and the lowest energy structures of Lennard-Jones clusters containing up to 110 atoms, J. Phys. Chem. A 101 (1997) 5111–5116',
-        url: 'https://doi.org/10.1021/jp970984n',
-      },
-      {
-        label: 'Wille, Vennik, Electrostatic interactions and the structure of Lennard-Jones clusters, Journal of Physics A 18 (1985) L419',
-        url: 'https://doi.org/10.1088/0305-4470/18/8/007',
-      },
-    ],
-  },
-  {
     id: 'mb-014',
+    output: 'verified_behavior',
     title: 'Storage Capacity of Associative Memory with Sparse or Bounded Synaptic Weights',
     titleZh: '稀疏/有界突触权重下联想记忆的存储容量',
     domain: 'mathematical-biology',
@@ -3284,6 +3090,7 @@ over configurations in $\\mathbb{R}^d$ with arbitrary relative distances is atta
   },
   {
     id: 'mb-015',
+    output: 'verified_behavior',
     judgment: 'A pass proves the mean fitness advances at a well-defined asymptotic linear speed and characterizes it in terms of population size, mutation rate and the fitness tail, rigorously establishing the fractional-power scaling in the clonal-interference regime or the crossover to deterministic adaptation, with the front-speed argument certified.',
     title: 'Asymptotic Speed of Adaptation in Large Asexual Populations',
     titleZh: '大型无性生殖种群的渐近适应速度',
@@ -3336,6 +3143,7 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
 
   {
     id: 'mp-023',
+    output: 'verified_truth',
     judgment:
       'A pass either (i) constructs a Euclidean Yang–Mills theory on R^4 satisfying the Osterwalder–Schrader axioms and a positive mass gap delta > 0 bounded away from zero uniformly in the ultraviolet cutoff, or (ii) gives a rigorous no-go obstruction; a finite-lattice strong-coupling gap is minimall and does not constitute a pass on its own.',
     title: 'Existence and Mass Gap for Four-Dimensional Yang–Mills Theory',
@@ -3387,6 +3195,7 @@ A pass fixes the theory at one loop and removes the ultraviolet cutoff, and exhi
   },
   {
     id: 'mp-024',
+    output: 'verified_truth',
     judgment:
       'A pass proves, in trace norm, convergence of the k-particle reduced density matrices of the N-boson time evolution to the rank-one projector on the Gross–Pitaevskii solution, uniformly on a time interval that grows with N, for a genuinely singular (GP-scaled) interaction in dimension 3; a local-in-time or special-data-only bound is a partial result, not a pass.',
     title: 'Rigorous Gross–Pitaevskii Limit for the Dynamics of a Dilute Bose Gas',
@@ -3440,6 +3249,7 @@ with $a_0$ the scattering length of $V$. A pass bounds the convergence rate and 
   },
   {
     id: 'mp-025',
+    output: 'verified_truth',
     judgment:
       'A pass proves global regularity: for smooth, divergence-free, compactly supported initial data, the 3D incompressible Navier–Stokes solution u(t) stays C^infinity and its H^1 norm remains bounded for all t >= 0, with estimates depending only on the initial data; a finite-time blow-up construction (with a certified blow-up profile) is an equally valid resolved answer.',
     title: 'Global Regularity of the Three-Dimensional Incompressible Navier–Stokes Equations',
@@ -3491,6 +3301,7 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
   },
   {
     id: 'mp-026',
+    output: 'verified_truth',
     judgment:
       'A pass proves that in the low-density (large Wigner–Seitz radius) limit, minimizers of the 2D jellium (Coulombian one-component plasma) energy crystallize on the triangular lattice, with the excess energy per particle of order the surface/defect correction, via a certified bound on the suitable ground-state energy functional; a negative result proving no crystallization for a natural potential is also admissible.',
     title: 'Crystallization of the Two-Dimensional Coulomb (Jellium) Ground State',
@@ -3540,6 +3351,7 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
   },
   {
     id: 'mp-027',
+    output: 'verified_truth',
     judgment:
       'A pass proves the spectral-gap dichotomy: for the spin-S antiferromagnetic nearest-neighbor Heisenberg chain, integer S gives a unique gapped ground state with exponentially decaying correlations, while half-integer S gives gapless spectrum in the thermodynamic limit; each claim needs either an explicit positive gap (integer S, certified by finite eigenvalue bounds) or a matching rigorously proven gap upper bound going to zero (half-integer S, via Lieb–Schultz–Mattis type arguments).',
     title: 'The Haldane Conjecture for Antiferromagnetic Heisenberg Chains',
@@ -3591,6 +3403,7 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
   },
   {
     id: 'mp-028',
+    output: 'verified_truth',
     judgment:
       'A pass extends the kinetic description of the cubic NLS beyond the single kinetic timescale and/or beyond the exactly solvable (Gaussian) regime: it proves convergence of the empirical wave-action spectrum to a solution of the wave kinetic equation on an interval of kinetic times that grows, or for non-random (deterministic) data, with a certified error estimate; the O(1)-kinetic-time result for Gaussian data alone is already obtained and does not qualify.',
     title: 'Long-Time Validity of the Wave Kinetic Equation for the Cubic NLS',
@@ -3644,6 +3457,7 @@ on a kinetic-time interval of length that exceeds the already-established O(1) w
   },
   {
     id: 'mp-029',
+    output: 'verified_truth',
     judgment:
       'A pass proves that for smooth initial data, the empirical measure of an N-particle Coulomb/gravitational (Vlasov–Poisson) system converges, in probability over the initial randomness, to the solution of the Vlasov–Poisson equation, as N goes to infinity, without any N-dependent cutoff of the singular 1/|x|^{d-1} force; a result relying on a vanishing cutoff is admissible only if the cutoff scale is arbitrary close to the true Coulomb force and the rate is certified.',
     title: 'Mean-Field Limit with Singular Coulomb/Newtonian Force',
@@ -3696,6 +3510,7 @@ A pass removes the N-dependent cut-off of the force, or else lets the cut-off va
   },
   {
     id: 'mp-030',
+    output: 'verified_truth',
     judgment:
       'A pass proves or rigorously rules out the existence of a stable many-body-localized (MBL) phase in the one-dimensional random-field Heisenberg chain in the thermodynamic limit, either by constructing complete quasi-local integrals of motion at strong disorder with exponentially decaying tails (positive answer, as in Imbrie), or by proving that ergodicity/thermalization prevails at every disorder (negative answer); a certified finite-size statement alone does not settle the thermodynamic question.',
     title: 'Many-Body Localization from First Principles in Disordered Quantum Chains',
@@ -3748,6 +3563,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
 
   {
     id: 'mc-016',
+    output: 'verified_behavior',
     judgment:
       'A pass certifies that a claimed constant K is the sharp Lieb–Thirring kinetic constant, i.e. it holds that K = inf over antisymmetric wave functions of the ratio of kinetic energy to the 5/3-norm of the density with N arbitrary, giving a machine-verifiable proof (an explicit Slater-type upper family isolating the value and an operator-splitting lower bound matching it, or a certified two-sided bracket separating K from the semiclassical value).',
     title: 'The Sharp Constant in the Lieb–Thirring Inequality for Fermion Kinetic Energy',
@@ -3765,7 +3581,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     impact_domains: ['原子与凝聚体系的稳定性论证', '密度泛函理论的数学下界'],
     related_problems: [
       {
-        id: 'mc-010',
+        id: 'mp-026',
         relation: 'shares_tools',
         note: '两者都以动能下界与稳定性论证为共同工具。',
       },
@@ -3798,6 +3614,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-017',
+    output: 'verified_behavior',
     judgment:
       'A pass certifies either the exact optimal constant C in the Lieb–Oxford inequality together with a proof that it is attained, or a machine-verifiable two-sided bracket c <= C <= C0 with explicit rational bounds separating C from all known constants, the inequality being checkable as an explicit functional inequality.',
     title: 'The Sharp Constant in the Lieb–Oxford Inequality',
@@ -3857,6 +3674,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-018',
+    output: 'verified_truth',
     judgment:
       'A pass proves, for a stated family of fermion Hamiltonians, either the existence of a ground state whose natural occupation numbers exactly saturate a nontrivial generalized Pauli constraint (with an explicit state construction and a machine-checkable eigenvalue certificate), or a rigorous impossibility result establishing that only quasipinning can occur in that family.',
     title: 'Exact Pinning by Generalized Pauli Constraints in Fermionic Ground States',
@@ -3912,6 +3730,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-019',
+    output: 'verified_truth',
     judgment:
       'A pass either exhibits a Hamiltonian (or Poisson) function on a finite-dimensional extended phase space whose flow coincides exactly with a stated Nosé–Hoover chain, or proves rigorously that for a specified chain order no such finite-dimensional Hamiltonian flow exists, and in either case supplies a certified ergodicity or non-ergodicity statement for a benchmark family',
     title: 'Hamiltonian Structure and Ergodicity of the Nosé–Hoover Thermostat',
@@ -3962,6 +3781,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-020',
+    output: 'verified_behavior',
     judgment:
       'A pass proves a polynomial upper bound on the total-variation mixing time, or a matching exponential lower bound (slow mixing), for the parallel-tempering (replica-exchange) chain on a stated nontrivial family of target measures, the bound being certified and independent of tuning heuristics, or establishes cutoff with certified thresholds for a family where it occurs.',
     title: 'Rapid Mixing and Cutoff for the Parallel Tempering (Replica Exchange) Chain',
@@ -3982,11 +3802,6 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         id: 'mc-019',
         relation: 'shares_tools',
         note: '同属分子模拟中生成热平衡采样的核心工具。',
-      },
-      {
-        id: 'mc-015',
-        relation: 'shares_tools',
-        note: '并行回火是搜寻 Lennard-Jones 团簇全局最优的常用引擎。',
       },
     ],
     statement: `For target densities $\u03c0_{\u03b2}\\propto e^{-\u03b2 H}$ on a finite state space at temperatures $0=\u03b2_0<\\cdots<\u03b2_L$, the parallel-tempering chain alternates coordinate Metropolis updates with swaps $x\\leftrightarrow y$ between neighboring replicas. **Give matching upper and lower bounds on the mixing time $t_{\\mathrm{mix}}$ and the spectral gap as explicit functions of $L$ and the family parameters, proving rapid or slow mixing for stated classes (mean-field Ising, hard-core or Lennard-Jones-type cluster energies, general Berries–Essen class), and establish the conjectured cutoff phenomenon where it appears.** The algorithm is empirically successful, yet theoretically understood only on a few mean-field examples.`,
@@ -4016,6 +3831,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-021',
+    output: 'verified_behavior',
     judgment:
       'A pass provides a complete necessary-and-sufficient characterization of the reaction networks within a stated class whose stochastic dynamics admits a product-form stationary distribution, or a counterexample network disproving a proposed sufficiency or necessity claim, with the network and the distribution certificate rigorously verified.',
     title: 'Complete Characterization of Product-Form Stationary Distributions in Stochastic Reaction Networks',
@@ -4070,6 +3886,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-022',
+    output: 'verified_truth',
     judgment:
       'A pass determines the maximum number of Kekulé structures K_max(h) exactly for every hexagon count h, or proves the exact asymptotic growth constant and that extremal benzenoid systems are always catacondensed, with the value and extremal structure certified by an explicit counting proof or an exhaustive verified computation over the finite family.',
     title: 'The Maximum Number of Kekulé Structures in Benzenoid Hydrocarbons',
@@ -4123,6 +3940,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-023',
+    output: 'verified_truth',
     judgment:
       'A pass supplies a complete and verifiable set of necessary-and-sufficient conditions for a two-fermion reduced density matrix to be N-representable in a stated sense class, or proves that no finite, computationally checkable complete characterization can exist for that class, thereby sharpening the N-representability dichotomy.',
     title: 'Complete N-Representability Conditions for the Two-Electron Reduced Density Matrix',
@@ -4172,6 +3990,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-024',
+    output: 'verified_behavior',
     judgment:
       'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form.',
     title: 'Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems',
@@ -4217,6 +4036,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
 
   {
     id: 'mb-016',
+    output: 'verified_behavior',
     judgment: 'A pass establishes whether the Walsh (Fourier) moment dynamics of a selection plus recombination system closes on an arbitrary fitness surface, and gives a sharp, L-independent contraction bound for the recombination map on the simplex, plus a rigorous counterexample or proof for non-additive surfaces; a heuristic or simulation-only claim is not accepted.',
     title: 'Closure of Selection–Recombination Dynamics under the Walsh Basis',
     titleZh: 'Walsh 基下选择—重组动力学的闭合性',
@@ -4272,6 +4092,7 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
   },
   {
     id: 'mb-017',
+    output: 'verified_behavior',
     judgment: 'A pass proves an almost-sure persistence criterion for the stochastic Lotka–Volterra system with bounded environmental noise in terms of the mean structure of the drift, and gives a sharp exponential upper bound on the probability of hitting low-density extinction from a positive initial condition; simulation evidence is not accepted.',
     title: 'Almost-Sure Persistence and Sharp Stochastic Extinction Rates in Noisy Lotka–Volterra Communities',
     titleZh: '随机 Lotka–Volterra 群落的几乎必然持久性与尖锐随机灭绝速率',
@@ -4322,58 +4143,8 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     ],
   },
   {
-    id: 'mb-018',
-    judgment: 'A pass derives a rigorous final-epidemic-size relation for the stochastic SIR process on a network with given degree and triangle (clustering) statistics, proves whether clustering always reduces the attack rate below the well-mixed branch, and identifies the regime in which the Volz–Miller branch formula holds; a mean-field prediction alone is not accepted.',
-    title: 'Rigorous Final Epidemic Size Bounds on Clustered Networks',
-    titleZh: '聚类网络上随机 SIR 最终流行规模的严格界',
-    domain: 'mathematical-biology',
-    subdomain: 'epidemiology',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['final-size', 'sir-epidemic', 'clustering', 'edge-based-compartmental'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['疫情防控建模', '复杂网络传播理论'],
-    related_problems: [
-      {
-        id: 'mb-005',
-        relation: 'shares_tools',
-        note: '同属传染网络上的 SIR 型问题，共享边与聚集结构上的分析技巧。',
-      },
-    ],
-    statement:
-      `For the stochastic SIR process started from a single infectious individual on a realization of a random graph with degree distribution $p_k$ and triangle (clustering) coefficient $\\phi$, the final epidemic size $R_*$ is characterized by the Volz branch equation in the configuration model. **Prove or disprove that clustering $\\phi>0$ always lowers $R_*$ relative to the same degree sequence with $\\phi=0$, and give a rigorous inequality on the attack rate of the form
-$R_*(\\phi) \\le R_*(0) - c \\, \\varphi(\\phi),$
-specifying $c$ and the function $\\varphi$ in terms of the degree distribution.** Where a phase transition occurs between subcritical and supercritical outbreak, determine the exact relation between the epidemic threshold and the clustering-corrected branching factor.`,
-    origin:
-      '现实联系人网络的高聚集性（家庭、办公室、学校内的闭三角）使经典 well-mixed 分支方程高估最终流行规模。Edge-based compartmental models 给出了启发式公式，但聚类是否在一切程度上抑制传播、以及阈值与分支比如何被三角结构修正，仍缺少严格的上下界证明。',
-    progress: [
-      '**配置模型封闭式**: 无聚类情形 Volz–Miller 公式给出最终规模的精确分支方程并已被数值验证。',
-      '**聚类启发式**: EBCM 引入三角校正参数，模拟表明攻击率随聚类单调下降，但无证明。',
-      '**阈值分析**: 有结果显示聚类的传播阈值可能混合，临界点在部分参数区由三角结构决定。',
-    ],
-    obstacles: [
-      '**度—度相关**: 三角形的形成破坏染色师之间的条件独立假设，最终规模方程在亚起义分支外不再闭合。',
-      '**过程相关**: SIR 各节点的平均次数在传播过程中非独立，严格边界需要近似且误差项难以一致控制。',
-    ],
-    formalization_notes:
-      '最终规模方程只是一个大偏差/分支过程求根问题，可对固定图族形式化验证不等式 $R_*(\\phi)\\le R_*(0)$；聚类的严格单调性结论是清晰、可判定的目标。',
-    references: [
-      {
-        label: 'Miller, Slim & Volz, Edge-based compartmental modelling for infectious disease spread, J. R. Soc. Interface 9 (2012) 890-906',
-        url: 'https://doi.org/10.1098/rsif.2011.0403',
-      },
-      {
-        label: 'Pastor-Satorras, Castellano, Van Mieghem & Vespignani, Epidemic processes in complex networks, Rev. Mod. Phys. 87 (2015) 925-979',
-        url: 'https://doi.org/10.1103/RevModPhys.87.925',
-      },
-    ],
-  },
-  {
     id: 'mb-019',
+    output: 'verified_behavior',
     judgment: 'A pass gives a spectral (Turing) characterization of pattern selection in a class of reaction–diffusion systems on a smoothly growing spatial domain, proves that the selected wavenumber scales with a power of the instantaneous domain size, and decides whether mode-doubling bifurcations must appear as the domain grows; dispersion-relation-maximization heuristics alone are not accepted.',
     title: 'Turing Pattern Selection under Smooth Domain Growth',
     titleZh: '光滑区域生长下反应—扩散图灵模式的谱选择',
@@ -4427,6 +4198,7 @@ specifying $c$ and the function $\\varphi$ in terms of the degree distribution.*
   },
   {
     id: 'mb-020',
+    output: 'verified_truth',
     judgment: 'A pass determines exactly for which mutation schemes (reversibility criteria) the multiallelic mutation–selection–drift diffusion admits a closed-form stationary density, and proves the absence of a closed form for the complementary class of non-reversible schemes, isolating the diagonalizable condition; numerical histograms are not accepted.',
     title: 'Closed-Form Stationary Densities under Non-Reversible Mutation–Selection–Drift',
     titleZh: '非可逆突变—选择—漂变下的闭式平稳密度',
@@ -4478,6 +4250,7 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'mb-021',
+    output: 'verified_behavior',
     judgment: 'A pass derives from first principles an exact condition under which a costly helping allele increases in frequency in a finite structured population, states a precise (nonzero) value of the inclusive fitness r in that structured setting, and decides the celebrated claim that for spatially viscous populations r tends to zero in the large-population limit; a verbal evolutionary heuristic is not accepted.',
     title: 'Hamilton Rule and the Zero Relatedness Claim in Finite Structured Populations',
     titleZh: '有限结构化群体中 Hamilton 规则与零亲缘率主张',
@@ -4531,6 +4304,7 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'mb-022',
+    output: 'verified_behavior',
     judgment: 'A pass derives a sharp stability threshold for random interaction matrices sampled from a food-web sign pattern and its quantitative correction relative to the spectral circle of i.i.d. random matrices, then applies it to decide when a real food web with its expected degree distribution is asymptotically stable; empirical fitting of a simulation cloud is not accepted.',
     title: 'Quantitative Complexity-Stability Threshold for Sign-Structured Food Webs',
     titleZh: '符号结构食物网的定量复杂—稳定阈值',
@@ -4579,56 +4353,8 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     ],
   },
   {
-    id: 'mb-023',
-    judgment: 'A pass determines, for a degree distribution with tail exponent gamma=3 and diverging second moment, whether the epidemic threshold in the infinite-network limit is strictly positive or zero in a fixed (quenched) topology, and gives the precise scaling of the vanishing threshold with N; a mean-field (HMF) argument alone is not accepted.',
-    title: 'Epidemic Threshold at the Critical Degree Exponent Three',
-    titleZh: '临界度指数 3 下的网络流行病阈值',
-    domain: 'mathematical-biology',
-    subdomain: 'epidemiology',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['epidemic-threshold', 'scale-free-networks', 'degree-heterogeneity', 'power-law-exponent'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['网络传播临界现象', '异质度分布下的流行病学'],
-    related_problems: [
-      {
-        id: 'mb-002',
-        relation: 'shares_tools',
-        note: '同属网络流行病阈值与存活时间问题，共享分支过程与谱工具。',
-      },
-    ],
-    statement:
-      `Consider the contact process (or SIS dynamics) on a realization of a scale-free random graph whose degree distribution has critical power-law tail $\\mathbb{P}(k)\\sim k^{-3}$, where the second moment diverges logarithmically. **Prove whether the epidemic threshold $\\lambda_c$ is strictly positive or zero in the infinite-size limit on the fixed quenched topology, and if zero, give the sharp scaling of $\\lambda_c(N)$ with the graph size $N$ to constant precision**. Show in which sense the heterogeneous mean-field prediction $\\lambda_c \\approx \\langle k\\rangle/\\langle k^2\\rangle$ breaks down exactly at this exponent, and separate the role of the largest-degree hub from the bulk of the degree distribution.`,
-    origin:
-      '无标度网络上的阈值行为随度尾部指数变化而定性改变：当指数小于或等于 3 时 HMF 预测阈值趋于零，而这正解释了许多真实接触网络对低感染率的敏感性。但在指数恰为 3、二阶矩对数发散处，阈值究竟为零还是正，取决于是否计入单次 hub 的持久性，属于活跃争论。',
-    progress: [
-      '**指数小于 3**: 已知演化阈值零，且由最大 hub 主导。',
-      '**指数=3 边界**: 数值与部分谱分析提示阈值呈对数慢变消失或上界被前向分支决定，未有统一结论。',
-      '**HMF 失效**: 二阶矩发散时 HMF 的 $\\lambda_c=\\langle k\\rangle/\\langle k^2\\rangle$ 为 0，但严格图上的幸存概率显示可能保持正阈值。',
-    ],
-    obstacles: [
-      '**二阶矩对数发散**: 分支因子处的发散使线性化无法直接给出普适的阈值公式。',
-      '**最近大 hub 权重**: 单个超大度节点的存活对阈值的影响难以折叠进统一大数定律。',
-    ],
-    formalization_notes:
-      '临界指数 3 情形下可计算半线性分支过程的期望，阈值为零与否是一个可判定的无穷大极限问题，能打包成一个待验证的不等式。',
-    references: [
-      {
-        label: 'Pastor-Satorras & Vespignani, Epidemic spreading in scale-free networks, Phys. Rev. Lett. 86 (2001) 3200-3203',
-        url: 'https://doi.org/10.1103/PhysRevLett.86.3200',
-      },
-      {
-        label: 'Castellano & Pastor-Satorras, Thresholds for epidemic spreading in networks, Phys. Rev. Lett. 105 (2010) 218701',
-        url: 'https://doi.org/10.1103/PhysRevLett.105.218701',
-      },
-    ],
-  },
-  {
     id: 'mb-024',
+    output: 'verified_behavior',
     judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted.',
     title: 'Information-Theoretic Floor on Morphogen Gradient Concentration Sensing',
     titleZh: '形态发生梯度浓度感知的信息论下限',
@@ -4682,6 +4408,7 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'me-015',
+    output: 'verified_truth',
     judgment:
       'A pass proves that for every suitably weak solution of the 3D incompressible Navier–Stokes equations the singular set carries zero one-dimensional Hausdorff measure, with a fully machine-checkable energy/backward-uniqueness argument, or else exhibits a certified family of solutions whose singular set has positive one-dimensional measure, so the sharp dimension of the singular set is settled either way.',
     title: 'Sharp Size of the Singular Set for Suitably Weak Navier–Stokes Solutions',
@@ -4727,59 +4454,8 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
     ],
   },
   {
-    id: 'me-016',
-    judgment:
-      'A pass establishes that there is (or is not) a deterministic or randomized pivoting rule under which the simplex method terminates after a strongly polynomial, or with high probability polynomial, expected number of iterations on all bounded feasible arrays, with the number of pivot iterations bounded by a polynomial in the dimensions and in the condition independent of the data magnitude, certified by an explicit worst-case bound and a matching example.',
-    title: 'Randomized and Strongly Polynomial Simplex Pivoting',
-    titleZh: '单纯形法随机旋转与强多项式复杂性猜想',
-    domain: 'mathematical-engineering',
-    subdomain: 'optimization',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'high',
-    verification_path: 'analytical',
-    tags: ['linear-programming', 'simplex-method', 'pivot-rule', 'smoothed-analysis'],
-    contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['大规模线性规划求解器', '内点法与单纯形法对比', '退化与抗扰动算法'],
-    related_problems: [
-      {
-        id: 'me-012',
-        relation: 'shares_tools',
-        note: '两项都围绕线性规划的复杂度：me-012 问一般意义下是否存在强多项式算法，me-016 专指单纯形旋转规则是否能在强多项式步数内终结。',
-      },
-    ],
-    statement: `Let a bounded linear program with $m$ inequalities in $n$ dimensions be given by a nondegenerate array. **Determine whether there exists a pivoting rule under which the simplex method reaches an optimal vertex in a strongly polynomial number of pivot steps** — $O(\\mathrm{poly}(m,m))$ independent of the numeric coefficients.
-
-Two concrete subproblems: (1) prove or disprove that the steepest-edge rule admits a polynomial bound in the worst case, and (2) establish a smoothed-analysis bound matching (within constants) the known lower-bound examples, thereby deciding whether randomized pivoting provably attains polynomial expected cost.`,
-    origin:
-      '单纯形法在工程与商用求解器中广泛应用，其最坏情形虽已证明在指数步内（但对大尺寸实例仍是现实问题），且部分旋转规则被证明是强多式式的，而普遍适用多项式的规则是否存在仍是悬而未决的核心问题。退化与浮点误差又使旋转步数统计显著恶化，因此强多项式旋转规则的判定直接关系大型变量数 LP 的可扩展性。',
-    progress: [
-      '**Spielman–Teng (2004)**: 平滑分析证明单纯形期望多项式时间，解释实际行为。',
-      '**Goldfarb–Sit (1979)**: 构造最坏情形数组使陡峭边规则指数步的螺旋实例，指出多项式规则的构造难点。',
-      '**退化规则研究**: 摄动与抗退化规则仅有部分最坏情形分析，尚未给出普遍强多项式旋转规则。',
-    ],
-    obstacles: [
-      '**数组几何障碍**: 最优顶点在数组中的位置无法由局部目标值排序唯一决定，任何基于局部比较的规则都可能陷入高位数循环；螺旋等实例显示沿陡峭边行走也会规避局部最优。',
-    ],
-    engineering_value:
-      '单纯形法是运输、网络流、资源分配等工程优化问题的主求解途径。若存在强多项式旋转规则即可在系数极大化的病态实例上保持可预测的运行时间，可指导求解器在旋转策略与退化处理之间做理论化的取舍。',
-    formalization_notes:
-      '判定可抽象为数组上的有限状态机：遍历所有可能的旋转路径并检查终止步数上界，或构造满足多项式步数的反例数组。形式化集中于终止性与单调性的组合证明，系数中等。',
-    references: [
-      {
-        label: 'D. A. Spielman, S.-H. Teng, Smoothed analysis of algorithms: Why the simplex algorithm usually takes polynomial time, J. ACM 51 (2004) 385–463',
-        url: 'https://doi.org/10.1145/990308.990310',
-      },
-      {
-        label: 'D. Goldfarb, W. Y. Sit, Worst case behavior of the steepest edge simplex method, Discrete Appl. Math. 1 (1979) 277–285',
-        url: 'https://doi.org/10.1016/0166-218X(79)90083-1',
-      },
-    ],
-  },
-  {
     id: 'me-017',
+    output: 'verified_truth',
     judgment:
       'A pass proves that the voltage-to-current (Dirichlet-to-Neumann or Cauchy) map of a bounded connected domain determines an $L^\\infty$ conductivity uniquely in dimension three, by removing the Brown–Uhlmann reducibility substructure condition, or else constructs two distinct $L^\\infty$ conductivities with equal boundary maps, so the three-dimensional phase of the global uniqueness problem is settled.',
     title: 'Global Uniqueness for the Calderón Problem in Three Dimensions',
@@ -4830,6 +4506,7 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
   },
   {
     id: 'me-018',
+    output: 'verified_behavior',
     judgment:
       'A pass gives a verifiable necessary-and-sufficient condition under which a control-affine nonlinear system admits a globally asymptotically stabilizing continuous time-invariant state feedback, thereby closing the gap between the Brockett necessary condition and the Sontag sufficient condition, or else exhibits a system that is asymptotically controllable but admits no such continuous feedback, so the stabilization characterization is settled.',
     title: 'Necessary and Sufficient Feedback Stabilizability: Closing the Brockett–Sontag Gap',
@@ -4882,6 +4559,7 @@ Provide an explicit convexity/transversality criterion and test it against the k
   },
   {
     id: 'me-019',
+    output: 'verified_truth',
     judgment:
       'A pass computes the sharp rate of decay of the Kolmogorov n-width of the solution manifold $\\{u(a)\\}$ of a parametrized elliptic PDE as a function of the analytic or only smooth parameter dependence, with an explicit algebraic (or exponential) exponent and a matching lower-bound construction certifying optimality, so the reduced-order approximation barrier is pinned.',
     title: 'Sharp Kolmogorov n-Width Decay for Parametrized PDE Solution Manifolds',
@@ -4928,6 +4606,7 @@ Provide an explicit convexity/transversality criterion and test it against the k
   },
   {
     id: 'me-020',
+    output: 'verified_truth',
     judgment:
       'A pass proves the sharp Sobolev/Gevrey regularity threshold above which the Prandtl boundary-layer expansion is stable and below which it is ill-posed, with an explicit counterexample attaining the loss, so the analyticity-to-regularity phase boundary of the zero-viscosity limit is settled.',
     title: 'Sharp Sobolev Regularity Loss in the Inviscid Limit and the Prandtl Boundary Layer',
@@ -4972,6 +4651,7 @@ Provide an explicit convexity/transversality criterion and test it against the k
   },
   {
     id: 'me-021',
+    output: 'verified_truth',
     judgment:
       'A pass settles the smallest number of projection directions needed to guarantee that the discrete line-sum (Radon) data determine a binary image uniquely on an $n \\times n$ grid, either by an explicit family of directions achieving uniqueness with a matching necessary bound, or by an NP-hardness/ inapproximability proof for the reconstruction decision problem establishing the information-theoretic barrier.',
     title: 'Minimal Number of Projection Directions for Uniqueness in Discrete Tomography',
@@ -5018,6 +4698,7 @@ Decide also whether the decision problem of uniqueness for a given finite $D$ is
   },
   {
     id: 'me-022',
+    output: 'verified_truth',
     judgment:
       'A pass determines the exact approximation ratio (or an inapproximability factor) achievable and provable in polynomial time for the minimum leader (sensor/actuator) selection problem that renders a given weighted network controllable or observable, including whether the problem admits a constant-factor approximation and whether strong NP-hardness holds for structured graph classes, so the algorithmic floor of network control design is pinned.',
     title: 'Hardness and Approximation of Minimum Leader Selection for Network Controllability',
@@ -5064,6 +4745,7 @@ Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching ha
   },
   {
     id: 'me-023',
+    output: 'verified_truth',
     judgment:
       'A pass proves the optimal constant $C$ for which $\\|p(A)\\| \\le C \\, \\max_{z \\in W(A)} |p(z)|$ holds for every matrix $A$ and every polynomial $p$, where $W(A)$ is the numerical range, improving on the known constant $1+\\sqrt 2$ toward the conjectured value $2$ with a matching extremal example, so the Crouzeix–Palencia spectral-set question is resolved.',
     title: 'Crouzeix Theorem: Optimal Constant for the Numerical Range of a Matrix',
@@ -5110,60 +4792,8 @@ with $\\|\\cdot\\|$ the operator norm. Prove that $W(A)$ is a spectral set with 
   },
 
   {
-    id: 'mp-031',
-    judgment:
-      'A pass produces a certified L1 bound on |<f^N(t)> - f(t)|_L1 relating the empirical one-particle distribution of the hard-sphere N-body system to the Boltzmann solution, valid on a time window strictly longer than the Lanford (short kinetic-time) interval, e.g. any fixed $T>0$ or a positive power of $N$, with all controlling error terms explicitly bounded; a counterexample delimiting the true validity horizon of the kinetic equation is an equally valid resolved answer.',
-    title: 'Derivation of the Boltzmann Equation Beyond the Lanford Time',
-    titleZh: 'Boltzmann 方程的推导超出 Lanford 时间尺度',
-    domain: 'mathematical-physics',
-    subdomain: 'kinetic-theory',
-    status: 'open',
-    difficulty: 'advanced',
-    formalization_potential: 'high',
-    verification_path: 'analytical',
-    tags: ['boltzmann-equation', 'kinetic-theory', 'lanford', 'hard-spheres', 'boltzmann-grad-limit'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['稀薄气体动力学', '从牛顿力学到输运方程', '动理学方程的数学理论'],
-    related_problems: [
-      {
-        id: 'mp-024',
-        relation: 'shares_tools',
-        note: '两人都从微观多体动力学提取平均场/输运方程，并使用关联层次与不良初值控制，共同依赖于截断和误差追踪技术。',
-      },
-    ],
-    statement: `Let $N$ identical hard spheres of radius $\\varepsilon$ move freely in a periodic box $\\Lambda$, colliding elastically, with initial phase-space measure a product measure whose one-particle marginal is $f_0 \\geq 0$. Let $f^N(t)$ be the empirical one-body distribution. In the Boltzmann-Grad limit $N\\to\\infty$, $\\varepsilon\\to 0$ with $N\\varepsilon^{d-1}=1$, prove that the expectation $\\langle f^N(t)\\rangle$ converges in $L^1$ to the solution $f(t)$ of the nonlinear Boltzmann equation,
-$\\partial_t f + v\\cdot\\nabla_x f = Q(f,f),$
-not merely on the short kinetic window $t\\in[0,T_0]$ of Lanford, but on a strictly longer interval (any fixed $T>0$, or one growing like a positive power of $N$), with a quantitative error bound under a finite propagation-speed control condition. A pass must extend the known short-time certificate in a controlled way or sharply localize why it fails.`,
-    origin:
-      'Lanford III (1975) 用硬球 N 体系统的传播混沌首次严格推出了 Boltzmann 方程，但仅在动力学时间的短窗口内；Gallagher–Saint-Raymond–Texier 给出了系统的现代证明。将这种推导推广到任意的长时间或线性增长的窗口仍是 Boltzmann–Grad 极限理论的核心开放问题，也是“分子混沌假设”能否长期有效的关键。',
-    progress: [
-      '**Lanford III (1975)**: 首次在短动力学时间窗内从硬球动力学严格推出 Boltzmann 方程。',
-      '**Gallagher–Saint-Raymond–Texier (2013)**: 给出教科书级严谨的重述与有限速度传播条件。',
-      '**Pulvirenti–Simonella (2017), Berkowicz–Pulvirenti (2020)**: 结合可积曲线系与碰撞图像跟踪硬球动力学的传播混沌，但长时窗命题仍未解决。',
-    ],
-    obstacles: [
-      '**碰撞关联的累积**: 分子混沌在多次碰撞后可能出现非平凡关联，长时间下控制范数放大是主要技术瓶颈。',
-      '**动力学时间与非平凡的时间尺度**: 已知技术在短时间尺度上崩解，至今没有可靠的中介长度把时间窗口推高。',
-    ],
-    engineering_value:
-      '严格化长时有效性直接支撑稀薄气流的宏观描述、稀薄气体动力学模拟（如 DSMC）的误差控制，以及从细节动力学到连续体力学的多尺度建模。',
-    formalization_notes:
-      '可将目标陈述为关于 $\\langle f^N(t)\\rangle - f(t)$ 的 $L^1$ 范数估计，判定证书是明确的范数边界；难在组合层级控制，但短时情形框架清晰，长时推广是合理的自动化验证目标。',
-    references: [
-      {
-        label: 'Lanford III, Time evolution of large classical systems, Lecture Notes in Physics 38, Springer (1975) 1–111',
-        url: 'https://doi.org/10.1007/3-540-07171-7_1',
-      },
-      {
-        label: 'Gallagher, Saint-Raymond and Texier, From Newton to Boltzmann: hard spheres and short-range potentials, Zuerich Lectures in Advanced Mathematics, EMS (2013)',
-        url: 'https://doi.org/10.4171/132',
-      },
-    ],
-  },
-  {
     id: 'mp-032',
+    output: 'verified_truth',
     judgment:
       'A pass rigorously pins down the N-dependence of the finite-size thermal conductivity kappa_N = J_N N / (T_1 - T_2) for a given anharmonic chain: either proving that it converges to a finite positive limit (Fourier law) or proving a divergent power law kappa_N ~ N^alpha with alpha > 0 (anomalous transport) with the exponent and all prefactors certified by proof rather than by simulation; a strictly certified numerical estimate of the exponent does not itself constitute a pass.',
     title: 'Fourier Law and the Thermal Conductivity of Anharmonic Chains',
@@ -5216,58 +4846,8 @@ coupled at the two ends to Langevin reservoirs at temperatures $T_1<T_2$. Prove 
     ],
   },
   {
-    id: 'mp-033',
-    judgment:
-      'A pass proves, for the disordered spin-1/2 XXZ Heisenberg chain at positive energy density, either that genuine many-body localization holds in one disorder regime (every eigenstate approximated by a generalized product state through a quasi-local unitary, with controlled norm error and no dc transport) while ergodicity holds in another, or produces a rigorous proof that no such spectral phase transition occurs; a rigorous bound localizing the critical disorder W_c is a valid partial certificate but not a pass on its own.',
-    title: 'Many-Body Localization Transition in the Random-Field XXZ Chain',
-    titleZh: '随机场 XXZ 链的多体局域化相变',
-    domain: 'mathematical-physics',
-    subdomain: 'quantum-spin-systems',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'low',
-    verification_path: 'numerical',
-    tags: ['many-body-localization', 'anderson-localization', 'disorder', 'heisenberg-chain', 'ergodicity'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['量子信息存储', '无序系统相图', '量子热化与遍历性'],
-    related_problems: [
-      {
-        id: 'mp-027',
-        relation: 'shares_tools',
-        note: '均为自旋链谱性质的严格化问题，共享 Lieb–Schultz–Mattis 与稀能谱分析等工具。',
-      },
-    ],
-    statement: `Let $H = \\sum_{i=1}^{L}\\big[J(S_i^x S_{i+1}^x+S_i^y S_{i+1}^y) + J_z S_i^z S_{i+1}^z\\big] + \\sum_{i=1}^{L} h_i S_i^z$ be the spin-$1/2$ XXZ Heisenberg Hamiltonian on a chain of $L$ sites, with i.i.d. random fields $h_i$ drawn from $[-W,W]$. Fix a nonzero energy density (e.g. the infinite-temperature sector of zero total $S^z$). Prove the many-body localization dichotomy: for sufficiently strong disorder $W$ the spectrum is fully localized (all eigenstates are close to eigenstates of an explicit set of local integrals of motion, level statistics Poissonian, zero dc conductivity), while for weak disorder the bulk is ergodic (level statistics GOE-like, diffusive transport), and give, at minimum, exponentially sharp bounds locating the transition disorder $W_c(J,J_z)$. A pass must establish coexistence of the two regimes at positive energy density or disprove localization.`,
-    origin:
-      'Anderson (1958) 提出单粒子局域化；多体相互作用下的“多体局域化”由 Basko–Alekseev–Altshuler (2006) 预言，但严格证明随能量密度为正的相变仍开放。Imbrie 在强无序下证明了 MBL，而弱无序遍历相与真正的相变点（移动边）仍未严格确立，是高维粒子系统谱研究的前沿课题。',
-    progress: [
-      '**Imbrie (2016)**: 在强无序下对一维随机自旋链严格证明多体局域化。',
-      '**Abanin–Papic (2017)**: 系统综述 MBL 的进展、量规与仍开放的结构。',
-      '**近期数值工作**: 大量数值支持有限尺寸外推存在与 Leiden/Petersen 争议，相变点未有严格确定。',
-    ],
-    obstacles: [
-      '**共振链的递归抑制**: 存在共振时构造准局域酉变换的收敛证明极其困难。',
-      '**大 W 的证明不沿用到临界区**: Imbrie 型论证在弱无序下失效，移动边（mobility edge）的存在无法推定。',
-    ],
-    engineering_value:
-      'MBL 相可作为天然量子存储和量子比特的“记忆”床，其强鲁棒的局域积分运动，为无序量子器件与低温量子信息处理提供理论支撑。',
-    formalization_notes:
-      '目标可形式化为判定两个参数区（强/弱无序）的谱性质是否存在二分；但因依赖准局域变换的构造性估计，形式化难度极高，属中长期目标。',
-    references: [
-      {
-        label: 'Imbrie, On many-body localization for random spin chains, J. Stat. Phys. 163 (2016) 998–1048; arXiv:1403.7833',
-        url: 'https://arxiv.org/abs/1403.7833',
-      },
-      {
-        label: 'Abanin and Papic, Recent progress in many-body localization, Ann. Phys. (Berlin) 529 (2017) 1700169; arXiv:1705.09191',
-        url: 'https://arxiv.org/abs/1705.09191',
-      },
-    ],
-  },
-  {
     id: 'mp-034',
+    output: 'verified_truth',
     judgment:
       'A pass gives a rigorous proof that the grand-canonical Gibbs state of the dilute interacting Bose gas at inverse temperature beta > 0 and density rho admits macroscopic (generalized) Bose-Einstein condensation of the one-particle density matrix gamma^(1) below some shifted critical temperature, with the condensation density bounded below by an explicitly computable positive constant for the true short-range interaction of positive scattering length; results valid only at beta = infinity (ground state) do not qualify, and asymptotic-in-beta evidence alone is not enough without a certified lower bound.',
     title: 'Bose-Einstein Condensation of the Interacting Gas at Positive Temperature',
@@ -5321,6 +4901,7 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
   },
   {
     id: 'mp-035',
+    output: 'verified_truth',
     judgment:
       'A pass rigorously exhibits both the low-temperature (K > K_c) power-law-correlated phase and the high-temperature (K < K_c) exponentially-correlated phase of the two-dimensional XY model / Coulomb gas, proving a Berezinskii-Kosterlitz-Thouless transition and, to the extent it is well defined, the universal jump of the spin-wave stiffness rho_s(T_c)/T_c = 2/pi; agreement with the experimentally observed universal jump in thin superfluid helium films (Nelson-Kosterlitz) is an accepted corroboration for the experimental verification path.',
     title: 'Berezinskii-Kosterlitz-Thouless Transition and the Universal Jump',
@@ -5377,119 +4958,8 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
 
 
   {
-    id: 'mc-025',
-    judgment:
-      'A pass supplies one of two certificates: (i) a real-analytic proof that the Levy–Lieb functional F is strictly convex and Gateaux differentiable at every physical density, together with an explicit supporting functional and a check of the strict convexity inequality; or (ii) a rigorous counterexample, namely a physical density at which F is not differentiable, or two distinct external potentials giving the same degenerate ground-state density, with the degeneracy and density coincidence verified.',
-    title: 'Injectivity of the Density-Potential Map and Differentiability of the Levy–Lieb Functional',
-    titleZh: '密度-势映射的单射性与 Levy–Lieb 泛函的可微性',
-    domain: 'mathematical-chemistry',
-    subdomain: 'density-functional-theory',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'high',
-    verification_path: 'analytical',
-    tags: ['density-functional-theory', 'v-representability', 'levy-lieb-functional', 'convexity'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['密度泛函理论的严格化构造', 'Kohn–Sham 势的数值重构'],
-    related_problems: [
-      {
-        id: 'mc-017',
-        relation: 'shares_tools',
-        note: '同为密度泛函框架下的待定泛函性质问题，共享凸分析与变分工具。',
-      },
-      {
-        id: 'mc-023',
-        relation: 'shares_tools',
-        note: '约化密度矩阵的实现性与密度可表示性都属于密度泛函的可实现性族。',
-      },
-    ],
-    statement: `In the Hohenberg–Kohn setting let $\\rho$ be a ground-state one-particle density of an $N$-electron system with external potential $v$, and let $F[\\rho]$ be the Levy–Lieb functional. **Determine whether the density-to-potential map $v \\mapsto \\rho$ is injective when ground states are degenerate, whether $F$ is strictly convex and G\u00e2teaux-differentiable at every physical density, and characterize the densities that are $v$-representable (the long-standing v-representability problem).** Strict convexity and differentiability of $F$ are the properties needed to invert the map and build a Kohn–Sham potential from an interacting density; none is settled in full generality for Coulomb systems.`,
-    origin:
-      'The Hohenberg–Kohn theorem guarantees that the density determines the external potential for non-degenerate ground states, but the degenerate case and the differentiability of the universal functional underpin every practical density-functional construction. Whether the map stays one-to-one and well-behaved under degeneracy, and which densities admit a non-interacting (Kohn–Sham) potential, remain open and control the reliability of OF-DFT and inversion algorithms.',
-    progress: [
-      '**Hohenberg–Kohn (1964)**: injectivity of the map shown for non-degenerate ground states, founding DFT.',
-      '**Lieb (1983)**: convex lower semicontinuous formulation of the universal functional, laying out v-representability, ensemble-representability and differentiability as open.',
-      '**Recent inversion work**: practical Kohn–Sham inversion for given densities works in many cases, but rigorous necessary-and-sufficient conditions are still missing.',
-    ],
-    obstacles: [
-      '**Degenerate corners**: when the ground state is degenerate the map is multi-valued, and injectivity has no clean counterpart; the degenerate set is generic in symmetric systems.',
-      '**Differentiability source**: $F$ is an infimum over wave functions, and the exchange of infimum and derivative is not justified, so convexity-differentiability is a genuinely variational difficulty.',
-    ],
-    engineering_value:
-      '直接决定密度反演与 OF-DFT 计算 Kohn–Sham 势的可靠性与适用范围；可微性的成立与否决定了梯度型泛函分析的合法性，是自动化材料设计工作流的基础前提。',
-    formalization_notes:
-      '该问题可拆为两层：对具体小体系给出可判定陈述较易形式化，而对 Coulomb 系统的一般可微性需要精细的泛函分析与严格交换论证，属于研究级目标；严格凸性不等式本身可转化为可机器验证的支撑泛函检查。',
-    references: [
-      {
-        label: 'Hohenberg, Kohn, Inhomogeneous electron gas, Phys. Rev. 136 (1964) B864',
-        url: 'https://doi.org/10.1103/PhysRev.136.B864',
-      },
-      {
-        label: 'Lieb, Density functionals for coulomb systems, Int. J. Quantum Chem. 24 (1983) 243',
-        url: 'https://doi.org/10.1002/qua.560240302',
-      },
-    ],
-  },
-  {
-    id: 'mc-026',
-    judgment:
-      'A pass delivers either (i) a finite, combinatorially checkable set of necessary-and-sufficient structural conditions for persistence of mass-action networks on every positive stoichiometric class, with proofs of both the forward and converse direction on a stated class; or (ii) a counterexample family showing that a proposed candidate criterion is not necessary, verified by exhibiting, in exact or interval arithmetic, a non-persistent network that satisfies it.',
-    title: 'Necessary and Sufficient Conditions for Persistence of Mass-Action Reaction Networks',
-    titleZh: '质量作用反应网络持久性的充要条件刻画',
-    domain: 'mathematical-chemistry',
-    subdomain: 'chemical-reaction-network-theory',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['persistence', 'reaction-network', 'mass-action', 'boundary'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['系统生物学网络的稳定性判据', '反应网络动力学的可达性分析'],
-    related_problems: [
-      {
-        id: 'mc-021',
-        relation: 'shares_tools',
-        note: '持久性保证平稳分布不流失，与随机网络的稳态存在性相互印证。',
-      },
-      {
-        id: 'mc-002',
-        relation: 'shares_tools',
-        note: '网络结构决定动力学这一主题贯穿确定性网络的持久性判定。',
-      },
-    ],
-    statement: `For a mass-action reaction network with stoichiometric matrix, consider a positive trajectory on a given stoichiometric class. The system is persistent if every positive trajectory stays bounded away from the boundary on its class, meaning no species concentration tends to zero or to infinity. **Determine necessary and sufficient conditions, checkable from the network graph and rate constants, for persistence to hold on every positive stoichiometric class, and decide whether there is a finite algebraic criterion or whether persistence must be checked by an intrinsically infinite family of conditions.** Known sufficient conditions such as weak reversibility or certain sign conditions are far from necessary, and no complete structural characterization is known.`,
-    origin:
-      'Persistence is the qualitative backbone of deterministic biochemistry: it asserts that no species is asymptotically lost, a precondition for the meaningfulness of any steady state. Understanding exactly which network architectures force persistence is the central open structural question of chemical reaction network theory, sitting between the solved weak-reversibility sufficiency results and the unresolved necessity direction.',
-    progress: [
-      '**Angeli, De Leenheer, Sontag (2007)**: persistence established for large classes including weakly reversible networks with kinetics satisfying a sign condition, but the criteria are sufficient only.',
-      '**Craciun, Nazarov, Pantea (2013)**: persistence and permanence results for power-law systems giving further sufficient families, still far from necessary conditions.',
-      '**Anderson, Shiu (2010)**: boundary asymptotics and counterexamples show that persistence is not implied by mild algebraic prerequisites, sharpening the difficulty of a clean criterion.',
-    ],
-    obstacles: [
-      '**Boundary behavior**: the loss of persistence is a limit-cycle-to-boundary phenomenon that analytic criteria must rule out on an infinite set of possible limiting directions.',
-      '**Nonlinearity**: mass-action dynamics can oscillate and even be chaotic within a class, so no simple monomial condition is plausibly sufficient on its own.',
-    ],
-    engineering_value:
-      '为可编程生物电路的稳定性验证提供严格判据，判定给定反应网络是否会把某些物种消耗殆尽，是合成生物学与代谢工程建模的基础护栏。',
-    formalization_notes:
-      '持久性可在有限图上陈述；一个里程碑是把已知充分条件的形式化证明与一个反例族构造结合，二者均适合机械化。完整充要条件的困难方向在于需要控制任意长时间内的边界行为，属于研究级天花板。',
-    references: [
-      {
-        label: 'Angeli, De Leenheer, Sontag, A petri net approach to the study of persistence in chemical reaction networks, Math. Biosci. 210 (2007) 598',
-        url: 'https://doi.org/10.1016/j.mbs.2007.07.003',
-      },
-      {
-        label: 'Craciun, Nazarov, Pantea, Persistence and permanence of mass-action and power-law dynamical systems, SIAM J. Appl. Math. 73 (2013) 305',
-        url: 'https://doi.org/10.1137/100812355',
-      },
-    ],
-  },
-  {
     id: 'mc-027',
+    output: 'verified_behavior',
     judgment:
       'A pass gives an explicit, proven upper bound on the total-variation distance between the full stochastic enzyme process and its tQSSA reduction, valid for all rate constants and all times in a stated enzyme-concentration regime, with the bound certified by interval arithmetic or a formal inequality check; or a counterexample showing that no such uniform general bound can exist.',
     title: 'Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation',
@@ -5541,6 +5011,7 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
   },
   {
     id: 'mc-028',
+    output: 'verified_truth',
     judgment:
       'A pass either proves the determined-by-spectrum (DS) or signless-Laplacian-DS property for a stated infinite family of molecular graphs via a certified spectral-invariant proof, or exhibits the minimal cospectral pair (with both graphs and their common spectrum verified by exact arithmetic) that refutes a candidate classification inside a stated family.',
     title: 'Are Molecular Graphs Determined by Their (Signless Laplacian) Spectrum?',
@@ -5586,115 +5057,11 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       },
     ],
   },
-  {
-    id: 'mc-029',
-    judgment:
-      'A pass proves the strict global inequality showing the hexagonal (triangular) lattice is the unique, up to translation, minimizer of the two-dimensional renormalized Coulomb energy over all point configurations of a given density in the thermodynamic limit, or establishes a rigorous nontrivial lower bound that is attained only by the hexagonal lattice; the certificate is an exact or certified numerical construction of the energy functional closing the gap to the lattice-only optimum.',
-    title: 'Crystallization of the Two-Dimensional Wigner (Jellium) Problem: Proving Hexagonal Minimization',
-    titleZh: '二维 Wigner 电子晶格问题：六角格子最小性的证明',
-    domain: 'mathematical-chemistry',
-    subdomain: 'coulomb-crystallization',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'medium',
-    verification_path: 'numerical',
-    tags: ['wigner-crystal', 'jellium', 'crystallization', 'hexagonal-lattice'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['二维材料的晶格序与自组装', '离子与电子体系的低温有序态'],
-    related_problems: [
-      {
-        id: 'mc-016',
-        relation: 'shares_tools',
-        note: '同为多体库仑体系的热力学极限能量下界问题，共享过程极限工具。',
-      },
-    ],
-    statement: `Consider the equilibrium of $N$ classical unit charges in a neutralizing background (the jellium or Wigner problem) in two dimensions. Among lattices of a fixed density the hexagonal (triangular) lattice is known to minimize the renormalized Coulomb energy. **Prove the full crystallization conjecture for this problem: that in the thermodynamic limit the hexagonal lattice is the unique, up to translation, minimizer among all configurations, not merely among lattices, i.e. show no non-periodic arrangement of the same density achieves strictly lower energy.** The lattice-restricted optimum is solved, but minimization over arbitrary (including disordered) configurations is open.`,
-    origin:
-      'Wigner predicted in 1934 that at low density a uniform electron gas crystallizes into a lattice; in two dimensions numerical and lattice-based evidence points uniquely to the hexagonal lattice. That this predicted order survives among arbitrary configurations rather than just lattices is the essence of the crystallization conjecture and a central testing ground for mathematical understanding of why and when matter prefers periodic order.',
-    progress: [
-      '**Montgomery (1988)**: among 2D lattices, the hexagonal lattice minimizes the Epstein zeta function, giving the lattice-level optimum for energies at a fixed density.',
-      '**Sandier, Serfaty (2012)**: among lattices of fixed density the hexagonal lattice uniquely minimizes the renormalized energy, connecting the lattice energy to the full Coulomb energy.',
-      '**Petrache, Serfaty (2017)**: next-order asymptotics and a renormalized energy for general Riesz interactions bring the general-configuration case within reach, yet the global (non-lattice) minimum is not yet proved.',
-    ],
-    obstacles: [
-      '**Non-lattice degeneracy**: the renormalized energy is bounded below by the lattice value, but proving a strict gap for every disordered configuration requires excluding all nearly-periodic long-range correlations.',
-      '**Thermodynamic limit**: extracting the infinite-volume functional in a way that penalizes defects needs fine control of the interaction cutoff and electrostatic screening.',
-    ],
-    engineering_value:
-      '为二维电子晶格与自组装软物质系统为何偏好六角密排提供严格依据，直接支撑二维材料堆垛、胶体结晶设计与电子晶体相变的预测。',
-    formalization_notes:
-      '问题涉及无限维变分与热力学极限；一个可机器验证的里程碑是把受限格点的最优性（已证）扩展为对有限尺寸体系给出显式下界。一般非格点最小性是研究级前沿，形式化难度最高。',
-    references: [
-      {
-        label: 'Sandier, Serfaty, From the Ginzburg–Landau model to vortex lattice problems, Comm. Math. Phys. 313 (2012) 635',
-        url: 'https://doi.org/10.1007/s00220-011-1316-1',
-      },
-      {
-        label: 'Petrache, Serfaty, Next order asymptotics and renormalized energy for Riesz interactions, J. Inst. Math. Jussieu 16 (2017) 501, arXiv:1502.00920',
-        url: 'https://arxiv.org/abs/1502.00920',
-      },
-    ],
-  },
 
 
-  {
-    id: 'mb-025',
-    judgment: 'A pass gives a rigorous, parameter-explicit proof that the Gaussian (infinitesimal) approximation for a quantitative trait either holds with an error norm bounded independently of the number of loci, or fails, and exhibits the sharpest counterexample (skew or kurtosis) when tight linkage or epistasis dominates; a numerical claim that the distribution "looks Gaussian" is not accepted.',
-    title: 'Retention of the Gaussian Infinitesimal Model under Tight Linkage and Epistasis',
-    titleZh: '高连锁与上位性下高斯无限小模型的保持性',
-    domain: 'mathematical-biology',
-    subdomain: 'population-genetics',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['infinitesimal-model', 'quantitative-genetics', 'linkage-disequilibrium', 'gaussian-approximation'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['数量遗传学的数学基础', '多基因性状染色体定位'],
-    related_problems: [
-      {
-        id: 'mb-016',
-        relation: 'shares_tools',
-        note: '同属多座位模型的矩与链接结构分析，共用 Wick 与 Gaussian 工具。',
-      },
-    ],
-    statement:
-      `Fisher's infinitesimal theory assumes that the distribution of breeding values stays Gaussian over generations because recombination breaks linkage so fast that ancestral contributions become effectively additive. **Prove or refute that, for a quantitative trait controlled by $L$ loci evolving under a fixed recombination map, the departure of the trait distribution from Gaussianity (measured by a suitable norm on the cumulants above the second order) is bounded by a constant independent of $L$, uniformly in the selection strength; and exhibit the sharpest counterexample in which tight linkage or strong epistasis forces substantial skew.** Give a quantitative regime (in terms of map length and selection per locus) in which the "mongrel" Gaussian approximation is rigorous, and the complementary regime in which it provably breaks down, with explicit error bounds in a total-variation-type distance.`,
-    origin:
-      '高斯无限小模型是数量遗传学的支柱假设，最近已被证明在无连锁（无限优雅重组）的极限下成立。但真实的染色体具有有限重组率与上位性，这使无限小模型的适用范围成为决定性且未闭合的开放问题——特别是偏差项如何随座位数与连锁结构缩放，缺乏第一性原理的界。',
-    progress: [
-      '**无连锁理论**: Barton–Etheridge–Véber 在无限位点、每代随机重组极限下给出了无限小模型与 Gaussian 收敛的严格推导。',
-      '**大群体扩展**: Breen–Hendry–Barton 把无限小模型的收敛推广到大群体情形，但仍依赖每代全部重组的假设。',
-      '**偏差观察**: 模拟显示有限连锁时高阶累次量偏差随表型均值增大而增长，但无解析界。',
-    ],
-    obstacles: [
-      '**链接相关**: 不完备重组使祖先区块保持连锁相关，累积量的 Wick 分解不再切割成独立小块，误差项难以一致控制。',
-      '**上位性耦合**: 非加性配合把高阶表型矩与低位点矩强耦合，现有闭包截断在强上位时失效。',
-    ],
-    formalization_notes:
-      '可把目标形式化为得多项式存在截断误差的界：对给定重组图与选择微桌，线性系统的一阶矩传播可精确写出，问题归结为在有限维上验证高阶累积量不变量。',
-    engineering_value: '决定多基因预测（育种值估计、遗传风险评估）在真实连锁结构下是否可信，以及何时必须放弃 Gaussian 先验改用非参数模型。',
-    references: [
-      {
-        label: 'Bulmer, The effect of selection on genetic variability, The American Naturalist 105 (1971) 201-211',
-        url: 'https://doi.org/10.1086/282718',
-      },
-      {
-        label: 'Barton, Etheridge & Véber, The infinitesimal model: Definition, derivation and implications, Theoretical Population Biology 118 (2017) 50-73',
-        url: 'https://doi.org/10.1016/j.tpb.2017.06.001',
-      },
-      {
-        label: 'Breen, Hendry & Barton, Generalization of the infinitesimal model to large populations, PNAS 121 (2024) e2316777121',
-        url: 'https://doi.org/10.1073/pnas.2316777121',
-      },
-    ],
-  },
   {
     id: 'mb-026',
+    output: 'verified_behavior',
     judgment: 'A pass determines, with a proof, the sharp parameter region (Arnold tongues) of subharmonic response for the seasonally forced SIR/reinfection system, establishes whether tongues have positive measure and end in period-doubling or Neimark–Sacker bifurcations, and gives a rigorous criterion separating locking from intermittent chaos; a single numerical scan of one parameter set is not accepted.',
     title: 'Sharp Arnold Tongues for Subharmonic Response in Seasonally Forced SIR',
     titleZh: '季节驱动 SIR 次谐波响应的尖锐 Arnold 舌',
@@ -5747,268 +5114,11 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       },
     ],
   },
-  {
-    id: 'mb-027',
-    judgment: 'A pass proves, for fixed diffusion and death rates of the cyclic May–Leonard system on a bounded domain, whether coexistence is guaranteed for every sufficiently large domain and gives the scaling of the pattern wavelength with domain area and mobility; it must identify the critical mobility or domain size at which coexistence is lost, or prove that no such threshold exists; simulation-only claims are not accepted.',
-    title: 'Spatial Persistence of Cyclic Dominance on Bounded Domains',
-    titleZh: '有界域上循环占优的空间持久性',
-    domain: 'mathematical-biology',
-    subdomain: 'ecology',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'numerical',
-    tags: ['may-leonard', 'rock-paper-scissors', 'coexistence', 'turing-patterns'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['物种多样性的空间维持机制', '进化博弈的空间相图'],
-    related_problems: [
-      {
-        id: 'mb-017',
-        relation: 'shares_tools',
-        note: '同属生态长期持久性判据；mb-017 关注随机扰动，本问题关注空间显式与有界域效应。',
-      },
-    ],
-    statement:
-      `Let three species evolve under a cyclic, mutually invasible May–Leonard reaction (A beats B, B beats C, C beats A) on a bounded planar domain of area $A$, with a common death rate and equal intracellular diffusion $D$. **Prove whether the spatially structured system admits an ergodic cooperative equilibrium — all three species coexisting indefinitely — for every sufficiently large area $A$ at fixed $D$, and derive the scaling of the spiral/spot pattern wavelength $\\ell_\\ast$ with $A$ and $D$.** Decide whether increasing the domain area unboundedly or increasing mobility $D$ beyond a critical value destroys coexistence, identify that critical value in terms of the reaction rates, and prove whether the final state is a single surviving species, a frozen stack, or nucleation-free oscillatory selection.`,
-    origin:
-      '循环占优的三物种博弈是解释物种共存多样性的最小模型。无空间均质情形已知任何小扰动都收敛到单物种灭绝，而空间显式局部模型可在扩散平衡时维持斑图上的共存。但有界域的有限面积、模式波长与扩散的定量关系、以及何时共存被破坏，作为热力学极限与尺寸相关的严格结论仍开放。',
-    progress: [
-      '**均质灭绝**: May–Leonard 常微分系统在均质混合下几乎必然走向单物种种内灭绝。',
-      '**空间稳定**: Reichenbach–Mobilia–Frey 证明适度扩散使斑图拓扑稳定并维持三物种共存，极端扩散又回到均质灭绝。',
-      '**临界判定**: 数值发现存在最大化共存的"最佳扩散"，但域面积与扩散的联合临界面无解析刻画。',
-    ],
-    obstacles: [
-      '**自由界面**: 螺旋波由自由移动的循环界面构成，其速度与曲率的关系缺乏闭环方程，阻止对有限域边界的精确解。',
-      '**多平稳态竞争**: 冻结堆与持续游动螺旋为两种不同渐近态，决定切换的势垒依赖斑图初值，难以唯一化。',
-    ],
-    formalization_notes:
-      '对固定反应速率，把共存判定归约为斑图解的正定性边值问题；模式波长可由缀线(Ginzburg–Landau 型)近似求出，给出与 $A,D$ 的显式标度，可在数值网格上核验。',
-    engineering_value: '指导移动能力（扩散系数）如何在真实群落中维持或破坏多样性，为栖息地破碎化与连通设计提供定量界面。',
-    references: [
-      {
-        label: 'May & Leonard, Nonlinear aspects of competition between three species, SIAM J. Appl. Math. 29 (1975) 243-253',
-        url: 'https://doi.org/10.1137/0129040',
-      },
-      {
-        label: 'Reichenbach, Mobilia & Frey, Mobility promotes and jeopardizes biodiversity in rock-paper-scissors games, Nature 448 (2007) 1046-1049',
-        url: 'https://doi.org/10.1038/nature06095',
-      },
-      {
-        label: 'Reichenbach & Frey, Instability of spatial patterns and its ambiguous impact on species diversity, Phys. Rev. Lett. 101 (2008) 058102',
-        url: 'https://doi.org/10.1103/PhysRevLett.101.058102',
-      },
-    ],
-  },
-  {
-    id: 'mb-028',
-    judgment: 'A pass gives, from the time-averaged Stokes equations, a rigorous criterion separating cilia/cavity geometries that produce a net leftward nodal flux from those producing a net rightward flux, and proves whether pure Poiseuille-type streaming suffices or a tilted dynamic-vortex mechanism is necessary; the criterion must be falsifiable against enucleated and rotated-beat mutants; only a claim that "the flow is leftward" is not accepted.',
-    title: 'Minimal Fluid-Mechanical Criterion for Left-Right Nodal Flow Bias',
-    titleZh: '胚胎节纤毛流左右偏置的最小流体力学判据',
-    domain: 'mathematical-biology',
-    subdomain: 'developmental-biology',
-    status: 'open',
-    difficulty: 'frontier',
-    formalization_potential: 'low',
-    verification_path: 'experimental',
-    tags: ['nodal-flow', 'cilia', 'left-right-asymmetry', 'stokes-flow'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['左右轴体节发生机制', '微尺度流体力学与形态发生'],
-    related_problems: [
-      {
-        id: 'mb-019',
-        relation: 'shares_tools',
-        note: '同属发育中的机制性与几何驱动形态发生，共用尺度几何与模式形成视角。',
-      },
-    ],
-    statement:
-      `The left–right axis of the vertebrate embryo is established when motile cilia in the node rotate counterclockwise and generate a leftward flow that transports morphogens and microvesicles to the left boundary. **Determine the minimal fluid-mechanical model — in terms of cilia packing density, beat kinematics (tilt angle and rotation sense) and the node cavity geometry — under which a time-averaged net leftward particle flux is generated that suffices to bias Nodal expression.** Prove whether the purely geometric, axisymmetric Poiseuille-type streaming in a tilted rotating flow already produces a leftward bias, or whether a tilted dynamic vortex (the "Nodal flow" direction-selective stream) is strictly necessary, and state the resulting criterion on the wall/beat geometry that separates leftward-bias geometries from rightward-bias ones so that it can be tested on enucleated and rotated-beat mutants.`,
-    origin:
-      'Nodal flow 是脊椎动物左右不对称高度保守且决定性的力学起搏点。尽管非平衡 Stokes 流能模拟宏观的左向流，但"恰好需要怎样的纤毛构型才能定向输运信息"这一最小力学模型仍无普适判据，不同物种与突变体的流向结构差异尚未统一到同一几何参数。',
-    progress: [
-      '**实验发现**: Nonaka 等在节点腔直接观测到左向粒子流，证明其为左右轴的决定性因素。',
-      '**流体模拟**: Cartwright–Piro–Tuval 通过倾斜旋转的纤毛拍动求解粘性 Stokes 流，得到左偏净流，将倾角与旋转方向作为偏置来源。',
-      '**突变体验证**: iv/旋转 beat 突变下方向随机化，提示判据需排除对称几何。',
-    ],
-    obstacles: [
-      '**低雷诺数线性**: Stokes 流的方向性完全来自几何与边界，对称腔内的流向左向只当某镜像被破坏才成立，判据对几何摄动极敏感。',
-      '**多重候选**: 平面 Poiseuille 型、旋转涡与壁面涡三种机制对参数贡献可加，缺乏把三者唯一的实验可辨标识。',
-    ],
-    formalization_notes:
-      '把目标形式化为符号判据：在指定几何下求解 time-averaged Stokes，左-右偏置归结为流函符号的代数条件。低雷诺数线性流使该判据在有限元核上可验证、可证伪，但参数空间宽广。',
-    engineering_value: '为左右轴缺陷相关的先天疾病提供力学成因诊断，并为微流控定向颗粒输运装置的几何设计提供生物启发原理。',
-    references: [
-      {
-        label: 'Nonaka et al., Randomization of left-right asymmetry due to loss of nodal cilia generating leftward flow, Cell 95 (1998) 829-837',
-        url: 'https://doi.org/10.1016/S0092-8674(00)81480-0',
-      },
-      {
-        label: 'Cartwright, Piro & Tuval, Embryonic nodal flow and the analysis of morphological asymmetries, PNAS 104 (2007) 1239-1244',
-        url: 'https://doi.org/10.1073/pnas.0605964104',
-      },
-    ],
-  },
-  {
-    id: 'mb-029',
-    judgment: 'A pass provides a rigorous, parameter-explicit asymptotic formula for the per-generation click rate of Muller\'s ratchet, identifies the universal scaling exponent with a computed constant, and gives the crossover to the slow "Gaussian-reference" regime where diffusion bounds fail; a claim that the ratchet "eventually clicks" without the rate exponent is not accepted.',
-    title: 'Sharp Scaling of Muller\'s Ratchet Click Rate under Purifying Selection',
-    titleZh: '净化选择下 Muller 棘轮 click 速率的尖锐标度',
-    domain: 'mathematical-biology',
-    subdomain: 'evolutionary-dynamics',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'medium',
-    verification_path: 'analytical',
-    tags: ['mullers-ratchet', 'deleterious-mutations', 'asexual-populations', 'hit-times'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['无性群落的退化动力学', '突变负载累积理论'],
-    related_problems: [
-      {
-        id: 'mb-021',
-        relation: 'shares_tools',
-        note: '同属有限群体长期适应度动态的定量无标度刻画，共用扩散与击中时间工具。',
-      },
-    ],
-    statement:
-      `Muller's ratchet is the irreversible accumulation of the least-loaded class of deleterious mutations in a finite asexual population, clicking to a new minimum-load class whenever the least-loaded class goes extinct. **Prove a sharp, parameter-explicit asymptotic formula for the per-generation click rate $\\nu$, and decide whether the leading scaling $\\log\\nu \\sim -\\,c\\,U/\\log(N s)$ holds with a universal constant $c$ independent of selection strength $s$, mutation rate $U$ and carrying capacity $N$ — or whether you must derive a different scaling — and determine the crossover (in the reduced "thick" regime) to the Gaussian-reference bound where standard diffusion estimates fail.** Report the click time up to leading exponential and a logarithmically precise prefactor.`,
-    origin:
-      '无性、低重组群体（如线粒体、细菌与 Y 染色体）因无法清除有害突变而退化，ratchet 的点击速率决定退化速度与群体寿命。尽管 Haigh 的经典模型与后续扩散近似密集，但点击速率随 $U,s,N$ 的普适标度、以及从薄负载到厚负载的过渡仍无统一的严格公式。',
-    progress: [
-      '**经典近似**: Haigh 用最小负载类的确定性衰减与抽样噪声导出高斯参考期望，给出点击概周期的早期估计。',
-      '**扩散修正**: Etheridge/Ethier 与后续作者给出厚负载情形的逐点击期估计，指出耗散近似的失效边界。',
-      '**生物物理**: von Waldow–Neher 等用波动理论数值拟合点击速率，支持广义指数标度但常数 $c$ 未推导。',
-    ],
-    obstacles: [
-      '**负载分布耦合**: 最小负载类的灭绝同时改变全负载分布形状，快强制退与慢漂采样的双时间尺度分解难以闭合。',
-      '**临界厚负载**: 当 $U/s$ 超过关键值时，高负载尾的相互作用使 Gaussian 参考假设失效，击点速率进入非普适区。',
-    ],
-    formalization_notes:
-      '把点击速率归约为一个可分支过程或扩散击中时间：最小负载类在净化选择下的灭绝问题可形式化为中等偏差的窗口积分，给出 $\log\\nu$ 的显式主项与幂律预因子，可在数值模拟上核验普适常数。',
-    engineering_value: '预测病原体、癌细胞克隆与退化细胞器群落的长期适应度退化速率，指导无性群体的药物与遗传干预窗口设计。',
-    references: [
-      {
-        label: 'Haigh, The accumulation of deleterious genes in a population—Muller\'s Ratchet, Theoretical Population Biology 14 (1978) 251-267',
-        url: 'https://doi.org/10.1016/0040-5809(78)90027-x',
-      },
-      {
-        label: 'Felsenstein, The evolutionary advantage of recombination, Genetics 78 (1974) 737-756',
-        url: 'https://doi.org/10.1093/genetics/78.2.737',
-      },
-    ],
-  },
 
 
-  {
-    id: 'me-024',
-    judgment:
-      'A pass either produces a fully checked energy-level argument (a proof certificate verified against the appropriate Besov/Hölder norm inequalities) showing that every $L^\\infty_t L^2 \\cap C^\\alpha$ weak solution of the 3D Euler equations with $\\alpha > 1/3$ conserves kinetic energy, or else exhibits a certified $C^\\alpha$ weak solution with $\\alpha > 1/3$ that dissipates energy, together with verification of the regularity and energy balance, so the sharp positive side of the Onsager conjecture is settled in either direction.',
-    title: 'Sharp Hölder Threshold for Energy Conservation in 3D Euler Weak Solutions',
-    titleZh: '三维 Euler 方程弱解保能性的尖确 Hölder 阈值',
-    domain: 'mathematical-engineering',
-    subdomain: 'fluid-dynamics',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'high',
-    verification_path: 'analytical',
-    tags: ['onsager-conjecture', 'euler-equations', 'energy-conservation', 'turbulence'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['LES 大涡模拟能量守恒校验', '湍能耗散模型标定', '无粘极限数值格式'],
-    related_problems: [
-      {
-        id: 'me-015',
-        relation: 'shares_tools',
-        note: '两者都以三维流体弱解的能量与正则性估计为共同工具：me-015 关注奇异集的维数，me-024 关注保能性的 Hölder 阈值。',
-      },
-    ],
-    statement: `Let $u \\in C(0,T;L^2(\\mathbb R^3))$ be a weak solution of the incompressible Euler equations $\\partial_t u + u \\cdot \\nabla u + \\nabla p = 0$, $\\nabla \\cdot u = 0$, and let the kinetic energy be $E(t)=\\tfrac{1}{2}\\|u(\\cdot,t)\\|_{L^2}^2$. **Determine the sharp Hölder threshold: prove that every weak solution with $u \\in C^\\alpha$ for some $\\alpha > 1/3$ conserves $E(t)$ for all $t$, or construct a weak solution with regularity strictly above $1/3$ whose energy decays.**
-
-Concretely, settle whether the Constantin–E–Titi criterion can be relaxed to pure Hölder $C^{0,\\alpha}$ (rather than the Besov/commutator conditions they use), and give a definitive answer at the endpoint $\\alpha = 1/3$ on bounded domains.`,
-    origin:
-      '湍流能量级联中 Kolmogorov 的 4/5 定律预测能量耗散趋向有限上限，而 Euler 方程作为无粘极限的数学描述是否允许能量不守恒直接关系 LES 与大涡仿真的基本假设。Onsager 猜想的下侧（非保能、须 $\\alpha<1/3$）已被 Isett 解决，但上侧（$\\alpha>1/3$ 是否必然保能、端点是否紧）在纯 Hölder 意义下仍开放。',
-    progress: [
-      '**Constantin–E–Titi (1994)**: 在 $L^3$ 与适当的 Besov 或对偶条件（蕴含 Hölder $>1/3$）下证明能量守恒。',
-      '**Isett (2018)**: 证明在任意 $\\alpha<1/3$ 时存在稠密的、致密的正则弱解能量耗散，补全非负侧。',
-      '**端点研究**: 在 $\\alpha=1/3$ 处及纯 $C^\\alpha$（不顾 Besov 尾部）下的保能性尚未有定论，正反方向都缺可核验的证书。',
-    ],
-    obstacles: [
-      '**估值对换障碍**: 证明守恒需要把对流项的 Duchon–Robert 缺陷测度化为有限能量括号，纯 Hölder 正则只给时空阶 $\\alpha$，在无更高阶导数信息时无法封闭对 $C^{\\alpha}$ 与 $C^{\\beta}$ 配对的检验，端点处对数与插值因子相互竞争。',
-    ],
-    engineering_value:
-      '若 $\\alpha>1/3$ 保能在纯 Hölder 意义下成立，则数值离散只要保持相应的差分模即可保证耗散不虚假；反之若存在超 1/3 的耗散解，则任何分辨不足的仿真都能人为耗散能量，需用守恒型格式或显式漂移修正。这为验证有限体积/结构守恒格式在湍流工况下的能量预算提供理论阈值。',
-    formalization_notes:
-      '判定可化为对有限个 Hölder 型范数不等式与对流项括号估计的验证，能量守恒或反例构造都可整理成可机检的连续估计链，形式化系数较高。',
-    references: [
-      {
-        label: 'P. Constantin, W. E, E. S. Titi, Onsager’s conjecture on the energy conservation for solutions of Euler’s equation, Comm. Math. Phys. 165 (1994) 207–209',
-        url: 'https://doi.org/10.1007/BF02099744',
-      },
-      {
-        label: 'P. Isett, A proof of the Onsager conjecture, Ann. of Math. 188 (2018) 871–963',
-        url: 'https://arxiv.org/abs/1608.08301',
-      },
-    ],
-  },
-  {
-    id: 'me-025',
-    judgment:
-      'A pass proves that the boundary measurements of a fixed conductivity problem restricted to a general (arbitrarily small open, or non-back-propagating) subset of the boundary determine the $L^\\infty$ conductivity uniquely in dimension three, via a machine-checkable complex-geometric-optics reduction removing the half-space restriction, or else exhibits two distinct $L^\\infty$ conductivities with identical partial Cauchy data, settling the partial-data phase of the 3D Calderón problem in either direction.',
-    title: 'Global Uniqueness for the Calderón Problem with Partial Boundary Data in 3D',
-    titleZh: '三维部分边界数据 Calderón 问题的全局唯一性',
-    domain: 'mathematical-engineering',
-    subdomain: 'inverse-problems',
-    status: 'open',
-    difficulty: 'research',
-    formalization_potential: 'high',
-    verification_path: 'analytical',
-    tags: ['calderon-problem', 'partial-data', 'electrical-impedance-tomography', 'uniqueness'],
-    contributor: 'community',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['电阻抗断层扫描少电极成像', '接触式无损检测', '医疗电极布局优化'],
-    related_problems: [
-      {
-        id: 'me-017',
-        relation: 'generalizes',
-        note: 'me-017 处理全边界数据的 3D 唯一性；me-025 把测量限制到边界子集，是 me-017 的自然推广，共享复几何光学方法。',
-      },
-    ],
-    statement: `Let $\\Omega \\subset \\mathbb R^3$ be a bounded connected domain with Lipschitz boundary, let $\\Gamma_1, \\Gamma_2 \\subseteq \\partial \\Omega$ be subsets of the boundary (allowing strict proper subsets), and let $\\gamma \\in L^\\infty_+(\\Omega)$. The partial Dirichlet-to-Neumann map is taken as the pair $(u|_{\\Gamma_1}, \\gamma \\partial_\\nu u|_{\\Gamma_2})$ over Dirichlet data on $\\Gamma_1$. **Prove that two such data sets with identical partial maps force $\\gamma_1 = \\gamma_2$ for general $L^\\infty$ conductivities in dimension three.**
-
-The question is open in the full generality of arbitrary measurement subsets; decisions here include removing the additional measurements or half-boundary hypotheses used in the Kenig–Sjöstrand–Uhlmann route, or proving a sharp counterexample.`,
-    origin:
-      '实际 EIT 与接触式检漏中只能在部分边界布置电极，完整边界测量并不现实。三维部分数据的全局唯一性虽对若干几何正则情形（如半个边界或球面带）已证，任意局部测量集的唯一性仍开放，直接决定少电极成像能否具备理论反演保证。',
-    progress: [
-      '**Kenig–Sjöstrand–Uhlmann (2007)**: 在补充测量与相关子集条件下给出三维部分数据唯一性。',
-      '**Isakov (2007)**: 在边界子集上补充测量得到部分数据唯一性，但不覆盖任意少测量集。',
-      '**一般局部子集**: 对任意开子集或退化子集的全局唯一性在高维仍未解决。',
-    ],
-    obstacles: [
-      '**几何光学波因子障碍**: 部分数据的复几何光学解只能在可测量集内逐点延续，跨越无测量区域时需要额外的唯一延拓，而 $L^\\infty$ 系数不保证解析延拓，Carleman 估计在此处的常数难以统一控制。',
-    ],
-    engineering_value:
-      '少电极 EIT 在乳癌筛查、肺部监测与工业储罐检漏中应用广泛。任一测量子集下唯一性若成立，则电极布局可自由优化以避开物理障碍；若存在反例则必须量化电极覆盖比例与分辨能力，为接触式成像的可靠性给出设计准则。',
-    formalization_notes:
-      '判定为分析型反问题：唯一性可化归为对复几何光学解在无测量区的延续性与 Carleman 估计的验证，可整理为分部类的有限分析步骤，系数较高。',
-    references: [
-      {
-        label: 'C. E. Kenig, J. Sjöstrand, G. Uhlmann, The Calderón problem with partial data, Ann. of Math. 165 (2007) 567–591',
-        url: 'https://doi.org/10.4007/annals.2007.165.567',
-      },
-      {
-        label: 'V. Isakov, On uniqueness in the inverse conductivity problem with local data, Inverse Probl. Imaging 1 (2007) 95–105',
-        url: 'https://doi.org/10.3934/ipi.2007.1.95',
-      },
-    ],
-  },
   {
     id: 'me-026',
+    output: 'verified_truth',
     judgment:
       'A pass either exhibits a polynomial-time (in the number of variables and the bit size) algorithm that, on the average over a natural random model of square polynomial systems or real polynomial optimization instances, finds an approximate zero or the global minimum to machine precision and is certified by rigorous interval/verified fallback (a numerical certificate), or proves a matching average-case lower bound or conditional impossibility showing no such feasible algorithm exists, so the average-case complexity of real polynomial decision is pinned.',
     title: 'Average-Case Complexity of Real Polynomial System Solving and Global Optimization',
@@ -6055,6 +5165,7 @@ Equivalently, resolve whether the decision problems of real-solvability and of g
   },
   {
     id: 'me-027',
+    output: 'verified_truth',
     judgment:
       'A pass resolves whether the optimal solution of Witsenhausen’s two-stage decentralized stochastic control problem is nonlinear: either produce a rigorous lower bound showing no linear controller can be optimal and a corresponding certified nonlinear policy attaining a strictly lower cost (a quantified distance certificate), or prove that an optimal linear (LQG-type) strategy exists, so the decentralized linear-quadratic optimality question is settled rather than merely conjectured from numerical search.',
     title: 'Optimality of Nonlinear vs. Linear Control in Witsenhausen’s Decentralized Problem',
@@ -6107,6 +5218,7 @@ Numerically discovered nonlinear policies beat the best linear ones for large $\
   },
   {
     id: 'me-028',
+    output: 'verified_behavior',
     judgment:
       'A pass either gives the full attainable set (the $G$-closure) of effective conductivity (or elasticity) tensors for mixtures of three or more phases — proving which effective tensors are realizable and which are excluded, with explicit bounding constructions and matching upper/lower attainable isotropic bounds certified analytically — or proves that the multi-phase $G$-closure is not describable by finitely many linear bounds (e.g. by exhibiting a concrete target tensor inside the Hashin–Shtrikman bounds that no microstructure realizes), so the extremal-composite characterization is settled.',
     title: 'The G-Closure and Sharp Attainable Bounds for Multiphase Composite Conductors',

@@ -81,6 +81,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pl.all': { zh: '全部', en: 'All' },
   'pl.potential': { zh: '形式化潜力', en: 'Formalization potential' },
   'pl.verify': { zh: '验证路径', en: 'Verification path' },
+  'pl.status': { zh: '状态', en: 'Status' },
+  'pl.output': { zh: '产出类型', en: 'Output type' },
   'pl.domain': { zh: '领域', en: 'Domain' },
   'pl.count': { zh: '道题', en: 'problems' },
   'pl.community': { zh: '社区投稿', en: 'Community submissions' },
@@ -133,6 +135,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   'st.byDomain': { zh: '按领域', en: 'By domain' },
   'st.byPotential': { zh: '按形式化潜力', en: 'By formalization potential' },
   'st.byVerification': { zh: '按验证路径', en: 'By verification path' },
+  'st.byStatus': { zh: '按解决状态', en: 'By resolution status' },
+  'st.byOutput': { zh: '按产出类型', en: 'By output type' },
   // api
   'api.title': { zh: '数据接口', en: 'Data API' },
   'api.subtitle': {
@@ -159,6 +163,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pg.open': { zh: '进入问题页 →', en: 'Open problem →' },
   'pg.legend': { zh: '图例', en: 'Legend' },
   'pg.potential': { zh: '形式化可行度', en: 'formalization' },
+  'pg.verify': { zh: '验证路径', en: 'verification' },
+  'pg.status': { zh: '状态', en: 'status' },
+  'pg.search': { zh: '输入编号或关键词定位节点…', en: 'Type an id or keyword to locate…' },
+  'pg.clear': { zh: '清除', en: 'Clear' },
   'pg.recent': { zh: '近期有进展', en: 'recent progress' },
   'pg.hint': { zh: '滚轮缩放 · 拖拽平移 · 点击节点查看', en: 'Scroll to zoom · drag to pan · click a node' },
   // api page
@@ -222,6 +230,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   // problem detail
   'pd.verified': { zh: '最近核验', en: 'Verified' },
   'pd.status': { zh: '状态', en: 'Status' },
+  'pd.output': { zh: '产出类型', en: 'Output type' },
   'pd.difficulty': { zh: '难度', en: 'Difficulty' },
   'pd.formalize': { zh: '形式化潜力', en: 'Formalization' },
   'pd.verify': { zh: '验证路径', en: 'Verification' },
@@ -388,6 +397,11 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     open: { zh: '开放', en: 'Open' },
     partial: { zh: '部分解决', en: 'Partially resolved' },
     resolved: { zh: '已解决', en: 'Resolved' },
+  },
+  output: {
+    verified_behavior: { zh: '行为证书', en: 'Behavior certificate' },
+    verified_truth: { zh: '真理解证书', en: 'Truth certificate' },
+    scaffolding: { zh: '学科骨架', en: 'Scaffolding' },
   },
   attemptKind: {
     progress: { zh: '进展', en: 'Progress' },

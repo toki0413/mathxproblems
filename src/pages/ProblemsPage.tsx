@@ -9,6 +9,8 @@ import {
   type Domain,
   type FormalizationPotential,
   type VerificationPath,
+  type ProblemStatus,
+  type OutputKind,
 } from '@/data/problems'
 import { ProblemRow } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
@@ -45,6 +47,8 @@ export default function ProblemsPage() {
   const domain = (params.get('domain') ?? '') as Domain | ''
   const potential = (params.get('potential') ?? '') as FormalizationPotential | ''
   const verification = (params.get('verification') ?? '') as VerificationPath | ''
+  const status = (params.get('status') ?? '') as ProblemStatus | ''
+  const output = (params.get('output') ?? '') as OutputKind | ''
   const impact = params.get('impact') ?? ''
   const approved = trpc.submissions.approved.useQuery(undefined, { retry: false })
 
@@ -70,9 +74,11 @@ export default function ProblemsPage() {
     if (domain) list = list.filter((p) => p.domain === domain)
     if (potential) list = list.filter((p) => p.formalization_potential === potential)
     if (verification) list = list.filter((p) => p.verification_path === verification)
+    if (status) list = list.filter((p) => p.status === status)
+    if (output) list = list.filter((p) => p.output === output)
     if (impact) list = list.filter((p) => impactOf(p).includes(impact))
     return list
-  }, [query, domain, potential, verification, impact, fuse])
+  }, [query, domain, potential, verification, status, output, impact, fuse])
 
   const label = (kind: 'potential' | 'verification', v: string) => enumLabel(lang, kind, v)
 
@@ -129,6 +135,24 @@ export default function ProblemsPage() {
               <option key={d} value={d}>{d}</option>
             ))}
           </select>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3 mr-1">{t('pl.output')}</span>
+          <Pill active={!output} onClick={() => setParam('output', '')}>{t('pl.all')}</Pill>
+          {(['verified_behavior', 'verified_truth', 'scaffolding'] as const).map((v) => (
+            <Pill key={v} active={output === v} onClick={() => setParam('output', output === v ? '' : v)}>
+              {enumLabel(lang, 'output', v)}
+            </Pill>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3 mr-1">{t('pl.status')}</span>
+          <Pill active={!status} onClick={() => setParam('status', '')}>{t('pl.all')}</Pill>
+          {(['open', 'partial', 'resolved'] as const).map((v) => (
+            <Pill key={v} active={status === v} onClick={() => setParam('status', status === v ? '' : v)}>
+              {enumLabel(lang, 'status', v)}
+            </Pill>
+          ))}
         </div>
       </div>
 

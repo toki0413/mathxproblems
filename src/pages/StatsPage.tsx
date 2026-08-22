@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { PROBLEMS, DOMAINS, type Domain } from '@/data/problems'
 import { DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
-import { useI18n, domainLabel } from '@/i18n'
+import { useI18n, domainLabel, enumLabel } from '@/i18n'
 import { GOAL_PROBLEMS } from '@/const'
 
 // 各领域收录目标，总和与全局里程碑 GOAL_PROBLEMS 对齐。
@@ -30,12 +30,29 @@ export default function StatsPage() {
       key: v,
       count: PROBLEMS.filter((p) => p.verification_path === v).length,
     }))
+    const byStatus = (['open', 'partial', 'resolved'] as const).map((v) => ({
+      key: v,
+      count: PROBLEMS.filter((p) => p.status === v).length,
+    }))
+    const byOutput = (['verified_behavior', 'verified_truth', 'scaffolding'] as const).map((v) => ({
+      key: v,
+      count: PROBLEMS.filter((p) => p.output === v).length,
+    }))
     const relations = PROBLEMS.reduce((s, p) => s + p.related_problems.length, 0)
-    return { byDomain, byPotential, byVerification, relations }
+    return { byDomain, byPotential, byVerification, byStatus, byOutput, relations }
   }, [])
 
   const potentialLabel = (v: string) => enumLabel(lang, 'potential', v)
   const verificationLabel = (v: string) => enumLabel(lang, 'verification', v)
+  const statusLabel = (v: string) => enumLabel(lang, 'status', v)
+  const outputLabel = (v: string) => enumLabel(lang, 'output', v)
+
+  // 产出类型的标识色，与详情页保持一致：行为证书=绿、真理解证书=蓝、学科骨架=灰
+  const OUTPUT_COLOR: Record<string, string> = {
+    verified_behavior: '#1e7a5a',
+    verified_truth: '#2563eb',
+    scaffolding: '#8b887c',
+  }
 
   const Bar = ({ value, max, color }: { value: number; max: number; color?: string }) => (
     <div className="h-5 bg-[#f0eee7] w-full relative">
@@ -124,7 +141,45 @@ export default function StatsPage() {
             </section>
           </Reveal>
 
+          <Reveal delay={150}>
+            <section>
+              <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-5">
+                {t('st.byStatus')}
+              </h2>
+              <div className="space-y-4">
+                {stats.byStatus.map(({ key, count }) => (
+                  <div key={key}>
+                    <div className="flex items-baseline justify-between text-[15px] mb-1.5">
+                      <span>{statusLabel(key)}</span>
+                      <span className="font-mono2 text-xs text-ink-3">{count}</span>
+                    </div>
+                    <Bar value={count} max={PROBLEMS.length} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          </Reveal>
+
           <Reveal delay={180}>
+            <section>
+              <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-5">
+                {t('st.byOutput')}
+              </h2>
+              <div className="space-y-4">
+                {stats.byOutput.map(({ key, count }) => (
+                  <div key={key}>
+                    <div className="flex items-baseline justify-between text-[15px] mb-1.5">
+                      <span>{outputLabel(key)}</span>
+                      <span className="font-mono2 text-xs text-ink-3">{count}</span>
+                    </div>
+                    <Bar value={count} max={PROBLEMS.length} color={OUTPUT_COLOR[key]} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          </Reveal>
+
+          <Reveal delay={210}>
             <section className="grid grid-cols-2 gap-px bg-[var(--line)] border border-line">
               {[
                 [t('st.relations'), String(stats.relations)],

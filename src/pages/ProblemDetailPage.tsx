@@ -1,12 +1,19 @@
 import { Link, useParams } from 'react-router'
 import { useState } from 'react'
-import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf } from '@/data/problems'
+import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, type OutputKind } from '@/data/problems'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
+
+/** 产出类型的标识色：行为证书=绿、真理解证书=蓝、学科骨架=灰 */
+const OUTPUT_COLOR: Record<OutputKind, string> = {
+  verified_behavior: '#1e7a5a',
+  verified_truth: '#2563eb',
+  scaffolding: '#8b887c',
+}
 
 /** 把 "**标题**: 正文" 格式的条目拆成结构化 {head, body} */
 function splitEntry(s: string): { head: string; body: string } {
@@ -375,6 +382,18 @@ export default function ProblemDetailPage() {
         <aside className="lg:sticky lg:top-24 self-start">
           <div className="border border-line bg-white/50 p-5">
             <Meta k={t('pd.status')} v={enumLabel(lang, 'status', p.status)} />
+            <Meta
+              k={t('pd.output')}
+              v={
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono2 text-[10px] uppercase tracking-wider"
+                  style={{ color: OUTPUT_COLOR[p.output], borderColor: OUTPUT_COLOR[p.output] }}
+                >
+                  <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: OUTPUT_COLOR[p.output] }} />
+                  {enumLabel(lang, 'output', p.output)}
+                </span>
+              }
+            />
             <Meta k={t('pd.difficulty')} v={<Stars difficulty={p.difficulty} />} />
             <Meta
               k={t('pd.formalize')}

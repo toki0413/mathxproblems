@@ -22,6 +22,7 @@ let cur = null
 let curTo = null
 const edges = []
 const judged = new Set()
+const outputs = new Map()
 // related_problems entry shape is id → relation → note, so we read the id
 // into curTo and push the edge when the relation line follows.
 for (const line of src.split(/\r?\n/)) {
@@ -31,6 +32,8 @@ for (const line of src.split(/\r?\n/)) {
     continue
   }
   if (/^    judgment:/.test(line) && cur) judged.add(cur)
+  const outMatch = line.match(/^    output: '([^']+)',/)
+  if (outMatch && cur) outputs.set(cur, outMatch[1])
   const to = line.match(/^        id: '([^']+)',/)
   if (to) {
     curTo = to[1]
@@ -102,6 +105,23 @@ if (missingJudgment.length) {
   fail(`problems missing 'judgment': ${missingJudgment.join(', ')}`)
 } else {
   console.log(`  judgment: all ${ids.length} problems covered`)
+}
+
+// 'output' must be present on every problem and be one of the three OutputKind
+// values; the distribution is what the transfer-strength UI renders.
+const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
+const missingOutput = ids.filter((id) => !outputs.has(id))
+if (missingOutput.length) fail(`problems missing 'output': ${missingOutput.join(', ')}`)
+const badOutput = [...outputs.entries()].filter(([, v]) => !OUTPUT_KINDS.has(v))
+if (badOutput.length) fail(`invalid output: ${badOutput.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+if (missingOutput.length === 0 && badOutput.length === 0) {
+  const dist = {}
+  for (const v of outputs.values()) dist[v] = (dist[v] ?? 0) + 1
+  const distStr = ['verified_behavior', 'verified_truth', 'scaffolding']
+    .filter((k) => dist[k])
+    .map((k) => `${k}=${dist[k]}`)
+    .join(' ')
+  console.log(`  output: all covered (${distStr})`)
 }
 
 if (exitCode === 0) console.log('check:problems OK')
