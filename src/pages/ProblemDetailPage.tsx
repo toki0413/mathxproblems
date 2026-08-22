@@ -6,7 +6,6 @@ import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
-import { useAuth } from '@/hooks/useAuth'
 import { trpc } from '@/providers/trpc'
 
 /** 把 "**标题**: 正文" 格式的条目拆成结构化 {head, body} */
@@ -45,15 +44,16 @@ export default function ProblemDetailPage() {
   const { lang, t } = useI18n()
   const p = PROBLEMS.find((x) => x.id === id)
   const [copied, setCopied] = useState(false)
-  const { isAuthenticated } = useAuth()
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
   const attempts = trpc.attempts.approved.useQuery({ problemId: id ?? '' })
   const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision'>('progress')
   const [atTitle, setAtTitle] = useState('')
+  const [atAuthor, setAtAuthor] = useState('')
   const [atContent, setAtContent] = useState('')
   const submitAttempt = trpc.attempts.submit.useMutation({
     onSuccess: () => {
       setAtTitle('')
+      setAtAuthor('')
       setAtContent('')
     },
   })
@@ -316,8 +316,7 @@ export default function ProblemDetailPage() {
               ))}
             </div>
 
-            {isAuthenticated ? (
-              <div className="mt-6 border border-line bg-white/50 p-5 space-y-3">
+            <div className="mt-6 border border-line bg-white/50 p-5 space-y-3">
                 <div className="flex items-center gap-3 flex-wrap">
                   <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-2">
                     {t('pd.attempts.kind')}
@@ -340,6 +339,12 @@ export default function ProblemDetailPage() {
                   placeholder={t('pd.attempts.title')}
                   className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
                 />
+                <input
+                  value={atAuthor}
+                  onChange={(e) => setAtAuthor(e.target.value)}
+                  placeholder={t('pd.attempts.author')}
+                  className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                />
                 <textarea
                   value={atContent}
                   onChange={(e) => setAtContent(e.target.value)}
@@ -349,7 +354,13 @@ export default function ProblemDetailPage() {
                 />
                 <button
                   onClick={() =>
-                    submitAttempt.mutate({ problemId: p.id, kind: atKind, title: atTitle, content: atContent })
+                    submitAttempt.mutate({
+                      problemId: p.id,
+                      kind: atKind,
+                      title: atTitle,
+                      content: atContent,
+                      authorName: atAuthor.trim() || undefined,
+                    })
                   }
                   disabled={submitAttempt.isPending || !atTitle.trim() || !atContent.trim()}
                   className="border border-mc text-mc px-4 py-1.5 text-sm hover:bg-mc hover:text-paper transition-colors disabled:opacity-40"
@@ -357,9 +368,6 @@ export default function ProblemDetailPage() {
                   {submitAttempt.isSuccess ? t('pd.attempts.sent') : t('pd.attempts.send')}
                 </button>
               </div>
-            ) : (
-              <p className="mt-6 text-sm text-ink-3">{t('pd.attempts.login')}</p>
-            )}
           </Section>
         </article>
 

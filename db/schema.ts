@@ -78,13 +78,18 @@ export type InsertProblemUpdate = typeof problemUpdates.$inferInsert;
  * a proposed progress note, a solution sketch, or a status suggestion. Unlike
  * `problem_updates` (admin-written), these enter as pending and need review.
  * Approved ones surface on the problem detail page as community progress.
+ *
+ * Deliberately low-friction: submission requires no login. `authorName` is
+ * self-declared so anonymous visitors can still get credit; `userId` is set
+ * only when the submitter happens to be signed in.
  */
 export const problemAttempts = mysqlTable("problem_attempts", {
   id: serial("id").primaryKey(),
   problemId: varchar("problemId", { length: 32 }).notNull(),
-  userId: bigint("userId", { mode: "number", unsigned: true })
-    .notNull()
-    .references(() => users.id),
+  userId: bigint("userId", { mode: "number", unsigned: true }).references(
+    () => users.id,
+  ),
+  authorName: varchar("authorName", { length: 128 }),
   kind: mysqlEnum("kind", ["progress", "solution", "revision"])
     .default("progress")
     .notNull(),

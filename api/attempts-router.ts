@@ -13,20 +13,24 @@ const attemptSchema = z.object({
   kind: z.enum(["progress", "solution", "revision"]),
   title: z.string().min(4).max(300),
   content: z.string().min(20).max(5000),
+  // 匿名投稿可自报署名；留空则匿名（登录态也接受，userId 会自动带上）
+  authorName: z.string().trim().min(1).max(128).optional(),
 });
 
 export const attemptsRouter = createRouter({
-  /** 登录用户向已有问题提交进展/解答候选 */
-  submit: authedQuery
+  /** 任何人向已有问题提交进展/解答候选，无需登录 */
+  submit: publicQuery
     .input(attemptSchema)
     .mutation(async ({ ctx, input }) => {
-      const { problemId, kind, title, content } = input;
+      const { problemId, kind, title, content, authorName } = input;
       await insertAttempt({
         problemId,
         kind,
         title,
         content,
-        userId: ctx.user.id,
+        authorName,
+        // 登录态才关联用户；匿名提交该字段为 null
+        userId: ctx.user ? ctx.user.id : undefined,
       });
       return { ok: true };
     }),

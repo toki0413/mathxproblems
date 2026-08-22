@@ -243,9 +243,9 @@ const STR: Record<string, { zh: string; en: string }> = {
     en: 'No community attempts yet — be the first to propose progress, a solution sketch, or a revision.',
   },
   'pd.attempts.submit': { zh: '提交候选', en: 'Submit an attempt' },
-  'pd.attempts.login': {
-    zh: '提交进展 / 解答候选需先登录（Kimi 账号）。',
-    en: 'Proposing progress or a solution candidate requires signing in (Kimi account).',
+  'pd.attempts.author': {
+    zh: '署名（可选，匿名留空）',
+    en: 'Your name (optional, leave blank for anonymous)',
   },
   'pd.attempts.kind': { zh: '类型', en: 'Type' },
   'pd.attempts.kind.progress': { zh: '进展', en: 'Progress' },

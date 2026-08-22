@@ -1,4 +1,4 @@
-import { desc, eq, getTableColumns, innerJoin } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, leftJoin } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemAttempt } from "@db/schema";
 import { getDb } from "./connection";
@@ -7,15 +7,15 @@ export async function insertAttempt(data: InsertProblemAttempt) {
   await getDb().insert(schema.problemAttempts).values(data);
 }
 
-/** 社区在详情页可看到的本问题已通过候选（含作者名），按时间倒序 */
+/** 社区在详情页可看到的本问题已通过候选。匿名投稿用自报 authorName，登录用户回退到注册名 */
 export async function listApprovedAttempts(problemId: string) {
-  return getDb()
+  const rows = await getDb()
     .select({
       ...getTableColumns(schema.problemAttempts),
-      authorName: schema.users.name,
+      registeredName: schema.users.name,
     })
     .from(schema.problemAttempts)
-    .innerJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
     .where(
       and(
         eq(schema.problemAttempts.status, "approved"),
@@ -23,6 +23,11 @@ export async function listApprovedAttempts(problemId: string) {
       ),
     )
     .orderBy(desc(schema.problemAttempts.createdAt));
+  // 匿名投稿用自报 authorName，登录投稿回退到注册名，并去掉内部 join 字段
+  return rows.map(({ registeredName, ...r }) => ({
+    ...r,
+    authorName: r.authorName ?? registeredName,
+  }));
 }
 
 export async function listPendingAttempts() {
