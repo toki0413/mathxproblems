@@ -73,6 +73,37 @@ export const problemUpdates = mysqlTable("problem_updates", {
 export type ProblemUpdateRecord = typeof problemUpdates.$inferSelect;
 export type InsertProblemUpdate = typeof problemUpdates.$inferInsert;
 
+/**
+ * Community-submitted candidates for advancing an EXISTING catalog problem:
+ * a proposed progress note, a solution sketch, or a status suggestion. Unlike
+ * `problem_updates` (admin-written), these enter as pending and need review.
+ * Approved ones surface on the problem detail page as community progress.
+ */
+export const problemAttempts = mysqlTable("problem_attempts", {
+  id: serial("id").primaryKey(),
+  problemId: varchar("problemId", { length: 32 }).notNull(),
+  userId: bigint("userId", { mode: "number", unsigned: true })
+    .notNull()
+    .references(() => users.id),
+  kind: mysqlEnum("kind", ["progress", "solution", "revision"])
+    .default("progress")
+    .notNull(),
+  title: varchar("title", { length: 300 }).notNull(),
+  content: text("content").notNull(),
+  status: mysqlEnum("status", ["pending", "approved", "rejected"])
+    .default("pending")
+    .notNull(),
+  reviewerNote: text("reviewerNote"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+});
+
+export type ProblemAttempt = typeof problemAttempts.$inferSelect;
+export type InsertProblemAttempt = typeof problemAttempts.$inferInsert;
+
 // TODO: Add your tables here. See docs/Database.md for schema examples and patterns.
 //
 // Example:

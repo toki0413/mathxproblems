@@ -50,6 +50,11 @@ export const submissionsRouter = createRouter({
     return listApprovedSubmissions();
   }),
 
+  /** 供审核页生成入库片段用：已通过投稿的完整 payload */
+  approvedAdmin: adminQuery.query(async () => {
+    return listApprovedSubmissions();
+  }),
+
   pending: adminQuery.query(async () => {
     return listPendingSubmissions();
   }),

@@ -193,6 +193,23 @@ const STR: Record<string, { zh: string; en: string }> = {
   'rv.upNote': { zh: '更新内容', en: 'Update note' },
   'rv.upSubmit': { zh: '提交更新', en: 'Submit update' },
   'rv.upDone': { zh: '已记录', en: 'Recorded' },
+  // review page - attempts queue (提进展/解答候选)
+  'rv.atHeading': { zh: '候选审核队列', en: 'Attempt review queue' },
+  'rv.atHint': {
+    zh: '社区对已有问题提交的进展 / 解答思路 / 修订建议。通过后会在问题详情页的「社区候选」区展示。',
+    en: 'Community-proposed progress / solution sketches / revisions for existing problems. Approved ones appear in the detail page’s “Community attempts” area.',
+  },
+  'rv.atBy': { zh: '提交于', en: 'submitted' },
+  'rv.atEmpty': { zh: '没有待审候选。', en: 'No pending attempts.' },
+  // review page - import fragment (通过后完整入库)
+  'rv.importHeading': { zh: '已通过投稿 · 入库片段', en: 'Approved submissions · import fragments' },
+  'rv.importHint': {
+    zh: '复制生成的对象片段，按 problems.ts 的格式粘贴到问题库即可完成入库。',
+    en: 'Copy the generated object fragment to the problems.ts catalog to finish the inclusion.',
+  },
+  'rv.importBtn': { zh: '复制入库片段', en: 'Copy import fragment' },
+  'rv.importCopied': { zh: '已复制', en: 'Copied' },
+  'rv.importId': { zh: '生成编号', en: 'Generated id' },
   // problems page
   'pl.impactAll': { zh: '影响领域：全部', en: 'Impact: all' },
   'pl.noMatch': { zh: '没有匹配的问题。试试放宽筛选条件。', en: 'No matches. Try loosening the filters.' },
@@ -219,6 +236,30 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.copyCit': { zh: '复制引用格式', en: 'Copy citation' },
   'pd.notFound': { zh: '未找到该问题。', en: 'Problem not found.' },
   'pd.back': { zh: '返回问题库', en: 'Back to catalog' },
+  // problem detail - community attempts (提进展/解答候选)
+  'pd.attempts': { zh: '社区候选', en: 'Community attempts' },
+  'pd.attempts.empty': {
+    zh: '还没有人提交过候选——你可以第一个提出进展、解答思路或修订建议。',
+    en: 'No community attempts yet — be the first to propose progress, a solution sketch, or a revision.',
+  },
+  'pd.attempts.submit': { zh: '提交候选', en: 'Submit an attempt' },
+  'pd.attempts.login': {
+    zh: '提交进展 / 解答候选需先登录（Kimi 账号）。',
+    en: 'Proposing progress or a solution candidate requires signing in (Kimi account).',
+  },
+  'pd.attempts.kind': { zh: '类型', en: 'Type' },
+  'pd.attempts.kind.progress': { zh: '进展', en: 'Progress' },
+  'pd.attempts.kind.solution': { zh: '解答思路', en: 'Solution sketch' },
+  'pd.attempts.kind.revision': { zh: '修订建议', en: 'Revision' },
+  'pd.attempts.title': { zh: '一句话标题', en: 'Short title' },
+  'pd.attempts.content': { zh: '内容（可含 LaTeX $…$）', en: 'Content (LaTeX $…$ supported)' },
+  'pd.attempts.send': { zh: '提交候选', en: 'Submit' },
+  'pd.attempts.sent': { zh: '已提交，等待审核。', en: 'Submitted — pending review.' },
+  'pd.attempts.by': { zh: '贡献者', en: 'by' },
+  'pd.attempts.pendingNote': {
+    zh: '候选会先进入审核队列，通过后在此展示。',
+    en: 'Candidates enter the review queue and appear here once approved.',
+  },
   // stats page
   'st.domainProgress': { zh: '各领域进度 / 六个月目标', en: 'Progress by domain / 6-month target' },
   'st.relations': { zh: '关系连线', en: 'Relations' },
@@ -347,6 +388,11 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     open: { zh: '开放', en: 'Open' },
     partial: { zh: '部分解决', en: 'Partially resolved' },
     resolved: { zh: '已解决', en: 'Resolved' },
+  },
+  attemptKind: {
+    progress: { zh: '进展', en: 'Progress' },
+    solution: { zh: '解答思路', en: 'Solution sketch' },
+    revision: { zh: '修订建议', en: 'Revision' },
   },
 }
 

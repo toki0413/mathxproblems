@@ -21,11 +21,11 @@
 
 - 公共类型出口：`contracts/types.ts` 重组 `db/schema` 类型与 `contracts/errors.ts`
 - 后端统一入口：`api/boot.ts`，tRPC 挂载于 `/api/trpc/*`，其余 `/api/*` 返回 404
-- tRPC router：`api/router.ts` 聚合 `auth / submissions / updates` 三个子 router；`AppRouter` 由 `typeof appRouter` 导出，供前端 `src/providers/trpc.tsx` 类型推导
+- tRPC router：`api/router.ts` 聚合 `auth / submissions / updates / attempts` 四个子 router；`AppRouter` 由 `typeof appRouter` 导出，供前端 `src/providers/trpc.tsx` 类型推导
 - 中间件分层（`api/middleware.ts`）：`publicQuery` / `authedQuery` / `adminQuery`；`authedQuery` 抛 `UNAUTHORIZED`，`adminQuery` 抛 `FORBIDDEN`
 - 错误约定：`contracts/errors.ts` 的 `Errors.{badRequest,unauthorized,forbidden,notFound,internal}` 返回 `{tag:'app_error',status,message}`
-- 审计常量：`contracts/constants.ts`（会话 cookie 名、错误文案、OAuth 回调路径）；前端里程碑常量在 `src/const.ts`（`GOAL_PROBLEMS=100`）
-- 数据库表：`db/schema.ts` — `users`、`submissions`、`problem_updates`（后两者外键指向 `users.id`，类型为 `bigint(...unsigned)`）
+- 审计常量：`contracts/constants.ts`（会话 cookie 名、错误文案、OAuth 回调路径）；前端里程碑常量在 `src/const.ts`（`GOAL_PROBLEMS=120`）
+- 数据库表：`db/schema.ts` — `users`、`submissions`、`problem_updates`、`problem_attempts`（后三者外键指向 `users.id`，类型为 `bigint(...unsigned)`）。`problem_updates` 为管理员直写；`problem_attempts` 为社区对已有问题提交的进展/解答候选，静默待审、审核通过后在详情页「社区候选」区展示
 
 ## convention
 

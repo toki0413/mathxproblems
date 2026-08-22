@@ -6,6 +6,7 @@ import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
+import { useAuth } from '@/hooks/useAuth'
 import { trpc } from '@/providers/trpc'
 
 /** 把 "**标题**: 正文" 格式的条目拆成结构化 {head, body} */
@@ -44,7 +45,18 @@ export default function ProblemDetailPage() {
   const { lang, t } = useI18n()
   const p = PROBLEMS.find((x) => x.id === id)
   const [copied, setCopied] = useState(false)
+  const { isAuthenticated } = useAuth()
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
+  const attempts = trpc.attempts.approved.useQuery({ problemId: id ?? '' })
+  const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision'>('progress')
+  const [atTitle, setAtTitle] = useState('')
+  const [atContent, setAtContent] = useState('')
+  const submitAttempt = trpc.attempts.submit.useMutation({
+    onSuccess: () => {
+      setAtTitle('')
+      setAtContent('')
+    },
+  })
 
   // 把目录静态更新与后台录入的更新合并，按日期倒序展示
   const updates = [
@@ -275,6 +287,79 @@ export default function ProblemDetailPage() {
 
           <Section title={t('pd.comments')}>
             <Comments term={`${p.id} ${p.title}`} />
+          </Section>
+
+          <Section title={t('pd.attempts')}>
+            <p className="text-sm text-ink-3 mb-4">{t('pd.attempts.pendingNote')}</p>
+            <div className="space-y-4">
+              {(attempts.data ?? []).length === 0 && (
+                <p className="border border-dashed border-line-strong p-5 text-sm text-ink-3 leading-relaxed">
+                  {t('pd.attempts.empty')}
+                </p>
+              )}
+              {attempts.data?.map((a) => (
+                <article key={a.id} className="border border-line p-5" style={{ borderLeftWidth: 3, borderLeftColor: DOMAINS[p.domain].color }}>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+                      {enumLabel(lang, 'attemptKind', a.kind)}
+                    </span>
+                    {a.authorName && (
+                      <span className="font-mono2 text-[11px] text-ink-3">· {t('pd.attempts.by')} {a.authorName}</span>
+                    )}
+                    <span className="font-mono2 text-[11px] text-ink-3">· {new Date(a.createdAt).toISOString().slice(0, 10)}</span>
+                  </div>
+                  <h3 className="font-statement font-semibold mt-2">{a.title}</h3>
+                  <div className="font-statement text-ink-2 leading-relaxed mt-1">
+                    <Markdown>{a.content}</Markdown>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            {isAuthenticated ? (
+              <div className="mt-6 border border-line bg-white/50 p-5 space-y-3">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-2">
+                    {t('pd.attempts.kind')}
+                  </div>
+                  {(['progress', 'solution', 'revision'] as const).map((k) => (
+                    <button
+                      key={k}
+                      onClick={() => setAtKind(k)}
+                      className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                        atKind === k ? 'bg-ink text-paper border-ink' : 'border-line-strong text-ink-2 hover:border-ink'
+                      }`}
+                    >
+                      {t(`pd.attempts.kind.${k}`)}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  value={atTitle}
+                  onChange={(e) => setAtTitle(e.target.value)}
+                  placeholder={t('pd.attempts.title')}
+                  className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                />
+                <textarea
+                  value={atContent}
+                  onChange={(e) => setAtContent(e.target.value)}
+                  rows={4}
+                  placeholder={t('pd.attempts.content')}
+                  className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink resize-y"
+                />
+                <button
+                  onClick={() =>
+                    submitAttempt.mutate({ problemId: p.id, kind: atKind, title: atTitle, content: atContent })
+                  }
+                  disabled={submitAttempt.isPending || !atTitle.trim() || !atContent.trim()}
+                  className="border border-mc text-mc px-4 py-1.5 text-sm hover:bg-mc hover:text-paper transition-colors disabled:opacity-40"
+                >
+                  {submitAttempt.isSuccess ? t('pd.attempts.sent') : t('pd.attempts.send')}
+                </button>
+              </div>
+            ) : (
+              <p className="mt-6 text-sm text-ink-3">{t('pd.attempts.login')}</p>
+            )}
           </Section>
         </article>
 
