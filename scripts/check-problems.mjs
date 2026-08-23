@@ -23,6 +23,10 @@ let curTo = null
 const edges = []
 const judged = new Set()
 const outputs = new Map()
+const hasEngValue = new Set()
+const hasImpact = new Set()
+const hasTrace = new Set()
+const dates = new Map()
 // related_problems entry shape is id → relation → note, so we read the id
 // into curTo and push the edge when the relation line follows.
 for (const line of src.split(/\r?\n/)) {
@@ -34,6 +38,12 @@ for (const line of src.split(/\r?\n/)) {
   if (/^    judgment:/.test(line) && cur) judged.add(cur)
   const outMatch = line.match(/^    output: '([^']+)',/)
   if (outMatch && cur) outputs.set(cur, outMatch[1])
+  if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
+  if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
+  // 溯源判据：proposer 或 via 至少其一，视为可问责来源
+  if (/^    (proposer|via):/.test(line) && cur) hasTrace.add(cur)
+  const dMatch = line.match(/^    date_added: '([^']+)'/)
+  if (dMatch && cur) dates.set(cur, dMatch[1])
   const to = line.match(/^        id: '([^']+)',/)
   if (to) {
     curTo = to[1]
@@ -123,6 +133,30 @@ if (missingOutput.length === 0 && badOutput.length === 0) {
     .join(' ')
   console.log(`  output: all covered (${distStr})`)
 }
+
+// 应用价值判据：任何题都必须给出 impact_domains；verified_behavior 的题
+// 必须有一句 engineering_value 说明产出如何被工程直接消费。
+const noImpact = ids.filter((id) => !hasImpact.has(id))
+if (noImpact.length) fail(`problems missing 'impact_domains': ${noImpact.join(', ')}`)
+else console.log(`  impact_domains: all ${ids.length} problems covered`)
+
+const vbNoEng = ids.filter((id) => outputs.get(id) === 'verified_behavior' && !hasEngValue.has(id))
+if (vbNoEng.length) fail(`verified_behavior problems missing 'engineering_value': ${vbNoEng.join(', ')}`)
+else
+  console.log(
+    `  engineering_value: all verified_behavior problems covered (${
+      ids.filter((id) => outputs.get(id) === 'verified_behavior').length
+    })`,
+  )
+
+// 溯源判据：proposer 或 via 至少其一。存量题只警告不阻断；新纳入的题
+// （date_added 属于本轮清洗批次之后）缺失溯源则必须阻断。
+const BATCH_ADDED = '2026-08-23'
+const noTraceNew = ids.filter((id) => !hasTrace.has(id) && (dates.get(id) ?? '') >= BATCH_ADDED)
+const noTraceLegacy = ids.filter((id) => !hasTrace.has(id) && (dates.get(id) ?? '') < BATCH_ADDED)
+if (noTraceNew.length) fail(`new problems missing 'proposer'/'via' traceability: ${noTraceNew.join(', ')}`)
+if (noTraceLegacy.length)
+  console.log(`  WARNING: legacy problems missing proposer/via: ${noTraceLegacy.join(', ')}`)
 
 if (exitCode === 0) console.log('check:problems OK')
 process.exit(exitCode)
