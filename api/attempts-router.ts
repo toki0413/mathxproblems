@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PROBLEM_ID_RE } from "@contracts/constants";
 import { adminQuery, authedQuery, createRouter, publicQuery } from "./middleware";
 import {
   insertAttempt,
@@ -6,10 +7,11 @@ import {
   listAttemptsByUser,
   listPendingAttempts,
   reviewAttempt,
+  toggleVote,
 } from "./queries/attempts";
 
 const attemptSchema = z.object({
-  problemId: z.string().min(3).max(32),
+  problemId: z.string().regex(PROBLEM_ID_RE),
   kind: z.enum(["progress", "solution", "revision"]),
   title: z.string().min(4).max(300),
   content: z.string().min(20).max(5000),
@@ -37,10 +39,17 @@ export const attemptsRouter = createRouter({
 
   /** 某问题详情页展示的已通过候选 */
   approved: publicQuery
-    .input(z.object({ problemId: z.string().min(3).max(32) }))
+    .input(z.object({ problemId: z.string().regex(PROBLEM_ID_RE) }))
     .query(async ({ input }) => listApprovedAttempts(input.problemId)),
 
   mine: authedQuery.query(async ({ ctx }) => listAttemptsByUser(ctx.user.id)),
+
+  /** 登录用户对某个已通过候选投/撤一票（切换式），返回最新票数与已投态 */
+  vote: authedQuery
+    .input(z.object({ attemptId: z.number().int().positive() }))
+    .mutation(async ({ ctx, input }) =>
+      toggleVote(input.attemptId, ctx.user.id),
+    ),
 
   pending: adminQuery.query(async () => listPendingAttempts()),
 

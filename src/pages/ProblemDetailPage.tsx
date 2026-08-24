@@ -7,6 +7,7 @@ import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
+import { useAuth } from '@/hooks/useAuth'
 
 /** 产出类型的标识色：行为证书=绿、真理解证书=蓝、学科骨架=灰 */
 const OUTPUT_COLOR: Record<OutputKind, string> = {
@@ -64,6 +65,34 @@ export default function ProblemDetailPage() {
       setAtContent('')
     },
   })
+
+  const { isAuthenticated } = useAuth()
+  // 本地缓存"我投过哪些"的集合；投票后按 mutation 返回结果更新，刷新后靠票数重取（状态位会重置，属低风险社区信号的取舍）
+  // ponytail: 不新增"查询我投过哪些"接口，投票交互用乐观本地态 + 返回确认，避免多一趟往返
+  const [myVotes, setMyVotes] = useState<ReadonlySet<number>>(() => new Set())
+  const voteAttempt = trpc.attempts.vote.useMutation({
+    onMutate: (v) => {
+      setMyVotes((prev) => {
+        const next = new Set(prev)
+        if (next.has(v.attemptId)) next.delete(v.attemptId)
+        else next.add(v.attemptId)
+        return next
+      })
+    },
+    onSuccess: (res, v) => {
+      setAttemptVotes((prev) => new Map(prev).set(v.attemptId, res.votes))
+    },
+    onError: (_, v) => {
+      // 回滚乐观态
+      setMyVotes((prev) => {
+        const next = new Set(prev)
+        if (next.has(v.attemptId)) next.delete(v.attemptId)
+        else next.add(v.attemptId)
+        return next
+      })
+    },
+  })
+  const [attemptVotes, setAttemptVotes] = useState<ReadonlyMap<number, number>>(() => new Map())
 
   // 把目录静态更新与后台录入的更新合并，按日期倒序展示
   const updates = [
@@ -314,6 +343,20 @@ export default function ProblemDetailPage() {
                       <span className="font-mono2 text-[11px] text-ink-3">· {t('pd.attempts.by')} {a.authorName}</span>
                     )}
                     <span className="font-mono2 text-[11px] text-ink-3">· {new Date(a.createdAt).toISOString().slice(0, 10)}</span>
+                    {/* 候选投票：登录用户可投/撤一票，票数是社区认可信号 */}
+                    <button
+                      onClick={() => isAuthenticated && voteAttempt.mutate({ attemptId: a.id })}
+                      disabled={!isAuthenticated || voteAttempt.isPending}
+                      title={isAuthenticated ? t('pd.attempts.vote.title') : t('pd.attempts.vote.login')}
+                      className={`ml-auto inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 font-mono2 text-[11px] transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+                        myVotes.has(a.id)
+                          ? 'bg-mc text-paper border-mc'
+                          : 'border-line-strong text-ink-2 hover:border-ink'
+                      }`}
+                    >
+                      <span aria-hidden="true">▲</span>
+                      {attemptVotes.get(a.id) ?? a.votes}
+                    </button>
                   </div>
                   <h3 className="font-statement font-semibold mt-2">{a.title}</h3>
                   <div className="font-statement text-ink-2 leading-relaxed mt-1">

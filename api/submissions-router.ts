@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DOMAIN_IDS } from "@contracts/constants";
 import { adminQuery, authedQuery, createRouter, publicQuery } from "./middleware";
 import {
   createSubmission,
@@ -11,12 +12,7 @@ import {
 const proposalSchema = z.object({
   title: z.string().min(4).max(500),
   titleZh: z.string().min(2).max(500),
-  domain: z.enum([
-    "mathematical-physics",
-    "mathematical-chemistry",
-    "mathematical-biology",
-    "mathematical-engineering",
-  ]),
+  domain: z.enum(DOMAIN_IDS),
   subdomain: z.string().max(120).default(""),
   statement: z.string().min(20),
   origin: z.string().min(20),

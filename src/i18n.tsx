@@ -265,6 +265,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.attempts.send': { zh: '提交候选', en: 'Submit' },
   'pd.attempts.sent': { zh: '已提交，等待审核。', en: 'Submitted — pending review.' },
   'pd.attempts.by': { zh: '贡献者', en: 'by' },
+  'pd.attempts.vote.title': { zh: '投/撤一票', en: 'Toggle vote' },
+  'pd.attempts.vote.login': { zh: '登录后可投票', en: 'Sign in to vote' },
   'pd.attempts.pendingNote': {
     zh: '候选会先进入审核队列，通过后在此展示。',
     en: 'Candidates enter the review queue and appear here once approved.',
@@ -399,9 +401,9 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     resolved: { zh: '已解决', en: 'Resolved' },
   },
   output: {
-    verified_behavior: { zh: '行为证书', en: 'Behavior certificate' },
-    verified_truth: { zh: '真理解证书', en: 'Truth certificate' },
-    scaffolding: { zh: '学科骨架', en: 'Scaffolding' },
+    verified_behavior: { zh: '可消费行为证书', en: 'Consumable behavior certificate' },
+    verified_truth: { zh: '上游结构证（未直接消费）', en: 'Upstream structural proof (not yet consumable)' },
+    scaffolding: { zh: '学科骨架（未接轨应用）', en: 'Bulked scaffold (not yet application-bound)' },
   },
   attemptKind: {
     progress: { zh: '进展', en: 'Progress' },
