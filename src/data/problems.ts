@@ -715,6 +715,22 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       },
     ],
     judgment: '合格答案为"可核验二次谱判据"而非穷举所有谱：对给定目标 HOMO–LUMO 光隙与六环数 $h$，交付一个可核验判定——是否存在苯环型分子图实现该谱隙，并给出一组候选结构与其谱的可复核证书，附两层残差总带：(1) **R_model**：把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界（显式含对六环嵌入/成环双键的定性限制）；(2) **R_num**：谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界。参数（目标光隙、六环数）为精确给定的设计输入，故 **R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用"特征多项式整系数"之外的启发式冒充可实现性证明；禁止对单一候选只给近似特征值而无精确谱核验。判定通过的消费形式：给定目标带隙，直接得到"该带隙能否被某苯环分子实现（是/否）+ 若可则给出候选核并附总带"的可核验判定，供有机电子材料预筛直接消费而无需对候选全集枚举。',
+    certificate: {
+      r_model: {
+        bound: '把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界（含对六环嵌入/成环双键的定性限制）',
+        derivation: 'Hückel 模型残差界',
+      },
+      r_param: {
+        bound: '≡0（目标光隙与六环数为精确给定的设计输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界',
+        derivation: '区间/精确算术封闭',
+      },
+      total_band: '光隙可实现性判定包络 ≤ R_model + R_num',
+      certified_band: '候选核谱隙确认区间',
+    },
   },
   {
     id: 'mc-004',
@@ -771,6 +787,22 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     id: 'mc-005',
     output: 'verified_behavior',
     judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把观测限制为可辨性子集/理想无噪模型所丢掉的近似残差上界；(2) **R_param**＝速率常数测量不确定度对判定边界的输入残差上界（可辨识性结论须对 $k$ 落在测量区间内仍稳定）；(3) **R_num**＝代数判定步骤（微分代数符号计算）的核验残差上界。无输入测量残差时须如实注明 R_param≡0。',
+    certificate: {
+      r_model: {
+        bound: '把观测限制为可辨性子集/理想无噪模型所丢掉的近似残差上界',
+        derivation: '理想无噪观测模型限制残差界',
+      },
+      r_param: {
+        bound: '速率常数测量不确定度对可辨识性判定边界的输入残差上界（结论对测量区间内所有 k 仍稳定）',
+        derivation: '测量区间传播到分辨边界的区间映像',
+      },
+      r_num: {
+        bound: '代数判定步骤（微分代数符号计算）的核验残差上界',
+        derivation: '符号计算/量词消解封闭界',
+      },
+      total_band: '可辨识性判定边界 ≤ R_model + R_param + R_num',
+      certified_band: '结构可辨识/不可辨识分类判定',
+    },
     title: 'Structural Identifiability Classification of Mass-Action Rate Constants',
     titleZh: '质量作用速率常数的结构可辨识性分类',
     domain: 'mathematical-chemistry',
@@ -4463,6 +4495,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     output: 'verified_behavior',
     judgment:
       'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form. 合格答案为可核验判定并附残差总带：(1) **R_model**＝把真实 π 电子稳定结构限制为 Kekulé/Clar 覆盖组合模型所丢掉的近似残差上界；(2) **R_num**＝枚举与封闭形式计算的区间/精确算术残差上界；(3) 参数（六环数、几何族）为精确给定的数论输入，**R_param≡0（无输入测量残差层，如实注明）**。',
+    certificate: {
+      r_model: {
+        bound: '把真实 π 电子稳定结构限制为 Kekulé/Clar 覆盖组合模型所丢掉的近似残差上界',
+        derivation: 'Kekulé/Clar 组合模型限制残差界',
+      },
+      r_param: {
+        bound: '≡0（六环数与几何族为精确给定的数论输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '枚举与封闭形式计算的区间/精确算术残差上界',
+        derivation: '区间/精确算术封闭',
+      },
+      total_band: 'Clar 数 / Clar 覆盖计数闭环 ≤ R_model + R_num',
+      certified_band: 'Clar 数与覆盖计数的核验闭式',
+    },
     title: 'Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems',
     titleZh: '苯环型体系 Clar 数与 Clar 覆盖的计数',
     domain: 'mathematical-chemistry',
@@ -4868,6 +4916,22 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     id: 'mb-024',
     output: 'verified_behavior',
     judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把真实发育信号转导限制为配体-受体泊松计数/Berg–Purcell 模型所丢掉的近似残差上界；(2) **R_param**＝配体浓度、受体数、梯度几何来自测量/标定时其不确定度对感知下限的输入残差上界（对测量区间内所有配置成立）；(3) **R_num**＝随机动力学/主方程求解或区间封闭的残差上界。无输入测量不确定度时须如实注明 R_param≡0。',
+    certificate: {
+      r_model: {
+        bound: '把真实发育信号转导限制为配体-受体泊松计数/Berg–Purcell 模型所丢掉的近似残差上界',
+        derivation: 'Berg–Purcell 计数模型残差界',
+      },
+      r_param: {
+        bound: '配体浓度、受体数、梯度几何来自测量/标定时其不确定度对感知下限的输入残差上界（对测量区间内所有配置成立）',
+        derivation: '测量参数传播到感知误差下限的区间映像',
+      },
+      r_num: {
+        bound: '随机动力学/主方程求解或区间封闭的残差上界',
+        derivation: '主方程求解残差界 / 区间封闭',
+      },
+      total_band: '感知误差下限 ≤ R_model + R_param + R_num',
+      certified_band: '最小可实现配体计数感知误差区间',
+    },
     title: 'Information-Theoretic Floor on Morphogen Gradient Concentration Sensing',
     titleZh: '形态发生梯度浓度感知的信息论下限',
     domain: 'mathematical-biology',
@@ -5530,6 +5594,22 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     output: 'verified_behavior',
     judgment:
       '合格答案为"何时可用 tQSSA"的可核验判定而非通用误差定理：对一具体酶促反应参数族（总酶浓度 $\\epsilon$、速率常数区间），交付完整随机过程与其 tQSSA 约化之间全变差距离的可核验上界 $D(\\epsilon)$，并附三层残差总带：(1) **R_model**＝把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界；(2) **R_param**＝速率常数与总酶浓度来自测量/标定时，其不确定度传播到 $D(\\epsilon)$ 的输入残差上界（对测量区间内的所有 $k,\\epsilon$ 均须成立）；(3) **R_num**＝主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界，三者合成使 $D_{\\text{tot}}\\le$ R_model+R_param+R_num 且在声明参数区内可数值验证。反作弊规则：禁止把只在渐近（$\\epsilon\\to0$）情形成立的界当作全速率区结论；禁止单次仿真轨迹冒充误差分布。判定通过的消费形式：给定通路参数与精度要求，直接得到"在此参数区可使用 tQSSA（误差低于阈值）或必须跑完整刚性主方程"的带证判定，供大规模通路模拟在精度与速度间做可审计权衡。',
+    certificate: {
+      r_model: {
+        bound: '把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界',
+        derivation: '理想质量作用 + tQSSA 约化残差界',
+      },
+      r_param: {
+        bound: '速率常数与总酶浓度测量不确定度传播到全变差距离 D(ε) 的输入残差上界（对测量区间内所有 k, ε 成立）',
+        derivation: '测量区间传播到 D(ε) 的距离上界区间映像',
+      },
+      r_num: {
+        bound: '主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界',
+        derivation: '区间算术 / 采样误差封闭界',
+      },
+      total_band: 'D_tot ≤ R_model + R_param + R_num',
+      certified_band: 'tQSSA 与完整过程的带证全变差距离带',
+    },
     title: 'Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation',
     titleZh: '随机准稳态近似的严格误差界',
     domain: 'mathematical-chemistry',
@@ -5863,6 +5943,22 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     output: 'verified_behavior',
     judgment:
       '合格答案为"采样预算-误差-维数"的可核验曲线判据而非终极指数配对：对给定函数类 $F_d$（光滑度 $r$）与预算 $n$ 次求值，交付最小最坏情形误差的可核验区间 $[\\underline{e},\\overline{e}]$，使 $e^{\\text{wor}}(F_d,n)=\\Theta(n^{-\\alpha}d^{\\beta})$ 的指数 $\\alpha,\\beta$ 被一个受控括号包围，并附三层残差总带：(1) **R_model**：把数值计算限制为该 Sobolev 类 $F_d$ 所引入的残差上界（显式含对函数族光滑度/边界假设的依赖）；(2) **R_num**：对上述界给出的显式求积规则（或使下界可核验的采样集构造）用区间/精确算术封闭所引入的残差上界；(3) 参数（函数类、维数、误差目标）为精确给定的信息模型输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用未对齐上下界的经验收敛图冒充 $\\Theta$ 判定；禁止对单一维数 $d$ 给局部指数而无 $d$ 依赖的全局一致括号。判定通过的消费形式：给定误差目标 $\\epsilon$ 与维数 $d$，直接得到"需要的采样数 $n$ 落在 $[n_\\lo,n_\\hi]$"的可核验区间（连带"何时网格值得、何时让步 Monte-Carlo"的分界判据），供期权定价与参数化仿真做可证采样预算规划。',
+    certificate: {
+      r_model: {
+        bound: '把数值计算限制为该 Sobolev 类 F_d（光滑度 r）所引入的残差上界（含对函数族光滑度/边界假设的依赖）',
+        derivation: 'Sobolev 类限制残差界',
+      },
+      r_param: {
+        bound: '≡0（函数类、维数与误差目标为精确给定的信息模型输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '对显式求积规则/可达采样集构造用区间或精确算术封闭所引入的残差上界',
+        derivation: '区间/精确算术封闭界',
+      },
+      total_band: 'error 指数括号 ≤ R_model + R_num',
+      certified_band: '[e_lo, e_hi]（采样数 n 落在 [n_lo, n_hi]）',
+    },
     title: 'Sharp Dimensional Dependence of High-Dimensional Numerical Integration',
     titleZh: '高维数值积分的维数依赖尖确指数',
     domain: 'mathematical-engineering',
@@ -5916,6 +6012,22 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     output: 'verified_behavior',
     judgment:
       '合格答案为"选定布站的信息增益保证"而非单一算法：对给定测量模型 $\\Sigma$、候选布点 $S$ 与预算 $k$，交付一个多项式时间算法，其输出信息增益 $f(\\hat S)$ 满足带证下界 $f(\\hat S)\\ge c\\cdot f(S^*)$（对 D-最优/对数行列式类目标给出优于 $1-\\nicefrac{1}{e}$ 的 $c$ 或证明其不可能），并附三层残差总带：(1) **R_model**：把真实传感（观测噪声、通讯耦合）限制为该目标函数 $f$（子模/次模带约束）所引入的残差上界；(2) **R_param**：测量模型协方差 $\\Sigma$（观测噪声/标定）来自估测时，其不确定度对 $f$ 与保证比 $c$ 的输入残差上界（对 $\\Sigma$ 容差球内成立）；(3) **R_num**：对 $f$ 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界，使"$f(\\hat S)\\ge c\\cdot f(S^*)$"的保证不受三层残差侵蚀。反作弊规则：禁止把无约束单调情形的 $1-\\nicefrac{1}{e}$ 静默当作带约束情形的结论；禁止给无核验误差的目标值。判定通过的消费形式：给定候选布点与预算，直接得到"所选布点的信息增益不低于最优的 $c\\cdot100\\%$"这一不依赖实例调参的硬保证（连带证明该 $c$ 的最优性或不可能性），供环境监测/结构健康监测/主动采样做硬性布站决策。',
+    certificate: {
+      r_model: {
+        bound: '把真实传感（观测噪声、通讯耦合）限制为该目标函数 f（子模/次模带约束）所引入的残差上界',
+        derivation: '子模目标模型限制残差界',
+      },
+      r_param: {
+        bound: '测量模型协方差 Σ（观测噪声/标定）来自估测时，其不确定度对 f 与保证比 c 的输入残差上界（对 Σ 容差球内成立）',
+        derivation: 'Σ 容差球到信息增益保证的区间传播',
+      },
+      r_num: {
+        bound: '对 f 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界',
+        derivation: '区间算术封闭界',
+      },
+      total_band: '信息增益保证 c·f(S*) 不减损 ≤ R_model + R_param + R_num',
+      certified_band: '所选布点相对最优的信息增益带证下界',
+    },
     title: 'Provable Approximation for Optimal Sensor Placement and Information Gain',
     titleZh: '最优传感器布点与信息增益的可证近似',
     domain: 'mathematical-engineering',
@@ -5968,6 +6080,22 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     output: 'verified_behavior',
     judgment:
       '合格答案为"降阶预测带硬性信任区间"而非统一昂贵界：对给定参数化问题与降阶基（秩 $r$），交付一个可计算、可核验的后验误差上界 $\\Delta(\\mu)$ 使 $\\|u(\\mu)-\\hat u_r(\\mu)\\|\\le\\Delta(\\mu)$，并附三层残差总带：(1) **R_model**：把在线全阶系统限制为降阶模型（固定基 $r$、截断算子）所引入的残差上界（含对非多项式非线性项连续性假设的显式依赖）；(2) **R_num**：残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界，使 $\\Delta$ 既 sharp（在代表参数上接近真实误差）又 cheap（独立于全阶维数）；(3) 在线参数 $\\mu$ 与降阶基为精确给定的算法输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把仅经验的（未封闭）残差估计冒充可证上界；禁止对真实误差给出无核验的超估下界。判定通过的消费形式：给定在线参数 $\\mu$ 与降阶模型，直接得到"预测值 $\\hat u_r(\\mu)$ 外围的硬性置信区间 $\\|u-\\hat u_r\\|\\le\\Delta(\\mu)$"供数字孪生/手术/实时控制直接消费；若证明不存在可证且便宜的 $\\Delta$，则明确给出必须保留在线全阶校验的工况族。',
+    certificate: {
+      r_model: {
+        bound: '把在线全阶系统限制为降阶模型（固定基 r、截断算子）所引入的残差上界（含对非多项式非线性连续性假设的依赖）',
+        derivation: '降阶基/截断算子残差界',
+      },
+      r_param: {
+        bound: '≡0（在线参数 μ 与降阶基为精确给定的算法输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界',
+        derivation: '区间/符号计算封闭界',
+      },
+      total_band: '后验误差界 Δ(μ) ≤ R_model + R_num',
+      certified_band: "‖u - u_hat_r‖ ≤ Δ(μ) 硬性信任区间",
+    },
     title: 'Certifiable A-Posteriori Error Bounds for Nonlinear Model Reduction',
     titleZh: '非线性模型降阶的可证后验误差界',
     domain: 'mathematical-engineering',
@@ -6072,6 +6200,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     output: 'verified_behavior',
     judgment:
       '合格答案为"可核验混合率判据 + 三层残差总带"而非精确指数本身。对给定的控制代价预算 $E=\\int_0^T\\|u\\|_{H^s}^2\\,dt$ 与目标抹平尺度（如衰减到 $\\|\\theta\\|_{H^{-1}}\\le\\epsilon$），交付下述残差各带的界与证明后合成总带：(1) **R_model**：把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏 $\\partial_t\\theta+u\\cdot\\nabla\\theta=0$ 所引入的残差上界（显式含物理黏性对混合上限的量级贡献）；(2) **R_num**：对某一可核验速度场构造（上游显式层流场或其数值实现）求解该受控模型时，因离散/区间算术引入的残差上界；(3) 参数（控制代价预算、目标尺度）为设计者给定的精确输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用未对齐上下界的"猜想指数"冒充证书；禁止把无黏极限当成一般声称而不给有限黏性修正界；禁止单点数值外推而无核验误差。判定通过的消费形式：给定泵送能量，直接得到"能把标量抹平到 $\\epsilon$ 的最小能量预算落在 $[E_\\lo,E_\\hi]$ 且总带 $E_\\hi-E_\\lo\\le$ R_model+R_param+R_num"的可核验区间，供微流控与燃烧掺混尺动设计直接消费而无需 DNS 重算。',
+    certificate: {
+      r_model: {
+        bound: '把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏输运方程所引入的残差上界（含物理黏性对混合上限的量级贡献）',
+        derivation: '无黏理想化残差界（含有限黏性修正）',
+      },
+      r_param: {
+        bound: '≡0（控制代价预算与目标尺度为设计者给定的精确输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '对可核验速度场构造求解该受控模型时，因离散/区间算术引入的残差上界',
+        derivation: '离散/区间算术封闭界',
+      },
+      total_band: 'E_hi - E_lo ≤ R_model + R_param + R_num',
+      certified_band: '[E_lo, E_hi]（抹平到 ε 的最小能量预算）',
+    },
     title: 'Sharp Mixing Rates from Anomalous Dissipation in Passive Scalar Transport',
     titleZh: '被动标量输运中反常耗散的尖确混合速率',
     domain: 'mathematical-physics',
@@ -6306,6 +6450,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     output: 'verified_behavior',
     judgment:
       '合格答案为"二维局域自旋可模拟性判定"而非一般面积律定理：对某一具体二维、均匀、常数能隙的局域自旋哈密顿量，交付纠缠熵对子区域面积的可核验上界（面积律）或可证的非面积律反例信号，并附三层残差总带——(1) **R_model**：把真实（可能带阻挫/任意局域耦合）哈密顿量限制为"常数能隙局域"Hamiltonian 类所引入的残差上界（对 $\\Delta$、局域维度显式限定）；(2) **R_num**：能隙下界的可验证外包（区间/符号计算）与 AGSP 投影收缩率的区间估计所引入的残差上界，二者独立可复核且合成总带界；(3) 目标哈密顿量为精确给定的物理系统输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把 DMRG/tensor-network 的浮点外推当"证明"而无核验误差；禁止把 1D/无阻挫 2D 假设静默当作一般论证；禁止以高维图反例冒充 2D 格点结果。判定通过的消费形式：给定具体 2D 哈密顿量与能隙证据，直接得到"该基态能否被 iPEPS 以多项式边界长度高效压缩（面积律）或必然超对数（反例）"的可核验判定，服务张量网络数值的可信度与误差上界。',
+    certificate: {
+      r_model: {
+        bound: '把真实（可能带阻挫/任意局域耦合）哈密顿量限制为常数能隙局域 Hamiltonian 类所引入的残差上界（显式限定 Δ 与局域维度）',
+        derivation: '常数能隙局域类限制残差界',
+      },
+      r_param: {
+        bound: '≡0（目标哈密顿量为精确给定的物理系统输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '能隙下界的可验证外包（区间/符号）与 AGSP 投影收缩率的区间估计所引入的残差上界',
+        derivation: '区间/符号外包封闭界',
+      },
+      total_band: '纠缠熵面积律上界 ≤ R_model + R_num',
+      certified_band: 'S_A ≤ c·|∂A|（面积律界）或 sqrt(n) 型反例信号',
+    },
     title: 'Certified entanglement area-law certificate (or counterexample) for gapped 2D local spin Hamiltonians',
     titleZh: '二维有能隙局域自旋系统纠缠面积律的可核验证书（或反例）',
     domain: 'mathematical-physics',
@@ -6359,6 +6519,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     output: 'verified_behavior',
     judgment:
       '合格答案为"最坏情形通信轮数的可核验证书"而非单一最优算法：对给定连通 $n$ 节点图 $G$，交付精确量化平均共识所需最坏轮数 $T^*(G,n)$ 的可核验上界（连带可证下界），使该收敛时间被一个受控括号包围，并附三层残差总带：(1) **R_model**：把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界（显式含对同步/消息传递假设的依赖）；(2) **R_num**：对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界；(3) 网络 $G$、带宽与时延为精确给定的系统输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把实值通信放松当量化结论；禁止对完全图平凡情形给界而无一般图结论；禁止无核验停止判据的"收敛"。判定通过的消费形式：给定网络 $G$、带宽与时延预算，直接得到"最少通轮数落在 $[T_\\lo,T_\\hi]$"的可核验区间，供传感网/时钟同步/负载均衡决定采样与控制在多少轮内换取可审计的精确量化平均，替代当前经验轮数余量。',
+    certificate: {
+      r_model: {
+        bound: '把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界（含对同步/消息传递假设的依赖）',
+        derivation: '离散量化信息模型限制残差界',
+      },
+      r_param: {
+        bound: '≡0（网络 G、带宽与时延为精确给定的系统输入，无输入测量残差层）',
+        derivation: '参数精确给定',
+      },
+      r_num: {
+        bound: '对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界',
+        derivation: '区间/精确算术封闭界',
+      },
+      total_band: '共识轮数括号 ≤ R_model + R_num',
+      certified_band: '[T_lo, T_hi]（最少通轮数）',
+    },
     title: 'Optimal Worst-Case Convergence Time for Finite-Rate Quantized Average Consensus',
     titleZh: '有限速率量化平均共识的最优最坏情形收敛时间',
     domain: 'mathematical-engineering',
@@ -6758,4 +6934,40 @@ export function relatedOf(p: Problem): RelatedProblem[] {
     }
   }
   return own
+}
+
+// ---- 信任审计（方向二消费端）：上游证书依赖树 ----
+// 由 p.depends_on X 可知 X 是 p 的上游；若 p 是 verified_behavior，其总带
+// 可信度链入 X 的证书。render 上游树把"要信任此裕量需先信哪些上游"可视化，
+// 任一层被击穿则下游失效。此处只沿 depends_on 单向展开（继承非对称）。
+
+export interface TrustEdge {
+  id: string
+  note: string
+  depth: number
+}
+
+/** 返回 p 的完整上游链（含间接依赖），按依赖深度由近及远排成一条路径。
+ *  用 seen 防环；依赖关系在数据层应无环，guard 只是防御。 */
+export function upstreamPath(p: Problem): TrustEdge[] {
+  const out: TrustEdge[] = []
+  const seen = new Set<string>([p.id])
+  const walk = (q: Problem, depth: number) => {
+    for (const r of q.related_problems) {
+      if (r.relation !== 'depends_on' || seen.has(r.id)) continue
+      seen.add(r.id)
+      out.push({ id: r.id, note: r.note, depth })
+      const target = PROBLEMS.find((x) => x.id === r.id)
+      if (target) walk(target, depth + 1)
+    }
+  }
+  walk(p, 1)
+  return out
+}
+
+/** 与 upstreamPath 互补：列出由 p 推广/继承出去、可信度系于 p 的下游题。 */
+export function downstreamOf(p: Problem): { id: string; note: string }[] {
+  return p.related_problems
+    .filter((r) => r.relation === 'generalizes' && PROBLEMS.some((x) => x.id === r.id))
+    .map((r) => ({ id: r.id, note: r.note }))
 }

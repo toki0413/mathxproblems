@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router'
 import { useState } from 'react'
-import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, type OutputKind } from '@/data/problems'
+import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, type OutputKind } from '@/data/problems'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
@@ -205,6 +205,63 @@ export default function ProblemDetailPage() {
               </div>
             </Section>
           )}
+
+          {/* 信任审计：把 depends_on 继承语义渲染成上游证书依赖树，回答"凭什么信它" */}
+          {(() => {
+            const upstream = p.certificate ? upstreamPath(p) : []
+            const downstream = p.certificate ? downstreamOf(p) : []
+            if (upstream.length === 0 && downstream.length === 0) return null
+            return (
+              <Section title={t('pd.audit')}>
+                <p className="text-xs text-ink-3 mb-4 leading-relaxed">{t('pd.audit.hint')}</p>
+                {upstream.length > 0 ? (
+                  <div className="border border-line">
+                    <div className="px-5 py-2.5 hairline-b font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                      {t('pd.audit.upstream')}
+                    </div>
+                    <ul className="divide-y divide-line">
+                      {upstream.map((u) => (
+                        <li key={u.id} className="flex items-baseline gap-4 px-5 py-3">
+                          <span className="font-mono2 text-[10px] text-ink-3 shrink-0 w-8">L{u.depth}</span>
+                          <Link
+                            to={`/problems/${u.id}`}
+                            className="font-mono2 text-xs text-ink hover:underline underline-offset-4 shrink-0 w-16"
+                          >
+                            {u.id}
+                          </Link>
+                          <span className="flex-1 min-w-0 text-ink-2 text-xs leading-relaxed">{u.note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <p className="border border-dashed border-line-strong px-5 py-3 text-sm text-ink-3">
+                    {t('pd.audit.none')}
+                  </p>
+                )}
+                {downstream.length > 0 && (
+                  <div className="border border-line mt-4">
+                    <div className="px-5 py-2.5 hairline-b font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                      {t('pd.audit.downstream')}
+                    </div>
+                    <ul className="divide-y divide-line">
+                      {downstream.map((d) => (
+                        <li key={d.id} className="flex items-baseline gap-4 px-5 py-3">
+                          <Link
+                            to={`/problems/${d.id}`}
+                            className="font-mono2 text-xs text-ink hover:underline underline-offset-4 shrink-0 w-16"
+                          >
+                            {d.id}
+                          </Link>
+                          <span className="flex-1 min-w-0 text-ink-2 text-xs leading-relaxed">{d.note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </Section>
+            )
+          })()}
 
           <Section title={t('pd.origin')}>
             <p className="font-statement leading-[1.9] text-ink-2">{p.origin}</p>
