@@ -1,11 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-function getOAuthUrl() {
+// 从后端拿一次性 CSRF state（后端同时把 nonce 写进 httpOnly cookie），
+// 再带它跳转 Kimi 授权，回调时后端据此防重放/防劫持，而非客户端自造 state。
+async function buildOAuthUrl(): Promise<string> {
   const kimiAuthUrl = import.meta.env.VITE_KIMI_AUTH_URL;
   const appID = import.meta.env.VITE_APP_ID;
   const redirectUri = `${window.location.origin}/api/oauth/callback`;
-  const state = btoa(redirectUri);
+
+  const init = await fetch(`${window.location.origin}/api/oauth/login`);
+  if (!init.ok) throw new Error("failed to obtain oauth state");
+  const { state } = (await init.json()) as { state: string };
 
   const url = new URL(`${kimiAuthUrl}/api/oauth/authorize`);
   url.searchParams.set("client_id", appID);
@@ -18,6 +24,8 @@ function getOAuthUrl() {
 }
 
 export default function Login() {
+  const [busy, setBusy] = useState(false);
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="w-full max-w-sm">
@@ -28,8 +36,14 @@ export default function Login() {
           <Button
             className="w-full"
             size="lg"
-            onClick={() => {
-              window.location.href = getOAuthUrl();
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true);
+              try {
+                window.location.href = await buildOAuthUrl();
+              } catch {
+                setBusy(false);
+              }
             }}
           >
             Sign in with Kimi

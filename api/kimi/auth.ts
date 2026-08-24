@@ -1,10 +1,11 @@
 import type { Context } from "hono";
-import { setCookie } from "hono/cookie";
+import { setCookie, getCookie } from "hono/cookie";
 import * as jose from "jose";
 import * as cookie from "cookie";
+import { randomBytes } from "node:crypto";
 import { env } from "../lib/env";
 import { getSessionCookieOptions } from "../lib/cookies";
-import { Session } from "@contracts/constants";
+import { Session, OAuthState } from "@contracts/constants";
 import { Errors } from "@contracts/errors";
 import { signSessionToken, verifySessionToken } from "./session";
 import { users as kimiUsers } from "./platform";
@@ -71,6 +72,26 @@ export async function authenticateRequest(headers: Headers) {
   return user;
 }
 
+// 登录入口：签发一次性 CSRF state（随机 nonce，httpOnly cookie 存之），
+// 前端拿到 state 再跳转 Kimi 授权。回调比对 state 与 cookie，确保是同一浏览器发起的流。
+export function createOAuthInitHandler() {
+  return async (c: Context) => {
+    const nonce = randomBytes(16).toString("base64url");
+    const redirectUri = `${new URL(c.req.url).origin}/api/oauth/callback`;
+    // state 同时携带 nonce 与回调地址；回调 decode 后用 nonce 校验、用地址换 token
+    const state = Buffer.from(`${nonce}|${redirectUri}`, "utf8").toString("base64url");
+
+    const cookieOpts = getSessionCookieOptions(c.req.raw.headers);
+    setCookie(c, OAuthState.cookieName, nonce, {
+      ...cookieOpts,
+      path: "/",
+      maxAge: OAuthState.maxAgeMs / 1000,
+    });
+
+    return c.json({ state });
+  };
+}
+
 export function createOAuthCallbackHandler() {
   return async (c: Context) => {
     const code = c.req.query("code");
@@ -92,8 +113,30 @@ export function createOAuthCallbackHandler() {
       return c.json({ error: "code and state are required" }, 400);
     }
 
+    // CSRF 校验：state 必须携带我们签发的 nonce 且与 cookie 一致；不匹配即拒绝。
+    // 一次性：校验通过后就清除 cookie，防止重放。
+    const expected = getCookie(c, OAuthState.cookieName);
+    let nonce = "";
+    let redirectUri = "";
     try {
-      const redirectUri = atob(state);
+      const decoded = Buffer.from(state, "base64url").toString("utf8");
+      const sep = decoded.indexOf("|");
+      nonce = decoded.slice(0, sep);
+      redirectUri = decoded.slice(sep + 1);
+    } catch {
+      // fall through to the mismatch branch below
+    }
+    if (!expected || !nonce || nonce !== expected || !redirectUri.startsWith("http")) {
+      return c.json({ error: "state validation failed" }, 400);
+    }
+    const oauthCookieOpts = getSessionCookieOptions(c.req.raw.headers);
+    setCookie(c, OAuthState.cookieName, "", {
+      ...oauthCookieOpts,
+      path: "/",
+      maxAge: 0,
+    });
+
+    try {
       const tokenResp = await exchangeAuthCode(code, redirectUri);
       const { userId } = await verifyAccessToken(tokenResp.access_token);
       const userProfile = await kimiUsers.getProfile(tokenResp.access_token);
@@ -127,4 +170,4 @@ export function createOAuthCallbackHandler() {
   };
 }
 
-export { exchangeAuthCode, verifyAccessToken };
+export { exchangeAuthCode, verifyAccessToken, createOAuthInitHandler };
