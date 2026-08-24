@@ -1,244 +1,3321 @@
 {
-  "generated_at": "2026-08-21T16:38:09.037787+00:00",
-  "since": "2026-08-14",
+  "generated_at": "2026-08-24T04:00:37.619423+00:00",
+  "since": "2026-08-17",
   "problems": [
     {
       "id": "mp-001",
       "title": "Validity of the Boltzmann–Grad Limit for Hard Spheres at All Times",
       "query": "bbgky hierarchy boltzmann equation",
       "new_works": [],
-      "alerts": [
-        {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
-        }
-      ]
+      "alerts": []
     },
     {
       "id": "mp-002",
       "title": "Sharp Exponential Mixing Rate for 2D Navier–Stokes with Degenerate Noise",
       "query": "stochastic navier stokes mixing",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Almost Periodic Functions and Integro-Differential-Difference Equations in Locally Convex Spaces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1201/9781003797531",
+          "source": "openalex"
+        },
+        {
+          "title": "Enhancing vertical mixing in Lake Biwa through optimal placement of density flow diffusion devices using genetic algorithms",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s44195-026-00142-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Hydrodynamic controls on mineral precipitation in porous media: From pore-scale clogging to continuum permeability upscaling",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.31223/x57f6b",
+          "source": "openalex"
+        },
+        {
+          "title": "Physics-informed symbolic regression reveals a delayed oscillatory closure for particle-interface dynamics",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1088/2632-2153/ae9c8b",
+          "source": "openalex"
+        },
+        {
+          "title": "Ensemble machine learning prediction of LNG tank thermal stratification and boil-off gas generation: an experimental study with uncertainty quantification",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1038/s41598-026-67480-3",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mp-003",
       "title": "Thermalization Time of the Fermi–Pasta–Ulam–Tsingou Lattice",
       "query": "fput thermalization",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "The role of integrability in Fermi-Pasta-Ulam-Tsingou-like models",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1090/conm/847/16932",
+          "source": "openalex"
+        },
+        {
+          "title": "Near-Integrability of the FPUT Lattice at Low Energy",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.5281/zenodo.22019617",
+          "source": "openalex"
+        },
+        {
+          "title": "FPUT Paradox Explained",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.5281/zenodo.21958811",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mp-004",
       "title": "Anderson Localization in Two Dimensions at Arbitrary Disorder",
       "query": "anderson localization random schrodinger",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Quantum Mechanics",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1201/9781003717195",
+          "source": "openalex"
+        },
+        {
+          "title": "Long-range Nonlinear Sigma Model for a Singular Quantum Kicked Rotor",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17649v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mp-005",
       "title": "Spectral Gap of the Spin-2 AKLT Model on the Square Lattice",
       "query": "aklt model spectral gap",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Nonlocality-induced critical-length hierarchy from non-Hermitian competition",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10684516/v1",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mp-006",
       "title": "Growth of Higher Sobolev Norms for the Defocusing Cubic NLS on T²",
       "query": "nonlinear schrodinger sobolev norms",
       "new_works": [],
-      "alerts": [
-        {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
-        }
-      ]
+      "alerts": []
     },
     {
       "id": "mp-007",
       "title": "Localization–Delocalization Transition for Random Band Matrices",
       "query": "band matrices anderson transition",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Disordered Gibbs measures and Gaussian conditioning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00440-026-01526-5",
+          "source": "openalex"
+        },
+        {
+          "title": "Depth representation dominates methodological sensitivity in soil health assessment of semi-arid apple orchards on the Loess Plateau",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.geoderma.2026.117999",
+          "source": "openalex"
+        },
+        {
+          "title": "Copper-centered Anderson-type polyoxomolybdates as high-efficiency flame retardants for epoxy resins",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.26599/pom.2026.9140155",
+          "source": "openalex"
+        },
+        {
+          "title": "Plant‐derived nanovesicles as potential drug delivery systems for topical use: Emerging applications in dermatology and cosmetology",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1002/viw2.70194",
+          "source": "openalex"
+        },
+        {
+          "title": "Phylogenetic reconstruction of trait summary statistics and disparity dynamics",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.64898/2026.08.16.745082",
+          "source": "openalex"
+        },
+        {
+          "title": "Long-range Nonlinear Sigma Model for a Singular Quantum Kicked Rotor",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17649v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mp-008",
       "title": "Anomalous Dissipation in the Zero-Viscosity Limit of Forced Navier–Stokes",
       "query": "navier stokes turbulence",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Study of a system of turbulent shear layers and vortices. Part II: Reynolds-averaged turbulence modelling",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00162-026-00789-x",
+          "source": "openalex"
+        },
+        {
+          "title": "Mathematical Framework for Finite-Element Fluid-structure Interaction: Governing Equations, Coupling Strategies, and Verification Protocols",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.9734/arjom/2026/v22i91147",
+          "source": "openalex"
+        },
+        {
+          "title": "On the Sobolev stability threshold for 3D Navier-Stokes equations with rotation near the Couette flow",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00526-026-03417-y",
+          "source": "openalex"
+        },
+        {
+          "title": "JAX-AMG: A GPU-accelerated differentiable sparse linear solver library for JAX",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.softx.2026.102966",
+          "source": "openalex"
+        },
+        {
+          "title": "Frequency effects of alternating dielectric-barrier-discharge plasma actuation on turbulent flow of circular cylinder",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1515/tp-2026-0087",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mc-001",
       "title": "The Global Attractor Conjecture for Complex-Balanced Reaction Networks",
       "query": "crnt global attractor conjecture",
       "new_works": [],
-      "alerts": [
-        {
-          "type": "fetch_error",
-          "message": "The read operation timed out"
-        }
-      ]
+      "alerts": []
     },
     {
       "id": "mc-002",
       "title": "The Persistence Conjecture for Weakly Reversible Reaction Networks",
       "query": "crnt persistence",
       "new_works": [],
-      "alerts": [
-        {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
-        }
-      ]
+      "alerts": []
     },
     {
       "id": "mc-003",
       "title": "Complete Classification of Spectra Realizable by Benzenoid Molecular Graphs",
       "query": "molecular graphs inverse eigenvalue problem",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Gauge-Invariant Graph Neural Networks for Abelian lattice gauge models",
+          "date": "2026-08-22",
+          "url": "https://arxiv.org/abs/2605.03901",
+          "source": "openalex"
+        },
+        {
+          "title": "A robust first-principles study of structural, mechanical, electronic, and optical properties of Be0.75Cd0.25X and Be0.5Cd0.25Zn0.25X (X = S/Se/Te) chalcogenides",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1038/s41598-026-61348-2",
+          "source": "openalex"
+        },
+        {
+          "title": "A comprehensive survey on clustering algorithms: concepts, taxonomy with nature-inspired meta-heuristic approaches and performance metrics",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1057/s41599-026-08506-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Computational protein engineering of a multivalent human metapneumovirus immunogen using the self-assembling RSV M2-1 tetrameric scaffold",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10152885/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Nonlocality-induced critical-length hierarchy from non-Hermitian competition",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10684516/v1",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mc-004",
       "title": "Classification of Small Reaction Networks Admitting Multistationarity",
       "query": "multistationarity real algebraic geometry",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Positive equilibria in mass action networks: geometry and bounds",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1007/s00285-026-02429-8",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mc-005",
       "title": "Structural Identifiability Classification of Mass-Action Rate Constants",
       "query": "identifiability parameter estimation",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Dynamic Bayesian Estimation of Epidemic Prevalence via Pool Testing: Incorporating Viral Load Distributions and Sensitivity Analysis",
+          "date": "2027-01-01",
+          "url": "https://doi.org/10.17638/03195023",
+          "source": "openalex"
+        },
+        {
+          "title": "Educational Management Resilience under Low Fertility: Theoretical Construction and Adaptive Mechanisms of County-Level Education Systems in Demographic Decline",
+          "date": "2026-12-31",
+          "url": "https://philpapers.org/rec/WANEMR-2",
+          "source": "openalex"
+        },
+        {
+          "title": "The Confidence Cost of Pairwise Distribution Learning",
+          "date": "2026-08-22",
+          "url": "https://github.com/andotheror/pairwise-distribution-confidence-cost",
+          "source": "openalex"
+        },
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "Zanidatamab in patients with early stage HER2-positive breast cancer: the NeoZanHER phase 2 single-arm open-label trial",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41467-026-76662-6",
+          "source": "openalex"
+        },
+        {
+          "title": "Controlling the False Discovery Rate Control in Two-Sided Gaussian Mean Testing Under Arbitrary Dependence",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21267v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Structural Estimation of Marketing Mix Model Parameters from Geo-Experiments",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21128v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A framework for combined epidemiological-genomic inference to improve estimation of household model parameters",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21094v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Public Signals, Concealed Choices: Dynamic Measurement without Behavioral Identification",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21077v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Long-lived Laughlin pairs in a depleted quantum Hall edge channel",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20863v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mb-001",
       "title": "Exact Fixation Probability of a Mutant on Arbitrary Graphs",
       "query": "evolutionary graph theory moran process",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Complete strategy spaces reveal hidden pathways to cooperation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s42005-026-02815-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Declining rates of evolution and limited convergence in bat sternum shape can be explained by a ratchet of specialisation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10914-026-09837-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Measurement and drivers of interprovincial water resource carrying capacity in China",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1038/s41598-026-66348-w",
+          "source": "openalex"
+        },
+        {
+          "title": "JANUS: A Multi-modal Foundation Neural Sampler for Disordered Materials",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19116v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mb-002",
       "title": "Sharp Metastable Lifetime of the SIS Epidemic on Networks",
       "query": "sis epidemic metastability",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Epidemic mean-field thresholds of SIS dynamics on temporal multiplex networks with activity-driven layers",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s41109-026-00824-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Conditional-path Monte Carlo for rare stochastic dynamics on networks: Details and derivations",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17511v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mb-003",
       "title": "Global Stability Classification of Replicator Dynamics with Mutation",
       "query": "replicator dynamics mutation",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Interaction of migration and frequency dependence in cultural populations",
+          "date": "2026-09-01",
+          "url": "https://hdl.handle.net/21.11116/0000-0013-4251-5",
+          "source": "openalex"
+        },
+        {
+          "title": "Snow microinvertebrates from lowlands, high mountains and the Arctic—implications for conservation efforts",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10531-026-03415-8",
+          "source": "openalex"
+        },
+        {
+          "title": "Integrating long-term demography and population genetics reveals the persistence of a threatened palm in fragmented Atlantic Forest landscapes",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.foreco.2026.124176",
+          "source": "openalex"
+        },
+        {
+          "title": "RNA degradation by DIS3 is a necessary step in the resolution of backtracked transcription complexes",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.celrep.2026.117886",
+          "source": "openalex"
+        },
+        {
+          "title": "Structural basis of the gating mechanism of the large-conductance mechanosensitive channel from Escherichia coli",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41467-026-76193-0",
+          "source": "openalex"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "mb-004",
       "title": "Permanence Criteria for General n-Species Lotka–Volterra Systems",
       "query": "lotka volterra permanence",
       "new_works": [],
-      "alerts": [
-        {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
-        }
-      ]
+      "alerts": []
     },
     {
       "id": "me-001",
       "title": "Nonlinear Multi-Agent Consensus Convergence Rate",
       "query": "multi agent systems spectral graph theory",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "Accelerated decentralized dispatch of energy storage via constrained gradient tracking",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3389/frsgr.2026.1935852",
+          "source": "openalex"
+        },
+        {
+          "title": "Chloramphenicol’s oxidation by metallic oxidant potassium permanganate in an acidic medium: Kinetic and thermodynamic investigation",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.nxmate.2026.103221",
+          "source": "openalex"
+        },
+        {
+          "title": "SkyAgent: A lightweight LLM-driven reinforcement learning framework for adaptive cooperative path planning of two UAVs",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s44443-026-00957-3",
+          "source": "openalex"
+        },
+        {
+          "title": "A Comprehensive Survey on Symbolic Regression: State-of-the-Art Approaches, Key Applications, Benchmark Evaluations, and Future Research Directions",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s11831-026-10681-w",
+          "source": "openalex"
+        },
+        {
+          "title": "Toward durable stacks: glass-ceramic sealants for intermediate-temperature protonic ceramic electrochemical systems",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1088/2516-1083/ae9c81",
+          "source": "openalex"
+        },
+        {
+          "title": "Asymmetric Capacity Allocation in Self-Refinement Pipelines",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21345v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "$Z^2$-ACT: End-to-End Verifiable Agentic Intent Control for Open 6G RAN",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21049v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "No Judgment Without a Reason: Counterfactual Receipts for Versioned AI Evaluators",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20938v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Multi-Objective Deep Reinforcement Learning for Secure and Stable Power System Operation",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20914v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A Safety-Driven Architectural Framework for Fail-Operational Drone Swarms in Critical Missions",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20906v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "me-002",
       "title": "Tight Lower Bounds for Decentralized Optimization over Time-Varying Graphs",
       "query": "decentralized optimization lower bounds",
-      "new_works": [],
-      "alerts": [
+      "new_works": [
         {
-          "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "title": "See, Balance, Exchange: Building an Operational Toolkit for Active Distribution Networks under High DER Penetration",
+          "date": "2026-09-01",
+          "url": "https://orbi.uliege.be/handle/2268/347656",
+          "source": "openalex"
+        },
+        {
+          "title": "Adaptive fast terminal sliding mode control and bionic intelligent optimization for hydraulic cylinder trajectory tracking and error warning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-66044-9",
+          "source": "openalex"
+        },
+        {
+          "title": "The subtlety of optimal paternalism in a population with bounded rationality",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00355-026-01673-7",
+          "source": "openalex"
+        },
+        {
+          "title": "Interval Scheduling Games with Color-Based Concurrent Jobs",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1145/3842393",
+          "source": "openalex"
+        },
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "A Theoretical Framework for Parallel Lifelong MAPF Using Group Decentralized Planning",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17928v1",
+          "source": "arxiv"
         }
-      ]
+      ],
+      "alerts": []
     },
     {
       "id": "me-003",
       "title": "Unconditional Flocking for Cucker–Smale Dynamics with Singular Kernels",
       "query": "cucker smale flocking",
+      "new_works": [
+        {
+          "title": "Reaching single-flock behavior for leaderless Cucker–Smale systems on signed networks",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.cnsns.2026.110721",
+          "source": "openalex"
+        },
+        {
+          "title": "Resilient time-varying formation containment for multi-agent systems with cooperative-adversarial interactions and communication delays",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s44443-026-01161-z",
+          "source": "openalex"
+        },
+        {
+          "title": "A correlation based framework for inferring interaction geometry in collective motion",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1038/s41598-026-63720-8",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-009",
+      "title": "Area Law for Ground States of Two-Dimensional Gapped Local Hamiltonians",
+      "query": "area law entanglement entropy",
+      "new_works": [
+        {
+          "title": "Mechanism Verification of Spacetime Geometry Emergence: Computational Experiments on Trivalent Tensor Networks",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22057710",
+          "source": "openalex"
+        },
+        {
+          "title": "A nonlinear programming method for plastic limit analysis of polymer composites with a unified physical model",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1177/10812865261476644",
+          "source": "openalex"
+        },
+        {
+          "title": "Entanglement Entropy and Topological Defects on the Celestial Sphere in Non-Abelian Gauge Theories",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.5281/zenodo.22020425",
+          "source": "openalex"
+        },
+        {
+          "title": "Sayed`s Theory on Axion Dark Matter Detection as Nuclear Astrophysics Signature Emphasizes Violation of Einstein Light Speed Limit; E≠mc2",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.24297/y3jh2n30",
+          "source": "openalex"
+        },
+        {
+          "title": "Entanglement islands and information recovery from near-extremal regular black holes",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18603v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-010",
+      "title": "Delocalization of the Anderson Model at Weak Disorder in Dimension Three",
+      "query": "anderson model delocalization",
+      "new_works": [
+        {
+          "title": "Allyship and Affect: Qualitative Investigations into Social Transformation",
+          "date": "2026-09-01",
+          "url": "https://academicworks.cuny.edu/gc_etds/6807",
+          "source": "openalex"
+        },
+        {
+          "title": "No Band Gap, No Problem: Atomic defects in narrow bandgap materials via a band-avoiding occupation-constrained density functional theory",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.2172/3453384",
+          "source": "openalex"
+        },
+        {
+          "title": "Observation of erratic non-Hermitian skin localization and transport",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41467-026-76908-3",
+          "source": "openalex"
+        },
+        {
+          "title": "PyQuiverHS: A Web Tool for Computing Isotope Effects",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1002/poc.70099",
+          "source": "openalex"
+        },
+        {
+          "title": "Selecting the number of components in PCA via random signflips",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1080/01621459.2026.2719861",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-011",
+      "title": "The Dry Ten Martini Problem for the Almost Mathieu Operator",
+      "query": "almost mathieu gap labelling",
+      "new_works": [
+        {
+          "title": "Gold Rents, Fiscal Procyclicality, and the Growth Cost in Sub-Saharan Africa",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.21203/rs.3.rs-10745080/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "A chromosome-scale genome assembly of the Swiss Lolium multiflorum ecotype Tremona reveals a scalable method to purge spurious duplications",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.64898/2026.08.18.745395",
+          "source": "openalex"
+        },
+        {
+          "title": "Does kidney function in experimental porcine sepsis fulfill the RIFLE criteria for acute kidney injury? A systematic review",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.3389/fphys.2026.1810924",
+          "source": "openalex"
+        },
+        {
+          "title": "Continuous glucose monitoring (CGM) systems in Poland, Europe, and beyond in 2025: principles, available technologies, and future perspectives",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.5114/aoms/218227",
+          "source": "openalex"
+        },
+        {
+          "title": "Distribird: Literature-Informed Prior Distribution Design for Bayesian Model Calibration",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.21203/rs.3.rs-10730129/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-012",
+      "title": "Completeness of the Bethe Ansatz for Higher-Spin Heisenberg Chains",
+      "query": "bethe ansatz integrability",
+      "new_works": [
+        {
+          "title": "Universal modular properties of generalized Gibbs ensembles and chiral deformations",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/jhep08(2026)168",
+          "source": "openalex"
+        },
+        {
+          "title": "Beyond Integrability Preserving Renormalization-Group Protocol in Non-Hermitian Hamiltonians with Time-Dependent Interaction Strengths",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.48550/arxiv.2608.19519",
+          "source": "openalex"
+        },
+        {
+          "title": "The ODE/IM correspondence between C(2)(2)-type linear problems and 2d $$ \\mathcal{N} $$ = 1 SCFT",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1007/jhep08(2026)150",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-013",
+      "title": "Universality of the KPZ Fixed Point Beyond Integrable Models",
+      "query": "kpz universality",
+      "new_works": [
+        {
+          "title": "Escape-Induced Temporally Correlated Noise Driven Crossover in Growth Kinetics and Universality Class",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.6084/m9.figshare.32818991.v1",
+          "source": "openalex"
+        },
+        {
+          "title": "The Green’s function of the parabolic Anderson model and the continuum directed polymer",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s40072-026-00440-0",
+          "source": "openalex"
+        },
+        {
+          "title": "KPZ scaling in one-dimensional arrays of photon condensates",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.48550/arxiv.2608.17602",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-007",
+      "title": "Boundedness Conjecture for Complex-Balanced Systems",
+      "query": "crnt boundedness",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mc-008",
+      "title": "Inverse Eigenvalue Problem for Chemical Graph Classes",
+      "query": "inverse eigenvalue graph spectra",
+      "new_works": [
+        {
+          "title": "A robust first-principles study of structural, mechanical, electronic, and optical properties of Be0.75Cd0.25X and Be0.5Cd0.25Zn0.25X (X = S/Se/Te) chalcogenides",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1038/s41598-026-61348-2",
+          "source": "openalex"
+        },
+        {
+          "title": "Spectral Stability of Self-Similar Blow-Up Profiles in One-Dimensional Fluid Models: Operator Realizations and Numerical Instability Counts",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10732329/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Numerical stability of the Hyperbolic Formulation of the Constraint Equations for T 3 cosmological spacetimes",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1088/1361-6382/ae9bf5",
+          "source": "openalex"
+        },
+        {
+          "title": "Quantum Mechanics",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1201/9781003717195",
+          "source": "openalex"
+        },
+        {
+          "title": "Nonlocality-induced critical-length hierarchy from non-Hermitian competition",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10684516/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Power-kernel fractional Sturm--Liouville operators: a graph realization and boundary-independent singular-value asymptotics",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18805v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-005",
+      "title": "Epidemic Threshold of SIR Epidemics on Clustered Networks",
+      "query": "sir epidemic clustering",
+      "new_works": [
+        {
+          "title": "From survey to silence: The Rockefellerf hookworm campaign in the colonial princely state of Mysore",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.ssaho.2026.103259",
+          "source": "openalex"
+        },
+        {
+          "title": "Disaster-dependent effects of social network structure on risk communication",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.21203/rs.3.rs-10364042/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Latent debt in PINNs with SIR Models: Dynamical Compensation and Topological Bottlenecks",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-9795154/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Percolation-inspired criticality in complement activation: universal scaling and transport-limited complement surface amplification",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.64898/2026.08.14.744667",
+          "source": "openalex"
+        },
+        {
+          "title": "Spatiotemporal dynamics and drivers of Rift Valley fever outbreaks in Madagascar: A systematic review",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.37432/jieph-d-26-00101",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-006",
+      "title": "Classification of Strong Amplifiers of Natural Selection",
+      "query": "moran process fixation probability",
+      "new_works": [
+        {
+          "title": "Complete strategy spaces reveal hidden pathways to cooperation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s42005-026-02815-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Declining rates of evolution and limited convergence in bat sternum shape can be explained by a ratchet of specialisation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10914-026-09837-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Reconstruction of a 20-cm tibial bone defect after recurrent fracture-related infection using the induced membrane technique and rhBMP-2 augmentation with limited autogenous bone availability: a case report",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.12671/jmt.2026.00143",
+          "source": "openalex"
+        },
+        {
+          "title": "Beyond animal models: using human pluripotent stem cell-derived stem and progenitor cells to predict cytotoxicity in normal tissues",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.3389/pore.2026.1612490",
+          "source": "openalex"
+        },
+        {
+          "title": "eLife Assessment: A single evidence accumulation process informs perceptual choices and subsequent confidence reports",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.7554/elife.112343.1.sa2",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-007",
+      "title": "Rigorous Click Rate of Muller’s Ratchet in the Speed-Limit Regime",
+      "query": "mullers ratchet fixation",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mb-008",
+      "title": "Generalized Isothermal Theorem for Weighted and Directed Population Graphs",
+      "query": "isothermal theorem fixation probability",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "me-004",
+      "title": "Optimal Round Complexity of Triangle Detection and Listing in the CONGEST Model",
+      "query": "congest distributed complexity",
+      "new_works": [
+        {
+          "title": "Impacts of within-day decision-making within a stochastic process traffic assignment model",
+          "date": "2026-09-01",
+          "url": "https://orcid.org/0000-0002-6193-9121>",
+          "source": "openalex"
+        },
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "Rubbernecking at a roadside accident: An exploratory, simulated eye-tracking study of young adult drivers in Abu Dhabi",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.sftr.2026.102093",
+          "source": "openalex"
+        },
+        {
+          "title": "A Case Study of Mehmood Ghaznavi Park: Exploring Landscape Design Strategies for Enhancing Public Open Spaces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.47941/ijhss.3939",
+          "source": "openalex"
+        },
+        {
+          "title": "Ontological Runtime Monitoring for Mission Engineering",
+          "date": "2026-08-21",
+          "url": "https://scholarscompass.vcu.edu/etd/8497",
+          "source": "openalex"
+        },
+        {
+          "title": "To Scale Up or To Scale Out: Evaluating Space-Time Costs of Compiled Logical Circuits on Modular Superconducting Quantum Processors",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20462v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Approximating Minimum Dominating Set with Few Awake Rounds",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19096v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Tight Energy Lower Bounds for Distributed Graph Algorithms",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18992v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-005",
+      "title": "Tight Bounds for Randomized Consensus Against an Adaptive Adversary",
+      "query": "byzantine consensus randomized algorithms",
+      "new_works": [
+        {
+          "title": "A Survey on Clustered Federated Learning: Taxonomy, Analysis and Applications",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1145/3843202",
+          "source": "openalex"
+        },
+        {
+          "title": "Technological Innovation and Market Dynamics in an Object-Centric Layer-1 Blockchain: Evidence and Implications from Sui",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.47852/bonviewfsi620210002",
+          "source": "openalex"
+        },
+        {
+          "title": "Trust-based secure distributed nonlinear estimation against adversarial attacks",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-67711-7",
+          "source": "openalex"
+        },
+        {
+          "title": "Predictive blockchain consensus with real-time failure detection and autonomous recovery for resilient mutual distributed ledgers",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-65170-8",
+          "source": "openalex"
+        },
+        {
+          "title": "TAE-IDS: a trust-aware explainable intrusion detection framework using attention-based meta-ensemble learning with blockchain validation",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3389/frai.2026.1903112",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-006",
+      "title": "Optimal Oblivious Rumor Spreading: Push–Pull on General Graphs",
+      "query": "rumor spreading push pull",
+      "new_works": [
+        {
+          "title": "Revue européenne des migrations internationales",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.4000/remi",
+          "source": "openalex"
+        },
+        {
+          "title": "Rumors Across Borders: How TransnationalTies and Social Media Shape Latino Belief inMisinformation and Support for Trump",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.21203/rs.3.rs-10319385/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-014",
+      "title": "Derivation of Fourier\\u2019s Law in Deterministic Hamiltonian Chains",
+      "query": "fouriers law heat conduction",
+      "new_works": [
+        {
+          "title": "Fractional Moore–Gibson–Thompson Thermoelasticity in Functionally Graded Plates: A Semi-Analytical Differential Transform Approach",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22056605",
+          "source": "openalex"
+        },
+        {
+          "title": "A finite difference and machine learning framework for non-Fourier multilayer bioheat transfer under laser irradiation",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1108/hff-04-2026-0477",
+          "source": "openalex"
+        },
+        {
+          "title": "Almost Periodic Functions and Integro-Differential-Difference Equations in Locally Convex Spaces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1201/9781003797531",
+          "source": "openalex"
+        },
+        {
+          "title": "A Mathematical Study of Magneto-Thermoelasticity: Theory, Wave Propagation, and Boundary Value Problems",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.36948/ijfmr.2026.v08i04.86376",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-015",
+      "title": "Sharp Energy Conservation Threshold in the Onsager Theory of Turbulence",
+      "query": "onsager anomalous dissipation",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mc-009",
+      "title": "Hamiltonicity of Fullerene Graphs",
+      "query": "fullerene hamiltonicity",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mb-009",
+      "title": "Emergence of the Infinitesimal Model in Polygenic Inheritance",
+      "query": "infinitesimal model quantitative genetics",
+      "new_works": [
+        {
+          "title": "Inverse scattering in biological samples via beam propagation",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1126/sciadv.aec8678",
+          "source": "openalex"
+        },
+        {
+          "title": "Bioinformatics in crop research: using genomic data for crop improvement",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.3389/fpls.2026.1868979",
+          "source": "openalex"
+        },
+        {
+          "title": "QTL mapping and candidate gene analysis of berry and cluster traits in table grapevine bred for warm climates",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1007/s10681-026-03785-8",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-010",
+      "title": "Sharp Extinction-Time Asymptotics for the Subcritical Contact Process",
+      "query": "contact process metastability",
+      "new_works": [
+        {
+          "title": "Miocene deposits of the folded Zagros (Asmari Formation, Lorestan Region)",
+          "date": "2026-09-01",
+          "url": "https://doaj.org/article/104a94dba54d4652bb51582a9a1faa75",
+          "source": "openalex"
+        },
+        {
+          "title": "Surface structural evolution of α-Al2O3(11-20) from UHV to ambient conditions probed by vibrational sum frequency spectroscopy",
+          "date": "2026-08-30",
+          "url": "https://hdl.handle.net/21.11116/0000-0013-008B-E",
+          "source": "openalex"
+        },
+        {
+          "title": "Mineralogical and spectroscopic characteristics of prasiolite-bearing amygdales from Sokołowiec (Lower Silesia, Poland)",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00710-026-01005-8",
+          "source": "openalex"
+        },
+        {
+          "title": "Epidemic mean-field thresholds of SIS dynamics on temporal multiplex networks with activity-driven layers",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s41109-026-00824-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Direct Ink Writing of Silicone Elastomer Composites as Wearable Strain Sensor: From Materials to Applications for Physiological Health Monitoring",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1002/app.71379",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-007",
+      "title": "Optimal Competitive Ratio for Online (Metric) Facility Location",
+      "query": "online facility location competitive ratio",
+      "new_works": [
+        {
+          "title": "Grass-mower heuristics for shelf space allocation problem with different product features under non-standard warehouse equipment",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s12597-026-01247-2",
+          "source": "openalex"
+        },
+        {
+          "title": "Navigating regional zero-carbon steel pathways in China by aligning spatial resource constraints with facility heterogeneity",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41467-026-76996-1",
+          "source": "openalex"
+        },
+        {
+          "title": "A hybrid feature fusion framework integrating HSM-CNN and GLCM-SVM for real-time mango grading",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-61228-9",
+          "source": "openalex"
+        },
+        {
+          "title": "From Compliance to Performance: Board Gender Diversity and Bank Performance in an Emerging Economy—Insights from Egypt",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3390/jrfm19080643",
+          "source": "openalex"
+        },
+        {
+          "title": "A dual perspective on carbon capture technologies in Egypt and the UAE from direct air to deep storage",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s43621-026-04341-z",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-008",
+      "title": "The k-Server Conjecture: Tight Competitive Ratio on Metric Spaces",
+      "query": "k server competitive ratio",
+      "new_works": [
+        {
+          "title": "Personalized federated recommendation via long-horizon local optimization and regularized knowledge guidance",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10844-026-01089-w",
+          "source": "openalex"
+        },
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "A Survey on Clustered Federated Learning: Taxonomy, Analysis and Applications",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1145/3843202",
+          "source": "openalex"
+        },
+        {
+          "title": "Grass-mower heuristics for shelf space allocation problem with different product features under non-standard warehouse equipment",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s12597-026-01247-2",
+          "source": "openalex"
+        },
+        {
+          "title": "Determinants of policy innovation diffusion in China’s provincial sports industry funds: A mixed-methods analysis of strategic adaptation and institutional constraint",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1371/journal.pone.0354242",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-016",
+      "title": "Quantum Unique Ergodicity on Compact Negatively Curved Manifolds (General Case)",
+      "query": "quantum ergodicity laplacian eigenfunctions",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mp-018",
+      "title": "Eigenstate Thermalization Hypothesis (ETH) from First Principles",
+      "query": "eth thermalization",
+      "new_works": [
+        {
+          "title": "Moisture-induced degradation of clay-bearing sandstone",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1617/s11527-026-03233-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Cutaneous Aging in Skin of Color: A Narrative Review",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s40257-026-01064-9",
+          "source": "openalex"
+        },
+        {
+          "title": "Application of 3D rockfall impact models for a slope in the historical Belisirma village (Cappadocia) considering block shape and size effects on the design of protection barriers",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s44288-026-00699-9",
+          "source": "openalex"
+        },
+        {
+          "title": "Analysis of Rotor Systems",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1201/9781003661559",
+          "source": "openalex"
+        },
+        {
+          "title": "The rewards of curiosity and the joy of discovery: a motivational guide for future discoverers",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1140/epjs/s11734-026-02543-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Scarred discrete time crystal in a periodically driven dimerized spin chain",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16616v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-011",
+      "title": "Multistationarity vs. Monostationarity of Deficiency-One Reaction Networks",
+      "query": "crnt multistationarity",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mc-012",
+      "title": "Extremal Hückel π-Electron Energy: Tight Bounds on Graph Energy",
+      "query": "graph energy huckel theory",
+      "new_works": [
+        {
+          "title": "Distance-based topological indices of chevron-like graphene nanoribbons with applications to electronic parameters",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-64545-1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-011",
+      "title": "Exact Critical Value of the Contact Process on the Integer Lattice",
+      "query": "contact process critical value",
+      "new_works": [
+        {
+          "title": "Diasporic Sikh masculinities in Ranj Dhaliwal’s \"Daaku\" and Gautam Malkani’s \"Londonstani\"",
+          "date": "2027-01-01",
+          "url": "http://hdl.handle.net/2429/35756",
+          "source": "openalex"
+        },
+        {
+          "title": "Contested urbanisms: The politics of heritage and housing in Jakarta’s kampungs",
+          "date": "2027-01-01",
+          "url": "https://eprints.bbk.ac.uk/id/eprint/56687/1/Binte%20Masron%20I%2C%20final%20thesis%20for%20library.pdf",
+          "source": "openalex"
+        },
+        {
+          "title": "GEM Global Flatfile",
+          "date": "2026-12-31",
+          "url": "https://doi.org/10.5281/zenodo.20732303",
+          "source": "openalex"
+        },
+        {
+          "title": "The Role of Generative Artificial Intelligence in Korean Language Learning: Applications, Challenges, and Instructional Strategies",
+          "date": "2026-12-31",
+          "url": "https://pub.respai.de/articles/1-2/5ywu.html",
+          "source": "openalex"
+        },
+        {
+          "title": "NUISS: A User-Centered Prototype for International Student Administrative Support",
+          "date": "2026-12-31",
+          "url": "https://pub.respai.de/articles/1-1/10jhuang.html",
+          "source": "openalex"
+        },
+        {
+          "title": "Techno-Economic Analysis of Repurposing Abandoned Oil Wells for Geothermal Energy Extraction Using Physics-Informed Neural Networks",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21092v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-012",
+      "title": "Coexistence Threshold of Cyclic Three-Species Competition on Lattices",
+      "query": "cyclic competition rock paper scissors",
+      "new_works": [
+        {
+          "title": "Complete strategy spaces reveal hidden pathways to cooperation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s42005-026-02815-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Higher-order suppression of intraspecific competition reshapes biodiversity in spatial rock–paper–scissors dynamics",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.1016/j.chaos.2026.118974",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-013",
+      "title": "Sharp Epidemic Threshold and Near-Critical Extinction Time for SIR with Demography",
+      "query": "sir model epidemic threshold",
+      "new_works": [
+        {
+          "title": "Stochastic Heterogeneous SIR Model with Infection-Age Dependent Infectivity on Large Random Graphs",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s11040-026-09582-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Integrating machine learning and artificial neural networks for dynamic analysis of a fractional order smoking-induced lungs cancer model",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-67137-1",
+          "source": "openalex"
+        },
+        {
+          "title": "Climate variability shapes dengue transmission intensity differently across urban contexts in Selangor, Malaysia",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-67189-3",
+          "source": "openalex"
+        },
+        {
+          "title": "Quantifying infection-relevant contact patterns among young children in childcare settings in the United States.",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.64898/2026.08.18.26360623",
+          "source": "openalex"
+        },
+        {
+          "title": "Disaster-dependent effects of social network structure on risk communication",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.21203/rs.3.rs-10364042/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-009",
+      "title": "The Matroid Secretary Conjecture",
+      "query": "matroid secretary online selection",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "me-010",
+      "title": "Constant Approximability of the Graph Bandwidth Problem",
+      "query": "graph bandwidth approximation",
+      "new_works": [
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "URecJPQ: memory-efficient multimodal recommendation models through RecJPQ in large-scale scenarios",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10844-026-01088-x",
+          "source": "openalex"
+        },
+        {
+          "title": "Volume XII (Z): Zenith Unification of Fundamental Forces via Discrete Addressing Settlement",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.5281/zenodo.22042163",
+          "source": "openalex"
+        },
+        {
+          "title": "Volume IX (F): Black Holes, the Platonic Force, and the Termination of Physics — The Collapse Sequence, the K12 Ground State, and the Five Forces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.5281/zenodo.19980316",
+          "source": "openalex"
+        },
+        {
+          "title": "SDN-Assisted Low-Latency Resource Management for V2X Communication in Heterogeneous Cellular Networks",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.48175/ijarsct-38106",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-011",
+      "title": "The 4/3-Conjecture and Near-3/2 Approximation for Graphic TSP",
+      "query": "graphic tsp 4 3 conjecture",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "me-012",
+      "title": "Existence of a Strongly Polynomial Algorithm for Linear Programming",
+      "query": "linear programming strong polynomiality",
+      "new_works": [
+        {
+          "title": "Fast Solution Methods for the Classical 0–1 Knapsack Problem",
+          "date": "2026-12-31",
+          "url": "https://refuture.respai.de/articles/1-1/fast-solution-methods-for-the-classical-01-knapsack-problem-20260722-e6b499.html",
+          "source": "openalex"
+        },
+        {
+          "title": "Improving heat stress detection and genetic evaluation of heat tolerance in dairy cattle through multilayer indicators",
+          "date": "2026-09-18",
+          "url": "https://orbi.uliege.be/handle/2268/347935",
+          "source": "openalex"
+        },
+        {
+          "title": "Dynamic Functional Synchronization Profiles in Autism Differ by Spatial Scale and Along Hierarchical Cortical Gradients.",
+          "date": "2026-09-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42602560",
+          "source": "openalex"
+        },
+        {
+          "title": "Environmental Controls and Nonlinear Size Dependence of the Ångström Exponent Over the Tengger Desert",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s41810-026-00421-9",
+          "source": "openalex"
+        },
+        {
+          "title": "MLREF: Efficient Module Reuse for Reward Design in Reinforcement Learning via Large Language Models",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18827v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "TARDIS Lab: infrastructure for characterization and assembly of highly granular silicon calorimeter modules for LUXE and future Higgs Factories",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16260v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-013",
+      "title": "Optimal Asymptotic Competitive Ratio of Online Bin Packing",
+      "query": "bin packing online algorithms",
+      "new_works": [
+        {
+          "title": "Interval Scheduling Games with Color-Based Concurrent Jobs",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1145/3842393",
+          "source": "openalex"
+        },
+        {
+          "title": "Enhancing Polyphenol Recovery and Stability in Lemon Myrtle (Backhousia citriodora) and River Mint (Mentha australis) in Herbal Tea Infusions Using Ultrasound-Assisted Extraction and Spray-Dried Microencapsulation",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s11947-026-04539-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Structural basis of the gating mechanism of the large-conductance mechanosensitive channel from Escherichia coli",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41467-026-76193-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Lipopolysaccharide insertion and vesicle mediated turnover drive growth independent outer membrane adaptation in Escherichia coli",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41467-026-76886-6",
+          "source": "openalex"
+        },
+        {
+          "title": "Complexity Classes for Online Problems with and without Predictions",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1007/s00224-026-10285-8",
+          "source": "openalex"
+        },
+        {
+          "title": "Interrupting the Loop: Periodic Subject Changes Raise Judged Surprise and Connection in Base Language Models",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19893v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-014",
+      "title": "Algorithmic Threshold of the Planted Clique Detection Problem",
+      "query": "planted clique detection threshold",
+      "new_works": [
+        {
+          "title": "PSO-GA-BPNN optimization, physicochemical characterization, and molecular docking reveal the antioxidant potential of persimmon leaf polysaccharides",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41598-026-67538-2",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-019",
+      "title": "Finite-Time Singularity Formation for Smooth 3D Incompressible Euler",
+      "query": "3d euler blow up",
+      "new_works": [
+        {
+          "title": "On the Sobolev stability threshold for 3D Navier-Stokes equations with rotation near the Couette flow",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00526-026-03417-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Classical algebraic geometry and discrete integrable systems",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1090/conm/847/16929",
+          "source": "openalex"
+        },
+        {
+          "title": "Spectral Stability of Self-Similar Blow-Up Profiles in One-Dimensional Fluid Models: Operator Realizations and Numerical Instability Counts",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10732329/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "An angular-momentum-preserving dissipative model for the point-mass N-body problem",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.1007/s10569-026-10324-z",
+          "source": "openalex"
+        },
+        {
+          "title": "Global well-posedness of the inviscid resistive isentropic compressible MHD system",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.1007/s00526-026-03412-3",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-020",
+      "title": "Triviality of the Scalar λφ^4 Quantum Field Theory in 4 Dimensions",
+      "query": "constructive qft triviality",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mp-022",
+      "title": "Rigorous Kubo Conductance and Quantization for Interacting Electrons",
+      "query": "kubo formula quantum hall",
+      "new_works": [
+        {
+          "title": "Quantum Mechanics",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1201/9781003717195",
+          "source": "openalex"
+        },
+        {
+          "title": "Highly anisotropic nonrelativistic charge-to-spin conversion in altermagnets",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.1063/5.0335951",
+          "source": "openalex"
+        },
+        {
+          "title": "Anisotropic Cosmic-Ray Diffusion and the Pressure Anisotropy-driven Firehose and Gravitational Instabilities in Polytropic Astrophysical Plasmas",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.3847/1538-4357/ae8f33",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-014",
+      "title": "Rigorous Existence and Convexity of the Levy–Lieb Universal Density Functional",
+      "query": "dft levy lieb",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mb-014",
+      "title": "Storage Capacity of Associative Memory with Sparse or Bounded Synaptic Weights",
+      "query": "hopfield associative memory",
+      "new_works": [
+        {
+          "title": "An inductive bias for generalization in mouse olfactory learning",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.64898/2026.08.17.745288",
+          "source": "openalex"
+        },
+        {
+          "title": "Self-supervised restoration of weak signal from noisy scattering and diffraction data in reciprocal space",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41524-026-02291-8",
+          "source": "openalex"
+        },
+        {
+          "title": "The affective thermodynamic relationship: an empirical information-theoretic scaling relationship for normative-conflict collapse in large language models",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s44488-026-00006-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Enriched experience increases reciprocal synaptic connectivity and coding sparsity in higher-order cortex",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1126/sciadv.aec3893",
+          "source": "openalex"
+        },
+        {
+          "title": "Dense Associative Memory with Biased Patterns: A Replica Symmetric Analysis",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s10955-026-03679-y",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-015",
+      "title": "Asymptotic Speed of Adaptation in Large Asexual Populations",
+      "query": "adaptation desai fisher",
+      "new_works": [
+        {
+          "title": "Strategies for Localizing Gender Equality Norms: The Case of Sesame Street",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s11133-026-09639-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Emergence of a novel GII.17 variant is associated with immune evasion rather than an altered HBGA-binding profile",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1371/journal.ppat.1014522",
+          "source": "openalex"
+        },
+        {
+          "title": "Characterization of vaginal lactobacilli from South African women toward the development of a biotherapeutic to optimize the vaginal microbiome",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1128/aem.00566-26",
+          "source": "openalex"
+        },
+        {
+          "title": "Quantifying pentose cycle activity in intestinal mucosal leukocytes of hybrid striped bass (Morone saxatilis × M. chrysops)",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.aqrep.2026.103792",
+          "source": "openalex"
+        },
+        {
+          "title": "Decoding fibroblast activation: Transcriptional networks in hepatic stellate cells and across fibrotic organs (Review)",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.3892/ijmm.2026.5962",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-023",
+      "title": "Existence and Mass Gap for Four-Dimensional Yang–Mills Theory",
+      "query": "yang mills mass gap",
+      "new_works": [
+        {
+          "title": "ASM@:A co-designed digital prototype for accessible asthma self-management",
+          "date": "2026-09-09",
+          "url": "https://research.birmingham.ac.uk/en/publications/8b23ce93-c58a-468c-a47d-68f4ba69e66d",
+          "source": "openalex"
+        },
+        {
+          "title": "A physics-informed probabilistic machine learning framework for mix design optimisation of waste-based cementitious composites: Uncertainty quantification, SHAP interpretability, and multi-objective pareto analysis",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.nxmate.2026.103214",
+          "source": "openalex"
+        },
+        {
+          "title": "Four-Dimensional Pure Yang–Mills Theory: Wightman Construction and Mass Gap for Compact Connected Gauge Groups with Simple Lie Algebra",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22055693",
+          "source": "openalex"
+        },
+        {
+          "title": "4D Quantum Yang-Mills Theory & Mass Gap: Comprehensive Formal Summary",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22062153",
+          "source": "openalex"
+        },
+        {
+          "title": "Этап 16.1: Красное смещение как следствие реляционной реконструкции скоростей записей. Инвариантная природа космологического красного смещения, эквивалентность словарей и Большой взрыв как прошлый экран (Итоговая сведена-академическая редакция)",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22057376",
+          "source": "openalex"
+        },
+        {
+          "title": "Thermodynamics, topology and non-Abelian instability of the five-dimensional Einstein--Yang--Mills black hole with exponential entropy correction",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.19265v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-024",
+      "title": "Rigorous Gross–Pitaevskii Limit for the Dynamics of a Dilute Bose Gas",
+      "query": "bose einstein condensation gross pitaevskii",
+      "new_works": [
+        {
+          "title": "Saturation-induced adaptive attractor in open non-equilibrium systems",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10736385/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Ultralow-Field Triplon Condensation in a Spin-Ladder Magnet",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21316v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Saturable nonlinear Schrödinger equation with space- and time-dependent variable coefficients",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21086v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Characterizing Multimode Effects in a Guided Matterwave Gyroscope",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20889v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Imaging the vacuum fluctuations of a quantum field",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20311v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Signatures of a light-induced exciton condensate exhibiting BEC-BCS crossover",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20310v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-025",
+      "title": "Global Regularity of the Three-Dimensional Incompressible Navier–Stokes Equations",
+      "query": "navier stokes millennium problem",
+      "new_works": [
+        {
+          "title": "The Ogdoēkonta Tessara & The Dodecad: The 96-Key Ultimaton Master Canon of Procedural Cosmology",
+          "date": "2026-09-19",
+          "url": "https://doi.org/10.5281/zenodo.21776984",
+          "source": "openalex"
+        },
+        {
+          "title": "The pure Yang-Mills field, I: fixed time existence",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3389/fams.2026.1811439",
+          "source": "openalex"
+        },
+        {
+          "title": "Resolution of All Millennium Problems",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.5281/zenodo.22035445",
+          "source": "openalex"
+        },
+        {
+          "title": "The Gabriel's Horn Divergence: A 3D Geometric Resolution of the Navier-Stokes Millennium Problem via the Hernández-Valdivia Limit",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.5281/zenodo.22036044",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-026",
+      "title": "Crystallization of the Two-Dimensional Coulomb (Jellium) Ground State",
+      "query": "wigner crystal coulomb gas",
+      "new_works": [
+        {
+          "title": "Quantum Mechanics",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1201/9781003717195",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-027",
+      "title": "The Haldane Conjecture for Antiferromagnetic Heisenberg Chains",
+      "query": "haldane conjecture spectral gap",
+      "new_works": [
+        {
+          "title": "Taste-splitting mass and edge modes in 3 + 1 D staggered fermions",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/jhep08(2026)175",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-028",
+      "title": "Long-Time Validity of the Wave Kinetic Equation for the Cubic NLS",
+      "query": "wave kinetic equation wave turbulence",
+      "new_works": [
+        {
+          "title": "On the Sobolev stability threshold for 3D Navier-Stokes equations with rotation near the Couette flow",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00526-026-03417-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Global Multi-ion Solar Wind Model. I. Ion Temperatures",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3847/1538-4357/ae939d",
+          "source": "openalex"
+        },
+        {
+          "title": "Angular Momentum Evolution from Core to Disk Scales in the Early Phase of Star Formation: Constraints from HH 212, HH 211, and B335",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3847/1538-4357/ae8fd1",
+          "source": "openalex"
+        },
+        {
+          "title": "Evidence for Solar Cycle Modulation of the Alpha-to-Proton Temperature Ratio in Solar Wind",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3847/2041-8213/ae984e",
+          "source": "openalex"
+        },
+        {
+          "title": "Knowing the ocean: an epistemological and communication framework for Physical Oceanography",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.5194/egusphere-2026-4208",
+          "source": "openalex"
+        },
+        {
+          "title": "Finite-Momentum Kinetic Corrections to Viscous Tensor Perturbations in an Expanding Universe",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19755v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Global Well-Posedness near Rayleigh-Jeans Equilibria for the Cubic NLS Wave Kinetic Equation",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19483v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Sub-Second Collisionless Gyrokinetic Eigenvalue Solutions via Orbit-Invariant Decomposition",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17418v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A diffuse-interface method for compressible two-phase flows with seven- and six-equation models",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16750v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-029",
+      "title": "Mean-Field Limit with Singular Coulomb/Newtonian Force",
+      "query": "vlasov poisson mean field limit",
+      "new_works": [
+        {
+          "title": "Time-decay rates of the Vlasov-Poisson-Fokker-Planck system with a parameter",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.3934/krm.2026022",
+          "source": "openalex"
+        },
+        {
+          "title": "Kinetic description and numerical study of a network of noisy resonate and fire neurons - long version",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.33774/coe-2026-n2ssp",
+          "source": "openalex"
+        },
+        {
+          "title": "Nonparametric estimation of the jump rate in mean field interacting systems of neurons",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.46298/mna.15979",
+          "source": "openalex"
+        },
+        {
+          "title": "Neural non-canonical Hamiltonian dynamics for long-time simulations",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1007/s10444-026-10336-1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-030",
+      "title": "Many-Body Localization from First Principles in Disordered Quantum Chains",
+      "query": "many body localization quantum many body",
+      "new_works": [
+        {
+          "title": "Zero-Trust AI Training Corpus: Strict Ab Initio Physical & Algorithmic Validation of the Geometric Resonance Quantum Architecture",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22060717",
+          "source": "openalex"
+        },
+        {
+          "title": "TONE Theory and Rydberg Quantum Boundary Actions",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22062573",
+          "source": "openalex"
+        },
+        {
+          "title": "Recent Advances in Spectral Graph Theory for Graph Neural Networks",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.25258/ijddt.16.77s.106",
+          "source": "openalex"
+        },
+        {
+          "title": "Dissipative framework for subsystem dynamics of noninteracting quantum chains",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21336v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Pair size versus coherence length and quantum geometry in the spin-orbit coupled BCS-BEC crossover",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21110v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Quantum Wake Dynamics from Distinct Spectroscopic Perturbations",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20760v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Large Scale Entanglement Structure Detection in 100-Qubit Systems via Local Joint Measurements",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20170v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "On the Slow Convergence to Trivial Solutions of Algorithms for Hard Optimization Problems",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18910v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-016",
+      "title": "The Sharp Constant in the Lieb–Thirring Inequality for Fermion Kinetic Energy",
+      "query": "many body bound kinetic energy",
+      "new_works": [
+        {
+          "title": "Simulating high-accuracy nuclear motion Hamiltonians using discrete variable representation and Walsh–Hadamard QROM on fault-tolerant quantum computers",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1088/2058-9565/ae9d1b",
+          "source": "openalex"
+        },
+        {
+          "title": "Multiscale first-principles investigation of vacancy-ordered lead halide double perovskites for photocatalytic oxidation and high-efficiency photovoltaic applications",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-66524-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Trophic transfer and biological effects of azithromycin across a freshwater food chain",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.ecoenv.2026.120701",
+          "source": "openalex"
+        },
+        {
+          "title": "NJL-chiral soliton and the nucleon equation of state at supra-saturation density: impact of chiral symmetry restoration",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1140/epja/s10050-026-01944-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Gauge-Invariant Graph Neural Networks for Abelian lattice gauge models",
+          "date": "2026-08-22",
+          "url": "https://arxiv.org/abs/2605.03901",
+          "source": "openalex"
+        },
+        {
+          "title": "Pair size versus coherence length and quantum geometry in the spin-orbit coupled BCS-BEC crossover",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21110v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Quantum Wake Dynamics from Distinct Spectroscopic Perturbations",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20760v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Classical and Quantum Chaos from Foundations to Holography",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19131v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "On the Slow Convergence to Trivial Solutions of Algorithms for Hard Optimization Problems",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18910v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A Connectivity-Order Law and Conditional Minimal-Mechanism Identification in Many-Body Geometric Phases",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17280v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-017",
+      "title": "The Sharp Constant in the Lieb–Oxford Inequality",
+      "query": "exchange correlation energy lieb oxford",
+      "new_works": [
+        {
+          "title": "Relaxing towards generalized one-body Boltzmann states",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.1088/1572-9494/ae9b8a",
+          "source": "openalex"
+        },
+        {
+          "title": "Ultralow-Field Triplon Condensation in a Spin-Ladder Magnet",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21316v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "EWOCS VII : Unveiling the faint diffuse X-ray emission in Westerlund 1",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21076v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Chiral bosonic mean-field Ansatz and spin dynamics in spin-1 Kitaev magnets",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19178v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Molecular Implementation of the Machine-Learned Skala Exchange-Correlation Functional in CP2K through GauXC",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19033v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Secure Medical Data Transmission Using Quantum Key Distribution and Post-Quantum Cryptography in Real-World Fiber Networks",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18869v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-018",
+      "title": "Exact Pinning by Generalized Pauli Constraints in Fermionic Ground States",
+      "query": "generalized pauli constraints reduced density matrix",
+      "new_works": [
+        {
+          "title": "RydbergPhaseDepthQA: A Finite-Size Hardware Witness of a Multi-Controlled-Phase Depth-Hierarchy Mechanism on IonQ Forte-1",
+          "date": "2026-08-22",
+          "url": "https://arxiv.org/abs/2606.16425",
+          "source": "openalex"
+        },
+        {
+          "title": "Simulating high-accuracy nuclear motion Hamiltonians using discrete variable representation and Walsh–Hadamard QROM on fault-tolerant quantum computers",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1088/2058-9565/ae9d1b",
+          "source": "openalex"
+        },
+        {
+          "title": "Optical quasisymmetry groups for meron lattices",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2601.02675",
+          "source": "openalex"
+        },
+        {
+          "title": "Pauli propagation for imaginary-time evolution",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1088/1367-2630/ae9c65",
+          "source": "openalex"
+        },
+        {
+          "title": "Quantum-enhanced deep learning models for automated defect detection in materials",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.3389/frai.2026.1872978",
+          "source": "openalex"
+        },
+        {
+          "title": "Hardness of approximation for minimum-weight decoding of two-dimensional topological quantum codes",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.17109v2",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-019",
+      "title": "Hamiltonian Structure and Ergodicity of the Nosé–Hoover Thermostat",
+      "query": "molecular dynamics thermostat",
+      "new_works": [
+        {
+          "title": "Structural basis of the gating mechanism of the large-conductance mechanosensitive channel from Escherichia coli",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41467-026-76193-0",
+          "source": "openalex"
+        },
+        {
+          "title": "Protocol-specific Quantum ESPRESSO energies and atomic forces for thirteen doped zirconia chemistries",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.5281/zenodo.22044917",
+          "source": "openalex"
+        },
+        {
+          "title": "Precision Synthesis of Biomass‐Derived Graphene‐Like Carbon With Tailored Crystallinity via Controlled Flash Joule Heating",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1002/cey2.70308",
+          "source": "openalex"
+        },
+        {
+          "title": "Bryophyte-Inspired Gas Diffusion Electrode Reveals Unex-pected CO Formation Kinetics under Dilute CO2",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.21203/rs.3.rs-10716107/v1",
+          "source": "openalex"
+        },
+        {
+          "title": "Effect of Cylindrical Confinement on the Collapse Dynamics of a Polymer",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1021/acs.langmuir.6c04620",
+          "source": "openalex"
+        },
+        {
+          "title": "Three-temperature atomistic spin-lattice dynamics in LAMMPS: a moment-consistent, fluctuation-dissipation-correct extension and its validation on ultrafast demagnetization and all-optical switching of GdFeCo",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18541v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-020",
+      "title": "Rapid Mixing and Cutoff for the Parallel Tempering (Replica Exchange) Chain",
+      "query": "monte carlo parallel tempering",
+      "new_works": [
+        {
+          "title": "Design of a neutron irradiation campaign for electron beam welded reactor pressure vessel steel",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.nucengdes.2026.115164",
+          "source": "openalex"
+        },
+        {
+          "title": "Advanced Inventory Management: A Systematic Review of Control Techniques, Warehouse Design and Digital Transformation in Modern Supply Chains",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.38124/ijisrt/26aug468",
+          "source": "openalex"
+        },
+        {
+          "title": "A Review on the Effects of Fe and Mg Doping on the Properties of ZnO Nanomaterials: A DFT Perspective",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.33003/fjs-2026-1014-5734",
+          "source": "openalex"
+        },
+        {
+          "title": "Education, Income, and the Dynamics of Formal Business Entry in the Philippines: An ARDL Analysis",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.65166/qntwsr74",
+          "source": "openalex"
+        },
+        {
+          "title": "HelixCross – Design and development of an AI-powered cross-examination simulation for forensic expert testimony training",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.fsisyn.2026.100725",
+          "source": "openalex"
+        },
+        {
+          "title": "Accelerating Performance Inference over Closed Systems by Asymptotic Methods",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19682v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Picard Proximal Monte Carlo for Parallel Bayesian Imaging with Score-Based Generative Priors",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17666v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Conditional-path Monte Carlo for rare stochastic dynamics on networks: Details and derivations",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17511v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Nonlocal Transition Kernel for Efficient Learning of Restricted Boltzmann Machines",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17450v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-021",
+      "title": "Complete Characterization of Product-Form Stationary Distributions in Stochastic Reaction Networks",
+      "query": "stochastic reaction network product form",
+      "new_works": [
+        {
+          "title": "A novel demand response framework for the optimal design of hydrogen–ammonia hybrid microgrids",
+          "date": "2026-09-15",
+          "url": "https://strathprints.strath.ac.uk/view/author/1676952.html>",
+          "source": "openalex"
+        },
+        {
+          "title": "Climate change exposure and M&A: global evidence",
+          "date": "2026-09-01",
+          "url": "https://centaur.reading.ac.uk/view/creators/90011419.html>",
+          "source": "openalex"
+        },
+        {
+          "title": "See, Balance, Exchange: Building an Operational Toolkit for Active Distribution Networks under High DER Penetration",
+          "date": "2026-09-01",
+          "url": "https://orbi.uliege.be/handle/2268/347656",
+          "source": "openalex"
+        },
+        {
+          "title": "Snow microinvertebrates from lowlands, high mountains and the Arctic—implications for conservation efforts",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10531-026-03415-8",
+          "source": "openalex"
+        },
+        {
+          "title": "Grass-mower heuristics for shelf space allocation problem with different product features under non-standard warehouse equipment",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s12597-026-01247-2",
+          "source": "openalex"
+        },
+        {
+          "title": "Activated switching between coexisting limit cycles",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19060v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-022",
+      "title": "The Maximum Number of Kekulé Structures in Benzenoid Hydrocarbons",
+      "query": "kekule structure perfect matching",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mc-023",
+      "title": "Complete N-Representability Conditions for the Two-Electron Reduced Density Matrix",
+      "query": "reduced density matrix n representability",
+      "new_works": [
+        {
+          "title": "Journal of GIS based Historical Studies",
+          "date": "2029-05-06",
+          "url": "https://zenodo.org/record/7368979",
+          "source": "openalex"
+        },
+        {
+          "title": "Spin dynamics and ortho–para conversion in $H_{2}O$ during the phase transition from gas to solid in external magnetic fields",
+          "date": "2027-01-01",
+          "url": "https://repository.gsi.de/record/368974",
+          "source": "openalex"
+        },
+        {
+          "title": "Spider venom peptides Ht1a and Gg1a are toxic to honeybee parasite Varroa destructor by topical application.",
+          "date": "2026-12-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42253431",
+          "source": "openalex"
+        },
+        {
+          "title": "Interpol review of gunshot residue, 2022 to 2024.",
+          "date": "2026-12-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42598583",
+          "source": "openalex"
+        },
+        {
+          "title": "Pharmacodynamic modeling of colistin and imipenem against in vitro Pseudomonas aeruginosa biofilms.",
+          "date": "2026-12-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42598182",
+          "source": "openalex"
+        },
+        {
+          "title": "Symmetry Adapted Hierarchical Equations of Motion for Exact Simulations of Large Polariton Systems",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20657v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A new lower bound for the growth rate of Av(1324)",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20292v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Comment on \"Scalable Quantum Machine Learning: Trainability, Expressivity and Efficiency\": Polynomial Evaluation of the Triplet-Block Readout",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20435v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "The Roman Coronagraph Community Participation Program: calibration strategy for the Mueller matrix using on-sky sources",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17369v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Efficient nonequilibrium electron dynamics from first-principles: leveraging Koopmans spectral functionals and Wannier localization",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16226v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-024",
+      "title": "Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems",
+      "query": "clar number clar cover",
+      "new_works": [
+        {
+          "title": "A systematic review of human vs machine intelligence and ethical tensions in human resource management",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s44163-026-01926-5",
+          "source": "openalex"
+        },
+        {
+          "title": "Sustainability Practices in Operating Rooms: Where Are Nurses in These Practices?",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.54189/hbd.1628829",
+          "source": "openalex"
+        },
+        {
+          "title": "SHAP and LIME Explainability in Financial Machine Learning: A Systematic Review of Methods, Evaluation Gaps, and Barriers to Deployment",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.21203/rs.3.rs-10464976/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-016",
+      "title": "Closure of Selection–Recombination Dynamics under the Walsh Basis",
+      "query": "walsh fourier selection recombination",
+      "new_works": [
+        {
+          "title": "Novel phage-plasmid mediated mechanism of antibiotic heteroresistance in Escherichia coli",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.64898/2026.08.19.745698",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-017",
+      "title": "Almost-Sure Persistence and Sharp Stochastic Extinction Rates in Noisy Lotka–Volterra Communities",
+      "query": "stochastic persistence lotka volterra",
+      "new_works": [
+        {
+          "title": "Invasion fronts in shifting habitats and competition systems: A Hamilton-Jacobi approach and nonlocal effects",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.3934/dcds.2026157",
+          "source": "openalex"
+        },
+        {
+          "title": "The influence of advection on the propagation phenomena of reaction-diffusion equations with KPP-bistable nonlinearity",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1090/tran/9678",
+          "source": "openalex"
+        },
+        {
+          "title": "A CAPUTO FRACTIONAL LOTKA-VOLTERRA MODEL FOR COMPETITIVE OPINION DYNAMICS: STABILITY ANALYSIS AND DATA-DRIVEN VALIDATION",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.11948/20260064",
+          "source": "openalex"
+        },
+        {
+          "title": "The “Too-Few Elephant Problem”: Quantitative Analysis of Historical Elephant Tree-Toppling Rates Across Africa",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s10021-026-01089-5",
+          "source": "openalex"
+        },
+        {
+          "title": "NUMERICAL AND BIFURCATION ANALYSIS WITH SENSITIVITY ASSESSMENT OF A DETERMINISTIC LEPTOSPIROSIS HANTAVIRUS CO-INFECTION MODEL",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.11948/20260054",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-019",
+      "title": "Turing Pattern Selection under Smooth Domain Growth",
+      "query": "turing instability pattern selection",
+      "new_works": [
+        {
+          "title": "Emergent spatiotemporal dynamics in large-scale brain networks with next generation neural mass models",
+          "date": "2026-09-01",
+          "url": "https://hdl.handle.net/2117/461894",
+          "source": "openalex"
+        },
+        {
+          "title": "What Jobs Do Workers Want? Worker Preferences in Global Value Chains",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1111/bjir.70074",
+          "source": "openalex"
+        },
+        {
+          "title": "An integrated conceptual framework for immersive cloud-based mobile learning in higher education",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1057/s41599-026-08758-9",
+          "source": "openalex"
+        },
+        {
+          "title": "Periodontitis as a Modulator of Malignant Transformation in Oral Potentially Malignant Disorders: A Narrative Review of Biological Mechanisms and Clinical Implications",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1007/s11912-026-01817-z",
+          "source": "openalex"
+        },
+        {
+          "title": "European Strategic Culture at a Crossroads",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.4324/9781032636566",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-020",
+      "title": "Closed-Form Stationary Densities under Non-Reversible Mutation–Selection–Drift",
+      "query": "wright fisher diffusion stationary density",
+      "new_works": [
+        {
+          "title": "Deinococcus radiodurans HU: a versatile architect of nucleoid structure and plasticity",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.64898/2026.08.18.745388",
+          "source": "openalex"
+        },
+        {
+          "title": "Phylogenetic inference with not-so-rare mutations and tiny organisms",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1093/sysbio/syag065",
+          "source": "openalex"
+        },
+        {
+          "title": "Dormancy stabilizes non-transitive competitive dynamics",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.17179v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-021",
+      "title": "Hamilton Rule and the Zero Relatedness Claim in Finite Structured Populations",
+      "query": "kin selection inclusive fitness",
+      "new_works": [
+        {
+          "title": "The battle of the brides: Co-wife competition and aggression across 19 cultures",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1016/j.evolhumbehav.2026.106957",
+          "source": "openalex"
+        },
+        {
+          "title": "Psychology of Everyday Life",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.4324/9781003276746",
+          "source": "openalex"
+        },
+        {
+          "title": "Biparental care is a resilient evolutionarily strategy persisting across multiple species of small carpenter bees despite low paternity",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1007/s13592-026-01297-x",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-022",
+      "title": "Quantitative Complexity-Stability Threshold for Sign-Structured Food Webs",
+      "query": "complexity stability random matrices",
+      "new_works": [
+        {
+          "title": "Improving heat stress detection and genetic evaluation of heat tolerance in dairy cattle through multilayer indicators",
+          "date": "2026-09-18",
+          "url": "https://orbi.uliege.be/handle/2268/347935",
+          "source": "openalex"
+        },
+        {
+          "title": "Achieving wavenumber robustness in domain decomposition for heterogeneous Helmholtz equation : an overview of spectral coarse spaces",
+          "date": "2026-09-15",
+          "url": "https://strathprints.strath.ac.uk/view/author/922517.html>",
+          "source": "openalex"
+        },
+        {
+          "title": "See, Balance, Exchange: Building an Operational Toolkit for Active Distribution Networks under High DER Penetration",
+          "date": "2026-09-01",
+          "url": "https://orbi.uliege.be/handle/2268/347656",
+          "source": "openalex"
+        },
+        {
+          "title": "Predictive models of the genetic bases underlying budding yeast fitness in multiple environments.",
+          "date": "2026-09-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42582802",
+          "source": "openalex"
+        },
+        {
+          "title": "Road-oriented attention and class-balanced learning for post-disaster road damage segmentation",
+          "date": "2026-09-01",
+          "url": "https://tsukuba.repo.nii.ac.jp/records/2025257",
+          "source": "openalex"
+        },
+        {
+          "title": "Good Stabilizer Codes from Shallow Clifford Circuits with Random Matchings",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.18536v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mb-024",
+      "title": "Information-Theoretic Floor on Morphogen Gradient Concentration Sensing",
+      "query": "berg purcell limit chemical sensing",
+      "new_works": [
+        {
+          "title": "Fish Herbivores Targeted by Fishing are Key to Benthic Algal Suppression in Barbados",
+          "date": "2026-08-19",
+          "url": "https://doi.org/10.21203/rs.3.rs-10516151/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-015",
+      "title": "Sharp Size of the Singular Set for Suitably Weak Navier–Stokes Solutions",
+      "query": "navier stokes partial regularity",
+      "new_works": [
+        {
+          "title": "On the Sobolev stability threshold for 3D Navier-Stokes equations with rotation near the Couette flow",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00526-026-03417-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Almost Periodic Functions and Integro-Differential-Difference Equations in Locally Convex Spaces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1201/9781003797531",
+          "source": "openalex"
+        },
+        {
+          "title": "A Mathematical Frameworks for Singular, Nonlinear Phenomena: Applications to Nematocyst Firing and Inhomogeneous NLS with Coulomb Potential",
+          "date": "2026-08-21",
+          "url": "https://scholarscompass.vcu.edu/etd/8381",
+          "source": "openalex"
+        },
+        {
+          "title": "Time-optimal control of heat conduction with memory effects under a nonlocal boundary condition",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1088/1402-4896/ae9ce6",
+          "source": "openalex"
+        },
+        {
+          "title": "A Nonsmooth Extension of the Brezzi-Rappaz-Raviart Approximation Theorem Via Metric Regularity Techniques and Applications to Nonlinear PDEs",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1007/s10208-026-09767-5",
+          "source": "openalex"
+        },
+        {
+          "title": "Complementary, Not Cumulative: Interaction Effects in Physics-Informed Neural Networks for Navier-Stokes Vortex Shedding",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19632v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-017",
+      "title": "Global Uniqueness for the Calderón Problem in Three Dimensions",
+      "query": "impedance tomography calderon problem",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "me-018",
+      "title": "Necessary and Sufficient Feedback Stabilizability: Closing the Brockett–Sontag Gap",
+      "query": "feedback stabilization nonlinear control",
+      "new_works": [
+        {
+          "title": "Educational Management Resilience under Low Fertility: Theoretical Construction and Adaptive Mechanisms of County-Level Education Systems in Demographic Decline",
+          "date": "2026-12-31",
+          "url": "https://philpapers.org/rec/WANEMR-2",
+          "source": "openalex"
+        },
+        {
+          "title": "Nonlinear Industrial Robot Stabilization Based on Differential Topology",
+          "date": "2026-11-05",
+          "url": "https://doi.org/10.5281/zenodo.19484071",
+          "source": "openalex"
+        },
+        {
+          "title": "ASM@:A co-designed digital prototype for accessible asthma self-management",
+          "date": "2026-09-09",
+          "url": "https://research.birmingham.ac.uk/en/publications/8b23ce93-c58a-468c-a47d-68f4ba69e66d",
+          "source": "openalex"
+        },
+        {
+          "title": "On hyperexponential observers for linear systems",
+          "date": "2026-08-23",
+          "url": "https://inria.hal.science/hal-05653010",
+          "source": "openalex"
+        },
+        {
+          "title": "Wave-Based Bilateral Teleoperation between Nonlinear Manipulators with Direct Contact Force Feedback",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20043v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Robust stabilization of discrete-time linear systems requires nonlinear dynamic feedback",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19010v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "On the behavior assignment problem",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17652v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Nonadaptive Learning in Robust Nonlinear Output Regulation",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17262v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-019",
+      "title": "Sharp Kolmogorov n-Width Decay for Parametrized PDE Solution Manifolds",
+      "query": "model order reduction kolmogorov n width",
+      "new_works": [
+        {
+          "title": "Dynamic Functional Synchronization Profiles in Autism Differ by Spatial Scale and Along Hierarchical Cortical Gradients.",
+          "date": "2026-09-01",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42602560",
+          "source": "openalex"
+        },
+        {
+          "title": "Effects of the multidomain non-pharmacological interventions on anxiety symptoms and depressive symptoms in older adults with suspected cognitive impairment: a propensity score matching and difference-in-differences analysis",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3389/fnagi.2026.1921356",
+          "source": "openalex"
+        },
+        {
+          "title": "Inverse process design for microstructure engineering in FePt-X nanocomposite thin films: phase-field simulations and machine learning",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41524-026-02288-3",
+          "source": "openalex"
+        },
+        {
+          "title": "Journal of Urological Surgery",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.4274/jus",
+          "source": "openalex"
+        },
+        {
+          "title": "Forecasting or Contemporaneous Estimation? A Leakage-Aware Industrial Energy Audit with Uncertainty Quantification",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.64943/ljacs.2026.010204",
+          "source": "openalex"
+        },
+        {
+          "title": "SAGE: A Unified Algebra and Self-Adaptive Execution for AI Functions in SQL",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20630v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Logarithmic depth compression of Heisenberg Hamiltonian simulation by fan-out parallelization, with built-in error detection",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20250v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A Bayesian Edge-Space Framework for Whole-Connectome Inference in Multisite Autism Neuroimaging",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20243v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "RMWorld: Task-Aware Radio World Models with Value-of-Information Guided Multi-Trial Learning for Multi-UAV Communication Control",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20126v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Ribet Points, geometric divisibility sequence and order of reductions on semiabelian varieties",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19742v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-020",
+      "title": "Sharp Sobolev Regularity Loss in the Inviscid Limit and the Prandtl Boundary Layer",
+      "query": "prandtl boundary layer inviscid limit",
+      "new_works": [
+        {
+          "title": "Analysis of Rotor Systems",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.1201/9781003661559",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-021",
+      "title": "Minimal Number of Projection Directions for Uniqueness in Discrete Tomography",
+      "query": "discrete tomography limited data",
+      "new_works": [
+        {
+          "title": "The Cranial Nerves and Electrical Stimulation",
+          "date": "2026-09-01",
+          "url": "https://academicworks.cuny.edu/gc_etds/6819",
+          "source": "openalex"
+        },
+        {
+          "title": "Cerebral glucose utilisation during musical emotions: A multimodal functional PET/MRI study:A multimodal functional PET/MRI study",
+          "date": "2026-09-01",
+          "url": "https://research.abo.fi/en/publications/567b10bb-2466-4d05-8a6b-2fba55bf501f",
+          "source": "openalex"
+        },
+        {
+          "title": "Research on interfacial microstructure, mechanical properties, and damage behaviors of AZ91/GWZ831K bimetallic structures fabricated via wire-arc directed energy deposition",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1016/j.jma.2026.102268",
+          "source": "openalex"
+        },
+        {
+          "title": "Accelerated decentralized dispatch of energy storage via constrained gradient tracking",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.3389/frsgr.2026.1935852",
+          "source": "openalex"
+        },
+        {
+          "title": "Radiomics-guided multimodal MRI fusion framework for non-enhanced glioblastoma noninvasive identification",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1371/journal.pdig.0001662",
+          "source": "openalex"
+        },
+        {
+          "title": "Shared-Structure 4D Spectral Gaussian Representation for Sparse-View Spectral CT Reconstruction",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16463v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-022",
+      "title": "Hardness and Approximation of Minimum Leader Selection for Network Controllability",
+      "query": "network controllability leader selection",
+      "new_works": [
+        {
+          "title": "Journal of GIS based Historical Studies",
+          "date": "2029-05-06",
+          "url": "https://zenodo.org/record/7368979",
+          "source": "openalex"
+        },
+        {
+          "title": "Contested urbanisms: The politics of heritage and housing in Jakarta’s kampungs",
+          "date": "2027-01-01",
+          "url": "https://eprints.bbk.ac.uk/id/eprint/56687/1/Binte%20Masron%20I%2C%20final%20thesis%20for%20library.pdf",
+          "source": "openalex"
+        },
+        {
+          "title": "Brokerage, power and individual innovation:When do brokers act on their structural advantage?",
+          "date": "2026-09-01",
+          "url": "https://pure.eur.nl/en/publications/a044b12e-22a2-4ba0-aa21-c800d6425d95",
+          "source": "openalex"
+        },
+        {
+          "title": "A Cyber-Physical framework for Energy-Aware distributed optimization of 6-DOF robotic manufacturing cells via hybrid bioinspired metaheuristics",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s00170-026-18940-7",
+          "source": "openalex"
+        },
+        {
+          "title": "Mindful Hearts: Mixed Methods Findings to Inform a Technology‑Enhanced Culturally Tailored Stress Management Intervention for Immigrant Women",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.21203/rs.3.rs-10397331/v1",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-023",
+      "title": "Crouzeix Theorem: Optimal Constant for the Numerical Range of a Matrix",
+      "query": "numerical range spectral sets",
+      "new_works": [
+        {
+          "title": "Achieving wavenumber robustness in domain decomposition for heterogeneous Helmholtz equation : an overview of spectral coarse spaces",
+          "date": "2026-09-15",
+          "url": "https://strathprints.strath.ac.uk/view/author/922517.html>",
+          "source": "openalex"
+        },
+        {
+          "title": "Emergent spatiotemporal dynamics in large-scale brain networks with next generation neural mass models",
+          "date": "2026-09-01",
+          "url": "https://hdl.handle.net/2117/461894",
+          "source": "openalex"
+        },
+        {
+          "title": "Pure Relative Structured Matrix Approximation with Square-Root Matvecs",
+          "date": "2026-08-22",
+          "url": "https://github.com/andotheror/matvec-structured-matrix-approx",
+          "source": "openalex"
+        },
+        {
+          "title": "Excitation and Control of Multiple Surface Lattice Resonances in Gold Nanorod Dimer Arrays for Multi‑Wavelength Refractive Index Sensing",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s11468-026-03436-7",
+          "source": "openalex"
+        },
+        {
+          "title": "Recent Advances in Spectral Graph Theory for Graph Neural Networks",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.25258/ijddt.16.77s.106",
+          "source": "openalex"
+        },
+        {
+          "title": "A Fourier Neural Operator for Accelerated Discretization-Invariant Solutions of the Radiative Transfer Equation",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21173v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Diagonalization of the Landau Hamiltonian with a Periodic Potential via a Galerkin Projection Method and Applications to Topological Band Properties",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19940v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "On the Numerical Range of Linear Relations in Banach Spaces",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19913v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Dynamic Pseudogap Model",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19592v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Flat band and Bulk-Boundary correspondence in a non-Hermitian trimerized lattice model with generic boundary conditions",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17428v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-032",
+      "title": "Fourier Law and the Thermal Conductivity of Anharmonic Chains",
+      "query": "fourier law heat conduction",
+      "new_works": [
+        {
+          "title": "Fractional Moore–Gibson–Thompson Thermoelasticity in Functionally Graded Plates: A Semi-Analytical Differential Transform Approach",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.5281/zenodo.22056605",
+          "source": "openalex"
+        },
+        {
+          "title": "A finite difference and machine learning framework for non-Fourier multilayer bioheat transfer under laser irradiation",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1108/hff-04-2026-0477",
+          "source": "openalex"
+        },
+        {
+          "title": "Almost Periodic Functions and Integro-Differential-Difference Equations in Locally Convex Spaces",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1201/9781003797531",
+          "source": "openalex"
+        },
+        {
+          "title": "A Mathematical Study of Magneto-Thermoelasticity: Theory, Wave Propagation, and Boundary Value Problems",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.36948/ijfmr.2026.v08i04.86376",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-034",
+      "title": "Bose-Einstein Condensation of the Interacting Gas at Positive Temperature",
+      "query": "bose einstein condensation superfluidity",
+      "new_works": [
+        {
+          "title": "A Foundational Physical Framework Based on a Binary-Structure Hypothesis: Yin Shells, Yang Energy, and the Emergence of Network Sharing",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.5281/zenodo.22040959",
+          "source": "openalex"
+        },
+        {
+          "title": "Measuring universal magnetocaloric scaling functions near quantum critical point",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1088/1361-6633/ae9cdc",
+          "source": "openalex"
+        },
+        {
+          "title": "A magnetic dial for exciton-polaritons",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41377-026-02445-9",
+          "source": "openalex"
+        },
+        {
+          "title": "Ultralow-Field Triplon Condensation in a Spin-Ladder Magnet",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21316v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Saturable nonlinear Schrödinger equation with space- and time-dependent variable coefficients",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21086v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Characterizing Multimode Effects in a Guided Matterwave Gyroscope",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20889v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Imaging the vacuum fluctuations of a quantum field",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20311v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Signatures of a light-induced exciton condensate exhibiting BEC-BCS crossover",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20310v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mp-035",
+      "title": "Berezinskii-Kosterlitz-Thouless Transition and the Universal Jump",
+      "query": "bkt transition xy model",
+      "new_works": [
+        {
+          "title": "Self-Maintained Order and Hysteretic Collapse in a Non-Equilibrium Rotational Lattice",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.5281/zenodo.21987549",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-027",
+      "title": "Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation",
+      "query": "quasi steady state stochastic kinetics",
+      "new_works": [
+        {
+          "title": "The role of the N2/H2 reactant gas mixture on nitrogen activation in the Haber–Bosch process",
+          "date": "2026-08-21",
+          "url": "https://doi.org/10.1038/s41467-026-76887-5",
+          "source": "openalex"
+        },
+        {
+          "title": "Commissioning & Daily QA of Converted LINAC for Electron FLASH",
+          "date": "2026-08-21",
+          "url": "https://scholarscompass.vcu.edu/etd/8284",
+          "source": "openalex"
+        },
+        {
+          "title": "Hydrodynamic controls on mineral precipitation in porous media: From pore-scale clogging to continuum permeability upscaling",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.31223/x57f6b",
+          "source": "openalex"
+        },
+        {
+          "title": "Reviewer #2 (Public review): Viral commitment to infection depends on host metabolism",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.7554/elife.107825.3.sa2",
+          "source": "openalex"
+        },
+        {
+          "title": "Reviewer #1 (Public review): Viral commitment to infection depends on host metabolism",
+          "date": "2026-08-20",
+          "url": "https://doi.org/10.7554/elife.107825.3.sa1",
+          "source": "openalex"
+        },
+        {
+          "title": "Two-fluid effects on the nonlinear dynamics of RFP relaxation",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20774v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Stability and squeezing of the three-photon degenerate parametric down-conversion",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19494v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "mc-028",
+      "title": "Are Molecular Graphs Determined by Their (Signless Laplacian) Spectrum?",
+      "query": "graph spectrum cospectral",
+      "new_works": [],
+      "alerts": []
+    },
+    {
+      "id": "mb-026",
+      "title": "Sharp Arnold Tongues for Subharmonic Response in Seasonally Forced SIR",
+      "query": "seasonal forcing arnold tongue",
+      "new_works": [
+        {
+          "title": "Drivers of Atmospheric Volatile Methylated Sulfur Variability Across the Southern Ocean and Antarctic Coast",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.5194/acp-26-11583-2026",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-026",
+      "title": "Average-Case Complexity of Real Polynomial System Solving and Global Optimization",
+      "query": "polynomial systems sms 17th problem",
+      "new_works": [
+        {
+          "title": "Mechanical tuning and modulation of battery-less semiconductor-free scatterers for small insect pollinator tracking",
+          "date": "2026-08-18",
+          "url": "https://doi.org/10.1088/2977-3504/ae9b0e",
+          "source": "openalex"
+        },
+        {
+          "title": "MAEO: Scalable Multiobjective Animorphic Ensemble Optimization for large-scale optimization applications",
+          "date": "2026-08-17",
+          "url": "https://doi.org/10.1016/j.nucengdes.2026.115156",
+          "source": "openalex"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-027",
+      "title": "Optimality of Nonlinear vs. Linear Control in Witsenhausen’s Decentralized Problem",
+      "query": "decentralized control stochastic control",
+      "new_works": [
+        {
+          "title": "A novel demand response framework for the optimal design of hydrogen–ammonia hybrid microgrids",
+          "date": "2026-09-15",
+          "url": "https://strathprints.strath.ac.uk/view/author/1676952.html>",
+          "source": "openalex"
+        },
+        {
+          "title": "See, Balance, Exchange: Building an Operational Toolkit for Active Distribution Networks under High DER Penetration",
+          "date": "2026-09-01",
+          "url": "https://orbi.uliege.be/handle/2268/347656",
+          "source": "openalex"
+        },
+        {
+          "title": "Personalized federated recommendation via long-horizon local optimization and regularized knowledge guidance",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s10844-026-01089-w",
+          "source": "openalex"
+        },
+        {
+          "title": "A three-DOF wave compensation control method for ships based on the DMAPPO algorithm",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1007/s40722-026-00516-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Data-locality-preserving carbon-aware coordination of power and electrified transportation systems using federated reinforcement learning",
+          "date": "2026-08-22",
+          "url": "https://doi.org/10.1038/s41598-026-60936-6",
+          "source": "openalex"
+        },
+        {
+          "title": "Stochastic Gradient Tracking over Time-Varying Networks: One-Step Lyapunov Analysis",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.16271v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": []
+    },
+    {
+      "id": "me-028",
+      "title": "The G-Closure and Sharp Attainable Bounds for Multiphase Composite Conductors",
+      "query": "G closure hashin shtrikman bounds",
       "new_works": [],
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-029",
+      "title": "Sharp Dimensional Dependence of High-Dimensional Numerical Integration",
+      "query": "information based complexity high dimensional integration",
+      "new_works": [
+        {
+          "title": "Memory Augmentation Unlocks Efficient Chain-of-Thought Reasoning",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.21265v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "OccluRank: Controllable Occlusion-Aware Layout-to-Image Generation by Adding Just an Ordinal Rank",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20932v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Spatial function-on-function quantile regression",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20919v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "KoViDoRe: Korean Visual Document Retrieval",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20840v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Compact Representations of Geometric Bipartite Graphs via Weighted Biclique Covers",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20767v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-030",
+      "title": "Provable Approximation for Optimal Sensor Placement and Information Gain",
+      "query": "sensor placement observability",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-031",
+      "title": "Certifiable A-Posteriori Error Bounds for Nonlinear Model Reduction",
+      "query": "model order reduction pod",
+      "new_works": [
+        {
+          "title": "SAGE: A Unified Algebra and Self-Adaptive Execution for AI Functions in SQL",
+          "date": "2026-08-21",
+          "url": "http://arxiv.org/abs/2608.20630v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Logarithmic depth compression of Heisenberg Hamiltonian simulation by fan-out parallelization, with built-in error detection",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20250v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "A Bayesian Edge-Space Framework for Whole-Connectome Inference in Multisite Autism Neuroimaging",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20243v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "RMWorld: Task-Aware Radio World Models with Value-of-Information Guided Multi-Trial Learning for Multi-UAV Communication Control",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.20126v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Ribet Points, geometric divisibility sequence and order of reductions on semiabelian varieties",
+          "date": "2026-08-20",
+          "url": "http://arxiv.org/abs/2608.19742v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "me-032",
+      "title": "Sound and Scalable Stability Certification of Learned Feedback Policies",
+      "query": "neural network verification lyapunov functions",
+      "new_works": [
+        {
+          "title": "Uncovering the Limits of Proof Sharing for Neural Networks",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19351v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Safe Deep Reinforcement Learning for Energy-Efficient HVAC Control in Multi-Zone Residential Buildings",
+          "date": "2026-08-18",
+          "url": "http://arxiv.org/abs/2608.17235v1",
+          "source": "arxiv"
+        },
+        {
+          "title": "Certified but Private: Scalable Zero-Knowledge Proofs for Neural Network Guarantees",
+          "date": "2026-08-17",
+          "url": "http://arxiv.org/abs/2608.17070v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mp-036",
+      "title": "Sharp Mixing Rates from Anomalous Dissipation in Passive Scalar Transport",
+      "query": "passive scalar anomalous dissipation",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mb-027",
+      "title": "Extremal Amplification of Fixation Probability on Evolutionary Graphs",
+      "query": "evolutionary graph theory fixation probability",
+      "new_works": [
+        {
+          "title": "JANUS: A Multi-modal Foundation Neural Sampler for Disordered Materials",
+          "date": "2026-08-19",
+          "url": "http://arxiv.org/abs/2608.19116v1",
+          "source": "arxiv"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    {
+      "id": "mc-029",
+      "title": "Structural Certification of Absolute Concentration Robustness in Reaction Networks",
+      "query": "crnt absolute concentration robustness",
+      "new_works": [],
+      "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
         }
       ]
     }
