@@ -160,6 +160,52 @@ export default function ProblemDetailPage() {
             </Section>
           )}
 
+          {p.certificate && (
+            <Section title={t('pd.certificate')}>
+              <div className="border border-line">
+                {/* 带证区间 + 总带合成公式：把 judgment 的三层残差从散文变成可审计的字段 */}
+                <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2 px-5 py-4 hairline-b">
+                  <div>
+                    <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                      {t('pd.certificate.band')}
+                    </div>
+                    <div className="font-mono2 text-sm text-ink mt-1">
+                      {p.certificate.certified_band ?? '—'}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">
+                      {t('pd.certificate.total')}
+                    </div>
+                    <div className="font-mono text-sm text-ink mt-1">{p.certificate.total_band}</div>
+                  </div>
+                </div>
+                {/* 三层残差，各给 bound + derivation */}
+                <div className="divide-y divide-line">
+                  {(
+                    [
+                      ['R_model', p.certificate.r_model],
+                      ['R_param', p.certificate.r_param],
+                      ['R_num', p.certificate.r_num],
+                    ] as const
+                  ).map(([layer, res]) => (
+                    <div key={layer} className="flex flex-col sm:flex-row sm:items-baseline gap-1.5 px-5 py-3">
+                      <span className="font-mono2 text-[11px] uppercase tracking-wider text-ink-3 w-20 shrink-0">
+                        {layer}
+                      </span>
+                      <span className="flex-1 min-w-0 text-ink-2 text-sm leading-relaxed">
+                        {res.bound}
+                      </span>
+                      <span className="sm:w-56 shrink-0 font-mono2 text-[11px] text-ink-3 text-right">
+                        {res.derivation}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Section>
+          )}
+
           <Section title={t('pd.origin')}>
             <p className="font-statement leading-[1.9] text-ink-2">{p.origin}</p>
           </Section>
@@ -229,6 +275,18 @@ export default function ProblemDetailPage() {
           {p.engineering_value && (
             <Section title={t('pd.engineering')}>
               <p className="font-statement leading-[1.9] text-ink-2">{p.engineering_value}</p>
+              {p.engineering_deliverables && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.engineering_deliverables.map((d) => (
+                    <span
+                      key={d}
+                      className="border border-line rounded-full px-3 py-1 text-xs text-ink-2 bg-white/50"
+                    >
+                      {d}
+                    </span>
+                  ))}
+                </div>
+              )}
             </Section>
           )}
 

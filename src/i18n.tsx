@@ -88,7 +88,18 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pl.community': { zh: '社区投稿', en: 'Community submissions' },
   // detail
   'pd.statement': { zh: '精确陈述', en: 'Precise statement' },
+  'pd.certificate': { zh: '残余总带证书', en: 'Residual total-band certificate' },
+  'pd.certificate.band': { zh: '带证区间', en: 'Certified band' },
+  'pd.certificate.total': { zh: '总带合成', en: 'Total-band composition' },
+  'pd.certificate.layer': { zh: '残差层', en: 'Residual layer' },
+  'pd.certificate.derivation': { zh: '复核来源', en: 'Verification source' },
   'pd.origin': { zh: '来源与背景', en: 'Origin & context' },
+  'pl.deliverable': { zh: '工程交付物', en: 'Engineering deliverable' },
+  'pl.deliverableAll': { zh: '全部交付物', en: 'All deliverables' },
+  'pl.deliverableHint': {
+    zh: '从你的工程交付物出发，反向找到由哪个带证问题直接支撑（反向索引）。',
+    en: 'Start from your engineering deliverable and find which certified problem directly supports it (reverse index).',
+  },
   'pd.progress': { zh: '探索记录', en: 'Exploration record' },
   'pd.obstacles': { zh: '已知障碍', en: 'Known obstacles' },
   'pd.engineering': { zh: '工程价值与转化', en: 'Engineering value & translation' },

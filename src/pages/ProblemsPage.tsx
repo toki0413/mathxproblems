@@ -5,7 +5,9 @@ import {
   PROBLEMS,
   DOMAINS,
   ALL_IMPACT_DOMAINS,
+  ALL_DELIVERABLES,
   impactOf,
+  deliverablesOf,
   type Domain,
   type FormalizationPotential,
   type VerificationPath,
@@ -50,6 +52,7 @@ export default function ProblemsPage() {
   const status = (params.get('status') ?? '') as ProblemStatus | ''
   const output = (params.get('output') ?? '') as OutputKind | ''
   const impact = params.get('impact') ?? ''
+  const deliverable = params.get('deliverable') ?? ''
   const approved = trpc.submissions.approved.useQuery(undefined, { retry: false })
 
   const setParam = (k: string, v: string) => {
@@ -77,8 +80,9 @@ export default function ProblemsPage() {
     if (status) list = list.filter((p) => p.status === status)
     if (output) list = list.filter((p) => p.output === output)
     if (impact) list = list.filter((p) => impactOf(p).includes(impact))
+    if (deliverable) list = list.filter((p) => deliverablesOf(p).includes(deliverable))
     return list
-  }, [query, domain, potential, verification, status, output, impact, fuse])
+  }, [query, domain, potential, verification, status, output, impact, deliverable, fuse])
 
   const label = (kind: 'potential' | 'verification', v: string) => enumLabel(lang, kind, v)
 
@@ -136,6 +140,25 @@ export default function ProblemsPage() {
             ))}
           </select>
         </div>
+        {/* 方向四：工程交付物反向索引——从交付物出发找到支撑它的带证问题 */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3 mr-1">
+            {t('pl.deliverable')}
+          </span>
+          <select
+            value={deliverable}
+            onChange={(e) => setParam('deliverable', e.target.value)}
+            className="bg-transparent border border-line rounded-full px-3 py-1 text-xs text-ink-2 focus:outline-none focus:border-ink"
+          >
+            <option value="">{t('pl.deliverableAll')}</option>
+            {ALL_DELIVERABLES.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+        </div>
+        {ALL_DELIVERABLES.length > 0 && (
+          <p className="mt-1 text-xs text-ink-3">{t('pl.deliverableHint')}</p>
+        )}
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono2 text-[11px] uppercase tracking-[0.18em] text-ink-3 mr-1">{t('pl.output')}</span>
           <Pill active={!output} onClick={() => setParam('output', '')}>{t('pl.all')}</Pill>

@@ -16,12 +16,42 @@ export interface RelatedProblem {
   id: string
   relation: RelationType
   note: string
+  /**
+   * 总带继承方向（方向二：确定性供应链）：
+   *  由 A.depends_on B，则 B 是 A 的上游。若 A 是 verified_behavior，其总带宽可因
+   *  B（结构证或行为证）的成果而加固（上游界更紧→下游带更窄），或被 B 的反例击穿
+   *  （上游核心被否→下游带失效）。此语义写入 note，供 UI/统计理解"要信任该裕量
+   *  得先信哪些上游证书"。
+   */
 }
 
 /** 一条针对某个问题的更新（修订、新进展或状态变更） */
 export interface ProblemUpdate {
   date: string
   note: string
+}
+
+/** 三层残差中一层的结构化形式：把 judgment 中的残差层提取为字段，
+ *  供 UI 渲染带证区间与各层常数，而非让人读一段中文判断"这是不是带证区间"。
+ *  R_param≡0 时 bound 写 "≡0"。 */
+export interface ResidualLayer {
+  /** 该层残差上界的表达（公式或描述），如 "Boussinesq 近似的显式残差界" */
+  bound: string
+  /** 该层可独立复核的常数/方法来源 */
+  derivation: string
+}
+
+/** 三层残差总带的结构化形式（方向一 L1）。
+ *  目的：让 judgment 的三层残差从散文升级为可被 UI 渲染、可被审计的字段。
+ *  这不是为接入形式化核验服务，而是为工程消费层（带证区间图 + 继承链可视化）做数据基础。 */
+export interface Certificate {
+  r_model: ResidualLayer
+  r_param: ResidualLayer
+  r_num: ResidualLayer
+  /** 总带合成公式，如 "Nu_hi - Nu_lo ≤ R_model + R_param + R_num" */
+  total_band: string
+  /** 带证区间表达，如 "[Nu_lo, Nu_hi]" */
+  certified_band?: string
 }
 
 export interface Problem {
@@ -49,7 +79,12 @@ export interface Problem {
   output: OutputKind
   formalization_notes: string
   references: { label: string; url: string }[]
-  /** 判定形式：一个被认可的答案必须满足什么、如何被核验（证明证书 / 数值判据 / 反例构造…） */
+  /** 判定形式：一个被认可的答案必须满足什么、如何被核验（证明证书 / 数值判据 / 反例构造…）。
+   *  对 verified_behavior 的判定应显式覆盖三层残差并可合成为总带：
+   *    R_model —— 把真实系统限制为受控模型/理想化所丢掉的近似残差上界；
+   *    R_param —— 输入参数来自测量/标定/有限采样时引入的不确定度残差上界（参数精确给定时为 0，须如实注明）；
+   *    R_num   —— 对该受控模型求解放置离散/区间/采样所引入的计算残差上界。
+   *  三者满足 总带宽 ≤ R_model + R_param + R_num，且各层有可独立复核常数。 */
   judgment?: string
   /** 溯源：提出者 */
   proposer?: string
@@ -59,6 +94,12 @@ export interface Problem {
   via?: { label: string; url?: string }
   /** 轻量更新记录：修订 / 新进展 / 状态变更 */
   updates?: ProblemUpdate[]
+  /** 三层残差总带的结构化形式（方向一 L1）：把 judgment 的三层残差从散文提取为字段，
+   *  供 UI 渲染带证区间与各层常数。verified_behavior 题鼓励填写。 */
+  certificate?: Certificate
+  /** 工程交付物条目（方向四基础）：把 engineering_value 中的可消费产出提取为具体名称，
+   *  供"工程瓶颈 → 支撑它的证书"反向索引使用。如 ["散热器峰值温度裕量判定", "热设计评审带证区间"]。 */
+  engineering_deliverables?: string[]
 }
 
 export const PROBLEMS: Problem[] = [
@@ -673,7 +714,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
         url: 'https://link.springer.com/book/10.1007/978-3-642-70982-1',
       },
     ],
-    judgment: '合格答案为"可核验二次谱判据"而非穷举所有谱：对给定目标 HOMO–LUMO 光隙与六环数 $h$，交付一个可核验判定——是否存在苯环型分子图实现该谱隙，并给出一组候选结构与其谱的可复核证书，附两层残差总带：(1) **模型残差**：把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界 $R_{model}$（显式含对六环嵌入/成环双键的定性限制）；(2) **数值残差**：谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界 $R_{num}$。反作弊规则：禁止用"特征多项式整系数"之外的启发式冒充可实现性证明；禁止对单一候选只给近似特征值而无精确谱核验。判定通过的消费形式：给定目标带隙，直接得到"该带隙能否被某苯环分子实现（是/否）+ 若可则给出候选核并附总带"的可核验判定，供有机电子材料预筛直接消费而无需对候选全集枚举。',
+    judgment: '合格答案为"可核验二次谱判据"而非穷举所有谱：对给定目标 HOMO–LUMO 光隙与六环数 $h$，交付一个可核验判定——是否存在苯环型分子图实现该谱隙，并给出一组候选结构与其谱的可复核证书，附两层残差总带：(1) **R_model**：把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界（显式含对六环嵌入/成环双键的定性限制）；(2) **R_num**：谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界。参数（目标光隙、六环数）为精确给定的设计输入，故 **R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用"特征多项式整系数"之外的启发式冒充可实现性证明；禁止对单一候选只给近似特征值而无精确谱核验。判定通过的消费形式：给定目标带隙，直接得到"该带隙能否被某苯环分子实现（是/否）+ 若可则给出候选核并附总带"的可核验判定，供有机电子材料预筛直接消费而无需对候选全集枚举。',
   },
   {
     id: 'mc-004',
@@ -729,7 +770,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   {
     id: 'mc-005',
     output: 'verified_behavior',
-    judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model.',
+    judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把观测限制为可辨性子集/理想无噪模型所丢掉的近似残差上界；(2) **R_param**＝速率常数测量不确定度对判定边界的输入残差上界（可辨识性结论须对 $k$ 落在测量区间内仍稳定）；(3) **R_num**＝代数判定步骤（微分代数符号计算）的核验残差上界。无输入测量残差时须如实注明 R_param≡0。',
     title: 'Structural Identifiability Classification of Mass-Action Rate Constants',
     titleZh: '质量作用速率常数的结构可辨识性分类',
     domain: 'mathematical-chemistry',
@@ -746,7 +787,13 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposed_year: 2008,
     via: { label: 'Sontag, Dynamic compensation, parameter identifiability, and equivariances, PLoS Comput. Biol. 13 (2017); 可辨识性方法综述见 Miao et al., SIAM Review 53 (2011)', url: 'https://doi.org/10.1371/journal.pcbi.1005447' },
     impact_domains: ["实验动力学建模","催化与系统生物学的参数化"],
-    related_problems: [],
+    related_problems: [
+      {
+        id: 'mc-030',
+        relation: 'generalizes',
+        note: '总带继承（方向二）：mc-005 的结构可辨识性分类被 mc-030 的稳态浓度带继承。本题为上游——若 mc-005 判定某测量方案不可辨识，则 mc-030 在该测量区间上的浓度带失效；下游带的可信度链入本题的分类证书。',
+      },
+    ],
     statement: `For a mass-action network where only a subset of species concentrations is observable, **give an algorithm and a complete classification** deciding whether the vector of rate constants $k$ is **structurally identifiable** (uniquely recoverable, locally or globally, from ideal noise-free observation of the observable species over all time), as a function of the network topology and the observation pattern.`,
     origin:
       'Experimental kinetics measures only some species (e.g. spectroscopically visible ones); whether rate constants can in principle be recovered from such data determines the interpretability of every fitted kinetic model in catalysis and systems biology.',
@@ -916,6 +963,11 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
         id: 'mb-004',
         relation: 'analog_of',
         note: 'Replicator dynamics and Lotka–Volterra are mathematically equivalent (Hofbauer transformation); stability classifications should transfer.',
+      },
+      {
+        id: 'mb-028',
+        relation: 'generalizes',
+        note: '总带继承（方向二）：mb-003 的全局稳定性分类被 mb-028 的耐药平衡频率带继承。本题为上游——若 mb-003 的稳定性结构被击穿，下游 mb-028 的平衡带断言失效；下游带的可信度链入本题的分类证书。',
       },
     ],
     statement: `Consider the replicator–mutator system
@@ -3975,7 +4027,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     id: 'mc-017',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"交换关联能下界的可核验收敛常数"而非终极锐常数：交付一个机器可核验的两边括号，使 Lieb–Oxford 常数被例 $C$ 满足 $c \\le C \\le C_0$ 且 $C_0-c$ 相比已知界（当前 $[1.44,1.58]$）有受控的显著收缩，并附两层残差总带：(1) **模型残差**：把真实（动量泛函、自旋对称性相应）交换关联能限制为 $\\rho^{4/3}$ 局部泛函族所引入的残差上界 $R_{model}$（显式区分 spin-unpolarized 情形的更紧界）；(2) **数值残差**：对可达性构造与下界泛函用区间/符号计算封闭所引入的残差上界 $R_{num}$。反作弊规则：禁止把仅猜想的 tight bound（如 Perdew–Sun）当作已证常数；禁止给无区间封闭的单一数值点。判定通过的消费形式：给定密度泛函实现，直接得到"该泛函的交换关联能是否仍满足严格运动学下界"的可核验判定，其括号宽由两层残差总带明确划定，供 DFT 工具作者认证其梯度/元泛函不违反下界。',
+      '合格答案为"交换关联能下界的可核验收敛常数"而非终极锐常数：交付一个机器可核验的两边括号，使 Lieb–Oxford 常数被例 $C$ 满足 $c \\le C \\le C_0$ 且 $C_0-c$ 相比已知界（当前 $[1.44,1.58]$）有受控的显著收缩，并附三层残差总带：(1) **R_model**：把真实（动量泛函、自旋对称性相应）交换关联能限制为 $\\rho^{4/3}$ 局部泛函族所引入的残差上界（显式区分 spin-unpolarized 情形的更紧界）；(2) **R_num**：对可达性构造与下界泛函用区间/符号计算封闭所引入的残差上界；(3) 该题常数为纯数学结构，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把仅猜想的 tight bound（如 Perdew–Sun）当作已证常数；禁止给无区间封闭的单一数值点。判定通过的消费形式：给定密度泛函实现，直接得到"该泛函的交换关联能是否仍满足严格运动学下界"的可核验判定，其括号宽由三层残差总带明确划定，供 DFT 工具作者认证其梯度/元泛函不违反下界。',
     title: 'The Sharp Constant in the Lieb–Oxford Inequality',
     titleZh: 'Lieb–Oxford 不等式的锐利常数',
     domain: 'mathematical-chemistry',
@@ -4008,6 +4060,23 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       },
     ],
     statement: `For an $N$-electron wave function $\u03c8$ with one-particle density $\u03c1$, the indirect (exchange plus correlation) Coulomb energy $W(\u03c8)=\\langle \u03c8,\\sum_{i<j}|x_i-x_j|^{-1}\u03c8\\rangle - \\tfrac{1}{2}\\iint_{\u211d^6} \u03c1(x)\u03c1(y)|x-y|^{-1}\\, dx\\, dy$ satisfies $W(\u03c8)\\ge -C\\int_{\u211d^3}\u03c1(x)^{4/3}\\, dx$. **Determine the sharp constant $C_{\\mathrm{opt}}=\\sup\{-W(\u03c8)/\\int \u03c1^{4/3}\\, dx\\}$**, the least such $C$ valid for all $N$ and all $\u03c8$. The value is open; current records place it strictly between the improved upper bound $1.58$ and a lower bound above $1.44$.`,
+    certificate: {
+      r_model: {
+        bound: '把真实（动量泛函、自旋对称性相应）交换关联能限制为 ρ^{4/3} 局部泛函族所引入的模型残差上界（显式区分 spin-unpolarized 情形的更紧界）',
+        derivation: '局部 ρ^{4/3} 泛函族限定残差界',
+      },
+      r_param: {
+        bound: '≡0（纯数学结构，无输入测量残差层）',
+        derivation: '常数为纯数学结构，参数精确给定',
+      },
+      r_num: {
+        bound: '对可达性构造与下界泛函用区间/符号计算封闭所引入的数值残差上界',
+        derivation: '区间/符号计算封闭界',
+      },
+      total_band: 'C_0 - c ≤ R_model + R_num',
+      certified_band: '[c, C_0]',
+    },
+    engineering_deliverables: ['DFT 泛函下界合规审查', '交换关联能收缩括号'],
     origin:
       'The Lieb–Oxford inequality bounds the indirect part of the Coulomb repulsion by a strictly local functional of the ground-state density, and is the structural backbone behind gradient-corrected and meta-GGA density-functional approximations. The optimal constant matters because every exchange-correlation functional that respects the bound must stay below it.',
     progress: [
@@ -4393,7 +4462,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     id: 'mc-024',
     output: 'verified_behavior',
     judgment:
-      'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form.',
+      'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form. 合格答案为可核验判定并附残差总带：(1) **R_model**＝把真实 π 电子稳定结构限制为 Kekulé/Clar 覆盖组合模型所丢掉的近似残差上界；(2) **R_num**＝枚举与封闭形式计算的区间/精确算术残差上界；(3) 参数（六环数、几何族）为精确给定的数论输入，**R_param≡0（无输入测量残差层，如实注明）**。',
     title: 'Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems',
     titleZh: '苯环型体系 Clar 数与 Clar 覆盖的计数',
     domain: 'mathematical-chemistry',
@@ -4798,7 +4867,7 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   {
     id: 'mb-024',
     output: 'verified_behavior',
-    judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted.',
+    judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把真实发育信号转导限制为配体-受体泊松计数/Berg–Purcell 模型所丢掉的近似残差上界；(2) **R_param**＝配体浓度、受体数、梯度几何来自测量/标定时其不确定度对感知下限的输入残差上界（对测量区间内所有配置成立）；(3) **R_num**＝随机动力学/主方程求解或区间封闭的残差上界。无输入测量不确定度时须如实注明 R_param≡0。',
     title: 'Information-Theoretic Floor on Morphogen Gradient Concentration Sensing',
     titleZh: '形态发生梯度浓度感知的信息论下限',
     domain: 'mathematical-biology',
@@ -5460,7 +5529,7 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     id: 'mc-027',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"何时可用 tQSSA"的可核验判定而非通用误差定理：对一具体酶促反应参数族（总酶浓度 $\\epsilon$、速率常数区间），交付完整随机过程与其 tQSSA 约化之间全变差距离的可核验上界 $D(\\epsilon)$，并附两层残差总带：(1) **模型残差**：把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界 $R_{model}$；(2) **数值残差**：主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界 $R_{num}$，二者合成使 $D_{\\text{tot}}\\le R_{model}+R_{num}$ 且在声明参数区内可数值验证。反作弊规则：禁止把只在渐近（$\\epsilon\\to0$）情形成立的界当作全速率区结论；禁止单次仿真轨迹冒充误差分布。判定通过的消费形式：给定通路参数与精度要求，直接得到"在此参数区可使用 tQSSA（误差低于阈值）或必须跑完整刚性主方程"的带证判定，供大规模通路模拟在精度与速度间做可审计权衡。',
+      '合格答案为"何时可用 tQSSA"的可核验判定而非通用误差定理：对一具体酶促反应参数族（总酶浓度 $\\epsilon$、速率常数区间），交付完整随机过程与其 tQSSA 约化之间全变差距离的可核验上界 $D(\\epsilon)$，并附三层残差总带：(1) **R_model**＝把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界；(2) **R_param**＝速率常数与总酶浓度来自测量/标定时，其不确定度传播到 $D(\\epsilon)$ 的输入残差上界（对测量区间内的所有 $k,\\epsilon$ 均须成立）；(3) **R_num**＝主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界，三者合成使 $D_{\\text{tot}}\\le$ R_model+R_param+R_num 且在声明参数区内可数值验证。反作弊规则：禁止把只在渐近（$\\epsilon\\to0$）情形成立的界当作全速率区结论；禁止单次仿真轨迹冒充误差分布。判定通过的消费形式：给定通路参数与精度要求，直接得到"在此参数区可使用 tQSSA（误差低于阈值）或必须跑完整刚性主方程"的带证判定，供大规模通路模拟在精度与速度间做可审计权衡。',
     title: 'Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation',
     titleZh: '随机准稳态近似的严格误差界',
     domain: 'mathematical-chemistry',
@@ -5793,7 +5862,7 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     id: 'me-029',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"采样预算-误差-维数"的可核验曲线判据而非终极指数配对：对给定函数类 $F_d$（光滑度 $r$）与预算 $n$ 次求值，交付最小最坏情形误差的可核验区间 $[\\underline{e},\\overline{e}]$，使 $e^{\\text{wor}}(F_d,n)=\\Theta(n^{-\\alpha}d^{\\beta})$ 的指数 $\\alpha,\\beta$ 被一个受控括号包围，并附两层残差总带：(1) **模型残差**：把数值计算限制为该 Sobolev 类 $F_d$ 所引入的残差上界 $R_{model}$（显式含对函数族光滑度/边界假设的依赖）；(2) **数值残差**：对上述界给出的显式求积规则（或使下界可核验的采样集构造）用区间/精确算术封闭所引入的残差上界 $R_{num}$，二者合成总带。反作弊规则：禁止用未对齐上下界的经验收敛图冒充 $\\Theta$ 判定；禁止对单一维数 $d$ 给局部指数而无 $d$ 依赖的全局一致括号。判定通过的消费形式：给定误差目标 $\\epsilon$ 与维数 $d$，直接得到"需要的采样数 $n$ 落在 $[n_\\lo,n_\\hi]$"的可核验区间（连带"何时网格值得、何时让步 Monte-Carlo"的分界判据），供期权定价与参数化仿真做可证采样预算规划。',
+      '合格答案为"采样预算-误差-维数"的可核验曲线判据而非终极指数配对：对给定函数类 $F_d$（光滑度 $r$）与预算 $n$ 次求值，交付最小最坏情形误差的可核验区间 $[\\underline{e},\\overline{e}]$，使 $e^{\\text{wor}}(F_d,n)=\\Theta(n^{-\\alpha}d^{\\beta})$ 的指数 $\\alpha,\\beta$ 被一个受控括号包围，并附三层残差总带：(1) **R_model**：把数值计算限制为该 Sobolev 类 $F_d$ 所引入的残差上界（显式含对函数族光滑度/边界假设的依赖）；(2) **R_num**：对上述界给出的显式求积规则（或使下界可核验的采样集构造）用区间/精确算术封闭所引入的残差上界；(3) 参数（函数类、维数、误差目标）为精确给定的信息模型输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用未对齐上下界的经验收敛图冒充 $\\Theta$ 判定；禁止对单一维数 $d$ 给局部指数而无 $d$ 依赖的全局一致括号。判定通过的消费形式：给定误差目标 $\\epsilon$ 与维数 $d$，直接得到"需要的采样数 $n$ 落在 $[n_\\lo,n_\\hi]$"的可核验区间（连带"何时网格值得、何时让步 Monte-Carlo"的分界判据），供期权定价与参数化仿真做可证采样预算规划。',
     title: 'Sharp Dimensional Dependence of High-Dimensional Numerical Integration',
     titleZh: '高维数值积分的维数依赖尖确指数',
     domain: 'mathematical-engineering',
@@ -5846,7 +5915,7 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     id: 'me-030',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"选定布站的信息增益保证"而非单一算法：对给定测量模型 $\\Sigma$、候选布点 $S$ 与预算 $k$，交付一个多项式时间算法，其输出信息增益 $f(\\hat S)$ 满足带证下界 $f(\\hat S)\\ge c\\cdot f(S^*)$（对 D-最优/对数行列式类目标给出优于 $1-\\nicefrac{1}{e}$ 的 $c$ 或证明其不可能），并附两层残差总带：(1) **模型残差**：把真实传感（观测噪声、通讯耦合）限制为该目标函数 $f$（子模/次模带约束）所引入的残差上界 $R_{model}$；(2) **数值残差**：对 $f$ 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界 $R_{num}$，使"$f(\\hat S)\\ge c\\cdot f(S^*)$"的保证不受数值误差侵蚀。反作弊规则：禁止把无约束单调情形的 $1-\\nicefrac{1}{e}$ 静默当作带约束情形的结论；禁止给无核验误差的目标值。判定通过的消费形式：给定候选布点与预算，直接得到"所选布点的信息增益不低于最优的 $c\\cdot100\\%$"这一不依赖实例调参的硬保证（连带证明该 $c$ 的最优性或不可能性），供环境监测/结构健康监测/主动采样做硬性布站决策。',
+      '合格答案为"选定布站的信息增益保证"而非单一算法：对给定测量模型 $\\Sigma$、候选布点 $S$ 与预算 $k$，交付一个多项式时间算法，其输出信息增益 $f(\\hat S)$ 满足带证下界 $f(\\hat S)\\ge c\\cdot f(S^*)$（对 D-最优/对数行列式类目标给出优于 $1-\\nicefrac{1}{e}$ 的 $c$ 或证明其不可能），并附三层残差总带：(1) **R_model**：把真实传感（观测噪声、通讯耦合）限制为该目标函数 $f$（子模/次模带约束）所引入的残差上界；(2) **R_param**：测量模型协方差 $\\Sigma$（观测噪声/标定）来自估测时，其不确定度对 $f$ 与保证比 $c$ 的输入残差上界（对 $\\Sigma$ 容差球内成立）；(3) **R_num**：对 $f$ 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界，使"$f(\\hat S)\\ge c\\cdot f(S^*)$"的保证不受三层残差侵蚀。反作弊规则：禁止把无约束单调情形的 $1-\\nicefrac{1}{e}$ 静默当作带约束情形的结论；禁止给无核验误差的目标值。判定通过的消费形式：给定候选布点与预算，直接得到"所选布点的信息增益不低于最优的 $c\\cdot100\\%$"这一不依赖实例调参的硬保证（连带证明该 $c$ 的最优性或不可能性），供环境监测/结构健康监测/主动采样做硬性布站决策。',
     title: 'Provable Approximation for Optimal Sensor Placement and Information Gain',
     titleZh: '最优传感器布点与信息增益的可证近似',
     domain: 'mathematical-engineering',
@@ -5898,7 +5967,7 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     id: 'me-031',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"降阶预测带硬性信任区间"而非统一昂贵界：对给定参数化问题与降阶基（秩 $r$），交付一个可计算、可核验的后验误差上界 $\\Delta(\\mu)$ 使 $\\|u(\\mu)-\\hat u_r(\\mu)\\|\\le\\Delta(\\mu)$，并附两层残差总带：(1) **模型残差**：把在线全阶系统限制为降阶模型（固定基 $r$、截断算子）所引入的残差上界 $R_{model}$（含对非多项式非线性项连续性假设的显式依赖）；(2) **数值残差**：残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界 $R_{num}$，使 $\\Delta$ 既 sharp（在代表参数上接近真实误差）又 cheap（独立于全阶维数）。反作弊规则：禁止把仅经验的（未封闭）残差估计冒充可证上界；禁止对真实误差给出无核验的超估下界。判定通过的消费形式：给定在线参数 $\\mu$ 与降阶模型，直接得到"预测值 $\\hat u_r(\\mu)$ 外围的硬性置信区间 $\\|u-\\hat u_r\\|\\le\\Delta(\\mu)$"供数字孪生/手术/实时控制直接消费；若证明不存在可证且便宜的 $\\Delta$，则明确给出必须保留在线全阶校验的工况族。',
+      '合格答案为"降阶预测带硬性信任区间"而非统一昂贵界：对给定参数化问题与降阶基（秩 $r$），交付一个可计算、可核验的后验误差上界 $\\Delta(\\mu)$ 使 $\\|u(\\mu)-\\hat u_r(\\mu)\\|\\le\\Delta(\\mu)$，并附三层残差总带：(1) **R_model**：把在线全阶系统限制为降阶模型（固定基 $r$、截断算子）所引入的残差上界（含对非多项式非线性项连续性假设的显式依赖）；(2) **R_num**：残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界，使 $\\Delta$ 既 sharp（在代表参数上接近真实误差）又 cheap（独立于全阶维数）；(3) 在线参数 $\\mu$ 与降阶基为精确给定的算法输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把仅经验的（未封闭）残差估计冒充可证上界；禁止对真实误差给出无核验的超估下界。判定通过的消费形式：给定在线参数 $\\mu$ 与降阶模型，直接得到"预测值 $\\hat u_r(\\mu)$ 外围的硬性置信区间 $\\|u-\\hat u_r\\|\\le\\Delta(\\mu)$"供数字孪生/手术/实时控制直接消费；若证明不存在可证且便宜的 $\\Delta$，则明确给出必须保留在线全阶校验的工况族。',
     title: 'Certifiable A-Posteriori Error Bounds for Nonlinear Model Reduction',
     titleZh: '非线性模型降阶的可证后验误差界',
     domain: 'mathematical-engineering',
@@ -6002,7 +6071,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-036',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"可核验混合率判据 + 双层残差总带"而非精确指数本身。对给定的控制代价预算 $E=\\int_0^T\\|u\\|_{H^s}^2\\,dt$ 与目标抹平尺度（如衰减到 $\\|\\theta\\|_{H^{-1}}\\le\\epsilon$），交付下述两层残差各带的界与证明后合成总带：(1) **模型残差**：把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏 $\\partial_t\\theta+u\\cdot\\nabla\\theta=0$ 所引入的残差上界 $R_{model}$（显式含物理黏性对混合上限的量级贡献）；(2) **数值残差**：对某一可核验速度场构造（上游显式层流场或其数值实现）求解该受控模型时，因离散/区间算术引入的残差上界 $R_{num}$。反作弊规则：禁止用未对齐上下界的"猜想指数"冒充证书；禁止把无黏极限当成一般声称而不给有限黏性修正界；禁止单点数值外推而无核验误差。判定通过的消费形式：给定泵送能量，直接得到"能把标量抹平到 $\\epsilon$ 的最小能量预算落在 $[E_\\lo,E_\\hi]$ 且总带 $E_\\hi-E_\\lo\\le R_{model}+R_{num}$"的可核验区间，供微流控与燃烧掺混尺动设计直接消费而无需 DNS 重算。',
+      '合格答案为"可核验混合率判据 + 三层残差总带"而非精确指数本身。对给定的控制代价预算 $E=\\int_0^T\\|u\\|_{H^s}^2\\,dt$ 与目标抹平尺度（如衰减到 $\\|\\theta\\|_{H^{-1}}\\le\\epsilon$），交付下述残差各带的界与证明后合成总带：(1) **R_model**：把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏 $\\partial_t\\theta+u\\cdot\\nabla\\theta=0$ 所引入的残差上界（显式含物理黏性对混合上限的量级贡献）；(2) **R_num**：对某一可核验速度场构造（上游显式层流场或其数值实现）求解该受控模型时，因离散/区间算术引入的残差上界；(3) 参数（控制代价预算、目标尺度）为设计者给定的精确输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止用未对齐上下界的"猜想指数"冒充证书；禁止把无黏极限当成一般声称而不给有限黏性修正界；禁止单点数值外推而无核验误差。判定通过的消费形式：给定泵送能量，直接得到"能把标量抹平到 $\\epsilon$ 的最小能量预算落在 $[E_\\lo,E_\\hi]$ 且总带 $E_\\hi-E_\\lo\\le$ R_model+R_param+R_num"的可核验区间，供微流控与燃烧掺混尺动设计直接消费而无需 DNS 重算。',
     title: 'Sharp Mixing Rates from Anomalous Dissipation in Passive Scalar Transport',
     titleZh: '被动标量输运中反常耗散的尖确混合速率',
     domain: 'mathematical-physics',
@@ -6035,7 +6104,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       '**混合率与耗散的对偶不穿过闭合**: 下界依赖一条守恒律型不等式（如标量梯度增长的高速极限），上界依赖能精确受控的层流场构造；两者对控制成本的依赖需同时调到同一指标，正好落在最优输运-湍流能级串交接处。',
     ],
     engineering_value:
-      '该指数定义"给定泵送能量→可抹平的标量最小尺度"，是微流控混合器尺寸与流速直接算成本、燃烧/大气模型选择次网格闭合的唯一理论线。本榜的价值不是条件性的指数，而是一个把模型层（有黏修正）与数值层（离散/区间）残差显式区分并合成总带的**可核验混合预算区间**，使能量预算规划与混合器尺度设计不再靠经验拟合，而是直接消费带证区间。',
+      '该指数定义"给定泵送能量→可抹平的标量最小尺度"，是微流控混合器尺寸与流速直接算成本、燃烧/大气模型选择次网格闭合的唯一理论线。本榜的价值不是条件性的指数，而是一个把模型层（有黏修正）与数值层（离散/区间）残差显式区分（本题参数为设计给定，R_param≡0）并合成总带的**可核验混合预算区间**，使能量预算规划与混合器尺度设计不再靠经验拟合，而是直接消费带证区间。',
     formalization_notes:
       '判定偏分析：下界化为对一类速度场的最优输运上界（用插值/对偶证明），上界化为显式层流场的速度场构造与能量计数；需精细的泛函分析，形式化系数偏低。',
     references: [
@@ -6155,7 +6224,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-037',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流散热几何与给定发热量、环境与布置工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖两层残差——(1) **模型残差**：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界 $R_{model}$；(2) **数值残差**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界 $R_{num}$，二者各自附可复核常数且总带满足 $\\overline{Nu}-\\underline{Nu}\\le R_{model}+R_{num}$。反作弊规则：禁止只给经验相关式（那是统计拟合，非证书）；禁止把浮点收敛外推当证明而无核验误差；禁止在总带宽度中静默吞掉任一层残差；禁止以"降维/忽略非线性/换 Euler 极限"削约束到只给平凡 $Ra^{1/2}$ 界。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限由带证区间直接给出，无需 DNS 重算。',
+      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流散热几何与给定发热量、环境与布置工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖三层残差——(1) **R_model**：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界，三者各自附可复核常数且总带满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。反作弊规则：禁止只给经验相关式（那是统计拟合，非证书）；禁止把浮点收敛外推当证明而无核验误差；禁止在总带宽度中静默吞掉任一层残差；禁止以"降维/忽略非线性/换 Euler 极限"削约束到只给平凡 $Ra^{1/2}$ 界。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限由带证区间直接给出，无需 DNS 重算。',
     title: 'Certified upper bounds on heat transport in Rayleigh–Bénard convection',
     titleZh: 'Rayleigh–Bénard 对流传热 Nusselt 数的可核验上界',
     domain: 'mathematical-physics',
@@ -6175,8 +6244,31 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Ding & Kerswell, Exhausting the background approach for bounding the heat transport in Rayleigh–Bénard convection, J. Fluid Mech. 889, A33 (2020), doi:10.1017/jfm.2020.41',
       url: 'https://doi.org/10.1017/jfm.2020.41',
     },
-    related_problems: [],
+    related_problems: [
+      {
+        id: 'mp-041',
+        relation: 'generalizes',
+        note: '总带继承（方向二）：mp-037 的渐近 Ra^{1/3} 上界骨架被 mp-041 的工程散热裕量证书继承。本题为上游——若 mp-037 的外包被收紧，下游 mp-041 的 R_model 上界随之收窄、总带更紧；若 mp-037 的核心被反例击穿，则 mp-041 借用的上界骨架失效、裕量判定同时失效。下游带的可信度链入本题的上界证书。',
+      },
+    ],
     statement: '考虑两平板间、高温在下低温在上、温差驱动的 Boussinesq 对流，Nusselt 数 $Nu = \\langle q\\rangle/(\\kappa\\Delta T/h)$ 是被事实所约束的上限函数 $\\mathrm{Nu}(Ra,Pr)$。Howard 1963 证明 $Nu\\le (\\tfrac{3}{64})^{1/2}Ra^{1/2}$，Doering–Constantin 1996 以 background 方法改进前因子为 $Nu\\le\\tfrac16 Ra^{1/2}$；但无论怎样优化 background 场，所有已知严格证法都停在 $Ra^{1/2}$ 标度（no-slip 情形目前最佳常数 $Nu\\le 0.02634\\,Ra^{1/2}$），而数值/DNS 证据一致指向更大 $Ra$ 时 $Nu\\sim Ra^{1/3}$（Malkus–Howard 边界层边缘稳定论断）。本题要交付的可核验产物为：对给定的 $Ra,Pr$ 与边界类型，给出一个带可验证常数的上界 $\\overline{\\mathrm{Nu}}(Ra,Pr)$ 及其"外包"证明，并使其在 $Ra\\to\\infty$ 时的标度指数严格优于 $1/2$，或无侧壁缝隙地证明不可能；请问是否存在程序化的外包论据，能对一族递增的 $Ra$ 成批产出随 $Ra$ 严格下降的归一化常数 $c(Ra)=Nu/Ra^{1/3}$ 的逐项可独立核验的上界/下界对，并用区间算术把它们整体包围在 $[\\underline{c}(Ra),\\overline{c}(Ra)]$ 中且 $\\overline{c}-\\underline{c}\\to 0$？',
+    certificate: {
+      r_model: {
+        bound: 'Boussinesq/边界层近似相对真实可压缩气体动力学的残差上界（含辐射衰减项）',
+        derivation: 'Boussinesq 近似的显式残差界',
+      },
+      r_param: {
+        bound: '发热量、环境温度/流速测量不确定度传播到 Nu 上界的输入残差',
+        derivation: '测量区间内所有工况成立的传播界',
+      },
+      r_num: {
+        bound: 'DNS/区间算术求解受控模型时网格、时间步与 SDP 对偶间隙的残差上界',
+        derivation: '区间算术与 SDP 对偶的零/小间隙证明',
+      },
+      total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
+      certified_band: '[Nu_lo, Nu_hi]',
+    },
+    engineering_deliverables: ['Nu(Ra,Pr) 上界证书', '散热设计保守裕量界'],
     origin:
       'Rayleigh–Bénard 对流是海洋、大气、地幔与工业散热中热输运的标准模型，其核心工程问题是把平均热流 $Nu$ 表达成 $Ra$ 的函数，用于设计散热器、预测边界层通量与气候模型中的热量交换。但把 $Nu(Ra)$ 变成严格不等式而非经验拟合，就要在无量纲参数全空间中提供不依赖人为闭合假设的、可直接饱含安全裕量的上界——这正是 background/变分法要回答的问题：既给出工程可用的保守上界，又逼近真实物理选择的 $1/3$ 标度。能在机器上核验的外包数值证书，等价于把这一经典问题转化为一个"可审计算"的优化问题。',
     progress: [
@@ -6213,7 +6305,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-040',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"二维局域自旋可模拟性判定"而非一般面积律定理：对某一具体二维、均匀、常数能隙的局域自旋哈密顿量，交付纠缠熵对子区域面积的可核验上界（面积律）或可证的非面积律反例信号，并附两层残差总带——(1) **模型残差**：把真实（可能带阻挫/任意局域耦合）哈密顿量限制为"常数能隙局域"Hamiltonian 类所引入的残差上界 $R_{model}$（对 $\\Delta$、局域维度显式限定）；(2) **数值残差**：能隙下界的可验证外包（区间/符号计算）与 AGSP 投影收缩率的区间估计所引入的残差上界 $R_{num}$，二者独立可复核且合成总带界。反作弊规则：禁止把 DMRG/tensor-network 的浮点外推当"证明"而无核验误差；禁止把 1D/无阻挫 2D 假设静默当作一般论证；禁止以高维图反例冒充 2D 格点结果。判定通过的消费形式：给定具体 2D 哈密顿量与能隙证据，直接得到"该基态能否被 iPEPS 以多项式边界长度高效压缩（面积律）或必然超对数（反例）"的可核验判定，服务张量网络数值的可信度与误差上界。',
+      '合格答案为"二维局域自旋可模拟性判定"而非一般面积律定理：对某一具体二维、均匀、常数能隙的局域自旋哈密顿量，交付纠缠熵对子区域面积的可核验上界（面积律）或可证的非面积律反例信号，并附三层残差总带——(1) **R_model**：把真实（可能带阻挫/任意局域耦合）哈密顿量限制为"常数能隙局域"Hamiltonian 类所引入的残差上界（对 $\\Delta$、局域维度显式限定）；(2) **R_num**：能隙下界的可验证外包（区间/符号计算）与 AGSP 投影收缩率的区间估计所引入的残差上界，二者独立可复核且合成总带界；(3) 目标哈密顿量为精确给定的物理系统输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把 DMRG/tensor-network 的浮点外推当"证明"而无核验误差；禁止把 1D/无阻挫 2D 假设静默当作一般论证；禁止以高维图反例冒充 2D 格点结果。判定通过的消费形式：给定具体 2D 哈密顿量与能隙证据，直接得到"该基态能否被 iPEPS 以多项式边界长度高效压缩（面积律）或必然超对数（反例）"的可核验判定，服务张量网络数值的可信度与误差上界。',
     title: 'Certified entanglement area-law certificate (or counterexample) for gapped 2D local spin Hamiltonians',
     titleZh: '二维有能隙局域自旋系统纠缠面积律的可核验证书（或反例）',
     domain: 'mathematical-physics',
@@ -6266,7 +6358,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'me-034',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"最坏情形通信轮数的可核验证书"而非单一最优算法：对给定连通 $n$ 节点图 $G$，交付精确量化平均共识所需最坏轮数 $T^*(G,n)$ 的可核验上界（连带可证下界），使该收敛时间被一个受控括号包围，并附两层残差总带：(1) **模型残差**：把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界 $R_{model}$（显式含对同步/消息传递假设的依赖）；(2) **数值残差**：对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界 $R_{num}$，二者合成总带。反作弊规则：禁止把实值通信放松当量化结论；禁止对完全图平凡情形给界而无一般图结论；禁止无核验停止判据的"收敛"。判定通过的消费形式：给定网络 $G$、带宽与时延预算，直接得到"最少通轮数落在 $[T_\\lo,T_\\hi]$"的可核验区间，供传感网/时钟同步/负载均衡决定采样与控制在多少轮内换取可审计的精确量化平均，替代当前经验轮数余量。',
+      '合格答案为"最坏情形通信轮数的可核验证书"而非单一最优算法：对给定连通 $n$ 节点图 $G$，交付精确量化平均共识所需最坏轮数 $T^*(G,n)$ 的可核验上界（连带可证下界），使该收敛时间被一个受控括号包围，并附三层残差总带：(1) **R_model**：把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界（显式含对同步/消息传递假设的依赖）；(2) **R_num**：对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界；(3) 网络 $G$、带宽与时延为精确给定的系统输入，**R_param≡0（无输入测量残差层，如实注明）**。反作弊规则：禁止把实值通信放松当量化结论；禁止对完全图平凡情形给界而无一般图结论；禁止无核验停止判据的"收敛"。判定通过的消费形式：给定网络 $G$、带宽与时延预算，直接得到"最少通轮数落在 $[T_\\lo,T_\\hi]$"的可核验区间，供传感网/时钟同步/负载均衡决定采样与控制在多少轮内换取可审计的精确量化平均，替代当前经验轮数余量。',
     title: 'Optimal Worst-Case Convergence Time for Finite-Rate Quantized Average Consensus',
     titleZh: '有限速率量化平均共识的最优最坏情形收敛时间',
     domain: 'mathematical-engineering',
@@ -6316,9 +6408,9 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-041',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流翅片散热器几何与给定发热量、环境与倾斜角工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖两层残差——(1) 模型残差：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界 $R_{model}$；(2) 数值残差：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界 $R_{num}$，二者各自附可复核常数。反作弊规则：禁止只给经验相关式（那是统计拟合，非证书）；禁止把浮点收敛外推当证明而无核验误差；禁止在总带宽度中静默吞掉任一层残差；输出总带应使 $\\overline{Nu}-\\underline{Nu}\\le R_{model}+R_{num}$ 且有逐层分解。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限，由带证区间直接给出，无需 DNS 重算。',
-    title: 'Certified heat-sink thermal margin via a two-layer residual total band on free convection',
-    titleZh: '自然对流散热器峰值温度裕量的双层残差总带证书',
+      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流翅片散热器几何与给定发热量、环境与倾斜角工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖三层残差——(1) **R_model**：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界，三者各自附可复核常数且总带满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。反作弊规则：禁止只给经验相关式（那是统计拟合，非证书）；禁止把浮点收敛外推当证明而无核验误差；禁止在总带宽度中静默吞掉任一层残差。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限，由带证区间直接给出，无需 DNS 重算。',
+    title: 'Certified heat-sink thermal margin via a three-layer residual total band on free convection',
+    titleZh: '自然对流散热器峰值温度裕量的三层残差总带证书',
     domain: 'mathematical-physics',
     subdomain: 'convective-heat-transfer',
     status: 'open',
@@ -6339,25 +6431,43 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [
       {
         id: 'mp-037',
-        relation: 'shares_tools',
-        note: 'Both seek certified Nu-type bounds via interval/rigorous computation; mp-037 targets the asymptotic Ra^{1/3} while mp-041 targets an immediately consumable margin band for a concrete geometry.',
+        relation: 'depends_on',
+        note: '总带继承（方向二）：mp-041 的散热裕量总带依赖 mp-037 给出的 Nu 上界体系。mp-037 是上游——若其 Ra^{1/3} 标度上界被收紧，则 mp-041 的 R_model 上界随之收窄，总带更紧；若 mp-037 的核心外包被反例击穿，则 mp-041 借用的上界骨架失效，裕量判定同时失效。换言之，要信任本裕量得先信 mp-037 的渐近上界证书。',
       },
     ],
-    statement: `一具体翅片散热器在被动自然对流下散热，发热量 $Q$、环境与布置已定。工程师要的回答不是曲线而是裕量：翅片峰值温度 $T_{max}$ 是否低于热设计上限。本题要交付的可核验产物是 $Nu$ 的一个总带 $[\\underline{Nu},\\overline{Nu}]$，并附两层残差各自的界与证明：第一层是模型残差（Boussinesq/边界层近似相对真实可压缩气体动力学）、第二层是数值残差（对该受控模型求解放置网格/时间步/SDP 对偶的残差）。$T_{max}$ 的裕量判断由带直接由给出而无需重算。`,
+    statement: `一具体翅片散热器在被动自然对流下散热，发热量 $Q$、环境与布置已定。工程师要的回答不是曲线而是裕量：翅片峰值温度 $T_{max}$ 是否低于热设计上限。本题要交付的可核验产物是 $Nu$ 的一个总带 $[\\underline{Nu},\\overline{Nu}]$，并附三层残差各自的界与证明：(1) R_model——Boussinesq/边界层近似相对真实可压缩气体动力学的模型残差上界；(2) R_param——发热量、环境温度/流速来自测量/标定时的输入不确定度残差上界；(3) R_num——对该受控模型求解放置网格/时间步/SDP 对偶的数值残差上界。三者满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num 且逐层可独立复核。$T_{max}$ 的裕量判断由带直接给出而无需重算。`,
+    certificate: {
+      r_model: {
+        bound: 'Boussinesq/边界层近似相对真实可压缩气体动力学的模型残差上界（骨架借用 mp-037 的渐近外包）',
+        derivation: 'mp-037 的 Ra^{1/3} 标度上界 + Boussinesq 残差界',
+      },
+      r_param: {
+        bound: '发热量、环境温度/流速测量不确定度传播到总带的输入残差上界',
+        derivation: '测量区间参数传播到 Nu 带的区间映像',
+      },
+      r_num: {
+        bound: '网格、时间步与 SDP 对偶间隙的数值残差上界',
+        derivation: '区间算术与 SDP 对偶的零/小间隙证明',
+      },
+      total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
+      certified_band: '[Nu_lo, Nu_hi]',
+    },
+    engineering_deliverables: ['散热器峰值温度裕量判定', '热设计评审带证区间'],
     origin:
-      '功率电子与 LED 灯组普遍依赖被动散热，裕量设计长期靠经验相关式或昂贵 DNS 交叉验证。若能把"这条仿真可信度多高"换成一个低成本、可复验、且明确分离模型层与数值层的带证区间，工程师便能在一次计算内拿到"峰值温度是否越限"的回答，并把信任从基准对准迁移到逐题可核验的总带。',
+      '功率电子与 LED 灯组普遍依赖被动散热，裕量设计长期靠经验相关式或昂贵 DNS 交叉验证。若能把"这条仿真可信度多高"换成一个低成本、可复验、且明确分离模型/输入/数值三层残差的带证区间，工程师便能在一次计算内拿到"峰值温度是否越限"的回答，并把信任从基准对准迁移到逐题可核验的总带。',
     progress: [
       '**经典相关式体系（Morgan, Raithby–Hollands 等）**: 给出自由对流 $Nu(Ra)$ 的经验相关式，精度有限且无残差界。',
-      '**Rigorous computation 工具**: 面向热输运的区间算术与 SDP 对偶上界已在平板上得到部分常数（参见边界层上界文献），但尚未落到具体散热器几何的双层总带。',
+      '**Rigorous computation 工具**: 面向热输运的区间算术与 SDP 对偶上界已在平板上得到部分常数（参见边界层上界文献），但尚未落到具体散热器几何的三层总带。',
     ],
     obstacles: [
-      '**两层残差必须同时装箱**: 现有方法要么只给模型误差的严格界（远离工程几何），要么只靠数值收敛估计数值误差，缺把它们合成单带的分层证明。',
+      '**三层残差必须同时装箱**: 现有方法要么只给模型误差的严格界（远离工程几何），要么只靠数值收敛估计数值误差，缺把它们合成单带的分层证明；R_param 一层在工程实践中常被静默吞掉，必须显式列为不确定度传播项。',
       '**几何依赖**: 翅片三维几何使严格上界依赖问题变得繁杂，需在可复核常数与几何逼近程度之间取一个工程可接受的平衡。',
+      '**继承依赖**: R_model 上界骨架借用 mp-037 的渐近外包结果，因此本证书的有效性链入 mp-037 的 Ra^{1/3} 标度上界是否成立。',
     ],
     engineering_value:
       '这是"可消费而非条件性"的样板：产出"给定发热量下峰值温度是否低于裕量上限"这一可直接使用的区间判断。它让被动散热工程师不必再做昂贵 DNS 就有带证的裕量结论，且把仿真可信度从"基准对准"换成"可复验总带"，一次计算即可上市热设计评审。',
     formalization_notes:
-      '数值路径现实：该受控模型的 DNS 可做区间化，把 $Nu$ 上/下界改成区间算术与对偶的零/小间隙证明；模型层用 Boussinesq 对可压缩动力学的显式残差上界对接。形式化投入中等，收益是给散热设计一个可审计的裕量证书。',
+      '数值路径现实：该受控模型的 DNS 可做区间化，把 $Nu$ 上/下界改成区间算术与对偶的零/小间隙证明（R_num）；模型层用 Boussinesq 对可压缩动力学的显式残差上界对接（R_model）；输入参数测量不确定度通过区间参数传播到总带（R_param）。形式化投入中等，收益是给散热设计一个可审计的裕量证书，且其有效性通过 depends_on 链入 mp-037 的渐近上界证书。',
     references: [
       {
         label: 'A. Bejan, Convection Heat Transfer, 4th ed., Wiley (2013)',
@@ -6369,7 +6479,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mc-030',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"稳态可判定性证书"：对一具体催化反应网络与给定速率常数测量区间（本身带测量残差）与反应器工况，交付一个可核验的分类判据——该工况下是否恰有一个吸引稳态，且目标中间体浓度必然落入总带 [c_lo,c_hi]。带需同时覆盖：(1) 模型残差：把真实活度走离理想质量作用（活度系数≠浓度）引入的残差上界 $R_{model}$；(2) 数值残差：稳态求根与区间算术的残差上界 $R_{num}$。反作弊规则：禁止把默认理想/质量作用当成一般声称而不给活度残差界；禁止用 Guldin 意义上的浮点根当证明而无核验误差；禁止要求无穷时间观测。判定通过的消费形式：给定催化反应器工况与测量不确定度，直接得到"该中间体浓度必落在此区间、系统不会在吸引稳态间跳变"的可核验声明。',
+      '合格答案为"稳态可判定性证书"：对一具体催化反应网络与给定速率常数测量区间（本身带测量残差）与反应器工况，交付一个可核验的分类判据——该工况下是否恰有一个吸引稳态，且目标中间体浓度必然落入总带 [c_lo,c_hi]。带需同时覆盖三层残差：(1) **R_model**：把真实活度走离理想质量作用（活度系数≠浓度）引入的残差上界；(2) **R_param**：速率常数与工况参数来自测量时，其不确定度传播到 [c_lo,c_hi] 与稳态判别边界的输入残差上界（对测量区间内所有 $k$ 成立）；(3) **R_num**：稳态求根与区间算术的残差上界，三者合成使总带宽 ≤ R_model+R_param+R_num 且逐层可复核。反作弊规则：禁止把默认理想/质量作用当成一般声称而不给活度残差界；禁止用 Guldin 意义上的浮点根当证明而无核验误差；禁止要求无穷时间观测。判定通过的消费形式：给定催化反应器工况与测量不确定度，直接得到"该中间体浓度必落在此区间、系统不会在吸引稳态间跳变"的可核验声明。',
     title: 'Certified decidable stability of target-intermediate concentration for mass-action catalytic networks',
     titleZh: '催化反应网络目标中间体稳态可判定性与浓度总带证书',
     domain: 'mathematical-chemistry',
@@ -6392,8 +6502,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [
       {
         id: 'mc-005',
-        relation: 'analog_of',
-        note: 'mc-005 certifies when rate constants are recoverable; mc-030 certifies when a steady-state concentration band is decidable from measured parameters and stays single-attractor.',
+        relation: 'depends_on',
+        note: '总带继承（方向二）：mc-030 的稳态浓度带依赖 mc-005 的速率常数结构可辨识性分类。mc-005 是上游——它判定从可观测子集何时能分辨速率常数；若其可辨识性分类被收紧，mc-030 的测量区间普适性更可靠、带更可信；若 mc-005 判定该测量方案不可辨识，则 mc-030 在本应区分参数的测量区间上结论失效。要信任本浓度带，得先信 mc-005 的可辨识性证书。',
       },
       {
         id: 'mc-004',
@@ -6402,6 +6512,23 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
     statement: `对一具体催化反应网络与反应器，速率常数只能以测量区间 $[k_i-\\delta_i,k_i+\\delta_i]$ 获取。工程师要判断：该工况下系统是否恰有一个吸引稳态，目标中间体稳态浓度 $c$ 落在哪个可核验区间。本题要交付：一个带证分类判据，其结论带同时覆盖理想化模型（活度走离质量作用）的模型残差与数值求解的残差两层。任何一根拾取一剂浓度得到的"浮点稳态"不构成答案；答案须为逐层分隔、各自有常数、合成为总带的区间。`,
+    certificate: {
+      r_model: {
+        bound: '把真实活度走离理想质量作用（活度系数≠浓度）引入的模型残差上界',
+        derivation: '活度系数残差显式界',
+      },
+      r_param: {
+        bound: '速率常数与工况参数测量不确定度传播到 [c_lo,c_hi] 与稳态判别边界的输入残差上界（对测量区间内所有 k 成立）',
+        derivation: '测量区间参数传播到浓度带与稳态边界的区间映像',
+      },
+      r_num: {
+        bound: '稳态求根与区间算术的数值残差上界',
+        derivation: '区间求根残差界',
+      },
+      total_band: 'c_hi - c_lo ≤ R_model + R_param + R_num',
+      certified_band: '[c_lo, c_hi]',
+    },
+    engineering_deliverables: ['催化反应器稳态可判定证书', '中间体浓度带证区间'],
     origin:
       '催化与生化网络的速率常数从不精确，而工程师需要的是"在此测量不确定度下，我的目标中间体浓度落在哪儿、会不会在吸引稳态间跳变"。多稳态理论（缺陷、CRN）给出存在性判据，但对带测量残差的给定工况缺少把模型层与数值层残差合成一个可核验总带的判定。本题把它变成工程师可直接消费的声明。',
     progress: [
@@ -6427,9 +6554,9 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mb-028',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"等位基因平衡频率带"而非单一预测点：对给定选择系数 $s$ 与突变率 $\\mu$（二者只以测量区间给出）的某耐药等位基因，交付平衡频率 $p^*$ 的可核验总带 [p_lo,p_hi]，并附证明该带同时覆盖：(1) 模型残差：把有限种群的离散 Wright–Fisher 动力学理想化为连续扩散/确定极限引入的残差上界 $R_{model}$（对给定种群大小显式包含有限 $N$ 漂移）；(2) 统计残差：从测量区间反推出的选择/突变参数到 $p^*$ 的传播残差上界 $R_{num}$。反作弊规则：禁止用单一估计点冒充带；禁止假定确定性极限（$N=\\infty$）而不对有限 $N$ 漂移给界；禁止忽略测量传播对 $s,\\mu$ 的敏感。判定通过的消费形式：给定测量不确定度与种群大小，直接得到"耐药等位基因平衡频率必将落在此区间"的可核验声明，用于突变监控与耐药风险评估。',
+      '合格答案为"等位基因平衡频率带"而非单一预测点：对给定选择系数 $s$ 与突变率 $\\mu$（二者只以测量区间给出）的某耐药等位基因，交付平衡频率 $p^*$ 的可核验总带 [p_lo,p_hi]，并附证明该带同时覆盖三层残差：(1) **R_model**：把有限种群的离散 Wright–Fisher 动力学理想化为连续扩散/确定极限引入的模型残差上界（对给定种群大小显式包含有限 $N$ 漂移）；(2) **R_param**：选择系数 $s$ 与突变率 $\\mu$ 来自测量时，其测量区间传播到 $p^*$ 的输入残差上界（对测量区间内所有 $s,\\mu$ 成立）；(3) **R_num**：对扩散方程求根/区间映像时离散化与区间算术的数值残差上界。三者各自附可复核常数且总带满足 $p_{hi}-p_{lo}\\le$ R_model+R_param+R_num。反作弊规则：禁止用单一估计点冒充带；禁止假定确定性极限（$N=\\infty$）而不对有限 $N$ 漂移给界；禁止忽略测量传播对 $s,\\mu$ 的敏感；禁止把统计传播残差静默并入数值残差。判定通过的消费形式：给定测量不确定度与种群大小，直接得到"耐药等位基因平衡频率必将落在此区间"的可核验声明，用于突变监控与耐药风险评估。',
     title: 'Certified equilibrium allele-frequency band for a resistance allele under measurement uncertainty',
-    titleZh: '测量不确定度下耐药等位基因平衡频率的双层残差总带证书',
+    titleZh: '测量不确定度下耐药等位基因平衡频率的三层残差总带证书',
     domain: 'mathematical-biology',
     subdomain: 'population-genetics',
     status: 'open',
@@ -6450,13 +6577,30 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [
       {
         id: 'mb-003',
-        relation: 'analog_of',
-        note: 'mb-003 classifies global stability of replicator/mutation dynamics; mb-028 adds measurement-uncertainty and finite-size residuals to a concrete resistance allele.',
+        relation: 'depends_on',
+        note: '总带继承（方向二）：mb-028 的耐药等位基因平衡频率带依赖 mb-003 的带突变复制子动力学全局稳定性分类。mb-003 是上游——若其全局稳定性结构被收紧，则 mb-028 平衡带的动力学根基更稳、结论更可靠；若 mb-003 的核心分类被反例击穿（动力学无全局稳定结构），则 mb-028 的平衡带断言同时失效。要信任本平衡带，得先信 mb-003 的稳定性证书。',
       },
     ],
-    statement: `某耐药等位基因在一有限种群中演化，选择系数 $s$ 与突变率 $\\mu$ 只能以测量区间获得。工程师/监管者要的不是一个点预测，而是"平衡频率落哪儿"的带证区间。本题要交付：平衡频率 $p^*$ 的可核验总带，其内含两层残差——有限种群的 Wright–Fisher 漂移偏离连续极限的模型残差、以及测量不确定度传播到 $s,\\mu$ 再映射到 $p^*$ 的数值/传播残差；两层各有界并合成为单带。`,
+    statement: `某耐药等位基因在一有限种群中演化，选择系数 $s$ 与突变率 $\\mu$ 只能以测量区间获得。工程师/监管者要的不是一个点预测，而是"平衡频率落哪儿"的带证区间。本题要交付：平衡频率 $p^*$ 的可核验总带，其内含三层残差——R_model（有限种群 Wright–Fisher 漂移偏离连续扩散极限的模型残差）、R_param（$s,\\mu$ 测量区间传播到 $p^*$ 的输入残差）、R_num（扩散方程求根与区间映像的数值残差）；三层各有界并合成为单带。`,
+    certificate: {
+      r_model: {
+        bound: '有限种群离散 Wright–Fisher 动力学理想化为连续扩散极限的模型残差上界（显式包含有限 N 漂移）',
+        derivation: '有限 N 漂移显式界',
+      },
+      r_param: {
+        bound: '选择系数 s 与突变率 μ 测量区间传播到 p* 的输入残差上界（对测量区间内所有 s,μ 成立）',
+        derivation: '测量区间参数传播到平衡频率的区间映像',
+      },
+      r_num: {
+        bound: '扩散方程求根/区间映像时离散化与区间算术的数值残差上界',
+        derivation: '区间映像与求根残差界',
+      },
+      total_band: 'p_hi - p_lo ≤ R_model + R_param + R_num',
+      certified_band: '[p_lo, p_hi]',
+    },
+    engineering_deliverables: ['耐药等位基因平衡频率带', '突变监控风险评估'],
     origin:
-      '耐药风险评估需要预测某一等位基因在多长时间内、以多大概率升到给定频率；而选择系数与突变率的测量本身带误差。把"有限种群漂移"这一层模型残差与"测量传播"这一层统计残差分开并合成为可核验带，是把种群遗传学从"预测单一轨迹"推进到"给带证区间"的实际路径，能直接被耐药监控与进化医学消费。',
+      '耐药风险评估需要预测某一等位基因在多长时间内、以多大概率升到给定频率；而选择系数与突变率的测量本身带误差。把"有限种群漂移"这一层模型残差、"测量传播"这一层输入残差与"扩散求解"这一层数值残差分开并合成为可核验带，是把种群遗传学从"预测单一轨迹"推进到"给带证区间"的实际路径，能直接被耐药监控与进化医学消费。',
     progress: [
       '**选择-突变平衡理论（Kimura 等）**: 给出 Wright 平衡频率的经典公式与扩散近似。',
       '**有限 $N$ 修正**: 有文献给出有限种群对平衡频率的漂移修正，但多半是近似式而非带界。',
@@ -6577,6 +6721,17 @@ export function impactOf(p: Problem): string[] {
 export const ALL_IMPACT_DOMAINS: string[] = [
   ...new Set(PROBLEMS.flatMap(impactOf)),
 ]
+
+/** 全部已结构化的工程交付物条目（方向四反向索引）：工程师挑一个交付物，
+ *  就能看到由哪些 verified_behavior 证书直接支撑。来源是各题的 engineering_deliverables。 */
+export const ALL_DELIVERABLES: string[] = [
+  ...new Set(PROBLEMS.flatMap((p) => p.engineering_deliverables ?? [])),
+]
+
+/** 某题声明的工程交付物；无则空。 */
+export function deliverablesOf(p: Problem): string[] {
+  return p.engineering_deliverables ?? []
+}
 
 // Relations that are semantically undirected: if A shares tools with B,
 // the statement is true from either side, so both directions should render.

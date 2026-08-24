@@ -22,11 +22,16 @@ let cur = null
 let curTo = null
 const edges = []
 const judged = new Set()
+const judgments = new Map() // id -> judgment 字符串（用于三层残差校验）
 const outputs = new Map()
 const hasEngValue = new Set()
 const hasImpact = new Set()
 const hasTrace = new Set()
 const dates = new Map()
+const hasCertificate = new Set()
+const hasDeliverables = new Set()
+let pendingJudgment = false
+let pendingNote = false
 // related_problems entry shape is id → relation → note, so we read the id
 // into curTo and push the edge when the relation line follows.
 for (const line of src.split(/\r?\n/)) {
@@ -35,11 +40,27 @@ for (const line of src.split(/\r?\n/)) {
     cur = idMatch[1]
     continue
   }
-  if (/^    judgment:/.test(line) && cur) judged.add(cur)
+  if (/^    judgment:/.test(line) && cur) {
+    judged.add(cur)
+    // judgment 可同行 'value' 或换行后 'value'，两种都接
+    const inline = line.match(/^    judgment:\s*'((?:[^'\\]|\\.)*)'/)
+    if (inline) {
+      judgments.set(cur, inline[1])
+      pendingJudgment = false
+    } else {
+      pendingJudgment = true
+    }
+  } else if (pendingJudgment && cur) {
+    const nextLine = line.match(/^\s*'((?:[^'\\]|\\.)*)'/)
+    if (nextLine) judgments.set(cur, nextLine[1])
+    pendingJudgment = false
+  }
   const outMatch = line.match(/^    output: '([^']+)',/)
   if (outMatch && cur) outputs.set(cur, outMatch[1])
   if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
   if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
+  if (/^    certificate:/.test(line) && cur) hasCertificate.add(cur)
+  if (/^    engineering_deliverables:/.test(line) && cur) hasDeliverables.add(cur)
   // 溯源判据：proposer 或 via 至少其一，视为可问责来源
   if (/^    (proposer|via):/.test(line) && cur) hasTrace.add(cur)
   const dMatch = line.match(/^    date_added: '([^']+)'/)
@@ -51,8 +72,15 @@ for (const line of src.split(/\r?\n/)) {
   }
   const rel = line.match(/^        relation: '([^']+)',/)
   if (rel && cur && curTo) {
-    edges.push({ from: cur, to: curTo, relation: rel[1] })
+    edges.push({ from: cur, to: curTo, relation: rel[1], note: '' })
     curTo = null
+    pendingNote = true
+    continue
+  }
+  if (pendingNote && edges.length > 0) {
+    const noteMatch = line.match(/^        note: '((?:[^'\\]|\\.)*)'/)
+    if (noteMatch) edges[edges.length - 1].note = noteMatch[1]
+    pendingNote = false
   }
 }
 
@@ -148,6 +176,86 @@ else
       ids.filter((id) => outputs.get(id) === 'verified_behavior').length
     })`,
   )
+
+// 三层残差判据（方向一）：verified_behavior 的 judgment 必须显式覆盖
+// R_model / R_param / R_num 三层，且 R_param 要么有不确定度传播说明、
+// 要么显式声明 ≡0（参数精确给定时如实注明，不硬凑）。
+const vbIds = ids.filter((id) => outputs.get(id) === 'verified_behavior')
+const LAYERS = ['R_model', 'R_param', 'R_num']
+const missingLayers = []
+const noRParamDecl = []
+for (const id of vbIds) {
+  const j = judgments.get(id) ?? ''
+  for (const layer of LAYERS) {
+    if (!j.includes(layer)) missingLayers.push(`${id}:${layer}`)
+  }
+  // R_param 必须显式说明：要么有不确定度传播内容，要么声明 ≡0
+  if (j.includes('R_param') && !/R_param[^\n]*≡\s*0/.test(j) && !/R_param[^\n]*测量|不确定度|输入残差/.test(j)) {
+    noRParamDecl.push(id)
+  }
+}
+if (missingLayers.length)
+  fail(`verified_behavior judgments missing residual layers: ${missingLayers.join(', ')}`)
+else
+  console.log(
+    `  three-layer residual: all ${vbIds.length} verified_behavior judgments cover R_model/R_param/R_num`,
+  )
+if (noRParamDecl.length)
+  fail(`R_param declared without uncertainty content or ≡0 note: ${noRParamDecl.join(', ')}`)
+else console.log(`  R_param declaration: all verified_behavior problems explicit`)
+
+// 总带继承链判据（方向二）：verified_behavior 的 depends_on 边必须在 note
+// 中写明继承语义（上游加固/击穿下游）。只警告不阻断，便于渐进补齐。
+const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
+const vbDependsOn = edges.filter(
+  (e) => outputs.get(e.from) === 'verified_behavior' && e.relation === 'depends_on',
+)
+const noInheritanceNote = vbDependsOn.filter(
+  (e) => !INHERITANCE_MARKERS.some((m) => e.note.includes(m)),
+)
+if (noInheritanceNote.length)
+  console.log(
+    `  WARNING: depends_on edges from verified_behavior missing inheritance note: ${noInheritanceNote
+      .map((e) => `${e.from}->${e.to}`)
+      .join(', ')}`,
+  )
+else if (vbDependsOn.length)
+  console.log(
+    `  inheritance chain: all ${vbDependsOn.length} depends_on edges from verified_behavior carry inheritance notes`,
+  )
+
+// 结构化证书判据（方向一 L1）：verified_behavior 若填了 certificate，必须三层齐全
+// （r_model/r_param/r_num + total_band），且 R_param 的 bound 要么有不确定度说明、
+// 要么声明 ≡0。这是渐进式推进——已填的题必须结构正确，未填的题暂不阻断。
+const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
+const certIds = [...hasCertificate]
+const badCert = []
+for (const id of certIds) {
+  // 提取该 problem 的源码块：从顶层 id:（换行+4空格）开始到下一个顶层 id: 之前
+  const start = src.indexOf(`\n    id: '${id}',`)
+  if (start < 0) { badCert.push(`${id}:block-not-found`); continue }
+  const nextId = src.indexOf('\n    id: \'', start + 10)
+  const block = src.slice(start, nextId > 0 ? nextId : undefined)
+  for (const layer of CERT_LAYERS) {
+    if (!block.includes(`${layer}:`)) badCert.push(`${id}:${layer}`)
+  }
+  if (!block.includes('total_band:')) badCert.push(`${id}:total_band`)
+  // R_param 的 bound 要么含 ≡0，要么含测量/不确定度/输入残差
+  const rpBound = block.match(/r_param:\s*\{[^}]*bound:\s*'([^']*)'/)
+  if (rpBound && rpBound[1] && !rpBound[1].includes('≡0') &&
+      !/测量|不确定度|输入残差/.test(rpBound[1])) {
+    badCert.push(`${id}:r_param-bound`)
+  }
+}
+if (badCert.length) fail(`certificate structural issues: ${badCert.join(', ')}`)
+else if (certIds.length)
+  console.log(`  certificate: all ${certIds.length} structured certificates have complete layers`)
+
+// 工程交付物判据（方向四基础）：填了 engineering_deliverables 的题必须有非空数组。
+// 只统计不阻断——渐进式推进。
+const delivIds = [...hasDeliverables]
+if (delivIds.length)
+  console.log(`  engineering_deliverables: ${delivIds.length} problems have structured deliverables`)
 
 // 溯源判据：proposer 或 via 至少其一。存量题只警告不阻断；新纳入的题
 // （date_added 属于本轮清洗批次之后）缺失溯源则必须阻断。
