@@ -101,6 +101,12 @@ const STR: Record<string, { zh: string; en: string }> = {
     en: 'Trusting this certificate presumes the upstream certificates below; if any is refuted, downstream bands depending on it fail.',
   },
   'pd.audit.none': { zh: '本题无上游依赖，是可独立消费的基础证书。', en: 'No upstream dependency — an independently consumable base certificate.' },
+  'pd.ledger': { zh: '验证账本', en: 'Verification ledger' },
+  'pd.ledger.hint': {
+    zh: '以下为社区提交、经评审通过的带证收窄记录。每一条都让该题的总带更紧。',
+    en: 'Community-submitted, review-approved band-narrowing records. Each one tightens this problem.',
+  },
+  'pd.ledger.empty': { zh: '尚无已验证收窄记录。', en: 'No verified narrowings yet.' },
   'pd.origin': { zh: '来源与背景', en: 'Origin & context' },
   'pl.deliverable': { zh: '工程交付物', en: 'Engineering deliverable' },
   'pl.deliverableAll': { zh: '全部交付物', en: 'All deliverables' },
@@ -279,6 +285,12 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.attempts.kind.progress': { zh: '进展', en: 'Progress' },
   'pd.attempts.kind.solution': { zh: '解答思路', en: 'Solution sketch' },
   'pd.attempts.kind.revision': { zh: '修订建议', en: 'Revision' },
+  'pd.attempts.kind.verification': { zh: '验证收窄', en: 'Verified narrowing' },
+  'pd.attempts.band': { zh: '收窄后的带证区间', en: 'Narrowed certified band' },
+  'pd.attempts.verificationHint': {
+    zh: '验证型投稿：声明把该题的带证区间收窄到某个值，附证明要点。审批通过后会出现在下方的验证账本，成为社区让目录变紧的记录。',
+    en: 'A verified-narrowing post: claim a tighter certified band for this problem, with the key argument. Once approved it lands in the verification ledger below.',
+  },
   'pd.attempts.title': { zh: '一句话标题', en: 'Short title' },
   'pd.attempts.content': { zh: '内容（可含 LaTeX $…$）', en: 'Content (LaTeX $…$ supported)' },
   'pd.attempts.send': { zh: '提交候选', en: 'Submit' },
@@ -428,6 +440,7 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     progress: { zh: '进展', en: 'Progress' },
     solution: { zh: '解答思路', en: 'Solution sketch' },
     revision: { zh: '修订建议', en: 'Revision' },
+    verification: { zh: '验证收窄', en: 'Verified narrowing' },
   },
 }
 

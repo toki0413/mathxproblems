@@ -90,11 +90,17 @@ export const problemAttempts = mysqlTable("problem_attempts", {
     () => users.id,
   ),
   authorName: varchar("authorName", { length: 128 }),
-  kind: mysqlEnum("kind", ["progress", "solution", "revision"])
+  kind: mysqlEnum("kind", ["progress", "solution", "revision", "verification"])
     .default("progress")
     .notNull(),
   title: varchar("title", { length: 300 }).notNull(),
   content: text("content").notNull(),
+  /**
+   * 验证-收窄飞轮（kind='verification' 时填写）：投稿人声称把该题带证区间
+   * 收窄到的值（如 "[1.52, 1.56]"）。审批通过后出现在详情页"验证账本"，
+   * 是社区让目录变紧的载体。其余 kind 为 null。
+   */
+  newBand: varchar("newBand", { length: 80 }),
   status: mysqlEnum("status", ["pending", "approved", "rejected"])
     .default("pending")
     .notNull(),

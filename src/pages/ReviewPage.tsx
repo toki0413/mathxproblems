@@ -169,6 +169,11 @@ export default function ReviewPage() {
                 {t('rv.atBy')} {new Date(a.createdAt).toISOString().slice(0, 10)}
               </div>
               <h3 className="font-statement text-base font-semibold mt-1">{a.title}</h3>
+              {a.kind === 'verification' && a.newBand && (
+                <div className="mt-1 font-mono2 text-sm text-mc">
+                  {t('pd.attempts.band')}：{a.newBand}
+                </div>
+              )}
               <p className="mt-1 text-sm whitespace-pre-wrap leading-relaxed text-ink-2">{a.content}</p>
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <input

@@ -54,15 +54,17 @@ export default function ProblemDetailPage() {
   const [copied, setCopied] = useState(false)
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
   const attempts = trpc.attempts.approved.useQuery({ problemId: id ?? '' })
-  const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision'>('progress')
+  const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision' | 'verification'>('progress')
   const [atTitle, setAtTitle] = useState('')
   const [atAuthor, setAtAuthor] = useState('')
   const [atContent, setAtContent] = useState('')
+  const [atBand, setAtBand] = useState('')
   const submitAttempt = trpc.attempts.submit.useMutation({
     onSuccess: () => {
       setAtTitle('')
       setAtAuthor('')
       setAtContent('')
+      setAtBand('')
     },
   })
 
@@ -202,6 +204,31 @@ export default function ProblemDetailPage() {
                     </div>
                   ))}
                 </div>
+                {/* 验证账本：社区提交、经评审通过的带证收窄记录（验证-收窄飞轮） */}
+                {(() => {
+                  const verified = (attempts.data ?? []).filter((a) => a.kind === 'verification')
+                  if (verified.length === 0) return null
+                  return (
+                    <div className="hairline-t px-5 py-4">
+                      <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
+                        {t('pd.ledger')}
+                      </div>
+                      <p className="text-xs text-ink-3 mb-3 leading-relaxed">{t('pd.ledger.hint')}</p>
+                      <ul className="divide-y divide-line">
+                        {verified.map((v) => (
+                          <li key={v.id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-2.5">
+                            <span className="font-mono2 text-xs text-mc">{v.newBand}</span>
+                            <span className="flex-1 min-w-0 text-ink-2 text-xs leading-relaxed">{v.title}</span>
+                            <span className="font-mono2 text-[11px] text-ink-3">
+                              {v.authorName ? `${v.authorName} · ` : ''}
+                              {new Date(v.createdAt).toISOString().slice(0, 10)}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                })()}
               </div>
             </Section>
           )}
@@ -486,7 +513,7 @@ export default function ProblemDetailPage() {
                   <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-2">
                     {t('pd.attempts.kind')}
                   </div>
-                  {(['progress', 'solution', 'revision'] as const).map((k) => (
+                  {(['progress', 'solution', 'revision', 'verification'] as const).map((k) => (
                     <button
                       key={k}
                       onClick={() => setAtKind(k)}
@@ -510,6 +537,17 @@ export default function ProblemDetailPage() {
                   placeholder={t('pd.attempts.author')}
                   className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
                 />
+                {atKind === 'verification' && (
+                  <>
+                    <p className="text-xs text-ink-3 leading-relaxed">{t('pd.attempts.verificationHint')}</p>
+                    <input
+                      value={atBand}
+                      onChange={(e) => setAtBand(e.target.value)}
+                      placeholder={t('pd.attempts.band')}
+                      className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                    />
+                  </>
+                )}
                 <textarea
                   value={atContent}
                   onChange={(e) => setAtContent(e.target.value)}
@@ -525,9 +563,15 @@ export default function ProblemDetailPage() {
                       title: atTitle,
                       content: atContent,
                       authorName: atAuthor.trim() || undefined,
+                      newBand: atKind === 'verification' ? atBand.trim() : undefined,
                     })
                   }
-                  disabled={submitAttempt.isPending || !atTitle.trim() || !atContent.trim()}
+                  disabled={
+                    submitAttempt.isPending ||
+                    !atTitle.trim() ||
+                    !atContent.trim() ||
+                    (atKind === 'verification' && !atBand.trim())
+                  }
                   className="border border-mc text-mc px-4 py-1.5 text-sm hover:bg-mc hover:text-paper transition-colors disabled:opacity-40"
                 >
                   {submitAttempt.isSuccess ? t('pd.attempts.sent') : t('pd.attempts.send')}

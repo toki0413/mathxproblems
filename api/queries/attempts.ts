@@ -16,6 +16,7 @@ export async function listApprovedAttempts(problemId: string) {
       title: schema.problemAttempts.title,
       content: schema.problemAttempts.content,
       authorName: schema.problemAttempts.authorName,
+      newBand: schema.problemAttempts.newBand,
       createdAt: schema.problemAttempts.createdAt,
       registeredName: schema.users.name,
       voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
