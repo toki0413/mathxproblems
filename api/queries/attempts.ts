@@ -1,4 +1,4 @@
-import { and, desc, eq, getTableColumns, leftJoin } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, leftJoin, sql } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemAttempt } from "@db/schema";
 import { getDb } from "./connection";
@@ -11,23 +11,80 @@ export async function insertAttempt(data: InsertProblemAttempt) {
 export async function listApprovedAttempts(problemId: string) {
   const rows = await getDb()
     .select({
-      ...getTableColumns(schema.problemAttempts),
+      id: schema.problemAttempts.id,
+      kind: schema.problemAttempts.kind,
+      title: schema.problemAttempts.title,
+      content: schema.problemAttempts.content,
+      authorName: schema.problemAttempts.authorName,
+      createdAt: schema.problemAttempts.createdAt,
       registeredName: schema.users.name,
+      voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
     })
     .from(schema.problemAttempts)
     .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .leftJoin(
+      schema.problemAttemptVotes,
+      eq(schema.problemAttempts.id, schema.problemAttemptVotes.attemptId),
+    )
     .where(
       and(
         eq(schema.problemAttempts.status, "approved"),
         eq(schema.problemAttempts.problemId, problemId),
       ),
     )
-    .orderBy(desc(schema.problemAttempts.createdAt));
+    .groupBy(schema.problemAttempts.id, schema.users.id)
+    .orderBy(desc(sql`count(${schema.problemAttemptVotes.id})`), desc(schema.problemAttempts.createdAt));
   // 匿名投稿用自报 authorName，登录投稿回退到注册名，并去掉内部 join 字段
-  return rows.map(({ registeredName, ...r }) => ({
+  return rows.map(({ registeredName, voteCount, ...r }) => ({
     ...r,
     authorName: r.authorName ?? registeredName,
+    votes: Number(voteCount),
   }));
+}
+
+/**
+ * 切换某候选的投票：已投则取消，未投则投出。返回切换后的票数与是否处于已投态。
+ * 唯一约束 (attemptId, userId) 兜底并发重复票；计数与投票记录在同一事务里保证一致。
+ */
+export async function toggleVote(attemptId: number, userId: number) {
+  const db = getDb();
+  return db.transaction(async (tx) => {
+    const existing = await tx
+      .select()
+      .from(schema.problemAttemptVotes)
+      .where(
+        and(
+          eq(schema.problemAttemptVotes.attemptId, attemptId),
+          eq(schema.problemAttemptVotes.userId, userId),
+        ),
+      )
+      .limit(1);
+
+    const updateVotes = (delta: number) =>
+      tx
+        .update(schema.problemAttempts)
+        .set({ votes: sql`${schema.problemAttempts.votes} + ${delta}` })
+        .where(eq(schema.problemAttempts.id, attemptId));
+
+    let voted: boolean;
+    if (existing.length) {
+      await tx
+        .delete(schema.problemAttemptVotes)
+        .where(eq(schema.problemAttemptVotes.id, existing[0].id));
+      await updateVotes(-1);
+      voted = false;
+    } else {
+      await tx.insert(schema.problemAttemptVotes).values({ attemptId, userId });
+      await updateVotes(1);
+      voted = true;
+    }
+
+    const [row] = await tx
+      .select({ votes: schema.problemAttempts.votes })
+      .from(schema.problemAttempts)
+      .where(eq(schema.problemAttempts.id, attemptId));
+    return { votes: Number(row?.votes ?? 0), voted };
+  });
 }
 
 export async function listPendingAttempts() {

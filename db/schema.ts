@@ -99,6 +99,7 @@ export const problemAttempts = mysqlTable("problem_attempts", {
     .default("pending")
     .notNull(),
   reviewerNote: text("reviewerNote"),
+  votes: bigint("votes", { mode: "number", unsigned: true }).notNull().default(0),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt")
     .defaultNow()
@@ -109,15 +110,18 @@ export const problemAttempts = mysqlTable("problem_attempts", {
 export type ProblemAttempt = typeof problemAttempts.$inferSelect;
 export type InsertProblemAttempt = typeof problemAttempts.$inferInsert;
 
-// TODO: Add your tables here. See docs/Database.md for schema examples and patterns.
-//
-// Example:
-// export const posts = mysqlTable("posts", {
-//   id: serial("id").primaryKey(),
-//   title: varchar("title", { length: 255 }).notNull(),
-//   content: text("content"),
-//   createdAt: timestamp("created_at").notNull().defaultNow(),
-// });
-//
-// Note: FK columns referencing a serial() PK must use:
-//   bigint("columnName", { mode: "number", unsigned: true }).notNull()
+/**
+ * 投票记录：一个登录用户对某个已通过候选最多投一票。
+ * `(attemptId, userId)` 唯一约束在数据库层去重，天然挡重复票，无需额外逻辑。
+ * 投票用于给候选一个社区认可信号，review 仍是最终把关。
+ */
+export const problemAttemptVotes = mysqlTable("problem_attempt_votes", {
+  id: serial("id").primaryKey(),
+  attemptId: bigint("attemptId", { mode: "number", unsigned: true })
+    .notNull()
+    .references(() => problemAttempts.id),
+  userId: bigint("userId", { mode: "number", unsigned: true })
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
