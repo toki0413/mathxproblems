@@ -41,7 +41,8 @@ const C = {
     notdoing: [
       ['收录纯数学问题（数论、代数几何、拓扑）', 'Open Problem Garden 和 AIM 已覆盖'],
       ['收录“设计 / 优化 / 提出”类工程任务', '非数学问题'],
-      ['做实验验证或数值模拟', '只收录可被分析证明的问题'],
+      ['做实验验证', '只收录逻辑 / 区间算术可核验交出的判定'],
+      ['把原始数值模拟当成答案而不给残差界', '单点仿真不是证书；带三层残差总带的判定性证书才是（数值路径同样可收）'],
       ['做 AI 智能体或自动证明工具', '那是其他项目的方向，我们提供问题层'],
       ['做竞赛或悬赏', 'Millennium Prize 模式'],
       ['收录顶级知名问题（Yang–Mills、Riemann）', 'Wikipedia 和 Clay 已覆盖'],
@@ -55,7 +56,9 @@ const C = {
       '提案新问题：登录后使用提交表单，通过三问筛选器即可进入审核队列。尤其欢迎：已知障碍的补充、形式化进度的更新、问题关系与影响领域的标注。',
     goal: (
       <>
-        收录里程碑 100 题（数学物理 40 / 数学化学 25 / 数学生物 25 / 数学工程 10）。
+        收录里程碑 100 题。选题以<strong>真实工作流缺口</strong>为准，而非单纯用完配额；尤其欢迎
+        <strong>材料与工程系统中的带证判定</strong>问题（相变与结构稳定性、热 / 力学性能裕量、
+        工艺-性能曲线、失效阈值），它们普遍有明确输入不确定度、值得一份可核验残差带的判定。
         指标：收录数、MathOverflow / 论文引用、AI 基准对{' '}
         <Link to="/api" className="underline underline-offset-4">benchmark.json</Link> 的采纳。
       </>
@@ -97,7 +100,8 @@ const C = {
     notdoing: [
       ['Pure-math problems (number theory, algebraic geometry, topology)', 'Covered by Open Problem Garden and AIM'],
       ['“Design / optimize / propose” engineering tasks', 'Not mathematical problems'],
-      ['Experimental verification or numerical simulation as the deliverable', 'Only analytically decidable problems'],
+      ['Running experiments', 'Only verdicts checkable by logic / interval arithmetic are admitted'],
+      ['Passing off bare numerical simulation as an answer without a residual bound', 'A single simulation point is not a certificate; a judgemental certificate carrying the three-layer residual band is (numerical paths are admissible too)'],
       ['Building AI agents or automated provers', 'Other projects do that; we provide the problem layer'],
       ['Contests or bounties', 'The Millennium Prize model'],
       ['Famous top-tier problems (Yang–Mills, Riemann)', 'Covered by Wikipedia and Clay'],
@@ -111,8 +115,12 @@ const C = {
       'Propose a problem: sign in and use the submission form; it enters the review queue against the three-question filter. Especially welcome: additions to known obstacles, updates on formalization progress, annotations of problem relations and impact domains.',
     goal: (
       <>
-        Six-month goal: 100 problems (40 physics / 25 chemistry / 25 biology / 10 engineering).
-        Metrics: catalog size, MathOverflow/paper citations, and adoption of{' '}
+        Milestone: 100 problems. Selection follows <strong>real workflow gaps</strong> rather than
+        filling a quota; <strong>certified judgements in materials and engineered systems</strong> are
+        especially welcome (phase/structure stability, thermal and mechanical margin, process–property
+        curves, failure thresholds), since they carry explicit input uncertainty that deserves a
+        verifiable residual-band verdict. Metrics: catalog size, MathOverflow/paper citations, and
+        adoption of{' '}
         <Link to="/api" className="underline underline-offset-4">benchmark.json</Link> by AI benchmarks.
       </>
     ),
