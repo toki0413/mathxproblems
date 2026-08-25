@@ -36,6 +36,19 @@ const CERT_OK = `{
 const failures = (src) => checkCatalog(src).failures
 const warnings = (src) => checkCatalog(src).warnings
 
+// A minimal verified_truth block (no certificate needed) for the boilerplate gate.
+function truthProblem(id, judgment, added) {
+  return `
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: '${judgment}',
+    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '${added}',
+    related_problems: [],
+`
+}
+
 test('verified_behavior judgment carrying all three layers passes', () => {
   const src = `export const PROBLEMS = [ {${vbProblem('x-001', OK_JUDGMENT, CERT_OK)}} ]`
   assert.ok(!failures(src).some((f) => f.includes('missing residual layers')))
@@ -120,6 +133,21 @@ test('depends_on edge carrying inheritance marker stays quiet', () => {
     ],
   }, {${vbProblem('x-001', OK_JUDGMENT, CERT_OK)}} ]`
   assert.ok(!warnings(src).some((w) => w.includes('missing inheritance note')))
+})
+
+test('new problem starting with the template skeleton is gated out', () => {
+  const src = `export const PROBLEMS = [ {${truthProblem('x-010', 'A pass proves the claim rigorously.', '2026-08-28')}} ]`
+  assert.ok(failures(src).some((f) => f.includes('independent judgment skeleton')))
+})
+
+test('legacy template-skeleton judgement predating the gate stays allowed', () => {
+  const src = `export const PROBLEMS = [ {${truthProblem('x-011', 'A pass proves the claim rigorously.', '2026-08-20')}} ]`
+  assert.ok(!failures(src).some((f) => f.includes('independent judgment skeleton')))
+})
+
+test('new problem with an independent judgement skeleton passes the gate', () => {
+  const src = `export const PROBLEMS = [ {${truthProblem('x-012', 'Prove the mixing rate is Θ(n^{-1/2}) and give matching constants.', '2026-08-28')}} ]`
+  assert.ok(!failures(src).some((f) => f.includes('independent judgment skeleton')))
 })
 
 test('invalid lifecycle_status value fails', () => {

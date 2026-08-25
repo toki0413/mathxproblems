@@ -9,6 +9,11 @@ export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superse
 export const BATCH_ADDED = '2026-08-23'
 export const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
 export const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
+// 真实性收敛门槛：date_added 不早于该日期的新问题，judgment 不得再以统一的
+// 'A pass ' / '合格答案为' 骨架开头（存量 101 道模板腔是既有事实，靠人后续收敛，
+// 不在门内）。目的是从根上杜绝用同一模板批量生产新题。
+export const VERACITY_GATE = '2026-08-26'
+export const JUDGMENT_TEMPLATE_RE = /^(A pass |合格答案为)/
 
 // Parse the TS source with regex (no TS runtime available). Kept stable:
 // 4-space id indent, one relation per line, judgment/note may span lines.
@@ -132,6 +137,15 @@ export function checkCatalog(raw) {
   const missingJudgment = ids.filter((id) => !judged.has(id))
   if (missingJudgment.length) failures.push(`problems missing 'judgment': ${missingJudgment.join(', ')}`)
   else notes.push(`judgment: all ${ids.length} problems covered`)
+
+  // 防再生（真实性收敛）：VERACITY_GATE 之后收录的新问题不得再用统一模板骨架，
+  // 否则批量模板腔会复发。存量（日期早于门槛）不在此门内。
+  const templatedNew = ids.filter(
+    (id) => (dates.get(id) ?? '') >= VERACITY_GATE && JUDGMENT_TEMPLATE_RE.test(judgments.get(id) ?? ''),
+  )
+  if (templatedNew.length)
+    failures.push(`new problems must use an independent judgment skeleton (avoid 'A pass '/'合格答案为'): ${templatedNew.join(', ')}`)
+  else notes.push(`judgment boilerplate gate: all problems pass (no template skeleton at/after ${VERACITY_GATE})`)
 
   // 生命周期（方向四）：值必须是合法枚举；refuted 的题应有 updates（含反例说明）。
   const badLifecycle = [...lifecycleStatuses.entries()].filter(([, v]) => !LIFECYCLE_KINDS.has(v))
