@@ -110,6 +110,15 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.origin': { zh: '来源与背景', en: 'Origin & context' },
   'pl.deliverable': { zh: '工程交付物', en: 'Engineering deliverable' },
   'pl.deliverableAll': { zh: '全部交付物', en: 'All deliverables' },
+  'pd.lifecycle': { zh: '证书生命周期', en: 'Certificate lifecycle' },
+  'pd.lifecycle.open': { zh: '开放待证', en: 'Open' },
+  'pd.lifecycle.tightened': { zh: '已收窄', en: 'Tightened' },
+  'pd.lifecycle.refuted': { zh: '已被反例击穿', en: 'Refuted' },
+  'pd.lifecycle.superseded': { zh: '已被取代', en: 'Superseded' },
+  'pd.lifecycle.refutedHint': {
+    zh: '本题核心结论已被反例击穿，不再可信。反例来源见下方更新记录。',
+    en: 'This problem&apos;s core claim has been refuted by a counterexample. See the update records for the source.',
+  },
   'pl.deliverableHint': {
     zh: '从你的工程交付物出发，反向找到由哪个带证问题直接支撑（反向索引）。',
     en: 'Start from your engineering deliverable and find which certified problem directly supports it (reverse index).',

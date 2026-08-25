@@ -4,6 +4,15 @@ export type { Domain }
 export type FormalizationPotential = 'high' | 'medium' | 'low'
 export type VerificationPath = 'analytical' | 'numerical' | 'experimental'
 export type ProblemStatus = 'open' | 'partial' | 'resolved'
+/**
+ * 证书生命周期（方向四：治理与诚实）：与 status（解决程度）正交，描述"这道的
+ * 带证结论当前健康与否"。默认缺省视为 open。
+ *  - open:       尚未被证实或否定，结论可信度待定；
+ *  - tightened:  带证区间被社区收窄，结论更紧；
+ *  - refuted:    核心结论被反例击穿，不再可信（不删除，标记并链接反例）；
+ *  - superseded: 被更一般/更干净的结果取代，保留作为历史。
+ */
+export type LifecycleStatus = 'open' | 'tightened' | 'refuted' | 'superseded'
 export type OutputKind = 'verified_behavior' | 'verified_truth' | 'scaffolding'
 export type RelationType =
   | 'depends_on'
@@ -77,6 +86,8 @@ export interface Problem {
   impact_domains?: string[]
   /** 传送强度层级（价值层级）：可消费行为证书 / 上游结构证（未直接消费）/ 学科骨架。决定对该领域是"直接消费"还是"间接信任"。 */
   output: OutputKind
+  /** 证书生命周期；缺省视为 open。refuted 时应在 updates 里记录反例来源。 */
+  lifecycle_status?: LifecycleStatus
   formalization_notes: string
   references: { label: string; url: string }[]
   /** 判定形式：一个被认可的答案必须满足什么、如何被核验（证明证书 / 数值判据 / 反例构造…）。
@@ -6848,6 +6859,19 @@ export const STATUS_LABELS: Record<ProblemStatus, string> = {
   open: '开放',
   partial: '部分解决',
   resolved: '已解决',
+}
+
+/** 证书生命周期的中文标签（与 i18n 的 pd.lifecycle.* 对应，供非 React 场景复用）。 */
+export const LIFECYCLE_LABELS: Record<LifecycleStatus, string> = {
+  open: '开放待证',
+  tightened: '已收窄',
+  refuted: '已被反例击穿',
+  superseded: '已被取代',
+}
+
+/** 缺省生命周期视为 open。 */
+export function lifecycleOf(p: Problem): LifecycleStatus {
+  return p.lifecycle_status ?? 'open'
 }
 
 export const POTENTIAL_LABELS: Record<FormalizationPotential, string> = {

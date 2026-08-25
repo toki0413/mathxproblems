@@ -5,6 +5,7 @@
 
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
+export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superseded'])
 export const BATCH_ADDED = '2026-08-23'
 export const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
 export const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
@@ -25,6 +26,7 @@ export function parseCatalog(src) {
   const dates = new Map()
   const hasCertificate = new Set()
   const hasDeliverables = new Set()
+  const lifecycleStatuses = new Map() // id -> lifecycle_status 值
   let pendingJudgment = false
   let pendingNote = false
   for (const line of src.split(/\r?\n/)) {
@@ -53,6 +55,8 @@ export function parseCatalog(src) {
     if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
     if (/^    certificate:/.test(line) && cur) hasCertificate.add(cur)
     if (/^    engineering_deliverables:/.test(line) && cur) hasDeliverables.add(cur)
+    const lcMatch = line.match(/^    lifecycle_status: '([^']+)',/)
+    if (lcMatch && cur) lifecycleStatuses.set(cur, lcMatch[1])
     if (/^    (proposer|via):/.test(line) && cur) hasTrace.add(cur)
     const dMatch = line.match(/^    date_added: '([^']+)'/)
     if (dMatch && cur) dates.set(cur, dMatch[1])
@@ -74,14 +78,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables }
+  return { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables } = cat
+  const { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -128,6 +132,11 @@ export function checkCatalog(raw) {
   const missingJudgment = ids.filter((id) => !judged.has(id))
   if (missingJudgment.length) failures.push(`problems missing 'judgment': ${missingJudgment.join(', ')}`)
   else notes.push(`judgment: all ${ids.length} problems covered`)
+
+  // 生命周期（方向四）：值必须是合法枚举；refuted 的题应有 updates（含反例说明）。
+  const badLifecycle = [...lifecycleStatuses.entries()].filter(([, v]) => !LIFECYCLE_KINDS.has(v))
+  if (badLifecycle.length) failures.push(`invalid lifecycle_status: ${badLifecycle.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+  else if (lifecycleStatuses.size) notes.push(`lifecycle_status: ${[...LIFECYCLE_KINDS].filter((k) => [...lifecycleStatuses.values()].includes(k)).join(', ')}`)
 
   const missingOutput = ids.filter((id) => !outputs.has(id))
   if (missingOutput.length) failures.push(`problems missing 'output': ${missingOutput.join(', ')}`)

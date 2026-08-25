@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router'
 import { useState } from 'react'
-import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, type OutputKind } from '@/data/problems'
+import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
@@ -146,6 +146,12 @@ export default function ProblemDetailPage() {
             <Stars difficulty={p.difficulty} />
             <span>{t('pd.verified')} {p.last_verified ?? p.date_added}</span>
           </div>
+
+          {lifecycleOf(p) === 'refuted' && (
+            <div className="mt-4 border border-me bg-me/5 px-4 py-3 text-sm text-me" style={{ borderLeftWidth: 3 }}>
+              {t('pd.lifecycle.refutedHint')}
+            </div>
+          )}
 
           <Section title={t('pd.statement')}>
             <Markdown>{p.statement}</Markdown>
@@ -596,6 +602,22 @@ export default function ProblemDetailPage() {
                 </span>
               }
             />
+            {/* 证书生命周期徽章：缺省 open 不显示，refuted 用警示色并提示反例来源 */}
+            {lifecycleOf(p) !== 'open' && (
+              <Meta
+                k={t('pd.lifecycle')}
+                v={
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono2 text-[10px] uppercase tracking-wider ${
+                      lifecycleOf(p) === 'refuted' ? 'text-me border-me' : 'text-ink-2 border-line-strong'
+                    }`}
+                  >
+                    {lifecycleOf(p) === 'refuted' && <span aria-hidden="true">▼</span>}
+                    {t(`pd.lifecycle.${lifecycleOf(p)}`)}
+                  </span>
+                }
+              />
+            )}
             <Meta k={t('pd.difficulty')} v={<Stars difficulty={p.difficulty} />} />
             <Meta
               k={t('pd.formalize')}

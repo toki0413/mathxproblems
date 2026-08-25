@@ -121,3 +121,17 @@ test('depends_on edge carrying inheritance marker stays quiet', () => {
   }, {${vbProblem('x-001', OK_JUDGMENT, CERT_OK)}} ]`
   assert.ok(!warnings(src).some((w) => w.includes('missing inheritance note')))
 })
+
+test('invalid lifecycle_status value fails', () => {
+  const src = `export const PROBLEMS = [ {
+    id: 'x-003',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+    lifecycle_status: 'bogus',
+    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+} ]`
+  assert.ok(failures(src).some((f) => f.includes('invalid lifecycle_status')))
+})
