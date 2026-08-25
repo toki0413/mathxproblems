@@ -8,8 +8,15 @@ function today(): string {
   return new Date().toISOString().slice(0, 10)
 }
 
-/** 从已通过投稿的 payload 生成一篇 problems.ts 风格的可粘贴对象 */
-function buildProblemFragment(title: string, titleZh: string, domain: string, payload: Record<string, unknown>): string {
+/** 从已通过投稿的 payload 生成一篇 problems.ts 风格的可粘贴对象。
+ *  authorName 为投稿者真实名：采纳后 proposer 具名，署名通路的源头可靠。 */
+function buildProblemFragment(
+  title: string,
+  titleZh: string,
+  domain: string,
+  payload: Record<string, unknown>,
+  authorName?: string | null,
+): string {
   const asStr = (v: unknown) => (typeof v === 'string' ? v : '')
   const asList = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [])
   const lines = [
@@ -39,7 +46,7 @@ function buildProblemFragment(title: string, titleZh: string, domain: string, pa
   lines.push(
     `    formalization_notes: '待填',\n` +
       `    references: ${JSON.stringify(asList(payload.references).map((r) => ({ label: r, url: '' })))},\n` +
-      `    proposer: '社区投稿',\n` +
+      `    proposer: '${authorName?.replace(/'/g, "\\'") || '社区投稿（匿名）'}',\n` +
       `    proposed_year: '${today().slice(0, 4)}',\n` +
       `  },`,
   )
@@ -74,7 +81,7 @@ export default function ReviewPage() {
     } catch {
       /* ignore */
     }
-    navigator.clipboard.writeText(buildProblemFragment(s.title, s.titleZh, s.domain, payload))
+    navigator.clipboard.writeText(buildProblemFragment(s.title, s.titleZh, s.domain, payload, s.authorName))
     setCopied((c) => ({ ...c, [s.id]: true }))
     setTimeout(() => setCopied((c) => ({ ...c, [s.id]: false })), 1600)
   }
