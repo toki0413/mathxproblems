@@ -6595,7 +6595,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-041',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流翅片散热器几何与给定发热量、环境与倾斜角工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖三层残差——(1) **R_model**：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界，三者各自附可复核常数且总带满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。反作弊规则：禁止只给经验相关式（那是统计拟合，非证书）；禁止把浮点收敛外推当证明而无核验误差；禁止在总带宽度中静默吞掉任一层残差。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限，由带证区间直接给出，无需 DNS 重算。',
+      '对一具体自然对流翅片散热器（给定发热量、环境与倾斜角工况），交付 Nusselt 数总带 $[\\underline{Nu},\\overline{Nu}]$ 及证明其覆盖三层残差：(1) **R_model**：Boussinesq/边界层（含辐射）近似相对真实可压缩气体动力学的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界。三层各自附可复核常数且满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。判定应能据此直接给出"给定发热量下翅片峰值温度是否低于裕量上限"，而非依赖 DNS 重算或经验相关式的统计外推。',
     title: 'Certified heat-sink thermal margin via a three-layer residual total band on free convection',
     titleZh: '自然对流散热器峰值温度裕量的三层残差总带证书',
     domain: 'mathematical-physics',
