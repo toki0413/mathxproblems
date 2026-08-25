@@ -58,13 +58,15 @@ export default function ProblemDetailPage() {
   const [atTitle, setAtTitle] = useState('')
   const [atAuthor, setAtAuthor] = useState('')
   const [atContent, setAtContent] = useState('')
-  const [atBand, setAtBand] = useState('')
+  const [atBandLo, setAtBandLo] = useState('')
+  const [atBandHi, setAtBandHi] = useState('')
   const submitAttempt = trpc.attempts.submit.useMutation({
     onSuccess: () => {
       setAtTitle('')
       setAtAuthor('')
       setAtContent('')
-      setAtBand('')
+      setAtBandLo('')
+      setAtBandHi('')
     },
   })
 
@@ -170,6 +172,11 @@ export default function ProblemDetailPage() {
 
           {p.certificate && (
             <Section title={t('pd.certificate')}>
+              <div className="border border-line mb-3">
+                <div className="px-4 py-2.5 text-xs text-ink-3 leading-relaxed">
+                  {t('pd.certificate.claimedNotice')}
+                </div>
+              </div>
               <div className="border border-line">
                 {/* 带证区间 + 总带合成公式：把 judgment 的三层残差从散文变成可审计的字段 */}
                 <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2 px-5 py-4 hairline-b">
@@ -546,12 +553,23 @@ export default function ProblemDetailPage() {
                 {atKind === 'verification' && (
                   <>
                     <p className="text-xs text-ink-3 leading-relaxed">{t('pd.attempts.verificationHint')}</p>
-                    <input
-                      value={atBand}
-                      onChange={(e) => setAtBand(e.target.value)}
-                      placeholder={t('pd.attempts.band')}
-                      className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
-                    />
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        value={atBandLo}
+                        onChange={(e) => setAtBandLo(e.target.value)}
+                        placeholder={t('pd.attempts.bandLo')}
+                        className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                      />
+                      <span className="text-ink-3">–</span>
+                      <input
+                        type="number"
+                        value={atBandHi}
+                        onChange={(e) => setAtBandHi(e.target.value)}
+                        placeholder={t('pd.attempts.bandHi')}
+                        className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                      />
+                    </div>
                   </>
                 )}
                 <textarea
@@ -569,14 +587,17 @@ export default function ProblemDetailPage() {
                       title: atTitle,
                       content: atContent,
                       authorName: atAuthor.trim() || undefined,
-                      newBand: atKind === 'verification' ? atBand.trim() : undefined,
+                      newBand:
+                        atKind === 'verification' && atBandLo && atBandHi
+                          ? `[${atBandLo}, ${atBandHi}]`
+                          : undefined,
                     })
                   }
                   disabled={
                     submitAttempt.isPending ||
                     !atTitle.trim() ||
                     !atContent.trim() ||
-                    (atKind === 'verification' && !atBand.trim())
+                    (atKind === 'verification' && (!atBandLo || !atBandHi || Number(atBandLo) >= Number(atBandHi)))
                   }
                   className="border border-mc text-mc px-4 py-1.5 text-sm hover:bg-mc hover:text-paper transition-colors disabled:opacity-40"
                 >

@@ -6,6 +6,7 @@ import { ProblemRow, DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
 import { LiveMonitor } from '@/components/LiveMonitor'
 import { useI18n, pickLang, domainLabel } from '@/i18n'
+import { trpc } from '@/providers/trpc'
 
 const DOMAIN_EN: Record<Domain, { blurb: string; excludes: string }> = {
   'mathematical-physics': {
@@ -74,6 +75,7 @@ export default function HomePage() {
   const [random, setRandom] = useState(
     () => PROBLEMS[Math.floor(Math.random() * PROBLEMS.length)],
   )
+  const recentVerif = trpc.attempts.recentVerifications.useQuery(undefined, { retry: false })
 
   return (
     <div>
@@ -125,6 +127,50 @@ export default function HomePage() {
             </h2>
           </div>
           <LiveMonitor />
+        </div>
+      </section>
+
+      {/* Recent verified narrowings — the flywheel's visible output */}
+      <section className="hairline-t">
+        <div className="mx-auto max-w-6xl px-5 py-10">
+          <Reveal>
+            <div className="flex items-baseline justify-between mb-4">
+              <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">
+                {t('home.verifications.title')}
+              </h2>
+              <span className="text-xs text-ink-3">{t('home.verifications.hint')}</span>
+            </div>
+          </Reveal>
+          {(recentVerif.data ?? []).length === 0 ? (
+            <p className="border border-dashed border-line-strong p-5 text-sm text-ink-3">
+              {t('home.verifications.empty')}
+            </p>
+          ) : (
+            <div className="border-t border-line">
+              {(recentVerif.data ?? []).map((v, i) => {
+                const target = PROBLEMS.find((p) => p.id === v.problemId)
+                if (!target) return null
+                return (
+                  <Reveal key={v.id} delay={i * 30}>
+                    <Link
+                      to={`/problems/${target.id}`}
+                      className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 py-3 border-b border-line"
+                    >
+                      <span className="font-mono2 text-xs text-mc shrink-0">{v.newBand}</span>
+                      <span className="font-mono2 text-xs text-ink-3 shrink-0 w-16">{v.problemId}</span>
+                      <span className="flex-1 min-w-0 text-ink group-hover:underline underline-offset-4 truncate">
+                        {target.title}
+                      </span>
+                      <span className="font-mono2 text-[11px] text-ink-3 shrink-0">
+                        {t('home.verifications.by')} {v.authorName ?? 'Anonymous'} ·{' '}
+                        {new Date(v.createdAt).toISOString().slice(0, 10)}
+                      </span>
+                    </Link>
+                  </Reveal>
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import {
   insertAttempt,
   listApprovedAttempts,
   listAttemptsByUser,
+  listLatestVerifications,
   listPendingAttempts,
   reviewAttempt,
   toggleVote,
@@ -49,6 +50,11 @@ export const attemptsRouter = createRouter({
   approved: publicQuery
     .input(z.object({ problemId: z.string().regex(PROBLEM_ID_RE) }))
     .query(async ({ input }) => listApprovedAttempts(input.problemId)),
+
+  /** 跨题最近的已验证收窄（公共成果），首页展示"谁收窄了哪个问题" */
+  recentVerifications: publicQuery
+    .input(z.object({ limit: z.number().int().min(1).max(50).optional() }))
+    .query(async ({ input }) => listLatestVerifications(input.limit ?? 12)),
 
   mine: authedQuery.query(async ({ ctx }) => listAttemptsByUser(ctx.user.id)),
 

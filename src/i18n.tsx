@@ -71,6 +71,13 @@ const STR: Record<string, { zh: string; en: string }> = {
   'home.manifesto': { zh: '宣言', en: 'Manifesto' },
   'home.domains': { zh: '四个领域', en: 'Four domains' },
   'home.monitor': { zh: '实时监控', en: 'Live monitor' },
+  'home.verifications.title': { zh: '最近已验证收窄', en: 'Recent verified narrowings' },
+  'home.verifications.hint': {
+    zh: '社区提交、经评审通过的带证区间收窄记录。',
+    en: 'Community-submitted, review-approved band-narrowing records.',
+  },
+  'home.verifications.empty': { zh: '还没有已验证的收窄——来提交第一份。', en: 'No verified narrowings yet — submit the first one.' },
+  'home.verifications.by': { zh: '由', en: 'by' },
   // problems page
   'pl.title': { zh: '问题库', en: 'Problem catalog' },
   'pl.subtitle': {
@@ -89,7 +96,11 @@ const STR: Record<string, { zh: string; en: string }> = {
   // detail
   'pd.statement': { zh: '精确陈述', en: 'Precise statement' },
   'pd.certificate': { zh: '残余总带证书', en: 'Residual total-band certificate' },
-  'pd.certificate.band': { zh: '带证区间', en: 'Certified band' },
+  'pd.certificate.claimedNotice': {
+    zh: '注意：以下带证区间是该题被要求满足的判定形式（目标规约），并非已被证明成立的结论。判定是否成立仍未解。',
+    en: 'Note: the certified band below is the judgement form this problem is required to satisfy — a target specification, not an established proved result. Whether it holds remains open.',
+  },
+  'pd.certificate.band': { zh: '判定区间', en: 'Judgement band' },
   'pd.certificate.total': { zh: '总带合成', en: 'Total-band composition' },
   'pd.certificate.layer': { zh: '残差层', en: 'Residual layer' },
   'pd.certificate.derivation': { zh: '复核来源', en: 'Verification source' },
@@ -101,12 +112,12 @@ const STR: Record<string, { zh: string; en: string }> = {
     en: 'Trusting this certificate presumes the upstream certificates below; if any is refuted, downstream bands depending on it fail.',
   },
   'pd.audit.none': { zh: '本题无上游依赖，是可独立消费的基础证书。', en: 'No upstream dependency — an independently consumable base certificate.' },
-  'pd.ledger': { zh: '验证账本', en: 'Verification ledger' },
+  'pd.ledger': { zh: '收窄声明账本', en: 'Narrowing ledger' },
   'pd.ledger.hint': {
-    zh: '以下为社区提交、经评审通过的带证收窄记录。每一条都让该题的总带更紧。',
-    en: 'Community-submitted, review-approved band-narrowing records. Each one tightens this problem.',
+    zh: '社区提交、经评审通过的带证区间收窄声明。注：此处收录的是声明及其署名，与既有判定带的包含关系与证明完备性需由评审把关，未做程序化校验；不应视为"已验证成立"。',
+    en: 'Community-submitted, review-approved band-narrowing claims. Note: this records claims and attribution; containment w.r.t. any existing band and proof completeness are judged by review, not machine-checked here. Do not read them as "proved".',
   },
-  'pd.ledger.empty': { zh: '尚无已验证收窄记录。', en: 'No verified narrowings yet.' },
+  'pd.ledger.empty': { zh: '尚无收窄声明。', en: 'No narrowing claims yet.' },
   'pd.origin': { zh: '来源与背景', en: 'Origin & context' },
   'pl.deliverable': { zh: '工程交付物', en: 'Engineering deliverable' },
   'pl.deliverableAll': { zh: '全部交付物', en: 'All deliverables' },
@@ -295,10 +306,12 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.attempts.kind.solution': { zh: '解答思路', en: 'Solution sketch' },
   'pd.attempts.kind.revision': { zh: '修订建议', en: 'Revision' },
   'pd.attempts.kind.verification': { zh: '验证收窄', en: 'Verified narrowing' },
+  'pd.attempts.bandLo': { zh: '下限', en: 'lower' },
+  'pd.attempts.bandHi': { zh: '上限', en: 'upper' },
   'pd.attempts.band': { zh: '收窄后的带证区间', en: 'Narrowed certified band' },
   'pd.attempts.verificationHint': {
-    zh: '验证型投稿：声明把该题的带证区间收窄到某个值，附证明要点。审批通过后会出现在下方的验证账本，成为社区让目录变紧的记录。',
-    en: 'A verified-narrowing post: claim a tighter certified band for this problem, with the key argument. Once approved it lands in the verification ledger below.',
+    zh: '验证型投稿：声明把该题的带证区间收窄到给定上下界，附证明要点。审批通过后会出现在下方的验证账本，成为社区记录。',
+    en: 'A verified-narrowing post: claim a tighter certified band (lower/upper) for this problem, with the key argument. Once approved it lands in the verification ledger below.',
   },
   'pd.attempts.title': { zh: '一句话标题', en: 'Short title' },
   'pd.attempts.content': { zh: '内容（可含 LaTeX $…$）', en: 'Content (LaTeX $…$ supported)' },

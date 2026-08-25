@@ -88,6 +88,34 @@ export async function toggleVote(attemptId: number, userId: number) {
   });
 }
 
+/** 跨题聚合的已通过验证收窄（方向：公共成果），供首页/周报展示"谁收窄了哪个问题"。 */
+export async function listLatestVerifications(limit = 12) {
+  const rows = await getDb()
+    .select({
+      id: schema.problemAttempts.id,
+      problemId: schema.problemAttempts.problemId,
+      title: schema.problemAttempts.title,
+      authorName: schema.problemAttempts.authorName,
+      registeredName: schema.users.name,
+      newBand: schema.problemAttempts.newBand,
+      createdAt: schema.problemAttempts.createdAt,
+    })
+    .from(schema.problemAttempts)
+    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .where(
+      and(
+        eq(schema.problemAttempts.kind, "verification"),
+        eq(schema.problemAttempts.status, "approved"),
+      ),
+    )
+    .orderBy(desc(schema.problemAttempts.createdAt))
+    .limit(limit);
+  return rows.map(({ registeredName, ...r }) => ({
+    ...r,
+    authorName: r.authorName ?? registeredName,
+  }));
+}
+
 export async function listPendingAttempts() {
   return getDb()
     .select()

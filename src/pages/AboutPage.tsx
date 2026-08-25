@@ -10,8 +10,11 @@ const C = {
   zh: {
     intro: (
       <>
-        对外定位：<strong>AI for math 向自然科学和工程系统传导的翻译层与接口层</strong>。
-        启动标准：务实优先，先让问题站住，再在社区反馈中生长。
+        对外定位：<strong>收集"带证判定"问题——把自然科学与工程系统里的判定需求翻译成可核验、
+        可工程消费的数学命题，并记录其在模型 / 输入 / 数值三层上的残差带承诺</strong>。
+        我们不做证明本身：那是 Lean / 证明社区的赛道；我们做的是问题层与判定规约层，
+        让"要信这条判定，得先信哪些上游证书"可被审计。启动标准：务实优先，先让问题站住，
+        再在社区反馈中生长。
       </>
     ),
     filter: [
@@ -68,9 +71,13 @@ const C = {
   en: {
     intro: (
       <>
-        Positioning: <strong>the translation and interface layer conducting AI for math into the
-        natural sciences and engineering systems</strong>. Pragmatism first: make problems stand,
-        then grow with community feedback.
+        Positioning: <strong>a catalogue of "certified judgement" problems — translating
+        judgement needs from the natural sciences and engineered systems into verifiable,
+        engineering-consumable mathematical propositions, and recording their three-layer
+        (model / input / numerical) residual-band commitments</strong>. We do not do the proofs
+        themselves — that is the Lean / provers' lane; we own the problem layer and judgement
+        specification, so "to trust this verdict, which upstream certificates must hold" is auditable.
+        Pragmatism first: make problems stand, then grow with community feedback.
       </>
     ),
     filter: [
