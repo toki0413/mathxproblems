@@ -1,7 +1,7 @@
 export const Session = {
   cookieName: "kimi_sid",
   // 会话 30 天有效（此前为一年，过长放大 token 泄露窗口）。JWT 过期与 cookie
-  // maxAge 同源于此，见 api/kimi/session.ts。
+  // maxAgeMs 同源于此，见 api/kimi/session.ts。
   maxAgeMs: 30 * 24 * 60 * 60 * 1000,
 } as const;
 
@@ -37,3 +37,11 @@ export type Domain = (typeof DOMAIN_IDS)[number];
 // 若干跳号（如 mp-017 缺失），导出时若逐个登记会退化成一份易失真的镜像表。这里只做
 // 格式层校验挡住明显伪造值；若日后需要严格存在性校验，应把题库 id 集合提到共享契约层。
 export const PROBLEM_ID_RE = /^[a-z]{2}-\d{1,3}$/;
+
+/**
+ * 双桥 formal_view.status 三值。写路径（api/claims-write.ts、
+ * api/attempts-router.ts）的 zod 校验以此为源；目录枚举门禁
+ * （scripts/lib/catalog-checks.mjs 的 FORMAL_STATUSES）与之保持同值。
+ */
+export const FORMAL_STATUSES = ["provable", "conjectured", "refuted"] as const;
+export type FormalStatusValue = (typeof FORMAL_STATUSES)[number];

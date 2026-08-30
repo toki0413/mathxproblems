@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PROBLEM_ID_RE } from "@contracts/constants";
+import { FORMAL_STATUSES, PROBLEM_ID_RE } from "@contracts/constants";
 import { adminQuery, authedQuery, createRouter, publicQuery } from "./middleware";
 import {
   insertAttempt,
@@ -14,17 +14,23 @@ import {
 const attemptSchema = z
   .object({
     problemId: z.string().regex(PROBLEM_ID_RE),
-    kind: z.enum(["progress", "solution", "revision", "verification"]),
+    kind: z.enum(["progress", "solution", "revision", "verification", "formal"]),
     title: z.string().min(4).max(300),
     content: z.string().min(20).max(5000),
     // 匿名投稿可自报署名；留空则匿名（登录态也接受，userId 会自动带上）
     authorName: z.string().trim().min(1).max(128).optional(),
     // 验证-收窄：kind='verification' 时必须给出收窄后的带证区间
     newBand: z.string().trim().min(1).max(80).optional(),
+    // 形式化补证：kind='formal' 时必须给出目标 formal 状态
+    formalStatus: z.enum(FORMAL_STATUSES).optional(),
   })
   .refine((v) => v.kind !== "verification" || !!v.newBand, {
     message: "verification requires newBand",
     path: ["newBand"],
+  })
+  .refine((v) => v.kind !== "formal" || !!v.formalStatus, {
+    message: "formal requires formalStatus",
+    path: ["formalStatus"],
   });
 
 export const attemptsRouter = createRouter({
@@ -32,7 +38,7 @@ export const attemptsRouter = createRouter({
   submit: publicQuery
     .input(attemptSchema)
     .mutation(async ({ ctx, input }) => {
-      const { problemId, kind, title, content, authorName, newBand } = input;
+      const { problemId, kind, title, content, authorName, newBand, formalStatus } = input;
       await insertAttempt({
         problemId,
         kind,
@@ -40,6 +46,7 @@ export const attemptsRouter = createRouter({
         content,
         authorName,
         newBand,
+        formalStatus,
         // 登录态才关联用户；匿名提交该字段为 null
         userId: ctx.user ? ctx.user.id : undefined,
       });
