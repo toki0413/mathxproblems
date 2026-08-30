@@ -46,6 +46,12 @@ const nestedArr = (b: string, outer: string, field: string): string[] => {
   if (!m) return [];
   return [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
 };
+// multiline string array at block level, e.g. obstacles (one quoted item per line).
+const blockArr = (b: string, field: string): string[] => {
+  const m = b.match(new RegExp(`^    ${field}: \\[([\\s\\S]*?)\\]`, "m"));
+  if (!m) return [];
+  return [...m[1].matchAll(/'((?:[^'\\]|\\.)*)'/g)].map((x) => x[1]);
+};
 
 function oneProblem(block: string) {
   const id = str(block, "id");
@@ -90,6 +96,7 @@ function oneProblem(block: string) {
     verification_path: str(block, "verification_path"),
     lifecycle_status: str(block, "lifecycle_status") || "open",
     judgment: mline(block),
+    obstacles: blockArr(block, "obstacles"),
     certificate,
     formal_view,
     bridge,
