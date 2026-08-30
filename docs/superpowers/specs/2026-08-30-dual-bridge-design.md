@@ -70,41 +70,33 @@ type BandedView = {
 }
 
 // bridge —— 两端关系声明(对齐 PCM 语义)
+// direction 三种模式: 形式侧理想化带侧 / 带侧例示形式侧 / 两者互为边界(共生, PCM 式互证)
 type Bridge = {
   link: string      // 如 'T 是 C 的 ε→0 理想化'; 也用于 PCM 式 '经验带 + 形式证互为边界'
-  direction: 'formal_idealizes_banded' | 'banded_instantiates_formal'
+  direction:
+    | 'formal_idealizes_banded'   // formal T 是 banded C 的 ε→0 理想化
+    | 'banded_instantiates_formal'// banded C 例示/锚定 formal T 的现实内容
+    | 'mutual_boundary'           // 共生: 形式证与经验带互为边界(最贴近 PCM)
   band_as_fn_of_eps?: string   // 带随理想化参数收缩的关系(可选)
 }
 
-// 叠加在现有 Problem 之上的双桥视图;其余字段原样
-// 此类型是"导出到 /api/v1/dual-bridge.json 时的投影视图",非存储实体。
-// 存储侧只在现有 Problem 上新增两个可选字段: formal_view、bridge; banded_view 由 certificate 承担。
-type DualBridgeView = {
-  id: string
-  domain: string
-  output: 'verified_behavior' | 'verified_truth' | 'scaffolding'
-  lifecycle_status: 'open' | 'tightened' | 'refuted' | 'superseded'
-  formal: FormalView
-  banded: BandedView
-  bridge: Bridge
-  impact_domains: string[]
-  depends_on: string[]   // 继承链: 上游收紧⇒下游带收紧; 上游证伪⇒下游带失效
-  proposer?: string; proposed_year?: number; via?: { label: string; url?: string }
-  updates: { date: string; note: string }[]
-}
+// 暴露方式(并入问题契约,不独立出口):
+// 现有 Problem 之上新增两个可选字段 —— formal_view?: FormalView、bridge?: Bridge;
+// banded_view 不新增存储,由 Problem.certificate 承担,随 problems.json 的 Problem 序列化输出。
+// formal_view.status: verified_truth / verified_behavior 类声明均可填 provable;缺省 conjectured。
 ```
 
 要点:
-- 不新增独立 `Claim` 实体,而是**在现有 `Problem` 上叠加 `formal_view` + `bridge` 两个可选字段**(`banded_view` 由 `certificate` 承担),避免数据重复与迁移成本。
+- 不新增独立 `Claim` 实体,而是**在现有 `Problem` 上叠加 `formal_view?` + `bridge?` 两个可选字段**(`banded_view` 由 `certificate` 承担),避免数据重复与迁移成本。
 - 依赖库 `depends_on` 延续现有 `related_problems` 继承语义,双向标注(收紧/证伪)。
+- **不独立出口双桥**;`formal_view`/`bridge` 作为 Problem 的可选字段随 `problems.json` 序列化,两端消费同一契约。
 
 ## 6. 接口规范
 
 ### 读(稳定契约,版本化 + ETag,沿用现有 `snapshotVersion`)
 ```
-GET /api/v1/problems.json         → { version, generated, count, problems: Problem[] }  // 含新增 formal_view/bridge
-GET /api/v1/dual-bridge.json      → { version, count, claims: DualBridgeView[] }         // 仅双桥视图,供两端消费
-GET /api/v1/benchmark.json        → 现有; 若输出形式化潜能列为 high 则顺带暴露 formal_view
+GET /api/v1/problems.json    → { version, generated, count, problems: Problem[] }  // 含新增 formal_view/bridge 可选字段
+GET /api/v1/benchmark.json   → 现有; 若形式化潜能列为 high 则顺带暴露 formal_view
 ```
 
 ### 写(C 演进,先留接口默认闭门;经审稿/attempts 机制)
@@ -120,15 +112,15 @@ GET /api/v1/feed.json  → 现覆盖 narrow 收窄;扩展覆盖 formal 补证
 ```
 
 ## 7. 边界与可落地顺序(方案 A 优先,C 留白)
-1. **A(本版)**:数据契约加 `formal_view` + `bridge` 字段 → 导出进 `/api/v1/dual-bridge.json` → 详情页加"双桥视图"可视化(形式侧 vs 带侧并列)。写路径注册但关闭。
+1. **A(本版)**:数据契约加 `formal_view?` + `bridge?` 字段 → 随 `problems.json` 序列化输出 → 详情页加"双桥视图"可视化(形式侧 vs 带侧并列)。写路径端点注册但默认关闭。
 2. **C(演进)**:放开 `narrow`/`formal` 写端点,经审稿/账本/feed 闭环,允许消费方回写。
 
 ## 8. 测试与校验
-- `scripts/check-problems.mjs`:新增对 `formal_view` 状态枚举、`bridge.link` 非空、`formal.judgment` 存在的校验;对含 `formal_view` 的新问题保持现有"独立判定句式"反再生门禁。
-- 目录契约测试沿用 `catalog-checks.test.mjs`。
-- 双桥视图 `dual-bridge.json` 走现有 snapshot/ETag 单测路径。
+- `scripts/check-problems.mjs`:新增对 `formal_view.status`、`bridge.direction` 枚举合法性、`formal_view.judgment` 存在的校验;对含 `formal_view` 的新问题保持现有"独立判定句式"反再生门禁。
+- 目录契约测试沿用 `catalog-checks.test.mjs`;`problems.json` 的 snapshot/ETag 单测路径覆盖新增可选字段。
+- 双桥视图轮询走现有 catalog build + ETag 校验。
 
-## 9. 待评审问题(留给 spec 评审)
-- `bridge.direction` 两个枚举是否够,还是要加"互为"共生模式(如 PCM 的边界对偶)。
-- `dual-bridge.json` 是否值得独立出口,还是并入 `problems.json` 的字段即可。
-- `formal.status` 初始默认 `conjectured`,还是允许 `verified_truth` 类声明填 `provable`。
+## 9. 已决策
+1. `bridge.direction` 采用三值: `formal_idealizes_banded` / `banded_instantiates_formal` / `mutual_boundary`(共生,PCM 式互证)。
+2. **不独立** `dual-bridge.json`;`formal_view`/`bridge` 作为 Problem 可选字段并入 `problems.json`。
+3. `formal.status` 允许 `verified_truth` / `verified_behavior` 类声明填 `provable`;缺省 `conjectured`。
