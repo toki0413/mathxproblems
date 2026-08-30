@@ -1,10 +1,54 @@
-import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemAttempt } from "@db/schema";
+import { bandBits } from "@contracts/band";
 import { getDb } from "./connection";
 
 export async function insertAttempt(data: InsertProblemAttempt) {
   await getDb().insert(schema.problemAttempts).values(data);
+}
+
+/**
+ * 为一组事件按「题内已通过验证收窄链」计算信息量增益（比特）。
+ * 规则：同题按时间升序走链，每条 verification 相对上一条的 newBand 计
+ * -log2(新宽/旧宽)；链首无可比基线（目录 certificate.certified_band 是
+ * 描述性文字，不可解析），记 null。非 verification 事件一律 null。
+ */
+async function attachBandBits<
+  T extends { id: number; problemId: string; kind: string; newBand: string | null },
+>(rows: T[]): Promise<(T & { bits: number | null })[]> {
+  const problemIds = [
+    ...new Set(
+      rows.filter((r) => r.kind === "verification" && r.newBand).map((r) => r.problemId),
+    ),
+  ];
+  if (!problemIds.length) return rows.map((r) => ({ ...r, bits: null }));
+  const chain = await getDb()
+    .select({
+      id: schema.problemAttempts.id,
+      problemId: schema.problemAttempts.problemId,
+      newBand: schema.problemAttempts.newBand,
+    })
+    .from(schema.problemAttempts)
+    .where(
+      and(
+        eq(schema.problemAttempts.kind, "verification"),
+        eq(schema.problemAttempts.status, "approved"),
+        inArray(schema.problemAttempts.problemId, problemIds),
+      ),
+    )
+    .orderBy(asc(schema.problemAttempts.createdAt), asc(schema.problemAttempts.id));
+  const bitsById = new Map<number, number | null>();
+  const lastBand = new Map<string, string>();
+  for (const row of chain) {
+    const prev = lastBand.get(row.problemId) ?? null;
+    bitsById.set(row.id, row.newBand ? bandBits(prev, row.newBand) : null);
+    if (row.newBand) lastBand.set(row.problemId, row.newBand);
+  }
+  return rows.map((r) => ({
+    ...r,
+    bits: r.kind === "verification" ? (bitsById.get(r.id) ?? null) : null,
+  }));
 }
 
 /** 社区在详情页可看到的本问题已通过候选。匿名投稿用自报 authorName，登录用户回退到注册名 */
@@ -95,10 +139,12 @@ export async function listLatestVerifications(limit = 12) {
     .select({
       id: schema.problemAttempts.id,
       problemId: schema.problemAttempts.problemId,
+      kind: schema.problemAttempts.kind,
       title: schema.problemAttempts.title,
       authorName: schema.problemAttempts.authorName,
       registeredName: schema.users.name,
       newBand: schema.problemAttempts.newBand,
+      method: schema.problemAttempts.method,
       createdAt: schema.problemAttempts.createdAt,
     })
     .from(schema.problemAttempts)
@@ -111,10 +157,11 @@ export async function listLatestVerifications(limit = 12) {
     )
     .orderBy(desc(schema.problemAttempts.createdAt))
     .limit(limit);
-  return rows.map(({ registeredName, ...r }) => ({
+  const withNames = rows.map(({ registeredName, ...r }) => ({
     ...r,
     authorName: r.authorName ?? registeredName,
   }));
+  return attachBandBits(withNames);
 }
 
 /**
@@ -134,6 +181,7 @@ export async function listLatestClaimEvents(limit = 20) {
       registeredName: schema.users.name,
       newBand: schema.problemAttempts.newBand,
       formalStatus: schema.problemAttempts.formalStatus,
+      method: schema.problemAttempts.method,
       createdAt: schema.problemAttempts.createdAt,
     })
     .from(schema.problemAttempts)
@@ -146,10 +194,28 @@ export async function listLatestClaimEvents(limit = 20) {
     )
     .orderBy(desc(schema.problemAttempts.createdAt))
     .limit(limit);
-  return rows.map(({ registeredName, ...r }) => ({
+  const withNames = rows.map(({ registeredName, ...r }) => ({
     ...r,
     authorName: r.authorName ?? registeredName,
   }));
+  return attachBandBits(withNames);
+}
+
+/** 全部已通过声明里带方法标签的（problemId, method），供障碍图做方法解锁路由。 */
+export async function listMethodEvents() {
+  return getDb()
+    .select({
+      problemId: schema.problemAttempts.problemId,
+      method: schema.problemAttempts.method,
+    })
+    .from(schema.problemAttempts)
+    .where(
+      and(
+        inArray(schema.problemAttempts.kind, ["verification", "formal"]),
+        eq(schema.problemAttempts.status, "approved"),
+        isNotNull(schema.problemAttempts.method),
+      ),
+    );
 }
 
 export async function listPendingAttempts() {
