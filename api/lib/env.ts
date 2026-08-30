@@ -19,4 +19,10 @@ export const env = {
   kimiAuthUrl: required("KIMI_AUTH_URL"),
   kimiOpenUrl: required("KIMI_OPEN_URL"),
   ownerUnionId: process.env.OWNER_UNION_ID ?? "",
+  // 双桥写路径（POST /api/v1/claims/:id/narrow|formal）默认闭门；
+  // 显式置 "1"/"true" 才放开，放开后经审稿账本闭环
+  // （spec: docs/superpowers/specs/2026-08-30-dual-bridge-design.md §6）。
+  claimsWriteEnabled: ["1", "true"].includes(
+    (process.env.CLAIMS_WRITE_ENABLED ?? "").toLowerCase(),
+  ),
 };

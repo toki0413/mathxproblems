@@ -10,6 +10,7 @@ export const Errors = {
   forbidden: (msg: string) => appError(403, msg),
   notFound: (msg: string) => appError(404, msg),
   internal: (msg: string) => appError(500, msg),
+  notImplemented: (msg: string) => appError(501, msg),
 } as const;
 
 export type { AppError };
