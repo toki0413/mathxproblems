@@ -29,6 +29,8 @@ const narrowSchema = z.object({
   band: z.string().trim().min(1).max(80),
   note: z.string().min(20).max(5000),
   authorName: z.string().trim().min(1).max(128).optional(),
+  // 方法标签（可选）：自报技术族，供障碍图做方法→问题路由
+  method: z.string().trim().min(1).max(80).optional(),
 });
 
 const formalSchema = z.object({
@@ -38,6 +40,7 @@ const formalSchema = z.object({
   // 溯源：证明 / 反例出处（Lean file、预印本、benchmark entry 链接等）
   via: z.string().trim().min(1).max(300).optional(),
   authorName: z.string().trim().min(1).max(128).optional(),
+  method: z.string().trim().min(1).max(80).optional(),
 });
 
 export function createClaimsWriteApp(deps: ClaimsWriteDeps) {
@@ -82,7 +85,7 @@ export function createClaimsWriteApp(deps: ClaimsWriteDeps) {
         Errors.badRequest(parsed.error.issues[0]?.message ?? "invalid body"),
       );
     }
-    const { band, note, authorName } = parsed.data;
+    const { band, note, authorName, method } = parsed.data;
     try {
       await deps.insert({
         problemId: id,
@@ -91,6 +94,7 @@ export function createClaimsWriteApp(deps: ClaimsWriteDeps) {
         content: note,
         authorName,
         newBand: band,
+        method,
       });
     } catch {
       return reply(c, Errors.internal("attempt ledger unavailable"));
@@ -108,7 +112,7 @@ export function createClaimsWriteApp(deps: ClaimsWriteDeps) {
         Errors.badRequest(parsed.error.issues[0]?.message ?? "invalid body"),
       );
     }
-    const { status, note, via, authorName } = parsed.data;
+    const { status, note, via, authorName, method } = parsed.data;
     try {
       await deps.insert({
         problemId: id,
@@ -117,6 +121,7 @@ export function createClaimsWriteApp(deps: ClaimsWriteDeps) {
         content: via ? `${note}\n\nvia: ${via}` : note,
         authorName,
         formalStatus: status,
+        method,
       });
     } catch {
       return reply(c, Errors.internal("attempt ledger unavailable"));
