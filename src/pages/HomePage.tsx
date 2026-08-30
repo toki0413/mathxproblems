@@ -75,7 +75,7 @@ export default function HomePage() {
   const [random, setRandom] = useState(
     () => PROBLEMS[Math.floor(Math.random() * PROBLEMS.length)],
   )
-  const recentVerif = trpc.attempts.recentVerifications.useQuery(undefined, { retry: false })
+  const recentVerif = trpc.attempts.recentVerifications.useQuery({}, { retry: false })
 
   return (
     <div>

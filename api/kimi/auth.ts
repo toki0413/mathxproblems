@@ -170,4 +170,4 @@ export function createOAuthCallbackHandler() {
   };
 }
 
-export { exchangeAuthCode, verifyAccessToken, createOAuthInitHandler };
+export { exchangeAuthCode, verifyAccessToken };

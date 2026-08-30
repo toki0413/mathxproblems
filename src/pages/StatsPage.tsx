@@ -112,7 +112,7 @@ export default function StatsPage() {
                 {stats.byPotential.map(({ key, count }) => (
                   <div key={key}>
                     <div className="flex items-baseline justify-between text-[15px] mb-1.5">
-                      <span>{potentialLabel[key]}</span>
+                      <span>{potentialLabel(key)}</span>
                       <span className="font-mono2 text-xs text-ink-3">{count}</span>
                     </div>
                     <Bar value={count} max={PROBLEMS.length} />

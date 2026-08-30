@@ -1,4 +1,4 @@
-import { desc, eq, getTableColumns, innerJoin } from "drizzle-orm";
+import { desc, eq, getTableColumns } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemUpdate } from "@db/schema";
 import { getDb } from "./connection";

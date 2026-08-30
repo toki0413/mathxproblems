@@ -30,7 +30,7 @@ function requireRole(role: string) {
     if (!ctx.user || ctx.user.role !== role) {
       throw new TRPCError({
         code: "FORBIDDEN",
-        message: ErrorMessages.insufficientRole,
+        message: ErrorMessages.insufficientPermissions,
       });
     }
 
