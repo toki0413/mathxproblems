@@ -6,6 +6,8 @@
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
 export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superseded'])
+export const FORMAL_STATUSES = new Set(['provable', 'conjectured', 'refuted'])
+export const BRIDGE_DIRECTIONS = new Set(['formal_idealizes_banded', 'banded_instantiates_formal', 'mutual_boundary'])
 export const BATCH_ADDED = '2026-08-23'
 export const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
 export const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
@@ -32,6 +34,10 @@ export function parseCatalog(src) {
   const hasCertificate = new Set()
   const hasDeliverables = new Set()
   const lifecycleStatuses = new Map() // id -> lifecycle_status 值
+  const formalViews = new Set()
+  const formalStatuses = new Map() // id -> formal_view.status 值
+  const bridges = new Set()
+  const bridgeDirections = new Map() // id -> bridge.direction 值
   let pendingJudgment = false
   let pendingNote = false
   for (const line of src.split(/\r?\n/)) {
@@ -62,6 +68,14 @@ export function parseCatalog(src) {
     if (/^    engineering_deliverables:/.test(line) && cur) hasDeliverables.add(cur)
     const lcMatch = line.match(/^    lifecycle_status: '([^']+)',/)
     if (lcMatch && cur) lifecycleStatuses.set(cur, lcMatch[1])
+    const fv = line.match(/^    formal_view: \{/)
+    if (fv && cur) formalViews.add(cur)
+    const fvStatus = line.match(/^      status: '([^']+)',/)
+    if (fvStatus && cur) formalStatuses.set(cur, fvStatus[1])
+    const br = line.match(/^    bridge: \{/)
+    if (br && cur) bridges.add(cur)
+    const brDir = line.match(/^      direction: '([^']+)',/)
+    if (brDir && cur) bridgeDirections.set(cur, brDir[1])
     if (/^    (proposer|via):/.test(line) && cur) hasTrace.add(cur)
     const dMatch = line.match(/^    date_added: '([^']+)'/)
     if (dMatch && cur) dates.set(cur, dMatch[1])
@@ -83,14 +97,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses }
+  return { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, bridges, bridgeDirections }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses } = cat
+  const { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, bridges, bridgeDirections } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -151,6 +165,18 @@ export function checkCatalog(raw) {
   const badLifecycle = [...lifecycleStatuses.entries()].filter(([, v]) => !LIFECYCLE_KINDS.has(v))
   if (badLifecycle.length) failures.push(`invalid lifecycle_status: ${badLifecycle.map(([k, v]) => `${k}=${v}`).join(', ')}`)
   else if (lifecycleStatuses.size) notes.push(`lifecycle_status: ${[...LIFECYCLE_KINDS].filter((k) => [...lifecycleStatuses.values()].includes(k)).join(', ')}`)
+
+  // 双桥(方向: formal_view/bridge 枚举合法性 + 判定存在)。
+  // ponytail: fvNoJudge 对单行 judgment 匹配;若后续出现多行 formal_view.judgment,需改成 range 提取。
+  const fvStatusesOk = [...formalStatuses].filter(([, v]) => !FORMAL_STATUSES.has(v))
+  const brDirsOk = [...bridgeDirections].filter(([, v]) => !BRIDGE_DIRECTIONS.has(v))
+  const fvNoJudge = [...formalViews].filter((id) => !src.includes(`      judgment:`))
+  if (fvStatusesOk.length) failures.push(`invalid formal_view.status: ${fvStatusesOk.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+  if (brDirsOk.length) failures.push(`invalid bridge.direction: ${brDirsOk.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+  if (fvNoJudge.length) failures.push(`formal_view missing 'judgment': ${fvNoJudge.join(', ')}`)
+  if (formalViews.size && fvStatusesOk.length === 0 && brDirsOk.length === 0) {
+    notes.push(`dual-bridge: ${formalViews.size} formal_view, ${bridges.size} bridge, enums valid`)
+  }
 
   const missingOutput = ids.filter((id) => !outputs.has(id))
   if (missingOutput.length) failures.push(`problems missing 'output': ${missingOutput.join(', ')}`)

@@ -163,3 +163,31 @@ test('invalid lifecycle_status value fails', () => {
 } ]`
   assert.ok(failures(src).some((f) => f.includes('invalid lifecycle_status')))
 })
+
+test('formal_view/bridge enum validity is gated', () => {
+  const src = [
+    "    id: 'x1',",
+    "    output: 'verified_behavior',",
+    '    formal_view: {',
+    "      status: 'provable',",
+    "      judgment: 'proof certificate',",
+    '    },',
+    '    bridge: {',
+    "      direction: 'mutual_boundary',",
+    "      link: 'symbiotic boundary',",
+    '    },',
+    "    id: 'x2',",
+    "    output: 'verified_behavior',",
+    '    formal_view: {',
+    "      status: 'bogus',",
+    "      judgment: 'counterexample',",
+    '    },',
+    '    bridge: {',
+    "      direction: 'sideways',",
+    '    },',
+  ].join('\n')
+  const f = checkCatalog(src).failures.filter((x) => x.includes('formal_view') || x.includes('bridge'))
+  assert.ok(f.some((x) => x.includes('invalid formal_view.status: x2=bogus')))
+  assert.ok(f.some((x) => x.includes('invalid bridge.direction: x2=sideways')))
+  assert.ok(!f.some((x) => x.includes('formal_view missing')))
+})
