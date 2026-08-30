@@ -60,6 +60,8 @@ type FormalView = {
 }
 
 // banded_view —— AI4S 端消费;直接映射现有 Certificate 三层残差
+// (见 src/data/problems.ts 的 Certificate / ResidualLayer: 各层含 bound + derivation)
+// banded_view 不新增存储,导出时从 Problem.certificate 投影而来。
 type BandedView = {
   statement: string                                  // 经验/现实侧渲染
   residuals: { r_model; r_param; r_num }              // 各层 ResidualLayer(bound + derivation)
@@ -75,6 +77,8 @@ type Bridge = {
 }
 
 // 叠加在现有 Problem 之上的双桥视图;其余字段原样
+// 此类型是"导出到 /api/v1/dual-bridge.json 时的投影视图",非存储实体。
+// 存储侧只在现有 Problem 上新增两个可选字段: formal_view、bridge; banded_view 由 certificate 承担。
 type DualBridgeView = {
   id: string
   domain: string
