@@ -36,6 +36,8 @@ npm run db:push       同步 Drizzle schema 到数据库
 
 问题目录唯一事实来源是 `src/data/problems.ts`（静态 TS）。社区提交与问题更新写入数据库，详情页会将两者合并展示。目录不变量由 `scripts/check-problems.mjs` 强制，每周由 GitHub Actions（`weekly-verification`）核验开放状态并提交 `public/monitor.json`。
 
+外部 agent / 证明流水线可经双桥写路径 `POST /api/v1/claims/:id/narrow`（带证收窄）与 `POST /api/v1/claims/:id/formal`（形式化补证）提交声明：默认闭门（501），置 `CLAIMS_WRITE_ENABLED=1` 后进入与前端投稿相同的 `problem_attempts` 审稿账本，审批通过后经 `feed.json` 对下游同步。
+
 ## 治理与贡献
 
 **收录标准**（`scripts/lib/catalog-checks.mjs` 强制，替代人工把关）：
