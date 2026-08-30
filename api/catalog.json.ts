@@ -33,6 +33,13 @@ const layerBound = (b: string, layer: string): string => {
   );
   return m ? m[1] : "";
 };
+// single-line literal inside a nested object, e.g. formal_view.statement.
+const nestedStr = (b: string, outer: string, field: string): string => {
+  const m = b.match(
+    new RegExp(`${outer}: \\{[\\s\\S]*?(?:^    )?${field}: '((?:[^'\\\\]|\\\\.)*)'`),
+  );
+  return m ? m[1] : "";
+};
 
 function oneProblem(block: string) {
   const id = str(block, "id");
@@ -42,6 +49,17 @@ function oneProblem(block: string) {
         r_param: { bound: layerBound(block, "r_param") },
         r_num: { bound: layerBound(block, "r_num") },
       }
+    : undefined;
+  const formal_view = block.includes("formal_view: {")
+    ? {
+        statement: nestedStr(block, "formal_view", "statement") || str(block, "formalization_notes"),
+        target: nestedStr(block, "formal_view", "target"),
+        judgment: nestedStr(block, "formal_view", "judgment"),
+        status: nestedStr(block, "formal_view", "status"),
+      }
+    : undefined;
+  const bridge = block.includes("bridge: {")
+    ? { link: nestedStr(block, "bridge", "link"), direction: nestedStr(block, "bridge", "direction") }
     : undefined;
   return {
     id,
@@ -56,6 +74,8 @@ function oneProblem(block: string) {
     lifecycle_status: str(block, "lifecycle_status") || "open",
     judgment: mline(block),
     certificate,
+    formal_view,
+    bridge,
     proposer: str(block, "proposer") || undefined,
     proposed_year: str(block, "proposed_year") || undefined,
   };
