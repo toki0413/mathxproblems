@@ -1,4 +1,4 @@
-import { and, desc, eq, getTableColumns, leftJoin, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, leftJoin, sql } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemAttempt } from "@db/schema";
 import { getDb } from "./connection";
@@ -17,6 +17,7 @@ export async function listApprovedAttempts(problemId: string) {
       content: schema.problemAttempts.content,
       authorName: schema.problemAttempts.authorName,
       newBand: schema.problemAttempts.newBand,
+      formalStatus: schema.problemAttempts.formalStatus,
       createdAt: schema.problemAttempts.createdAt,
       registeredName: schema.users.name,
       voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
@@ -105,6 +106,41 @@ export async function listLatestVerifications(limit = 12) {
     .where(
       and(
         eq(schema.problemAttempts.kind, "verification"),
+        eq(schema.problemAttempts.status, "approved"),
+      ),
+    )
+    .orderBy(desc(schema.problemAttempts.createdAt))
+    .limit(limit);
+  return rows.map(({ registeredName, ...r }) => ({
+    ...r,
+    authorName: r.authorName ?? registeredName,
+  }));
+}
+
+/**
+ * 双桥声明的公共变更 feed：已通过的带证收窄（S 侧，kind='verification'）与
+ * 形式化补证（M 侧，kind='formal'），供下游 agent/prover 流水线增量同步。
+ * 对应 spec docs/superpowers/specs/2026-08-30-dual-bridge-design.md §6 同步节：
+ * feed 从「覆盖 narrow 收窄」扩展为「覆盖 narrow + formal 补证」。
+ */
+export async function listLatestClaimEvents(limit = 20) {
+  const rows = await getDb()
+    .select({
+      id: schema.problemAttempts.id,
+      problemId: schema.problemAttempts.problemId,
+      kind: schema.problemAttempts.kind,
+      title: schema.problemAttempts.title,
+      authorName: schema.problemAttempts.authorName,
+      registeredName: schema.users.name,
+      newBand: schema.problemAttempts.newBand,
+      formalStatus: schema.problemAttempts.formalStatus,
+      createdAt: schema.problemAttempts.createdAt,
+    })
+    .from(schema.problemAttempts)
+    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .where(
+      and(
+        inArray(schema.problemAttempts.kind, ["verification", "formal"]),
         eq(schema.problemAttempts.status, "approved"),
       ),
     )

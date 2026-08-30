@@ -82,6 +82,9 @@ export type InsertProblemUpdate = typeof problemUpdates.$inferInsert;
  * Deliberately low-friction: submission requires no login. `authorName` is
  * self-declared so anonymous visitors can still get credit; `userId` is set
  * only when the submitter happens to be signed in.
+ *
+ * kind='formal' 是双桥写路径（POST /api/v1/claims/:id/formal）与 tRPC 共用
+ * 的形式化补证声明：声称该题 formal_view.status 应迁移到 formalStatus。
  */
 export const problemAttempts = mysqlTable("problem_attempts", {
   id: serial("id").primaryKey(),
@@ -90,7 +93,13 @@ export const problemAttempts = mysqlTable("problem_attempts", {
     () => users.id,
   ),
   authorName: varchar("authorName", { length: 128 }),
-  kind: mysqlEnum("kind", ["progress", "solution", "revision", "verification"])
+  kind: mysqlEnum("kind", [
+    "progress",
+    "solution",
+    "revision",
+    "verification",
+    "formal",
+  ])
     .default("progress")
     .notNull(),
   title: varchar("title", { length: 300 }).notNull(),
@@ -101,6 +110,16 @@ export const problemAttempts = mysqlTable("problem_attempts", {
    * 是社区让目录变紧的载体。其余 kind 为 null。
    */
   newBand: varchar("newBand", { length: 80 }),
+  /**
+   * 形式化补证（kind='formal' 时填写）：投稿人声称该题 formal_view.status
+   * 应迁移到的值（证成 provable / 反例 refuted / 回到 conjectured）。审批
+   * 通过后随 feed.json 的 formal 事件暴露给下游；其余 kind 为 null。
+   */
+  formalStatus: mysqlEnum("formalStatus", [
+    "provable",
+    "conjectured",
+    "refuted",
+  ]),
   status: mysqlEnum("status", ["pending", "approved", "rejected"])
     .default("pending")
     .notNull(),
