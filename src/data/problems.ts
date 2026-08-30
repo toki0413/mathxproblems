@@ -63,6 +63,32 @@ export interface Certificate {
   certified_band?: string
 }
 
+/** 形式视图侧 AI4Math 端状态;verified_truth/verified_behavior 均可填 provable,缺省 conjectured。 */
+export type FormalStatus = 'provable' | 'conjectured' | 'refuted'
+
+/** bridge.direction 三值;mutual_boundary 是最贴近 PCM 的共生模式。 */
+export type BridgeDirection =
+  | 'formal_idealizes_banded'    // formal T 是 banded C 的 ε→0 理想化
+  | 'banded_instantiates_formal' // banded C 例示/锚定 formal T 的现实内容
+  | 'mutual_boundary'            // 共生: 形式证与经验带互为边界(对齐 Proof-Carrying Materials)
+
+/** 双桥形式侧: 给 AI4Math/证明流水线消费的形式化规范形 + 判定 + 状态。 */
+export interface FormalView {
+  statement: string                       // 规范形语句(可被证明/证伪)
+  target: string                          // 目标形式系统, 如 'Lean4/mathlib' 或 'external'
+  artifact?: { label: string; url: string } // 可选: 引用外部形式化工件(Lean file / benchmark entry)
+  judgment: string                        // 合格答案类型: 证明证书 / 数值判据 / 反例构造
+  status: FormalStatus
+  via?: string                            // 溯源: 证明/反例出处
+}
+
+/** 桥: 形式侧与带侧(既有 Certificate)的关系声明。 */
+export interface Bridge {
+  link: string                            // 如 'T 是 C 的 ε→0 理想化'
+  direction: BridgeDirection
+  band_as_fn_of_eps?: string              // 可选: 带随理想化参数收缩的关系
+}
+
 export interface Problem {
   id: string
   title: string
@@ -111,6 +137,10 @@ export interface Problem {
   /** 工程交付物条目（方向四基础）：把 engineering_value 中的可消费产出提取为具体名称，
    *  供"工程瓶颈 → 支撑它的证书"反向索引使用。如 ["散热器峰值温度裕量判定", "热设计评审带证区间"]。 */
   engineering_deliverables?: string[]
+  /** 双桥形式侧(可选): 对 AI4Math 端的形式化视图;随 problems.json 序列化。 */
+  formal_view?: FormalView
+  /** 双桥桥(可选): 形式视图(T)与带证书(C, 由 certificate 承担)的语义连接。 */
+  bridge?: Bridge
 }
 
 export const PROBLEMS: Problem[] = [
