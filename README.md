@@ -35,3 +35,16 @@ npm run db:push       同步 Drizzle schema 到数据库
 ## 数据说明
 
 问题目录唯一事实来源是 `src/data/problems.ts`（静态 TS）。社区提交与问题更新写入数据库，详情页会将两者合并展示。目录不变量由 `scripts/check-problems.mjs` 强制，每周由 GitHub Actions（`weekly-verification`）核验开放状态并提交 `public/monitor.json`。
+
+## 治理与贡献
+
+**收录标准**（`scripts/lib/catalog-checks.mjs` 强制，替代人工把关）：
+- 判定须为独立句式，附合格答案类型（证明证书 / 数值判据 / 反例构造），不含模板骨架。
+- `verified_behavior` 问题须覆盖三层残差（`R_model` 模型近似 / `R_param` 输入不确定度 / `R_num` 数值），总带 ≤ 三者之和；`verified_truth` 可为 `provable`。
+- 溯源完整（`proposer` / `via` / `proposed_year`），历史变更写入 `updates` 留痕。
+- 产出可消费：`output` 标注应用传递强度，`verified_behavior` 须给出可直接消费的 `engineering_value`。
+- 双桥可选字段受枚举门禁校验：`formal_view.status` ∈ provable/conjectured/refuted，`bridge.direction` ∈ formal_idealizes_banded/banded_instantiates_formal/mutual_boundary。
+
+**审稿流程**：社区提交进详情页账本，审稿人核对生命周期（open/tightened/refuted/superseded）与三层残差；任何状态迁移须写入 `updates` 留痕，并通过 `problem_attempts` 记录。审查通过后才并入目录事实来源。
+
+**许可**：本仓库源码采用 MIT；问题与协议数据采用宽松许可（数据 CC0，可选署名 CC-BY），移除复用与合作门槛。
