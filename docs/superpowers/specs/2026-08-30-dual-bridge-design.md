@@ -115,12 +115,38 @@ GET /api/v1/feed.json  → 现覆盖 narrow 收窄;扩展覆盖 formal 补证
 1. **A(本版)**:数据契约加 `formal_view?` + `bridge?` 字段 → 随 `problems.json` 序列化输出 → 详情页加"双桥视图"可视化(形式侧 vs 带侧并列)。写路径端点注册但默认关闭。
 2. **C(演进)**:放开 `narrow`/`formal` 写端点,经审稿/账本/feed 闭环,允许消费方回写。
 
-## 8. 测试与校验
+## 8. 战略:治理与采用(护城河)
+
+### 8.1 定位:中立协议/注册层,而非私有工具
+若 moat 是"内容更多",则高校/巨头进场即败——他们堆内容、算力、形式化工具的能力远强于我们。**能长期待住的护城河在协调层 + 信任层,不在内容层。** 把双桥定位为:AI4Math 与 AI4S 之间的**中立、机器可消费、版本化的声明注册层 + 变更记录源(system of record)**。中立协议的价值来自被多方共同依赖(参考 Wikidata / DNS),任何单一玩家没有独占动力,故持久。
+
+### 8.2 信任即产品(可信度是差异点,不是负担)
+AI 生成内容可信度存疑——这正是本项目的稀缺筹码。审稿、溯源(proposer/via/year)、反作弊门禁、独立判定句式、生命周期治理越做越严,越构成抄不走的资产。"AI 灌水"焦虑反过来是护城河的来源。
+- 质量门槛随基础设施要求收紧:每条声明须可审计(来源 + 判定 + 校验方),生命周期迁移(open/tightened/refuted/superseded)须留痕于 `updates`/账本。
+
+### 8.3 协议先于价值
+先立可消费协议(双桥字段 + `problems.json` + feed),再谈内容规模。协议让它成为"他人必须接入的层",而非"可被替换的内容页"。首版即按稳定契约交付:版本 + ETag + 变更 feed + 语义规范。
+
+### 8.4 开放中立治理(避免单维护者项目)
+- **许可**:数据与协议采用宽松许可证(拟定:数据 CC0/CC-BY,源码 MIT),移除合作/复用门槛。
+- **共建入口**:新增 `CONTRIBUTING`(收录标准、判定独立句式要求、审稿流程)与轻量治理文档(`GOVERNANCE`,维护者+审稿人角色划分、决策记录)。
+- **中立**:声明生命周期与"收窄/补证"结果以公开账本与 feed 呈现,任何外部流水线可基于同源数据校验,不依附单一机构。
+
+### 8.5 采用策略(锚定采用者)
+1. 先跑通"声明→双桥视图→problems.json→feed"的可消费闭环(A)。
+2. 争取**2 个锚定采用者**作为最低门槛:一条证明/形式化流水线 + 一个 AI4S 团队(如材料/仿真)**真的拉取 feed 做增量同步**。
+3. 用"信任 + 结果记录"作为对外品牌:公开 lifecyle/账本/feed 即活跃度证明,替代"我们内容多"的宣传。
+
+### 8.6 已知上限(诚实标注)
+- 无治理组织的开放项目仍是单维护者项目,巨头可无视、可改名吸走贡献者。8.4 的治理文档是缓解,不是完整解。
+- 采用经济证据为零(见产品调研 §4 风险);是否有人真的消费 feed 是未知。故本 spec 落地顺序仍**先 A(协议)、再 C(写路径)**,不抢生态位。
+
+## 9. 测试与校验
 - `scripts/check-problems.mjs`:新增对 `formal_view.status`、`bridge.direction` 枚举合法性、`formal_view.judgment` 存在的校验;对含 `formal_view` 的新问题保持现有"独立判定句式"反再生门禁。
 - 目录契约测试沿用 `catalog-checks.test.mjs`;`problems.json` 的 snapshot/ETag 单测路径覆盖新增可选字段。
 - 双桥视图轮询走现有 catalog build + ETag 校验。
 
-## 9. 已决策
+## 10. 已决策
 1. `bridge.direction` 采用三值: `formal_idealizes_banded` / `banded_instantiates_formal` / `mutual_boundary`(共生,PCM 式互证)。
 2. **不独立** `dual-bridge.json`;`formal_view`/`bridge` 作为 Problem 可选字段并入 `problems.json`。
 3. `formal.status` 允许 `verified_truth` / `verified_behavior` 类声明填 `provable`;缺省 `conjectured`。
