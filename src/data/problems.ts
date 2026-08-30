@@ -774,6 +774,19 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       total_band: '光隙可实现性判定包络 ≤ R_model + R_num',
       certified_band: '候选核谱隙确认区间',
     },
+    formal_view: {
+      statement: '对给定六环数 $h$ 与目标光隙,判定是否存在苯环型分子图(六角格子上无割点的有限连通子图)使 Hückel 邻接谱的 HOMO–LUMO 隙等于该值,并对实现族做完全分类。',
+      target: 'Lean4/mathlib(区间算术)',
+      artifact: { label: 'Gutman & Polansky, Mathematical Concepts in Organic Chemistry, 1986', url: 'https://link.springer.com/book/10.1007/978-3-642-70982-1' },
+      judgment: '证明证书或可核验二次判据;与带侧共享同一 R_model/R_num 语义',
+      status: 'conjectured',
+      via: 'Gutman & Polansky (1986);详细残差见本题 certificate',
+    },
+    bridge: {
+      link: '带侧"光隙可实现性判定 ≤ R_model + R_num"是形式侧理想 Hückel 谱隙命题的工程带化实例:形式命题取 ε→0(把 Hückel 当作精确)时即对该判定的理想化。',
+      direction: 'formal_idealizes_banded',
+      band_as_fn_of_eps: '带随理想化收缩;R_model 显式把真实电子结构限制为 Hückel 模型',
+    },
   },
   {
     id: 'mc-004',
