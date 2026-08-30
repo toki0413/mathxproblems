@@ -120,6 +120,13 @@ export const problemAttempts = mysqlTable("problem_attempts", {
     "conjectured",
     "refuted",
   ]),
+  /**
+   * 方法标签（可选，≤80 字符）：投稿人自报所用技术族，如 "interval-arithmetic"、
+   * "multiscale-analysis"。障碍图（api/obstacle-graph.ts）用它把已通过的声明
+   * 沿跨题障碍链扩散成「方法 → 可解锁问题」的反向路由。刻意用自由文本而非
+   * 枚举：方法集合无法预先封闭，拼写规范留给审稿与惯例。
+   */
+  method: varchar("method", { length: 80 }),
   status: mysqlEnum("status", ["pending", "approved", "rejected"])
     .default("pending")
     .notNull(),
