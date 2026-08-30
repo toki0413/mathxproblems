@@ -8,7 +8,8 @@ import { env } from "./lib/env";
 import { createOAuthCallbackHandler, createOAuthInitHandler } from "./kimi/auth";
 import { Paths } from "@contracts/constants";
 import { buildCatalog, buildBenchmark, snapshotVersion } from "./catalog.json";
-import { listLatestClaimEvents } from "./queries/attempts";
+import { buildObstaclesPayload } from "./obstacle-graph";
+import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
 import { registerClaimsWriteRoutes } from "./claims-write";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
@@ -33,6 +34,7 @@ app.get("/api/v1/problems.json", (c) => jsonReply(JSON.stringify(buildCatalog())
 app.get("/api/v1/benchmark.json", (c) => jsonReply(JSON.stringify(buildBenchmark()), c));
 // 变更 feed：最近被评审通过的声明事件——带证收窄（S 侧，kind='verification'）
 // 与形式化补证（M 侧，kind='formal'），供下游消费方做增量同步。
+// verification 事件附 bits（相对题内上一条已通过的收窄的信息量增益）。
 // 无数据库时（如纯前端 dev）返回空列表，不因 DB 缺失而 500。
 app.get("/api/v1/feed.json", async (c) => {
   let feed: unknown[] = [];
@@ -42,6 +44,17 @@ app.get("/api/v1/feed.json", async (c) => {
     feed = [];
   }
   return jsonReply(JSON.stringify(feed), c);
+});
+// 障碍路由层：跨题「已知障碍」相似链 + 方法解锁（方法→还能松哪些题的绑）。
+// 图从静态目录确定性构建；方法事件来自审稿账本，无数据库时 unlocks 为空。
+app.get("/api/v1/obstacles.json", async (c) => {
+  let events: { problemId: string; method: string | null }[] = [];
+  try {
+    events = await listMethodEvents();
+  } catch {
+    events = [];
+  }
+  return jsonReply(JSON.stringify(buildObstaclesPayload(buildCatalog(), events)), c);
 });
 // 双桥写路径薄门面（方案 C）：POST /api/v1/claims/:id/narrow|formal。
 // 默认闭门（501），CLAIMS_WRITE_ENABLED=1 放开后写入审稿账本。
