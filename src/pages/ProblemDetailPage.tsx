@@ -246,6 +246,57 @@ export default function ProblemDetailPage() {
             </Section>
           )}
 
+          {/* 双桥视图：形式侧 (AI4Math) 与带侧 (AI4S) 并排，中间用桥串起两套记号体系 */}
+          {(p.formal_view || p.bridge) && (
+            <Section title={t('pd.dualbridge.title')}>
+              <div className="grid md:grid-cols-2 gap-4">
+                {p.formal_view && (
+                  <div className="border border-line p-4">
+                    <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
+                      {t('pd.dualbridge.formal')}
+                    </div>
+                    <p className="text-sm text-ink-2 leading-relaxed">{p.formal_view.statement}</p>
+                    <div className="mt-3 hairline-t pt-3 space-y-1">
+                      <div className="text-xs">
+                        <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.target')}·</span>
+                        <span className="text-ink-2">{p.formal_view.target}</span>
+                      </div>
+                      <div className="text-xs">
+                        <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.status')}·</span>
+                        <span className={`font-mono2 ${p.formal_view.status === 'provable' ? 'text-mc' : p.formal_view.status === 'refuted' ? 'text-me' : 'text-ink-2'}`}>{p.formal_view.status}</span>
+                      </div>
+                      {p.formal_view.judgment && (
+                        <div className="text-xs text-ink-2 leading-relaxed">
+                          <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.judgment')}· </span>
+                          {p.formal_view.judgment}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {p.certificate && (
+                  <div className="border border-line p-4">
+                    <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
+                      {t('pd.dualbridge.banded')}
+                    </div>
+                    <div className="font-mono text-sm text-ink">{p.certificate.certified_band ?? '—'}</div>
+                    <div className="mt-1 font-mono text-sm text-ink-2">{p.certificate.total_band}</div>
+                  </div>
+                )}
+              </div>
+              {p.bridge && (
+                <div className="mt-4 border border-line p-4" style={{ borderLeftWidth: 3 }}>
+                  <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">{t('pd.dualbridge.bridge')}</div>
+                  <p className="text-sm text-ink-2 leading-relaxed">{p.bridge.link}</p>
+                  <div className="mt-2 text-xs">
+                    <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.direction')}: </span>
+                    <span className="font-mono2 text-ink-2">{p.bridge.direction}</span>
+                  </div>
+                </div>
+              )}
+            </Section>
+          )}
+
           {/* 信任审计：把 depends_on 继承语义渲染成上游证书依赖树，回答"凭什么信它" */}
           {(() => {
             const upstream = p.certificate ? upstreamPath(p) : []
