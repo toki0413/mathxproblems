@@ -124,7 +124,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.audit.none': { zh: '本题无上游依赖，是可独立消费的基础证书。', en: 'No upstream dependency — an independently consumable base certificate.' },
   'pd.ledger': { zh: '收窄声明账本', en: 'Narrowing ledger' },
   'pd.ledger.hint': {
-    zh: '社区提交、经评审通过的带证区间收窄声明。注：此处收录的是声明及其署名，与既有判定带的包含关系与证明完备性需由评审把关，未做程序化校验；不应视为"已验证成立"。',
+    zh: '社区提交、经评审通过的带证区间收窄声明。注：此处收录的是声明及其署名，与既有判定带的包含关系与证明完备性需由评审把关，未做程序化校验；不应视为“已验证成立”。',
     en: 'Community-submitted, review-approved band-narrowing claims. Note: this records claims and attribution; containment w.r.t. any existing band and proof completeness are judged by review, not machine-checked here. Do not read them as "proved".',
   },
   'pd.ledger.empty': { zh: '尚无收窄声明。', en: 'No narrowing claims yet.' },
@@ -316,6 +316,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.attempts.kind.solution': { zh: '解答思路', en: 'Solution sketch' },
   'pd.attempts.kind.revision': { zh: '修订建议', en: 'Revision' },
   'pd.attempts.kind.verification': { zh: '验证收窄', en: 'Verified narrowing' },
+  'pd.attempts.kind.formal': { zh: '形式化补证', en: 'Formal proof/refutation' },
   'pd.attempts.bandLo': { zh: '下限', en: 'lower' },
   'pd.attempts.bandHi': { zh: '上限', en: 'upper' },
   'pd.attempts.band': { zh: '收窄后的带证区间', en: 'Narrowed certified band' },
@@ -473,6 +474,7 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     solution: { zh: '解答思路', en: 'Solution sketch' },
     revision: { zh: '修订建议', en: 'Revision' },
     verification: { zh: '验证收窄', en: 'Verified narrowing' },
+    formal: { zh: '形式化补证', en: 'Formal proof/refutation' },
   },
 }
 
