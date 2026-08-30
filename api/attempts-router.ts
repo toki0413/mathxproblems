@@ -23,6 +23,8 @@ const attemptSchema = z
     newBand: z.string().trim().min(1).max(80).optional(),
     // 形式化补证：kind='formal' 时必须给出目标 formal 状态
     formalStatus: z.enum(FORMAL_STATUSES).optional(),
+    // 方法标签（可选）：自报技术族，供障碍图做方法→问题路由
+    method: z.string().trim().min(1).max(80).optional(),
   })
   .refine((v) => v.kind !== "verification" || !!v.newBand, {
     message: "verification requires newBand",
@@ -38,7 +40,7 @@ export const attemptsRouter = createRouter({
   submit: publicQuery
     .input(attemptSchema)
     .mutation(async ({ ctx, input }) => {
-      const { problemId, kind, title, content, authorName, newBand, formalStatus } = input;
+      const { problemId, kind, title, content, authorName, newBand, formalStatus, method } = input;
       await insertAttempt({
         problemId,
         kind,
@@ -47,6 +49,7 @@ export const attemptsRouter = createRouter({
         authorName,
         newBand,
         formalStatus,
+        method,
         // 登录态才关联用户；匿名提交该字段为 null
         userId: ctx.user ? ctx.user.id : undefined,
       });
