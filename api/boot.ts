@@ -8,7 +8,7 @@ import { env } from "./lib/env";
 import { createOAuthCallbackHandler, createOAuthInitHandler } from "./kimi/auth";
 import { Paths } from "@contracts/constants";
 import { buildCatalog, buildBenchmark, snapshotVersion } from "./catalog.json";
-import { listLatestVerifications } from "./queries/attempts";
+import { listLatestClaimEvents } from "./queries/attempts";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -30,12 +30,13 @@ const jsonReply = (body: string, c: import("hono").Context) => {
 };
 app.get("/api/v1/problems.json", (c) => jsonReply(JSON.stringify(buildCatalog()), c));
 app.get("/api/v1/benchmark.json", (c) => jsonReply(JSON.stringify(buildBenchmark()), c));
-// 变更 feed：最近被评审通过的带证收窄，供下游消费方做增量同步。
+// 变更 feed：最近被评审通过的声明事件——带证收窄（S 侧，kind='verification'）
+// 与形式化补证（M 侧，kind='formal'），供下游消费方做增量同步。
 // 无数据库时（如纯前端 dev）返回空列表，不因 DB 缺失而 500。
 app.get("/api/v1/feed.json", async (c) => {
   let feed: unknown[] = [];
   try {
-    feed = await listLatestVerifications(20);
+    feed = await listLatestClaimEvents(20);
   } catch {
     feed = [];
   }
