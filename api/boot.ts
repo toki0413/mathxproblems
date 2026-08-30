@@ -9,6 +9,7 @@ import { createOAuthCallbackHandler, createOAuthInitHandler } from "./kimi/auth"
 import { Paths } from "@contracts/constants";
 import { buildCatalog, buildBenchmark, snapshotVersion } from "./catalog.json";
 import { listLatestClaimEvents } from "./queries/attempts";
+import { registerClaimsWriteRoutes } from "./claims-write";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -42,6 +43,9 @@ app.get("/api/v1/feed.json", async (c) => {
   }
   return jsonReply(JSON.stringify(feed), c);
 });
+// 双桥写路径薄门面（方案 C）：POST /api/v1/claims/:id/narrow|formal。
+// 默认闭门（501），CLAIMS_WRITE_ENABLED=1 放开后写入审稿账本。
+registerClaimsWriteRoutes(app);
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
     endpoint: "/api/trpc",
