@@ -43,7 +43,7 @@ npm run db:push       同步 Drizzle schema 到数据库
 - `verified_behavior` 问题须覆盖三层残差（`R_model` 模型近似 / `R_param` 输入不确定度 / `R_num` 数值），总带 ≤ 三者之和；`verified_truth` 可为 `provable`。
 - 溯源完整（`proposer` / `via` / `proposed_year`），历史变更写入 `updates` 留痕。
 - 产出可消费：`output` 标注应用传递强度，`verified_behavior` 须给出可直接消费的 `engineering_value`。
-- 双桥可选字段受枚举门禁校验：`formal_view.status` ∈ provable/conjectured/refuted，`bridge.direction` ∈ formal_idealizes_banded/banded_instantiates_formal/mutual_boundary。
+- 双桥可选字段受枚举门禁校验：`formal_view.status` ∈ provable/conjectured/refuted，`bridge.direction` ∈ formal_idealizes_banded/banded_instantiates_formal/mutual_boundary，`bridge.shared_residuals` 元素须为带侧已知残差层；`formal_view.status=refuted` 时 `lifecycle_status` 须落到 refuted/superseded。
 
 **审稿流程**：社区提交进详情页账本，审稿人核对生命周期（open/tightened/refuted/superseded）与三层残差；任何状态迁移须写入 `updates` 留痕，并通过 `problem_attempts` 记录。审查通过后才并入目录事实来源。
 

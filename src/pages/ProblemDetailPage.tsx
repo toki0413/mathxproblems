@@ -288,10 +288,20 @@ export default function ProblemDetailPage() {
                 <div className="mt-4 border border-line p-4" style={{ borderLeftWidth: 3 }}>
                   <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">{t('pd.dualbridge.bridge')}</div>
                   <p className="text-sm text-ink-2 leading-relaxed">{p.bridge.link}</p>
-                  <div className="mt-2 text-xs">
-                    <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.direction')}: </span>
-                    <span className="font-mono2 text-ink-2">{p.bridge.direction}</span>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                    <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.direction')}: <span className="text-ink-2">{p.bridge.direction}</span></span>
+                    {p.bridge.shared_residuals && p.bridge.shared_residuals.length > 0 && (
+                      <span className="font-mono2 text-ink-3 uppercase tracking-wider">
+                        {t('pd.dualbridge.shared')}: <span className="text-me">{p.bridge.shared_residuals.join(', ')}</span>
+                      </span>
+                    )}
                   </div>
+                  {p.bridge.band_as_fn_of_eps && (
+                    <div className="mt-2 text-xs text-ink-2 leading-relaxed">
+                      <span className="font-mono2 text-ink-3 uppercase tracking-wider">{t('pd.dualbridge.eps')}: </span>
+                      {p.bridge.band_as_fn_of_eps}
+                    </div>
+                  )}
                 </div>
               )}
             </Section>

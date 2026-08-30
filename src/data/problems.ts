@@ -86,6 +86,8 @@ export interface FormalView {
 export interface Bridge {
   link: string                            // 如 'T 是 C 的 ε→0 理想化'
   direction: BridgeDirection
+  /** 机器可消费的映射: 形式证明/判定直接维系(共享语义)的带侧残差层。 */
+  shared_residuals?: Array<'r_model' | 'r_param' | 'r_num'>
   band_as_fn_of_eps?: string              // 可选: 带随理想化参数收缩的关系
 }
 
@@ -785,6 +787,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     bridge: {
       link: '带侧"光隙可实现性判定 ≤ R_model + R_num"是形式侧理想 Hückel 谱隙命题的工程带化实例:形式命题取 ε→0(把 Hückel 当作精确)时即对该判定的理想化。',
       direction: 'formal_idealizes_banded',
+      shared_residuals: ['r_model', 'r_num'],
       band_as_fn_of_eps: '带随理想化收缩;R_model 显式把真实电子结构限制为 Hückel 模型',
     },
   },

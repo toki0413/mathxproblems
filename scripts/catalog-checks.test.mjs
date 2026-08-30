@@ -191,3 +191,53 @@ test('formal_view/bridge enum validity is gated', () => {
   assert.ok(f.some((x) => x.includes('invalid bridge.direction: x2=sideways')))
   assert.ok(!f.some((x) => x.includes('formal_view missing')))
 })
+
+test('bridge shared_residuals must reference known certificate layers', () => {
+  const src = [
+    "    id: 'x1',",
+    "    output: 'verified_behavior',",
+    '    formal_view: {',
+    "      status: 'conjectured',",
+    "      judgment: 'cert',",
+    '    },',
+    '    bridge: {',
+    "      direction: 'formal_idealizes_banded',",
+    "      shared_residuals: ['r_model', 'bogus_layer'],",
+    '    },',
+  ].join('\n')
+  assert.ok(failures(src).some((f) => f.includes('invalid bridge.shared_residuals')))
+})
+
+test('formal status refuted without lifecycle closing is flagged', () => {
+  const src = [
+    "    id: 'x1',",
+    "    output: 'verified_truth',",
+    "    judgment: 'cert',",
+    '    formal_view: {',
+    "      status: 'refuted',",
+    "      judgment: 'counterexample',",
+    '    },',
+    "    lifecycle_status: 'open',",
+  ].join('\n')
+  assert.ok(failures(src).some((f) => f.includes('status=refuted requires lifecycle_status')))
+})
+
+test('formal_view judgment check is block-scoped, not a global includes', () => {
+  // x1 有 formal_view 却无 judgment;x2 有 judgment。全局 includes 会因 x2 而漏判 x1。
+  const src = [
+    "    id: 'x1',",
+    "    output: 'verified_truth',",
+    "    judgment: 'top-level',",
+    '    formal_view: {',
+    "      status: 'conjectured',",
+    '    },',
+    "    id: 'x2',",
+    "    output: 'verified_truth',",
+    "    judgment: 'top-level',",
+    '    formal_view: {',
+    "      status: 'conjectured',",
+    "      judgment: 'present',",
+    '    },',
+  ].join('\n')
+  assert.ok(failures(src).some((f) => f.includes("formal_view missing 'judgment'") && f.includes('x1')))
+})

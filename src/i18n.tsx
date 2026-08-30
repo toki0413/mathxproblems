@@ -112,6 +112,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.dualbridge.status': { zh: '状态', en: 'Status' },
   'pd.dualbridge.judgment': { zh: '判定', en: 'Judgment' },
   'pd.dualbridge.target': { zh: '目标系统', en: 'Target' },
+  'pd.dualbridge.shared': { zh: '共享残差层', en: 'Shared residual layers' },
+  'pd.dualbridge.eps': { zh: '理想化收缩', en: 'Idealized to band' },
   'pd.audit': { zh: '信任审计', en: 'Trust audit' },
   'pd.audit.upstream': { zh: '上游证书依赖', en: 'Upstream certificate dependency' },
   'pd.audit.downstream': { zh: '由本题继承下游', en: 'Downstream inheriting this certificate' },

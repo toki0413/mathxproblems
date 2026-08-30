@@ -40,6 +40,12 @@ const nestedStr = (b: string, outer: string, field: string): string => {
   );
   return m ? m[1] : "";
 };
+// single-line string array inside a nested object, e.g. bridge.shared_residuals.
+const nestedArr = (b: string, outer: string, field: string): string[] => {
+  const m = b.match(new RegExp(`${outer}: \\{[\\s\\S]*?${field}: \\[([^\\]]*)\\]`));
+  if (!m) return [];
+  return [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+};
 
 function oneProblem(block: string) {
   const id = str(block, "id");
@@ -56,10 +62,21 @@ function oneProblem(block: string) {
         target: nestedStr(block, "formal_view", "target"),
         judgment: nestedStr(block, "formal_view", "judgment"),
         status: nestedStr(block, "formal_view", "status"),
+        via: nestedStr(block, "formal_view", "via") || undefined,
+        artifact: block.includes("artifact: {")
+          ? { label: nestedStr(block, "artifact", "label"), url: nestedStr(block, "artifact", "url") }
+          : undefined,
       }
     : undefined;
   const bridge = block.includes("bridge: {")
-    ? { link: nestedStr(block, "bridge", "link"), direction: nestedStr(block, "bridge", "direction") }
+    ? {
+        link: nestedStr(block, "bridge", "link"),
+        direction: nestedStr(block, "bridge", "direction"),
+        shared_residuals: block.includes("shared_residuals:")
+          ? nestedArr(block, "bridge", "shared_residuals")
+          : undefined,
+        band_as_fn_of_eps: nestedStr(block, "bridge", "band_as_fn_of_eps") || undefined,
+      }
     : undefined;
   return {
     id,
