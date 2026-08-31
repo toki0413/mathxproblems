@@ -224,6 +224,14 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pg.clear': { zh: '清除', en: 'Clear' },
   'pg.recent': { zh: '近期有进展', en: 'recent progress' },
   'pg.hint': { zh: '滚轮缩放 · 拖拽平移 · 点击节点查看', en: 'Scroll to zoom · drag to pan · click a node' },
+  'pg.obstacles': { zh: '障碍链接', en: 'obstacle links' },
+  'pg.visited': { zh: '已读', en: 'read' },
+  'gp.index': { zh: '索引', en: 'Index' },
+  'gp.readcount': { zh: '已读 {v}/{t}', en: 'read {v}/{t}' },
+  'pd.bandruler': { zh: '收窄历程', en: 'Narrowing history' },
+  'pd.bits': { zh: '比特', en: 'bits' },
+  'home.bits': { zh: '累计信息量', en: 'Cumulative information' },
+  'lm.updated': { zh: '更新于 {t}', en: 'updated {t}' },
   // api page
   'api.problems.desc': {
     zh: '全部问题的完整元数据与结构化正文',
