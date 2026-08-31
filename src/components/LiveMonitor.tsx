@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useI18n } from '@/i18n'
+import { trpc } from '@/providers/trpc'
 
 interface MonitorWork {
   title: string
@@ -35,6 +36,38 @@ export function LiveMonitor() {
   // 上次已见条目（problemId:title），轮询到的新条目播放入场动画
   const seenRef = useRef<Set<string> | null>(null)
   const [fresh, setFresh] = useState<Set<string>>(new Set())
+  // 监测窗口内的收窄量：把「社区同期推进了多少信息」并进简报
+  const recentVerif = trpc.attempts.recentVerifications.useQuery({ limit: 50 }, { retry: false })
+
+  // 本期简报：把原始事件流压成一行可读的编辑化摘要 + 最活跃问题榜。
+  // 「内容深度」不来自加新事件类型，而来自把已有数据组织成判断。
+  const digest = useMemo(() => {
+    if (!data) return null
+    const works = data.problems.flatMap((p) => p.new_works.map((w) => ({ pid: p.id, ...w })))
+    if (works.length === 0) return null
+    const counts = new Map<string, number>()
+    for (const w of works) counts.set(w.pid, (counts.get(w.pid) ?? 0) + 1)
+    const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3)
+    const days = Math.max(
+      1,
+      Math.round((Date.parse(data.generated_at) - Date.parse(data.since)) / 86_400_000),
+    )
+    // 窗口内已验证收窄的 bits 合计（取得到才算，静态部署静默省略）
+    const sinceMs = Date.parse(data.since)
+    let bits = 0
+    for (const v of recentVerif.data ?? []) {
+      if (v.bits != null && v.bits > 0 && Date.parse(String(v.createdAt)) >= sinceMs) {
+        bits += v.bits
+      }
+    }
+    return {
+      total: works.length,
+      active: counts.size,
+      top,
+      days,
+      bits: bits > 0 ? bits : null,
+    }
+  }, [data, recentVerif.data])
 
   useEffect(() => {
     let stop = false
@@ -76,6 +109,7 @@ export function LiveMonitor() {
   const withAlerts = data.problems.filter((p) =>
     p.alerts.some((a) => a.type === 'possible_resolution'),
   )
+
   const recent = [...data.problems]
     .filter((p) => p.new_works.length > 0)
     .sort((a, b) => {
@@ -93,6 +127,42 @@ export function LiveMonitor() {
           {new Date(data.generated_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US')}
         </span>
       </div>
+
+      {/* 本期简报：窗口 × 新文献 × 活跃题 × 收窄量，一行读完 */}
+      {digest && (
+        <div className="border border-line bg-white/50 px-3 py-2 space-y-1">
+          <div
+            className="font-mono2 text-[11px] text-ink-2"
+            style={{ fontVariantNumeric: 'tabular-nums' }}
+          >
+            <span className="uppercase tracking-[0.15em] text-ink-3 mr-2">
+              {t('lm.digest.title')}
+            </span>
+            {t('lm.digest.line')
+              .replace('{d}', String(digest.days))
+              .replace('{w}', String(digest.total))
+              .replace('{p}', String(digest.active))}
+            {withAlerts.length > 0 &&
+              ` · ${t('lm.digest.alerts').replace('{n}', String(withAlerts.length))}`}
+            {digest.bits != null && (
+              <span className="text-[#1e7a5a]"> · Σ +{digest.bits.toFixed(1)} bits</span>
+            )}
+          </div>
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 font-mono2 text-[10px] text-ink-3">
+            <span className="uppercase tracking-[0.15em]">{t('lm.digest.top')}</span>
+            {digest.top.map(([pid, n]) => (
+              <Link
+                key={pid}
+                to={`/problems/${pid}`}
+                className="uppercase hover:text-ink"
+                style={{ fontVariantNumeric: 'tabular-nums' }}
+              >
+                {pid} ×{n}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 告警 ticker：分通道常显，不混进常规文献流 */}
       {withAlerts.length > 0 && (
