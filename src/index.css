@@ -136,7 +136,7 @@
 .graph-frame {
   background:
     linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 44px 44px,
-    linear-gradient(90deg, var(--line) 1px, transparent 0) 0 0 / 44px 44px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 44px 44px,
     var(--paper);
 }
 
