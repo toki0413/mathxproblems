@@ -68,7 +68,7 @@ export async function listApprovedAttempts(problemId: string) {
       voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
     })
     .from(schema.problemAttempts)
-    .leftJoin(schema.users, eq(schema.problemAttempts.userId, users.id))
+    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
     .leftJoin(
       schema.problemAttemptVotes,
       eq(schema.problemAttempts.id, schema.problemAttemptVotes.attemptId),
