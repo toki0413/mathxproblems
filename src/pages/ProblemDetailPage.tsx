@@ -61,6 +61,7 @@ export default function ProblemDetailPage() {
   const [atTitle, setAtTitle] = useState('')
   const [atAuthor, setAtAuthor] = useState('')
   const [atContent, setAtContent] = useState('')
+  const [atNarrative, setAtNarrative] = useState('')
   const [atBandLo, setAtBandLo] = useState('')
   const [atBandHi, setAtBandHi] = useState('')
   const submitAttempt = trpc.attempts.submit.useMutation({
@@ -68,6 +69,7 @@ export default function ProblemDetailPage() {
       setAtTitle('')
       setAtAuthor('')
       setAtContent('')
+      setAtNarrative('')
       setAtBandLo('')
       setAtBandHi('')
     },
@@ -590,6 +592,17 @@ export default function ProblemDetailPage() {
                   <div className="font-statement text-ink-2 leading-relaxed mt-1">
                     <Markdown>{a.content}</Markdown>
                   </div>
+                  {/* 思路与反思：与论证本体分块，失败/卡点同样沉淀为内容 */}
+                  {a.narrative && (
+                    <div className="mt-3 border-l-2 border-[#9a5b13]/50 bg-[#9a5b13]/5 px-3 py-2">
+                      <div className="font-mono2 text-[10px] uppercase tracking-[0.15em] text-[#9a5b13] mb-1">
+                        {t('pd.attempts.narrative.label')}
+                      </div>
+                      <div className="font-statement text-sm text-ink-2 leading-relaxed">
+                        <Markdown>{a.narrative}</Markdown>
+                      </div>
+                    </div>
+                  )}
                 </article>
               ))}
             </div>
@@ -652,6 +665,13 @@ export default function ProblemDetailPage() {
                   placeholder={t('pd.attempts.content')}
                   className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink resize-y"
                 />
+                <textarea
+                  value={atNarrative}
+                  onChange={(e) => setAtNarrative(e.target.value)}
+                  rows={3}
+                  placeholder={t('pd.attempts.narrative')}
+                  className="w-full bg-paper border border-dashed border-line-strong px-3 py-1.5 text-sm focus:outline-none focus:border-ink resize-y"
+                />
                 <button
                   onClick={() =>
                     submitAttempt.mutate({
@@ -659,6 +679,7 @@ export default function ProblemDetailPage() {
                       kind: atKind,
                       title: atTitle,
                       content: atContent,
+                      narrative: atNarrative.trim() || undefined,
                       authorName: atAuthor.trim() || undefined,
                       newBand:
                         atKind === 'verification' && atBandLo && atBandHi
