@@ -75,7 +75,15 @@ export default function HomePage() {
   const [random, setRandom] = useState(
     () => PROBLEMS[Math.floor(Math.random() * PROBLEMS.length)],
   )
-  const recentVerif = trpc.attempts.recentVerifications.useQuery({}, { retry: false })
+  const recentVerif = trpc.attempts.recentVerifications.useQuery({ limit: 50 }, { retry: false })
+  // 全站遥测：已验证收窄的累计信息量（比特），等宽数字防抖动
+  const totalBits = useMemo(() => {
+    const sum = (recentVerif.data ?? []).reduce(
+      (acc, v) => acc + (typeof v.bits === 'number' && v.bits > 0 ? v.bits : 0),
+      0,
+    )
+    return sum > 0 ? sum : null
+  }, [recentVerif.data])
 
   return (
     <div>
@@ -138,7 +146,18 @@ export default function HomePage() {
               <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">
                 {t('home.verifications.title')}
               </h2>
-              <span className="text-xs text-ink-3">{t('home.verifications.hint')}</span>
+              <span className="flex items-baseline gap-4">
+                {totalBits !== null && (
+                  <span
+                    className="font-mono2 text-xs text-mc"
+                    style={{ fontVariantNumeric: 'tabular-nums' }}
+                    title={t('home.bits')}
+                  >
+                    Σ +{totalBits.toFixed(2)} bits
+                  </span>
+                )}
+                <span className="text-xs text-ink-3">{t('home.verifications.hint')}</span>
+              </span>
             </div>
           </Reveal>
           {(recentVerif.data ?? []).length === 0 ? (
@@ -156,11 +175,19 @@ export default function HomePage() {
                       to={`/problems/${target.id}`}
                       className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 py-3 border-b border-line"
                     >
-                      <span className="font-mono2 text-xs text-mc shrink-0">{v.newBand}</span>
+                      <span className="font-mono2 text-xs text-mc shrink-0" style={{ fontVariantNumeric: 'tabular-nums' }}>{v.newBand}</span>
                       <span className="font-mono2 text-xs text-ink-3 shrink-0 w-16">{v.problemId}</span>
                       <span className="flex-1 min-w-0 text-ink group-hover:underline underline-offset-4 truncate">
                         {target.title}
                       </span>
+                      {typeof v.bits === 'number' && (
+                        <span
+                          className={`font-mono2 text-[10px] shrink-0 ${v.bits >= 0 ? 'text-mc' : 'text-me'}`}
+                          style={{ fontVariantNumeric: 'tabular-nums' }}
+                        >
+                          {v.bits >= 0 ? '+' : ''}{v.bits.toFixed(2)}b
+                        </span>
+                      )}
                       <span className="font-mono2 text-[11px] text-ink-3 shrink-0">
                         {t('home.verifications.by')} {v.authorName ?? 'Anonymous'} ·{' '}
                         {new Date(v.createdAt).toISOString().slice(0, 10)}
