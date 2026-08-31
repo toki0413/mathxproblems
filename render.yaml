@@ -1,0 +1,41 @@
+# Render Blueprint — deploy the full-stack service via Docker.
+# See: https://render.com/docs/blueprint-spec
+# Usage: create a "Blueprint" on Render pointing at this file, or push to GitHub
+# and press "Deploy" on the Blast/shell service.
+services:
+  - type: web
+    # Render auto-links a repo; name must be URL-safe.
+    name: mathxproblems
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/problems.json
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      # Owned by the postgres service below. Insert this as the ID of that service.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mathxdb
+          property: connectionString
+      - key: APP_ID
+        sync: false   # set in the Render dashboard (secret)
+      - key: APP_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: KIMI_AUTH_URL
+        sync: false
+      - key: KIMI_OPEN_URL
+        sync: false
+      - key: OWNER_UNION_ID
+        sync: false
+      - key: CLAIMS_WRITE_ENABLED
+        value: ""
+
+databases:
+  - name: mathxdb
+    databaseName: mathx
+    user: mathx
+    plan: free
