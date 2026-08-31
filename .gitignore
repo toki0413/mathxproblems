@@ -29,8 +29,9 @@ dist-ssr
 # Database
 *.db
 *.sqlite
-*.sqlite3
-db/migrations/*.sql
+*.sqlite*
+# Note: db/migrations/*.sql removed from ignore so PostgreSQL migrations track
+# in git (Neon/Render runs them via drizzle-kit migrate).
 # TypeScript cache
 *.tsbuildinfo
 # Build outputs
