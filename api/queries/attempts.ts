@@ -60,6 +60,7 @@ export async function listApprovedAttempts(problemId: string) {
       kind: schema.problemAttempts.kind,
       title: schema.problemAttempts.title,
       content: schema.problemAttempts.content,
+      narrative: schema.problemAttempts.narrative,
       authorName: schema.problemAttempts.authorName,
       newBand: schema.problemAttempts.newBand,
       formalStatus: schema.problemAttempts.formalStatus,
@@ -188,7 +189,7 @@ export async function listLatestClaimEvents(limit = 20) {
       createdAt: schema.problemAttempts.createdAt,
     })
     .from(schema.problemAttempts)
-    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .leftJoin(schema.users, eq(schema.users.id, schema.problemAttempts.userId))
     .where(
       and(
         inArray(schema.problemAttempts.kind, ["verification", "formal"]),
@@ -202,6 +203,55 @@ export async function listLatestClaimEvents(limit = 20) {
     authorName: r.authorName ?? registeredName,
   }));
   return attachBandBits(withNames);
+}
+
+/**
+ * 全库逐题的信息量索引：重走每题「已通过验证收窄链」累计正向 bits。
+ * 供图谱节点大小编码、索引行徽标、监测摘要等把 bits 前置到导航层的场景。
+ * 负收窄不倒扣累计（它仍是信息，方向在详情页区间尺表达）；链首无基线不计。
+ */
+export async function listBitsIndex() {
+  const chain = await getDb()
+    .select({
+      problemId: schema.problemAttempts.problemId,
+      newBand: schema.problemAttempts.newBand,
+      createdAt: schema.problemAttempts.createdAt,
+    })
+    .from(schema.problemAttempts)
+    .where(
+      and(
+        eq(schema.problemAttempts.kind, "verification"),
+        eq(schema.problemAttempts.status, "approved"),
+      ),
+    )
+    .orderBy(asc(schema.problemAttempts.createdAt), asc(schema.problemAttempts.id));
+  const byProblem = new Map<
+    string,
+    { bits: number; verifications: number; lastBand: string | null; lastAt: Date | null }
+  >();
+  for (const row of chain) {
+    const e = byProblem.get(row.problemId) ?? {
+      bits: 0,
+      verifications: 0,
+      lastBand: null,
+      lastAt: null,
+    };
+    e.verifications += 1;
+    if (row.newBand) {
+      const b = bandBits(e.lastBand, row.newBand);
+      if (b != null && b > 0) e.bits += b;
+      e.lastBand = row.newBand;
+    }
+    e.lastAt = row.createdAt;
+    byProblem.set(row.problemId, e);
+  }
+  return [...byProblem.entries()].map(([problemId, e]) => ({
+    problemId,
+    bits: Math.round(e.bits * 100) / 100,
+    verifications: e.verifications,
+    lastBand: e.lastBand,
+    lastAt: e.lastAt,
+  }));
 }
 
 /** 全部已通过声明里带方法标签的（problemId, method），供障碍图做方法解锁路由。 */
