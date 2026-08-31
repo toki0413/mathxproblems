@@ -1,0 +1,9 @@
+# Cloudflare Pages 配置(Advanced Mode, 单入口 _worker.ts)。
+# 前端静态构建进 dist/public; _worker.ts 由 Pages 自动打包为 worker 入口。
+# 环境变量(APP_ID, APP_SECRET, DATABASE_URL 等)在 Pages 项目 Settings ->
+# Environment variables 里配置,生产/预览都要加(加密勾选)。
+name = "mathx-bridge"
+compatibility_date = "2026-08-04"
+compatibility_flags = ["nodejs_compat"]
+
+pages_build_output_dir = "dist/public"

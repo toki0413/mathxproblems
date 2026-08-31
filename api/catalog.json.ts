@@ -1,113 +1,64 @@
 // Stable, machine-consumable catalog contract served at /api/v1/*.
-// Reads src/data/problems.ts directly with regex (the TS file can't be imported
-// under node strip-types due to CJK quotes), so downstream agents/prover
-// pipelines can GET a versioned, etag-able snapshot without a browser.
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import { createHash } from "node:crypto";
+// Directly imports the typed PROBLEMS array rather than regex-parsing the source
+// file: esbuild/Vite (and CF's bundler) parse TS + CJK fine, so there's no runtime
+// filesystem dependency — which keeps this module loadable in Cloudflare Workers.
+// Downstream agents/prover pipelines GET a versioned, etag-able snapshot.
+import { PROBLEMS } from "../src/data/problems";
+import type { Problem } from "../src/data/problems";
 
-const srcPath = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "../src/data/problems.ts",
-);
-
-// Split the file into per-problem blocks by opening a new top-level `id:`.
-function blocks(source: string): string[] {
-  const parts = source.split("\n    id: ");
-  return parts.slice(1).map((b) => "    id: " + b);
-}
-
-const str = (b: string, field: string): string => {
-  const m = b.match(new RegExp(`^    ${field}: '((?:[^'\\\\]|\\\\.)*)'`, "m"));
-  return m ? m[1] : "";
-};
-// multiline judgment value on the line right after `judgment:`
-const mline = (b: string): string => {
-  const m = b.match(/\n      '((?:[^'\\\\]|\\\\.)*)'/);
-  return m ? m[1] : str(b, "judgment");
-};
-const layerBound = (b: string, layer: string): string => {
-  const m = b.match(
-    new RegExp(`${layer.toLowerCase()}: \\{[\\s\\S]*?bound: '((?:[^'\\\\]|\\\\.)*)'`),
-  );
-  return m ? m[1] : "";
-};
-// single-line literal inside a nested object, e.g. formal_view.statement.
-const nestedStr = (b: string, outer: string, field: string): string => {
-  const m = b.match(
-    new RegExp(`${outer}: \\{[\\s\\S]*?(?:^    )?${field}: '((?:[^'\\\\]|\\\\.)*)'`),
-  );
-  return m ? m[1] : "";
-};
-// single-line string array inside a nested object, e.g. bridge.shared_residuals.
-const nestedArr = (b: string, outer: string, field: string): string[] => {
-  const m = b.match(new RegExp(`${outer}: \\{[\\s\\S]*?${field}: \\[([^\\]]*)\\]`));
-  if (!m) return [];
-  return [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
-};
-// multiline string array at block level, e.g. obstacles (one quoted item per line).
-const blockArr = (b: string, field: string): string[] => {
-  const m = b.match(new RegExp(`^    ${field}: \\[([\\s\\S]*?)\\]`, "m"));
-  if (!m) return [];
-  return [...m[1].matchAll(/'((?:[^'\\]|\\.)*)'/g)].map((x) => x[1]);
-};
-
-function oneProblem(block: string) {
-  const id = str(block, "id");
-  const certificate = block.includes("certificate: {")
-    ? {
-        r_model: { bound: layerBound(block, "r_model") },
-        r_param: { bound: layerBound(block, "r_param") },
-        r_num: { bound: layerBound(block, "r_num") },
-      }
-    : undefined;
-  const formal_view = block.includes("formal_view: {")
-    ? {
-        statement: nestedStr(block, "formal_view", "statement") || str(block, "formalization_notes"),
-        target: nestedStr(block, "formal_view", "target"),
-        judgment: nestedStr(block, "formal_view", "judgment"),
-        status: nestedStr(block, "formal_view", "status"),
-        via: nestedStr(block, "formal_view", "via") || undefined,
-        artifact: block.includes("artifact: {")
-          ? { label: nestedStr(block, "artifact", "label"), url: nestedStr(block, "artifact", "url") }
-          : undefined,
-      }
-    : undefined;
-  const bridge = block.includes("bridge: {")
-    ? {
-        link: nestedStr(block, "bridge", "link"),
-        direction: nestedStr(block, "bridge", "direction"),
-        shared_residuals: block.includes("shared_residuals:")
-          ? nestedArr(block, "bridge", "shared_residuals")
-          : undefined,
-        band_as_fn_of_eps: nestedStr(block, "bridge", "band_as_fn_of_eps") || undefined,
-      }
-    : undefined;
+function oneProblem(p: Problem) {
   return {
-    id,
-    title: str(block, "title"),
-    titleZh: str(block, "titleZh"),
-    domain: str(block, "domain"),
-    subdomain: str(block, "subdomain"),
-    output: str(block, "output"),
-    status: str(block, "status"),
-    formalization_potential: str(block, "formalization_potential"),
-    verification_path: str(block, "verification_path"),
-    lifecycle_status: str(block, "lifecycle_status") || "open",
-    judgment: mline(block),
-    obstacles: blockArr(block, "obstacles"),
-    certificate,
-    formal_view,
-    bridge,
-    proposer: str(block, "proposer") || undefined,
-    proposed_year: str(block, "proposed_year") || undefined,
+    id: p.id,
+    title: p.title,
+    titleZh: p.titleZh,
+    domain: p.domain,
+    subdomain: p.subdomain,
+    output: p.output,
+    status: p.status,
+    formalization_potential: p.formalization_potential,
+    verification_path: p.verification_path,
+    lifecycle_status: p.lifecycle_status ?? "open",
+    judgment: p.judgment,
+    obstacles: p.obstacles ?? [],
+    certificate: p.certificate
+      ? {
+          r_model: { bound: p.certificate.r_model.bound },
+          r_param: { bound: p.certificate.r_param.bound },
+          r_num: { bound: p.certificate.r_num.bound },
+        }
+      : undefined,
+    formal_view: p.formal_view
+      ? {
+          statement: p.formal_view.statement || p.formalization_notes,
+          target: p.formal_view.target,
+          judgment: p.formal_view.judgment,
+          status: p.formal_view.status,
+          via: p.formal_view.via || undefined,
+          artifact: p.formal_view.artifact
+            ? {
+                label: p.formal_view.artifact.label,
+                url: p.formal_view.artifact.url,
+              }
+            : undefined,
+        }
+      : undefined,
+    bridge: p.bridge
+      ? {
+          link: p.bridge.link,
+          direction: p.bridge.direction,
+          shared_residuals: p.bridge.shared_residuals?.length
+            ? (p.bridge.shared_residuals as string[])
+            : undefined,
+          band_as_fn_of_eps: p.bridge.band_as_fn_of_eps || undefined,
+        }
+      : undefined,
+    proposer: p.proposer || undefined,
+    proposed_year: p.proposed_year ?? undefined,
   };
 }
 
 export function buildCatalog() {
-  const source = readFileSync(srcPath, "utf8");
-  return blocks(source).map(oneProblem).filter((p) => p.id);
+  return PROBLEMS.map(oneProblem).filter((p) => p.id);
 }
 
 export function buildBenchmark() {
@@ -119,7 +70,14 @@ export function buildBenchmark() {
   );
 }
 
-// Stable version + ETag from a content hash.
+// Stable version + ETag from a content hash. Non-crypto FNV-1a: this isn't a
+// security boundary, just a cache-busting fingerprint, so node:crypto isn't
+// needed (keeps the module Workers-safe).
 export function snapshotVersion(json: string): string {
-  return createHash("sha1").update(json).digest("hex").slice(0, 10);
+  let h = 0x811c9dc5;
+  for (let i = 0; i < json.length; i++) {
+    h ^= json.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return (h >>> 0).toString(16).slice(0, 10);
 }

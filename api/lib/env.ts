@@ -1,5 +1,6 @@
-import "dotenv/config";
-
+// env 只从 process.env 读取。本地/容器路径(server.ts, vite.config)负责加载 .env；
+// Cloudflare Pages 运行时已把环境变量 populate 进 process.env(compat date>=2026-08-04
+// 且 nodejs_compat 默认开启)，这里不再 import dotenv——Worker 里没有 .env 文件可读。
 function required(name: string): string {
   const value = process.env[name];
   if (!value && process.env.NODE_ENV === "production") {

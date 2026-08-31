@@ -1,3 +1,4 @@
+import "dotenv/config"
 import devServer from "@hono/vite-dev-server"
 import path from "path"
 const __dirname = import.meta.dirname
