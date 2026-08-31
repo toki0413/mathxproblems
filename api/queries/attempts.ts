@@ -56,6 +56,7 @@ export async function listApprovedAttempts(problemId: string) {
   const rows = await getDb()
     .select({
       id: schema.problemAttempts.id,
+      problemId: schema.problemAttempts.problemId,
       kind: schema.problemAttempts.kind,
       title: schema.problemAttempts.title,
       content: schema.problemAttempts.content,
@@ -67,7 +68,7 @@ export async function listApprovedAttempts(problemId: string) {
       voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
     })
     .from(schema.problemAttempts)
-    .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
+    .leftJoin(schema.users, eq(schema.problemAttempts.userId, users.id))
     .leftJoin(
       schema.problemAttemptVotes,
       eq(schema.problemAttempts.id, schema.problemAttemptVotes.attemptId),
@@ -80,12 +81,14 @@ export async function listApprovedAttempts(problemId: string) {
     )
     .groupBy(schema.problemAttempts.id, schema.users.id)
     .orderBy(desc(sql`count(${schema.problemAttemptVotes.id})`), desc(schema.problemAttempts.createdAt));
-  // 匿名投稿用自报 authorName，登录投稿回退到注册名，并去掉内部 join 字段
-  return rows.map(({ registeredName, voteCount, ...r }) => ({
+  // 匿名投稿用自报 authorName，登录投稿回退到注册名，并去掉内部 join 字段。
+  // 附加题内收窄链的 bits，供详情页「收窄历程」区间尺标注每次的信息量增益。
+  const named = rows.map(({ registeredName, voteCount, ...r }) => ({
     ...r,
     authorName: r.authorName ?? registeredName,
     votes: Number(voteCount),
   }));
+  return attachBandBits(named);
 }
 
 /**
