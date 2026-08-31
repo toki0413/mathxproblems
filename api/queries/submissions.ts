@@ -7,14 +7,6 @@ export async function createSubmission(data: InsertSubmission) {
   await getDb().insert(schema.submissions).values(data);
 }
 
-export async function listSubmissionsByUser(userId: number) {
-  return getDb()
-    .select()
-    .from(schema.submissions)
-    .where(eq(schema.submissions.userId, userId))
-    .orderBy(desc(schema.submissions.createdAt));
-}
-
 export async function listPendingSubmissions() {
   return getDb()
     .select()
@@ -24,15 +16,20 @@ export async function listPendingSubmissions() {
 }
 
 export async function listApprovedSubmissions() {
-  return getDb()
+  const rows = await getDb()
     .select({
       ...getTableColumns(schema.submissions),
-      authorName: schema.users.name,
+      registeredName: schema.users.name,
     })
     .from(schema.submissions)
-    .innerJoin(schema.users, eq(schema.submissions.userId, schema.users.id))
+    .leftJoin(schema.users, eq(schema.submissions.userId, schema.users.id))
     .where(eq(schema.submissions.status, "approved"))
     .orderBy(desc(schema.submissions.createdAt));
+  // 匿名投稿用自报 authorName，存量登录投稿回退到注册名。
+  return rows.map(({ registeredName, ...r }) => ({
+    ...r,
+    authorName: r.authorName ?? registeredName,
+  }));
 }
 
 export async function reviewSubmission(

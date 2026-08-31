@@ -1,11 +1,12 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { DOMAIN_IDS } from "@contracts/constants";
-import { adminQuery, authedQuery, createRouter, publicQuery } from "./middleware";
+import { adminQuery, createRouter, publicQuery } from "./middleware";
+import { writeAllowed } from "./visitor";
 import {
   createSubmission,
   listApprovedSubmissions,
   listPendingSubmissions,
-  listSubmissionsByUser,
   reviewSubmission,
 } from "./queries/submissions";
 
@@ -21,26 +22,31 @@ const proposalSchema = z.object({
   engineeringValue: z.string().max(4000).default(""),
   references: z.array(z.string().min(1)).max(12).default([]),
   note: z.string().max(2000).default(""),
+  // 匿名投稿可自报署名；留空则匿名
+  authorName: z.string().trim().min(1).max(128).optional(),
+  // 人机验证令牌（配了 TURNSTILE_SECRET 后必填）
+  captchaToken: z.string().min(1).max(2048).optional(),
 });
 
 export const submissionsRouter = createRouter({
-  submit: authedQuery
+  /** 任何人投新问题，无需登录；以伪匿名访客身份写入 */
+  submit: publicQuery
     .input(proposalSchema)
     .mutation(async ({ ctx, input }) => {
-      const { title, titleZh, domain, ...rest } = input;
+      if (!(await writeAllowed(ctx.req.headers, ctx.visitorId, input.captchaToken))) {
+        throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Slow down or captcha required" });
+      }
+      const { title, titleZh, domain, authorName, ...rest } = input;
       await createSubmission({
-        userId: ctx.user.id,
         title,
         titleZh,
         domain,
+        authorName,
+        visitorId: ctx.visitorId,
         payload: JSON.stringify(rest),
       });
       return { ok: true };
     }),
-
-  mine: authedQuery.query(async ({ ctx }) => {
-    return listSubmissionsByUser(ctx.user.id);
-  }),
 
   approved: publicQuery.query(async () => {
     return listApprovedSubmissions();

@@ -4,8 +4,7 @@ import type { HttpBindings } from "@hono/node-server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
-import { createOAuthCallbackHandler, createOAuthInitHandler } from "./kimi/auth";
-import { Paths } from "@contracts/constants";
+import { ensureVisitorId } from "./visitor";
 import { buildCatalog, buildBenchmark, snapshotVersion } from "./catalog.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
@@ -14,8 +13,6 @@ import { registerClaimsWriteRoutes } from "./claims-write";
 export const app = new Hono<{ Bindings: HttpBindings }>();
 
 app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
-app.get(Paths.oauthInit, createOAuthInitHandler());
-app.get(Paths.oauthCallback, createOAuthCallbackHandler());
 
 // 稳定、可版本化、可被下游机器消费的数据契约（ApiPage 的 JSON 也在此供给）。
 // 响应带 ETag 与 X-Version 头，供 agent/证明流水线用 If-None-Match 做增量拉取。
@@ -59,11 +56,28 @@ app.get("/api/v1/obstacles.json", async (c) => {
 // 默认闭门（501），CLAIMS_WRITE_ENABLED=1 放开后写入审稿账本。
 registerClaimsWriteRoutes(app);
 app.use("/api/trpc/*", async (c) => {
-  return fetchRequestHandler({
+  // 匿名社区的第一道门槛：首次访问签发 httpOnly 访客 cookie 并盖戳到请求，
+  // 供 tRPC 上下文确定性复用同一次签发的 visitorId（一人一票 / 限流 / 写归属）。
+  const resHeaders = new Headers();
+  const visitorId = ensureVisitorId(c.req.raw.headers, resHeaders);
+  (c.req.raw as Request & { __visitorId?: string }).__visitorId = visitorId;
+
+  const res = await fetchRequestHandler({
     endpoint: "/api/trpc",
     req: c.req.raw,
     router: appRouter,
     createContext,
+  });
+
+  const setCookie = resHeaders.get("set-cookie");
+  if (!setCookie) return res;
+  // tRPC 的 fetchRequestHandler 不会把上下文里的 set-cookie 回写响应，这里显式合并。
+  const combined = new Headers(res.headers);
+  combined.append("set-cookie", setCookie);
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: combined,
   });
 });
 app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));

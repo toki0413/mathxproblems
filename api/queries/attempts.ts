@@ -102,9 +102,9 @@ export async function listApprovedAttempts(problemId: string) {
 
 /**
  * 切换某候选的投票：已投则取消，未投则投出。返回切换后的票数与是否处于已投态。
- * 唯一约束 (attemptId, userId) 兜底并发重复票；计数与投票记录在同一事务里保证一致。
+ * 匿名社区按 visitorId 计一人一票；(attemptId, visitorId) 部分唯一索引兜底并发重复票。
  */
-export async function toggleVote(attemptId: number, userId: number) {
+export async function toggleVote(attemptId: number, visitorId: string) {
   const db = getDb();
   return db.transaction(async (tx) => {
     const existing = await tx
@@ -113,7 +113,7 @@ export async function toggleVote(attemptId: number, userId: number) {
       .where(
         and(
           eq(schema.problemAttemptVotes.attemptId, attemptId),
-          eq(schema.problemAttemptVotes.userId, userId),
+          eq(schema.problemAttemptVotes.visitorId, visitorId),
         ),
       )
       .limit(1);
@@ -132,7 +132,9 @@ export async function toggleVote(attemptId: number, userId: number) {
       await updateVotes(-1);
       voted = false;
     } else {
-      await tx.insert(schema.problemAttemptVotes).values({ attemptId, userId });
+      await tx
+        .insert(schema.problemAttemptVotes)
+        .values({ attemptId, visitorId });
       await updateVotes(1);
       voted = true;
     }
@@ -284,14 +286,6 @@ export async function listPendingAttempts() {
     .select()
     .from(schema.problemAttempts)
     .where(eq(schema.problemAttempts.status, "pending"))
-    .orderBy(desc(schema.problemAttempts.createdAt));
-}
-
-export async function listAttemptsByUser(userId: number) {
-  return getDb()
-    .select()
-    .from(schema.problemAttempts)
-    .where(eq(schema.problemAttempts.userId, userId))
     .orderBy(desc(schema.problemAttempts.createdAt));
 }
 

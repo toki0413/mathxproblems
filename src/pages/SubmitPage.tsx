@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
 import { DOMAINS, type Domain } from '@/data/problems'
-import { useAuth } from '@/hooks/useAuth'
-import { useI18n, domainLabel, pickLang } from '@/i18n'
+import { useI18n, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
 
 const DOMAIN_KEYS = Object.keys(DOMAINS) as Domain[]
@@ -30,8 +28,6 @@ const areaCls = `${inputCls} min-h-[110px] font-mono2 text-[13px] leading-relaxe
 
 export default function SubmitPage() {
   const { lang, t } = useI18n()
-  const { isAuthenticated, isLoading } = useAuth()
-  const utils = trpc.useUtils()
   const [form, setForm] = useState({
     title: '',
     titleZh: '',
@@ -44,6 +40,7 @@ export default function SubmitPage() {
     engineeringValue: '',
     references: '',
     note: '',
+    authorName: '',
   })
   const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -51,11 +48,9 @@ export default function SubmitPage() {
   const submit = trpc.submissions.submit.useMutation({
     onSuccess: async () => {
       setDone(true)
-      await utils.submissions.mine.invalidate()
     },
     onError: (e) => setError(e.message),
   })
-  const mine = trpc.submissions.mine.useQuery(undefined, { enabled: isAuthenticated })
 
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }))
 
@@ -74,24 +69,9 @@ export default function SubmitPage() {
       engineeringValue: form.engineeringValue.trim(),
       references: form.references.split('\n').map((s) => s.trim()).filter(Boolean).slice(0, 12),
       note: form.note.trim(),
+      authorName: form.authorName.trim() || undefined,
     })
   }
-
-  if (isLoading) return <div className="mx-auto max-w-2xl px-5 py-24 text-ink-3 text-sm">…</div>
-
-  if (!isAuthenticated)
-    return (
-      <div className="mx-auto max-w-2xl px-5 py-24">
-        <h1 className="font-statement text-3xl font-bold">{t('sb.title')}</h1>
-        <p className="mt-6 text-ink-2 leading-relaxed">{t('sb.login.required')}</p>
-        <Link
-          to="/login"
-          className="mt-6 inline-block border border-ink px-5 py-2 text-sm hover:bg-ink hover:text-paper transition-colors"
-        >
-          {t('nav.login')} →
-        </Link>
-      </div>
-    )
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-12">
@@ -122,6 +102,9 @@ export default function SubmitPage() {
               <input className={inputCls} value={form.titleZh} onChange={(e) => set('titleZh')(e.target.value)} required />
             </Field>
           </div>
+          <Field label={t('sb.authorName')}>
+            <input className={inputCls} value={form.authorName} onChange={(e) => set('authorName')(e.target.value)} />
+          </Field>
           <div className="grid gap-6 sm:grid-cols-2">
             <Field label={t('sb.domain')}>
               <select
@@ -172,38 +155,6 @@ export default function SubmitPage() {
             {submit.isPending ? '…' : t('sb.submit')}
           </button>
         </form>
-      )}
-
-      {mine.data && mine.data.length > 0 && (
-        <section className="mt-14">
-          <div className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-ink-3">
-            {t('sb.mine')}
-          </div>
-          <div className="mt-3 divide-y divide-line border-t border-b border-line">
-            {mine.data.map((s) => (
-              <div key={s.id} className="py-3 flex items-baseline justify-between gap-4">
-                <div>
-                  <div className="text-sm font-medium">{pickLang(s, lang)}</div>
-                  <div className="font-mono2 text-[11px] text-ink-3 mt-0.5">
-                    {new Date(s.createdAt).toISOString().slice(0, 10)}
-                    {s.reviewerNote ? ` · ${s.reviewerNote}` : ''}
-                  </div>
-                </div>
-                <span
-                  className={`font-mono2 text-[11px] uppercase tracking-wider ${
-                    s.status === 'approved'
-                      ? 'text-mc'
-                      : s.status === 'rejected'
-                        ? 'text-me'
-                        : 'text-ink-3'
-                  }`}
-                >
-                  {s.status === 'approved' ? t('sb.status.approved') : s.status === 'rejected' ? t('sb.status.rejected') : t('sb.status.pending')}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
       )}
     </div>
   )

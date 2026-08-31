@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { PROBLEMS } from '@/data/problems'
 import { GOAL_PROBLEMS } from '@/const'
 import { useI18n } from '@/i18n'
-import { useAuth } from '@/hooks/useAuth'
 
 const NAV = [
   { to: '/problems', key: 'nav.problems' },
@@ -18,7 +17,6 @@ export function SiteHeader() {
   const loc = useLocation()
   const [open, setOpen] = useState(false)
   const { lang, setLang, t } = useI18n()
-  const { isAuthenticated, user, logout } = useAuth()
   useEffect(() => setOpen(false), [loc.pathname])
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -58,6 +56,13 @@ export function SiteHeader() {
           <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
             {PROBLEMS.length} {t('nav.count')}
           </span>
+          <Link
+            to="/review"
+            className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
+            title={t('nav.review')}
+          >
+            {t('nav.review')}
+          </Link>
           <button
             onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
             className="ml-2 font-mono2 text-[11px] uppercase tracking-widest text-ink-3 hover:text-ink transition-colors"
@@ -65,22 +70,6 @@ export function SiteHeader() {
           >
             {lang === 'zh' ? 'EN' : '中'}
           </button>
-          {isAuthenticated ? (
-            <button
-              onClick={logout}
-              className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
-              title={user?.name ?? ''}
-            >
-              {t('nav.logout')}
-            </button>
-          ) : (
-            <Link
-              to="/login"
-              className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
-            >
-              {t('nav.login')}
-            </Link>
-          )}
         </nav>
         <button
           className="md:hidden font-mono2 text-xs uppercase tracking-widest text-ink-2"
@@ -98,6 +87,9 @@ export function SiteHeader() {
           ))}
           <NavLink to="/submit" className="py-2 text-sm text-ink-2">
             {t('nav.submit')}
+          </NavLink>
+          <NavLink to="/review" className="py-2 text-sm text-ink-2">
+            {t('nav.review')}
           </NavLink>
           <button
             onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}

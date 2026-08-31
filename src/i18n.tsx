@@ -11,8 +11,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'nav.about': { zh: '关于', en: 'About' },
   'nav.api': { zh: 'API', en: 'API' },
   'nav.submit': { zh: '提交问题', en: 'Submit' },
-  'nav.login': { zh: '登录', en: 'Sign in' },
-  'nav.logout': { zh: '退出', en: 'Sign out' },
+  'nav.review': { zh: '审核', en: 'Review' },
   'nav.menu': { zh: '菜单', en: 'Menu' },
   'nav.close': { zh: '关闭', en: 'Close' },
   'nav.count': { zh: '题', en: 'problems' },
@@ -162,10 +161,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'im.title': { zh: '从定理到证书', en: 'From theorem to certificate' },
   // submit
   'sb.title': { zh: '提交问题', en: 'Submit a problem' },
-  'sb.login.required': {
-    zh: '提交问题需要先登录（Kimi 账号）。',
-    en: 'Signing in (Kimi account) is required before submitting a problem.',
-  },
+  'sb.authorName': { zh: '署名（可选，留空匿名）', en: 'Attribution (optional, blank = anonymous)' },
   // review
   'rv.title': { zh: '审核队列', en: 'Review queue' },
   // home principles
@@ -252,6 +248,14 @@ const STR: Record<string, { zh: string; en: string }> = {
   'api.copied': { zh: '已复制', en: 'Copied' },
   // review page
   'rv.adminOnly': { zh: '此页仅对管理员开放。', en: 'Admins only.' },
+  'rv.adminIntro': {
+    zh: '独立管理入口：输入管理员令牌即可解锁审核队列。令牌只保存在当前浏览器，不会外传。',
+    en: 'Admin gate: enter the admin token to unlock the review queue. The token is stored only in this browser.',
+  },
+  'rv.adminPlaceholder': { zh: '管理员令牌', en: 'Admin token' },
+  'rv.adminUnlock': { zh: '解锁', en: 'Unlock' },
+  'rv.adminLock': { zh: '退出管理', en: 'Lock' },
+  'rv.adminBadToken': { zh: '令牌无效：审核接口返回 403。', en: 'Invalid token: review API returned 403.' },
   'rv.placeholder': { zh: '审核备注（可选）', en: 'Reviewer note (optional)' },
   'rv.approve': { zh: '通过', en: 'Approve' },
   'rv.reject': { zh: '拒绝', en: 'Reject' },

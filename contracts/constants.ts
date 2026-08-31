@@ -17,6 +17,22 @@ export const ErrorMessages = {
   insufficientPermissions: "Insufficient permissions",
 } as const;
 
+/**
+ * 伪匿名访客身份：不登录也可发言的匿名社区模型。
+ * 服务端在访客首次访问时签发一个随机 UUID 存进 httpOnly cookie；
+ * 它不暴露真实身份，仅用于同设备限流、一人一票、内容追溯。
+ */
+export const Visitor = {
+  cookieName: "mv_id",
+  maxAgeMs: 365 * 24 * 60 * 60 * 1000, // 一年
+} as const;
+
+/** 独立管理入口：管理员经 `Authorization: Bearer <ADMIN_TOKEN>` 访问审核接口，不进入公共身份体系。 */
+export const AdminAuth = {
+  header: "authorization",
+  scheme: "Bearer ",
+} as const;
+
 export const Paths = {
   login: "/login",
   oauthInit: "/api/oauth/login",

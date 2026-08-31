@@ -10,7 +10,6 @@ import ImpactPage from '@/pages/ImpactPage'
 import GraphPage from '@/pages/GraphPage'
 import SubmitPage from '@/pages/SubmitPage'
 import ReviewPage from '@/pages/ReviewPage'
-import Login from "./pages/Login"
 import NotFound from "./pages/NotFound"
 
 export default function App() {
@@ -29,7 +28,6 @@ export default function App() {
           <Route path="/impact" element={<ImpactPage />} />
           <Route path="/submit" element={<SubmitPage />} />
           <Route path="/review" element={<ReviewPage />} />
-          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

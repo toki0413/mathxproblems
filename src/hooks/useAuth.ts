@@ -1,58 +1,36 @@
-import { trpc } from "@/providers/trpc";
-import { useCallback, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router";
-import { LOGIN_PATH } from "@/const";
+import { useCallback, useMemo, useState } from "react";
+import { ADMIN_TOKEN_KEY } from "@/const";
 
-type UseAuthOptions = {
-  redirectOnUnauthenticated?: boolean;
-  redirectPath?: string;
-};
+// 匿名社区没有登录。审核页用一个独立 Bearer 令牌作管理门禁：
+// 令牌只存在浏览器本地(localStorage)，随 tRPC 请求以 Authorization 头带上。
+function readToken(): string {
+  return typeof localStorage === "undefined"
+    ? ""
+    : (localStorage.getItem(ADMIN_TOKEN_KEY) ?? "");
+}
 
-export function useAuth(options?: UseAuthOptions) {
-  const { redirectOnUnauthenticated = false, redirectPath = LOGIN_PATH } =
-    options ?? {};
+export function useAuth() {
+  const [token, setTokenState] = useState<string>(() => readToken());
 
-  const navigate = useNavigate();
+  // 让 trpc 客户端 headers() 在下次请求读取新令牌，同时触发本 hook 的 state 更新。
+  const setAdmin = useCallback((value: string) => {
+    const v = value.trim();
+    if (v) localStorage.setItem(ADMIN_TOKEN_KEY, v);
+    else localStorage.removeItem(ADMIN_TOKEN_KEY);
+    // 更新 state 以触发审核查询 enabled=isAdmin 的重新执行。
+    setTokenState(v);
+    return v;
+  }, []);
 
-  const utils = trpc.useUtils();
-
-  const {
-    data: user,
-    isLoading,
-    error,
-    refetch,
-  } = trpc.auth.me.useQuery(undefined, {
-    staleTime: 1000 * 60 * 5,
-    retry: false,
-  });
-
-  const logoutMutation = trpc.auth.logout.useMutation({
-    onSuccess: async () => {
-      await utils.invalidate();
-      navigate(redirectPath);
-    },
-  });
-
-  const logout = useCallback(() => logoutMutation.mutate(), [logoutMutation]);
-
-  useEffect(() => {
-    if (redirectOnUnauthenticated && !isLoading && !user) {
-      const currentPath = window.location.pathname;
-      if (currentPath !== redirectPath) {
-        navigate(redirectPath);
-      }
-    }
-  }, [redirectOnUnauthenticated, isLoading, user, navigate, redirectPath]);
+  const clearAdmin = useCallback(() => setAdmin(""), [setAdmin]);
 
   return useMemo(
     () => ({
-      user: user ?? null,
-      isAuthenticated: !!user,
-      isLoading: isLoading || logoutMutation.isPending,
-      error,
-      logout,
-      refresh: refetch,
+      adminToken: token,
+      isAdmin: !!token,
+      setAdmin,
+      clearAdmin,
     }),
-    [user, isLoading, logoutMutation.isPending, error, logout, refetch],
+    [token, setAdmin, clearAdmin],
   );
 }
