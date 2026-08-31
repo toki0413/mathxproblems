@@ -66,22 +66,30 @@ export async function listApprovedAttempts(problemId: string) {
       formalStatus: schema.problemAttempts.formalStatus,
       createdAt: schema.problemAttempts.createdAt,
       registeredName: schema.users.name,
-      voteCount: sql<number>`count(${schema.problemAttemptVotes.id})`,
+      // 相关子查询统计票数；Postgres 对 GROUP BY 外的非聚合列做严格检查，
+      // 用子查询替代 join+group by 计数，避免把全部输出列塞进 GROUP BY。
+      voteCount: sql<number>`(
+        select count(*) from ${schema.problemAttemptVotes}
+        where ${schema.problemAttemptVotes.attemptId} = ${schema.problemAttempts.id}
+      )`,
     })
     .from(schema.problemAttempts)
     .leftJoin(schema.users, eq(schema.problemAttempts.userId, schema.users.id))
-    .leftJoin(
-      schema.problemAttemptVotes,
-      eq(schema.problemAttempts.id, schema.problemAttemptVotes.attemptId),
-    )
     .where(
       and(
         eq(schema.problemAttempts.status, "approved"),
         eq(schema.problemAttempts.problemId, problemId),
       ),
     )
-    .groupBy(schema.problemAttempts.id, schema.users.id)
-    .orderBy(desc(sql`count(${schema.problemAttemptVotes.id})`), desc(schema.problemAttempts.createdAt));
+    .orderBy(
+      desc(
+        sql`(
+          select count(*) from ${schema.problemAttemptVotes}
+          where ${schema.problemAttemptVotes.attemptId} = ${schema.problemAttempts.id}
+        )`,
+      ),
+      desc(schema.problemAttempts.createdAt),
+    );
   // 匿名投稿用自报 authorName，登录投稿回退到注册名，并去掉内部 join 字段。
   // 附加题内收窄链的 bits，供详情页「收窄历程」区间尺标注每次的信息量增益。
   const named = rows.map(({ registeredName, voteCount, ...r }) => ({

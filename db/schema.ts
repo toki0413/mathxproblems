@@ -1,20 +1,44 @@
 import {
-  mysqlTable,
-  mysqlEnum,
+  pgTable,
+  pgEnum,
   serial,
   varchar,
   text,
   timestamp,
   bigint,
-} from "drizzle-orm/mysql-core";
+} from "drizzle-orm/pg-core";
 
-export const users = mysqlTable("users", {
+const roleEnum = pgEnum("role", ["user", "admin"]);
+const submissionStatusEnum = pgEnum("submission_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
+const attemptKindEnum = pgEnum("attempt_kind", [
+  "progress",
+  "solution",
+  "revision",
+  "verification",
+  "formal",
+]);
+const formalStatusEnum = pgEnum("formal_status", [
+  "provable",
+  "conjectured",
+  "refuted",
+]);
+const attemptStatusEnum = pgEnum("attempt_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
+
+export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   unionId: varchar("unionId", { length: 255 }).notNull().unique(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 320 }),
   avatar: text("avatar"),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  role: roleEnum("role").default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt")
     .defaultNow()
@@ -31,18 +55,16 @@ export type InsertUser = typeof users.$inferInsert;
  * The full proposal payload is stored as JSON text (fields mirror the
  * catalog's Problem shape); moderation state lives in `status`.
  */
-export const submissions = mysqlTable("submissions", {
+export const submissions = pgTable("submissions", {
   id: serial("id").primaryKey(),
-  userId: bigint("userId", { mode: "number", unsigned: true })
+  userId: bigint("userId", { mode: "number" })
     .notNull()
     .references(() => users.id),
   title: varchar("title", { length: 500 }).notNull(),
   titleZh: varchar("titleZh", { length: 500 }).notNull(),
   domain: varchar("domain", { length: 64 }).notNull(),
   payload: text("payload").notNull(),
-  status: mysqlEnum("status", ["pending", "approved", "rejected"])
-    .default("pending")
-    .notNull(),
+  status: submissionStatusEnum("status").default("pending").notNull(),
   reviewerNote: text("reviewerNote"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt")
@@ -59,10 +81,10 @@ export type InsertSubmission = typeof submissions.$inferInsert;
  * `problemId` mirrors the static catalog id (mp-001, me-014, …); the note
  * usually records a new progress item, a status change, or a refinement.
  */
-export const problemUpdates = mysqlTable("problem_updates", {
+export const problemUpdates = pgTable("problem_updates", {
   id: serial("id").primaryKey(),
   problemId: varchar("problemId", { length: 32 }).notNull(),
-  userId: bigint("userId", { mode: "number", unsigned: true })
+  userId: bigint("userId", { mode: "number" })
     .notNull()
     .references(() => users.id),
   date: varchar("date", { length: 16 }).notNull(),
@@ -86,22 +108,12 @@ export type InsertProblemUpdate = typeof problemUpdates.$inferInsert;
  * kind='formal' 是双桥写路径（POST /api/v1/claims/:id/formal）与 tRPC 共用
  * 的形式化补证声明：声称该题 formal_view.status 应迁移到 formalStatus。
  */
-export const problemAttempts = mysqlTable("problem_attempts", {
+export const problemAttempts = pgTable("problem_attempts", {
   id: serial("id").primaryKey(),
   problemId: varchar("problemId", { length: 32 }).notNull(),
-  userId: bigint("userId", { mode: "number", unsigned: true }).references(
-    () => users.id,
-  ),
+  userId: bigint("userId", { mode: "number" }).references(() => users.id),
   authorName: varchar("authorName", { length: 128 }),
-  kind: mysqlEnum("kind", [
-    "progress",
-    "solution",
-    "revision",
-    "verification",
-    "formal",
-  ])
-    .default("progress")
-    .notNull(),
+  kind: attemptKindEnum("kind").default("progress").notNull(),
   title: varchar("title", { length: 300 }).notNull(),
   content: text("content").notNull(),
   /**
@@ -122,11 +134,7 @@ export const problemAttempts = mysqlTable("problem_attempts", {
    * 应迁移到的值（证成 provable / 反例 refuted / 回到 conjectured）。审批
    * 通过后随 feed.json 的 formal 事件暴露给下游；其余 kind 为 null。
    */
-  formalStatus: mysqlEnum("formalStatus", [
-    "provable",
-    "conjectured",
-    "refuted",
-  ]),
+  formalStatus: formalStatusEnum("formalStatus"),
   /**
    * 方法标签（可选，≤80 字符）：投稿人自报所用技术族，如 "interval-arithmetic"、
    * "multiscale-analysis"。障碍图（api/obstacle-graph.ts）用它把已通过的声明
@@ -134,11 +142,9 @@ export const problemAttempts = mysqlTable("problem_attempts", {
    * 枚举：方法集合无法预先封闭，拼写规范留给审稿与惯例。
    */
   method: varchar("method", { length: 80 }),
-  status: mysqlEnum("status", ["pending", "approved", "rejected"])
-    .default("pending")
-    .notNull(),
+  status: attemptStatusEnum("status").default("pending").notNull(),
   reviewerNote: text("reviewerNote"),
-  votes: bigint("votes", { mode: "number", unsigned: true }).notNull().default(0),
+  votes: bigint("votes", { mode: "number" }).notNull().default(0),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt")
     .defaultNow()
@@ -154,12 +160,12 @@ export type InsertProblemAttempt = typeof problemAttempts.$inferInsert;
  * `(attemptId, userId)` 唯一约束在数据库层去重，天然挡重复票，无需额外逻辑。
  * 投票用于给候选一个社区认可信号，review 仍是最终把关。
  */
-export const problemAttemptVotes = mysqlTable("problem_attempt_votes", {
+export const problemAttemptVotes = pgTable("problem_attempt_votes", {
   id: serial("id").primaryKey(),
-  attemptId: bigint("attemptId", { mode: "number", unsigned: true })
+  attemptId: bigint("attemptId", { mode: "number" })
     .notNull()
     .references(() => problemAttempts.id),
-  userId: bigint("userId", { mode: "number", unsigned: true })
+  userId: bigint("userId", { mode: "number" })
     .notNull()
     .references(() => users.id),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
