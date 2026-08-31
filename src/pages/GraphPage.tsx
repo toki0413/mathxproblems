@@ -4,6 +4,7 @@ import { PROBLEMS, DOMAINS, type Domain, type Problem } from '@/data/problems'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { useI18n, pickLang, domainLabel } from '@/i18n'
 import { useVisited } from '@/hooks/useVisited'
+import { useBitsIndex } from '@/hooks/useBitsIndex'
 
 /**
  * 图谱页：左图右文的分屏联动。图是导航仪器，不是装饰总览——
@@ -17,6 +18,8 @@ export default function GraphPage() {
   const [q, setQ] = useState('')
   const [hoverId, setHoverId] = useState<string | null>(null)
   const visited = useVisited()
+  // 逐题累计 bits：图节点半径编码 + 索引行徽标共用一份索引
+  const bitsIndex = useBitsIndex()
   const rowRefs = useRef(new Map<string, HTMLButtonElement>())
 
   const matches = q.trim()
@@ -103,6 +106,7 @@ export default function GraphPage() {
           onHoverProblem={onGraphHover}
           visitedIds={visited}
           hoverPanel={false}
+          bitsIndex={bitsIndex}
         />
       </div>
 
@@ -133,6 +137,7 @@ export default function GraphPage() {
               {items.map((p) => {
                 const isVisited = visited.has(p.id)
                 const isHover = hoverId === p.id
+                const bits = bitsIndex.get(p.id)?.bits ?? 0
                 return (
                   <button
                     key={p.id}
@@ -157,6 +162,15 @@ export default function GraphPage() {
                     >
                       {pickLang(p, lang)}
                     </span>
+                    {bits > 0 && (
+                      <span
+                        className="ml-auto shrink-0 font-mono2 text-[10px] text-[#1e7a5a]"
+                        style={{ fontVariantNumeric: 'tabular-nums' }}
+                        title={t('gp.bits')}
+                      >
+                        +{bits.toFixed(1)}b
+                      </span>
+                    )}
                   </button>
                 )
               })}
