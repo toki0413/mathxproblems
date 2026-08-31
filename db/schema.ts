@@ -105,6 +105,13 @@ export const problemAttempts = mysqlTable("problem_attempts", {
   title: varchar("title", { length: 300 }).notNull(),
   content: text("content").notNull(),
   /**
+   * 思路与反思（可选）：投稿人自述怎么想到的、卡在哪、为什么失败。
+   * 与 content（论证本体）分离，把尝试账本变成可读的研究日志——
+   * 失败的负结果与成功的收窄同样沉淀为内容深度。审批通过后在详情页
+   * 候选卡片中独立成块展示。
+   */
+  narrative: text("narrative"),
+  /**
    * 验证-收窄飞轮（kind='verification' 时填写）：投稿人声称把该题带证区间
    * 收窄到的值（如 "[1.52, 1.56]"）。审批通过后出现在详情页"验证账本"，
    * 是社区让目录变紧的载体。其余 kind 为 null。
