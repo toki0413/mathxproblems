@@ -79,23 +79,48 @@ function glyph(ctx: CanvasRenderingContext2D, d: Domain, x: number, y: number, r
 
 const DOMAIN_KEYS = Object.keys(DOMAINS) as Domain[]
 
+/** /api/v1/obstacles.json 的最小契约：跨题障碍链（虚线第二图层） */
+interface ObstacleEdge {
+  a: { problem: string; head: string }
+  b: { problem: string; head: string }
+  score: number
+}
+
 export function ProblemGraph({
   height = 420,
   focusId,
   interactive = true,
   full = false,
+  hoverId,
+  onHoverProblem,
+  visitedIds,
+  hoverPanel = true,
 }: {
   height?: number
   focusId?: string
   interactive?: boolean
   /** full = full-viewport exploration mode with filters + detail panel */
   full?: boolean
+  /** 外部受控悬停（分屏联动：右侧列表 → 图节点） */
+  hoverId?: string | null
+  /** 图内悬停上报（图节点 → 右侧列表） */
+  onHoverProblem?: (p: Problem | null) => void
+  /** 已读问题集合：已读节点空心灰化 */
+  visitedIds?: Set<string>
+  /** 是否显示右上角悬停卡片（分屏模式下由列表承担，关闭） */
+  hoverPanel?: boolean
 }) {
   const { lang, t } = useI18n()
   const nav = useNavigate()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState<Problem | null>(null)
+  // 外部悬停走 ref：hoverId 高频变化不应重建整个力导模拟
+  const extHoverRef = useRef<string | null>(null)
+  const wakeRef = useRef<(() => void) | null>(null)
+  // 障碍链接第二图层：默认关闭，打开后图按「共同困难」重排
+  const [obstacleEdges, setObstacleEdges] = useState<ObstacleEdge[]>([])
+  const [showObstacles, setShowObstacles] = useState(false)
   const [hidden, setHidden] = useState<Set<Domain>>(new Set())
   const [hiddenRels, setHiddenRels] = useState<Set<RelationType>>(new Set())
   // 额外两个可探索维度：按验证路径 / 按解决状态隐藏节点
@@ -111,6 +136,22 @@ export function ProblemGraph({
     return s
   }, [dbRecent])
   const recentCount = recentIds.size
+
+  // 障碍链数据：纯静态部署下 404 时静默为空（图层开关仍可出现但无边可画）
+  useEffect(() => {
+    if (!full) return
+    fetch('/api/v1/obstacles.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d && Array.isArray(d.links)) setObstacleEdges(d.links as ObstacleEdge[])
+      })
+      .catch(() => {})
+  }, [full])
+
+  useEffect(() => {
+    extHoverRef.current = hoverId ?? null
+    wakeRef.current?.()
+  }, [hoverId])
 
   const allProblems = focusId
     ? PROBLEMS.filter(
@@ -176,6 +217,38 @@ export function ProblemGraph({
       }),
     )
 
+    // 障碍链 → 节点下标对；打开图层后，吸引力中心从领域象限切换为障碍连通分量
+    const obLinks: { a: number; b: number; score: number }[] = []
+    if (showObstacles) {
+      for (const e of obstacleEdges) {
+        const a = idx.get(e.a.problem)
+        const b = idx.get(e.b.problem)
+        if (a === undefined || b === undefined || a === b) continue
+        obLinks.push({ a, b, score: e.score })
+      }
+    }
+    // 并查集求连通分量，每个 ≥2 节点的簇分配到圆环上的一个引力中心
+    const targetOf = (() => {
+      if (!obLinks.length) return null
+      const parent = nodes.map((_, i) => i)
+      const find = (x: number): number => (parent[x] === x ? x : (parent[x] = find(parent[x])))
+      obLinks.forEach((l) => parent[find(l.a)] = find(l.b))
+      const comp = new Map<number, number[]>()
+      nodes.forEach((_, i) => {
+        const r = find(i)
+        comp.set(r, [...(comp.get(r) ?? []), i])
+      })
+      const clusters = [...comp.values()].filter((c) => c.length >= 2)
+      const ring = Math.min(W, H) * 0.3
+      const centerOf = new Map<number, [number, number]>()
+      clusters.forEach((c, ci) => {
+        const ang = (ci / clusters.length) * Math.PI * 2 - Math.PI / 2
+        const cx: [number, number] = [W / 2 + ring * Math.cos(ang), H / 2 + ring * 0.82 * Math.sin(ang)]
+        c.forEach((i) => centerOf.set(i, cx))
+      })
+      return centerOf
+    })()
+
     // camera: world→screen is screen = (world - cam) * k + center
     let cam = { x: W / 2, y: H / 2 }
     let k = full ? 0.9 : 1
@@ -204,16 +277,22 @@ export function ProblemGraph({
         if (l.a === i) s.add(l.b)
         if (l.b === i) s.add(l.a)
       })
+      obLinks.forEach((l) => {
+        if (l.a === i) s.add(l.b)
+        if (l.b === i) s.add(l.a)
+      })
       return s
     }
 
     const step = () => {
       tick++
-      // domain-cluster attraction (keeps the research topology legible)
+      // 引力中心：障碍图层开启且该节点属于某簇时按簇聚合，否则按领域象限
       for (const n of nodes) {
+        const i = nodes.indexOf(n)
+        const oc = targetOf?.get(i)
         const [cx, cy] = centers[n.domain]
-        const tx = W / 2 + cx * spread
-        const ty = H / 2 + cy * spread * 0.8
+        const tx = oc ? oc[0] : W / 2 + cx * spread * (targetOf ? 1.35 : 1)
+        const ty = oc ? oc[1] : H / 2 + cy * spread * 0.8 * (targetOf ? 1.35 : 1)
         n.vx += (tx - n.x) * 0.0016
         n.vy += (ty - n.y) * 0.0016
       }
@@ -258,8 +337,33 @@ export function ProblemGraph({
 
       // ---- draw ----
       ctx.clearRect(0, 0, W, H)
-      const active = neighborsOf(hoverN)
-      const dimAll = hoverN !== null
+      const extN = hoverN ? null : (nodes.find((n) => n.id === extHoverRef.current) ?? null)
+      const effHover = hoverN ?? extN
+      const active = neighborsOf(effHover)
+      const dimAll = effHover !== null
+      // 入场：节点按序依次浮现（约 1s 内全部到位），内容即运动
+      const enter = (i: number) => Math.max(0, Math.min(1, (tick * 3 - i) / 45))
+
+      // 障碍链接：虚线、低透明度、灰墨色——第二图层以线型而非颜色区分
+      if (showObstacles) {
+        for (const l of obLinks) {
+          const a = nodes[l.a]
+          const b = nodes[l.b]
+          const sa = toScreen(a.x, a.y)
+          const sb = toScreen(b.x, b.y)
+          const isActive = !dimAll || (active.has(l.a) && active.has(l.b))
+          ctx.globalAlpha = (isActive ? 0.28 + l.score * 1.6 : 0.06) * Math.min(enter(l.a), enter(l.b))
+          ctx.strokeStyle = '#4c4a42'
+          ctx.lineWidth = 1
+          ctx.setLineDash([2, 5])
+          ctx.beginPath()
+          ctx.moveTo(sa.x, sa.y)
+          ctx.lineTo(sb.x, sb.y)
+          ctx.stroke()
+          ctx.setLineDash([])
+        }
+        ctx.globalAlpha = 1
+      }
 
       // domain cluster labels (zoomed-out cartography)
       if (!focusId) {
@@ -290,7 +394,7 @@ export function ProblemGraph({
         const sb = toScreen(b.x, b.y)
         const isActive = !dimAll || (active.has(l.a) && active.has(l.b))
         const color = RELATION_COLORS[l.relation]
-        ctx.globalAlpha = isActive ? 0.9 : 0.12
+        ctx.globalAlpha = (isActive ? 0.9 : 0.12) * Math.min(enter(l.a), enter(l.b))
         ctx.strokeStyle = color
         ctx.lineWidth = isActive ? 1.3 : 0.9
         ctx.setLineDash(l.relation === 'shares_tools' || l.relation === 'analog_of' ? [4, 4] : [])
@@ -336,14 +440,16 @@ export function ProblemGraph({
 
       // nodes (domain-shaped glyphs)
       ctx.textBaseline = 'middle'
-      for (const n of nodes) {
+      for (let ni = 0; ni < nodes.length; ni++) {
+        const n = nodes[ni]
         const color = DOMAINS[n.domain].color
         const s = toScreen(n.x, n.y)
         const rr = n.r * Math.min(k, 1.6)
         const isFocus = n.id === focusId
-        const isHover = n === hoverN
+        const isHover = n === effHover
         const isActive = !dimAll || active.has(nodes.indexOf(n))
-        ctx.globalAlpha = isActive ? 1 : 0.22
+        const visited = visitedIds?.has(n.id) ?? false
+        ctx.globalAlpha = (isActive ? 1 : 0.22) * enter(ni) * (visited && !isHover ? 0.6 : 1)
         if (isFocus || isHover) {
           glyph(ctx, n.domain, s.x, s.y, rr + 4)
           ctx.strokeStyle = color
@@ -351,8 +457,17 @@ export function ProblemGraph({
           ctx.stroke()
         }
         glyph(ctx, n.domain, s.x, s.y, rr)
-        ctx.fillStyle = color
-        ctx.fill()
+        if (visited) {
+          // 已读：空心化（纸底 + 领域色描边），探索进度可视化
+          ctx.fillStyle = '#fafaf8'
+          ctx.fill()
+          ctx.strokeStyle = color
+          ctx.lineWidth = 1.2
+          ctx.stroke()
+        } else {
+          ctx.fillStyle = color
+          ctx.fill()
+        }
         // formalization_potential 光环
         ctx.globalAlpha = isActive ? 0.85 : 0.2
         glyph(ctx, n.domain, s.x, s.y, rr + 4)
@@ -387,6 +502,7 @@ export function ProblemGraph({
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(step)
     }
+    wakeRef.current = wake
 
     const pos = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect()
@@ -414,6 +530,7 @@ export function ProblemGraph({
       if (hit !== hoverN) {
         hoverN = hit
         setHovered(hit ? hit.problem : null)
+        onHoverProblem?.(hit ? hit.problem : null)
       }
       if (tick >= 420) wake()
       canvas.style.cursor = interactive && hit ? 'pointer' : panning ? 'grabbing' : 'default'
@@ -471,7 +588,7 @@ export function ProblemGraph({
       canvas.removeEventListener('wheel', onWheel)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, hiddenVp, hiddenSt, recentIds, nav])
+  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, hiddenVp, hiddenSt, recentIds, nav, showObstacles, obstacleEdges, visitedIds])
 
   const toggleDomain = (d: Domain) =>
     setHidden((s) => {
@@ -514,7 +631,7 @@ export function ProblemGraph({
         <canvas ref={canvasRef} />
       </div>
 
-      {full && hovered && (
+      {full && hoverPanel && hovered && (
         <aside className="absolute top-4 right-4 w-[320px] bg-paper/97 backdrop-blur border border-line shadow-sm p-4 pointer-events-auto">
           <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3 flex items-center gap-2">
             <span
@@ -663,6 +780,30 @@ export function ProblemGraph({
                 {enumLabel(lang, 'status', v)}
               </button>
             ))}
+            {obstacleEdges.length > 0 && (
+              <>
+                <span className="text-line">|</span>
+                <button
+                  onClick={() => setShowObstacles((v) => !v)}
+                  className={`flex items-center gap-1.5 bg-paper/80 px-1 transition-opacity ${
+                    showObstacles ? '' : 'opacity-40'
+                  }`}
+                  title={lang === 'zh' ? '按共同障碍重新聚类' : 'Re-cluster by shared obstacles'}
+                >
+                  <span className="inline-block w-5 border-t border-dashed border-[#4c4a42]" />
+                  {t('pg.obstacles')}
+                </button>
+              </>
+            )}
+            {visitedIds && visitedIds.size > 0 && (
+              <>
+                <span className="text-line">|</span>
+                <span className="flex items-center gap-1.5 bg-paper/80 px-1">
+                  <span className="inline-block w-2.5 h-2.5 rounded-full border border-ink-3 bg-paper" />
+                  {t('pg.visited')}
+                </span>
+              </>
+            )}
             <span className="text-line">|</span>
             <span className="bg-paper/80 px-1">
               {t('pg.hint')}
