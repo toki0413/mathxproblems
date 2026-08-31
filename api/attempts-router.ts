@@ -5,6 +5,7 @@ import {
   insertAttempt,
   listApprovedAttempts,
   listAttemptsByUser,
+  listBitsIndex,
   listLatestVerifications,
   listPendingAttempts,
   reviewAttempt,
@@ -25,6 +26,8 @@ const attemptSchema = z
     formalStatus: z.enum(FORMAL_STATUSES).optional(),
     // 方法标签（可选）：自报技术族，供障碍图做方法→问题路由
     method: z.string().trim().min(1).max(80).optional(),
+    // 思路与反思（可选）：怎么想到的、卡在哪、为什么失败——把账本变成研究日志
+    narrative: z.string().trim().min(10).max(3000).optional(),
   })
   .refine((v) => v.kind !== "verification" || !!v.newBand, {
     message: "verification requires newBand",
@@ -40,7 +43,7 @@ export const attemptsRouter = createRouter({
   submit: publicQuery
     .input(attemptSchema)
     .mutation(async ({ ctx, input }) => {
-      const { problemId, kind, title, content, authorName, newBand, formalStatus, method } = input;
+      const { problemId, kind, title, content, authorName, newBand, formalStatus, method, narrative } = input;
       await insertAttempt({
         problemId,
         kind,
@@ -50,6 +53,7 @@ export const attemptsRouter = createRouter({
         newBand,
         formalStatus,
         method,
+        narrative,
         // 登录态才关联用户；匿名提交该字段为 null
         userId: ctx.user ? ctx.user.id : undefined,
       });
@@ -65,6 +69,9 @@ export const attemptsRouter = createRouter({
   recentVerifications: publicQuery
     .input(z.object({ limit: z.number().int().min(1).max(50).optional() }))
     .query(async ({ input }) => listLatestVerifications(input.limit ?? 12)),
+
+  /** 全库逐题累计 bits 索引：图谱节点编码 / 索引徽标 / 监测摘要的前置呈现 */
+  bitsIndex: publicQuery.query(async () => listBitsIndex()),
 
   mine: authedQuery.query(async ({ ctx }) => listAttemptsByUser(ctx.user.id)),
 
