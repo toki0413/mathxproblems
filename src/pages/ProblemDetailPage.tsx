@@ -8,6 +8,8 @@ import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
 import { useAuth } from '@/hooks/useAuth'
+import { useMarkVisited } from '@/hooks/useVisited'
+import { BandRuler } from '@/components/BandRuler'
 
 /** 产出类型的标识色：行为证书=绿、真理解证书=蓝、学科骨架=灰 */
 const OUTPUT_COLOR: Record<OutputKind, string> = {
@@ -51,6 +53,7 @@ export default function ProblemDetailPage() {
   const { id } = useParams()
   const { lang, t } = useI18n()
   const p = PROBLEMS.find((x) => x.id === id)
+  useMarkVisited(p?.id)
   const [copied, setCopied] = useState(false)
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
   const attempts = trpc.attempts.approved.useQuery({ problemId: id ?? '' })
@@ -227,10 +230,19 @@ export default function ProblemDetailPage() {
                         {t('pd.ledger')}
                       </div>
                       <p className="text-xs text-ink-3 mb-3 leading-relaxed">{t('pd.ledger.hint')}</p>
+                      <BandRuler steps={verified} />
                       <ul className="divide-y divide-line">
                         {verified.map((v) => (
                           <li key={v.id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-2.5">
-                            <span className="font-mono2 text-xs text-mc">{v.newBand}</span>
+                            <span className="font-mono2 text-xs text-mc" style={{ fontVariantNumeric: 'tabular-nums' }}>{v.newBand}</span>
+                            {v.bits != null && (
+                              <span
+                                className={`font-mono2 text-[10px] shrink-0 ${v.bits >= 0 ? 'text-mc' : 'text-me'}`}
+                                style={{ fontVariantNumeric: 'tabular-nums' }}
+                              >
+                                {v.bits >= 0 ? '+' : ''}{v.bits.toFixed(2)} {t('pd.bits')}
+                              </span>
+                            )}
                             <span className="flex-1 min-w-0 text-ink-2 text-xs leading-relaxed">{v.title}</span>
                             <span className="font-mono2 text-[11px] text-ink-3">
                               {v.authorName ? `${v.authorName} · ` : ''}
