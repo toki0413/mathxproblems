@@ -13,6 +13,7 @@ import {
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
 import { Stars } from '@/components/ProblemRow'
+import type { BitsInfo } from '@/hooks/useBitsIndex'
 
 interface N {
   id: string
@@ -95,6 +96,7 @@ export function ProblemGraph({
   onHoverProblem,
   visitedIds,
   hoverPanel = true,
+  bitsIndex,
 }: {
   height?: number
   focusId?: string
@@ -109,6 +111,8 @@ export function ProblemGraph({
   visitedIds?: Set<string>
   /** 是否显示右上角悬停卡片（分屏模式下由列表承担，关闭） */
   hoverPanel?: boolean
+  /** 逐题累计 bits：节点半径加成 + 悬停卡/图例展示；无后端时缺省 */
+  bitsIndex?: ReadonlyMap<string, BitsInfo>
 }) {
   const { lang, t } = useI18n()
   const nav = useNavigate()
@@ -444,7 +448,9 @@ export function ProblemGraph({
         const n = nodes[ni]
         const color = DOMAINS[n.domain].color
         const s = toScreen(n.x, n.y)
-        const rr = n.r * Math.min(k, 1.6)
+        // 累计 bits → 半径加成（sqrt 压缩、封顶 2.5px）：推进量一眼可读
+        const bitsBoost = Math.min(2.5, Math.sqrt(Math.max(bitsIndex?.get(n.id)?.bits ?? 0, 0)) * 1.1)
+        const rr = (n.r + bitsBoost) * Math.min(k, 1.6)
         const isFocus = n.id === focusId
         const isHover = n === effHover
         const isActive = !dimAll || active.has(nodes.indexOf(n))
@@ -588,7 +594,7 @@ export function ProblemGraph({
       canvas.removeEventListener('wheel', onWheel)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, hiddenVp, hiddenSt, recentIds, nav, showObstacles, obstacleEdges, visitedIds])
+  }, [height, focusId, interactive, full, lang, hidden, hiddenRels, hiddenVp, hiddenSt, recentIds, nav, showObstacles, obstacleEdges, visitedIds, bitsIndex])
 
   const toggleDomain = (d: Domain) =>
     setHidden((s) => {
@@ -622,6 +628,16 @@ export function ProblemGraph({
       return n
     })
 
+  // bits 前置：悬停卡读单题，图例只在全库有累计量时出现
+  const hoveredBits = hovered ? bitsIndex?.get(hovered.id) : undefined
+  const bitsTotal = useMemo(() => {
+    let s = 0
+    bitsIndex?.forEach((v) => {
+      s += v.bits
+    })
+    return s
+  }, [bitsIndex])
+
   return (
     <div className={full ? 'relative h-full' : ''}>
       <div
@@ -652,6 +668,17 @@ export function ProblemGraph({
             <Stars difficulty={hovered.difficulty} />
             <span className="font-mono2 text-[11px] text-ink-3">{hovered.subdomain}</span>
           </div>
+          {hoveredBits && hoveredBits.bits > 0 && (
+            <div
+              className="mt-2 font-mono2 text-[11px] text-[#1e7a5a]"
+              style={{ fontVariantNumeric: 'tabular-nums' }}
+            >
+              Σ +{hoveredBits.bits.toFixed(2)} bits
+              {hoveredBits.lastBand && (
+                <span className="text-ink-3"> · {hoveredBits.lastBand}</span>
+              )}
+            </div>
+          )}
           {impactOf(hovered).length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {impactOf(hovered).map((d) => (
@@ -801,6 +828,18 @@ export function ProblemGraph({
                 <span className="flex items-center gap-1.5 bg-paper/80 px-1">
                   <span className="inline-block w-2.5 h-2.5 rounded-full border border-ink-3 bg-paper" />
                   {t('pg.visited')}
+                </span>
+              </>
+            )}
+            {bitsTotal > 0 && (
+              <>
+                <span className="text-line">|</span>
+                <span
+                  className="flex items-center gap-1.5 bg-paper/80 px-1"
+                  style={{ fontVariantNumeric: 'tabular-nums' }}
+                >
+                  <span className="inline-block w-3 h-3 rounded-full border-2 border-ink-3" />
+                  {t('pg.bitslegend')} · Σ +{bitsTotal.toFixed(1)}
                 </span>
               </>
             )}
