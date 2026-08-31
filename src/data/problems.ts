@@ -128,7 +128,7 @@ export interface Problem {
   /** 溯源：提出者 */
   proposer?: string
   /** 溯源：提出年份 */
-  proposed_year?: string
+  proposed_year?: number
   /** 溯源：出处（文献或对话） */
   via?: { label: string; url?: string }
   /** 轻量更新记录：修订 / 新进展 / 状态变更 */
@@ -4189,7 +4189,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       '**Kinematic over-counting**: the indirect energy mixes several particles, so purely local density inequalities must be derived from the full $N$-particle wave function, an inherently hard step.',
     ],
     engineering_value:
-      "The sharp exchange-correlation constant is the ceiling every correlation functional must respect; pinning it down lets DFT tool authors and materials simulators certify their gradient-corrected functionals do not violate the strict kinematic lower bound. 本榜交付的是可核验收缩括号而非终极常数，并把模型层（局部 $\\rho^{4/3}$ 泛函族限定）与数值层（区间/符号封闭）残差显式分开合成总带，使"该泛函是否违反下界"成为带证判定而非依赖当前最好的已知常数。",
+      "The sharp exchange-correlation constant is the ceiling every correlation functional must respect; pinning it down lets DFT tool authors and materials simulators certify their gradient-corrected functionals do not violate the strict kinematic lower bound. 本榜交付的是可核验收缩括号而非终极常数，并把模型层（局部 $\\rho^{4/3}$ 泛函族限定）与数值层（区间/符号封闭）残差显式分开合成总带，使“该泛函是否违反下界”成为带证判定而非依赖当前最好的已知常数。",
     formalization_notes:
       'The proving route is real analysis together with rearrangement and harmonic-analysis bounds on the exchange integral; the two-sided bracket obtained by Lewin, Lieb and Seiringer is a natural verified target, while exact equality remains research-level.',
     references: [
