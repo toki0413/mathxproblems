@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { PROBLEMS, relatedOf } from '@/data/problems'
+import { MATHLIB_TOOLS } from '@/data/mathlibTools'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
@@ -58,6 +59,7 @@ export default function ApiPage() {
         {[
           ['problems.json', t2('api.problems.desc'), PROBLEMS.length],
           ['benchmark.json', t2('api.benchmark.desc'), benchmark.length],
+          ['tools.json', t2('api.tools.desc'), MATHLIB_TOOLS.length],
         ].map(([path, desc, n]) => (
           <div key={path as string} className="grid md:grid-cols-[14rem_1fr_auto] gap-3 p-5 items-baseline">
             <code className="font-mono2 text-sm">{path}</code>

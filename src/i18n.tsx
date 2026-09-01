@@ -148,6 +148,22 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.engineering': { zh: '工程价值与转化', en: 'Engineering value & translation' },
   'pd.formalization': { zh: '形式化评注', en: 'Formalization notes' },
   'pd.impact': { zh: '影响领域', en: 'Impact domains' },
+  'pd.failure': { zh: '为何已知方法失败', en: 'Why known methods fail' },
+  'pd.failure.hint': {
+    zh: '已知方法的结构化失败记录——AI 智能体的路标。',
+    en: 'Structured records of known methods and why they get stuck — signposts for AI agents.',
+  },
+  'pd.failure.method': { zh: '方法', en: 'Method' },
+  'pd.failure.partial': { zh: '已知部分结果', en: 'Partial result' },
+  'pd.failure.impact': { zh: '启示', en: 'Implication' },
+  'pd.tools': { zh: '形式工具映射', en: 'Formal tool mapping' },
+  'pd.tools.hint': {
+    zh: '本题 ↔ mathlib 工具族的双向索引（可用 / 部分 / 缺失）。',
+    en: 'Bidirectional index to mathlib tool families: available / partial / missing.',
+  },
+  'pd.tools.role': { zh: '角色', en: 'Role' },
+  'pd.tools.area': { zh: 'mathlib 区域', en: 'mathlib area' },
+  'pd.tools.none': { zh: '暂未收录工具映射。', en: 'No tool mapping yet.' },
   'pd.references': { zh: '参考文献', en: 'References' },
   'pd.related': { zh: '关联问题', en: 'Related problems' },
   'pd.comments': { zh: '讨论', en: 'Discussion' },
@@ -242,6 +258,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'api.benchmark.desc': {
     zh: '筛选 formalization_potential = high 的题集，供 AI 形式化基准使用',
     en: 'The formalization_potential = high subset, for AI formalization benchmarks',
+  },
+  'api.tools.desc': {
+    zh: '形式工具注册表：mathlib 工具族 ↔ 工程判定的供给侧索引',
+    en: 'Formal tool registry — mathlib tool families ↔ engineering judgements',
   },
   'api.download': { zh: '下载', en: 'Download' },
   'api.copy': { zh: '复制', en: 'Copy' },

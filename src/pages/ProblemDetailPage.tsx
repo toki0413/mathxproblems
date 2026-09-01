@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useState } from 'react'
 import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
+import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
@@ -441,6 +442,50 @@ export default function ProblemDetailPage() {
             </div>
           </Section>
 
+          {p.failure_records && p.failure_records.length > 0 && (
+            <Section title={t('pd.failure')}>
+              <p className="text-xs text-ink-3 leading-relaxed mb-4">{t('pd.failure.hint')}</p>
+              <div className="space-y-3">
+                {p.failure_records.map((r, i) => (
+                  <div key={i} className="border border-line bg-white/50 p-5">
+                    <div className="flex items-start justify-between gap-3 flex-wrap">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-mono2 text-[11px] text-ink-3 shrink-0">
+                          {t('pd.failure.method')} {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span className="font-statement font-bold text-ink">{r.method}</span>
+                      </div>
+                      <span className="border border-line rounded-full px-2.5 py-0.5 text-[11px] text-ink-2 shrink-0">
+                        {MECHANISM_LABEL[r.mechanism]}
+                      </span>
+                    </div>
+                    {r.layer && (
+                      <div className="mt-2 font-mono2 text-[11px] text-ink-3 uppercase tracking-[0.15em]">
+                        layer: {r.layer}
+                      </div>
+                    )}
+                    {r.partial && (
+                      <div className="mt-3">
+                        <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+                          {t('pd.failure.partial')}
+                        </div>
+                        <div className="font-statement leading-[1.85] text-ink-2 mt-1">{r.partial}</div>
+                      </div>
+                    )}
+                    {r.implication && (
+                      <div className="mt-3">
+                        <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+                          {t('pd.failure.impact')}
+                        </div>
+                        <div className="font-statement leading-[1.85] text-ink-2 mt-1">{r.implication}</div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
           {p.engineering_value && (
             <Section title={t('pd.engineering')}>
               <p className="font-statement leading-[1.9] text-ink-2">{p.engineering_value}</p>
@@ -477,6 +522,45 @@ export default function ProblemDetailPage() {
                   ? '点击影响领域可查看传导至同一工程/技术方向的全部问题。'
                   : 'Click an impact domain to see every problem translating into the same engineering direction.'}
               </p>
+            </Section>
+          )}
+
+          {p.tool_links && p.tool_links.length > 0 && (
+            <Section title={t('pd.tools')}>
+              <p className="text-xs text-ink-3 leading-relaxed mb-4">{t('pd.tools.hint')}</p>
+              <div className="space-y-3">
+                {p.tool_links.map((tl, i) => {
+                  const tool = toolById(tl.tool_id)
+                  if (!tool) {
+                    return (
+                      <div key={i} className="border border-line bg-white/50 p-4 text-sm text-ink-2">
+                        {tl.tool_id}
+                      </div>
+                    )
+                  }
+                  return (
+                    <div key={i} className="border border-line bg-white/50 p-5">
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <a
+                          href={tool.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-statement font-bold text-ink hover:underline underline-offset-4"
+                        >
+                          {tool.name}
+                        </a>
+                        <span className="border border-line rounded-full px-2.5 py-0.5 text-[11px] text-ink-2 shrink-0">
+                          {TOOL_ROLE_LABEL[tl.role]}
+                        </span>
+                      </div>
+                      <div className="mt-2 font-mono2 text-[11px] text-ink-3 uppercase tracking-[0.15em]">
+                        {tool.category} · {t('pd.tools.area')}: {tool.area}
+                      </div>
+                      <p className="font-statement leading-[1.85] text-ink-2 mt-2">{tool.blurb}</p>
+                    </div>
+                  )
+                })}
+              </div>
             </Section>
           )}
 

@@ -5,6 +5,7 @@
 // Downstream agents/prover pipelines GET a versioned, etag-able snapshot.
 import { PROBLEMS } from "../src/data/problems";
 import type { Problem } from "../src/data/problems";
+import { MATHLIB_TOOLS } from "../src/data/mathlibTools";
 
 function oneProblem(p: Problem) {
   return {
@@ -54,11 +55,34 @@ function oneProblem(p: Problem) {
       : undefined,
     proposer: p.proposer || undefined,
     proposed_year: p.proposed_year ?? undefined,
+    failure_records: p.failure_records?.length
+      ? p.failure_records.map((r) => ({
+          method: r.method,
+          mechanism: r.mechanism,
+          layer: r.layer || undefined,
+          partial: r.partial || undefined,
+          implication: r.implication || undefined,
+        }))
+      : undefined,
+    tool_links: p.tool_links?.length
+      ? p.tool_links.map((tl) => ({ tool_id: tl.tool_id, role: tl.role }))
+      : undefined,
   };
 }
 
 export function buildCatalog() {
   return PROBLEMS.map(oneProblem).filter((p) => p.id);
+}
+
+export function buildTools() {
+  return MATHLIB_TOOLS.map((t) => ({
+    id: t.id,
+    name: t.name,
+    area: t.area,
+    category: t.category,
+    blurb: t.blurb,
+    url: t.url,
+  }));
 }
 
 export function buildBenchmark() {

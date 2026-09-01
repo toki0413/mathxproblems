@@ -11,6 +11,24 @@ export const BRIDGE_DIRECTIONS = new Set(['formal_idealizes_banded', 'banded_ins
 export const BATCH_ADDED = '2026-08-23'
 export const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
 export const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
+// 试点数据契约：tool_links 只能引用注册表工具，failure_records 用固定类型学枚举。
+export const TOOL_IDS = new Set([
+  'spectral-operator',
+  'measure-ergodic',
+  'analysis-asymptotics',
+  'topology',
+  'lattice-order',
+  'convex-optimization',
+  'interval-numerics',
+  'combinatorics-graph',
+  'polynomial-real',
+  'stochastic-processes',
+  'dynamical-systems',
+  'algebra',
+])
+export const MECHANISMS = new Set(['combinatorial', 'missing_bound', 'nonconvex', 'unbounded_residual', 'parameter_sensitive'])
+export const FAILURE_LAYERS = new Set(['model', 'param', 'num', 'formal'])
+export const TOOL_ROLES = new Set(['available', 'partial', 'missing'])
 // 真实性收敛门槛：date_added 不早于该日期的新问题，judgment 不得再以统一的
 // 'A pass ' / '合格答案为' 骨架开头（存量 101 道模板腔是既有事实，靠人后续收敛，
 // 不在门内）。目的是从根上杜绝用同一模板批量生产新题。
@@ -251,6 +269,27 @@ export function checkCatalog(raw) {
   }
   if (badCert.length) failures.push(`certificate structural issues: ${badCert.join(', ')}`)
   else if (certIds.length) notes.push(`certificate: all ${certIds.length} structured certificates have complete layers`)
+
+  // 试点：形式工具映射 + 结构化失败记录契约（工具 id / 机制 / 层 / 角色 枚举合法）。
+  const badTool = [...src.matchAll(/tool_id: '([^']+)'/g)]
+    .map((m) => m[1])
+    .filter((id) => !TOOL_IDS.has(id))
+  const badRole = [...src.matchAll(/tool_links:\s*\[\s*([\s\S]*?)\]\s*,\n/g)]
+    .flatMap((m) => [...m[1].matchAll(/role: '([^']+)'/g)].map((r) => r[1]))
+    .filter((r) => !TOOL_ROLES.has(r))
+  const badMech = [...src.matchAll(/mechanism: '([^']+)'/g)]
+    .map((m) => m[1])
+    .filter((m) => !MECHANISMS.has(m))
+  const badLayer = [...src.matchAll(/layer: '([^']+)'/g)]
+    .map((m) => m[1])
+    .filter((l) => !FAILURE_LAYERS.has(l))
+  const toolCount = (src.match(/tool_links:/g) || []).length
+  const failureCount = (src.match(/failure_records:/g) || []).length
+  if (badTool.length) failures.push(`tool_links reference unknown tools: ${[...new Set(badTool)].join(', ')}`)
+  if (badRole.length) failures.push(`tool_links use invalid role: ${[...new Set(badRole)].join(', ')}`)
+  if (badMech.length) failures.push(`failure_records use unknown mechanism: ${[...new Set(badMech)].join(', ')}`)
+  if (badLayer.length) failures.push(`failure_records use invalid layer: ${[...new Set(badLayer)].join(', ')}`)
+  else notes.push(`pilot index: ${toolCount} tool_links blocks, ${failureCount} failure_records blocks`)
 
   const delivIds = [...hasDeliverables]
   if (delivIds.length) notes.push(`engineering_deliverables: ${delivIds.length} problems have structured deliverables`)

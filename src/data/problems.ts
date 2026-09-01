@@ -1,4 +1,5 @@
 import type { Domain } from '@contracts/constants'
+import type { FailureRecord, ToolLink } from './mathlibTools'
 export type { Domain }
 
 export type FormalizationPotential = 'high' | 'medium' | 'low'
@@ -143,6 +144,10 @@ export interface Problem {
   formal_view?: FormalView
   /** 双桥桥(可选): 形式视图(T)与带证书(C, 由 certificate 承担)的语义连接。 */
   bridge?: Bridge
+  /** 结构化失败记录：为何已知方法失败（机读版；obstacles 保留人读散文）。 */
+  failure_records?: FailureRecord[]
+  /** 形式工具映射：本题 ↔ mathlib 工具的 m:n 双向索引（试点）。 */
+  tool_links?: ToolLink[]
 }
 
 export const PROBLEMS: Problem[] = [
@@ -169,6 +174,27 @@ export const PROBLEMS: Problem[] = [
       url: 'https://doi.org/10.1007/3-540-07160-1_16',
     },
     impact_domains: ["Rarefied gas dynamics","Hypersonic and microfluidic gas simulation"],
+    failure_records: [
+      {
+        method: 'Lanford collision-tree expansion',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Converges for times up to a fraction of the mean free time; global-in-time only in the vacuum (no-recollision) setting.',
+        implication: 'Needs a phase-space exclusion argument controlling the combinatorially proliferating collision trees uniformly in time.',
+      },
+      {
+        method: 'BBGKY hierarchy with pseudo-trajectories',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Gallagher–Saint-Raymond–Texier gave refined short-time control of pseudo-trajectories.',
+        implication: 'A uniform-in-time a priori bound on the marginals would close the gap; the natural first formalization target.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'measure-ergodic', role: 'partial' },
+      { tool_id: 'topology', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-008',
@@ -225,6 +251,27 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
       url: 'https://doi.org/10.4007/annals.2006.164.993',
     },
     impact_domains: ["Atmospheric and oceanic turbulence assimilation","Climate and ocean model predictability"],
+    failure_records: [
+      {
+        method: 'Harris-type / asymptotic strong Feller coupling (Hairer–Mattingly)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Ergodicity with finitely many forced modes is proved and exponential mixing follows from Harris-type theorems, but with constants far from sharp.',
+        implication: 'Identify the optimal exponent a in the nu^a scaling of the Markov-semigroup spectral gap and certify matching upper and lower mixing bounds uniformly in nu.',
+      },
+      {
+        method: 'Jacobian-flow sensitivity control under hypoelliptic drift',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Noise reaches high modes only through the nonlinear term; the Jacobian flow is controlled non-uniformly in the viscosity nu.',
+        implication: 'A uniform-in-nu estimate on the Jacobian flow is the missing ingredient that converts abstract mixing into the sharp nu^a rate.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'measure-ergodic', role: 'partial' },
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-008',
@@ -275,6 +322,27 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     last_verified: '2026-08-22',
     impact_domains:
     ["Nonequilibrium statistical physics","First-principles modeling of thermal conductivity"],
+    failure_records: [
+      {
+        method: 'KAM / Nekhoroshev perturbation theory',
+        mechanism: 'combinatorial',
+        layer: 'param',
+        partial: 'At low energy most tori persist and Nekhoroshev-type estimates give exponential long-time stability, but the constants degenerate badly as N grows.',
+        implication: 'A thermodynamic-limit estimate needs KAM/Nekhoroshev constants uniform in the particle number N; the degenerating constants are the obstruction.',
+      },
+      {
+        method: 'Arnold-diffusion / slow-drift analysis',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Numerics suggest a slow drift drives late-time equilibration, but no rigorous mechanism for it exists.',
+        implication: 'Bound the drift that transfers energy across resonances to obtain the equilibration time T_eq(N,epsilon) and the KAM/thermalization cutoff.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     via: { label: 'Ford, The Fermi-Pasta-Ulam problem: paradox turns discovery, Phys. Rep. 213 (1992) 271-310', url: 'https://doi.org/10.1016/0370-1573(92)90116-H' },
     related_problems: [
       {
@@ -335,6 +403,26 @@ fix energy per particle $\\varepsilon > 0$. Prove that for generic initial data 
       url: 'https://doi.org/10.1103/PhysRev.109.1492',
     },
     impact_domains: ["Disordered electron and photon transport","Insulator–metal transition materials design"],
+    failure_records: [
+      {
+        method: 'Multi-scale analysis (Fröhlich–Spencer)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Proves localization for large disorder or at spectral edges in any dimension; it needs an a priori decay scale that is missing for small lambda in d=2.',
+        implication: 'Construct the missing decay scale at weak disorder instead of assuming it — the decisive step for localization at all lambda > 0 on Z^2.',
+      },
+      {
+        method: 'Fractional-moment method (Aizenman–Molchanov)',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Gives localization in d=1 at all disorders and at large disorder in higher dimensions; weak-disorder resonances in d=2 defeat the resolvent estimate.',
+        implication: 'A disorder-uniform resolvent bound on Z^2 would push localization below the current resonance-limited regime.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'spectral-operator', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-007',
@@ -395,6 +483,26 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
       url: 'https://doi.org/10.1007/BF01217704',
     },
     impact_domains: ["Quantum spin systems and topological states","Quantum simulation and quantum error correction"],
+    failure_records: [
+      {
+        method: 'Projector-anticommutator / finite-volume eigenvalue certificates (Lemm–Sandvik–Wang; Pomata–Wei)',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'Closed the honeycomb (degree-3) gap with numerically assisted DMRG/Lanczos certificates; the estimates fail at vertex degree 4 and the finite problems exceed exact-diagonalization reach.',
+        implication: 'A verified finite eigenvalue certificate (rigorous Lanczos / interval bounds) on the square lattice is the concrete formalization target.',
+      },
+      {
+        method: 'PEPS / transfer-matrix gap arguments',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The gap does not follow from the frustration-free PEPS structure alone; non-uniqueness of parent Hamiltonians blocks transfer-matrix arguments.',
+        implication: 'Formalize the finite-matrix certificate and push the anticommutator estimates to vertex degree 4 to reach the thermodynamic limit.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'spectral-operator', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [],
     statement: `The spin-2 AKLT state on the square lattice is the unique ground state of the local, frustration-free, $SU(2)$-invariant Hamiltonian $H = \\sum_{\\langle i,j\\rangle} P^{(2)}_{ij}$ built from spin-2 projectors. **Prove that the thermodynamic-limit Hamiltonian has a uniform spectral gap $\\Delta > 0$ above the ground state**, or prove gaplessness. A companion challenge: give a **fully analytic (computer-free)** gap proof for the honeycomb spin-3/2 case, where the gap is known only through numerically-assisted arguments.`,
     origin:
@@ -449,6 +557,26 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
       url: 'https://doi.org/10.1007/BF02246886',
     },
     impact_domains: ["Wave turbulence and extreme-event prediction","Nonlinear optics and oceanic rogue waves"],
+    failure_records: [
+      {
+        method: 'I-method (Bourgain; CKSTT)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Polynomial growth bounds for the H^s norm are known with non-optimal exponents; arbitrarily large finite growth is established, unboundedness is not.',
+        implication: 'Improve the I-method exponents toward the conjectured optimal t^C(s) and decide whether sup over t of the H^s norm can be infinite for s > 1.',
+      },
+      {
+        method: 'Resonant frequency analysis (Guardia–Kaloshin)',
+        mechanism: 'combinatorial',
+        layer: 'param',
+        partial: 'Growth is driven by resonant frequency interactions whose combinatorics on Z^2 is only controlled at small scales.',
+        implication: 'A large-scale combinatorial control of the resonant sets would turn the energy cascade into a rigorous polynomial bound.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'dynamical-systems', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-003',
@@ -496,6 +624,27 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     proposed_year: 2012,
     via: { label: 'Survey of localization–delocalization for random band matrices and recent results: the Becker–Cipolloni–Erdős series; together with Erdős–Yau, A dynamical approach to random matrix theory (2012)' },
     impact_domains: ["Quantum chaos and random matrix theory","Quantum transport and open systems"],
+    failure_records: [
+      {
+        method: 'Matrix-Brownian-motion embedding / moment method (Yau–Yin)',
+        mechanism: 'parameter_sensitive',
+        layer: 'model',
+        partial: 'Delocalization and bulk universality are proved for W > N^(1/2+epsilon); the embedding estimates saturate at the N^epsilon margin above sqrt(N).',
+        implication: 'Remove the epsilon in the window W in [N^(1/2), N^(1/2+epsilon)] by sharpening the moment/embedding estimates at the critical scale.',
+      },
+      {
+        method: 'Fractional-moment localization (Schenker; Peled–Schenker–Shamis–Sodin)',
+        mechanism: 'missing_bound',
+        layer: 'param',
+        partial: 'Proves localization only for W much smaller than N^(1/8); rare resonances near the critical window defeat resolvent bounds.',
+        implication: 'Extend the resolvent / fractional-moment control toward the sqrt(N) threshold where the transition is conjectured.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'spectral-operator', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'stochastic-processes', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-004',
@@ -562,6 +711,27 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
       url: 'https://doi.org/10.1007/BF02780991',
     },
     impact_domains: ["Statistical modeling of turbulent dissipation","CFD subgrid model benchmarks"],
+    failure_records: [
+      {
+        method: 'Suitable weak solutions (Caffarelli–Kohn–Nirenberg partial regularity)',
+        mechanism: 'unbounded_residual',
+        layer: 'model',
+        partial: 'Bounds the singular set of suitable weak solutions, but gives no positive lower bound on energy dissipation.',
+        implication: 'A certified-numerics route on a restricted solution class could establish the residual layer for the R_num/R_model band.',
+      },
+      {
+        method: 'Onsager critical-regularity / anomalous dissipation programme',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Dissipation anomaly at critical regularity is conjectured for Euler, not established for the NS zero-viscosity limit.',
+        implication: 'Formalizing the CKN partial-regularity theorem is a concrete first step toward a machine-checkable target.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'measure-ergodic', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-002',
@@ -619,6 +789,27 @@ i.e. dissipation does not vanish with viscosity — the empirically universal si
       url: 'https://doi.org/10.1007/BF00251396',
     },
     impact_domains: ["Reaction network dynamics theory","Mathematical stability of metabolic and signaling networks"],
+    failure_records: [
+      {
+        method: 'Pseudo-Helmholtz Lyapunov function (Horn–Jackson)',
+        mechanism: 'unbounded_residual',
+        layer: 'model',
+        partial: 'Establishes local asymptotic stability; the Lyapunov function is proper only on compact subsets of the relative interior, so trajectories near the orthant faces escape its control.',
+        implication: 'Control the lock-down (semi-locking) sets to certify that no omega-limit point lies on the boundary — the decisive step toward global stability.',
+      },
+      {
+        method: 'Numerical counterexample search',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'The network space grows combinatorially and numerics cannot distinguish slow convergence from boundary attraction.',
+        implication: 'Verified (interval / rigorous) simulation can certify whether a trajectory approaches the boundary, complementing the Lyapunov argument.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'lattice-order', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [
       {
         id: 'mc-002',
@@ -684,6 +875,26 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
       url: 'https://doi.org/10.1137/060664017',
     },
     impact_domains: ["Reaction network persistence criteria","Long-term stable operation of catalytic processes"],
+    failure_records: [
+      {
+        method: 'Endotactic / geometric reaction-vector criteria (Craciun–Nazarov–Pantea; Gopalkrishnan–Miller–Shiu)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Prove persistence for all endotactic networks, covering all 2D and many higher-dimensional cases; weakly reversible networks need not be endotactic in dimension >= 3.',
+        implication: 'Extend the geometric reaction-vector condition to the weakly-reversible non-endotactic cases in dimension >= 3.',
+      },
+      {
+        method: 'Semilock-set / face-boundary analysis',
+        mechanism: 'combinatorial',
+        layer: 'model',
+        partial: 'A trajectory can approach a face of the orthant without any single species going to zero, evading semilock-set arguments.',
+        implication: 'Classify the face-approach dynamics combinatorially to certify a uniform distance from the boundary.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'lattice-order', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -736,6 +947,27 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposed_year: 2000,
     via: { label: 'Survey of inverse eigenvalue / realizable spectra of chemical graphs: Gutman & Cyvin, Advances in the Theory of Benzenoid Hydrocarbons' },
     impact_domains: ["Band-gap design of organic electronic materials","Synthetic screening of aromatic hydrocarbons"],
+    failure_records: [
+      {
+        method: 'Inverse eigenvalue / realizability constraints for benzenoids',
+        mechanism: 'combinatorial',
+        layer: 'model',
+        partial: 'Benzenoids are bipartite so spectra are symmetric; realizability couples integer-coefficient characteristic polynomials with hexagonal-embedding geometry, and no inverse theorem exists for the family.',
+        implication: 'A verified enumeration of polyhex structures combined with interval arithmetic can certify realizability decisions for target gaps.',
+      },
+      {
+        method: 'Extremal HOMO–LUMO gap search via Clar structures',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Extremal gap candidates are conjectured from chemical heuristics without proof.',
+        implication: 'Prove the extremal-gap bound, replacing heuristic conjectures with a certified quadratic spectral criterion.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [],
     statement: `A benzenoid graph is a finite connected subgraph of the hexagonal lattice with no cut vertices (fused benzene rings). Under Hückel theory, the adjacency spectrum of the molecular graph determines $\\pi$-electron energies. **Characterize the set of realizable spectra**: give necessary and sufficient conditions for a multiset of real numbers in $[-3,3]$ to be the adjacency spectrum of a benzenoid graph; in particular, classify the maximal spectral gaps (HOMO–LUMO gaps) attainable as a function of the number of hexagons.`,
     origin:
@@ -813,6 +1045,27 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       url: 'https://doi.org/10.1137/S0895479803446819',
     },
     impact_domains: ["Cellular multistability and cell-fate decisions","Bistable design of reaction networks"],
+    failure_records: [
+      {
+        method: 'Quantifier elimination on multistationarity conditions',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'Multistationarity conditions are polynomial inequalities in rate constants; quantifier elimination is doubly exponential in the number of species and reactions.',
+        implication: 'A verified SAT/SMT or Lean enumeration of the motif space would certify exhaustiveness without correctness gaps.',
+      },
+      {
+        method: 'Computer-assisted network enumeration (Joshi–Shiu atoms)',
+        mechanism: 'unbounded_residual',
+        layer: 'formal',
+        partial: 'Embedding and lifting results show small motifs generate all multistationary networks, but exhaustive case analysis over topologies has correctness gaps.',
+        implication: 'Machine-check the enumeration so the finite list of multistationarity motifs is certified to be exhaustive.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'polynomial-real', role: 'partial' },
+      { tool_id: 'algebra', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -878,6 +1131,27 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposed_year: 2008,
     via: { label: 'Sontag, Dynamic compensation, parameter identifiability, and equivariances, PLoS Comput. Biol. 13 (2017); review of identifiability methods see Miao et al., SIAM Review 53 (2011)', url: 'https://doi.org/10.1371/journal.pcbi.1005447' },
     impact_domains: ["Experimental kinetics modeling","Parameterization in catalysis and systems biology"],
+    failure_records: [
+      {
+        method: 'Differential-algebra identifiability (DAISY and successors)',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'Decides identifiability for moderate-size models, but with no general complexity classification purely in terms of graph-theoretic data.',
+        implication: 'Formalize the correctness of the differential-algebra decision procedure for linear compartmental models as the machine-checkable first milestone.',
+      },
+      {
+        method: 'Parameter-equivalence / indistinguishability analysis',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Fully characterizes parameter equivalence classes for small networks; structurally identifiable parameters may still be practically unrecoverable.',
+        implication: 'Propagate the measurement interval through the decision boundary so identifiability conclusions remain stable for all k in the interval.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'polynomial-real', role: 'partial' },
+      { tool_id: 'algebra', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [
       {
         id: 'mc-030',
@@ -931,6 +1205,26 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       url: 'https://doi.org/10.1038/nature03204',
     },
     impact_domains: ["Synthetic biology population design","Tumor evolution and treatment strategies"],
+    failure_records: [
+      {
+        method: 'Markov-chain state-space aggregation (isothermal theorem)',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'The Moran chain has 2^N states; symmetries collapse it only for highly structured graphs, and exact computation is #P-hard in general.',
+        implication: 'A polynomial-time algorithm for special graph families, or a certified FPRAS for undirected graphs, is the tractable formalization target.',
+      },
+      {
+        method: 'Amplifier classification via initialization schemes',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Amplification depends on temperature- versus uniform-initialized placement; no unified classification exists even for undirected graphs.',
+        implication: 'Classify amplifiers per initialization scheme — a unified criterion is the missing statement.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'stochastic-processes', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-002',
@@ -987,6 +1281,26 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       url: 'https://doi.org/10.1103/PhysRevLett.86.3200',
     },
     impact_domains: ["Network epidemiology","Vaccine and quarantine strategies for infectious-disease control"],
+    failure_records: [
+      {
+        method: 'Potential-theoretic metastability (reversible tunneling theory)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Metastability machinery applies only partially because the contact process is not reversible; rigorous results exist for regular trees and lattices.',
+        implication: 'Non-reversible potential-theoretic bounds are needed to settle the spectral-radius versus subgraph-trapping dichotomy for general graphs.',
+      },
+      {
+        method: 'Bottleneck-subgraph / trapping analysis (Chatterjee–Durrett)',
+        mechanism: 'combinatorial',
+        layer: 'param',
+        partial: 'Stars survive exponentially long below the mean-field threshold; characterizing the bottleneck configuration for a general graph is a combinatorial problem.',
+        implication: 'Identify the worst subgraph combinatorially to certify which graph families are governed by the adjacency spectral radius versus trapping.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -1049,6 +1363,26 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
       url: 'https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics',
     },
     impact_domains: ["Evolutionary game dynamics","Social learning and evolutionary economics"],
+    failure_records: [
+      {
+        method: 'ESS / perturbation arguments (Hofbauer–Sigmund)',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'ESS guarantees global stability at mu = 0 and for partnership games; perturbation arguments are local and give no uniform-in-mu statement.',
+        implication: 'A Lyapunov certificate uniform in the mutation rate mu is the required form for the stable classification.',
+      },
+      {
+        method: 'Lyapunov ruling-out of Hopf bifurcations',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Mutation can create limit cycles; Lyapunov functions that rule them out globally are known only for special payoff matrices A.',
+        implication: 'Extend the ODE stability library to certify global stability for the classifying pairs (A, Q), not just the mu = 0 case.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-004',
@@ -1107,6 +1441,27 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     proposed_year: 1981,
     via: { label: 'Hofbauer, A general cooperation theorem for hypercycles, MAB 53 (1981); review of persistence see Hofbauer & Sigmund (1998)' },
     impact_domains: ["Community coexistence theory in ecology","Stability design of engineered microbiomes"],
+    failure_records: [
+      {
+        method: 'Average Lyapunov function / splitting method (Hofbauer–Schreiber)',
+        mechanism: 'combinatorial',
+        layer: 'model',
+        partial: 'Gives sufficient conditions via average Lyapunov functions; the boundary has 2^n - 1 faces whose invariant sets can be chaotic, so the criterion must average over all of them.',
+        implication: 'A finite algorithmic criterion over boundary average Lyapunov exponents is the target form, with each boundary invariant set growth certified.',
+      },
+      {
+        method: 'Boundary invariant-set growth computation',
+        mechanism: 'nonconvex',
+        layer: 'num',
+        partial: 'Deciding whether some boundary invariant set has positive average growth is not known to be decidable in general.',
+        implication: 'Verified computation of average Lyapunov exponents for n <= 3 is the tractable certified milestone.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'measure-ergodic', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -1169,6 +1524,26 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
       url: 'https://doi.org/10.1109/JPROC.2006.887291',
     },
     impact_domains: ["Multi-agent cooperative control","UAV swarms and connected vehicles"],
+    failure_records: [
+      {
+        method: 'Spectral / quadratic-form rate analysis via lambda_2(L)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'The linear case has the exact rate given by lambda_2(L); nonlinear coupling destroys the quadratic-form structure, so lambda_2 no longer controls the rate.',
+        implication: 'Construct a Lyapunov rate certificate whose constant depends on the sector bound and lambda_2(L) for Lipschitz nonlinear coupling.',
+      },
+      {
+        method: 'Passivity / output-strict passivity arguments',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Give asymptotic consensus for sector-bounded nonlinearities but no explicit convergence rate.',
+        implication: 'Formalize the linear-case rate theorem as milestone zero and extend it to Lipschitz couplings in Mathlib.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'dynamical-systems', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-002',
@@ -1234,6 +1609,26 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
       url: 'https://proceedings.mlr.press/v70/scaman17a.html',
     },
     impact_domains: ["Distributed optimization and federated learning","Communication efficiency of edge computing"],
+    failure_records: [
+      {
+        method: 'Worst-case adversarial graph-sequence construction',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'Lower bounds exist only for restricted graph sequences or communication models; the space of sequences is combinatorially huge and existing constructions are not known to be extremal.',
+        implication: 'An extremal graph-sequence construction matching the accelerated push-sum/gossip upper bounds is the needed certificate.',
+      },
+      {
+        method: 'First-order oracle complexity framework',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Static-graph lower bounds are near-tight; the role of the connectivity period B versus the spectral gap of the averaged graph is unresolved.',
+        implication: 'Formalize the oracle-complexity framework (deterministic vs randomized) to certify the matching lower bound in the time-varying model.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'me-001',
@@ -1289,6 +1684,26 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
       url: 'https://doi.org/10.1109/TAC.2007.895842',
     },
     impact_domains: ["Collision avoidance and formation for robot swarms","Formation keeping in unmanned systems"],
+    failure_records: [
+      {
+        method: 'Energy / entropy dissipation estimate (Cucker–Smale; Ha–Liu)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Regular-kernel (alpha < 1) unconditional flocking is proven via energy dissipation; the singularity destroys the dissipation structure used to prove alignment.',
+        implication: 'A singular-kernel Lyapunov functional that controls both collisions and velocity alignment would close the alpha >= 1 case.',
+      },
+      {
+        method: 'Contraction / spectral graph argument on state-dependent topology',
+        mechanism: 'combinatorial',
+        layer: 'param',
+        partial: 'The interaction graph depends on the configuration, blocking fixed-spectrum contraction arguments; sticky / measure-valued formulations are only partially developed.',
+        implication: 'Formalize the regular-kernel Ha–Liu proof first; singular-kernel well-posedness needs measure-theory infrastructure beyond current libraries.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'me-001',
@@ -1955,6 +2370,26 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       url: 'https://doi.org/10.1007/978-3-319-72581-1_10',
     },
     impact_domains: ['Distributed systems', 'Network analysis infrastructure'],
+    failure_records: [
+      {
+        method: 'Expander-decomposition algorithms (Chang–Pettie–Saranurak–Zhang)',
+        mechanism: 'unbounded_residual',
+        layer: 'num',
+        partial: 'Give O-tilde(n^(1/3))-type upper bounds whose expander-decomposition overhead hides logarithmic slack.',
+        implication: 'Sharpen the expander-decomposition overhead to decide whether triangle listing matches the O-tilde(n^(1/3)) lower bound exactly.',
+      },
+      {
+        method: 'Two-party communication-complexity reductions (Izumi–Le Gall)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Yield O-tilde(n^(1/3)) lower bounds but do not capture the multi-party topology of the input graph.',
+        implication: 'A multi-party reduction capturing the graph topology is needed to settle the exact exponent and logarithmic factors.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'me-001',
@@ -2067,6 +2502,26 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       url: 'https://doi.org/10.1109/SFCS.2000.892141',
     },
     impact_domains: ['Distributed database replication', 'IoT gossip protocols'],
+    failure_records: [
+      {
+        method: 'Martingale / drift analysis of informed-set sizes',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Give O(log n / Phi(G)) bounds up to polylog slack, tight for regular expanders; correlations across rounds resist the martingale methods.',
+        implication: 'Control inter-round correlations to remove the polylog slack and prove the universal O(log n / Phi(G)) bound.',
+      },
+      {
+        method: 'Conductance-based analysis (Chierichetti–Lattanzi–Panconesi)',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Give almost tight bounds via conductance; bottleneck-chain graphs show conductance alone is not the right parameter.',
+        implication: 'Identify the composite graph parameter (e.g. vertex expansion combined with diameter) that yields matching upper and lower bounds.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-005',
@@ -2466,6 +2921,26 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       url: 'https://doi.org/10.1145/62212.62249',
     },
     impact_domains: ['Robot scheduling', 'Caching and page replacement'],
+    failure_records: [
+      {
+        method: 'Work-function / potential method (Koutsoupias–Papadimitriou)',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'The work-function algorithm achieves at most 2k - 1; no known potential forces the conjectured ratio k on general metrics.',
+        implication: 'A potential or dual certificate with ratio exactly k is the required construction for the general case.',
+      },
+      {
+        method: 'Dual-instance / crossing lower-bound construction',
+        mechanism: 'combinatorial',
+        layer: 'param',
+        partial: 'Matching lower bounds are known only in special cases (lines, trees); the crossing / dual-instance request families are not constructed generally.',
+        implication: 'Build the extremal request-sequence family so the matching lower bound is certified by explicit dual certificates.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'me-007',
@@ -5917,6 +6392,27 @@ Equivalently, resolve whether the decision problems of real-solvability and of g
       url: 'https://doi.org/10.1137/0306048',
     },
     impact_domains: ['Multi-agent cooperative control', 'Distributed sensing networks', 'Fault-tolerant and robust controller design'],
+    failure_records: [
+      {
+        method: 'Dynamic programming / value iteration',
+        mechanism: 'combinatorial',
+        layer: 'num',
+        partial: 'Numerical DP explodes in state dimension; the objective is non-convex, so grid search gives no global optimum.',
+        implication: 'A certified gap needs a relaxation lower bound valid uniformly in (sigma, k) — interval / SDP route.',
+      },
+      {
+        method: 'Optimal-transport viewpoint (Wu–Verdú)',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Yields policy families and numerical evidence of nonlinearity, but no proof that the global optimum is nonlinear.',
+        implication: 'Formalizing the linear-vs-nonlinear dichotomy is the open step; a quantified distance certificate is the accepted form.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'partial' },
+      { tool_id: 'stochastic-processes', role: 'available' },
+    ],
     related_problems: [
       {
         id: 'me-018',
@@ -5976,6 +6472,26 @@ Numerically discovered nonlinear policies beat the best linear ones for large $\
       url: 'https://www.cambridge.org/core/books/the-theory-of-composites',
     },
     impact_domains: ['Multiphase materials design', 'Microstructure optimization in additive manufacturing', 'Thermo-mechanically coupled multimaterials'],
+    failure_records: [
+      {
+        method: 'Rank-k sequential laminate constructions',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Two-phase Hashin–Shtrikman bounds are attained by laminates; three-phase attainability is open.',
+        implication: 'Certifying the attainable set needs a semidefinite relaxation of the family of quadratic inequalities.',
+      },
+      {
+        method: 'Hashin–Shtrikman variational bounds',
+        mechanism: 'unbounded_residual',
+        layer: 'model',
+        partial: 'Give two-sided bounds but not the exact G-closure for m >= 3 phases.',
+        implication: 'A constructive interior counterexample (attainable tensor strictly inside the bounds) is the decisive accepted form.',
+      },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+    ],
     related_problems: [],
     statement: `Mix $m \\ge 3$ perfectly conducting isotropic phases with positive conductivities $\\sigma_1, \\dots, \\sigma_m$ and prescribed volume fractions to form a periodic composite. Let $\\sigma^*$ be the effective conductivity tensor. **Determine the full set of attainable pairs $(f, \\sigma^*)$ as the microstructure varies — the $G$-closure — and decide whether the Hashin–Shtrikman type bounds are simultaneously attainable: for $m \\ge 3$ phases, characterize which effective tensors inside the bounds are realized by rank-$k$ laminates (or ordered sequential laminates) and whether any strictly-interior effective tensor is excluded, providing the exact relaxation bounds.**
 
