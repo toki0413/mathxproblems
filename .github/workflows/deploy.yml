@@ -1,0 +1,42 @@
+name: deploy-pages
+
+# 推送 main 时自动构建并部署到 Cloudflare Pages (项目 mathx-bridge)。
+# 依赖仓库 secrets：
+#   CLOUDFLARE_API_TOKEN   — Cloudflare API Token（Pages:Edit + Account/Zone 权限）
+#   CLOUDFLARE_ACCOUNT_ID  — Cloudflare 账户 ID
+# 运行时环境变量（DATABASE_URL / ADMIN_TOKEN / TURNSTILE_SECRET /
+# CLAIMS_WRITE_ENABLED）在 Pages 项目 Settings -> Environment variables 配置，
+# 不在构建期注入。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Type-check & build
+        run: npm run build
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # pages_build_output_dir 已由 wrangler.toml 指定，此处显式传目录与项目名。
+          command: pages deploy dist/public --project-name=mathx-bridge
