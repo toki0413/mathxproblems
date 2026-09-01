@@ -34,9 +34,9 @@ jobs:
       - name: Type-check & build
         run: npm run build
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # pages_build_output_dir 已由 wrangler.toml 指定，此处显式传目录与项目名。
-          command: pages deploy dist/public --project-name=mathx-bridge
+        # wrangler 已是 devDependency（npm ci 本地安装），直接用本地 wrangler，
+        # 避免 action 内 npx 拉取新版在 CI 无 TTY 时被取消。
+        run: npx wrangler pages deploy dist/public --project-name=mathx-bridge
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
