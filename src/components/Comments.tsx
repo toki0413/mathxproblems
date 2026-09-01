@@ -23,7 +23,7 @@ export function Comments({ term }: { term: string }) {
     s.setAttribute('data-emit-metadata', '0')
     s.setAttribute('data-input-position', 'top')
     s.setAttribute('data-theme', 'light')
-    s.setAttribute('data-lang', 'zh-CN')
+    s.setAttribute('data-lang', 'en')
     el.appendChild(s)
   }, [term])
 
@@ -31,11 +31,12 @@ export function Comments({ term }: { term: string }) {
     return (
       <div className="border border-dashed border-line-strong p-6 text-sm text-ink-3 leading-relaxed">
         <span className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-ink-2 block mb-2">
-          讨论区 / Discussion
+          Discussion
         </span>
-        讨论区基于 GitHub Discussions（Giscus），待站点仓库开通后即在此处开放。
-        启用方式见 <code className="font-mono2 text-xs">src/config.ts</code>：
-        创建公开仓库、开启 Discussions、安装 giscus 应用，三步即可，访问者用 GitHub 账号即可自由评论。
+        Discussion is powered by GitHub Discussions via Giscus, and opens here once the
+        site repository enables it. See <code className="font-mono2 text-xs">src/config.ts</code>
+        to enable: create a public repo, turn on Discussions, and install the giscus app —
+        three steps, after which visitors can comment with a GitHub account.
       </div>
     )
   }

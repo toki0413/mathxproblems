@@ -660,9 +660,6 @@ export function ProblemGraph({
             <div className="font-statement text-base leading-snug font-semibold group-hover:underline">
               {pickLang(hovered, lang)}
             </div>
-            <div className="mt-0.5 text-xs text-ink-3">
-              {lang === 'zh' ? hovered.title : hovered.titleZh}
-            </div>
           </Link>
           <div className="mt-3 flex items-center gap-3 text-xs text-ink-2">
             <Stars difficulty={hovered.difficulty} />

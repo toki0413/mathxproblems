@@ -22,7 +22,7 @@ function buildProblemFragment(
   const lines = [
     `  {\n` +
       `    id: 'IMPORT-ME',\n` +
-      `    judgment: '待填：被认可的答案必须满足什么、如何核验',\n` +
+      `    judgment: 'TBD: what a recognized answer must satisfy and how it is verified',\n` +
       `    title: ${JSON.stringify(title)},\n` +
       `    titleZh: ${JSON.stringify(titleZh)},\n` +
       `    domain: '${domain}',\n` +
@@ -44,9 +44,9 @@ function buildProblemFragment(
   const impacts = asList(payload.impactDomains)
   if (impacts.length) lines.push(`    impact_domains: ${JSON.stringify(impacts)},\n`)
   lines.push(
-    `    formalization_notes: '待填',\n` +
+    `    formalization_notes: 'TBD',\n` +
       `    references: ${JSON.stringify(asList(payload.references).map((r) => ({ label: r, url: '' })))},\n` +
-      `    proposer: '${authorName?.replace(/'/g, "\\'") || '社区投稿（匿名）'}',\n` +
+      `    proposer: '${authorName?.replace(/'/g, "\\'") || 'community (anonymous)'}',\n` +
       `    proposed_year: '${today().slice(0, 4)}',\n` +
       `  },`,
   )
@@ -294,7 +294,7 @@ export default function ReviewPage() {
                 #{s.id} · {DOMAINS[s.domain as Domain] ? domainLabel(DOMAINS[s.domain as Domain], lang) : ''} ·{' '}
                 {new Date(s.createdAt).toISOString().slice(0, 10)}
               </div>
-              <h2 className="font-statement text-xl font-semibold mt-1">{s.titleZh}</h2>
+              <h2 className="font-statement text-xl font-semibold mt-1">{s.title}</h2>
               <div className="text-sm text-ink-3">{s.title}</div>
               <dl className="mt-4 space-y-3 text-sm leading-relaxed">
                 {(['statement', 'origin', 'engineeringValue', 'note'] as const).map((k) =>

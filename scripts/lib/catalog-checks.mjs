@@ -218,7 +218,7 @@ export function checkCatalog(raw) {
     for (const layer of ['R_model', 'R_param', 'R_num']) {
       if (!j.includes(layer)) missingLayers.push(`${id}:${layer}`)
     }
-    if (j.includes('R_param') && !/R_param[^\n]*≡\s*0/.test(j) && !/R_param[^\n]*测量|不确定度|输入残差/.test(j)) {
+    if (j.includes('R_param') && !/R_param[^\n]*≡\s*0/i.test(j) && !/R_param[^\n]*测量|不确定度|输入残差|measurement|uncertainty|input residual/i.test(j)) {
       noRParamDecl.push(id)
     }
   }
@@ -245,7 +245,7 @@ export function checkCatalog(raw) {
     for (const layer of CERT_LAYERS) if (!block.includes(`${layer}:`)) badCert.push(`${id}:${layer}`)
     if (!block.includes('total_band:')) badCert.push(`${id}:total_band`)
     const rpBound = block.match(/r_param:\s*\{[^}]*bound:\s*'([^']*)'/)
-    if (rpBound && rpBound[1] && !rpBound[1].includes('≡0') && !/测量|不确定度|输入残差/.test(rpBound[1])) {
+    if (rpBound && rpBound[1] && !rpBound[1].includes('≡0') && !/测量|不确定度|输入残差|measurement|uncertainty|input residual/i.test(rpBound[1])) {
       badCert.push(`${id}:r_param-bound`)
     }
   }

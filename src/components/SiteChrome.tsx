@@ -16,7 +16,7 @@ const NAV = [
 export function SiteHeader() {
   const loc = useLocation()
   const [open, setOpen] = useState(false)
-  const { lang, setLang, t } = useI18n()
+  const { t } = useI18n()
   useEffect(() => setOpen(false), [loc.pathname])
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -63,13 +63,6 @@ export function SiteHeader() {
           >
             {t('nav.review')}
           </Link>
-          <button
-            onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
-            className="ml-2 font-mono2 text-[11px] uppercase tracking-widest text-ink-3 hover:text-ink transition-colors"
-            title="Switch language / 切换语言"
-          >
-            {lang === 'zh' ? 'EN' : '中'}
-          </button>
         </nav>
         <button
           className="md:hidden font-mono2 text-xs uppercase tracking-widest text-ink-2"
@@ -91,12 +84,6 @@ export function SiteHeader() {
           <NavLink to="/review" className="py-2 text-sm text-ink-2">
             {t('nav.review')}
           </NavLink>
-          <button
-            onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
-            className="py-2 text-left text-sm text-ink-2"
-          >
-            {lang === 'zh' ? 'English' : '中文'}
-          </button>
         </nav>
       )}
     </header>

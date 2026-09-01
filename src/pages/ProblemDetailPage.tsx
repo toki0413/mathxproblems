@@ -124,7 +124,7 @@ export default function ProblemDetailPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
       <Link to="/problems" className="font-mono2 text-xs text-ink-3 hover:text-ink">
-        ← 问题库
+        ← {t('pd.back')}
       </Link>
 
       <div className="mt-8 grid lg:grid-cols-[1fr_19rem] gap-14">

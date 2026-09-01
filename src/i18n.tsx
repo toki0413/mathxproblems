@@ -433,22 +433,16 @@ const LangCtx = createContext<{
   lang: Lang
   setLang: (l: Lang) => void
   t: (key: string) => string
-}>({ lang: 'zh', setLang: () => {}, t: (k) => k })
+}>({ lang: 'en', setLang: () => {}, t: (k) => k })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(
-    () => (localStorage.getItem('mathx-lang') as Lang) || 'zh',
-  )
-  const setLang = (l: Lang) => {
-    setLangState(l)
-    localStorage.setItem('mathx-lang', l)
-    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en'
-  }
+  // 纯英文站点：固定 en，不读 localStorage、不提供切换。
+  const [lang] = useState<Lang>('en')
   useEffect(() => {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
-  }, [lang])
-  const t = (key: string) => STR[key]?.[lang] ?? STR[key]?.zh ?? key
-  return <LangCtx.Provider value={{ lang, setLang, t }}>{children}</LangCtx.Provider>
+    document.documentElement.lang = 'en'
+  }, [])
+  const t = (key: string) => STR[key]?.en ?? STR[key]?.zh ?? key
+  return <LangCtx.Provider value={{ lang, setLang: () => {}, t }}>{children}</LangCtx.Provider>
 }
 
 export const useI18n = () => useContext(LangCtx)

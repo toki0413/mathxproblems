@@ -168,7 +168,7 @@ export const PROBLEMS: Problem[] = [
       label: 'Lanford, Time evolution of large classical systems, Springer Lecture Notes in Physics 38 (1975)',
       url: 'https://doi.org/10.1007/3-540-07160-1_16',
     },
-    impact_domains: ["稀薄气体动力学","高超声速与微流控气体模拟"],
+    impact_domains: ["Rarefied gas dynamics","Hypersonic and microfluidic gas simulation"],
     related_problems: [
       {
         id: 'mp-008',
@@ -224,7 +224,7 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
       label: 'Hairer & Mattingly, Ergodicity of the 2D Navier–Stokes equations with degenerate stochastic forcing, Ann. of Math. 164 (2006)',
       url: 'https://doi.org/10.4007/annals.2006.164.993',
     },
-    impact_domains: ["大气与海洋湍流同化","气候与海洋模式可预测性"],
+    impact_domains: ["Atmospheric and oceanic turbulence assimilation","Climate and ocean model predictability"],
     related_problems: [
       {
         id: 'mp-008',
@@ -274,7 +274,7 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     date_added: '2026-08-21',
     last_verified: '2026-08-22',
     impact_domains:
-    ["非平衡统计物理","热导率的第一性原理建模"],
+    ["Nonequilibrium statistical physics","First-principles modeling of thermal conductivity"],
     via: { label: 'Ford, The Fermi-Pasta-Ulam problem: paradox turns discovery, Phys. Rep. 213 (1992) 271-310', url: 'https://doi.org/10.1016/0370-1573(92)90116-H' },
     related_problems: [
       {
@@ -334,7 +334,7 @@ fix energy per particle $\\varepsilon > 0$. Prove that for generic initial data 
       label: 'Anderson, Absence of diffusion in certain random lattices, Physical Review 109 (1958)',
       url: 'https://doi.org/10.1103/PhysRev.109.1492',
     },
-    impact_domains: ["无序电子与光子输运","绝缘体-金属转变材料设计"],
+    impact_domains: ["Disordered electron and photon transport","Insulator–metal transition materials design"],
     related_problems: [
       {
         id: 'mp-007',
@@ -394,7 +394,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
       label: 'AKLT, Rigorous results on valence-bond ground states, Commun. Math. Phys. 115 (1988)',
       url: 'https://doi.org/10.1007/BF01217704',
     },
-    impact_domains: ["量子自旋系统与拓扑态","量子模拟与量子纠错"],
+    impact_domains: ["Quantum spin systems and topological states","Quantum simulation and quantum error correction"],
     related_problems: [],
     statement: `The spin-2 AKLT state on the square lattice is the unique ground state of the local, frustration-free, $SU(2)$-invariant Hamiltonian $H = \\sum_{\\langle i,j\\rangle} P^{(2)}_{ij}$ built from spin-2 projectors. **Prove that the thermodynamic-limit Hamiltonian has a uniform spectral gap $\\Delta > 0$ above the ground state**, or prove gaplessness. A companion challenge: give a **fully analytic (computer-free)** gap proof for the honeycomb spin-3/2 case, where the gap is known only through numerically-assisted arguments.`,
     origin:
@@ -448,7 +448,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
       label: 'Bourgain, On the growth in time of higher Sobolev norms of smooth solutions of Hamiltonian PDE, GAFA 6 (1996)',
       url: 'https://doi.org/10.1007/BF02246886',
     },
-    impact_domains: ["波湍流与极端事件预测","非线性光学与海洋怪波"],
+    impact_domains: ["Wave turbulence and extreme-event prediction","Nonlinear optics and oceanic rogue waves"],
     related_problems: [
       {
         id: 'mp-003',
@@ -494,8 +494,8 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     last_verified: '2026-08-22',
     proposer: 'L. Erdős & H.-T. Yau',
     proposed_year: 2012,
-    via: { label: '随机带矩阵局域化-退局域化综述与近期结果：Becker–Cipolloni–Erdős 系列；结合 Erdős–Yau, A dynamical approach to random matrix theory (2012)' },
-    impact_domains: ["量子混沌与随机矩阵理论","量子输运与开放系统"],
+    via: { label: 'Survey of localization–delocalization for random band matrices and recent results: the Becker–Cipolloni–Erdős series; together with Erdős–Yau, A dynamical approach to random matrix theory (2012)' },
+    impact_domains: ["Quantum chaos and random matrix theory","Quantum transport and open systems"],
     related_problems: [
       {
         id: 'mp-004',
@@ -535,7 +535,7 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     updates: [
       {
         date: '2025-04-15',
-        note: 'Yau–Yin 在一维环上对 W>N^{1/2+ε} 建立退局域化与体统计普遍性，基本闭合了 √N 阈值猜测的退局域化一侧；端部窗口与临界行为仍开放。',
+        note: 'Yau–Yin established delocalization and bulk universality for W>N^{1/2+ε} on the one-dimensional torus, essentially closing the delocalized side of the conjectured √N threshold; the endpoint window and critical behavior remain open.',
       },
     ],
   },
@@ -558,10 +558,10 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     proposer: 'L. Onsager',
     proposed_year: 1949,
     via: {
-      label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento 6 (1949); 现代表述见 Eyink–Sreenivasan 综述',
+      label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento 6 (1949); modern formulation see the Eyink–Sreenivasan review',
       url: 'https://doi.org/10.1007/BF02780991',
     },
-    impact_domains: ["湍流耗散统计建模","CFD 亚网格模型基准"],
+    impact_domains: ["Statistical modeling of turbulent dissipation","CFD subgrid model benchmarks"],
     related_problems: [
       {
         id: 'mp-002',
@@ -615,10 +615,10 @@ i.e. dissipation does not vanish with viscosity — the empirically universal si
     proposer: 'F. Horn & R. Jackson',
     proposed_year: 1972,
     via: {
-      label: 'Horn & Jackson, General mass action kinetics, ARMA 47 (1972); 猜想现代表述见 Katz–Weinberg (2017/2019)',
+      label: 'Horn & Jackson, General mass action kinetics, ARMA 47 (1972); modern formulation of the conjecture see Katz–Weinberg (2017/2019)',
       url: 'https://doi.org/10.1007/BF00251396',
     },
-    impact_domains: ["反应网络动力学理论","代谢与信号网络的数学稳定性"],
+    impact_domains: ["Reaction network dynamics theory","Mathematical stability of metabolic and signaling networks"],
     related_problems: [
       {
         id: 'mc-002',
@@ -683,7 +683,7 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
       label: 'Angeli–De Leenheer–Sontag, A graph-theoretic approach to persistence, SIAM J. Appl. Dyn. Syst. 6 (2007)',
       url: 'https://doi.org/10.1137/060664017',
     },
-    impact_domains: ["反应网络持续性判据","催化过程的长期稳定运行"],
+    impact_domains: ["Reaction network persistence criteria","Long-term stable operation of catalytic processes"],
     related_problems: [
       {
         id: 'mc-001',
@@ -734,8 +734,8 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
-    via: { label: '化学图逆特征值/可实现谱综述：Gutman & Cyvin, Advances in the Theory of Benzenoid Hydrocarbons' },
-    impact_domains: ["有机电子材料能隙设计","芳香烃的合成筛选"],
+    via: { label: 'Survey of inverse eigenvalue / realizable spectra of chemical graphs: Gutman & Cyvin, Advances in the Theory of Benzenoid Hydrocarbons' },
+    impact_domains: ["Band-gap design of organic electronic materials","Synthetic screening of aromatic hydrocarbons"],
     related_problems: [],
     statement: `A benzenoid graph is a finite connected subgraph of the hexagonal lattice with no cut vertices (fused benzene rings). Under Hückel theory, the adjacency spectrum of the molecular graph determines $\\pi$-electron energies. **Characterize the set of realizable spectra**: give necessary and sufficient conditions for a multiset of real numbers in $[-3,3]$ to be the adjacency spectrum of a benzenoid graph; in particular, classify the maximal spectral gaps (HOMO–LUMO gaps) attainable as a function of the number of hexagons.`,
     origin:
@@ -759,36 +759,36 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
         url: 'https://link.springer.com/book/10.1007/978-3-642-70982-1',
       },
     ],
-    judgment: '合格答案为"可核验二次谱判据"而非穷举所有谱：对给定目标 HOMO–LUMO 光隙与六环数 $h$，交付一个可核验判定——是否存在苯环型分子图实现该谱隙，并给出一组候选结构与其谱的可复核证书，附两层残差总带：(1) **R_model**：把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界（显式含对六环嵌入/成环双键的定性限制）；(2) **R_num**：谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界。参数（目标光隙、六环数）为精确给定的设计输入，故 **R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定目标带隙，直接得到"该带隙能否被某苯环分子实现（是/否）+ 若可则给出候选核并附总带"的可核验判定，供有机电子材料预筛直接消费而无需对候选全集枚举。',
+    judgment: 'The acceptable answer is a verifiable quadratic spectral criterion rather than an exhaustive enumeration of all spectra: for a given target HOMO–LUMO gap and hexagon count $h$, deliver a verifiable decision — whether a benzenoid molecular graph realizes this spectral gap — together with a re-checkable certificate of a set of candidate structures and their spectra, accompanied by a two-layer residual total band: (1) **R_model**: an upper bound on the residual introduced by restricting the true molecular electronic structure to the Hückel adjacency-spectrum model (explicitly including the qualitative restrictions for hexagon embedding/fused double bonds); (2) **R_num**: an upper bound on the residual of the interval/exact arithmetic used in the spectral computation and realizability adjudication (number-theoretic constraints + hexagon embedding verification). The parameters (target gap, hexagon count) are exactly specified design inputs, hence **R_param≡0 (no input measurement residual layer, as explicitly noted)**. Consumption form of a passing decision: given a target band gap, directly obtain the verifiable decision "whether that gap can be realized by some benzenoid molecule (yes/no) + if so a candidate core with its total band", consumable directly by organic-electronic-material pre-screening without enumerating the full candidate set.',
     certificate: {
       r_model: {
-        bound: '把真实分子电子结构限制为 Hückel 邻接谱模型所引入的残差上界（含对六环嵌入/成环双键的定性限制）',
-        derivation: 'Hückel 模型残差界',
+        bound: 'Upper bound on the residual introduced by restricting the true molecular electronic structure to the Hückel adjacency-spectrum model (including the qualitative restrictions for hexagon embedding/fused double bonds)',
+        derivation: 'Hückel-model residual bound',
       },
       r_param: {
-        bound: '≡0（目标光隙与六环数为精确给定的设计输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (the target gap and hexagon count are exactly specified design inputs; no input measurement residual layer)',
+        derivation: 'Parameters exactly specified',
       },
       r_num: {
-        bound: '谱计算与可实现性裁决（数论约束 + 六边形嵌入验证）所用区间/精确算术的残差上界',
-        derivation: '区间/精确算术封闭',
+        bound: 'Upper bound on the residual of the interval/exact arithmetic used in the spectral computation and realizability adjudication (number-theoretic constraints + hexagon embedding verification)',
+        derivation: 'Interval/exact arithmetic closure',
       },
-      total_band: '光隙可实现性判定包络 ≤ R_model + R_num',
-      certified_band: '候选核谱隙确认区间',
+      total_band: 'Gap-realizability decision envelope ≤ R_model + R_num',
+      certified_band: 'Candidate-core spectral-gap confirmation interval',
     },
     formal_view: {
-      statement: '对给定六环数 $h$ 与目标光隙,判定是否存在苯环型分子图(六角格子上无割点的有限连通子图)使 Hückel 邻接谱的 HOMO–LUMO 隙等于该值,并对实现族做完全分类。',
-      target: 'Lean4/mathlib(区间算术)',
+      statement: 'For a given hexagon count $h$ and target gap, decide whether there exists a benzenoid molecular graph (a finite connected subgraph of the hexagonal lattice with no cut vertices) whose Hückel adjacency spectrum has HOMO–LUMO gap equal to that value, and give a complete classification of the realizing family.',
+      target: 'Lean4/mathlib (interval arithmetic)',
       artifact: { label: 'Gutman & Polansky, Mathematical Concepts in Organic Chemistry, 1986', url: 'https://link.springer.com/book/10.1007/978-3-642-70982-1' },
-      judgment: '证明证书或可核验二次判据;与带侧共享同一 R_model/R_num 语义',
+      judgment: 'Proof certificate or verifiable quadratic criterion; shares the same R_model/R_num semantics with the band side',
       status: 'conjectured',
-      via: 'Gutman & Polansky (1986);详细残差见本题 certificate',
+      via: 'Gutman & Polansky (1986); see the certificate of this problem for detailed residuals',
     },
     bridge: {
-      link: '带侧"光隙可实现性判定 ≤ R_model + R_num"是形式侧理想 Hückel 谱隙命题的工程带化实例:形式命题取 ε→0(把 Hückel 当作精确)时即对该判定的理想化。',
+      link: 'The band-side "gap-realizability decision ≤ R_model + R_num" is an engineering bandization of the formal-side ideal Hückel spectral-gap proposition: taking ε→0 in the formal proposition (treating Hückel as exact) yields precisely the idealization of that decision.',
       direction: 'formal_idealizes_banded',
       shared_residuals: ['r_model', 'r_num'],
-      band_as_fn_of_eps: '带随理想化收缩;R_model 显式把真实电子结构限制为 Hückel 模型',
+      band_as_fn_of_eps: 'The band contracts with the idealization; R_model explicitly restricts the true electronic structure to the Hückel model',
     },
   },
   {
@@ -809,10 +809,10 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
-      label: 'Craciun & Feinberg, Multiple equilibria in complex chemical reaction networks, SIAM J. Appl. Math. 65 (2005)（结合注入性/参数化判据）',
+      label: 'Craciun & Feinberg, Multiple equilibria in complex chemical reaction networks, SIAM J. Appl. Math. 65 (2005) (combined with injectivity/parameterization criteria)',
       url: 'https://doi.org/10.1137/S0895479803446819',
     },
-    impact_domains: ["细胞多稳态与命运决定","反应网络双稳态设计"],
+    impact_domains: ["Cellular multistability and cell-fate decisions","Bistable design of reaction networks"],
     related_problems: [
       {
         id: 'mc-001',
@@ -845,22 +845,22 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
   {
     id: 'mc-005',
     output: 'verified_behavior',
-    judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把观测限制为可辨性子集/理想无噪模型所丢掉的近似残差上界；(2) **R_param**＝速率常数测量不确定度对判定边界的输入残差上界（可辨识性结论须对 $k$ 落在测量区间内仍稳定）；(3) **R_num**＝代数判定步骤（微分代数符号计算）的核验残差上界。无输入测量残差时须如实注明 R_param≡0。',
+    judgment: 'A pass must supply an algorithm together with a complete classification of when the rate constant vector is structurally identifiable from the observable subset, and a correctness proof of the decision procedure relative to the stated ideal noise-free observation model. The acceptable answer is a verifiable decision accompanied by a three-layer residual total band: (1) **R_model** = the upper bound on the approximate residual lost by restricting the observations to a distinguishable subset/ideal noise-free model; (2) **R_param** = the input residual upper bound of rate-constant measurement uncertainty on the decision boundary (the identifiability conclusion must remain stable for all $k$ in the measurement interval); (3) **R_num** = the verification residual upper bound of the algebraic decision steps (differential-algebraic symbolic computation). When there is no input measurement residual, R_param≡0 must be explicitly noted.',
     certificate: {
       r_model: {
-        bound: '把观测限制为可辨性子集/理想无噪模型所丢掉的近似残差上界',
-        derivation: '理想无噪观测模型限制残差界',
+        bound: 'Upper bound on the approximate residual lost by restricting observations to a distinguishable subset / ideal noise-free model',
+        derivation: 'Ideal noise-free observation-model restriction residual bound',
       },
       r_param: {
-        bound: '速率常数测量不确定度对可辨识性判定边界的输入残差上界（结论对测量区间内所有 k 仍稳定）',
-        derivation: '测量区间传播到分辨边界的区间映像',
+        bound: 'Input residual upper bound of rate-constant measurement uncertainty on the identifiability decision boundary (the conclusion remains stable for all k in the measurement interval)',
+        derivation: 'Interval image of the measurement interval propagated to the resolution boundary',
       },
       r_num: {
-        bound: '代数判定步骤（微分代数符号计算）的核验残差上界',
-        derivation: '符号计算/量词消解封闭界',
+        bound: 'Verification residual upper bound of the algebraic decision steps (differential-algebraic symbolic computation)',
+        derivation: 'Symbolic computation / quantifier-elimination closure bound',
       },
-      total_band: '可辨识性判定边界 ≤ R_model + R_param + R_num',
-      certified_band: '结构可辨识/不可辨识分类判定',
+      total_band: 'Identifiability decision boundary ≤ R_model + R_param + R_num',
+      certified_band: 'Structurally identifiable / non-identifiable classification decision',
     },
     title: 'Structural Identifiability Classification of Mass-Action Rate Constants',
     titleZh: '质量作用速率常数的结构可辨识性分类',
@@ -876,13 +876,13 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     last_verified: '2026-08-22',
     proposer: 'E. Sontag',
     proposed_year: 2008,
-    via: { label: 'Sontag, Dynamic compensation, parameter identifiability, and equivariances, PLoS Comput. Biol. 13 (2017); 可辨识性方法综述见 Miao et al., SIAM Review 53 (2011)', url: 'https://doi.org/10.1371/journal.pcbi.1005447' },
-    impact_domains: ["实验动力学建模","催化与系统生物学的参数化"],
+    via: { label: 'Sontag, Dynamic compensation, parameter identifiability, and equivariances, PLoS Comput. Biol. 13 (2017); review of identifiability methods see Miao et al., SIAM Review 53 (2011)', url: 'https://doi.org/10.1371/journal.pcbi.1005447' },
+    impact_domains: ["Experimental kinetics modeling","Parameterization in catalysis and systems biology"],
     related_problems: [
       {
         id: 'mc-030',
         relation: 'generalizes',
-        note: '总带继承（方向二）：mc-005 的结构可辨识性分类被 mc-030 的稳态浓度带继承。本题为上游——若 mc-005 判定某测量方案不可辨识，则 mc-030 在该测量区间上的浓度带失效；下游带的可信度链入本题的分类证书。',
+        note: 'Total-band inheritance (direction two): the structural identifiability classification of mc-005 is inherited by the steady-state concentration band of mc-030. This problem is the upstream one — if mc-005 decides that some measurement scheme is non-identifiable, then the mc-030 concentration band on that measurement interval fails; the credibility of the downstream band chains into the classification certificate of this problem.',
       },
     ],
     statement: `For a mass-action network where only a subset of species concentrations is observable, **give an algorithm and a complete classification** deciding whether the vector of rate constants $k$ is **structurally identifiable** (uniquely recoverable, locally or globally, from ideal noise-free observation of the observable species over all time), as a function of the network topology and the observation pattern.`,
@@ -930,7 +930,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       label: 'Lieberman–Hauert–Nowak, Evolutionary dynamics on graphs, Nature 433 (2005)',
       url: 'https://doi.org/10.1038/nature03204',
     },
-    impact_domains: ["合成生物学群体设计","肿瘤演化与治疗策略"],
+    impact_domains: ["Synthetic biology population design","Tumor evolution and treatment strategies"],
     related_problems: [
       {
         id: 'mb-002',
@@ -983,10 +983,10 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposer: 'R. Pastor-Satorras & A. Vespignani',
     proposed_year: 2001,
     via: {
-      label: '网络 SIS 亚稳态寿命传统：Pastor-Satorras & Vespignani, Epidemic spreading in scale-free networks, PRL 86 (2001)',
+      label: 'Tradition on network SIS metastable lifetimes: Pastor-Satorras & Vespignani, Epidemic spreading in scale-free networks, PRL 86 (2001)',
       url: 'https://doi.org/10.1103/PhysRevLett.86.3200',
     },
-    impact_domains: ["网络流行病学","传染病防控的疫苗与隔离策略"],
+    impact_domains: ["Network epidemiology","Vaccine and quarantine strategies for infectious-disease control"],
     related_problems: [
       {
         id: 'mb-001',
@@ -1045,10 +1045,10 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
     proposer: 'J. Hofbauer & K. Sigmund',
     proposed_year: 1998,
     via: {
-      label: '复制子动力学含突变稳定性：Hofbauer & Sigmund, Evolutionary Games and Population Dynamics (1998)',
+      label: 'Stability of replicator dynamics with mutation: Hofbauer & Sigmund, Evolutionary Games and Population Dynamics (1998)',
       url: 'https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics',
     },
-    impact_domains: ["进化博弈动力学","社会学习与演化经济学"],
+    impact_domains: ["Evolutionary game dynamics","Social learning and evolutionary economics"],
     related_problems: [
       {
         id: 'mb-004',
@@ -1058,7 +1058,7 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
       {
         id: 'mb-028',
         relation: 'generalizes',
-        note: '总带继承（方向二）：mb-003 的全局稳定性分类被 mb-028 的耐药平衡频率带继承。本题为上游——若 mb-003 的稳定性结构被击穿，下游 mb-028 的平衡带断言失效；下游带的可信度链入本题的分类证书。',
+        note: 'Total-band inheritance (direction two): the global stability classification of mb-003 is inherited by the drug-resistance equilibrium-frequency band of mb-028. This problem is the upstream one — if the stability structure of mb-003 is broken, the equilibrium-band assertion of the downstream mb-028 fails; the credibility of the downstream band chains into the classification certificate of this problem.',
       },
     ],
     statement: `Consider the replicator–mutator system
@@ -1105,8 +1105,8 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     last_verified: '2026-08-22',
     proposer: 'J. Hofbauer',
     proposed_year: 1981,
-    via: { label: 'Hofbauer, A general cooperation theorem for hypercycles, MAB 53 (1981); 持久性综述见 Hofbauer & Sigmund (1998)' },
-    impact_domains: ["群落生态共存理论","工程微生物组的稳定性设计"],
+    via: { label: 'Hofbauer, A general cooperation theorem for hypercycles, MAB 53 (1981); review of persistence see Hofbauer & Sigmund (1998)' },
+    impact_domains: ["Community coexistence theory in ecology","Stability design of engineered microbiomes"],
     related_problems: [
       {
         id: 'mc-001',
@@ -1168,7 +1168,7 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
       label: 'Olfati-Saber–Fax–Murray, Consensus and cooperation in networked multi-agent systems, Proc. IEEE 95 (2007)',
       url: 'https://doi.org/10.1109/JPROC.2006.887291',
     },
-    impact_domains: ["多智能体协同控制","无人机群与车联网"],
+    impact_domains: ["Multi-agent cooperative control","UAV swarms and connected vehicles"],
     related_problems: [
       {
         id: 'mb-002',
@@ -1233,7 +1233,7 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
       label: 'Scaman et al., Optimal algorithms for smooth and strongly convex distributed optimization in networks, ICML (2017)',
       url: 'https://proceedings.mlr.press/v70/scaman17a.html',
     },
-    impact_domains: ["分布式优化与联邦学习","边缘计算的通信效率"],
+    impact_domains: ["Distributed optimization and federated learning","Communication efficiency of edge computing"],
     related_problems: [
       {
         id: 'me-001',
@@ -1285,10 +1285,10 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
     proposer: 'F. Cucker & S. Smale',
     proposed_year: 2007,
     via: {
-      label: 'Cucker & Smale, Emergent behavior in flocks, IEEE Trans. Auto. Control 52 (2007); 奇异核情形见 Ha–Tadmor 传统',
+      label: 'Cucker & Smale, Emergent behavior in flocks, IEEE Trans. Auto. Control 52 (2007); singular-kernel case see the Ha–Tadmor tradition',
       url: 'https://doi.org/10.1109/TAC.2007.895842',
     },
-    impact_domains: ["集群机器人避撞与编队","无人系统的编队保持"],
+    impact_domains: ["Collision avoidance and formation for robot swarms","Formation keeping in unmanned systems"],
     related_problems: [
       {
         id: 'me-001',
@@ -1345,8 +1345,8 @@ prove **unconditional flocking** (velocity alignment $\\|v_i(t) - v_j(t)\\| \\to
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
-    via: { label: '面积律综述（1D 已证; 2D 一般开放）：Brandão & Harrow; Eisert–Cramer–Plenio 综述' },
-    impact_domains: ['量子计算', '张量网络算法', '材料模拟'],
+    via: { label: 'Area-law survey (1D proven; 2D generally open): Brandão & Harrow; the Eisert–Cramer–Plenio review' },
+    impact_domains: ['Quantum computing', 'Tensor-network algorithms', 'Materials simulation'],
     related_problems: [
       {
         id: 'mp-005',
@@ -1369,7 +1369,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**No rigorous handle on many-body entanglement structure** of generic 2D gapped phases beyond exactly solvable models.',
     ],
     engineering_value:
-      'A positive resolution certifies that PEPS contraction cost is polynomial in the boundary length, giving 张量网络模拟 2D 量子材料 一个先验的复杂度上界；反例则标定 PEPS 方法的适用边界。',
+      'A positive resolution certifies that PEPS contraction cost is polynomial in the boundary length, giving tensor-network simulation of 2D quantum materials an a priori complexity upper bound; a counterexample would delineate the applicability boundary of the PEPS method.',
     formalization_notes:
       'The statement is fully elementary (finite lattices, explicit constants). A Lean formalization of the 1D Hastings theorem would be the natural stepping stone.',
     references: [
@@ -1402,8 +1402,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1958,
-    via: { label: '三维弱无序 Anderson 离域化（区别于已解决的二维/强无序）：Anderson (1958) 与近期离域化文献' },
-    impact_domains: ['半导体器件', '无序材料设计'],
+    via: { label: 'Delocalization for the 3D weak-disorder Anderson model (distinct from the resolved 2D/strong-disorder cases): Anderson (1958) and recent delocalization literature' },
+    impact_domains: ['Semiconductor devices', 'Disordered materials design'],
     related_problems: [
       {
         id: 'mp-007',
@@ -1424,7 +1424,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Resonant tunneling between distant regions** cannot yet be excluded probabilistically at weak disorder.',
     ],
     engineering_value:
-      '无序半导体的载流子输运建模依赖迁移率边的存在性；严格结果将把器件模拟中经验性的迁移率边参数变为可证量。',
+      'Modeling carrier transport in disordered semiconductors depends on the existence of the mobility edge; a rigorous result would turn the empirically fitted mobility-edge parameter in device simulation into a provable quantity.',
     formalization_notes:
       'The statement is a clean spectral-theoretic conjecture, but current proof technology is far away. Numerical verification (transfer-matrix scaling) is standard and could be certified with interval arithmetic.',
     references: [
@@ -1456,8 +1456,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'B. Simon',
     proposed_year: 1982,
-    via: { label: 'Almost Mathieu 算子公开问题综述：Simon, von Neumann eigenvalues conjecture (1982); Dry Ten Martini 见 Avila–Jitomirskaya 系列' },
-    impact_domains: ['拓扑材料', '莫尔超晶格'],
+    via: { label: 'Survey of open problems for the Almost Mathieu operator: Simon, von Neumann eigenvalues conjecture (1982); Dry Ten Martini see the Avila–Jitomirskaya series' },
+    impact_domains: ['Topological materials', 'Moiré superlattices'],
     related_problems: [
       {
         id: 'mp-010',
@@ -1478,7 +1478,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Liouville rotation numbers** defeat the KAM schemes that settle the Diophantine case.',
     ],
     engineering_value:
-      '莫尔材料的 Hofstadter 谱工程（拓扑带隙、陈数设计）直接以全部隙开放为前提；严格判据给出磁通—带隙对应关系的可信区间。',
+      'Hofstadter spectral engineering of moiré materials (topological band gaps, Chern-number design) presumes that all gaps are open; a rigorous criterion gives a trustworthy interval for the flux—band-gap correspondence.',
     formalization_notes:
       'For any fixed rational approximant, gap openness is a finite certified-numerics problem (interval arithmetic on Harper operators); a uniform irrational statement needs analysis. High potential for a certified-computation benchmark.',
     references: [
@@ -1508,7 +1508,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     date_added: '2026-08-22',
     last_verified: '2026-08-22',
     impact_domains:
-    ['量子磁性材料', '冷原子模拟'],
+    ['Quantum magnetic materials', 'Cold-atom simulation'],
     via: { label: 'Bethe, Zur Theorie der Metalle, Z. Phys. 71 (1931) 205-226', url: 'https://doi.org/10.1007/BF01341708' },
     related_problems: [
       {
@@ -1530,7 +1530,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Singular solutions** need regularization prescriptions that must be proven consistent with the Hilbert-space count.',
     ],
     engineering_value:
-      '自旋链是量子模拟器校验的标准模型；Bethe 基的完备性证书可直接作为冷原子与固态量子模拟平台的数值基准。',
+      'Spin chains are the standard model for benchmarking quantum simulators; a completeness certificate for the Bethe basis can directly serve as a numerical benchmark for cold-atom and solid-state quantum-simulation platforms.',
     formalization_notes:
       'For each fixed (s, L), completeness is decidable by certified algebraic computation (Gröbner bases / numerical algebraic geometry); the conjectural statement is a uniform theorem in s and L. Ideal benchmark for certified computation.',
     references: [
@@ -1566,10 +1566,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'M. Kardar, G. Parisi & Y.-C. Zhang',
     proposed_year: 1986,
     via: {
-      label: 'KPZ, Dynamic scaling of growing interfaces, PRL 56 (1986); 普适性综述见 Corwin (arXiv:1106.1596)',
+      label: 'KPZ, Dynamic scaling of growing interfaces, PRL 56 (1986); review of universality see Corwin (arXiv:1106.1596)',
       url: 'https://doi.org/10.1103/PhysRevLett.56.889',
     },
-    impact_domains: ['界面生长工艺', '随机建模基准'],
+    impact_domains: ['Interfacial growth processes', 'Stochastic modeling benchmarks'],
     related_problems: [
       {
         id: 'mp-002',
@@ -1590,7 +1590,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**No soft universality machinery** (analogous to Dyson or Lindeberg arguments) has been built for the KPZ class.',
     ],
     engineering_value:
-      '薄膜沉积与界面粗化工艺中的涨落模型校核需要非可积情形的普适性保证；严格结果将把 KPZ 统计从可积模型库推广到工程模型的一般校验基准。',
+      'Fluctuation-model validation in thin-film deposition and interface-roughening processes requires universality guarantees for non-integrable cases; a rigorous result would extend KPZ statistics from the integrable-model catalog to a general validation benchmark for engineering models.',
     formalization_notes:
       'The fixed-point construction is explicit (kernels and path integrals) and formalizable in principle; the convergence step is the open analytic core.',
     references: [
@@ -1621,8 +1621,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'M. Feinberg',
     proposed_year: 1980,
-    via: { label: '复平衡系统有界性传统：Feinberg, Chemical reaction network structure and stability of complex isothermal reactors (讲义)' },
-    impact_domains: ['化工过程安全', '生物反应器设计'],
+    via: { label: 'Tradition on boundedness of complex-balanced systems: Feinberg, Chemical reaction network structure and stability of complex isothermal reactors (lecture notes)' },
+    impact_domains: ['Chemical process safety', 'Bioreactor design'],
     related_problems: [
       {
         id: 'mc-002',
@@ -1642,7 +1642,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**At infinity the dynamics are governed by boundary reaction rates**, for which no uniform estimate exists.',
     ],
     engineering_value:
-      '有界性证明给出反应器浓度的先验上界，可直接用于安全壳设计与失控反应筛查的数学认证环节。',
+      'A boundedness proof provides an a priori upper bound on reactor concentrations, directly usable in the mathematical certification step of containment design and runaway-reaction screening.',
     formalization_notes:
       'As mc-002: the hypothesis is decidable from rate data; the conclusion is analytic. Amenable to computer-assisted search for counterexamples in parameterized families.',
     references: [
@@ -1674,8 +1674,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'I. Gutman',
     proposed_year: 2008,
-    via: { label: 'Gutman & Furtula (eds.), Distance in Molecular Graphs — Theory (2012); 化学图逆特征值问题综述见 Graovac 等的分子拓扑工作' },
-    impact_domains: ['分子电子学', '材料逆向设计'],
+    via: { label: 'Gutman & Furtula (eds.), Distance in Molecular Graphs — Theory (2012); review of the inverse eigenvalue problem for chemical graphs see the molecular-topology work of Graovac et al.' },
+    impact_domains: ['Molecular electronics', 'Inverse materials design'],
     related_problems: [
       {
         id: 'mc-003',
@@ -1696,7 +1696,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**The constraint "comes from a graph" is combinatorial, not semialgebraic**, defeating direct algebraic-geometry methods.',
     ],
     engineering_value:
-      '该问题是分子逆向设计（从目标电子性质反推结构）的严格内核：可判定性结果直接转化为筛选算法的完备性保证。',
+      'This problem is the rigorous core of inverse molecular design (recovering structure from target electronic properties): a decidability result directly translates into a completeness guarantee for screening algorithms.',
     formalization_notes:
       'For bounded order, realizability is decidable by exhaustive search with spectral pruning — an exact-computation problem well suited to certified enumeration and SMT-based tools.',
     references: [
@@ -1732,7 +1732,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Newman, Spread of epidemic disease on networks, PRE 66 (2002)',
       url: 'https://doi.org/10.1103/PhysRevE.66.016128',
     },
-    impact_domains: ['公共卫生建模', '网络基础设施防护'],
+    impact_domains: ['Public-health modeling', 'Network infrastructure protection'],
     related_problems: [
       {
         id: 'mb-002',
@@ -1753,7 +1753,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Overlapping cliques introduce dependence across generations** of infection that current random-graph tools cannot integrate out.',
     ],
     engineering_value:
-      '聚集网络阈值是社区封控、疫苗分配与楼宇通风策略模型的直接输入参数；严格比较原理可判定“聚集是否保护人群”这一关键设计问题。',
+      'The clustered-network threshold is a direct input parameter to models of community containment, vaccine allocation, and building-ventilation strategy; a rigorous comparison principle decides the key design question of "whether clustering protects the population".',
     formalization_notes:
       'The threshold statement is a sharp-phase-transition theorem on a well-defined random graph model — statement-level formalization is straightforward; proofs need new multitype branching machinery.',
     references: [
@@ -1786,8 +1786,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
-    via: { label: '强放大器：Lieberman–Hauert–Nowak (2005); 超放大器见 Pavlogiannis–Tkadlec–Chatterjee–Nowak, Nat. Commun. 8 (2017)' },
-    impact_domains: ['肿瘤演化建模', '群体遗传学'],
+    via: { label: 'Strong amplifiers: Lieberman–Hauert–Nowak (2005); super-amplifiers see Pavlogiannis–Tkadlec–Chatterjee–Nowak, Nat. Commun. 8 (2017)' },
+    impact_domains: ['Tumor evolution modeling', 'Population genetics'],
     related_problems: [
       {
         id: 'mb-001',
@@ -1808,7 +1808,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Small structural changes flip amplification behavior**, suggesting the classification may not admit a smooth combinatorial criterion.',
     ],
     engineering_value:
-      '放大器分类给出肿瘤微环境结构风险的数学筛查指标，也为定向进化实验的群体结构设计提供最优图族。',
+      'The amplifier classification provides a mathematical screening index for structural risk in the tumor microenvironment and optimal graph families for population-structure design in directed-evolution experiments.',
     formalization_notes:
       'For each fixed graph the question is a linear system; classification is a statement about graph families. Certified computation can settle conjectured families one by one.',
     references: [
@@ -1840,10 +1840,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'H. J. Muller',
     proposed_year: 1932,
     via: {
-      label: 'Muller, Some genetic aspects of sex, Am. Nat. 66 (1932); 严格速率见 Haigh (1978)',
+      label: 'Muller, Some genetic aspects of sex, Am. Nat. 66 (1932); rigorous rates see Haigh (1978)',
       url: 'https://doi.org/10.1086/280418',
     },
-    impact_domains: ['病毒演化预测', '育种群体管理'],
+    impact_domains: ['Viral evolution prediction', 'Breeding population management'],
     related_problems: [
       {
         id: 'mb-004',
@@ -1864,7 +1864,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Multiple proposed scalings match simulation in different windows**; a uniform rigorous criterion separating regimes is lacking.',
     ],
     engineering_value:
-      '棘轮速率定律直接输入病毒群体退化预测与保种群体最小规模设计；严格渐近将把经验拟合参数替换为可认证常数。',
+      'The ratchet-rate law feeds directly into viral-population degradation prediction and minimum-size design of breeding populations; a rigorous asymptotics would replace empirically fitted parameters with certifiable constants.',
     formalization_notes:
       'The model is an explicitly defined Markov chain; the question is a metastability/large-deviation theorem — well within the scope of modern probabilistic techniques, and a good formalization target for stochastic-process libraries.',
     references: [
@@ -1897,8 +1897,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
-    via: { label: '等温性定理：Lieberman–Hauert–Nowak (2005); 加权/有向推广见相关固定概率文献' },
-    impact_domains: ['群体遗传学', '分布式网络动力学'],
+    via: { label: 'Isothermal theorem: Lieberman–Hauert–Nowak (2005); weighted/directed generalizations see the related fixation-probability literature' },
+    impact_domains: ['Population genetics', 'Distributed network dynamics'],
     related_problems: [
       {
         id: 'mb-006',
@@ -1919,7 +1919,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Degenerate cases (sources, sinks, reducible components)** must be classified separately.',
     ],
     engineering_value:
-      '等温性判据是“结构是否影响演化”的快速筛查器；同样的判据可直接复用于分布式网络中意见/状态扩散的中立性审计。',
+      'The isothermality criterion is a fast screener for whether structure affects evolution; the same criterion can be reused directly for neutrality audits of opinion/state diffusion in distributed networks.',
     formalization_notes:
       'The conjecture is an algebraic statement about Markov chain hitting probabilities — a clean target for theorem provers with linear-algebra libraries, and checkable by computer algebra on families.',
     references: [
@@ -1951,10 +1951,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: {
-      label: 'CONGEST 三角形检测复杂度：Izumi & Le Gall, OPODIS (2017) 下界',
+      label: 'Complexity of triangle detection in CONGEST: the lower bound of Izumi & Le Gall, OPODIS (2017)',
       url: 'https://doi.org/10.1007/978-3-319-72581-1_10',
     },
-    impact_domains: ['分布式系统', '网络分析基础设施'],
+    impact_domains: ['Distributed systems', 'Network analysis infrastructure'],
     related_problems: [
       {
         id: 'me-001',
@@ -1975,7 +1975,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Lower bounds rely on two-party communication reductions** that do not capture the multi-party topology of the input graph.',
     ],
     engineering_value:
-      '闭合该间隙将给出分布式图挖掘系统（集群级三角计数）理论上的性能天花板，直接指导通信预算与分片策略设计。',
+      'Closing this gap would give the theoretical performance ceiling of distributed graph-mining systems (cluster-level triangle counting), directly guiding communication-budget and sharding-strategy design.',
     formalization_notes:
       'Both algorithms and lower-bound reductions are finite combinatorial objects; the full proof corpus is within reach of mechanized complexity arguments — a realistic formalization benchmark.',
     references: [
@@ -2007,8 +2007,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     last_verified: '2026-08-22',
     proposer: 'M. Ben-Or',
     proposed_year: 1983,
-    via: { label: '随机共识下界传统：Ben-Or, Another advantage of free choice, PODC (1983)' },
-    impact_domains: ['区块链协议', '容错控制'],
+    via: { label: 'Tradition on randomized-consensus lower bounds: Ben-Or, Another advantage of free choice, PODC (1983)' },
+    impact_domains: ['Blockchain protocols', 'Fault-tolerant control'],
     related_problems: [
       {
         id: 'me-003',
@@ -2029,7 +2029,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Lower-bound constructions require indistinguishability chains of length exponential in the hiding quality**, resisting compression.',
     ],
     engineering_value:
-      '紧界直接确定 BFT/共识协议在敌对调度下的最坏延迟上界，是区块链终局性与容错飞控/车控总线形式化验证的必备参数。',
+      'The tight bound directly determines the worst-case latency upper bound of BFT/consensus protocols under adversarial scheduling, an essential parameter for formal verification of blockchain finality and fault-tolerant flight/vehicle-control buses.',
     formalization_notes:
       'Protocol and adversary are explicitly definable; the question is a sharp complexity theorem. Valicone-type arguments and coin-game analyses are mechanizable in principle.',
     references: [
@@ -2066,7 +2066,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Karp et al., Randomized rumor spreading, FOCS (2000)',
       url: 'https://doi.org/10.1109/SFCS.2000.892141',
     },
-    impact_domains: ['分布式数据库复制', '物联网 gossip 协议'],
+    impact_domains: ['Distributed database replication', 'IoT gossip protocols'],
     related_problems: [
       {
         id: 'mb-005',
@@ -2087,7 +2087,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       '**Graphs with bottleneck chains** (barbell-like) show conductance alone cannot tell the whole story; the right composite parameter is unidentified.',
     ],
     engineering_value:
-      '该界是 gossip 类复制协议 SLA（收敛时间保证）的理论上限来源；闭合间隙可以把工程上的保守超时参数收紧到最优。',
+      'This bound is the source of the theoretical ceiling for SLA (convergence-time guarantees) of gossip-type replication protocols; closing the gap would tighten conservative engineering timeout parameters to the optimum.',
     formalization_notes:
       'Protocol is a finite-state Markov chain; proofs are drift/martingale arguments — an excellent target for mechanized probability.',
     references: [
@@ -2123,7 +2123,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
-    impact_domains: ['微纳传热', '热管理材料'],
+    impact_domains: ['Micro/nano-scale heat transfer', 'Thermal management materials'],
     related_problems: [
       {
         id: 'mp-003',
@@ -2146,7 +2146,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**The heat current is not a conserved/ Galvani-type quantity**: proving $J \\propto \\nabla T$ requires showing the two-temperature measure relaxes to a local-equilibrium profile, for which no general machinery exists.',
     ],
     engineering_value:
-      '芯片与电池微纳尺度的热管理仿真几乎全部依赖傅里叶定律；严格推导将为求解域远小于声子平均自由程时是否适用傅里叶定律提供数学判据，直接关乎热设计仿真可信度。',
+      'Thermal-management simulation at micro/nano scales in chips and batteries relies almost entirely on Fourier\'s law; a rigorous derivation would supply a mathematical criterion for whether Fourier\'s law applies when the computational domain is far smaller than the phonon mean free path, directly affecting the credibility of thermal-design simulation.',
     formalization_notes:
       'Even the definition of the nonequilibrium steady state (NESS) as a limit of finite N is a nontrivial ergodic statement; formalizing the harmonic-chain exact solution would be a realistic milestone-zero.',
     references: [
@@ -2176,7 +2176,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     date_added: '2026-08-22',
     last_verified: '2026-08-22',
     impact_domains:
-    ['湍流数值模拟', '大气海洋流动'],
+    ['Numerical simulation of turbulence', 'Atmospheric and oceanic flows'],
     via: { label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento Suppl. 6 (1949) 279-287' },
     related_problems: [
       {
@@ -2198,7 +2198,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Constructive vs. physical**: convex-integration solutions are C¹-fine but highly oscillatory, and the question of which $\\alpha<1/3$ solutions are attainable by actual vanishing-viscosity limits remains unresolved.',
     ],
     engineering_value:
-      '湍流的隐式大涡模拟（LES）与粗网格能耗判据直接依赖 Onsager 临界指数的可信区间；端点情形的判定可转化为转捩判据的严格化。',
+      'Implicit large-eddy simulation (LES) of turbulence and coarse-grid energy-dissipation criteria depend directly on a trustworthy interval for the Onsager critical exponent; deciding the endpoint case can be turned into a rigorous transition criterion.',
     formalization_notes:
       'The conservative direction is expressed through a commutator / Reynolds-stress estimate, essentially finite-dimensional Fourier analysis — a clean candidate for mechanism: formalization of (i) for a fixed α is a realistic target. The construction side is open-ended PDE analysis.',
     references: [
@@ -2233,10 +2233,10 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     proposer: 'T. Došlić',
     proposed_year: 2007,
     via: {
-      label: '富勒烯哈密顿性（已由 Král′–Škrekovski–Vukičević–Wagner, J. Graph Theory (2012) 解决）',
+      label: 'Hamiltonicity of fullerenes (already resolved by Král′–Škrekovski–Vukičević–Wagner, J. Graph Theory (2012))',
       url: 'https://doi.org/10.1002/jgt.20652',
     },
-    impact_domains: ['碳纳米材料结构预测', '分子图算法'],
+    impact_domains: ['Structure prediction of carbon nanomaterials', 'Molecular graph algorithms'],
     related_problems: [
       {
         id: 'mc-003',
@@ -2257,7 +2257,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Bipartite subclass**: only pentagon-free (IPR-type) fullerenes are bipartite; the tripartite case evades the tools that worked for bipartite planar cubic graphs.',
     ],
     engineering_value:
-      '该猜想若成立，富勒烯同分异构体的“螺旋条带”枚举与自动生成算法就有了完备性保证，可直接支撑碳材料结构库的构建成本与正确性论证。',
+      'If this conjecture holds, the "spiral strip" enumeration and automatic-generation algorithms for fullerene isomers would carry a completeness guarantee, directly supporting the cost and correctness arguments for building carbon-material structure libraries.',
     formalization_notes:
       'For any fixed fullerene, Hamiltonicity is decidable by search and even certifiable (a Hamiltonian cycle is a checkable certificate). The conjecture is a uniform existential statement in $n$ — a textbook case for FPT-SAT style certification plus, ultimately, a graph-theoretic proof. High formalization potential for the certificate side.',
     references: [
@@ -2294,7 +2294,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Barton–Etheridge–Véber, The infinitesimal model: definition, derivation and dominance, Theor. Popul. Biol. 118 (2017)',
       url: 'https://doi.org/10.1016/j.tpb.2017.05.001',
     },
-    impact_domains: ['动植物遗传育种', '多基因性状预测'],
+    impact_domains: ['Genetic breeding of plants and animals', 'Polygenic trait prediction'],
     related_problems: [
       {
         id: 'mc-001',
@@ -2315,7 +2315,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Rate and uniformity in the selection intensity**: existing proofs assume selection is weak / fixed; the regime where selection drives the dynamics is not covered.',
     ],
     engineering_value:
-      '基因组选择（GS）模型的“基础假设 = 无限小模型正态性”一旦被严格限定适用范围，就能为育种算法何时适用、何时改校平均型提供可分性判据。',
+      'Once the "baseline assumption = infinitesimal-model normality" of genomic selection (GS) models is rigorously delimited in scope, it yields a separability criterion for when breeding algorithms apply and when they must be recalibrated to the average type.',
     formalization_notes:
       'For a fixed (finite) locus set the statement is a CLT-type theorem — strong candidates for mechanism: formalization of the Gaussian-limit step using existing central-limit library infrastructure. High potential for a clean theorem-development footprint.',
     references: [
@@ -2348,10 +2348,10 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     proposer: 'T. E. Harris',
     proposed_year: 1974,
     via: {
-      label: 'Harris, Contact interactions on a lattice, Ann. Probab. 2 (1974); 亚临界渐近见 Liggett 专著',
+      label: 'Harris, Contact interactions on a lattice, Ann. Probab. 2 (1974); subcritical asymptotics see Liggett’s monograph',
       url: 'https://doi.org/10.1214/aop/1176996477',
     },
-    impact_domains: ['传染病空间建模', '生态灭绝时间'],
+    impact_domains: ['Spatial modeling of infectious diseases', 'Ecological extinction times'],
     related_problems: [
       {
         id: 'mb-005',
@@ -2372,7 +2372,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Dependence across generations**: extinction meets recurrence / crossing arguments that are only understood at the exponentional- leading scale.',
     ],
     engineering_value:
-      '该量是“逃逸失效时间”类风险指标（疫情是否可能意外拖长、濒危种群能否短暂反弹）的数学上限来源；精确指数可把风险分级标准从量级收紧到常数量级。',
+      'This quantity is the source of the mathematical upper bound for "escape-failure time"-type risk indicators (whether an outbreak can unexpectedly drag on, whether an endangered population can briefly rebound); a precise exponent would tighten risk-classification standards from order-of-magnitude to constant scale.',
     formalization_notes:
       'The graph-exhaustion and crossing arguments are combinatorial and, for fixed finite volumes, decidable by certified search — a strong candidate for a computer-assisted proof pipeline before a closed-form proof exists.',
     references: [
@@ -2407,7 +2407,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Meyerson, Online facility location, FOCS (2001)',
       url: 'https://doi.org/10.1109/SFCS.2001.959910',
     },
-    impact_domains: ['物流网络优化', '边缘缓存部署'],
+    impact_domains: ['Logistics network optimization', 'Edge caching deployment'],
     related_problems: [
       {
         id: 'me-008',
@@ -2428,7 +2428,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Non-metric / capacity / concave variants**: each adds a parameter that shifts the ratio, and no unified transfer holds.',
     ],
     engineering_value:
-      '竞争比是“在线必须付出的代价”的数学量化：闭合间隙能把边缘缓存与物流动态布点的产能超配系数从保守量级收紧到最优量级，直接降低资源预留成本。',
+      'The competitive ratio is the mathematical quantification of the "price one must pay for being online": closing the gap would tighten the capacity over-provisioning factor for edge caching and dynamic logistics placement from a conservative to an optimal scale, directly reducing resource-reservation costs.',
     formalization_notes:
       'The known upper bounds are clean primal\u2013dual / potential proofs — excellent mechanism: formalization targets. Lower bounds are finite adversarial constructions amenable to case-analysis certification. High potential overall.',
     references: [
@@ -2465,7 +2465,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Manasse–McGeoch–Sleator, Competitive algorithms for on-line problems, STOC (1988)',
       url: 'https://doi.org/10.1145/62212.62249',
     },
-    impact_domains: ['机器人调度', '缓存与页面置换'],
+    impact_domains: ['Robot scheduling', 'Caching and page replacement'],
     related_problems: [
       {
         id: 'me-007',
@@ -2486,7 +2486,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       '**Lower bounds**: proving a matching lower bound requires a family of request sequences where any algorithm fails to beat $k$ — the "crossing / dual-instance" construction is only known in special cases.',
     ],
     engineering_value:
-      '若 k 服务者猜想成立，移动资源按请求动态调度的“最优在线代价”就有了确切上限 $k$；可用来为机器人集群、复制存储与 CDN 的响应时间 SLA 提供严格设计方案而非常规保守因子。',
+      'If the k-server conjecture holds, the "optimal online cost" of dynamically scheduling mobile resources in response to requests has the exact upper bound $k$; this can provide rigorous design schemes — rather than conventional conservative factors — for response-time SLAs of robot fleets, replicated storage, and CDNs.',
     formalization_notes:
       'The objective and moves are fully discrete/combinatorial, and the linear-programming duality behind the conjectured lower bound is explicit — a viable formalization target for the potential and dual-certificate machinery (Robot-style LP polarity), though the general upper bound remains the hard open core.',
     references: [
@@ -2522,7 +2522,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Rudnick & Sarnak, The behaviour of eigenstates of arithmetic hyperbolic manifolds, Comment. Math. Helv. 74 (1994)',
       url: 'https://doi.org/10.1007/PL00000356',
     },
-    impact_domains: ['量子混沌', '声学与振动本征态'],
+    impact_domains: ['Quantum chaos', 'Acoustic and vibrational eigenstates'],
     related_problems: [
       {
         id: 'mp-006',
@@ -2549,7 +2549,7 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
       '**Possible counterexamples**: the existence of exceptional sequences is still not ruled out, and the "random wave" model only suggests, not proves, equidistribution.',
     ],
     engineering_value:
-      '若 QUE 成立，则振动/声腔的高阶本征模式必然均匀填充空间而不会集中在少数区域，可直接支撑声学腔体、谐振器与结构振动模态的均匀化设计判据。',
+      'If QUE holds, higher-order eigenmodes of vibration/acoustic cavities necessarily fill space uniformly instead of concentrating on a few regions, directly supporting homogenization-design criteria for acoustic cavities, resonators, and structural vibration modes.',
     formalization_notes:
       'The statement is P-variant quantifiable and largely analytic; a full formalization is blocked by the hard analytic core (entropy/equidistribution for non-arithmetic manifolds), hence medium potential rather than high.',
     references: [
@@ -2578,7 +2578,7 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
     contributor: 'admin',
     date_added: '2026-08-22',
     last_verified: '2026-08-22',
-    impact_domains: ['量子热机', '孤立量子气体的非平衡演化'],
+    impact_domains: ['Quantum heat engines', 'Nonequilibrium evolution of isolated quantum gases'],
     related_problems: [
       {
         id: 'mp-003',
@@ -2605,7 +2605,7 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
       '**Defining "generic"**: no mathematically clean condition separates ETH holding vs. failing (many-body localization being the counter-regime).',
     ],
     engineering_value:
-      'ETH 是“孤立量子系统如何达到热平衡”的操作性判据；若被证明，可为量子引擎的效率上限与纠缠生成时间提供严格预测。',
+      'ETH is the operational criterion for how isolated quantum systems reach thermal equilibrium; if proven, it would provide rigorous predictions for the efficiency ceiling of quantum engines and entanglement-generation times.',
     formalization_notes:
       'The hypothesis is currently a numerically-supported conjecture without a precise generic statement; a formalization would first require fixing the model class, hence low potential today.',
     references: [
@@ -2640,10 +2640,10 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
-      label: '缺陷为一网络单/多稳判定：Craciun & Feinberg (2005) 注入性判据及综述',
+      label: 'Deficiency-one network mono/multistability criteria: the injectivity criteria of Craciun & Feinberg (2005) and reviews',
       url: 'https://doi.org/10.1137/S0895479803446819',
     },
-    impact_domains: ['生化反应设计', '代谢通量控制'],
+    impact_domains: ['Biochemical reaction design', 'Metabolic flux control'],
     related_problems: [
       {
         id: 'mc-001',
@@ -2670,7 +2670,7 @@ and when (by contrast) every such class contains a unique positive steady state.
       '**Bound on the number**: even within deficiency one, the maximum number of steady states per class is not settled for arbitrary networks.',
     ],
     engineering_value:
-      '双稳态是细胞信号与记忆的关键机制；完整判定缺陷一网络的多稳态性可直接用于代谢通路与合成生物学开关的可逆/不可逆设计。',
+      'Bistability is a key mechanism of cellular signaling and memory; a complete decision of multistationarity for deficiency-one networks can be used directly in the reversible/irreversible design of metabolic pathways and synthetic-biology switches.',
     formalization_notes:
       'The core is algebraic (polynomial ideal / resultant of steady-state equations) and the Deficiency One Theorem is a clean certified proof \u2014 a strong candidate for formal verification of the conditions.',
     references: [
@@ -2703,8 +2703,8 @@ and when (by contrast) every such class contains a unique positive steady state.
     last_verified: '2026-08-22',
     proposer: 'I. Gutman',
     proposed_year: 1978,
-    via: { label: 'Gutman, The energy of a graph, Ber. Math.-Statist. Sekt. 103 (1978)（Hückel π 电子能量理论）' },
-    impact_domains: ['共轭烃设计', '芳香性指标'],
+    via: { label: 'Gutman, The energy of a graph, Ber. Math.-Statist. Sekt. 103 (1978) (Hückel π-electron energy theory)' },
+    impact_domains: ['Conjugated hydrocarbon design', 'Aromaticity indices'],
     related_problems: [
       {
         id: 'mc-003',
@@ -2724,7 +2724,7 @@ and when (by contrast) every such class contains a unique positive steady state.
       '**Open for sparse/non-regular classes**: bounds are tight only on boundary regions; off-boundary neighbors are unexplored.',
     ],
     engineering_value:
-      'π 电子能是分子稳定性的代理指标；改进其极值界能给出芳香性/反应活性排序的定量上界，用于高通量筛优选配基骨架。',
+      'π-electron energy is a proxy indicator of molecular stability; improving its extremal bounds yields quantitative upper bounds for aromaticity/reactivity rankings, used for pre-selecting ligand scaffolds in high-throughput screening.',
     formalization_notes:
       'Combinatorial and algebraic, with elementary eigenvalue inequalities; the extremal proof is amenable to formal certification for finite graph classes.',
     references: [
@@ -2756,10 +2756,10 @@ and when (by contrast) every such class contains a unique positive steady state.
     proposer: 'T. E. Harris',
     proposed_year: 1974,
     via: {
-      label: '接触过程临界值：Harris (1974); 上/下界见 Liggett, Stochastic Interacting Systems (1999)',
+      label: 'Contact process critical value: Harris (1974); upper/lower bounds see Liggett, Stochastic Interacting Systems (1999)',
       url: 'https://doi.org/10.1214/aop/1176996477',
     },
-    impact_domains: ['传染病临界传播', '物种入侵阈值'],
+    impact_domains: ['Critical spread of infectious diseases', 'Species invasion thresholds'],
     related_problems: [
       {
         id: 'mb-001',
@@ -2781,7 +2781,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       '**Sharpness**: closing the bound to an identity demands fine control of survival that lattice combinatorics does not yet deliver.',
     ],
     engineering_value:
-      '精确临界传播率可为局部接触传染（沙漠生物入侵、病害蔓延）的物理判据提供无先验拟合的解析常数，替代蒙特卡洛外推。',
+      'An exact critical transmission rate can provide an analytic constant free of prior fitting for the physical criteria of locally spreading contagion (desert species invasion, disease propagation), replacing Monte Carlo extrapolation.',
     formalization_notes:
       'The transition is probabilistically clean and the bounds are finite-combinatorial; a formal proof of tightness faces the unresolved analytic core, so potential stays medium.',
     references: [
@@ -2817,7 +2817,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       label: 'May & Leonard, Nonlinear aspects of competition between three species, SIAM J. Appl. Math. 29 (1975)',
       url: 'https://doi.org/10.1137/0129033',
     },
-    impact_domains: ['微生物群落稳态', '生物多样性维持'],
+    impact_domains: ['Microbial community stability', 'Biodiversity maintenance'],
     related_problems: [
       {
         id: 'mb-001',
@@ -2837,7 +2837,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       '**Multi-species dual / duality machinery**: unlike two species, no monotone duality yields a clean coexistence criterion.',
     ],
     engineering_value:
-      '三物种石头剪刀布是微生物群落多样性的最小模型；证明共存阈值可直接指导菌群/益生元配方的比例设计，避免私有化走向单菌统治。',
+      'Three-species rock-paper-scissors is the minimal model of microbial-community diversity; proving the coexistence threshold can directly guide the ratio design of microbiota/prebiotic formulations, preventing privatization from sliding into single-strain dominance.',
     formalization_notes:
       'The model is fully stochastic and finite-combinatorial; rigorous coexistence bounds are tractable in slabs, but the sharp threshold depends on unresolved spatial statistics (medium).',
     references: [
@@ -2871,10 +2871,10 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     proposer: 'H. Andersson & T. Britton',
     proposed_year: 2000,
     via: {
-      label: '随机流行病模型（阈值/近临界）：Andersson & Britton, Stochastic Epidemic Models and Their Statistical Analysis (2000)',
+      label: 'Stochastic epidemic models (threshold/near-critical): Andersson & Britton, Stochastic Epidemic Models and Their Statistical Analysis (2000)',
       url: 'https://doi.org/10.1007/978-1-4612-1158-7',
     },
-    impact_domains: ['传染病防控策略', '疫苗覆盖阈值'],
+    impact_domains: ['Infectious-disease control strategies', 'Vaccine coverage thresholds'],
     related_problems: [
       {
         id: 'mb-001',
@@ -2894,7 +2894,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       '**Finite-$N$ corrections**: matching constants requires refined diffusion approximations on the critical manifold.',
     ],
     engineering_value:
-      '近临界灭绝时间的统计律决定了“疫情是否自然熄灭”的可判定窗口；精确速率能校准防控资源投放时机与疫苗覆盖临界值。',
+      'The statistical law of near-critical extinction time determines the decidable window for whether an outbreak naturally dies out; an exact rate calibrates the timing of control-resource deployment and the critical vaccine-coverage value.',
     formalization_notes:
       'The branching/regenerative structure makes the mean-field and critical steps formalizable; only the sharp exponent is analytically unresolved, hence medium potential.',
     references: [
@@ -2930,7 +2930,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       label: 'Babaioff–Immorlica–Kleinberg, Matroids, secretary problems, and online mechanisms, SODA (2007)',
       url: 'https://doi.org/10.5555/1283383.1283496',
     },
-    impact_domains: ['在线人才/资源选配', '云资源竞价分配'],
+    impact_domains: ['Online talent/resource matching', 'Cloud resource auction allocation'],
     related_problems: [
       {
         id: 'me-007',
@@ -2952,7 +2952,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       '**Bas-to-independent relaxation**: most positive results select near-bases; enforcing exact basis feasibility loses the constant.',
     ],
     engineering_value:
-      '若 $1/e$ 猜想成立，在线竞拍与人才漏斗的最优收益就有一个与规模无关的常数下界，可直接为云竞价与招聘漏斗设定紧的收益基线与达标线。',
+      'If the $1/e$ conjecture holds, the optimal revenue of online auctions and talent funnels has a size-independent constant lower bound, directly enabling tight revenue baselines and achievement thresholds for cloud bidding and hiring funnels.',
     formalization_notes:
       'Fully combinatorial; the threshold/DP machinery factors into finite certificate checks, but the tight uniform constant depends on unresolved structure of general matroids (high potential since the claim itself is clean).',
     references: [
@@ -2987,7 +2987,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       label: 'Feige, Approximating the bandwidth via volume respecting embeddings, JCSS 60 (2000)',
       url: 'https://doi.org/10.1006/jcss.1999.1682',
     },
-    impact_domains: ['矩阵稀疏化求解', '芯片布线布局'],
+    impact_domains: ['Sparse matrix solvers', 'Chip routing and placement'],
     related_problems: [
       {
         id: 'me-003',
@@ -3007,7 +3007,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       '**Embedding-based upper bound is loose**: volume-respecting embeddings give only a polylog factor, with no clear tight route.',
     ],
     engineering_value:
-      '带宽越小，稀疏矩阵的填充与通信越省；判定常数近似性决定了“带最小化布局器”能否做出可靠上界，直接影响有限元与LSI布线工具的缩放策略。',
+      'The smaller the bandwidth, the less fill-in and communication sparse matrices require; deciding constant approximability determines whether a "band-minimizing layout tool" can give reliable upper bounds, directly affecting scaling strategies of finite-element and LSI-routing tools.',
     formalization_notes:
       'The metric-embedding upper bound is formalizable; closing to a constant is an unresolved analytic gap, so potential is medium.',
     references: [
@@ -3043,7 +3043,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       label: 'Gharan–Saberi–Singh, A randomized rounding approach to the traveling salesman problem, FOCS (2011)',
       url: 'https://doi.org/10.1109/FOCS.2011.76',
     },
-    impact_domains: ['物流路径规划', '芯片走线规划'],
+    impact_domains: ['Logistics route planning', 'Chip wiring planning'],
     related_problems: [
       {
         id: 'me-001',
@@ -3065,7 +3065,7 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
       '**Marginal cases**: the worst-case instances for the ratio sit at a narrow junction where both upper and lower constructions are brittle.',
     ],
     engineering_value:
-      '路径/布线成本的近似比直接换算成物流或芯片布线的资源超配系数；把 3/2 收紧到 4/3，意味着同预算可多服务约 11% 的路由请求。',
+      'The approximation ratio of routing/wiring cost converts directly into the resource over-provisioning factor of logistics or chip wiring; tightening 3/2 to 4/3 means the same budget can serve about 11% more routing requests.',
     formalization_notes:
       'Combinatorial with explicit matching/parity arguments; the 4/3 bound reduces to certifying a structural cut inequality, a viable formalization target though the hard core is combinatorial.',
     references: [
@@ -3096,7 +3096,7 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
     date_added: '2026-08-22',
     last_verified: '2026-08-22',
     impact_domains:
-    ['工业调度优化', '供应链规划'],
+    ['Industrial scheduling optimization', 'Supply chain planning'],
     via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998) 7-15 (Problem 9: strongly-polynomial linear programming)' },
     related_problems: [
       {
@@ -3124,7 +3124,7 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
       '**Intermediate exactness**: a strongly polynomial algorithm must perform exact arithmetic comparison certified on $O(1)$ leading digits; the interaction between numerical precision and combinatorial progress is the core difficulty.'
     ],
     engineering_value:
-      '几乎所有工业调度、供应链与预算规划都退化为 LP；强多项式算法意味着求解复杂度不随数据规模（整数溢出/精度）膨胀，可彻底消除求解器在大规模实例上的数值不确定性。',
+      'Almost all industrial scheduling, supply-chain, and budget-planning problems reduce to LP; a strongly polynomial algorithm would mean the solution complexity does not blow up with data size (integer overflow/precision), eliminating the numerical uncertainty of solvers on large-scale instances.',
     formalization_notes:
       'The problem is decidable in principle via existence of a concrete finite-state pivot procedure; formalizing it is a hard program-verification target, and the "open" claim is about a worst-case counting argument rather than a single compact invariant.',
     references: [
@@ -3159,8 +3159,8 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
     last_verified: '2026-08-22',
     proposer: 'E. G. Coffman, M. R. Garey & D. S. Johnson',
     proposed_year: 1997,
-    via: { label: '在线装箱综述：Coffman–Garey–Johnson, Bin packing surveys (1997)' },
-    impact_domains: ['云计算资源装箱', '智能物流装箱'],
+    via: { label: 'Survey of online bin packing: Coffman–Garey–Johnson, Bin packing surveys (1997)' },
+    impact_domains: ['Cloud computing resource packing', 'Intelligent logistics packing'],
     related_problems: [
       {
         id: 'me-007',
@@ -3189,7 +3189,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
       '**Online adaptivity**: the gap between the strongly online (no board sizes fixed in advance) and the adaptive-advance-model constants is not settled, so the exact constant depends on the precise model.'
     ],
     engineering_value:
-      '装箱竞争比直接对应数据中心的 VM 装箱超配系数与物流装载率；从 $1.58889$ 收紧到最优意味着同等规模客户/包裹可节省可证明的资源缓冲，是云平台成本优化的数学根基。',
+      'The bin-packing competitive ratio corresponds directly to the VM-packing over-provisioning factor in data centers and to logistics loading rates; tightening from $1.58889$ to the optimum means provably saving resource buffer for the same scale of customers/packages, the mathematical foundation of cloud cost optimization.',
     formalization_notes:
       'Fully combinatorial: the competitive-ratio definition and harmonic upper/lower constructions are finite and checkable; formalizing the tightness proof is feasible, the open part being a matching adversary construction.',
     references: [
@@ -3221,10 +3221,10 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     proposer: 'L. Kučera',
     proposed_year: 1995,
     via: {
-      label: 'Kučera, Expected complexity of graph partitioning problems, Discrete Appl. Math. 57 (1995); 算法阈值见 Alon–Krivelevich–Sudakov',
+      label: 'Kučera, Expected complexity of graph partitioning problems, Discrete Appl. Math. 57 (1995); algorithmic thresholds see Alon–Krivelevich–Sudakov',
       url: 'https://doi.org/10.1016/0166-218X(94)00103-G',
     },
-    impact_domains: ['网络社群检测', '生物网络噪声判定'],
+    impact_domains: ['Network community detection', 'Noise detection in biological networks'],
     related_problems: [
       {
         id: 'me-004',
@@ -3244,7 +3244,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
       '**Average-case lower bounds**: proving computational lower bounds needs a conditional assumption (e.g. PCAS or ETH-style) elevating the problem into an intractability hypothesis, which is hard to certify directly.'
     ],
     engineering_value:
-      '社群检测/噪声网络判定直接决定推荐系统与生物网络分析中"是否真的存在结构"的判定阈值；明确的检测阈值可给出样本量与计算量的工程边界，是数据科学推理可靠性的基础。',
+      'Community detection / noisy-network decisions directly determine the decision threshold of "whether structure truly exists" in recommender systems and biological-network analysis; an explicit detection threshold gives engineering bounds on sample size and computation, the foundation of reliability in data-science inference.',
     formalization_notes:
       'Cleanly defined finite problem with no quantitative adversary model beyond average-case; stating the threshold and verifying detection/undetectability is a well-formed formalization target, though the hardness side rests on conditional assumptions.',
     references: [
@@ -3278,10 +3278,10 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     proposer: 'T. Y. Hou & G. Luo',
     proposed_year: 2014,
     via: {
-      label: 'Hou & Luo, Toward a finite-time singularity of the 3D incompressible Euler equations, PNAS 111 (2014)（数值候选; 解析证明开放）',
+      label: 'Hou & Luo, Toward a finite-time singularity of the 3D incompressible Euler equations, PNAS 111 (2014) (numerical candidate; analytic proof open)',
       url: 'https://doi.org/10.1073/pnas.1402374111',
     },
-    impact_domains: ['CFD 湍流模型', '航空发动机设计'],
+    impact_domains: ['CFD turbulence models', 'Aircraft engine design'],
     related_problems: [
       {
         id: 'mp-002',
@@ -3336,10 +3336,10 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     proposer: 'M. Aizenman',
     proposed_year: 1981,
     via: {
-      label: 'Aizenman, Proof of the triviality of φ⁴ field theory, Commun. Math. Phys. 86 (1982); 结合 Fröhlich (1982)',
+      label: 'Aizenman, Proof of the triviality of φ⁴ field theory, Commun. Math. Phys. 86 (1982); together with Fröhlich (1982)',
       url: 'https://doi.org/10.1007/BF01205659',
     },
-    impact_domains: ['量子场论基准', '数值重整化', '随机几何'],
+    impact_domains: ['Quantum field theory benchmarks', 'Numerical renormalization', 'Stochastic geometry'],
     related_problems: [
       {
         id: 'mp-005',
@@ -3397,7 +3397,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
       label: 'Hastings & Michalakis, Quantization of Hall conductance for interacting electrons on a torus, Commun. Math. Phys. 330 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-2167-x',
     },
-    impact_domains: ['拓扑材料', '量子输运', '霍尔效应器件'],
+    impact_domains: ['Topological materials', 'Quantum transport', 'Hall effect devices'],
     related_problems: [
       {
         id: 'mp-004',
@@ -3449,8 +3449,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     last_verified: '2026-08-22',
     proposer: 'E. H. Lieb',
     proposed_year: 2006,
-    via: { label: 'Lieb, Density functionals for Coulomb systems, Int. J. Quantum Chem. 24 (1983); Lévy–Lieb 泛函严格性质见同一工作及其后续' },
-    impact_domains: ['电子结构计算', '材料设计', '量子化学'],
+    via: { label: 'Lieb, Density functionals for Coulomb systems, Int. J. Quantum Chem. 24 (1983); rigorous properties of the Lévy–Lieb functional see the same work and its sequels' },
+    impact_domains: ['Electronic structure computation', 'Materials design', 'Quantum chemistry'],
     related_problems: [
       {
         id: 'mp-020',
@@ -3501,7 +3501,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     date_added: '2026-08-22',
     last_verified: '2026-08-22',
     impact_domains:
-    ['类脑计算', '存储器设计', '神经网络理论'],
+    ['Brain-inspired computing', 'Memory device design', 'Neural network theory'],
     via: { label: 'Gardner, The space of interactions in neural network models, J. Phys. A 21 (1988) 257-270', url: 'https://doi.org/10.1088/0305-4470/21/1/030' },
     related_problems: [
       {
@@ -3561,7 +3561,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
       label: 'Desai & Fisher, Beneficial mutation-selection balance and the effect of linkage, Genetics 176 (2007)',
       url: 'https://doi.org/10.1534/genetics.106.067082',
     },
-    impact_domains: ['进化算法设计', '微生物育种', '病毒演化监测'],
+    impact_domains: ['Evolutionary algorithm design', 'Microbial breeding', 'Viral evolution surveillance'],
     related_problems: [
       {
         id: 'mb-001',
@@ -3618,10 +3618,10 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
     proposer: 'A. Jaffe & E. Witten',
     proposed_year: 2000,
     via: {
-      label: 'Yang–Mills 质隙，Clay Millennium Prize Problem (2000)',
+      label: 'Yang–Mills mass gap, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/yang-mills/',
     },
-    impact_domains: ['量子场论的严格构造', '基本粒子物理', '数学与物理的交叉'],
+    impact_domains: ['Rigorous construction of quantum field theory', 'Fundamental particle physics', 'Mathematics–physics interface'],
     related_problems: [
       {
         id: 'mp-020',
@@ -3679,7 +3679,7 @@ A pass fixes the theory at one loop and removes the ultraviolet cutoff, and exhi
       label: 'Erdős–Schlein–Yau, Rigorous derivation of the Gross–Pitaevskii equation, PRL 98 (2007)',
       url: 'https://doi.org/10.1103/PhysRevLett.98.040404',
     },
-    impact_domains: ['冷原子物理', '量子多体系统的有效方程', '非线性薛定谔方程'],
+    impact_domains: ['Cold-atom physics', 'Effective equations for quantum many-body systems', 'Nonlinear Schrödinger equations'],
     related_problems: [
       {
         id: 'mp-001',
@@ -3736,10 +3736,10 @@ with $a_0$ the scattering length of $V$. A pass bounds the convergence rate and 
     proposer: 'C. Fefferman',
     proposed_year: 2000,
     via: {
-      label: 'Navier–Stokes 全局正则性，Clay Millennium Prize Problem (2000)',
+      label: 'Navier–Stokes global regularity, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/navier-stokes/',
     },
-    impact_domains: ['流体力学数学理论', '湍流体动力学', '偏微分方程整体理论'],
+    impact_domains: ['Mathematical theory of fluid mechanics', 'Turbulent fluid dynamics', 'Global theory of partial differential equations'],
     related_problems: [
       {
         id: 'mp-019',
@@ -3793,8 +3793,8 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
-    via: { label: 'Wigner, On the interaction of electrons in metals, Phys. Rev. 46 (1934); 2D 库仑/长程势结晶化严格现状综述见 Bétermin & Knüpfer, arXiv:1710.05581 (2017)' },
-    impact_domains: ['凝聚态物理中的结晶现象', '经典与量子库仑体系', '最优点配置'],
+    via: { label: 'Wigner, On the interaction of electrons in metals, Phys. Rev. 46 (1934); review of the rigorous state of 2D Coulomb/long-range crystallization see Bétermin & Knüpfer, arXiv:1710.05581 (2017)' },
+    impact_domains: ['Crystallization phenomena in condensed matter', 'Classical and quantum Coulomb systems', 'Optimal point configurations'],
     related_problems: [
       {
         id: 'mp-009',
@@ -3850,7 +3850,7 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
       label: 'Haldane, Continuum dynamics of the 1D Heisenberg antiferromagnet, PRL 50 (1983)',
       url: 'https://doi.org/10.1103/PhysRevLett.50.1153',
     },
-    impact_domains: ['量子自旋链的谱隙', '对称保护拓扑相', '低维量子磁性'],
+    impact_domains: ['Spectral gaps of quantum spin chains', 'Symmetry-protected topological phases', 'Low-dimensional quantum magnetism'],
     related_problems: [
       {
         id: 'mp-005',
@@ -3905,10 +3905,10 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: {
-      label: '波湍流方程长期有效性：Faou–Germain–Hani, Ann. PDE 2 (2016) 早时；长期开放',
+      label: 'Long-time validity of the wave-turbulence equations: Faou–Germain–Hani, Ann. PDE 2 (2016) short-time; long-time open',
       url: 'https://doi.org/10.1007/s40818-016-0008-1',
     },
-    impact_domains: ['波动湍流理论', '弱非线性色散系统的统计描述', '非线性偏微分方程的长期行为'],
+    impact_domains: ['Wave turbulence theory', 'Statistical description of weakly nonlinear dispersive systems', 'Long-time behavior of nonlinear PDEs'],
     related_problems: [
       {
         id: 'mp-006',
@@ -3965,10 +3965,10 @@ on a kinetic-time interval of length that exceeds the already-established O(1) w
     proposer: 'multiple contributors',
     proposed_year: 2020,
     via: {
-      label: '奇异相互作用平均场极限：Duerinckx & Serfaty 系列 (2020–2023)',
+      label: 'Mean-field limits with singular interactions: the Duerinckx & Serfaty series (2020–2023)',
       url: 'https://arxiv.org/abs/2001.07038',
     },
-    impact_domains: ['等离子体动力学的数学理论', '天体力学与自引力系统', '传播混沌'],
+    impact_domains: ['Mathematical theory of plasma dynamics', 'Celestial mechanics and self-gravitating systems', 'Propagation of chaos'],
     related_problems: [
       {
         id: 'mp-001',
@@ -4024,10 +4024,10 @@ A pass removes the N-dependent cut-off of the force, or else lets the cut-off va
     proposer: 'P. W. Anderson',
     proposed_year: 1958,
     via: {
-      label: '多体局域化综述：Nandkishore & Huse, Ann. Rev. Cond. Matter Phys. 6 (2015); 一性原理刻画开放',
+      label: 'Review of many-body localization: Nandkishore & Huse, Ann. Rev. Cond. Matter Phys. 6 (2015); first-principles characterization open',
       url: 'https://doi.org/10.1146/annurev-conmatphys-031214-014726',
     },
-    impact_domains: ['强关联无序量子体系', '量子热化与遍历性', '量子信息中的局域守恒量'],
+    impact_domains: ['Strongly correlated disordered quantum systems', 'Quantum thermalization and ergodicity', 'Local conserved quantities in quantum information'],
     related_problems: [
       {
         id: 'mp-004',
@@ -4083,20 +4083,20 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'E. H. Lieb & W. Thirring',
     proposed_year: 1975,
     via: {
-      label: 'Lieb & Thirring, Bound for the kinetic energy of fermions which proves stability of matter, PRL 35 (1975); 锐常数见 Frank 等',
+      label: 'Lieb & Thirring, Bound for the kinetic energy of fermions which proves stability of matter, PRL 35 (1975); sharp constants see Frank et al.',
       url: 'https://doi.org/10.1103/PhysRevLett.35.687',
     },
-    impact_domains: ['原子与凝聚体系的稳定性论证', '密度泛函理论的数学下界'],
+    impact_domains: ['Stability arguments for atomic and condensed systems', 'Mathematical lower bounds in density functional theory'],
     related_problems: [
       {
         id: 'mp-026',
         relation: 'shares_tools',
-        note: '两者都以动能下界与稳定性论证为共同工具。',
+        note: 'Both use kinetic-energy lower bounds and stability arguments as common tools.',
       },
       {
         id: 'mc-017',
         relation: 'analog_of',
-        note: '同为多体能量函数中的待定锐利常数，结构平行。',
+        note: 'Both are pending sharp constants in many-body energy functionals, with parallel structure.',
       },
     ],
     statement: `Let $\u03c8 \\in \\bigwedge^N L^2(\u211d^{3N})$ be an antisymmetric wave function of $N$ electrons with one-particle density $\\rho(x)=N\\int_{\u211d^{3N-3}} |\u03c8(x,x_2,\\ldots,x_N)|^2\\, dx_2\\cdots dx_N$. The kinetic energy and the density are related by $\\int_{\u211d^{3N}}\\sum_{j=1}^N |\\nabla_j \u03c8|^2 \\, dx \\;\\ge\\; K \\int_{\u211d^3} \\rho(x)^{5/3}\\, dx$. **Prove the sharp (largest possible) value of the constant $K$** valid for every $N$ and every antisymmetric $\u03c8$. The semiclassical value $K_{\\mathrm{cl}}=\\tfrac{3}{10}(3\\pi^2)^{2/3}$ is never attained, and the optimal $K$, which is strictly smaller, is not known. A pass supplies the exact value or a certified two-sided bracket that closes the gap.`,
@@ -4126,7 +4126,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     id: 'mc-017',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"交换关联能下界的可核验收敛常数"而非终极锐常数：交付一个机器可核验的两边括号，使 Lieb–Oxford 常数被例 $C$ 满足 $c \\le C \\le C_0$ 且 $C_0-c$ 相比已知界（当前 $[1.44,1.58]$）有受控的显著收缩，并附三层残差总带：(1) **R_model**：把真实（动量泛函、自旋对称性相应）交换关联能限制为 $\\rho^{4/3}$ 局部泛函族所引入的残差上界（显式区分 spin-unpolarized 情形的更紧界）；(2) **R_num**：对可达性构造与下界泛函用区间/符号计算封闭所引入的残差上界；(3) 该题常数为纯数学结构，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定密度泛函实现，直接得到"该泛函的交换关联能是否仍满足严格运动学下界"的可核验判定，其括号宽由三层残差总带明确划定，供 DFT 工具作者认证其梯度/元泛函不违反下界。',
+      'The acceptable answer is a machine-verifiable converging constant for the exchange-correlation-energy lower bound rather than the ultimate sharp constant: deliver a machine-checkable two-sided bracket making the Lieb–Oxford constant $C$ satisfy $c \\le C \\le C_0$ with $C_0-c$ a controlled, significant contraction relative to the known bounds (currently $[1.44,1.58]$), accompanied by a three-layer residual total band: (1) **R_model**: the upper bound on the residual introduced by restricting the true (momentum-functional, spin-symmetry-adapted) exchange-correlation energy to the $\\rho^{4/3}$ local-functional family (explicitly distinguishing the tighter bound for the spin-unpolarized case); (2) **R_num**: the residual upper bound introduced by closing the attainability construction and the lower-bound functional with interval/symbolic computation; (3) since the constant in this problem is purely mathematical structure, **R_param≡0 (no input measurement residual layer, as explicitly noted)**. Consumption form of a passing decision: given a density-functional implementation, directly obtain the verifiable decision of "whether the exchange-correlation energy of this functional still respects the strict kinematic lower bound", with the bracket width explicitly delimited by the three-layer residual total band, so that DFT tool authors can certify that their gradient/meta-functionals do not violate the bound.',
     title: 'The Sharp Constant in the Lieb–Oxford Inequality',
     titleZh: 'Lieb–Oxford 不等式的锐利常数',
     domain: 'mathematical-chemistry',
@@ -4145,37 +4145,37 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Lieb & Oxford, Improved lower bound on the indirect Coulomb energy, Int. J. Quantum Chem. 19 (1981)',
       url: 'https://doi.org/10.1002/qua.560190308',
     },
-    impact_domains: ['密度泛函近似器的构造约束', '交换关联能泛函的严格下界'],
+    impact_domains: ['Construction constraints on density functional approximations', 'Rigorous lower bounds for exchange–correlation energy functionals'],
     related_problems: [
       {
         id: 'mc-014',
         relation: 'shares_tools',
-        note: 'Lieb–Oxford 下界是约束 Levy–Lieb 泛函构造的常用工具。',
+        note: 'The Lieb–Oxford lower bound is a common tool for constraining Levy–Lieb functional constructions.',
       },
       {
         id: 'mc-016',
         relation: 'analog_of',
-        note: '同为多体能量等式中待定的锐利常数。',
+        note: 'Both are pending sharp constants in many-body energy equations.',
       },
     ],
     statement: `For an $N$-electron wave function $\u03c8$ with one-particle density $\u03c1$, the indirect (exchange plus correlation) Coulomb energy $W(\u03c8)=\\langle \u03c8,\\sum_{i<j}|x_i-x_j|^{-1}\u03c8\\rangle - \\tfrac{1}{2}\\iint_{\u211d^6} \u03c1(x)\u03c1(y)|x-y|^{-1}\\, dx\\, dy$ satisfies $W(\u03c8)\\ge -C\\int_{\u211d^3}\u03c1(x)^{4/3}\\, dx$. **Determine the sharp constant $C_{\\mathrm{opt}}=\\sup\{-W(\u03c8)/\\int \u03c1^{4/3}\\, dx\\}$**, the least such $C$ valid for all $N$ and all $\u03c8$. The value is open; current records place it strictly between the improved upper bound $1.58$ and a lower bound above $1.44$.`,
     certificate: {
       r_model: {
-        bound: '把真实（动量泛函、自旋对称性相应）交换关联能限制为 ρ^{4/3} 局部泛函族所引入的模型残差上界（显式区分 spin-unpolarized 情形的更紧界）',
-        derivation: '局部 ρ^{4/3} 泛函族限定残差界',
+        bound: 'Model-residual upper bound introduced by restricting the true (momentum-functional, spin-symmetry-adapted) exchange-correlation energy to the ρ^{4/3} local-functional family (explicitly distinguishing the tighter bound for the spin-unpolarized case)',
+        derivation: 'Local ρ^{4/3} functional-family restriction residual bound',
       },
       r_param: {
-        bound: '≡0（纯数学结构，无输入测量残差层）',
-        derivation: '常数为纯数学结构，参数精确给定',
+        bound: '≡0 (purely mathematical structure; no input measurement residual layer)',
+        derivation: 'Constant is purely mathematical structure; parameters exactly specified',
       },
       r_num: {
-        bound: '对可达性构造与下界泛函用区间/符号计算封闭所引入的数值残差上界',
-        derivation: '区间/符号计算封闭界',
+        bound: 'Numerical-residual upper bound introduced by closing the attainability construction and the lower-bound functional with interval/symbolic computation',
+        derivation: 'Interval/symbolic computation closure bound',
       },
       total_band: 'C_0 - c ≤ R_model + R_num',
       certified_band: '[c, C_0]',
     },
-    engineering_deliverables: ['DFT 泛函下界合规审查', '交换关联能收缩括号'],
+    engineering_deliverables: ['DFT functional lower-bound compliance review', 'Exchange-correlation energy contraction bracket'],
     origin:
       'The Lieb–Oxford inequality bounds the indirect part of the Coulomb repulsion by a strictly local functional of the ground-state density, and is the structural backbone behind gradient-corrected and meta-GGA density-functional approximations. The optimal constant matters because every exchange-correlation functional that respects the bound must stay below it.',
     progress: [
@@ -4189,7 +4189,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       '**Kinematic over-counting**: the indirect energy mixes several particles, so purely local density inequalities must be derived from the full $N$-particle wave function, an inherently hard step.',
     ],
     engineering_value:
-      "The sharp exchange-correlation constant is the ceiling every correlation functional must respect; pinning it down lets DFT tool authors and materials simulators certify their gradient-corrected functionals do not violate the strict kinematic lower bound. 本榜交付的是可核验收缩括号而非终极常数，并把模型层（局部 $\\rho^{4/3}$ 泛函族限定）与数值层（区间/符号封闭）残差显式分开合成总带，使“该泛函是否违反下界”成为带证判定而非依赖当前最好的已知常数。",
+      "The sharp exchange-correlation constant is the ceiling every correlation functional must respect; pinning it down lets DFT tool authors and materials simulators certify their gradient-corrected functionals do not violate the strict kinematic lower bound. This ranking delivers a verifiable contraction bracket rather than the ultimate constant, and explicitly separates the model-layer (local $\\rho^{4/3}$ functional-family restriction) and numerical-layer (interval/symbolic closure) residuals into the synthesized total band, making \"whether this functional violates the lower bound\" a certified decision rather than a claim relying on the current best known constant.",
     formalization_notes:
       'The proving route is real analysis together with rearrangement and harmonic-analysis bounds on the exchange integral; the two-sided bracket obtained by Lewin, Lieb and Seiringer is a natural verified target, while exact equality remains research-level.',
     references: [
@@ -4230,12 +4230,12 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Altunbulak & Klyachko, The Pauli principle revisited, Commun. Math. Phys. 327 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-1962-8',
     },
-    impact_domains: ['波函数展开所需的 Slater 行列式数目', '自然轨道与活性空间方法'],
+    impact_domains: ['Number of Slater determinants needed in wavefunction expansions', 'Natural orbitals and active-space methods'],
     related_problems: [
       {
         id: 'mc-023',
         relation: 'shares_tools',
-        note: '两者同属约化密度算子的可实现性（marginal problem）研究。',
+        note: 'Both belong to the study of realizability of reduced density operators (the marginal problem).',
       },
     ],
     statement: `For $N$ fermions in a $d$-dimensional one-particle space, the natural occupation numbers $\u03bb_1\\ge\\cdots\\ge \u03bb_d$, the ordered eigenvalues of the one-particle reduced density matrix, must lie in the Pauli polytope $\u2119_{N,d}$ cut out by the affine generalized Pauli constraints $D_j(\u03bb)\\ge 0$. **Decide whether the ground state of a Coulombic (or fixed inter-particle interaction) fermion Hamiltonian can ever hit the boundary, attaining equality in a nontrivial constraint, and, if so, whether two constraints can be saturated simultaneously.** Early numerics for Beryllium suggested exact pinning; state-of-the-art computation shows only quasipinning, so the generic mechanism is not settled.`,
@@ -4292,12 +4292,12 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Nosé, A unified formulation of the constant temperature molecular dynamics methods, J. Chem. Phys. 81 (1984)',
       url: 'https://doi.org/10.1063/1.447334',
     },
-    impact_domains: ['恒温分子动力学模拟的采样可靠性', '动力系统的可积性与遍历理论'],
+    impact_domains: ['Sampling reliability of thermostatted molecular dynamics', 'Integrability and ergodic theory of dynamical systems'],
     related_problems: [
       {
         id: 'mc-020',
         relation: 'shares_tools',
-        note: '两者都是分子模拟中生成热平衡采样的核心工具。',
+        note: 'Both are core tools for generating thermal-equilibrium sampling in molecular simulation.',
       },
     ],
     statement: `Consider the Nosé–Hoover equations on $\u211d^6$, $\\dot{q}=p$, $\\dot{p}=-V\'(q)-\u03b6 p$, $\\dot{\u03b6}=p^2/T-1$, which on the manifold of constant extended energy are intended to reproduce the canonical distribution; this succeeds only up to the ergodicity of the flow. **Find a Hamiltonian or Poisson formulation for arbitrary-order Nosé–Hoover chains, or prove that no such finite-dimensional Hamiltonian flow exists, and characterize with proof the parameter ranges in which the flow is ergodic as opposed to leaving invariant lower-dimensional tori.** For several low-dimensional oscillators the flow is known not to be ergodic (persistent tori), but a rigorous general criterion is lacking.`,
@@ -4346,15 +4346,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'R. H. Swendsen & J.-S. Wang',
     proposed_year: 1986,
     via: {
-      label: 'Swendsen & Wang, Replica Monte Carlo simulation of spin-glasses, PRL 57 (1986); 混合/截止开放',
+      label: 'Swendsen & Wang, Replica Monte Carlo simulation of spin-glasses, PRL 57 (1986); mixing/cutoff open',
       url: 'https://doi.org/10.1103/PhysRevLett.57.2607',
     },
-    impact_domains: ['团簇与聚合物的平衡采样', '分析化学与统计力学的蒙特卡罗效率'],
+    impact_domains: ['Equilibrium sampling of clusters and polymers', 'Monte Carlo efficiency in analytical chemistry and statistical mechanics'],
     related_problems: [
       {
         id: 'mc-019',
         relation: 'shares_tools',
-        note: '同属分子模拟中生成热平衡采样的核心工具。',
+        note: 'Both belong to the core tools for generating thermal-equilibrium sampling in molecular simulation.',
       },
     ],
     statement: `For target densities $\u03c0_{\u03b2}\\propto e^{-\u03b2 H}$ on a finite state space at temperatures $0=\u03b2_0<\\cdots<\u03b2_L$, the parallel-tempering chain alternates coordinate Metropolis updates with swaps $x\\leftrightarrow y$ between neighboring replicas. **Give matching upper and lower bounds on the mixing time $t_{\\mathrm{mix}}$ and the spectral gap as explicit functions of $L$ and the family parameters, proving rapid or slow mixing for stated classes (mean-field Ising, hard-core or Lennard-Jones-type cluster energies, general Berries–Essen class), and establish the conjectured cutoff phenomenon where it appears.** The algorithm is empirically successful, yet theoretically understood only on a few mean-field examples.`,
@@ -4404,20 +4404,20 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'multiple contributors',
     proposed_year: 2010,
     via: {
-      label: '随机反应网络积形平稳分布：Anderson, Craciun & Kurtz, Trans. AMS 362 (2010)',
+      label: 'Product-form stationary distributions of stochastic reaction networks: Anderson, Craciun & Kurtz, Trans. AMS 362 (2010)',
       url: 'https://arxiv.org/abs/0802.1262',
     },
-    impact_domains: ['生化主方程的解析求解', '随机化学生物学的稳态分析'],
+    impact_domains: ['Analytical solution of biochemical master equations', 'Steady-state analysis of stochastic chemical biology'],
     related_problems: [
       {
         id: 'mc-001',
         relation: 'shares_tools',
-        note: '确定性 CRN 与随机 CRN 共享复杂平衡这一结构判据。',
+        note: 'Deterministic CRNs and stochastic CRNs share the structural criterion of complex balancing.',
       },
       {
         id: 'mc-002',
         relation: 'shares_tools',
-        note: '网络结构决定动力学行为的主题在两种建模下互相关联。',
+        note: 'The theme that network structure determines dynamical behavior is interrelated across the two modeling frameworks.',
       },
     ],
     statement: `For the continuous-time Markov chain of a stochastic mass-action network, the stationary distribution restricted to a closed communicating class is of product form, $\u03c0(x)=\\prod_i c_i^{x_i}/x_i!$, whenever the associated deterministic system admits a complex-balanced equilibrium (Anderson–Craciun–Kurtz). **Characterize exactly, and prove by an iff statement, those networks beyond weak reversibility and zero deficiency for which such a product-form stationary distribution exists on every closed class, and decide whether product form is equivalent to complex balancing.** The sufficiency is known; sharp necessity, and the class of reversible-only networks, remain open.`,
@@ -4466,18 +4466,18 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     last_verified: '2026-08-22',
     proposer: 'I. Gutman',
     proposed_year: 2008,
-    via: { label: '苯环烃 Kekulé 结构数：Gutman & Cyvin 等化学图论文献' },
-    impact_domains: ['芳香性与稳定性的图论指标', '受合成本碳氢化合物的结构计数'],
+    via: { label: 'Number of Kekulé structures of benzenoid hydrocarbons: literature on chemical graph theory, e.g. Gutman & Cyvin' },
+    impact_domains: ['Graph-theoretic indices of aromaticity and stability', 'Structure enumeration of synthesizable hydrocarbons'],
     related_problems: [
       {
         id: 'mc-024',
         relation: 'shares_tools',
-        note: '同为苯环型体系中的结构计数与 Clar 覆盖问题。',
+        note: 'Both are structural-counting and Clar-cover problems in benzenoid systems.',
       },
       {
         id: 'mc-009',
         relation: 'shares_tools',
-        note: '同为针对苯环/富勒烯类分子图的组合结构判定。',
+        note: 'Both are combinatorial-structure decisions for benzenoid/fullerene-type molecular graphs.',
       },
     ],
     statement: `Let $K(B)$ be the number of perfect matchings (Kekulé structures) of a benzenoid graph $B$, and let $K_{\\max}(h)=\\max\\{K(B)\\colon B \\text{ has } h \\text{ hexagons}\\}$. **Determine $K_{\\max}(h)$ exactly for all $h$, prove whether the extremal benzenoid is always catacondensed, and pin down the sharp exponential growth rate $\\lim_{h\\to\\infty}K_{\\max}(h)^{1/h}$.** Only upper-bound recurrences are known, and exact values are available only for small $h$; the growth rate is linked to the thermodynamic stability ordering of polycyclic aromatics.`,
@@ -4523,13 +4523,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2007,
-    via: { label: '两电子 RDM N-representability：Mazziotti (ed.), Reduced-Density-Matrix Mechanics, Adv. Chem. Phys. 134 (2007)' },
-    impact_domains: ['二阶约化密度矩阵泛函理论', '确定性多电子理论的严格约束'],
+    via: { label: 'Two-electron RDM N-representability: Mazziotti (ed.), Reduced-Density-Matrix Mechanics, Adv. Chem. Phys. 134 (2007)' },
+    impact_domains: ['Second-order reduced density matrix functional theory', 'Rigorous constraints in deterministic many-electron theories'],
     related_problems: [
       {
         id: 'mc-018',
         relation: 'shares_tools',
-        note: '两者同属约化密度算子的可实现性（marginal problem）研究。',
+        note: 'Both belong to the study of realizability of reduced density operators (the marginal problem).',
       },
     ],
     statement: `Let $\u03c1_2(x_1,x_2;x_1\',x_2\')$ be a two-particle reduced density matrix, Hermitian, normalized, and with the correct antisymmetry. **Give necessary and sufficient conditions for $\u03c1_2$ to be the second marginal of an $N$-fermion pure state $|\u03a8\\rangle\\in\\wedge^N L^2(\u211d^{3N})$.** The general problem is open: only partial conditions are established (the Pauli ones on the one-particle sector, Coleman conditions for $N=2$, and further positivity/semidefinite constraints), and it is widely believed that no finite explicit characterization exists for arbitrary $N$.`,
@@ -4561,22 +4561,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     id: 'mc-024',
     output: 'verified_behavior',
     judgment:
-      'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form. 合格答案为可核验判定并附残差总带：(1) **R_model**＝把真实 π 电子稳定结构限制为 Kekulé/Clar 覆盖组合模型所丢掉的近似残差上界；(2) **R_num**＝枚举与封闭形式计算的区间/精确算术残差上界；(3) 参数（六环数、几何族）为精确给定的数论输入，**R_param≡0（无输入测量残差层，如实注明）**。',
+      'A pass provides an algorithm with a proven (polynomial or #P-hard) complexity bound and rigorous optimality for computing the Clar number, and solves the open exact-counting problem of Clar covers for a basic benzenoid family such as hexagons O(k,l,m) or oblate rectangles Ob(n,m), the count being certified by closed form. The acceptable answer is a verifiable decision accompanied by a residual total band: (1) **R_model** = the approximate residual upper bound lost by restricting the true π-electron stability structure to the Kekulé/Clar cover combinatorial model; (2) **R_num** = the interval/exact-arithmetic residual upper bound of the enumeration and closed-form computation; (3) the parameters (hexagon count, geometric family) are exactly specified number-theoretic inputs, so **R_param≡0 (no input measurement residual layer, as explicitly noted)**.',
     certificate: {
       r_model: {
-        bound: '把真实 π 电子稳定结构限制为 Kekulé/Clar 覆盖组合模型所丢掉的近似残差上界',
-        derivation: 'Kekulé/Clar 组合模型限制残差界',
+        bound: 'Approximate residual upper bound lost by restricting the true π-electron stability structure to the Kekulé/Clar cover combinatorial model',
+        derivation: 'Kekulé/Clar combinatorial-model restriction residual bound',
       },
       r_param: {
-        bound: '≡0（六环数与几何族为精确给定的数论输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (the hexagon count and geometric family are exactly specified number-theoretic inputs; no input measurement residual layer)',
+        derivation: 'Parameters exactly specified',
       },
       r_num: {
-        bound: '枚举与封闭形式计算的区间/精确算术残差上界',
-        derivation: '区间/精确算术封闭',
+        bound: 'Interval/exact-arithmetic residual upper bound of the enumeration and closed-form computation',
+        derivation: 'Interval/exact arithmetic closure',
       },
-      total_band: 'Clar 数 / Clar 覆盖计数闭环 ≤ R_model + R_num',
-      certified_band: 'Clar 数与覆盖计数的核验闭式',
+      total_band: 'Clar number / Clar cover counting closure ≤ R_model + R_num',
+      certified_band: 'Verified closed form for the Clar number and cover count',
     },
     title: 'Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems',
     titleZh: '苯环型体系 Clar 数与 Clar 覆盖的计数',
@@ -4592,13 +4592,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1992,
-    via: { label: 'Clar 数与 Clar 覆盖：Gutman 等化学图论/组合文献' },
-    impact_domains: ['芳香性指数的量子化学依据', '受合成本碳氢化合物的结构与计数'],
+    via: { label: 'Clar numbers and Clar covers: chemical graph theory / combinatorial literature, e.g. Gutman et al.' },
+    impact_domains: ['Quantum-chemical foundations of aromaticity indices', 'Structure and enumeration of synthesizable hydrocarbons'],
     related_problems: [
       {
         id: 'mc-022',
         relation: 'shares_tools',
-        note: '同为苯环型体系中的结构计数；Kekulé 结构数表示匹配计数，而 Clar 数表示最大不相交芳香六元环数。',
+        note: 'Both are structural counting in benzenoid systems; the Kekulé structure count is a perfect-matching count, whereas the Clar number counts the maximum number of pairwise disjoint aromatic hexagons.',
       },
     ],
     statement: `For a benzenoid system $B$, the Clar number is the maximum number of pairwise disjoint aromatic sextets (hexagons carrying three fixed double bonds), and a Clar cover is a set of independent sextets and fixed double bonds covering $B$; the associated ZZ polynomial counts Clar covers. **Design a provably correct and efficient algorithm to compute the Clar number of an arbitrary $B$, and enumerate Clar covers in closed form for the basic families such as the hexagon shells $O(k,l,m)$ and the oblate-parallelogram benzenoids $Ob(n,m)$.** Both questions are listed as open in the recent benzenoid literature.`,
@@ -4642,13 +4642,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
-    via: { label: 'Walsh 基下选择-重组闭合性：与种群遗传混合表述相关，近期有解析闭包结果' },
-    impact_domains: ['定量遗传学', '适应度地貌的数学理论'],
+    via: { label: 'Closure of selection–recombination in the Walsh basis: related to mixed population-genetic formulations; recent analytic closure results' },
+    impact_domains: ['Quantitative genetics', 'Mathematical theory of fitness landscapes'],
     related_problems: [
       {
         id: 'mb-003',
         relation: 'shares_tools',
-        note: '两者都研究群体遗传学中演化动力学的长期状态，共用测度与不等式工具。',
+        note: 'Both study the long-term state of evolutionary dynamics in population genetics, sharing measure and inequality tools.',
       },
     ],
     statement:
@@ -4656,20 +4656,20 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
 $\\|\\,\\mathcal{R}\\,\\mathcal{S}\\,[p] - \\mathcal{R}\\,\\mathcal{S}\\,[q]\\,\\| \\le c \\, \\|p - q\\|$
 with a constant $c<1$ independent of $L$, which would guarantee eventual fixation from every initial condition.`,
     origin:
-      '连锁与重组如何塑造适应度地貌上的演化是群体遗传学的核心议题。在 Walsh 基下把选择与重组表示为对角化部分加上不可对角化耦合，直接决定能否用低阶矩封闭地预言多基因性状的动态，而这一闭合性在一般适应度地貌上至今未给出充分刻画。',
+      'How linkage and recombination shape evolution on fitness landscapes is a central question of population genetics. Representing selection and recombination in the Walsh basis as a diagonalizable part plus a non-diagonalizable coupling directly determines whether the dynamics of polygenic traits can be predicted in closed form from low-order moments; this closure has not yet been fully characterized for general fitness landscapes.',
     progress: [
-      '**线性界与可对角情形**: 对 pair-additive 适应度，Walsh 高次系数在重组下线性衰减，矩动力学闭合。',
-      '**随机适应度理论**: Sella–Hirsh 把单体选择视为玻尔兹曼统计，近似给出 stationary density，但未解决确定性的闭合时刻方程。',
-      '**数值观察**: 高维适应度地貌上高阶 Walsh 系数与决定适应度的低阶系数强耦合，闭合只近似成立。',
+      '**Linear bound and diagonalizable case**: for pair-additive fitness, the higher-order Walsh coefficients decay linearly under recombination, and the moment dynamics close.',
+      '**Random fitness theory**: Sella–Hirsh treat single-locus selection as Boltzmann statistics, approximately yielding a stationary density, but they do not resolve the deterministic closed moment equations.',
+      '**Numerical observation**: on high-dimensional fitness landscapes the higher-order Walsh coefficients are strongly coupled to the low-order coefficients that determine fitness, so closure holds only approximately.',
     ],
     obstacles: [
-      '**物理闭合缺失**: 选择项把基因型的首矩与外积高阶矩耦合，重组无法抵消该非线性耦合，moment closure 在一般地表下无明确截断原理。',
-      '**L 无关常数**: 收缩常数 $c<1$ 需在所有轨迹上一致，重组算子的谱半径虽为 1，但选择可任意放大比值，界限难以统一。',
+      '**Missing physical closure**: the selection term couples the first moments of genotypes to higher-order product moments, and recombination cannot cancel this nonlinear coupling, so moment closure has no well-defined truncation principle on general landscapes.',
+      '**L-independent constant**: the contraction constant $c<1$ must be uniform across all trajectories; although the spectral radius of the recombination operator is 1, selection can arbitrarily amplify the ratio, making the bound hard to unify.',
     ],
     engineering_value:
       "A sharp, L-independent contraction bound guarantees eventual fixation from every initial condition, letting breeders and genetic engineers certify exactly when multi-locus selection maps close at low order under linkage - making genomic-selection predictions provably stable rather than empirically fitted.",
     formalization_notes:
-      '可把目标表述为一个有限维捕获不等式的验证问题：在固定的 $L$ 与给定的适应度地表上，验证 $\\mathcal{R}\\,\\mathcal{S}$ 是否在某个测度下为 Piccard 收缩。pair-additive 情形的 Walsh 线性化可形式化证明；一般情形的反例或界则属于开放研究。',
+      'The goal can be phrased as a finite-dimensional contraction-inequality verification problem: on a fixed $L$ and a given fitness landscape, verify whether $\\mathcal{R}\\,\\mathcal{S}$ is a Picard contraction in some measure. The Walsh linearization for the pair-additive case is formally provable; counterexamples or bounds for the general case remain open research.',
     references: [
       {
         label: 'Neher & Shraiman, Fluctuations of fitness distributions and the rate of Muller ratchet, Genetics 191(4) (2012) 1283-1309',
@@ -4704,15 +4704,15 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: {
-      label: '受噪 Lotka–Volterra 持久性与灭绝速率：Hening & Nguyen 系列',
+      label: 'Persistence and extinction rates of noisy Lotka–Volterra: the Hening & Nguyen series',
       url: 'https://doi.org/10.1007/s00285-017-1188-y',
     },
-    impact_domains: ['物种共存理论', '随机生态学'],
+    impact_domains: ['Species coexistence theory', 'Stochastic ecology'],
     related_problems: [
       {
         id: 'mb-004',
         relation: 'depends_on',
-        note: '把 mb-004 的确定性持久性判据推广到有环境噪声的情形，其结果依赖该基础判据。',
+        note: 'Generalizes the deterministic persistence criterion of mb-004 to the setting with environmental noise; its results depend on that foundational criterion.',
       },
     ],
     statement:
@@ -4720,20 +4720,20 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
 $\\dot{x}_i = x_i\\,\\Big( r_i + \\sum_j a_{ij} x_j + \\sigma_i \\,\\dot{W}_i \\Big),$
 a Lotka–Volterra system perturbed by bounded multiplicative environmental noise. **Find a necessary and sufficient condition, stated only in terms of the mean interaction matrix $A=(a_{ij})$ and the noise intensities $\\sigma_i$, under which all species survive almost surely in the sense that $\\lim_{T\\to\\infty} \\frac1T \\tfrac1n \\sum_j \\log x_j(T) > 0$**, and complement it with a sharp estimate of the large-deviation rate for extinction, the exponent of $\\mathbb{P}(\\min_i x_i < \\varepsilon)$ as $\\varepsilon\\to 0$.`,
     origin:
-      '野外与实验室中物种的随机波动威胁着共存，而确定性 Lotka–Volterra 的持久性判据（mb-004）在存在环境噪声时是否依然刻画几乎必然的长期存活并不清楚。噪声既能通过存储效应维持共存，也能因随机漂移把群落推到灭绝，何种结构条件保证前者占优是生态学随机稳定性理论未关闭的问题。',
+      'Stochastic fluctuations of species in the field and in the laboratory threaten coexistence, and it is unclear whether the deterministic Lotka–Volterra persistence criterion (mb-004) still characterizes almost-sure long-term survival in the presence of environmental noise. Noise can both sustain coexistence through storage effects and drive communities to extinction through random drift; which structural conditions guarantee that the former prevails is an open question in the stochastic stability theory of ecology.',
     progress: [
-      '**确定性临界**: mb-004 给出了无噪声情形的细反满足判据，噪声使问题从吸收态变为渐近扩散。',
-      '**存储效应**: 定量结果说明适度噪声可提高持久性，但只对特殊两物种情形严格。',
-      '**Lyapunov 方法**: 已证明这类扩散在拟不变测度意义下的持久性可由一组线性泛函的符号刻画，但几乎必然形式与指数界仍开放。',
+      '**Deterministic criticality**: mb-004 gives a refined sufficient criterion for the noise-free case; noise turns the problem from an absorbing-state issue into an asymptotic-diffusion one.',
+      '**Storage effect**: quantitative results show that moderate noise can enhance persistence, but rigorously only in special two-species settings.',
+      '**Lyapunov methods**: it has been shown that persistence of such diffusions in the sense of quasi-invariant measures can be characterized by the signs of a family of linear functionals, but the almost-sure form and exponential bounds remain open.',
     ],
     obstacles: [
-      '**边界行为**: 退化边界处的反射型扩散其灭绝概率遵循大偏差，拟测度的存在不足以保证路径-wise 的存活率。',
-      '**交互符号**: 非对称竞争矩阵使 Lyapunov 函数构造困难，且噪声项与漂移项的相互作用难以分解。',
+      '**Boundary behavior**: for reflecting diffusions at degenerate boundaries the extinction probability follows a large-deviation law, and the existence of a quasi-stationary measure does not suffice to guarantee pathwise survival probability.',
+      '**Interaction signs**: asymmetric competition matrices make Lyapunov-function construction difficult, and the interaction between the noise term and the drift term is hard to decompose.',
     ],
     engineering_value:
       "An almost-sure persistence condition plus a sharp extinction-rate exponent gives ecosystem managers and microbial-reactor engineers a teachable threshold for when environmental noise drives engineered communities to extinction, and how fast, enabling noise-budgeted design of coexisting consortia.",
     formalization_notes:
-      '几乎所有问题可归约为 SDE 在正象限内的不动点与大偏差分析，形式化目标集中在一个主定理：矩阵与噪声强度的联合条件等价于几乎必然持久，并伴随可验证的指数界。',
+      'Nearly the whole problem reduces to fixed-point and large-deviation analysis of SDEs in the positive orthant; the formalization target concentrates on a single main theorem: a joint condition on the matrix and noise intensities is equivalent to almost-sure persistence, accompanied by a verifiable exponential bound.',
     references: [
       {
         label: 'Schreiber, Benaïm & Atchadé, Persistence in fluctuating environments, J. Math. Biol. 62 (2011) 109-162',
@@ -4763,32 +4763,32 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2012,
-    via: { label: 'Turing, The chemical basis of morphogenesis, Phil. Trans. R. Soc. B 237 (1952); 模式选择讨论见 Murray, Mathematical Biology II (3rd ed., 2003)' },
-    impact_domains: ['图灵斑图与自组织', '发育生物学的形态发生理论'],
+    via: { label: 'Turing, The chemical basis of morphogenesis, Phil. Trans. R. Soc. B 237 (1952); discussion of pattern selection see Murray, Mathematical Biology II (3rd ed., 2003)' },
+    impact_domains: ['Turing patterns and self-organization', 'Morphogenesis theory in developmental biology'],
     related_problems: [
       {
         id: 'mb-012',
         relation: 'analog_of',
-        note: '空间斑图形成问题：本问题针对反应—扩散域生长，mb-012 针对格点上的竞争斑图，机制同类而异。',
+        note: 'Spatial pattern-formation problem: this problem concerns growth of a reaction–diffusion domain, while mb-012 concerns competition patterns on lattices; the mechanisms are of the same kind but differ.',
       },
     ],
     statement:
       `Consider a two-species activator–inhibitor reaction–diffusion system on a one-dimensional interval whose length $\\ell(t)$ grows smoothly from $\\ell_0$, with homogeneous initial conditions slightly perturbed. **Prove that the linearly selected pattern wavenumber $k^*(t)$ scales as $k^*(t)\\asymp \\ell(t)^{-\\alpha}$ for some $\\alpha$ you must identify, and determine whether the dominant peak of the dispersion relation displaces through countably many mode-doubling bifurcations as $\\ell(t)$ increases**. Give a criterion, in terms of the diffusion ratio and the reaction Jacobian, under which a growing domain forever trails the instantaneous marginal-stability mode rather than re-localizing to a fixed number of peaks.`,
     origin:
-      '真实发育组织（四肢、皮肤条纹、斑马与鱼鳞）是在区域不断生长期间进行铸型的一种几何敏感过程。待定量化的问题在于：生长如何决定最终峰数、模式如何随尺寸重新定位，以及线性色散预测在多大程度上被非线性饱和所推翻，这都缺乏第一性原理的刻画。',
+      'Real developing tissues (limbs, skin stripes, zebra and fish scale patterns) are geometrically sensitive processes patterned during continuous growth of the region. The questions to be quantified — how growth determines the final number of peaks, how patterns re-localize with size, and to what extent linear dispersion predictions are overturned by nonlinear saturation — all lack a first-principles characterization.',
     progress: [
-      '**静态理论**: 恒定域上 Turing 不稳定性由色散关系的正峰决定，波长与域尺寸的比值 $k\\ell$ 被数值观察到大致常数。',
-      '**模式翻倍**: 生长使 $k\\ell$ 保持驻定，触发 mode-doubling/tripling，此现象已有实验与数值记录。',
-      '**文献缺口**: 生长域上的谱分析多基于拟稳态假设，未给出峰数与生长率的精确函数关系。',
+      '**Static theory**: on a fixed domain the Turing instability is determined by the positive peak of the dispersion relation, and the ratio $k\\ell$ of wavelength to domain size is numerically observed to be roughly constant.',
+      '**Mode doubling**: growth keeps $k\\ell$ stationary, triggering mode-doubling/tripling, a phenomenon already documented experimentally and numerically.',
+      '**Literature gap**: spectral analysis on growing domains mostly relies on a quasi-steady-state assumption and does not give an exact functional relation between peak count and growth rate.',
     ],
     obstacles: [
-      '**拟稳态失效**: 域生长时间尺度大于模式弛豫时，色散谱本身的瞬时变化与非线性演化耦合，线性模式选择不再直接决定最终斑图。',
-      '**多尺度奇异扰动**: 慢扩散域边界层与快反应内部层相互牵制，匹配渐近解极其脆弱。',
+      '**Quasi-steady-state failure**: when the domain-growth timescale exceeds the mode relaxation timescale, the instantaneous change of the dispersion spectrum couples with the nonlinear evolution, and linear mode selection no longer directly determines the final pattern.',
+      '**Multiscale singular perturbation**: the slow-diffusion boundary layer and the fast-reaction interior layer constrain each other, making matched asymptotic solutions extremely fragile.',
     ],
     engineering_value:
       "A first-principles peak-count scaling law lets synthetic-morphogenesis and tissue-engineering researchers design growing scaffolds whose pattern wavelength is set by the growth protocol, turning the qualitative observation that length controls stripe count into quantitative design rules.",
     formalization_notes:
-      '线性阶段在均匀区间上的谱可显式写出，验证 k 与尺寸的幂律关系是纸笔可判定的。最终斑图数则要求解一个自由边界问题，属于开放研究。',
+      'On a uniform interval the spectrum of the linear stage can be written explicitly, and verifying the power-law relation between k and size is decidable by pen and paper. The final pattern count, however, requires solving a free-boundary problem and remains open research.',
     references: [
       {
         label: 'Turing, The chemical basis of morphogenesis, Phil. Trans. R. Soc. B 237 (1952) 37-72',
@@ -4822,13 +4822,13 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2016,
-    via: { label: 'Kimura, A stochastic model concerning the maintenance of genetic variability in quantitative characters, Proc. Natl. Acad. Sci. USA 54 (1965); 双等位基因平衡密度见 Kimura, Genetics (1964)' },
-    impact_domains: ['群体遗传学的基本理论', '等位基因频率谱理论'],
+    via: { label: 'Kimura, A stochastic model concerning the maintenance of genetic variability in quantitative characters, Proc. Natl. Acad. Sci. USA 54 (1965); two-allele equilibrium density see Kimura, Genetics (1964)' },
+    impact_domains: ['Foundational theory of population genetics', 'Allele frequency spectrum theory'],
     related_problems: [
       {
         id: 'mb-009',
         relation: 'analog_of',
-        note: '同属多基因型的平衡定量刻画，mb-009 关注无限小模型的涌现，本问题关注平衡密度闭式。',
+        note: 'Both are quantitative characterizations of equilibria for multigenic traits; mb-009 concerns the emergence of the infinitesimal model, while this problem concerns closed-form equilibrium densities.',
       },
     ],
     statement:
@@ -4836,18 +4836,18 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
 $\\mathcal{L} = \\sum_i \\partial_{x_i}\\big[ x_i(1-x_i)\\partial_{x_i}\\big] + \\text{mutation} + \\text{selection},$
 be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asymmetric) and selection is a fixed additive fitness. **Prove that a closed-form stationary density $\\pi(x) \\propto e^{\\beta V(x)} \\prod_i x_i^{\\theta_i-1}$ exists exactly when the mutation matrix $M$ is reversible (satisfying detailed balance $\\theta_i m_{ij}=\\theta_j m_{ji}$), and that no such closed form exists for the general asymmetric, non-reversible $M$; give the diagonalizable condition that separates the two classes and the resulting order of the density.**`,
     origin:
-      '种群中平衡多态性（balancing selection）的维持如何量化、等位基因频率处于何种稳态分布，是经典的单座位理论。可逆突变的 Wright 平衡函数已广为人知，但真实突变通常呈非对称流动，此时密度是否仍为势函数乘多项式乘积的闭合形式长期悬而未决。',
+      'How the maintenance of balanced polymorphism (balancing selection) in a population is quantified, and what stationary distribution allele frequencies follow, is classical single-locus theory. The Wright equilibrium function for reversible mutation is well known, but real mutations usually flow asymmetrically, and whether the density then still takes the closed form of a potential function times a product of polynomials has long remained unresolved.',
     progress: [
-      '**可逆情形**: 满足细分平衡的突变矩阵对应势函数解，等位基因频率服从 Wright 的封闭密度。',
-      '**无选择近似**: 中性且突变任意时 stationary density 仍可确切给出，但加入选择即需求解特定偏微分方程。',
-      '**部分结果**: 对某些对称选择与非对称突变组合，数值观察者发现密度仍为解析多项式乘积，但缺乏一般性定理。',
+      '**Reversible case**: a mutation matrix satisfying detailed balance corresponds to a potential-function solution, and allele frequencies follow Wright\'s closed density.',
+      '**No-selection approximation**: under neutrality with arbitrary mutation the stationary density can still be given exactly, but adding selection requires solving a specific partial differential equation.',
+      '**Partial results**: for certain combinations of symmetric selection and asymmetric mutation, numerical observers find that the density is still an analytic polynomial product, but a general theorem is lacking.',
     ],
     obstacles: [
-      '**不可恢复的不可逆流**: 非可逆突变引入循环流，打破势函数结构，stationary density 需解一阶与二阶微分子方程耦合的非线性系统。',
-      '**存在性归属**: 区分闭式存在的代数判据需运行纯组合条件，未找到统一的不动点刻画。',
+      '**Irrecoverable irreversible flow**: non-reversible mutation introduces a cyclic flow that breaks the potential structure, and the stationary density requires solving a nonlinear system coupling first- and second-order differential equations.',
+      '**Existence attribution**: an algebraic criterion distinguishing when a closed form exists requires running purely combinatorial conditions, and a unified fixed-point characterization has not been found.',
     ],
     formalization_notes:
-      '可逆情形的闭式验证是清晰的计算目标；问题核心在于把 non-reversible 情形的无穷次可解性与不存在闭式联系起来，可形式化为一个纯代数可判定条件。',
+      'Verifying the closed form in the reversible case is a clear computational goal; the core of the problem is to connect the infinite-solvability of the non-reversible case with the non-existence of a closed form, which can be formalized as a purely algebraic decidable condition.',
     references: [
       {
         label: 'Ewens, The sampling theory of selectively neutral alleles, Theor. Popul. Biol. 3 (1972) 87-112',
@@ -4881,31 +4881,31 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
       label: 'Hamilton, The genetical evolution of social behaviour, J. Theor. Biol. 7 (1964)',
       url: 'https://doi.org/10.1016/0022-5193(64)90038-4',
     },
-    impact_domains: ['亲缘选择理论', '社会行为的演化博弈'],
+    impact_domains: ['Kin selection theory', 'Evolutionary games of social behavior'],
     related_problems: [
       {
         id: 'mb-006',
         relation: 'shares_tools',
-        note: '同属结构化群体上自然选择的精确刻画，共用图上的 Moran/传递过程工具。',
+        note: 'Both are precise characterizations of natural selection on structured populations, sharing the Moran / passage-process tools on graphs.',
       },
     ],
     statement:
       `In a finite structured population of size $N$ on a regular graph, a mutant allele performs an act that costs its bearer $c$ and benefits its partner $b$. The mutant spreads if its fixation probability exceeds the neutral value $1/N$. **Prove an exact condition for spread, expressible as the inclusive-fitness inequality $b\\,r - c > 0$ with a precisely computed relatedness coefficient $r(N)$ that tends to a positive limit as $N\\to\\infty$ on the star graph, or else establish the contrary claim that on spatially viscous topologies $\\lim_{N\\to\\infty} r(N)=0$ in the appropriate limit**, and resolve which topology-dependent scaling (weak selection, large population, or broad benefit) drives the qualitative answer.`,
     origin:
-      'Hamilton 规则 $br>c$ 是亲缘选择理论的基石，但当纳入结构化有限群体及弱选择、黏性人口时，相关度 $r$ 的精确取值变得高度拓扑依赖。围绕黏性人口中完全替代时 $r=0$ 的著名主张（即群体组内替代导致合作中性化）已有激烈争论，缺乏对每一图族的第一性原理证明。',
+      'Hamilton\'s rule $br>c$ is the cornerstone of kin-selection theory, but once structured finite populations, weak selection, and viscous populations are included, the exact value of the relatedness $r$ becomes highly topology-dependent. There has been heated debate over the famous claim that $r=0$ under complete replacement in viscous populations (namely that within-group replacement neutralizes cooperation), and a first-principles proof for every graph family is lacking.',
     progress: [
-      '**经典理论**: 无限与扩散近似下 $r$ 定义为亲缘协方差比例，已有清晰表述。',
-      '**图上的规则**: 对一般图推导出扩展的 Hamilton 规则，且部分图（星图）中 r 的极限行为被数值指出。',
-      '**争论焦点**: 文献中关于黏性人口 $r\\to0$ 与 $r\\to+$ 并存，取决于有限群体纠正与弱选择展开的次序。',
+      '**Classical theory**: in the infinite and diffusion approximations, $r$ is defined as the ratio of kin covariances and has a clear formulation.',
+      '**Rule on graphs**: an extended Hamilton rule has been derived for general graphs, and the limiting behavior of r on some graphs (star graphs) has been identified numerically.',
+      '**Point of contention**: the literature contains coexisting claims of $r\\to0$ and $r\\to+$ for viscous populations, depending on the order of the finite-population correction and the weak-selection expansion.',
     ],
     obstacles: [
-      '**极限次序**: 大 N 与弱选择两种极限在非交换时导致不同的 $r$，需人为取定一致的阶次。',
-      '**度量选择**: 亲缘度 $r$ 对演化时间窗与群体内成对的分布敏感，尚未统一到单一图不变量。',
+      '**Order of limits**: when the large-N and weak-selection limits do not commute, they lead to different values of $r$, requiring one to fix a consistent order of limits by hand.',
+      '**Choice of measure**: the relatedness $r$ is sensitive to the evolutionary time window and the distribution of pairs within the population, and has not yet been unified into a single graph invariant.',
     ],
     engineering_value:
       "A resolved relatedness coefficient r(N) for structured populations settles when inclusive-fitness predictions hold, so evolutionary-tumor and social-evolution modelers can deploy the br minus c rule with a correctly computed r instead of a topology-dependent guess.",
     formalization_notes:
-      '固定图族与固定选择强度下，$r(N)$ 是有限传递过程固定概率的代数函数，可形式化验证其极限；核心裁判是不同极限次序下的不一致性判定。',
+      'For a fixed graph family and fixed selection intensity, $r(N)$ is an algebraic function of the fixation probability of a finite passage process, and its limit can be formally verified; the central arbiter is the inconsistency test under different orders of limits.',
     references: [
       {
         label: 'Hamilton, The genetical evolution of social behaviour I-II, J. Theor. Biol. 7 (1964) 1-52',
@@ -4943,31 +4943,31 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
       label: 'May, Will a large complex system be stable? Nature 238 (1972)',
       url: 'https://doi.org/10.1038/238413a0',
     },
-    impact_domains: ['生态系统稳定性理论', '随机矩阵方法在生态学的应用'],
+    impact_domains: ['Ecosystem stability theory', 'Random matrix methods in ecology'],
     related_problems: [
       {
         id: 'mb-004',
         relation: 'shares_tools',
-        note: '同属生态动力学稳定性：mb-004 关注持久性判据，本问题关注雅可比谱的稳定性阈值。',
+        note: 'Both belong to the stability of ecological dynamics: mb-004 concerns persistence criteria, while this problem concerns the stability threshold of the Jacobian spectrum.',
       },
     ],
     statement:
       `Let $M$ be an interaction matrix whose off-diagonal entries have a random magnitude with variance $\\sigma^2$, but whose signs obey a fixed pattern: predator-prey, competitive, or mutualistic, paired according to a given directed food-web scaffold with mean degree $\\bar{k}$. **Determine the sharp critical line in the plane $(\\sigma\\sqrt{n}, \\bar{k})$ separating almost-sure asymptotic stability (all eigenvalues lie in the left half-plane) from instability, for each sign pattern, and prove the quantitative deviation of that threshold from the eigenvalue radius $\\sqrt{n}\\,\\sigma$ of the unstructured random ensemble**, including the role of strict predator-prey sign antisymmetry in rescuing stability.`,
     origin:
-      'May 的著名悖论指出随机生态系统的稳定性随连接度按 $\\sqrt{n}\\,\\sigma$ 崩溃，但真实食物网稳定的主张依赖其特定的捕食—被捕食符号结构提供的稳定作用。随之而来的定量问题是：把符号模式的信息代入谱理论后，稳定阈值与纯随机情形仍有严格可证明的差异，该差异多大、何时足以维持现实尺度的稳定，缺乏精确刻画。',
+      'May\'s famous paradox states that the stability of random ecosystems collapses with connectivity as $\\sqrt{n}\\,\\sigma$, yet the claim that real food webs are stable rests on the stabilizing effect provided by their specific predator–prey sign structure. The resulting quantitative question — after feeding the sign-pattern information into spectral theory, how large is the rigorously provable difference of the stability threshold from the purely random case, and when is it large enough to sustain stability at realistic scales — lacks a precise characterization.',
     progress: [
-      '**May 判据**: i.i.d. 随机矩阵的谱半径判定了弱结构系统的失稳阈值。',
-      '**修正结果**: 符号结构化随机矩阵的谱具有半圆以外的悬挂特征根，某些结构下可证明光标在谱外。',
-      '**数值谱**: 捕食—被捕食模式被观察到显著扩大稳定窗口，但形式化证明对各模式不全。',
+      '**May criterion**: the spectral radius of i.i.d. random matrices determines the instability threshold of weakly structured systems.',
+      '**Corrected results**: the spectrum of sign-structured random matrices has outlier eigenvalues beyond the semicircle, and for certain structures the spectral abscissa can be proven to lie outside the bulk spectrum.',
+      '**Numerical spectra**: the predator–prey pattern is observed to substantially widen the stability window, but the formal proofs are incomplete across patterns.',
     ],
     obstacles: [
-      '**独立失败**: 食物网边的相关与符号约束破坏独立性，使 RMT 迹法的误差无法一致控制。',
-      '**谱重影**: 符号反对称结构在捕食者—被捕食者对内产生符号代偿，主特征根的实部与虚部纠缠难分离。',
+      '**Failure of independence**: correlations and sign constraints on food-web edges destroy independence, so the errors of the RMT trace method cannot be controlled uniformly.',
+      '**Spectral shadowing**: the skew-symmetric sign structure produces sign compensation within predator–prey pairs, and the real and imaginary parts of the leading eigenvalue are entangled and hard to separate.',
     ],
     engineering_value:
       "A sharp complexity-stability threshold for sign-structured food webs gives ecosystem managers a quantitative stability margin: they can certify whether a real network with its measured degree distribution and sign pattern sits in the provably-stable window, informing biodiversity and rewilding risk assessment.",
     formalization_notes:
-      '对固定符号模式，稳定性判据是可数维的线性代数性质，可用谱判据打包成可判定不等式；问题归属为把 RMT 精细校正推广到非 i.i.d. 且有符号约束的矩阵类。',
+      'For a fixed sign pattern, the stability criterion is a finite-dimensional linear-algebraic property and can be packaged into decidable inequalities via spectral criteria; the problem reduces to extending the refined RMT corrections to matrix classes that are non-i.i.d. and carry sign constraints.',
     references: [
       {
         label: 'May, Will a large complex system be stable, Nature 238 (1972) 413-414',
@@ -4982,22 +4982,22 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   {
     id: 'mb-024',
     output: 'verified_behavior',
-    judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted. 合格答案为可核验判定并附三层残差：(1) **R_model**＝把真实发育信号转导限制为配体-受体泊松计数/Berg–Purcell 模型所丢掉的近似残差上界；(2) **R_param**＝配体浓度、受体数、梯度几何来自测量/标定时其不确定度对感知下限的输入残差上界（对测量区间内所有配置成立）；(3) **R_num**＝随机动力学/主方程求解或区间封闭的残差上界。无输入测量不确定度时须如实注明 R_param≡0。',
+    judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted. The acceptable answer is a verifiable decision accompanied by a three-layer residual total band: (1) **R_model** = the approximate residual upper bound lost by restricting real developmental signal transduction to the ligand–receptor Poisson counting / Berg–Purcell model; (2) **R_param** = the input residual upper bound on the sensing floor arising from the uncertainty of ligand concentration, receptor number, and gradient geometry when these come from measurement/calibration (holding for all configurations in the measurement interval); (3) **R_num** = the residual upper bound of stochastic-dynamics / master-equation solution or interval closure. When there is no input measurement uncertainty, R_param≡0 must be explicitly noted.',
     certificate: {
       r_model: {
-        bound: '把真实发育信号转导限制为配体-受体泊松计数/Berg–Purcell 模型所丢掉的近似残差上界',
-        derivation: 'Berg–Purcell 计数模型残差界',
+        bound: 'Approximate residual upper bound lost by restricting real developmental signal transduction to the ligand–receptor Poisson counting / Berg–Purcell model',
+        derivation: 'Berg–Purcell counting-model residual bound',
       },
       r_param: {
-        bound: '配体浓度、受体数、梯度几何来自测量/标定时其不确定度对感知下限的输入残差上界（对测量区间内所有配置成立）',
-        derivation: '测量参数传播到感知误差下限的区间映像',
+        bound: 'Input residual upper bound on the sensing floor from the uncertainty of ligand concentration, receptor number, and gradient geometry when they come from measurement/calibration (holding for all configurations in the measurement interval)',
+        derivation: 'Interval image of measurement parameters propagated to the sensing-error floor',
       },
       r_num: {
-        bound: '随机动力学/主方程求解或区间封闭的残差上界',
-        derivation: '主方程求解残差界 / 区间封闭',
+        bound: 'Residual upper bound of stochastic-dynamics / master-equation solution or interval closure',
+        derivation: 'Master-equation solution residual bound / interval closure',
       },
-      total_band: '感知误差下限 ≤ R_model + R_param + R_num',
-      certified_band: '最小可实现配体计数感知误差区间',
+      total_band: 'Sensing-error floor ≤ R_model + R_param + R_num',
+      certified_band: 'Minimal achievable ligand-count sensing-error interval',
     },
     title: 'Information-Theoretic Floor on Morphogen Gradient Concentration Sensing',
     titleZh: '形态发生梯度浓度感知的信息论下限',
@@ -5013,32 +5013,32 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
-    via: { label: '形态梯度浓度感知信息下界：与 Berg–Purcell 极限 (1977) 相关' },
-    impact_domains: ['发育信号处理的物理极限', '细胞内分子噪声理论'],
+    via: { label: 'Information lower bound for morphogen-gradient concentration sensing: related to the Berg–Purcell limit (1977)' },
+    impact_domains: ['Physical limits of developmental signal processing', 'Intracellular molecular noise theory'],
     related_problems: [
       {
         id: 'mb-014',
         relation: 'shares_tools',
-        note: '同属存储与信息容量的信息论逼近：mb-014 关注联想记忆容量，本问题关注发育读取的精度下限。',
+        note: 'Both are information-theoretic approaches to storage and information capacity: mb-014 concerns associative-memory capacity, while this problem concerns the precision floor of developmental readout.',
       },
     ],
     statement:
       `A cell reads the concentration $c$ of a morphogen produced by a distant source, receiving on average $N$ bound ligand molecules sampled from a gradient. Given the full ligand-density distribution in space, **prove a lower bound on the relative error of any unbiased positional reading, of the Berg-Purcell form $\\sigma_c/c \\ge 1/\\sqrt{N}$, and decide whether inserting a negative-feedback regulation of ligand production or receptor reuse can reduce this error to a value allowing positioning below the established brute bound, or whether an information-theoretic floor (fixed by ligand copy number and the readout channel capacity) persists regardless of feedback**. Make the bound sharp in terms of the gradient shape (exponential versus power-law decay).`,
     origin:
-      '胚胎通过解读形态发生梯度的浓度确定各细胞沿身体轴的位置，而细胞只能采集有限数目的配体分子，这一分子采样测量的本质噪声设定了发育定位的物理极限。经典 Berg–Purcell 估计给出 $1/\\sqrt{N}$ 的相对误差，但负反馈、受体可重复使用等机制是否可能突破该极限，是开发与信息论交叉中活跃而未决的问题。',
+      'An embryo positions each cell along the body axis by reading the concentration of a morphogen gradient, yet a cell can only collect a finite number of ligand molecules, and this intrinsic noise of molecular-sampling measurement sets the physical limit of developmental positioning. The classical Berg–Purcell estimate gives a relative error of $1/\\sqrt{N}$, but whether mechanisms such as negative feedback or receptor reuse can break this limit is an active and unresolved question at the interface of development and information theory.',
     progress: [
-      '**Berg-Purcell 界**: 简单受体模型给出相对误差与采样次数平方根成反比，是感知精度的经典基准。',
-      '**负反馈结果**: Lestas-Vinnicombe-Paulsson 证明反馈无法克服产物（输出）的泊松噪声下限，故精度有一个独立的固有损失。',
-      '**发育实例**: 转录网络信息容量达到最大化，部分梯度读取接近 Berg-Purcell 界极限，但缺口的具体来源仍未闭合。',
+      '**Berg–Purcell bound**: simple receptor models give a relative error inversely proportional to the square root of the number of samples, the classical benchmark of sensing precision.',
+      '**Negative-feedback results**: Lestas–Vinnicombe–Paulsson proved that feedback cannot overcome the Poisson-noise floor of the product (output), so precision has an independent intrinsic loss.',
+      '**Developmental instance**: transcriptional networks reach maximized information capacity, and some gradient readouts approach the Berg–Purcell bound, but the precise origin of the gap remains unclosed.',
     ],
     obstacles: [
-      '**空间与非平衡**: 形态发生梯度是非平衡、非均匀的空间分布，经典平衡态采样论证不能直接推广。',
-      '**反馈收益的边界**: 是否可将反馈的信息增益折算为采样数的有效增量，需同时锁定信源与信道两处的误差来源。',
+      '**Spatial and nonequilibrium**: morphogen gradients are nonequilibrium, non-uniform spatial distributions, so the classical equilibrium-sampling arguments cannot be applied directly.',
+      '**Boundary of feedback gains**: whether the information gain of feedback can be converted into an effective increase in the number of samples requires simultaneously pinning down the error sources at both the source and the channel.',
     ],
     engineering_value:
       "A proven information-theoretic floor on concentration sensing sets the resolution ceiling for positional readouts in synthetic morphogen circuits and organoid engineering - telling bioengineers the minimal ligand-count and layout noise they cannot beat, and exactly where negative feedback genuinely helps.",
     formalization_notes:
-      '把读取建模为在给定配体空间分布下的随机采样，相对误差的极值是一个标准的 Fisher 信息问题，可在层间梯度与泊松下精确求解，从而给出可验证的下界不等式。',
+      'Modeling the readout as random sampling under a given spatial ligand distribution, the extremal relative error is a standard Fisher-information problem that can be solved exactly under interlayer gradients and Poisson statistics, yielding a verifiable lower-bound inequality.',
     references: [
       {
         label: 'Berg & Purcell, Physics of chemoreception, Biophys. J. 20 (1977) 193-219',
@@ -5073,26 +5073,26 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2007,
-    via: { label: 'NS 合适弱解奇异集维数：Caffarelli–Kohn–Nirenberg 部分正则性传统及后续维数结果' },
-    impact_domains: ['湍流数值模拟校验', 'CFD 网格自适应性', '能量守恒数值格式'],
+    via: { label: 'Dimension of the singular set of NS suitable weak solutions: the Caffarelli–Kohn–Nirenberg partial regularity tradition and subsequent dimension results' },
+    impact_domains: ['Validation of numerical turbulence simulation', 'CFD mesh adaptivity', 'Energy-conserving numerical schemes'],
     related_problems: [],
     statement: `Consider incompressible Navier–Stokes on a bounded domain for all $t>0$. By the Cafarelli–Kohn–Nirenberg partial regularity theorem every suitable weak solution is smooth away from a set whose box-counting dimension is at most $5/3$. **Prove or disprove the sharp improvement**: the singular set has vanishing one-dimensional Hausdorff measure $\\mathcal H^1(S)=0$, or find an exponent sharper than $5/3$ that is provably optimal.
 
 Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\varepsilon$ on unit parabolic cylinders to the minimal integrability condition under which local regularity is enforced, and match the upper dimension bound with a dimension-reducing lower example.`,
     origin:
-      '湍流与高雷诺数流动中，数值解是否收敛到真解、自适应剖分在何处加密，都取决于对奇异集合大小和结构的定量理解。CKN 定理给出了维数 5/3 的上界，但解析与数值证据都指向可进一步收紧到维数 1；从 5/3 压到 1 的主要障碍是向后解的唯一性在有界域上并未被完全控制。',
+      'In turbulence and high-Reynolds-number flows, whether numerical solutions converge to the true solution and where adaptive meshes should be refined both depend on a quantitative understanding of the size and structure of the singular set. The CKN theorem gives the upper bound of dimension 5/3, but both analytic and numerical evidence point to a further tightening to dimension 1; the main obstacle in going from 5/3 to 1 is that backward uniqueness of solutions is not fully controlled on bounded domains.',
     progress: [
-      '**Cafarelli–Kohn–Nirenberg (1982)**: 由 $\\varepsilon$-正则判据给出奇异集 box-维数 $\\le 5/3$。',
-      '**向后唯一性与 $L_{3,\\infty}$ 解**: Escauriaza–Seregin–Šverák 与 Kukavica 的工作把局部正则性部分归结为向后唯一性问题，维数上界有若干改进。',
-      '**Kukavica (2009)**: 给出奇异集分形维数的改进估计，但尚未达到维数 1。',
+      '**Cafarelli–Kohn–Nirenberg (1982)**: via the $\\varepsilon$-regularity criterion, give box-dimension $\\le 5/3$ for the singular set.',
+      '**Backward uniqueness and $L_{3,\\infty}$ solutions**: the works of Escauriaza–Seregin–Šverák and Kukavica reduce part of the local regularity to a backward-uniqueness problem and yield several improvements of the dimension upper bound.',
+      '**Kukavica (2009)**: gives improved estimates of the fractal dimension of the singular set, but does not yet reach dimension 1.',
     ],
     obstacles: [
-      '**维数 1 障碍**: 把奇异性挤进一维集合需要更强的连续模信息，而 CKN 的 $\\varepsilon$-正则判据目前只给出关于空间离散的一致估计，时序方向的估计与线性奇异维数不匹配。',
+      '**Dimension-1 obstacle**: squeezing the singularities into a one-dimensional set requires stronger modulus-of-continuity information, whereas the CKN $\\varepsilon$-regularity criterion currently yields only uniform estimates over spatial discretizations; the estimates in the time direction do not match the one-dimensional singular dimension.',
     ],
     engineering_value:
-      '奇异集维数的尖确估计直接决定高 Reynolds 数仿真中网格加密策略的效率：目标维数是降低层格数与湍流大涡模拟近壁分辨率的理论依据，也是自适应方法能否保证收敛速率的判据。',
+      'Sharp estimates of the singular-set dimension directly determine the efficiency of mesh-refinement strategies in high-Reynolds-number simulations: the target dimension is the theoretical basis for reducing grid layers and near-wall resolution in large-eddy simulation of turbulence, and is the criterion for whether adaptive methods can guarantee convergence rates.',
     formalization_notes:
-      '判定可由能量不等式与 $\\varepsilon$-正则判据形式化：验证某圆柱上收敛性成立即给出奇异集的测度上界，属于可在辅助系统中逐步化简为有限不等式的分析型判据，形式化系数中等偏高。',
+      'The decision can be formalized via energy inequalities and the $\\varepsilon$-regularity criterion: verifying convergence on a cylinder gives an upper bound on the measure of the singular set, an analytic-type criterion that can be successively reduced to finitely many inequalities in an auxiliary system, with medium-to-high formalization effort.',
     references: [
       {
         label: 'L. Cafarelli, R. Kohn, L. Nirenberg, Partial regularity of suitable weak solutions of the Navier–Stokes equations, Comm. Pure Appl. Math. 35 (1982) 771–831',
@@ -5124,28 +5124,28 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
     proposer: 'A. P. Calderón',
     proposed_year: 1980,
     via: {
-      label: 'Calderón, On an inverse boundary value problem, Seminário Brasileiro de Análise (1980); 三维唯一性开放',
+      label: 'Calderón, On an inverse boundary value problem, Seminário Brasileiro de Análise (1980); uniqueness in 3D open',
       url: 'https://doi.org/10.1007/978-3-662-12877-0_1',
     },
-    impact_domains: ['电阻抗断层成像', '无损检测', '传感器反演孔径设计'],
+    impact_domains: ['Electrical impedance tomography', 'Nondestructive testing', 'Sensor inversion aperture design'],
     related_problems: [],
     statement: `Let $\\Omega \\subset \\mathbb R^3$ be a bounded connected domain and let $\\gamma \\in L^\\infty_+(\\Omega)$ be a strictly positive conductivity. The Dirichlet-to-Neumann map $\\Lambda_\\gamma$ is defined by $\\Lambda_\\gamma(f) = \\gamma \\partial_\\nu u|_{\\partial\\Omega}$ for the unique solution of $-\\nabla\\cdot(\\gamma\\nabla u)=0$ with $u|_{\\partial\\Omega}=f$. **Prove that $\\Lambda_{\\gamma_1} = \\Lambda_{\\gamma_2}$ implies $\\gamma_1=\\gamma_2$ for general $L^\\infty$ conductivities.**
 
 The known route reduces the problem to a complex-phasor substructure (the Brown–Uhlmann condition); decisions here include removing that condition, or proving a stability estimate with log-type modulus that is genuinely sharp.`,
     origin:
-      '电阻抗断层成像通过边界电压测量反演体内导电率分布，是医学成像与地球物理探测的基本反问题。Calderón 问题在二维对无规导电率已获证，三维全局唯一性在 Lipschitz 一级亦已建立，但对一般有界不光滑导电率的全局唯一性仍悬而未决。',
+      'Electrical impedance tomography reconstructs the internal conductivity distribution from boundary voltage measurements and is a basic inverse problem of medical imaging and geophysical exploration. The Calderón problem has been proved in two dimensions for arbitrary conductivity; global uniqueness in three dimensions has also been established at the Lipschitz level, but global uniqueness for general bounded nonsmooth conductivity remains unresolved.',
     progress: [
-      '**Sylvester–Uhlmann (1987)**: 光滑导电率情形证明稳定全局唯一性。',
-      '**Brown–Uhlmann (1997)**: 二维对 $L^\\infty$ 导电率证明唯一性，并在高维把问题化为一条可积性条件。',
-      '**Haberman–Tataru (2013)**: 三维 Lipschitz 导电率唯一性成立，但对 $L^\\infty$ 的全局唯一性仍有缺口。',
+      '**Sylvester–Uhlmann (1987)**: prove stable global uniqueness for smooth conductivity.',
+      '**Brown–Uhlmann (1997)**: prove uniqueness in two dimensions for $L^\\infty$ conductivity and reduce the problem in higher dimensions to an integrability condition.',
+      '**Haberman–Tataru (2013)**: uniqueness holds for three-dimensional Lipschitz conductivity, but there remains a gap for global uniqueness at the $L^\\infty$ level.',
     ],
     obstacles: [
-      '**可积性条件障碍**: 复杂相位子构造要求界在 $L^\\infty$ 意义下成立，而 Brown–Uhlmann 化归所依赖的反演公式需要额外的正则性，直接推广到任意可测系数落在远期奇异积分的技术限制上。',
+      '**Integrability-condition obstacle**: the complex-phasor construction requires the bounds to hold in the $L^\\infty$ sense, whereas the inversion formula underlying the Brown–Uhlmann reduction needs extra regularity, so direct generalization to arbitrary measurable coefficients hits the technical limitations of far-field singular integrals.',
     ],
     engineering_value:
-      '三维唯一性是否成立决定电阻抗成像重建算法能否提供理论保证：若唯一性在常见光滑系数下成立，则迭代重建与正则化反演可依确定性误差界收敛，为临床像差校验与无损检测提供可靠性依据。',
+      'Whether three-dimensional uniqueness holds determines whether electrical-impedance-tomography reconstruction algorithms can offer theoretical guarantees: if uniqueness holds for commonly occurring smooth coefficients, iterative reconstruction and regularized inversion converge with deterministic error bounds, providing a reliability basis for clinical imaging verification and nondestructive testing.',
     formalization_notes:
-      '判定是分析型反问题命题：唯一性可化为对复数相位子与辅助方程解的构造性验证，形式化集中于奇异积分估计与稳定性的有限化简，系数中等偏高。',
+      'The decision is an analytic inverse-problem statement: uniqueness reduces to a constructive verification of complex phasors and solutions of auxiliary equations, with formalization concentrating on finite simplifications of singular-integral estimates and stability, of medium-to-high effort.',
     references: [
       {
         label: 'J. Sylvester, G. Uhlmann, A global uniqueness theorem for an inverse boundary value problem, Ann. of Math. 125 (1987) 153–169',
@@ -5184,31 +5184,31 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
       label: 'Brockett, Asymptotic stability and feedback stabilization, in Differential Geometric Control Theory (1983); Sontag (1983)',
       url: 'https://doi.org/10.1007/978-1-4612-5423-6_18',
     },
-    impact_domains: ['机器人与自动驾驶镇定控制', '航天器姿态控制', '无传感器反馈设计'],
+    impact_domains: ['Stabilization control for robotics and autonomous driving', 'Spacecraft attitude control', 'Sensorless feedback design'],
     related_problems: [
       {
         id: 'me-001',
         relation: 'shares_tools',
-        note: '两项都以 Lyapunov 方法与图/耗散结构为共同工具，分别把一致性收敛与反馈镇定的判定落到构造性判据上。',
+        note: 'Both use Lyapunov methods and graph/dissipativity structure as common tools, reducing the decisions of consensus convergence and feedback stabilization, respectively, to constructive criteria.',
       },
     ],
     statement: `For a control-affine system  $\\dot x = f(x) + \\sum_{i=1}^m g_i(x) u_i$ on $\\mathbb R^n$, a necessary condition for continuous feedback stabilizability is Brockett’s $f(0) \\in \\mathrm{int}\\, \\overline{\\mathrm{conv}}\\, U(x)$ condition; a sufficient condition (for asymptotic controllability plus a known class of Lyapunov functions) is provided by Sontag’s criterion. **Find a tractable condition that is both necessary and sufficient for the existence of a globally asymptotically stabilizing continuous state feedback**, resolving in particular whether asymptotically controllable systems without smooth Lyapunov functions admit continuous (not merely Holder/upper-semicontinuous) stabilizing feedback.
 
 Provide an explicit convexity/transversality criterion and test it against the known nonholonomic examples where only discontinuous or time-periodic feedback exists.`,
     origin:
-      '镇定设计是控制器综合的核心任务。经典判据一正一负互不覆盖：Brockett 条件为必要而常不充分，Sontag 型构造给出充分性却依赖控制 Lyapunov 函数的存在。机械、航天等工程系统中 Lipschitz 反馈比不连续反馈更易实现，因此判定连续反馈是否存在直接指导控制器形式的选取。',
+      'Stabilization design is the core task of controller synthesis. The classical criteria are one positive and one negative and do not cover each other: the Brockett condition is necessary but often not sufficient, while Sontag-type constructions give sufficiency but depend on the existence of a control Lyapunov function. In engineering systems such as mechanical and aerospace ones, Lipschitz feedback is easier to implement than discontinuous feedback, so deciding whether a continuous feedback exists directly guides the choice of the controller form.',
     progress: [
-      '**Brockett (1983)**: 给出连续反馈镇定的必要条件。',
-      '**Sontag (1983)**: 用控制 Lyapunov 函数建立渐近可控与反馈镇定的充分条件。',
-      '**Clarke–Ledyaev–Sontag–Subbotin (1997)**: 证明可渐近镇定系统存在半连续/间断反馈，但完全连续反馈的充要判据仍缺。',
+      '**Brockett (1983)**: gives the necessary condition for continuous feedback stabilization.',
+      '**Sontag (1983)**: establishes sufficient conditions for asymptotic controllability and feedback stabilization via control Lyapunov functions.',
+      '**Clarke–Ledyaev–Sontag–Subbotin (1997)**: prove that asymptotically stabilizable systems admit semicontinuous/discontinuous feedback, but a necessary-and-sufficient criterion for fully continuous feedback is still missing.',
     ],
     obstacles: [
-      '**无平滑性障碍**: 渐近可控系统的可达集不满足光滑 Lipschitz 结构时，无法用梯度型反馈唯一确定控制，凸性与横截性等几何条件难以用一个可检验的代数条件同时刻画充要两端。',
+      '**Nonsmoothness obstacle**: when the reachable set of an asymptotically controllable system lacks a smooth Lipschitz structure, the control cannot be uniquely determined by a gradient-type feedback, and geometric conditions such as convexity and transversality are hard to capture simultaneously on both the necessity and sufficiency sides with a single testable algebraic condition.',
     ],
     engineering_value:
-      '连续（尤其 Lipschitz）状态反馈是嵌入式控制器最容易实现且对测量噪声最稳定的形式。一个既必要又充分的判据能告诉工程师哪些系统可安全采用光滑反馈、哪些必须接受滑模或不连续控制，从而避免在控制器结构上做错误取舍。',
+      'Continuous (especially Lipschitz) state feedback is the form easiest to implement in embedded controllers and most robust to measurement noise. A criterion that is both necessary and sufficient would tell engineers which systems can safely use smooth feedback and which must accept sliding-mode or discontinuous control, avoiding wrong trade-offs in controller structure.',
     formalization_notes:
-      '判定是几何控制命题：把可达集凸包与梯度型反馈的相容性化为对有限状态空间的包含关系检验，形式化集中于凸性与横截性的有限化简，系数中等。',
+      'The decision is a geometric-control statement: it reduces the compatibility of the convex hull of the reachable set with gradient-type feedback to an inclusion check on a finite state space, with formalization concentrating on finite simplifications of convexity and transversality, of medium effort.',
     references: [
       {
         label: 'E. D. Sontag, A Lyapunov-like characterization of asymptotic controllability, SIAM J. Control Optim. 21 (1983) 462–471',
@@ -5239,26 +5239,26 @@ Provide an explicit convexity/transversality criterion and test it against the k
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2017,
-    via: { label: '参数化 PDE 解流形 n-宽衰减：近期文献（如 Cohen–DeVore 宽度估计）' },
-    impact_domains: ['模拟降阶与数字孪生', '多参数优化设计', '不确定性量化'],
+    via: { label: 'n-width decay of parametrized-PDE solution manifolds: recent literature (e.g. the Cohen–DeVore width estimates)' },
+    impact_domains: ['Simulation reduction and digital twins', 'Multi-parameter optimization design', 'Uncertainty quantification'],
     related_problems: [],
     statement: `Let $\\mathcal M = \\{u(a) : a \\in \\Lambda\\} \\subset V$ be the solution manifold of a parametrized linear elliptic equation $\\mathcal A(a) u = f$, $a$ ranging over a parameter set $\\Lambda$ in finite or countable dimension. Let $d_n(\\mathcal M)$ be the Kolmogorov n-width in $V$. **Determine the sharp asymptotic of $d_n(\\mathcal M)$ as $n \\to \\infty$**:
 - whether analytic (holomorphic) parameter dependence yields exponential decay $d_n \\sim 2^{-c n}$ with the best constant $c$, and
 - for merely smooth (e.g. $C^k$) dependence, the exact polynomial rate and the threshold at which sharpness breaks, with explicit lower-bound examples.`,
     origin:
-      '全阶有限元求解在参数空间和高维不确定性展开下成本急剧上升，模型降阶/降基方法依赖对解流形可近似性的定量理解。Kolmogorov n 宽刻画了在泛函空间中线性逼近的极限精度，若流形 n 宽只按多项式衰减则任何线性降阶方案都受限于此障碍，因此尖确衰减率决定数字孪生可用维度。',
+      'Full-order finite-element solves become prohibitively expensive over parameter spaces and high-dimensional uncertainty expansions, and model-reduction/reduced-basis methods depend on a quantitative understanding of the approximability of the solution manifold. The Kolmogorov n-width characterizes the ultimate precision of linear approximation in function spaces; if the manifold n-width decays only polynomially, any linear reduction scheme is limited by this barrier, so the sharp decay rate determines the usable dimension of digital twins.',
     progress: [
-      '**Cohen–DeVore (2015)**: 解析/全纯系数族给出复杂的逼近率与 n 宽估计。',
-      '**光滑依赖**: 仅给出多项式型上界，对应下界仅在特殊参数族中建立。',
-      '**降基收敛性**: 贪心快照法在若干工程类参数族上数值吻合指数率，但最优常数与光滑-解析分界缺乏统一证明。',
+      '**Cohen–DeVore (2015)**: give sophisticated approximation rates and n-width estimates for analytic/holomorphic coefficient families.',
+      '**Smooth dependence**: only polynomial-type upper bounds are given; the corresponding lower bounds are established only for special parameter families.',
+      '**Reduced-basis convergence**: greedy snapshot methods match exponential rates numerically on several engineering parameter families, but the optimal constant and the smooth-analytic boundary lack a unified proof.',
     ],
     obstacles: [
-      '**维数与解析性冲突**: 光滑非线性依赖的流形在有限实测点集合上的线性逼近率受制于对数因子与维数关系，难以同时最优地给出上下界；构造匹配下界需要逐步控制快照子空间维数。',
+      '**Dimension-analyticity conflict**: the linear approximation rate of a manifold with smooth nonlinear dependence over a finite set of sampled points is constrained by logarithmic factors and dimension relations, making it hard to give simultaneously optimal upper and lower bounds; constructing a matching lower bound requires progressively controlling the snapshot-subspace dimension.',
     ],
     engineering_value:
-      '实时仿真与数字孪生依赖预先压缩的降阶基：若流形 n 宽为指数率则可预测在线求解误差并按需增加基函数，若仅为多项式率则需改进非线性（深度）近似。该项研究为 ROM 与不确定性量化提供可判定的精度预算。',
+      'Real-time simulation and digital twins rely on pre-compressed reduced bases: if the manifold n-width decays at an exponential rate, online solution errors can be predicted and basis functions added on demand; if it decays only polynomially, improved nonlinear (deep) approximation is needed. This research provides a decidable precision budget for ROM and uncertainty quantification.',
     formalization_notes:
-      '判定需把 n 宽衰减化为对插值算子在参数族上的叠代界：验证上下界的指数/多项式常数与构造的反例是否匹配，可在辅助系统中逐步简化为一组离散范数不等式，系数中等。',
+      'The decision requires reducing the n-width decay to an iterated bound for interpolation operators over parameter families: verifying whether the exponential/polynomial constants of the bounds match the constructed counterexamples, which can be successively simplified in an auxiliary system to a set of discrete norm inequalities, of medium effort.',
     references: [
       {
         label: 'A. Cohen, R. DeVore, Approximation of high-dimensional parametric PDEs, Acta Numerica 24 (2015) 1–159',
@@ -5290,26 +5290,26 @@ Provide an explicit convexity/transversality criterion and test it against the k
     proposer: 'L. Prandtl',
     proposed_year: 1904,
     via: {
-      label: 'Prandtl 边界层 (1904); 无粘极限正则性损失综述见 Gérard-Varet (2023) 等',
+      label: 'Prandtl boundary layers (1904); review of regularity loss in the inviscid limit see Gérard-Varet (2023) et al.',
       url: 'https://doi.org/10.1007/978-3-662-33948-0_2',
     },
-    impact_domains: ['航空边界层仿真', '高雷诺数 CFD 校验', '湍流壁面模型'],
+    impact_domains: ['Aviation boundary-layer simulation', 'High-Reynolds-number CFD validation', 'Turbulent wall models'],
     related_problems: [],
     statement: `As viscosity $\\nu \\to 0$, any sufficiently smooth Navier–Stokes solution is expected to converge to its Euler counterpart together with a near-wall Prandtl layer. It is known that for analytic data the convergence holds, whereas for merely $C^\\infty$ (non-analytic) data the Prandtl expansion is unstable. **Determine the exact regularity space in which the zero-viscosity limit is stable**: prove that the Prandtl system is ill-posed in Sobolev spaces yet well-posed in a Gevrey class $G^s$ with the optimal exponent $s$, and exhibit a solution whose Sobolev norm growth rate is sharp, so the expansion holds precisely up to a stated Gevrey threshold.`,
     origin:
-      '高 Reynolds 数翼型绕流的边界层与无粘化近似是气动仿真与风洞标定的基础。当实验/数值初始数据仅有有限正则而非常解析时，Prandtl 方程可能出现指数级失稳，使经典的边界层假设在实际算例上失效，因此尖锐正则阈值决定工程计算在何处必须引入湍流壁面模型。',
+      'The boundary layer and inviscid approximation of high-Reynolds-number airfoil flows are the basis of aerodynamic simulation and wind-tunnel calibration. When experimental/numerical initial data have only finite regularity rather than analyticity, the Prandtl equations can develop exponential instability, causing the classical boundary-layer assumption to fail on practical instances; hence the sharp regularity threshold determines where engineering computation must introduce turbulent wall models.',
     progress: [
-      '**Gérard-Varet–Dormy (2010)**: 证明 Prandtl 方程在 Sobolev 空间病态。',
-      '**Gérard-Varet–Maekawa–Masmoudi (2018)**: 建立 Gevrey 类中的展开稳定性（对若干剪切流）。',
-      '**Grenier–Guo–Nguyen**: 通过谱失稳显示无粘极限对非解析数据失效，给出正则性损失的若干定量下界。',
+      '**Gérard-Varet–Dormy (2010)**: prove that the Prandtl equations are ill-posed in Sobolev spaces.',
+      '**Gérard-Varet–Maekawa–Masmoudi (2018)**: establish stability of the expansion in Gevrey classes (for several shear flows).',
+      '**Grenier–Guo–Nguyen**: show via spectral instability that the inviscid limit fails for non-analytic data, giving several quantitative lower bounds on the regularity loss.',
     ],
     obstacles: [
-      '**Gevrey 指数障碍**: 稳定性要求的 Gevrey 阶与初始数据正则的高阶导数增长速率强耦合，剪切流的谱分析局限于一维方向，高维位势与变几何边界上难以统一确定最优临界指数。',
+      '**Gevrey-exponent obstacle**: the Gevrey order required for stability is strongly coupled to the growth rate of higher derivatives of the initial-data regularity; the spectral analysis of shear flows is limited to one spatial direction, and on higher-dimensional domains with variable geometry it is hard to determine the optimal critical exponent uniformly.',
     ],
     engineering_value:
-      '明确边界层近似成立的正则阈值，帮助 CFD 工具在接近该阈值的工况下自动转用湍流闭合模型，避免在解析域内继续追求 Prandtl 展开导致的伪解析行为，从而保证高雷诺数算例的数值收敛解释可靠。',
+      'Pinning down the regularity threshold for the validity of the boundary-layer approximation helps CFD tools automatically switch to turbulent closure models in regimes near that threshold, avoiding the pseudo-analytic behavior caused by continuing to pursue the Prandtl expansion in the analytic regime, thereby ensuring reliable interpretation of numerical convergence on high-Reynolds-number instances.',
     formalization_notes:
-      '判定是谱分析型命题：把 Prandtl 线性算子谱与正则丢番部化为对有限阶导数的上界验证，病态性可由有限维谱实例证伪，系数中等。',
+      'The decision is a spectral-analysis statement: it reduces the spectrum of the Prandtl linearized operator and the regularity loss to verifying upper bounds on finitely many derivatives, with ill-posedness falsifiable by finite-dimensional spectral instances, of medium effort.',
     references: [
       {
         label: 'Y. Maekawa, A. Gérard-Varet, D. Gérard-Varet, D. Dormy, On the ill-posedness of the Prandtl equation, J. Amer. Math. Soc. 23 (2010) 591–609',
@@ -5340,26 +5340,26 @@ Provide an explicit convexity/transversality criterion and test it against the k
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1996,
-    via: { label: '离散断层重建最少投影方向：discrete tomography 综述（Herman & Kuba, 编）' },
-    impact_domains: ['CT 少视角成像', '工业无损检测', '材料网格形态反演'],
+    via: { label: 'Minimal projection directions for discrete tomography reconstruction: the discrete tomography survey (Herman & Kuba, eds.)' },
+    impact_domains: ['Sparse-view CT imaging', 'Industrial nondestructive testing', 'Material mesh-shape inversion'],
     related_problems: [],
     statement: `Let a binary image $f \\in \\{0,1\\}^{n\\times n}$ be observed by the line sums $\\sum f$ along a fixed set $D$ of distinct lattice directions $v \\in \\mathbb Z^2$. **Determine the minimal cardinality $k$ of $D$ (and which directions) such that every binary image is uniquely determined by this $D$-line-sum data**, and when uniqueness holds, give a polynomial reconstruction algorithm; if uniqueness fails, give the smallest counterexample.
 
 Decide also whether the decision problem of uniqueness for a given finite $D$ is in $\\mathrm P$ or is NP-complete, matching the classical few-projection obstruction.`,
     origin:
-      '少视角 CT 与工业断层扫描能缩短成像时间并降低辐射剂量，但投影角不足会导致反演不唯一。离散断层学关注二值目标（如材料夹杂、孔隙网格）从极少数方向线和技术而唯一判定的可行窗口，其信息论下界直接决定低成本成像是否可行。',
+      'Sparse-view CT and industrial tomography can shorten imaging time and reduce radiation dose, but insufficient projection angles make the inversion non-unique. Discrete tomography concerns the feasible window in which binary targets (such as material inclusions, pore grids) are uniquely determined from line sums along very few directions; its information-theoretic lower bound directly determines whether low-cost imaging is feasible.',
     progress: [
-      '**Gardner–Gritzmann (1997)**: 系统分析有限集合沿若干格路方向的唯一判定条件。',
-      '**Logan–Shepp (1975)**: 连续情形的少视角重建对数奇异度估计。',
-      '**Herman–Kuba 专著**: 对若干方向集给出穷举验证的示例，但方向数与网格尺寸的最优关系未完全确定。',
+      '**Gardner–Gritzmann (1997)**: systematically analyze the conditions for unique determination of finite sets along several lattice directions.',
+      '**Logan–Shepp (1975)**: logarithmic singularity estimates for sparse-view reconstruction in the continuous case.',
+      '**Herman–Kuba monograph**: gives exhaustively verified examples for several direction sets, but the optimal relation between the number of directions and the grid size is not fully determined.',
     ],
     obstacles: [
-      '**组合障碍**: 二值矩阵的线和技术对方向选择高度敏感，存在大量同线和技术置换，证明任何小于某阈值的方向集都破坏唯一性需要遍历指数多的格路组合，且判定问题是组合优化困难性的典型来源。',
+      '**Combinatorial obstacle**: the line-sum technique for binary matrices is highly sensitive to the choice of directions; there are many permutations producing identical line sums, and proving that any direction set below a certain threshold breaks uniqueness requires traversing exponentially many lattice-path combinations, with the decision problem being a typical source of combinatorial-optimization hardness.',
     ],
     engineering_value:
-      '若能以最少数量的投影方向实现唯一重建，即可在 CT 扫描中显著减短机架停留时间与辐射剂量；对工业构件裂纹与材料夹渣的少视角图像反演提供可判定的唯一性保证，支撑自动化在线检测。',
+      'If unique reconstruction can be achieved with a minimal number of projection directions, the gantry dwell time and radiation dose in CT scanning can be significantly reduced; this provides a decidable uniqueness guarantee for sparse-view image inversion of cracks in industrial components and material inclusions, supporting automated online inspection.',
     formalization_notes:
-      '判定是组合记数命题：把唯一性化为对线和大小的独立集/多项式恒等式验证，方向集与网格尺寸的关系可有限枚举，系数相对高。',
+      'The decision is a combinatorial-counting statement: uniqueness reduces to verifying polynomial identities for line sums and sizes, and the relation between direction sets and grid sizes is finitely enumerable, of relatively high effort.',
     references: [
       {
         label: 'R. J. Gardner, P. Gritzmann, Discrete tomography: Determination of finite sets by X-rays, Trans. Amer. Math. Soc. 349 (1997) 2271–2295',
@@ -5390,26 +5390,26 @@ Decide also whether the decision problem of uniqueness for a given finite $D$ is
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2011,
-    via: { label: '网络可控性最小领航节点：最小控制问题综述与 NP-困难传统（Olshevsky 等）' },
-    impact_domains: ['无人机编队与智能电网', '传感器与执行器布置', '社会网络影响控制'],
+    via: { label: 'Minimum leader selection for network controllability: surveys of the minimum-control problem and the NP-hardness tradition (Olshevsky et al.)' },
+    impact_domains: ['UAV formation and smart grids', 'Sensor and actuator placement', 'Social network influence control'],
     related_problems: [],
     statement: `Let $G=(V,E)$ be a weighted graph of $n$ nodes with linear dynamics $\\dot x = A x + B u$. Choosing a set $L \\subseteq V$ of leaders amounts to fixing a diagonal support for the input matrix $B$. **Determine the computational complexity and constant approximability of the minimum-leadert-choice problem: find the smallest leader set $L$ such that $(A,B_L)$ is controllable (or observable)**, with the weights and topology of $G$ given as input.
 
 Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching hardness-of-approximation bound (e.g. no constant factor unless $\\mathrm P = \\mathrm{NP}$), or an exact characterization for special graph classes.`,
     origin:
-      '智能电网、无人机编队与多机器人系统中的可控性取决于在哪些节点注入输入，表现为最小领航选择问题。实践中通常以谱或强度贪心近似，但最优保证的算法界限并不清楚；确定其近似比与/或困难性可指导在规模与时延约束下的传感器/执行器布置。',
+      'Controllability in smart grids, UAV formations, and multi-robot systems depends on which nodes receive injected inputs, manifesting as the minimum-leader-selection problem. In practice one typically resorts to spectral or magnitude-based greedy approximations, but the algorithmic limits of optimal guarantees are unclear; determining its approximation ratio and/or hardness can guide sensor/actuator placement under scale and latency constraints.',
     progress: [
-      '**Olshevsky (2014)**: 最小可控性问题与相关选择的计算复杂度刻画。',
-      '**Kalman 秩判据的复杂度**: 对一般加权有向图，秩判据导致的选择问题显示 NP-hard，封闭常数近似比仍有缺口。',
-      '**子模近似**: 若干可控性准则下的贪心因子成立，但最优比率与强 NP-hard 的精确边界未定。',
+      '**Olshevsky (2014)**: computational-complexity characterization of the minimum-controllability problem and related selection problems.',
+      '**Complexity of the Kalman rank criterion**: on general weighted digraphs the selection problem induced by the rank criterion is NP-hard, and a closed constant approximation ratio remains an open gap.',
+      '**Submodular approximation**: greedy factors hold under several controllability criteria, but the exact boundary between the optimal ratio and strong NP-hardness is undetermined.',
     ],
     obstacles: [
-      '**秩不连续障碍**: 可控性由秩判据决定，选择子集时秩在临界处的不连续变化使近似比证明困难，且难以构造保持谱结构的独立集编码来获得常数下界。',
+      '**Rank-discontinuity obstacle**: controllability is determined by the rank criterion, and the discontinuous change of the rank at critical points when selecting subsets makes approximation-ratio proofs difficult; it is also hard to construct independent-set encodings preserving the spectral structure to obtain constant lower bounds.',
     ],
     engineering_value:
-      '最小领航选择直接决定传感与执行系统的造价与冗余需求。给出可证明近似比或难近似下界后，工程师可决定是否求精确解、采用贪心启发还是接受理论不可逼近的现实，从而在智能电网等安全关键系统中做可控性预算。',
+      'Minimum-leader selection directly determines the cost and redundancy requirements of sensing and actuation systems. With a provable approximation ratio or hardness lower bound, engineers can decide whether to seek exact solutions, adopt greedy heuristics, or accept the reality of theoretical inapproximability, thereby budgeting controllability in safety-critical systems such as smart grids.',
     formalization_notes:
-      '判定是组合优化命题：把可控性化成秩条件与集合选择的一致性验证，hardness 可由经典 NP-complete 问题归约建立，系数较高。',
+      'The decision is a combinatorial-optimization statement: controllability reduces to verifying consistency between rank conditions and set selection, with hardness established by reduction from classic NP-complete problems, of relatively high effort.',
     references: [
       {
         label: 'A. Olshevsky, Minimal controllability problems, IEEE Trans. Control Netw. Syst. 1 (2014) 249–258, arXiv:1304.3071',
@@ -5441,28 +5441,28 @@ Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching ha
     proposer: 'M. Crouzeix',
     proposed_year: 2004,
     via: {
-      label: 'Crouzeix, Bounds for analytic functions of matrices, Integral Equ. Oper. Theory 48 (2004); 常数猜想 1+√2',
+      label: 'Crouzeix, Bounds for analytic functions of matrices, Integral Equ. Oper. Theory 48 (2004); constant conjecture 1+√2',
       url: 'https://doi.org/10.1007/s00020-002-1184-6',
     },
-    impact_domains: ['Krylov 子空间收敛性', '矩阵函数估计', '预条件与扰动分析'],
+    impact_domains: ['Krylov subspace convergence', 'Matrix function estimation', 'Preconditioning and perturbation analysis'],
     related_problems: [],
     statement: `For any $n \\times n$ matrix $A$ and any polynomial $p$, let $W(A) = \\{x^* A x : \\|x\\|=1\\}$ be the numerical range. **Determine the optimal constant $C^*(W)$ such that**
 $\\|p(A)\\| \\le C^* \\, \\sup_{z \\in W(A)} |p(z)|, \\qquad \\forall p \\in \\mathbb C[z],$
 with $\\|\\cdot\\|$ the operator norm. Prove that $W(A)$ is a spectral set with constant $2$ (the Crouzeix conjecture), or establish the true optimal constant together with an explicit extremal example attaining it, improving the current universal bound $C^* \\le 1 + \\sqrt 2$.`,
     origin:
-      'Krylov 方法的收敛与谱集分析都依赖矩阵多项式范数的上界。数值范围是比谱更精细又更易构造的分析对象，Crouzeix 定理给出谱集的普适常数，但最优常数的证明仍是数值线性代数中公认的开放问题，直接关系到 GMRES、幂级数函数与预条件矩阵的收敛估计精度。',
+      'The convergence of Krylov methods and spectral-set analysis both rely on upper bounds for matrix polynomial norms. The numerical range is a finer and more easily constructed analytic object than the spectrum; the Crouzeix theorem gives a universal constant for spectral sets, but proving the optimal constant remains a recognized open problem in numerical linear algebra, directly affecting the accuracy of convergence estimates for GMRES, matrix power series, and preconditioned matrices.',
     progress: [
-      '**Crouzeix (2007)**: 证明 $W(A)$ 为常数 $11.08$ 的谱集。',
-      '**Crouzeix–Palencia (2017)**: 把普适常数改进为 $1+\\sqrt2$。',
-      '**2×2 与特殊类**: 已证常数 2 对 2×2 矩阵及若干特殊类成立，一般情形的猜想仍未解决。',
+      '**Crouzeix (2007)**: proves that $W(A)$ is a spectral set with constant $11.08$.',
+      '**Crouzeix–Palencia (2017)**: improve the universal constant to $1+\\sqrt2$.',
+      '**2×2 and special classes**: the constant 2 is proved for 2×2 matrices and several special classes, while the conjecture in the general case remains unresolved.',
     ],
     obstacles: [
-      '**极端矩阵障碍**: 从估值 $1+\\sqrt2$ 压到 $2$ 需要获得最优条件数方向的极值，而数值范围不经过的特征向量构造使反例寻找困难，最优常数涉及的泛函分析量难以有限界化。',
+      '**Extremal-matrix obstacle**: pushing the estimate from $1+\\sqrt2$ down to $2$ requires attaining extrema in the optimal-condition-number direction, while eigenvector constructions that the numerical range does not pass through make counterexample search difficult; the functional-analytic quantities involved in the optimal constant are hard to bound finitely.',
     ],
     engineering_value:
-      '最优常数决定 Krylov 迭代到给定残差所需的明确上界估计，是 GMRES 类算子在病态非正规矩阵上停机判据的理论基础，也用于矩阵库函数（如矩阵指数）与预条件误差的定量分析。',
+      'The optimal constant determines explicit upper-bound estimates for the Krylov iterations needed to reach a given residual, is the theoretical basis of stopping criteria for GMRES-type methods on ill-conditioned nonnormal matrices, and is also used in quantitative analysis of matrix-library functions (such as the matrix exponential) and preconditioning errors.',
     formalization_notes:
-      '判定是谱集分析命题：把范数界化简为对数值范围上多项式模的有限维验证，兼顾构造反例的凝聚映射，系数相对高。',
+      'The decision is a spectral-set-analysis statement: it reduces the norm bound to a finite-dimensional verification of polynomial moduli over the numerical range, while also accommodating contraction maps constructing counterexamples, of relatively high effort.',
     references: [
       {
         label: 'M. Crouzeix, Numerical range and functional calculus in Hilbert space, J. Funct. Anal. 244 (2007) 668–690',
@@ -5498,32 +5498,32 @@ with $\\|\\cdot\\|$ the operator norm. Prove that $W(A)$ is a spectral set with 
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
-    impact_domains: ['纳米尺度热传导', '低维系统的输运', '非平衡统计物理'],
+    impact_domains: ['Nanoscale heat conduction', 'Transport in low-dimensional systems', 'Nonequilibrium statistical physics'],
     related_problems: [
       {
         id: 'mp-026',
         relation: 'shares_tools',
-        note: '均涉及热力学极限下能量/输运量的严格化，并共用线性响应与守恒律的分析工具。',
+        note: 'Both involve the rigorous treatment of energy/transport quantities in the thermodynamic limit and share the analytical tools of linear response and conservation laws.',
       },
     ],
     statement: `Consider a one-dimensional chain of $N$ oscillators with Hamiltonian such as the microbial Fermi-Pasta-Ulam model
 $H_N = \\sum_{i=1}^N \\frac{p_i^2}{2} + \\sum_{i=1}^{N-1}\\Big(\\frac{(q_{i+1}-q_i)^2}{2} + \\frac{\\lambda}{4}(q_{i+1}-q_i)^4\\Big),$
 coupled at the two ends to Langevin reservoirs at temperatures $T_1<T_2$. Prove that the stationary heat flux $J_N$ satisfies Fourier law in the sense that the conductivity $\\kappa_N = J_N N /(T_1-T_2)$ has a finite positive limit as $N\\to\\infty$, or else prove that it diverges with an explicit power $\\kappa_N \\sim N^\\alpha$, $\\alpha>0$. Equivalently, settle the finiteness of the Green-Kubo integral $\\kappa = \\lim_{T\\to\\infty}\\frac{1}{T}\\lim_{N\\to\\infty}\\frac{\\beta^2}{N}\\int_0^T \\langle J(t)J\\rangle\\,dt$ for the bulk chain.`,
     origin:
-      'Fourier (1822) 猜测热流与温度梯度成正比，但严格证明在晶格模型中“由微观动力学涌现导热”至今是统计物理的著名挑战。一维及低维链预期出现反常输运（热导率随尺寸发散），其严格判定是输运理论的核心开放问题，也是 Bonetto–Lebowitz–Rey-Bellet 所总结的“对理论家的挑战”。',
+      'Fourier (1822) conjectured that heat flux is proportional to the temperature gradient, but a rigorous proof that "heat conduction emerges from microscopic dynamics" in lattice models remains a celebrated challenge in statistical physics. One-dimensional and low-dimensional chains are expected to exhibit anomalous transport (thermal conductivity diverging with size), and its rigorous decision is a core open problem of transport theory, and the "challenge to theorists" summarized by Bonetto–Lebowitz–Rey-Bellet.',
     progress: [
-      '**Bonetto–Lebowitz–Rey-Bellet (2000)**: 系统陈述 Fourier 定律在模型中的严格化挑战。',
-      '**Bernardin–Olla (2011)**: 在特定弱非线性/带钉扎情形给出若干问题的可积或有限导判据。',
-      '**Lepri–Livi–Politi 及多方**: 大规模数值强烈支持一维 FPU 链的反常输运（kappa_N ~ N^alpha），但缺乏严格证明。',
+      '**Bonetto–Lebowitz–Rey-Bellet (2000)**: systematically state the challenge of rigorously deriving Fourier\'s law in models.',
+      '**Bernardin–Olla (2011)**: give integrability or finite-conductivity criteria for several problems in specific weakly nonlinear / pinned settings.',
+      '**Lepri–Livi–Politi and many others**: large-scale numerics strongly support anomalous transport in one-dimensional FPU chains (kappa_N ~ N^alpha), but a rigorous proof is lacking.',
     ],
     obstacles: [
-      '**无全局可积结构**: 一维非线性链并非可积，线性响应与守恒模的相互作用难以估计。',
-      '**格林拟相关性长尾**: 能量电流自相关的代数长尾拖累有限尺寸外推，使收敛判别不稳定。',
+      '**No global integrable structure**: one-dimensional nonlinear chains are not integrable, and the interaction between linear response and conserved modes is hard to estimate.',
+      '**Green-Kubo correlation long tail**: the algebraic long tail of the energy-current autocorrelation burdens finite-size extrapolation, making the convergence verdict unstable.',
     ],
     engineering_value:
-      '直接决定纳米线与低维材料热导的尺寸依赖规律，为热电材料、纳米电子器件热管理以及声子工程提供定量判据。',
+      'Directly determines the size-dependence law of thermal conductivity of nanowires and low-dimensional materials, providing quantitative criteria for thermoelectric materials, thermal management of nanoelectronic devices, and phonon engineering.',
     formalization_notes:
-      '目标可形式化为对 kappa_N 函数极限或发散指数的命题；判定用明确的不等号提出，但涉及长期数值外推，形式化需结合严格有限尺寸界的支撑。',
+      'The goal can be formalized as a proposition about the limit of the function kappa_N or its divergence exponent; the decision is stated with explicit inequalities, but it involves long-time numerical extrapolation, so formalization needs to be supported by rigorous finite-size bounds.',
     references: [
       {
         label: 'Bonetto, Lebowitz and Rey-Bellet, Fourier law: a challenge to theorists, in Mathematical Physics 2000; arXiv:math-ph/0002052',
@@ -5554,33 +5554,33 @@ coupled at the two ends to Langevin reservoirs at temperatures $T_1<T_2$. Prove 
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2016,
-    via: { label: '正温度相互作用玻色凝聚：BEC 严格结果综述（如 Seiringer 相关）' },
-    impact_domains: ['超流物理', '低温多体量子理论', '玻色体系的相变'],
+    via: { label: 'Bose condensation of interacting gases at positive temperature: review of rigorous BEC results (e.g. related work of Seiringer)' },
+    impact_domains: ['Superfluid physics', 'Low-temperature many-body quantum theory', 'Phase transitions in Bose systems'],
     related_problems: [
       {
         id: 'mp-024',
         relation: 'generalizes',
-        note: 'mp-024 处理的是基态/零温下的凝聚与动力学；本题把凝聚的存在性问题推广到正的有限温度。',
+        note: 'mp-024 treats condensation and dynamics at the ground state / zero temperature; this problem extends the existence of condensation to positive finite temperature.',
       },
     ],
     statement: `Consider the dilute Bose gas in a box of volume $V$ with Hamiltonian
 $H = \\sum_{p}\\epsilon_p a_p^\\dagger a_p + \\frac{1}{2}\\sum_{p_1+p_2=p_3+p_4} \\hat v(p_1-p_3)\\,a_{p_1}^\\dagger a_{p_2}^\\dagger a_{p_3}a_{p_4},$
 at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive short-range potential $v\\ge 0$ of scattering length $a$, in the dilute regime $\\rho a^3 \\ll 1$. Prove that for $T$ below a threshold $T_c$ close to the ideal-gas critical temperature $T_c^0 = 2\\pi\\hbar^2 \\rho^{2/3}/(m k_B \\zeta(3/2)^{2/3})$, the one-body density matrix $\\gamma^{(1)}$ of the grand-canonical Gibbs state has a spectral subspace of positive, order-$V$ occupation --- i.e. generalized Bose-Einstein condensation $\\gamma^{(1)} \\to \\langle \\varphi,\\cdot\\varphi\\rangle$ with condensation density $\\rho_0(T)>0$ --- uniformly in the thermodynamic limit, including the Bogoliubov-corrected shift of $T_c$.`,
     origin:
-      '理想气体的凝聚由 Bose (1924)/Einstein (1925) 提出且严格已知；但相互作用玻色气体在正温度下的凝聚存在性——把基态结论（Lieb–Seiringer 已证）推广到非零温度、含 Bogoliubov 移位的 T_c——仍是统计物理的著名开放问题。它构成超流现象理论的核心支柱之一。',
+      'Condensation of the ideal gas was proposed by Bose (1924)/Einstein (1925) and is rigorously known; but the existence of condensation in interacting Bose gases at positive temperature — extending the ground-state result (proved by Lieb–Seiringer) to nonzero temperature, including the Bogoliubov-shifted T_c — remains a celebrated open problem of statistical physics. It forms one of the central pillars of the theory of superfluidity.',
     progress: [
-      '**Lieb–Seiringer (2002)**: 严格证明稀薄玻色气体基态（零温）在广义意义下存在凝聚。',
-      '**Boccato–Brennecke–Cenatiempo–Schlein (2018)**: 在 Gross-Pitaevskii 尺度下发展稳态 Bogoliubov 理论，逼近基态性质。',
-      '**Hirayama / Chen–Guo–Seiringer 等**: Bogoliubov 谱与低温表达的进展，但正温度凝聚仍未封闭。',
+      '**Lieb–Seiringer (2002)**: rigorously prove the existence of condensation of the dilute Bose gas in the ground state (zero temperature) in a generalized sense.',
+      '**Boccato–Brennecke–Cenatiempo–Schlein (2018)**: develop stationary Bogoliubov theory at the Gross–Pitaevskii scale, approximating ground-state properties.',
+      '**Hirayama / Chen–Guo–Seiringer et al.**: progress on the Bogoliubov spectrum and low-temperature expressions, but positive-temperature condensation is still not closed.',
     ],
     obstacles: [
-      '**非零模与模的严格分离**: 凝聚模的定义需要小心处理，粒子数守恒或超流密度在有限温度下的严格刻画艰难。',
-      '**温度尺度上的 Bogoliubov 修正**: 确定相互作用对 T_c 的移位（经典/非规范理论）尚缺严格上界。',
+      '**Rigorous separation of the condensate and non-condensate modes**: the definition of the condensate mode must be handled carefully, and a rigorous characterization of particle-number conservation or superfluid density at finite temperature is hard.',
+      '**Bogoliubov corrections at the temperature scale**: determining the shift of T_c due to interactions (classical/noncanonical theory) still lacks a rigorous upper bound.',
     ],
     engineering_value:
-      '为超流氦、玻色气体冷原子实验和超流体计算的第一性原理闭合提供严格基础，也支撑冷原子量子模拟中对凝聚态密度的定量预测。',
+      'Provides a rigorous foundation for first-principles closure of superfluid helium, cold-atom experiments on Bose gases, and superfluid computations, and also supports quantitative predictions of condensate density in cold-atom quantum simulation.',
     formalization_notes:
-      '目标可写成关于 gamma^{(1)} 特征投影的定量下界，判定标准明确，但需结合 Bogoliubov 分析与大偏差技术，形式化属中等难度。',
+      'The goal can be written as a quantitative lower bound on the spectral projection of gamma^{(1)}, with clear decision criteria, but it requires combining Bogoliubov analysis with large-deviation techniques, making formalization of medium difficulty.',
     references: [
       {
         label: 'Seiringer, Bose gases, Bose-Einstein condensation, and the Bogoliubov approximation; arXiv:1701.08721 (2017)',
@@ -5615,30 +5615,30 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       label: 'Kosterlitz & Thouless, Ordering metastability and phase transitions in two-dimensional systems, J. Phys. C 6 (1973)',
       url: 'https://doi.org/10.1088/0022-3719/6/7/010',
     },
-    impact_domains: ['超流薄膜', '二维相变理论', '凝聚态严格模型'],
+    impact_domains: ['Superfluid thin films', 'Two-dimensional phase transition theory', 'Rigorous condensed-matter models'],
     related_problems: [
       {
         id: 'mp-026',
         relation: 'shares_tools',
-        note: '同为二维库仑型相互作用导致的序与相变问题，共用库仑气体与 renormalization 的能量类比工具。',
+        note: 'Both are order-and-phase-transition problems caused by two-dimensional Coulomb-type interactions, sharing the Coulomb-gas and renormalization energy-analogy tools.',
       },
     ],
     statement: `Let $H_K = -K\\sum_{\\langle x,y\\rangle}\\cos(\\theta_x-\\theta_y)$ be the classical XY (rotator) model on $\\mathbb{Z}^2$ with $\\theta_x\\in\\mathbb{T}$, equivalently the two-dimensional Coulomb gas of vortex-antivortex pairs. Prove that there exists $K_c<\\infty$ such that for $K>K_c$ the correlations of $e^{i\\theta_x}$ decay algebraically (power law, vanishing magnetization but diverging correlation length) and the spin-wave stiffness $\\rho_s(K)$ is strictly positive, whereas for $K<K_c$ correlations decay exponentially and $\\rho_s=0$, with a BKT transition at $K_c$ and the universal jump $\\rho_s(T_c^-)/T_c = 2/\\pi$. A pass must rigorously construct both phases and pin down the transition and the jump value.`,
     origin:
-      'Berezinskii (1971) 与 Kosterlitz–Thouless (1973) 预言了无叠加序但由涡旋束缚-去束缚驱动的连续相变，以及超流密度在 T_c 的普适跳跃；Fröhlich–Spencer（库仑气体）严格确立了部分低/o 高温相，但两相共存与分析过渡的完整严格化至今未完全闭合，且可由薄氦膜实验直接比照。',
+      'Berezinskii (1971) and Kosterlitz–Thouless (1973) predicted a continuous phase transition without a superposition order but driven by vortex binding–unbinding, together with the universal jump of the superfluid density at T_c; Fröhlich–Spencer (Coulomb gas) rigorously established parts of the low-/high-temperature phases, but the complete rigorous treatment of coexistence of both phases and the analytic transition has still not been fully closed, and can be compared directly with thin-helium-film experiments.',
     progress: [
-      '**Kosterlitz–Thouless (1973)**: 提出涡旋去束缚机制与普适跳跃的物理图景。',
-      '**Fröhlich–Spencer (1981)**: 对二维库仑气体及 XY 模型严格建立低温和高温相的性质（含指数/幂律关联界）。',
-      '**Nelson–Kosterlitz (1977)**: 形式化普适跳跃并给出与超流薄膜实验的对照。',
+      '**Kosterlitz–Thouless (1973)**: propose the physical picture of the vortex-unbinding mechanism and the universal jump.',
+      '**Fröhlich–Spencer (1981)**: rigorously establish the properties of the low- and high-temperature phases for the two-dimensional Coulomb gas and the XY model (including exponential/power-law correlation bounds).',
+      '**Nelson–Kosterlitz (1977)**: formalize the universal jump and give the comparison with superfluid-film experiments.',
     ],
     obstacles: [
-      '**涡旋束缚的严格控制**: 相对偶涡旋的完全束缚与过渡点的临界指数缺乏统一严格论证。',
-      '**普适跳跃非平凡证明**: rho_s(T_c)/T_c=2/pi 尚缺端点处严格推导，需精细的 spin-wave 与涡旋能泛函分析。',
+      '**Rigorous control of vortex binding**: the complete binding of opposite vortex pairs and the critical exponents at the transition lack a unified rigorous argument.',
+      '**Nontrivial proof of the universal jump**: rho_s(T_c)/T_c=2/pi still lacks a rigorous derivation at the endpoint, requiring delicate spin-wave and vortex-energy functional analysis.',
     ],
     engineering_value:
-      '为二维超流薄膜、约瑟夫森结阵列和拓扑序相变提供精确预测，支撑超导微流与量子器件中二维序的定量设计。',
+      'Provides precise predictions for two-dimensional superfluid films, Josephson-junction arrays, and topological-order phase transitions, supporting the quantitative design of two-dimensional order in superconducting microfluidics and quantum devices.',
     formalization_notes:
-      '命题可写成明确的幂律/指数关联判定与普适跳跃的等式，判定证书（关联界与跳跃）清晰可验证，是形式化可行度较高的目标。',
+      'The proposition can be written as an explicit power-law/exponential correlation decision together with the equality for the universal jump; the decision certificate (correlation bounds and the jump) is clearly verifiable, making it a target with relatively high formalization feasibility.',
     references: [
       {
         label: 'Kosterlitz and Thouless, Ordering, metastability and phase transitions in two-dimensional systems, J. Phys. C 6 (1973) 1181–1203',
@@ -5660,22 +5660,22 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     id: 'mc-027',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"何时可用 tQSSA"的可核验判定而非通用误差定理：对一具体酶促反应参数族（总酶浓度 $\\epsilon$、速率常数区间），交付完整随机过程与其 tQSSA 约化之间全变差距离的可核验上界 $D(\\epsilon)$，并附三层残差总带：(1) **R_model**＝把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界；(2) **R_param**＝速率常数与总酶浓度来自测量/标定时，其不确定度传播到 $D(\\epsilon)$ 的输入残差上界（对测量区间内的所有 $k,\\epsilon$ 均须成立）；(3) **R_num**＝主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界，三者合成使 $D_{\\text{tot}}\\le$ R_model+R_param+R_num 且在声明参数区内可数值验证。判定通过的消费形式：给定通路参数与精度要求，直接得到"在此参数区可使用 tQSSA（误差低于阈值）或必须跑完整刚性主方程"的带证判定，供大规模通路模拟在精度与速度间做可审计权衡。',
+      'The acceptable answer is a verifiable decision of "when tQSSA can be used" rather than a general error theorem: for a specific family of enzyme-reaction parameters (total enzyme concentration $\\epsilon$, interval of rate constants), deliver a verifiable upper bound $D(\\epsilon)$ on the total-variation distance between the full stochastic process and its tQSSA reduction, accompanied by a three-layer residual total band: (1) **R_model** = the residual upper bound introduced by restricting real biochemistry (finite concentrations, ionic-strength/activity effects) to ideal mass action + tQSSA reduction; (2) **R_param** = the input residual upper bound of the uncertainty propagated to $D(\\epsilon)$ when rate constants and total enzyme concentration come from measurement/calibration (must hold for all $k,\\epsilon$ in the measurement interval); (3) **R_num** = the residual upper bound introduced by solving the controlled process via master equation/Gillespie sampling or interval arithmetic; the three combine so that $D_{\\text{tot}}\\le$ R_model+R_param+R_num and are numerically verifiable in the declared parameter region. Consumption form of a passing decision: given pathway parameters and an accuracy requirement, directly obtain the certified decision "tQSSA can be used in this parameter region (error below threshold) or the full stiff master equation must be run", enabling auditable precision-vs-speed trade-offs in large-scale pathway simulation.',
     certificate: {
       r_model: {
-        bound: '把真实生物化学（有限浓度、离子强度/活性效应）限制为理想质量作用 + tQSSA 约化所引入的残差上界',
-        derivation: '理想质量作用 + tQSSA 约化残差界',
+        bound: 'Residual upper bound introduced by restricting real biochemistry (finite concentrations, ionic-strength/activity effects) to ideal mass action + tQSSA reduction',
+        derivation: 'Ideal mass action + tQSSA reduction residual bound',
       },
       r_param: {
-        bound: '速率常数与总酶浓度测量不确定度传播到全变差距离 D(ε) 的输入残差上界（对测量区间内所有 k, ε 成立）',
-        derivation: '测量区间传播到 D(ε) 的距离上界区间映像',
+        bound: 'Input residual upper bound of rate-constant and total-enzyme-concentration measurement uncertainty propagated to the total-variation distance D(ε) (holding for all k, ε in the measurement interval)',
+        derivation: 'Interval image of the measurement interval propagated to the distance upper bound D(ε)',
       },
       r_num: {
-        bound: '主方程/Gillespie 采样或区间算术求解该受控过程所引入的残差上界',
-        derivation: '区间算术 / 采样误差封闭界',
+        bound: 'Residual upper bound introduced by solving the controlled process via master equation/Gillespie sampling or interval arithmetic',
+        derivation: 'Interval arithmetic / sampling-error closure bound',
       },
       total_band: 'D_tot ≤ R_model + R_param + R_num',
-      certified_band: 'tQSSA 与完整过程的带证全变差距离带',
+      certified_band: 'Certified total-variation-distance band between tQSSA and the full process',
     },
     title: 'Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation',
     titleZh: '随机准稳态近似的严格误差界',
@@ -5691,13 +5691,13 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
-    via: { label: '随机 QSSA 严格误差界：Kang–Kurtz 等极限与传统文献' },
-    impact_domains: ['酶动力学的随机建模与降维', '生物化学主方程的刚性分解'],
+    via: { label: 'Rigorous error bounds for stochastic QSSA: the limit theorems of Kang–Kurtz et al. and the traditional literature' },
+    impact_domains: ['Stochastic modeling and dimension reduction of enzyme kinetics', 'Stiff decomposition of biochemical master equations'],
     related_problems: [
       {
         id: 'mc-021',
         relation: 'shares_tools',
-        note: '两者都基于化学主方程，并在稳态结构下做解析处理。',
+        note: 'Both are based on the chemical master equation and are treated analytically under steady-state structure.',
       },
     ],
     statement: `Consider the single-enzyme reaction $E+S \\rightleftharpoons ES \\rightarrow E+P$ with total enzyme concentration $\\epsilon$. The stochastic quasi-steady-state approximation (tQSSA) replaces the coupled master equation on the states $(S,ES)$ by a reduced one-dimensional process on $S$ with effective rates. **Find the sharp, explicit a priori error between the full and the reduced processes, measured in total variation and on the one-time marginal of $S$, as a function of $\\epsilon$ and the rate constants, and characterize the exact validity region of the stochastic QSSA, i.e. the regime in which the reduction error vanishes or is provably small.** Error estimates are known only in special asymptotic regimes, and a general sharp bound is open.`,
@@ -5713,9 +5713,9 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       '**Discreteness**: the reduced process lives on a smaller state space and approximates a stiff countable Markov chain, where competing strong vs uniform norm rates make a single sharp exponent elusive.',
     ],
     engineering_value:
-      '为随机动力学模拟的模型降维提供严格的可验证误差上界，决定何时可以放心使用 tQSSA 而不必跑完整刚性主方程，直接影响大规模通路模拟的精度与速度权衡。',
+      'Provides rigorous, verifiable error upper bounds for model reduction of stochastic-dynamics simulation, determining when tQSSA can be used with confidence without running the full stiff master equation, directly affecting the precision-vs-speed trade-off of large-scale pathway simulation.',
     formalization_notes:
-      '问题可化为有限或可数马尔可夫链之间的耦合构造；一个可机器验证的里程碑是对给定速率族给出区间算术检验的总变异误差上界。一般的尖锐误差界属于研究级挑战。',
+      'The problem reduces to constructing couplings between finite or countable Markov chains; a machine-verifiable milestone is an interval-arithmetic-checked total-variation error upper bound for a given rate family. General sharp error bounds are a research-level challenge.',
     references: [
       {
         label: 'Rao, Arkin, Stochastic chemical kinetics and the quasi-steady-state assumption: Application to the Gillespie algorithm, J. Chem. Phys. 118 (2003) 4999',
@@ -5747,15 +5747,15 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     proposer: 'multiple contributors',
     proposed_year: 2011,
     via: {
-      label: '分子图谱确定性综述：van Dam & Haemers, Which graphs are determined by their spectrum? LAA 373 (2003)',
+      label: 'Survey of spectral determination of molecular graphs: van Dam & Haemers, Which graphs are determined by their spectrum? LAA 373 (2003)',
       url: 'https://doi.org/10.1016/j.laa.2003.07.008',
     },
-    impact_domains: ['分子图同构的无歧义结构识别', '化学指纹与结构检索'],
+    impact_domains: ['Unambiguous structure identification by molecular graph isomorphism', 'Chemical fingerprints and structure retrieval'],
     related_problems: [
       {
         id: 'mc-022',
         relation: 'shares_tools',
-        note: '同为分子图上的结构计数与分类问题，共享匹配与谱工具。',
+        note: 'Both are structural-counting and classification problems on molecular graphs, sharing matching and spectral tools.',
       },
     ],
     statement: `Let $G$ be a molecular graph, a connected graph of maximum degree at most four, as arises from the carbon skeleton of a hydrocarbon. An invariant such as the adjacency spectrum determines $G$ (G is DS) if every graph with the same spectrum is isomorphic to $G$; the notion is defined analogously for the signless Laplacian spectrum. **Determine, for the families of benzenoids and other molecular graphs, exactly which graphs are determined by their spectrum and which by their signless Laplacian spectrum, and decide whether the signless Laplacian spectrum determines the structure of every tree; exhibit the minimal cospectral pairs within each stated family.** Only partial classifications exist, and even the tree case is not completely settled.`,
@@ -5771,9 +5771,9 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       '**Tree case**: the signless Laplacian spectrum of a tree is tightly constrained, which both helps and blocks—proving it forces structure requires a delicate induction without an obvious invariant.',
     ],
     engineering_value:
-      '支撑基于谱的分子结构去重与检索算法：若能证明某类分子图由谱唯一确定，就能用谱特征做高效且无歧义的结构查询，服务于化学数据库的索引与异构体排重。',
+      'Supports spectral-based molecular-structure deduplication and retrieval algorithms: if a class of molecular graphs can be proven uniquely determined by their spectrum, spectral features can be used for efficient and unambiguous structure queries, serving the indexing of chemical databases and isomer deduplication.',
     formalization_notes:
-      '这是有限组合问题，非常适合形式化：对给定小图族的 DS 性质可用精确算术验证谱与同构；树族的完整分类是研究级核心，依赖图谱论中的归纳论证。',
+      'This is a finite combinatorial problem, very well suited to formalization: for a given family of small graphs the DS property can be verified by exact arithmetic on spectra and isomorphism; the complete classification of the tree family is the research-level core, relying on inductive arguments in spectral graph theory.',
     references: [
       {
         label: 'van Dam, Haemers, Which graphs are determined by their spectrum? Linear Algebra Appl. 373 (2003) 241',
@@ -5801,31 +5801,31 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2014,
-    via: { label: '季节驱动 SIR 谐波响应与 Arnold 舌：流行病学综述（如 Keeling & Rohani）' },
-    impact_domains: ['传染病年际波动理论', '吸引子锁定与混沌态预报'],
+    via: { label: 'Harmonic response and Arnold tongues of seasonally driven SIR: epidemiological reviews (e.g. Keeling & Rohani)' },
+    impact_domains: ['Theory of interannual infectious-disease fluctuations', 'Attractor locking and chaotic-state forecasting'],
     related_problems: [
       {
         id: 'mb-005',
         relation: 'shares_tools',
-        note: '同属 SIR 型传播动力学的分叉与长期行为，共享季节驱动与吸引子分析工具。',
+        note: 'Both belong to the bifurcation and long-term behavior of SIR-type transmission dynamics, sharing seasonality-driving and attractor-analysis tools.',
       },
     ],
     statement:
       `Consider the seasonally forced SIR model with periodic transmission $\\beta(t)=\\beta_0\\,(1+\\varepsilon\\cos 2\\pi t)$ and a reinfection-susceptibility correction that re-couples removed individuals. **Determine the sharp boundaries (Arnold tongues) in the $(R_0,\\varepsilon)$ plane inside which the forced system locks onto a subharmonic orbit of period $m T$ (notably the biennial $m=2$ measles-like cycle), prove that these tongues occupy positive area, and decide whether each tongue terminates in a period-doubling cascade or in a Neimark–Sacker bifurcation.** Establish a rigorous criterion separating the locked regime from the intermittent-chaotic regime in which the orbit sporadically switches between the annual and biennial attractors, and give sharp bounds for that crossover in terms of $R_0$ and $\\varepsilon$.`,
     origin:
-      '麻疹等儿童传染病呈现强季节驱动的隔年爆发现象，其由整数维 Arnold 舌与间歇切换所描述。尽管高维模拟丰富，但年内/隔年锁定界限的解析判定、舌末端分叉类型、以及间歇混沌的分界，作为低维动态系统的严格结论仍未闭合。',
+      'Childhood infectious diseases such as measles exhibit strongly seasonally driven biennial outbreaks, described by integer-dimensional Arnold tongues and intermittent switching. Although high-dimensional simulations are abundant, the analytic decision of the intra-annual/biennial locking boundary, the bifurcation type at the tongue tips, and the boundary of intermittent chaos, as rigorous conclusions for low-dimensional dynamical systems, remain unclosed.',
     progress: [
-      '**间歇混沌**: Schwartz–Smith 在周期驱动的麻疹模型中观测到吸引子间的间歇切换，被视为混沌感染序列的数学原型。',
-      '**季节锁定**: Keeling 团队用切换吸引子框架把隔年周期视为季节驱动的周期倍化，但并入 AB 机制后仅为启发式。',
-      '**参数扫描**: 2 周期响应在二维参数平面上被广泛数值观察，但舌的解析边界缺失。',
+      '**Intermittent chaos**: Schwartz–Smith observed intermittent switching between attractors in periodically driven measles models, regarded as the mathematical prototype of chaotic infection sequences.',
+      '**Seasonal locking**: the Keeling group, using the switching-attractor framework, treats the biennial cycle as seasonally driven period doubling, but after incorporating the AB mechanism it remains only heuristic.',
+      '**Parameter scans**: 2-periodic responses are widely observed numerically on the two-dimensional parameter plane, but the analytic boundaries of the tongues are missing.',
     ],
     obstacles: [
-      '**降维失真**: 强制项把连续流提升为三维动力系统，扰动法只适用于弱强制，无法覆盖强季节驱动的实测区间。',
-      '**混沌共存**: 多个周期的吸引盆相互渗透，Lyapunov 计算对舌内锁定判定不敏感。',
+      '**Reduction distortion**: the forcing term lifts the continuous flow to a three-dimensional dynamical system, and perturbation methods apply only to weak forcing, failing to cover the measured range of strong seasonal driving.',
+      '**Chaos coexistence**: the basins of attraction of several periods interpenetrate, and Lyapunov computations are insensitive to the locking verdict inside the tongues.',
     ],
     formalization_notes:
-      '把锁定判定归约为单参数周期解的存在与稳定：用不变环 / Poincaré 截面上的周期点追踪，可在固定 $R_0,\\varepsilon$ 的数字核上形式化验证。舌的严格测度与末端分叉阶需要符号边界计算。',
-    engineering_value: '改进疫苗策略与疫情早预警——正确预报年际爆发的相位锁定与切换风险，避免基于单周期假设的预报偏差。',
+      'The locking decision reduces to the existence and stability of single-parameter periodic solutions: tracking periodic points on invariant circles / Poincaré sections can be formally verified on a numerical core at fixed $R_0,\\varepsilon$. The rigorous measure of the tongues and the endpoint bifurcation order require symbolic boundary computation.',
+    engineering_value: 'Improves vaccine strategy and early outbreak warning — correctly forecasting the phase-locking and switching risk of interannual outbreaks, avoiding forecast bias based on a single-period assumption.',
     references: [
       {
         label: 'Schwartz & Smith, Intermittent chaos in measles, Physica D 9 (1983) 394-401',
@@ -5862,26 +5862,26 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2008,
-    via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998), 第 17 题（多项式系统零点的多项式时间算法）；平均情形复杂度见 Bürgisser & Cucker, Condition: The Geometry of Numerical Algorithms (Springer, 2013)' },
-    impact_domains: ['回归与参数辨识', '全局优化求解器', '符号数值混合验证'],
+    via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998), Problem 17 (polynomial-time algorithm for the zeros of polynomial systems); average-case complexity see Bürgisser & Cucker, Condition: The Geometry of Numerical Algorithms (Springer, 2013)' },
+    impact_domains: ['Regression and parameter identification', 'Global optimization solvers', 'Symbolic–numerical hybrid verification'],
     related_problems: [],
     statement: `Let $f: \\mathbb R^n \\to \\mathbb R$ be a degree-$d$ polynomial, or let $F:\\mathbb C^n \\to \\mathbb C^n$ be a square polynomial system with $n$ equations in $n$ unknowns. **Determine the average-case tractability: prove that there is an algorithm that, given a random such system drawn from a product/projection model, finds an approximate zero or approximates $\\min f$ on $\\mathbb R^n$/a compact basic-semialgebraic set in time polynomial in $n$ and the degree, with the output error certified to machine precision, or prove that such a feasible algorithm cannot exist (unconditionally or modulo a plausible cryptographic/antiparadoxical hypothesis).**
 
 Equivalently, resolve whether the decision problems of real-solvability and of global nonnegativity of a polynomial admit randomized polynomial expected-time algorithms, deciding in particular whether every infeasible-by-SOS instance is structurally hard.`,
     origin:
-      '参数拟合、模型校验与鲁棒设计都要判定一个实多项式系统是否有解或某多项式是否非负，这是科学计算与工程优化的共同底层决策。Smale 第十七问题长期悬而未决：即便非负性可由平方和层次逼近，其闭包在允许增广时是否导致多项式时间判定仍未知，决定全局求解器能否给出可证明的最坏/平均复杂度保证。',
+      'Parameter fitting, model validation, and robust design all require deciding whether a real polynomial system has a solution or whether a given polynomial is nonnegative — this is the shared foundational decision problem of scientific computing and engineering optimization. Smale’s 17th problem has long remained unresolved: even though nonnegativity can be approached by sums-of-squares hierarchies, whether its closure permits polynomial-time decision when augmentation is allowed is still unknown, and this determines whether global solvers can offer provable worst-case/average-case complexity guarantees.',
     progress: [
-      '**Smale (1998)**: 将拟零域验算与平方和闭包的可判定性列为新世纪数学问题，断言存在多项式时间平均算法。',
-      '**SOS 层次 (Lasserre)**: 给出可核验最优下界的逐步松弛，但增广步骤的最坏复杂度指数且非充分。',
-      '**平均分析实证**: 同伦与牛顿类方法在随机系统上期望多项式步数，但精致的平均模型下界与停机停止法则尚未闭合。',
+      '**Smale (1998)**: listed the verification of approximate zeros and the decidability of the sums-of-squares closure among the mathematical problems of the next century, asserting that a polynomial-time average-case algorithm exists.',
+      '**SOS hierarchy (Lasserre)**: provides stepwise relaxations giving verifiable optimal lower bounds, but the worst-case complexity of the augmentation step is exponential and not sufficient.',
+      '**Average-case empirical evidence**: homotopy and Newton-type methods take an expected polynomial number of steps on random systems, but refined average-case model lower bounds and stopping rules are not yet closed.',
     ],
     obstacles: [
-      '**几何分歧障碍**: 实解集的分歧既源于临界轨迹的分叉又源于函数的非退化性损失，需要同时控制数值代数与随机几何；把判定问题归约到平方和时，舍入误差在跨越紧支集合时难以用固定位数分隔。',
+      '**Geometric-bifurcation obstruction**: the bifurcations of the real solution set stem both from branching of critical trajectories and from loss of nondegeneracy of the function, so numerical algebra and stochastic geometry must be controlled simultaneously; when the decision problem is reduced to sums of squares, rounding errors are difficult to separate with a fixed number of bits when crossing compactly supported sets.',
     ],
     engineering_value:
-      '可证明的平均多项式时间算法将终结全局优化中"何时停止"的黑箱开销，使参数反演、组合设计校验与化学反应网络平衡的求解具有可预测成本；即便得到不可能性，也为工程师标定哪些符号降阶/SOS 增广层次在平均意义下有效提供理论依据。',
+      'A provable average-case polynomial-time algorithm would put an end to the black-box “when to stop” overhead of global optimization, giving predictable cost to parameter inversion, combinatorial design validation, and the solution of chemical reaction network equilibria; even an impossibility result would give engineers the theoretical grounds to determine which symbolic-reduction/SOS augmentation hierarchies are effective in an average sense.',
     formalization_notes:
-      '判定以波动计算形式给出：把平均复杂度化为对随机模型的度量与牛顿迭代收敛半径验证，可通过基于区间算术的鲁棒证书与中断循环进行机检，系数中等。',
+      'The decision is given in a floating-point-computational form: average-case complexity is reduced to metric verification of the random model and to verifying the Newton-iteration convergence radius, which can be machine-checked via interval-arithmetic-based robust certificates and interruptible loops; the coefficient of difficulty is medium.',
     references: [
       {
         label: 'S. Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998) 7–15',
@@ -5916,31 +5916,31 @@ Equivalently, resolve whether the decision problems of real-solvability and of g
       label: 'Witsenhausen, A counterexample in stochastic optimum control, SIAM J. Control 6 (1968)',
       url: 'https://doi.org/10.1137/0306048',
     },
-    impact_domains: ['多智能体协同控制', '分散传感网络', '容错与鲁棒控制器设计'],
+    impact_domains: ['Multi-agent cooperative control', 'Distributed sensing networks', 'Fault-tolerant and robust controller design'],
     related_problems: [
       {
         id: 'me-018',
         relation: 'shares_tools',
-        note: '两者都处理非线性反馈设计缺乏简洁充要判据的问题：me-018 面向确定性镇定的连续反馈，me-027 面向随机分散系统中的非线性-线性最优性。',
+        note: 'Both concern the lack of simple necessary-and-sufficient criteria in nonlinear feedback design: me-018 addresses continuous feedback for deterministic stabilization, while me-027 addresses nonlinear-vs-linear optimality in stochastic decentralized systems.',
       },
     ],
     statement: `Consider the two-stage problem with state $x_0 \\sim \\mathcal N(0, \\sigma^2 I)$ (scalar or vector), controls $u_1 = \\gamma_1(x_0)$, transition $x_1 = x_0 + u_1$, noisy measurement $y = x_1 + v$ with $v \\sim \\mathcal N(0, I)$ independent, and $u_2 = \\gamma_2(y)$, minimizing $J = \\mathbb E[\\|x_0 + u_1 - u_2\\|^2] + k\\,\\mathbb E[\\|u_1\\|^2]$ for a fixed weight $k$. **Prove that the minimizer $\\gamma^* = (\\gamma_1^*,\\gamma_2^*)$ over all measurable policies is nonlinear with $J(\\gamma^*) < \\inf_{\\text{linear}} J$, or prove that a linear policy is optimal**, giving a certified gap $\\inf_{\\text{linear}} J - J(\\gamma^*)$ and the value function.
 
 Numerically discovered nonlinear policies beat the best linear ones for large $\\sigma$, but no proof of nonlinearity of the global optimum (or its negation) is known.`,
     origin:
-      '多基地传感器、分散式网络与柔性制造中的每个执行器只拥有部分信息，最优分散策略是否仍是线性高斯解是团队理论（Team Theory）的核心未决问题。Witsenhausen 构造的反例不在经典 LQG 框架内成立，敲定了"分散+信息耦合致非线性最优"可能发生，但其最优性证明始终缺失，直接影响分散控制的工业标准和置信度。',
+      'In multi-static sensors, decentralized networks, and flexible manufacturing, every actuator has only partial information; whether the optimal decentralized policy is still the linear Gaussian solution is the core open question of team theory. The counterexample constructed by Witsenhausen does not fall within the classical LQG framework and pins down that “decentralization plus information coupling can make the optimum nonlinear,” but a proof of its optimality has always been missing, directly affecting industrial standards and confidence in decentralized control.',
     progress: [
-      '**Witsenhausen (1968)**: 给出表明最优解可能非线性的反例，但未证明全局最优非线性。',
-      '**Mitter–Sahai (1983)**: 建立无信息的数值证据，猜测高噪声区非线性渐近最优。',
-      '**Wu–Verdú (2011) 及后续**: 用最优传输观点给出若干策略族，但全局最优的线性-非线性二分仍未判定。',
+      '**Witsenhausen (1968)**: gave a counterexample suggesting that the optimal solution may be nonlinear, but did not prove global optimality of a nonlinear policy.',
+      '**Mitter–Sahai (1983)**: established numerical evidence without full information, conjecturing that nonlinear policies are asymptotically optimal in the high-noise regime.',
+      '**Wu–Verdú (2011) and later work**: used an optimal-transport viewpoint to produce several families of policies, but the linear-vs-nonlinear dichotomy for the global optimum is still undecided.',
     ],
     obstacles: [
-      '**动态规划维数障碍**: 一步问题的数值解在多维状态空间上指数爆炸，且目标函数非凸使任何梯度/网格搜索无法保证全局最优；缺乏可在任意 $\\sigma,k$ 上统一闭合的松弛下界。',
+      '**Dynamic-programming dimensionality obstruction**: the numerical solution of the one-step problem blows up exponentially on high-dimensional state spaces, and the nonconvex objective means no gradient/grid search can guarantee the global optimum; there is no relaxation lower bound that closes uniformly for arbitrary $\\sigma,k$.',
     ],
     engineering_value:
-      '若给出严格证明，可判定哪些分散控制场景必须采用非线性（从而需额外硬件与非凸优化），哪些仍可用线性 LQG 廉价实现；该定论对多智能体编队、容错控制和传感数据融合的可证性能上界提供直接工程依据。',
+      'A rigorous proof would decide which decentralized-control scenarios must use nonlinear policies (hence extra hardware and nonconvex optimization) and which can still be implemented cheaply with linear LQG; such a settlement provides direct engineering grounds for provable performance upper bounds in multi-agent formation, fault-tolerant control, and sensor data fusion.',
     formalization_notes:
-      '判定以数值方向优先：把问题离散到充分细的网格并在线性策略族上计算严格下界，配合非线性策略的确定性代价上界形成可机检的间隙证明；完整的闭式分析仍待解析化，系数中等。',
+      'The decision prioritizes the numerical direction: discretize the problem on a sufficiently fine grid and compute a rigorous lower bound over the family of linear policies, combined with a deterministic cost upper bound for nonlinear policies to form a machine-checkable gap proof; a full closed-form analysis still awaits analytic treatment, coefficient of difficulty medium.',
     references: [
       {
         label: 'H. S. Witsenhausen, A counterexample in stochastic optimum control, IEEE Trans. Automat. Control 13 (1968) 94–95',
@@ -5972,28 +5972,28 @@ Numerically discovered nonlinear policies beat the best linear ones for large $\
     proposer: 'multiple contributors',
     proposed_year: 2002,
     via: {
-      label: '多相复合介质 G-闭包与可达界：Milton, The Theory of Composites (2002)',
+      label: 'G-closure and attainable bounds for multiphase composite media: Milton, The Theory of Composites (2002)',
       url: 'https://www.cambridge.org/core/books/the-theory-of-composites',
     },
-    impact_domains: ['多相材料设计', '增材制造微结构优化', '热-力耦合多材料'],
+    impact_domains: ['Multiphase materials design', 'Microstructure optimization in additive manufacturing', 'Thermo-mechanically coupled multimaterials'],
     related_problems: [],
     statement: `Mix $m \\ge 3$ perfectly conducting isotropic phases with positive conductivities $\\sigma_1, \\dots, \\sigma_m$ and prescribed volume fractions to form a periodic composite. Let $\\sigma^*$ be the effective conductivity tensor. **Determine the full set of attainable pairs $(f, \\sigma^*)$ as the microstructure varies — the $G$-closure — and decide whether the Hashin–Shtrikman type bounds are simultaneously attainable: for $m \\ge 3$ phases, characterize which effective tensors inside the bounds are realized by rank-$k$ laminates (or ordered sequential laminates) and whether any strictly-interior effective tensor is excluded, providing the exact relaxation bounds.**
 
 In particular settle whether the two-phase H–S bound structure, where the optimal bound equals a realized laminate, survives for three or more phases.`,
     origin:
-      '3D 打印与多相复合材料把"能否调到理想刚度/热导率"变成工程约束。二相情形的 Hashin–Shtrikman 界已由层叠结构可达，但三相及更多的可达到界面（G-闭包）仍无封闭刻画，使多材料拓扑优化中的可行域只能用代数正则化逼近，直接影响一体成形的材料分配方案是否物理可实现。',
+      '3D printing and multiphase composites turn “whether a target stiffness/thermal conductivity can be tuned” into an engineering constraint. In the two-phase case the Hashin–Shtrikman bounds are attained by laminate constructions, but the attainable set (the G-closure) for three or more phases still lacks a closed characterization, so the feasible region in multimaterial topology optimization can only be approached by algebraic regularization, directly affecting whether one-shot material allocation schemes are physically realizable.',
     progress: [
-      '**Lurie–Cherkaev / Tartar (1985–88)**: 二相情形等价界与拟共形/层叠可达性基本完成。',
-      '**Milton (2002)**: 系统综述三相及以上的剩余不等式与秩-2/秩-3 层叠，指出 G-闭包计入高阶秩仍开放。',
-      '**拓扑优化实证**: 多相连续松弛在数值上收敛到边界解，但严格的中部可达/排除判定缺已验证的分析证书。',
+      '**Lurie–Cherkaev / Tartar (1985–88)**: essentially completed the two-phase case, with equivalent bounds and quasiconformal/laminate attainability.',
+      '**Milton (2002)**: systematically reviews the remaining inequalities and rank-2/rank-3 laminates for three or more phases, noting that the G-closure counting higher ranks is still open.',
+      '**Topology-optimization evidence**: multiphase continuous relaxations converge numerically to boundary solutions, but a strictly validated analytical certificate for interior attainability/exclusion is missing.',
     ],
     obstacles: [
-      '**非线性可比拟障碍**: 三相有效张量的可达集对秩数不连续，高秩层叠在互补能量与封闭能量间的对偶不强，需同时处理逐点相分数约束与各相间的二次不等式族，解析刻画一个严格内界张量是否被实现仍需构造性例子。',
+      '**Nonlinear comparability obstruction**: the attainable set of three-phase effective tensors is discontinuous in the rank, and high-rank laminates lack a strong duality between complementary and closed energies; one must simultaneously handle pointwise phase-fraction constraints and families of quadratic inequalities among the phases, so an analytic characterization of whether a strictly interior tensor is realized still requires constructive examples.',
     ],
     engineering_value:
-      '若多相可达集可封闭描述，多材料拓扑优化就能在真正物理可实现域内搜索，避免给出一芯全内失效的材料布局；量化哪些刚度/导率组合仅由"非常规高阶微结构"实现，指导增材层序与工艺约束下的设计优化。',
+      'If the multiphase attainable set could be described in closed form, multimaterial topology optimization could search within a truly physically realizable region, avoiding layouts that fail exactly because of an unrealistic material mix; it would quantify which stiffness/conductivity combinations are realized only by “unconventional high-order microstructures,” guiding design optimization under additive layer ordering and process constraints.',
     formalization_notes:
-      '判定属于材料微结构分析：把可达性化为各向异性张量上的一组二次不等式与秩-层叠构造的验证；由于需组合相位体积分数与秩参数，其自动化需借助半定松弛与逐点常数检验，形式化系数偏低。',
+      'The decision belongs to microstructure analysis: reduce attainability to a family of quadratic inequalities on anisotropic tensors and the verification of rank-laminate constructions; because phase volume fractions and rank parameters must be combined, automation requires semidefinite relaxations and pointwise constant checks, with a low formalization coefficient.',
     references: [
       {
         label: 'K. A. Lurie, A. V. Cherkaev, Variational Methods for Structural Optimization, Springer (2000)',
@@ -6009,22 +6009,22 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     id: 'me-029',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"采样预算-误差-维数"的可核验曲线判据而非终极指数配对：对给定函数类 $F_d$（光滑度 $r$）与预算 $n$ 次求值，交付最小最坏情形误差的可核验区间 $[\\underline{e},\\overline{e}]$，使 $e^{\\text{wor}}(F_d,n)=\\Theta(n^{-\\alpha}d^{\\beta})$ 的指数 $\\alpha,\\beta$ 被一个受控括号包围，并附三层残差总带：(1) **R_model**：把数值计算限制为该 Sobolev 类 $F_d$ 所引入的残差上界（显式含对函数族光滑度/边界假设的依赖）；(2) **R_num**：对上述界给出的显式求积规则（或使下界可核验的采样集构造）用区间/精确算术封闭所引入的残差上界；(3) 参数（函数类、维数、误差目标）为精确给定的信息模型输入，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定误差目标 $\\epsilon$ 与维数 $d$，直接得到"需要的采样数 $n$ 落在 $[n_\\lo,n_\\hi]$"的可核验区间（连带"何时网格值得、何时让步 Monte-Carlo"的分界判据），供期权定价与参数化仿真做可证采样预算规划。',
+      'A qualifying answer is a verifiable curve criterion for “sampling budget–error–dimension” rather than a final exponent pair: for a given function class $F_d$ (smoothness $r$) and a budget of $n$ evaluations, deliver a verifiable interval $[\\underline{e},\\overline{e}]$ for the minimal worst-case error, so that the exponents $\\alpha,\\beta$ in $e^{\\text{wor}}(F_d,n)=\\Theta(n^{-\\alpha}d^{\\beta})$ are enclosed by a controlled bracket, together with a three-layer residual total band: (1) **R_model**: the residual upper bound introduced by restricting the numerical computation to the Sobolev class $F_d$ (with explicit dependence on smoothness/boundary assumptions of the function family); (2) **R_num**: the residual upper bound introduced by enclosing the explicit quadrature rule given by the above bounds (or a sampling-set construction making the lower bound verifiable) via interval/exact arithmetic; (3) the parameters (function class, dimension, error target) are exact information-model inputs, **R_param≡0 (no input-measurement residual layer; stated as such)**. Consumption form of a pass: given an error target $\\epsilon$ and dimension $d$, directly obtain the verifiable interval “the required number of samples $n$ lies in $[n_\\lo,n_\\hi]$” (together with a dividing criterion for “when grids are worthwhile and when one must concede to Monte-Carlo”), for provable sampling-budget planning in option pricing and parametrized simulation.',
     certificate: {
       r_model: {
-        bound: '把数值计算限制为该 Sobolev 类 F_d（光滑度 r）所引入的残差上界（含对函数族光滑度/边界假设的依赖）',
-        derivation: 'Sobolev 类限制残差界',
+        bound: 'Residual upper bound introduced by restricting the numerical computation to the Sobolev class F_d (smoothness r) (with dependence on smoothness/boundary assumptions of the function family)',
+        derivation: 'Residual bound from restriction to the Sobolev class',
       },
       r_param: {
-        bound: '≡0（函数类、维数与误差目标为精确给定的信息模型输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (function class, dimension, and error target are exact information-model inputs; no input-measurement residual layer)',
+        derivation: 'Parameters exactly given',
       },
       r_num: {
-        bound: '对显式求积规则/可达采样集构造用区间或精确算术封闭所引入的残差上界',
-        derivation: '区间/精确算术封闭界',
+        bound: 'Residual upper bound introduced by enclosing explicit quadrature rules / attainable sampling-set constructions via interval or exact arithmetic',
+        derivation: 'Interval/exact arithmetic enclosure bound',
       },
-      total_band: 'error 指数括号 ≤ R_model + R_num',
-      certified_band: '[e_lo, e_hi]（采样数 n 落在 [n_lo, n_hi]）',
+      total_band: 'error exponent bracket ≤ R_model + R_num',
+      certified_band: '[e_lo, e_hi] (number of samples n in [n_lo, n_hi])',
     },
     title: 'Sharp Dimensional Dependence of High-Dimensional Numerical Integration',
     titleZh: '高维数值积分的维数依赖尖确指数',
@@ -6038,7 +6038,7 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['金融衍生产品定价', '贝叶斯反问题后验归一化', '参数化 PDE 与代理模型', '高维统计计算'],
+    impact_domains: ['Financial derivatives pricing', 'Posterior normalization in Bayesian inverse problems', 'Parametric PDEs and surrogate models', 'High-dimensional statistical computation'],
     proposer: 'H. Woźniakowski',
     proposed_year: 1994,
     via: {
@@ -6050,19 +6050,19 @@ In particular settle whether the two-phase H–S bound structure, where the opti
 
 The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1/d$-dependent, while Monte-Carlo gives $n^{-1/2}$ independent of $d$; the sharp interpolation between these regimes for deterministic rules remains an open gap.`,
     origin:
-      '期权定价、参数化 PDE 求解与贝叶斯反问题把维数 d（证券/参数/未知函数自由度）推到数十上百，朴素网格积分数阶爆炸。信息基计算复杂性（IBC）本应给出"多少真实函数值才能得到可信高维积分"的结论，但许多可积性类的上界（稀疏网格/准蒙特卡洛）与下界仍差一个未定多项式因子，导致工程师无法判断增大采样是否真的按预期换精度。',
+      'Option pricing, parametrized-PDE solving, and Bayesian inverse problems push the dimension d (securities/parameters/unknown-function degrees of freedom) to tens or hundreds, where naive grid integration explodes factorially. Information-based complexity (IBC) should answer “how many true function values are needed for a trustworthy high-dimensional integral,” but for many tractability classes the upper bounds (sparse grids/quasi-Monte Carlo) and lower bounds still differ by an undetermined polynomial factor, so engineers cannot tell whether increasing sampling really trades for accuracy as expected.',
     progress: [
-      '**Bakhvalov (1959)**: 建立网格积分误差-代价的渐近最优关系。',
-      '**Bungartz–Griebel (2004)**: 稀疏网格给出维数依赖温和的上界，但离下界仍有间隙。',
-      '**Novak–Woźniakowski (2008–2012)**: 系统给出多数 Sobolev/解析类的最坏情形复杂度下界，并明确下标出仍待闭合的指数。',
+      '**Bakhvalov (1959)**: established the asymptotically optimal error–cost relation for grid integration.',
+      '**Bungartz–Griebel (2004)**: sparse grids give upper bounds with mild dimension dependence, but a gap to the lower bound remains.',
+      '**Novak–Woźniakowski (2008–2012)**: systematically give worst-case complexity lower bounds for most Sobolev/analytic classes and explicitly mark the exponents still to be closed.',
     ],
     obstacles: [
-      '**对偶逼近与样本信息的最优分配**: 直接下界依赖非线性逼近（N 宽、Ne\', 采样集选择）的最优扭转逼近，其尖锐常数远未定型；上界又依赖某固定正交/准蒙特卡洛结构，上下界对 d 的幂次需同时对齐，属算法信息论中的长开放问题。',
+      '**Dual approximation and optimal allocation of sample information**: direct lower bounds rely on the optimal twisted approximation in nonlinear approximation (N-widths, Ne\', sampling-set selection), whose sharp constants are far from settled; the upper bounds in turn rely on a fixed quadrature/quasi-Monte Carlo structure, so the powers of d on both sides must be aligned simultaneously — a long-standing open problem in algorithmic information theory.',
     ],
     engineering_value:
-      '若该指数闭合，工程师能得到一个可信的"误差-代价-维数"曲线：知道何时密码或网格值得、何时必须让步蒙特卡洛，从而为期权定价、参数化仿真的采样预算提供可证上界，而非依赖经验性收敛图。',
+      'If this exponent were closed, engineers could obtain a trustworthy “error–cost–dimension” curve: knowing when sparse grids or tensor grids are worthwhile and when one must concede to Monte-Carlo, thereby providing provable upper bounds for the sampling budgets of option pricing and parametrized simulation, instead of relying on empirical convergence plots.',
     formalization_notes:
-      '判定偏解析：把下界化为对给定采样集的最优逼近误差下界（可用半定规划松弛数值佐证），上界化为显式求积规则误差分析；证明主体是函数空间插值论，形式化系数中等。',
+      'The decision is largely analytic: reduce the lower bound to an optimal-approximation error lower bound for a given sampling set (numerically corroborated by semidefinite relaxations) and the upper bound to error analysis of an explicit quadrature rule; the proof core is interpolation theory on function spaces, with a medium formalization coefficient.',
     references: [
       {
         label: 'E. Novak, H. Woźniakowski, Tractability of Multivariate Problems, Vols. 1–3, European Math. Soc. (2008–2012)',
@@ -6078,22 +6078,22 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     id: 'me-030',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"选定布站的信息增益保证"而非单一算法：对给定测量模型 $\\Sigma$、候选布点 $S$ 与预算 $k$，交付一个多项式时间算法，其输出信息增益 $f(\\hat S)$ 满足带证下界 $f(\\hat S)\\ge c\\cdot f(S^*)$（对 D-最优/对数行列式类目标给出优于 $1-\\nicefrac{1}{e}$ 的 $c$ 或证明其不可能），并附三层残差总带：(1) **R_model**：把真实传感（观测噪声、通讯耦合）限制为该目标函数 $f$（子模/次模带约束）所引入的残差上界；(2) **R_param**：测量模型协方差 $\\Sigma$（观测噪声/标定）来自估测时，其不确定度对 $f$ 与保证比 $c$ 的输入残差上界（对 $\\Sigma$ 容差球内成立）；(3) **R_num**：对 $f$ 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界，使"$f(\\hat S)\\ge c\\cdot f(S^*)$"的保证不受三层残差侵蚀。判定通过的消费形式：给定候选布点与预算，直接得到"所选布点的信息增益不低于最优的 $c\\cdot100\\%$"这一不依赖实例调参的硬保证（连带证明该 $c$ 的最优性或不可能性），供环境监测/结构健康监测/主动采样做硬性布站决策。',
+      'A qualifying answer is an “information-gain guarantee for the selected deployment” rather than a single algorithm: for a given measurement model $\\Sigma$, candidate placements $S$, and budget $k$, deliver a polynomial-time algorithm whose output information gain $f(\\hat S)$ satisfies the certified lower bound $f(\\hat S)\\ge c\\cdot f(S^*)$ (for D-optimal/log-determinant-type objectives, give a $c$ better than $1-\\nicefrac{1}{e}$ or prove its impossibility), together with a three-layer residual total band: (1) **R_model**: the residual upper bound introduced by restricting the true sensing (observation noise, communication coupling) to the objective function $f$ (submodular/weakly submodular with constraints); (2) **R_param**: the input residual upper bound on $f$ and on the guarantee ratio $c$ from the uncertainty of the measurement-model covariance $\\Sigma$ (observation noise/calibration) when it comes from estimation (valid within a tolerance ball for $\\Sigma$); (3) **R_num**: the residual upper bound introduced by enclosing the estimate of $f$ and the involved determinants/eigenvalues via interval arithmetic, so that the guarantee “$f(\\hat S)\\ge c\\cdot f(S^*)$” is not eroded by the three residual layers. Consumption form of a pass: given candidate placements and budget, directly obtain the hard guarantee “the information gain of the selected placement is at least $c\\cdot100\\%$ of the optimum” independent of instance tuning (together with a proof of optimality or impossibility of this $c$), for hard deployment decisions in environmental monitoring / structural health monitoring / active sampling.',
     certificate: {
       r_model: {
-        bound: '把真实传感（观测噪声、通讯耦合）限制为该目标函数 f（子模/次模带约束）所引入的残差上界',
-        derivation: '子模目标模型限制残差界',
+        bound: 'Residual upper bound introduced by restricting the true sensing (observation noise, communication coupling) to the objective function f (submodular/weakly submodular with constraints)',
+        derivation: 'Residual bound from restriction to the submodular objective model',
       },
       r_param: {
-        bound: '测量模型协方差 Σ（观测噪声/标定）来自估测时，其不确定度对 f 与保证比 c 的输入残差上界（对 Σ 容差球内成立）',
-        derivation: 'Σ 容差球到信息增益保证的区间传播',
+        bound: 'Input residual upper bound on f and on the guarantee ratio c from the uncertainty of the measurement-model covariance Σ (observation noise/calibration) when it comes from estimation (valid within a tolerance ball for Σ)',
+        derivation: 'Interval propagation from the Σ tolerance ball to the information-gain guarantee',
       },
       r_num: {
-        bound: '对 f 的估计与所涉行列式/特征值用区间算术封闭所引入的残差上界',
-        derivation: '区间算术封闭界',
+        bound: 'Residual upper bound introduced by enclosing the estimate of f and the involved determinants/eigenvalues via interval arithmetic',
+        derivation: 'Interval arithmetic enclosure bound',
       },
-      total_band: '信息增益保证 c·f(S*) 不减损 ≤ R_model + R_param + R_num',
-      certified_band: '所选布点相对最优的信息增益带证下界',
+      total_band: 'information-gain guarantee c·f(S*) not eroded ≤ R_model + R_param + R_num',
+      certified_band: 'Certified lower bound on the information gain of the selected placement relative to the optimum',
     },
     title: 'Provable Approximation for Optimal Sensor Placement and Information Gain',
     titleZh: '最优传感器布点与信息增益的可证近似',
@@ -6107,7 +6107,7 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['环境监测网络布设', '故障诊断传感冗余设计', '结构健康监测', '机器学习主动采样'],
+    impact_domains: ['Environmental monitoring network deployment', 'Redundant sensing design for fault diagnosis', 'Structural health monitoring', 'Active sampling in machine learning'],
     proposer: 'A. Krause & C. Guestrin',
     proposed_year: 2007,
     via: {
@@ -6119,18 +6119,18 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
 
 For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is tight; for the non-monotone or constrained variants arising in joint sensing-communication design, the attainable ratio is not settled.`,
     origin:
-      '航空结构健康监测、环境传感网与故障诊断都需要在预算 k 内挑出信息量最大的测量点。经典子模优化保证了单调情形的近期最优，但设备认证、到通讯载荷耦合等约束会破坏单调性，此类"带约束信息增益"的最优可证比既不等于既好也非已知硬，工程师因此只能用启发式并承担无界损失。',
+      'Aerospace structural health monitoring, environmental sensor networks, and fault diagnosis all require selecting the most informative measurement points within a budget k. Classical submodular optimization guarantees near-optimality in the monotone case, but constraints such as equipment certification and communication-payload coupling break monotonicity; for such “constrained information gain” the optimal provable ratio is neither as good as the classical one nor known to be hard, so engineers resort to heuristics and bear unbounded loss.',
     progress: [
-      '**Krause–Singh–Guestrin (2008)**: 对 D-最优/对数行列式型目标给出多项式时间近似算法与广泛应用实验。',
-      '**Michail et al. / Cochran (1973)**: 已知一般最大信息增益（含观测噪声）的 NP-困难，但精确近似难度阈值未划定。',
+      '**Krause–Singh–Guestrin (2008)**: gave polynomial-time approximation algorithms for D-optimal/log-determinant-type objectives with extensive application experiments.',
+      '**Michail et al. / Cochran (1973)**: general maximum information gain (with observation noise) is known to be NP-hard, but the precise approximation-hardness threshold is not delineated.',
     ],
     obstacles: [
-      '**非单调/耦合约束上的 LG 与贪心间隙**: 更紧的上界需证明一个在更广目标类上的信息论下界，且需一个能实例化为具体传感矩阵的最坏情形构型；目前只有数值实验，缺乏与可证明 NP-难度平行的近似-困难匹配。',
+      '**LG and greedy gaps under non-monotone/coupled constraints**: a tighter bound requires proving an information-theoretic lower bound over a wider objective class, together with a worst-case configuration instantiable as a concrete sensing matrix; currently only numerical experiments exist, lacking an approximation-hardness match parallel to the provable NP-hardness.',
     ],
     engineering_value:
-      '裸命题承诺的是**可证的保证比**：若存在优于单调贪心的可证比，布点/实验设计就能基于"所选布点的信息增益不低于最优的 c·100%"这一不依赖实例调参的硬保证来剪枝候选；若证明不存在多项式保证，则工业放弃追高质量精确解、改采有界损失近似。两者的共同点是大幅收敛当前靠经验图指导的信任边界，而不是把不确定性外包给一圈话术。',
+      'What the bare statement promises is a **provable guarantee ratio**: if a provable ratio better than monotone greedy exists, deployment/experimental design can prune candidates based on the hard guarantee “the information gain of the selected placement is at least c·100% of the optimum,” independent of instance tuning; if it is proven that no polynomial guarantee exists, industry abandons the chase for high-quality exact solutions and adopts bounded-loss approximation. In both cases the trust boundary, currently guided by empirical plots, is substantially tightened rather than outsourcing the uncertainty to rhetoric.',
     formalization_notes:
-      '判定以数值-结构并重：把目标写为该矩阵族的行列式/特征值函数，近似比化为区间型次模函数的连续化上界；可先用半定规划验证具体实例上贪心与最优的间隙，再转成一般证明。',
+      'The decision balances numerical and structural aspects: write the objective as a determinant/eigenvalue function of the matrix family, and reduce the approximation ratio to a continuous relaxation upper bound for interval-type submodular functions; one may first verify the greedy-vs-optimal gap on concrete instances via semidefinite programming, then convert it into a general proof.',
     references: [
       {
         label: 'A. Krause, A. Singh, C. Guestrin, Near-optimal sensor placements in Gaussian processes, ICML (2008)',
@@ -6146,22 +6146,22 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     id: 'me-031',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"降阶预测带硬性信任区间"而非统一昂贵界：对给定参数化问题与降阶基（秩 $r$），交付一个可计算、可核验的后验误差上界 $\\Delta(\\mu)$ 使 $\\|u(\\mu)-\\hat u_r(\\mu)\\|\\le\\Delta(\\mu)$，并附三层残差总带：(1) **R_model**：把在线全阶系统限制为降阶模型（固定基 $r$、截断算子）所引入的残差上界（含对非多项式非线性项连续性假设的显式依赖）；(2) **R_num**：残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界，使 $\\Delta$ 既 sharp（在代表参数上接近真实误差）又 cheap（独立于全阶维数）；(3) 在线参数 $\\mu$ 与降阶基为精确给定的算法输入，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定在线参数 $\\mu$ 与降阶模型，直接得到"预测值 $\\hat u_r(\\mu)$ 外围的硬性置信区间 $\\|u-\\hat u_r\\|\\le\\Delta(\\mu)$"供数字孪生/手术/实时控制直接消费；若证明不存在可证且便宜的 $\\Delta$，则明确给出必须保留在线全阶校验的工况族。',
+      'A qualifying answer is a “reduced-order prediction with a hard trust interval” rather than a uniform expensive bound: for a given parametrized problem and reduced basis (rank $r$), deliver a computable, verifiable a-posteriori error upper bound $\\Delta(\\mu)$ with $\\|u(\\mu)-\\hat u_r(\\mu)\\|\\le\\Delta(\\mu)$, together with a three-layer residual total band: (1) **R_model**: the residual upper bound introduced by restricting the online full-order system to the reduced model (fixed basis $r$, truncated operator) (with explicit dependence on continuity assumptions for non-polynomial nonlinearities); (2) **R_num**: the residual upper bound introduced by enclosing the residual norm/continuity constants (SVD/eigenvalue bands) via interval/symbolic computation, so that $\\Delta$ is both sharp (near the true error on representative parameters) and cheap (independent of the full-order dimension); (3) the online parameter $\\mu$ and the reduced basis are exactly given algorithmic inputs, **R_param≡0 (no input-measurement residual layer; stated as such)**. Consumption form of a pass: given an online parameter $\\mu$ and the reduced model, directly obtain the hard confidence interval “around the prediction $\\hat u_r(\\mu)$, $\\|u-\\hat u_r\\|\\le\\Delta(\\mu)$” for direct consumption by digital twins/surgery/real-time control; if it is proven that no provable and cheap $\\Delta$ exists, then clearly specify the family of operating conditions that must retain online full-order validation.',
     certificate: {
       r_model: {
-        bound: '把在线全阶系统限制为降阶模型（固定基 r、截断算子）所引入的残差上界（含对非多项式非线性连续性假设的依赖）',
-        derivation: '降阶基/截断算子残差界',
+        bound: 'Residual upper bound introduced by restricting the online full-order system to the reduced model (fixed basis r, truncated operator) (with dependence on continuity assumptions for non-polynomial nonlinearities)',
+        derivation: 'Residual bound for the reduced basis / truncated operator',
       },
       r_param: {
-        bound: '≡0（在线参数 μ 与降阶基为精确给定的算法输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (online parameter μ and reduced basis are exactly given algorithmic inputs; no input-measurement residual layer)',
+        derivation: 'Parameters exactly given',
       },
       r_num: {
-        bound: '残差范数/连续常数（SVD/特征值带）用区间/符号计算封闭所引入的残差上界',
-        derivation: '区间/符号计算封闭界',
+        bound: 'Residual upper bound introduced by enclosing the residual norm/continuity constants (SVD/eigenvalue bands) via interval/symbolic computation',
+        derivation: 'Interval/symbolic computation enclosure bound',
       },
-      total_band: '后验误差界 Δ(μ) ≤ R_model + R_num',
-      certified_band: "‖u - u_hat_r‖ ≤ Δ(μ) 硬性信任区间",
+      total_band: 'a-posteriori error bound Δ(μ) ≤ R_model + R_num',
+      certified_band: "‖u - u_hat_r‖ ≤ Δ(μ) hard trust interval",
     },
     title: 'Certifiable A-Posteriori Error Bounds for Nonlinear Model Reduction',
     titleZh: '非线性模型降阶的可证后验误差界',
@@ -6175,7 +6175,7 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['数字孪生与实时仿真', '手术/驾驶实时决策', '柔性多体结构与 MEMS', '参数化设计空间探索'],
+    impact_domains: ['Digital twins and real-time simulation', 'Real-time surgical/driving decisions', 'Flexible multibody structures and MEMS', 'Parametric design-space exploration'],
     proposer: 'K. Veroy & A. T. Patera',
     proposed_year: 2005,
     via: {
@@ -6185,19 +6185,19 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     related_problems: [],
     statement: `Given a parameter-dependent evolution or steady problem solved approximately by a reduced-order model with basis of rank $r$, find a computable quantity $\\Delta(\\mu)$ such that $\\|u(\\mu) - \\hat u_r(\\mu)\\| \\le \\Delta(\\mu)$, with $\\Delta$ both **sharp** (near the true error on representative $\\mu$) and **cheap** (evaluated in reduced cost, independent of full-order dimension). **Determine whether a unified, non-empirical $\\Delta$ exists that is simultaneously sharp and cheap for nonlinear operators with non-polynomial nonlinearities, or give the parametric counterexample where the residual-based bound necessarily overestimates by a super-constant factor, and a certified way to pay for it (adaptive basis enrichment).**`,
     origin:
-      '数字孪生要求毫秒级在线仿真同时给出可信误差，但非线性项（对流、接触、材料非线性）会使标准残差型上界失真且代价偏高。降阶模型若没有后验证书，在线决策只能相信于经验图；问题在于能否在"可证sharp+廉价"上两全，直接决定工业实时仿真能否有硬性置信。',
+      'Digital twins demand millisecond-level online simulation that simultaneously gives a trustworthy error, but nonlinear terms (advection, contact, material nonlinearity) make standard residual-type bounds distorted and costly. Without a-posteriori certificates, online decisions on reduced models can only trust empirical plots; whether one can achieve both “provably sharp and cheap” directly determines whether industrial real-time simulation can have hard confidence.',
     progress: [
-      '**Veroy–Patera (2005)**: 参数化稳态层可积场给出可证且一致的后验上界，误差估计器代价可接受。',
-      '**Chaturantabut–Sorensen (2010)**: DEIM 有效压缩非线性项，但上界理论明显松弛，误差估计器偏向保守。',
-      '**近期超约化综述**: "sharpness vs. cost" 对于一般非线性算子的两难被反复指出，但无封闭结论。',
+      '**Veroy–Patera (2005)**: gave provable, uniformly valid a-posteriori upper bounds for parametrized steady laminar fields, with acceptable estimator cost.',
+      '**Chaturantabut–Sorensen (2010)**: DEIM compresses nonlinear terms effectively, but the bound theory is markedly loose and the error estimator is conservative.',
+      '**Recent hyper-reduction reviews**: the “sharpness vs. cost” dilemma for general nonlinear operators has been repeatedly noted, but without a closed conclusion.',
     ],
     obstacles: [
-      '**非多项式非线性使残差上界的明确估计失效**: 依赖截断算子的谱常数，其显式上界退化为巨大或需要全阶计算；要同时达到立即可证与廉价，需对非线性算子族建立可转移的连续性界，属数值分析与算子插值之间的开放接口。',
+      '**Non-polynomial nonlinearities defeat explicit estimation of residual bounds**: the bounds depend on spectral constants of the truncated operator whose explicit estimates degenerate to huge values or require full-order computation; to be simultaneously immediately provable and cheap, one must build transferable continuity bounds for families of nonlinear operators — an open interface between numerical analysis and operator interpolation.',
     ],
     engineering_value:
-      '若得到可证且便宜的误差界，数字孪生/手术计划/实时控制可把降阶预测连同其上界一起交予决策，达到"预测值外围有硬性置信区间"；负面结果则明确告诉工程界哪些场景必须保留在线全阶校验或自适应加基。',
+      'If a provable and cheap error bound is obtained, digital twins/surgery planning/real-time control can hand the reduced-order prediction together with its bound to the decision process, achieving “a hard confidence interval around the prediction”; a negative result would clearly tell the engineering community which scenarios must retain online full-order validation or adaptive basis enrichment.',
     formalization_notes:
-      '判定偏数值：误差界化为算子连续常数（可用 SVD/特征值带验证）乘残差范数的乘积，结合随机采样遗憾界作数值佐证；证明核心是残差投影两点式估计，系数较高形式化收益明显。',
+      'The decision is largely numerical: the error bound reduces to a product of operator continuity constants (verifiable via SVD/eigenvalue bands) and the residual norm, corroborated numerically by randomized sampling regret bounds; the proof core is a two-point estimate for residual projection, with a high coefficient and clear formalization payoff.',
     references: [
       {
         label: 'K. Veroy, A. T. Patera, Certified real-time solution of parametrized steady incompressible Navier–Stokes equations, IJNMF 47 (2005)',
@@ -6226,7 +6226,7 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['自动驾驶/机器人安全控制', '电网与工艺自动化的可证明稳定', '航空作动器容错', '强化学习工业落地'],
+    impact_domains: ['Safety control for autonomous driving/robotics', 'Provable stability of power grids and process automation', 'Fault tolerance of aerospace actuators', 'Industrial deployment of reinforcement learning'],
     proposer: 'M. Fazlyab, M. Morari & G. J. Pappas',
     proposed_year: 2020,
     via: {
@@ -6238,19 +6238,19 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
 
 A negative result (a config whose relaxation necessarily loses a fixed fraction of the feasible region) closes the constructive path and steers practitioners to architecture-scoped certificates.`,
     origin:
-      '感知-学习-控制舵手：自动驾驶、电网电压调节、机器人操作必须保证闭环稳定，但神经网络策略无法直接放样，只能用 SDP/MILP 松弛给出保守上界。当前松弛的松弛度随分区增大而大涨，导致安全域被大幅低估或计算爆炸；能否在不牺牲可靠性下把"松弛-真值"差距压到一个可控常数，直接决定学习控制可否无人工复核地落地。',
+      'The perception–learning–control helmsman: autonomous driving, power-grid voltage regulation, and robotic manipulation must guarantee closed-loop stability, but neural-network policies cannot be verified directly, so one can only give conservative upper bounds via SDP/MILP relaxations. The looseness of the current relaxations grows sharply with the number of partitions, causing the safe region to be substantially underestimated or the computation to explode; whether the “relaxation-vs-truth” gap can be squeezed to a controllable constant without sacrificing reliability directly determines whether learning-based control can be deployed without human re-verification.',
     progress: [
-      '**Fazlyab et al. (2020)**: 用二次约束与 SDP 把 ReLU 网络策略纳入 LPV 框架给出可证稳定性判据。',
-      '**Wang–Jungers (2021) 系列**: 对 ReLU 网络/切换系统给出更细的松弛与复杂度下界。',
-      '**实证**: 网络越深分区越多，松弛域与真值域偏离越大，但缺严格刻画。',
+      '**Fazlyab et al. (2020)**: incorporated ReLU-network policies into an LPV framework via quadratic constraints and SDP to give provable stability criteria.',
+      '**Wang–Jungers (2021) series**: gave finer relaxations and complexity lower bounds for ReLU networks / switched systems.',
+      '**Empirical evidence**: the deeper the network and the more partitions, the larger the deviation between the relaxed region and the true region, but a rigorous characterization is missing.',
     ],
     obstacles: [
-      '**激活模式组合爆炸与松弛对位**: 每个活跃分区引入一次 SDP 大矩阵，且松弛常数随层数指数增长；需要一个能联合编码网络结构（活化模式、权重大小）的通用上界，同时给出对该通用界的最坏情形例子以验证下界不可改进。',
+      '**Combinatorial explosion of activation patterns and relaxation alignment**: each active partition introduces one large SDP matrix, and the relaxation constant grows exponentially with depth; one needs a general bound that jointly encodes the network structure (activation patterns, weight magnitudes), together with a worst-case example for that general bound to verify that the lower bound cannot be improved.',
     ],
     engineering_value:
-      '若把"松弛-真值"差距压到已知可控常数，工程师复核安全证明时只需检查预设松弛上界，而不必全阶验证每种工况；负面结果则给出可度量的"必须在线校验"工况族，防止对 LBD 证书的盲目外推——两者的共同点是给学习控制提供可审计的信任边界。',
+      'If the “relaxation-vs-truth” gap is squeezed to a known controllable constant, engineers reviewing the safety proof only need to check the preset relaxation upper bound, without full-order verification of every operating condition; a negative result would give a measurable family of “must-validate online” conditions, preventing blind extrapolation of LBD certificates — in both cases learning-based control receives an auditable trust boundary.',
     formalization_notes:
-      '判定偏数值-局部：把 Lyapunov 条件化为逐分区 LMI/SDP，其上界松弛常数由活化模式权重范数给出，可用随机搜索验证最坏分区；证明主体是把松弛差统一到网络 Lipschitz/谱谱常数界，形式化收益中等。',
+      'The decision is numerical-local: turn the Lyapunov condition into per-partition LMIs/SDP, whose relaxation constants are given by activation-pattern weight norms, with the worst-case partition verifiable by random search; the proof core unifies the relaxation gap within network Lipschitz/spectral-norm bounds, with medium formalization payoff.',
     references: [
       {
         label: 'M. Fazlyab, M. Morari, G. J. Pappas, Safety verification and robustness analysis of neural networks via quadratic constraints and semidefinite programming, IEEE TAC 67 (2022) 2749–2764',
@@ -6266,22 +6266,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-036',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"可核验混合率判据 + 三层残差总带"而非精确指数本身。对给定的控制代价预算 $E=\\int_0^T\\|u\\|_{H^s}^2\\,dt$ 与目标抹平尺度（如衰减到 $\\|\\theta\\|_{H^{-1}}\\le\\epsilon$），交付下述残差各带的界与证明后合成总带：(1) **R_model**：把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏 $\\partial_t\\theta+u\\cdot\\nabla\\theta=0$ 所引入的残差上界（显式含物理黏性对混合上限的量级贡献）；(2) **R_num**：对某一可核验速度场构造（上游显式层流场或其数值实现）求解该受控模型时，因离散/区间算术引入的残差上界；(3) 参数（控制代价预算、目标尺度）为设计者给定的精确输入，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定泵送能量，直接得到"能把标量抹平到 $\\epsilon$ 的最小能量预算落在 $[E_\\lo,E_\\hi]$ 且总带 $E_\\hi-E_\\lo\\le$ R_model+R_param+R_num"的可核验区间，供微流控与燃烧掺混尺动设计直接消费而无需 DNS 重算。',
+      'A qualifying answer is a “verifiable mixing-rate criterion + three-layer residual total band” rather than the precise exponent itself. For a given control-cost budget $E=\\int_0^T\\|u\\|_{H^s}^2\\,dt$ and target flattening scale (e.g. decay to $\\|\\theta\\|_{H^{-1}}\\le\\epsilon$), deliver bounds and proofs for each of the following residual layers and then synthesize the total band: (1) **R_model**: the residual upper bound introduced by idealizing the viscous physics of the passive scalar (finite Péclet/diffusion) to the inviscid equation $\\partial_t\\theta+u\\cdot\\nabla\\theta=0$ (with explicit order-of-magnitude contribution of physical viscosity to the mixing upper bound); (2) **R_num**: the residual upper bound introduced by discretization/interval arithmetic when solving the controlled model on a verifiable velocity-field construction (an explicit laminar field from upstream or its numerical implementation); (3) the parameters (control-cost budget, target scale) are exact inputs given by the designer, **R_param≡0 (no input-measurement residual layer; stated as such)**. Consumption form of a pass: given pumping energy, directly obtain the verifiable interval “the minimal energy budget that flattens the scalar to $\\epsilon$ lies in $[E_\\lo,E_\\hi]$ with total band $E_\\hi-E_\\lo\\le$ R_model+R_param+R_num,” for direct consumption by microfluidics and combustion/mixing scale design without recomputing DNS.',
     certificate: {
       r_model: {
-        bound: '把被动标量的有黏物理（有限 Péclét/扩散）理想化为无黏输运方程所引入的残差上界（含物理黏性对混合上限的量级贡献）',
-        derivation: '无黏理想化残差界（含有限黏性修正）',
+        bound: 'Residual upper bound introduced by idealizing the viscous physics of the passive scalar (finite Péclet/diffusion) to the inviscid transport equation (with order-of-magnitude contribution of physical viscosity to the mixing upper bound)',
+        derivation: 'Residual bound of the inviscid idealization (with finite-viscosity correction)',
       },
       r_param: {
-        bound: '≡0（控制代价预算与目标尺度为设计者给定的精确输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (control-cost budget and target scale are exact inputs given by the designer; no input-measurement residual layer)',
+        derivation: 'Parameters exactly given',
       },
       r_num: {
-        bound: '对可核验速度场构造求解该受控模型时，因离散/区间算术引入的残差上界',
-        derivation: '离散/区间算术封闭界',
+        bound: 'Residual upper bound introduced by discretization/interval arithmetic when solving the controlled model on a verifiable velocity-field construction',
+        derivation: 'Discretization/interval arithmetic enclosure bound',
       },
       total_band: 'E_hi - E_lo ≤ R_model + R_param + R_num',
-      certified_band: '[E_lo, E_hi]（抹平到 ε 的最小能量预算）',
+      certified_band: '[E_lo, E_hi] (minimal energy budget to flatten to ε)',
     },
     title: 'Sharp Mixing Rates from Anomalous Dissipation in Passive Scalar Transport',
     titleZh: '被动标量输运中反常耗散的尖确混合速率',
@@ -6295,8 +6295,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['微流控混合器设计', '大气/洋流输运模型', '燃烧与掺混工艺', '药物递送中的瞬态混合'],
-    proposer: 'L. Onsager; 现代陈述归 A. Shnirelman 与 A. Kiselev',
+    impact_domains: ['Microfluidic mixer design', 'Atmospheric/oceanic transport models', 'Combustion and mixing processes', 'Transient mixing in drug delivery'],
+    proposer: 'L. Onsager; modern statement attributed to A. Shnirelman and A. Kiselev',
     proposed_year: 1949,
     via: {
       label: 'Shnirelman (1985), On the evolution of passive scalar equilibria; Kiselev–Nazarov–Shterenberg (2008)',
@@ -6305,19 +6305,19 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [],
     statement: `Advect a passive scalar $\\theta$ by an incompressible velocity field $u$ ($\\partial_t \\theta + u \\cdot \\nabla \\theta = 0$) with control cost $\\int_0^T \\|u\\|_{H^s}^2 \\, dt$. Let the mixing rate be measured by how fast a Sobolev-type functional decays (e.g., $\\|\\theta\\|_{H^{-1}}$ or $\\|\\theta_{\\text{high}}\\|$). **Determine — for the critical smoothness $s$ — the sharp exponent $e$ such that the guaranteed mixing efficiency is $\\Theta(\\text{cost}^{-e})$, with an explicit admissible velocity field attaining the exponent (upper bound) and a matching lower bound via the relevant conservation law (e.g. a companion estimate from anomalous dissipation).**`,
     origin:
-      '微流控、搅拌与大气输运都需要用有限能量把标量快速搅匀，而标量高效混合时是否伴随反常耗散、所需能量随混合率的指数关系仍拒绝精确闭合。确立该指数让工程师知道给定能量预算下能把多细的尺度抹平，直接决定混合器设计与燃烧掺混的三维涡级结构。',
+      'Microfluidics, stirring, and atmospheric transport all require flattening scalars quickly with finite energy, while whether efficient scalar mixing is accompanied by anomalous dissipation and the exponent relation between the required energy and the mixing rate still refuse precise closure. Establishing this exponent tells engineers how fine a scale can be flattened under a given energy budget, directly determining mixer design and the three-dimensional vortex-scale structure of combustion/mixing.',
     progress: [
-      '**Shnirelman (1985)**: 给出无界能量下的混合构造，指出能量-混合率权衡的骨架。',
-      '**Crippa–De Lellis / Colombo–Crippa (2014 前后)**: 对常能量无黏主动确定性/随机场给出混合率上界并负例。',
-      '**Seis/ Cotter 数值实验**: 支持某指数猜想，但严格上下界未对齐。',
+      '**Shnirelman (1985)**: gave mixing constructions under unbounded energy, pointing out the skeleton of the energy–mixing-rate trade-off.',
+      '**Crippa–De Lellis / Colombo–Crippa (around 2014)**: gave mixing-rate upper bounds and negative examples for constant-energy inviscid active deterministic/random fields.',
+      '**Seis / Cotter numerical experiments**: support a conjectured exponent, but the rigorous upper and lower bounds are not aligned.',
     ],
     obstacles: [
-      '**混合率与耗散的对偶不穿过闭合**: 下界依赖一条守恒律型不等式（如标量梯度增长的高速极限），上界依赖能精确受控的层流场构造；两者对控制成本的依赖需同时调到同一指标，正好落在最优输运-湍流能级串交接处。',
+      '**The duality between mixing rate and dissipation does not cross to closure**: the lower bound relies on a conservation-law-type inequality (e.g. the high-speed limit of scalar-gradient growth), and the upper bound relies on laminar field constructions with precise control; the dependence of both on the control cost must be tuned to the same index, exactly at the junction of optimal transport and the turbulent energy cascade.',
     ],
     engineering_value:
-      '该指数定义"给定泵送能量→可抹平的标量最小尺度"，是微流控混合器尺寸与流速直接算成本、燃烧/大气模型选择次网格闭合的唯一理论线。本榜的价值不是条件性的指数，而是一个把模型层（有黏修正）与数值层（离散/区间）残差显式区分（本题参数为设计给定，R_param≡0）并合成总带的**可核验混合预算区间**，使能量预算规划与混合器尺度设计不再靠经验拟合，而是直接消费带证区间。',
+      'This exponent defines “given pumping energy → the minimal flattenable scalar scale,” the only theoretical line that lets microfluidic mixer size and flow rate be computed directly as cost, and combustion/atmospheric models choose subgrid closures. The value of this board is not a conditional exponent but a **verifiable mixing-budget interval** that explicitly separates model-layer (viscous correction) and numerical-layer (discrete/interval) residuals (here the parameters are design-given, R_param≡0) and synthesizes the total band, so energy-budget planning and mixer scale design no longer rely on empirical fitting but directly consume a certified band.',
     formalization_notes:
-      '判定偏分析：下界化为对一类速度场的最优输运上界（用插值/对偶证明），上界化为显式层流场的速度场构造与能量计数；需精细的泛函分析，形式化系数偏低。',
+      'The decision is largely analytic: the lower bound reduces to an optimal-transport upper bound over a class of velocity fields (proved by interpolation/duality), and the upper bound reduces to an explicit laminar-field velocity construction with energy counting; delicate functional analysis is required, with a low formalization coefficient.',
     references: [
       {
         label: 'A. Shnirelman, On the evolution of passive scalar equilibria, Topol. Methods Nonlinear Anal. 6 (1995) 259–274',
@@ -6346,7 +6346,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['抗药性演化预测', '肿瘤克隆演化建模', '物种入侵与生态网络', '合成生物学自稳定种群'],
+    impact_domains: ['Evolution prediction of drug resistance', 'Modeling of tumor clonal evolution', 'Species invasion and ecological networks', 'Self-stabilizing synthetic biology populations'],
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2008,
     via: {
@@ -6356,19 +6356,19 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [],
     statement: `For the standard Moran process on an $N$-vertex graph, a beneficial mutant of fitness $r>1$ fixes with a probability that depends on the graph. Let the **amplification ratio** be the supremum over (connected, and possibly directed) graphs of the fixation probability relative to the complete-graph baseline. **Determine the sharp value (or the tightest universal upper bound) of this amplifying ratio as a function of population size $N$ and fitness $r$, and exhibit a graph attaining it exactly (or prove none does).** In particular, settle for which $r$ there are graphs that fix virtually surely yet the Moran-bound excludes them at any stated $\\varepsilon$.`,
     origin:
-      '传染病/抗药性传播与社会演化都抽象为固定概率受网络结构调制：是结构放大还是抑制选择决定了设计干预（隔离/监测）能多大程度抬高或压低有利突变固定。闭合该极值告诉流行病学家"结构最多把选择加强到多快"，避免永远追逐不存在的最优拓扑。',
+      'The spread of infectious diseases/drug resistance and social evolution are all abstracted as fixation probability modulated by network structure: whether structure amplifies or suppresses selection determines how much designed interventions (isolation/surveillance) can raise or lower the fixation of beneficial mutants. Closing this extremum tells epidemiologists “how fast structure can at most strengthen selection,” avoiding the endless pursuit of an optimal topology that does not exist.',
     progress: [
-      '**Lieberman–Hauert–Nowak (2005)**: 建立图上 Moran 过程与 amplification / suppression 概念。',
-      '**Nowak 实验室 / 别的研究组 (2005–2020)**: 对各类图（热点、星图、有向超图）给出若干放大家族并数值支持。',
-      '**Houchmandzadeh–Vallade / Diaz-Loving 等的族类构造**: 证明极值放大界随 r 趋于恒定，但全局问题上界未统一闭合。',
+      '**Lieberman–Hauert–Nowak (2005)**: established the Moran process on graphs and the concepts of amplification/suppression.',
+      '**Nowak’s lab / other groups (2005–2020)**: gave several amplifying families for various graphs (hubs, star graphs, directed hypergraphs) with numerical support.',
+      '**Family constructions by Houchmandzadeh–Vallade / Diaz-Loving et al.**: showed that the extreme amplification bound tends to a constant as r varies, but the global upper bound is not uniformly closed.',
     ],
     obstacles: [
-      '**通用上界的图论转动力学**: 把任意图的固定概率统一压到一个仅靠 N、r 的上界，需要引入图上的调和测度与说谎的守恒结构，尚无同时涵盖有向环的通用引理；特例构造又与通用界各自成立，缺中介引理来匹配。',
+      '**Translating graph theory into dynamics for a universal upper bound**: to squeeze the fixation probability of arbitrary graphs under a single bound depending only on N, r, one must introduce harmonic measures on graphs and the required conservation structure, and there is no universal lemma that also covers directed cycles; special-case constructions and the universal bound each hold independently, and an intermediate lemma to match them is missing.',
     ],
     engineering_value:
-      '闭合后，抗药性/肿瘤/物种建模可给出结构化种群的"理论最大选择加速度"，协议对比单调板与网络模型时有硬性上限做校准；反向抑制型结论直接指导隔离策略的失效边界。',
+      'Once closed, drug-resistance/tumor/species modeling can give the “theoretical maximum selection acceleration” of structured populations, providing a hard upper bound to calibrate protocol comparisons between complete graphs and network models; reverse suppression-type conclusions directly guide the failure boundary of isolation strategies.',
     formalization_notes:
-      '判定偏分析-离散：把固定概率写为图上调和函数与生成函数之比，上界化为对图度分布的变分不等式，个别实例用枚举/整数规划验证；证明用图论+泊松化技巧，形式化收益较好（该领域已有部分在 Lean/Isabelle 验证）。',
+      'The decision is analytic-discrete: write the fixation probability as a ratio of a graph harmonic function and a generating function, reduce the upper bound to a variational inequality on the graph degree distribution, and verify individual instances by enumeration/integer programming; the proof uses graph theory plus Poissonization techniques, with good formalization payoff (parts of this area are already verified in Lean/Isabelle).',
     references: [
       {
         label: 'E. Lieberman, C. Hauert, M. A. Nowak, Evolutionary dynamics on graphs, Nature 433 (2005) 312–316',
@@ -6397,7 +6397,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-23',
     last_verified: '2026-08-23',
-    impact_domains: ['合成生物学鲁棒电路设计', '代谢通量调节元件', '信号通路设计抗环境扰动', '药物作用靶点鲁棒性'],
+    impact_domains: ['Robust circuit design in synthetic biology', 'Metabolic flux regulatory elements', 'Signal-pathway design against environmental perturbations', 'Drug-target robustness'],
     proposer: 'G. A. Shinar & M. Feinberg',
     proposed_year: 2010,
     via: {
@@ -6407,19 +6407,19 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [],
     statement: `A reaction network exhibits absolute concentration robustness (ACR) in a species $X$ if in every positive steady state the concentration of $X$ is the same, independent of total mass. For the class of mass-action systems, **find a criterion, readable directly from the reaction graph (stoichiometry + rates), that is both sufficient and necessary for ACR in as wide a subclass as possible — or prove for a designated wide subclass that no such finite, purely structural certificate exists (requiring algebraic parameter search), giving a completeness statement that bounds what can be certified "from the wiring alone".**`,
     origin:
-      '合成生物学的负反馈/前馈环路需要设计"无论细胞内总物质量如何都能固定输出浓度"的鲁棒模块；ACR 由 Shinar–Feinberg 用图形判据识别出可证来源，但其完备性（"哪些非显然网络也一定 ACR"）只有部分判据、无止境台阶。闭合后电路设计工具能自动、无假设地判断一个给定网络是否 ACR，而无需逐参数仿真。',
+      'Negative-feedback/feedforward loops in synthetic biology need robust modules that “fix the output concentration regardless of the total intracellular mass”; ACR was identified by Shinar–Feinberg as having a provable source via graphical criteria, but its completeness (“which non-obvious networks are necessarily ACR”) has only partial criteria and an endless staircase. Once closed, circuit design tools could automatically and assumption-free decide whether a given network is ACR, without per-parameter simulation.',
     progress: [
-      '**Shinar–Feinberg (2010)**: 给出"同侧对偶浓度"的图形充分判据，证明间歇循环的 ACR 来源。',
-      '**Pérez-Millán / Gao et al. (2012–2018)**: 推广到多种反馈网络与必要判据方向，CRN ACR IVP 框架。',
-      '**开放**: 对一般 mass-action 网络，结构性充分与必要判据之间仍有断裂，完备性问题未定。',
+      '**Shinar–Feinberg (2010)**: gave the “same-side dual concentration” graphical sufficient criterion, proving the ACR source of futile cycles.',
+      '**Pérez-Millán / Gao et al. (2012–2018)**: extended to various feedback networks and toward necessary criteria, with the CRN ACR IVP framework.',
+      '**Open**: for general mass-action networks there remains a gap between structural sufficient and necessary criteria, and the completeness question is unsettled.',
     ],
     obstacles: [
-      '**代数条件 vs 图条件的交接**: ACR 的精确刻画会用参数代数的零点理想（如某项必须恒为零），把其翻译成纯网络拓扑条件丢失完备性；要让判据"纯结构→完备"，需在某种守恒/动力系统族内证明代数条件可被封入有限模式，属 CRNT 与计算代数间。',
+      '**The interface between algebraic and graphical conditions**: a precise characterization of ACR involves zero ideals of parameter algebra (e.g. a certain term must be identically zero), and translating it into purely network-topological conditions loses completeness; to make a criterion “purely structural → complete,” one must prove within some conserved/dynamical family that the algebraic conditions can be enclosed in finitely many patterns — an interface between CRNT and computational algebra.',
     ],
     engineering_value:
-      '一个"只看接线就能判断"的 ACR 判据让合成生物学工具自动化筛选稳健输出电压的模块、代谢设计判断通路抗质量扰动的硬边界；完备性声明定量划定何种场景必须退而求参数代数检查，避免假状态依赖的伪鲁棒判断。',
+      'An ACR criterion that can be judged “by looking only at the wiring” lets synthetic biology tools automatically screen modules that robustly output concentration, and metabolic design judge the hard boundary of pathway robustness to mass perturbations; a completeness statement quantitatively delineates which scenarios must fall back to parameter-algebra checks, avoiding pseudo-robust judgments based on false state dependence.',
     formalization_notes:
-      '判定偏代数-结构性：ACR 化为参数多项式理想中特定变量的常数性（用 Gröbner/立柱判定部分类），图形判据的证明可机械转成多项式环的 membership 证明，该领域已有显著形式化基础，形式化收益高。',
+      'The decision is algebraic-structural: ACR reduces to the constancy of a specific variable in a parameter polynomial ideal (decided for partial classes via Gröbner/resultant methods), and the proof of the graphical criterion can be mechanically turned into a membership proof in polynomial rings; the area already has substantial formalization foundations, with high formalization payoff.',
     references: [
       {
         label: 'G. A. Shinar, M. Feinberg, Structural sources of robustness in biochemical reaction networks, Science 327 (2010) 1389–1391',
@@ -6435,7 +6435,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-037',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"散热裕量判定"而非精确曲线：对某一具体自然对流散热几何与给定发热量、环境与布置工况，交付 Nusselt 数的可核验总带 [\\underline{Nu},\\overline{Nu}]，并附证明该带同时覆盖三层残差——(1) **R_model**：把真实可压缩气体动力学限制为 Boussinesq/边界层（含辐射衰减项）带来的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界，三者各自附可复核常数且总带满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。判定通过的消费形式：给定发热量下，翅片峰值温度是否低于裕量上限由带证区间直接给出，无需 DNS 重算。',
+      'A qualifying answer is a “heat-margin decision” rather than a precise curve: for a specific natural-convection cooling geometry with given heat load, ambient conditions, and layout, deliver a verifiable total band $[\\underline{Nu},\\overline{Nu}]$ for the Nusselt number, together with a proof that the band simultaneously covers the three residual layers — (1) **R_model**: the residual upper bound from restricting true compressible-gas dynamics to Boussinesq/boundary layer (including the radiative decay term); (2) **R_param**: the input residual upper bound on the total band from the uncertainty of the heat load and ambient temperature/flow speed when they come from measurement/calibration (valid for all operating conditions in the measurement interval); (3) **R_num**: the residual upper bound of mesh, time step, and SDP duality gap when solving the controlled model by DNS/interval arithmetic; each of the three carries an independently checkable constant and the total band satisfies $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num. Consumption form of a pass: for a given heat load, whether the fin peak temperature stays below the margin upper limit is directly given by the certified band, without recomputing DNS.',
     title: 'Certified upper bounds on heat transport in Rayleigh–Bénard convection',
     titleZh: 'Rayleigh–Bénard 对流传热 Nusselt 数的可核验上界',
     domain: 'mathematical-physics',
@@ -6448,7 +6448,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-24',
     last_verified: '2026-08-24',
-    impact_domains: ['海洋与大气热输运建模', '核反应堆与电子散热设计', '气候/岩浆地幔对流预测', '湍流极限标度的严谨约束'],
+    impact_domains: ['Modeling of oceanic and atmospheric heat transport', 'Nuclear reactor and electronics cooling design', 'Climate/magma-mantle convection prediction', 'Rigorous constraints on extreme turbulent scaling'],
     proposer: 'W. V. R. Malkus',
     proposed_year: 1954,
     via: {
@@ -6459,44 +6459,44 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       {
         id: 'mp-041',
         relation: 'generalizes',
-        note: '总带继承（方向二）：mp-037 的渐近 Ra^{1/3} 上界骨架被 mp-041 的工程散热裕量证书继承。本题为上游——若 mp-037 的外包被收紧，下游 mp-041 的 R_model 上界随之收窄、总带更紧；若 mp-037 的核心被反例击穿，则 mp-041 借用的上界骨架失效、裕量判定同时失效。下游带的可信度链入本题的上界证书。',
+        note: 'Total-band inheritance (direction 2): the asymptotic Ra^{1/3} upper-bound skeleton of mp-037 is inherited by the engineering heat-margin certificate of mp-041. This problem is upstream — if the outer bound of mp-037 is tightened, the R_model upper bound of downstream mp-041 narrows accordingly and the total band becomes tighter; if the core of mp-037 is pierced by a counterexample, the upper-bound skeleton borrowed by mp-041 fails and the margin decision fails at the same time. The trustworthiness of the downstream band chains into this problem’s upper-bound certificate.',
       },
     ],
-    statement: '考虑两平板间、高温在下低温在上、温差驱动的 Boussinesq 对流，Nusselt 数 $Nu = \\langle q\\rangle/(\\kappa\\Delta T/h)$ 是被事实所约束的上限函数 $\\mathrm{Nu}(Ra,Pr)$。Howard 1963 证明 $Nu\\le (\\tfrac{3}{64})^{1/2}Ra^{1/2}$，Doering–Constantin 1996 以 background 方法改进前因子为 $Nu\\le\\tfrac16 Ra^{1/2}$；但无论怎样优化 background 场，所有已知严格证法都停在 $Ra^{1/2}$ 标度（no-slip 情形目前最佳常数 $Nu\\le 0.02634\\,Ra^{1/2}$），而数值/DNS 证据一致指向更大 $Ra$ 时 $Nu\\sim Ra^{1/3}$（Malkus–Howard 边界层边缘稳定论断）。本题要交付的可核验产物为：对给定的 $Ra,Pr$ 与边界类型，给出一个带可验证常数的上界 $\\overline{\\mathrm{Nu}}(Ra,Pr)$ 及其"外包"证明，并使其在 $Ra\\to\\infty$ 时的标度指数严格优于 $1/2$，或无侧壁缝隙地证明不可能；请问是否存在程序化的外包论据，能对一族递增的 $Ra$ 成批产出随 $Ra$ 严格下降的归一化常数 $c(Ra)=Nu/Ra^{1/3}$ 的逐项可独立核验的上界/下界对，并用区间算术把它们整体包围在 $[\\underline{c}(Ra),\\overline{c}(Ra)]$ 中且 $\\overline{c}-\\underline{c}\\to 0$？',
+    statement: 'Consider Boussinesq convection between two parallel plates, heated from below and cooled from above, driven by the temperature difference; the Nusselt number $Nu = \\langle q\\rangle/(\\kappa\\Delta T/h)$ is an upper-bound function $\\mathrm{Nu}(Ra,Pr)$ constrained by the facts. Howard (1963) proved $Nu\\le (\\tfrac{3}{64})^{1/2}Ra^{1/2}$, and Doering–Constantin (1996) improved the prefactor to $Nu\\le\\tfrac16 Ra^{1/2}$ with the background method; but no matter how the background field is optimized, all known rigorous proofs stop at the $Ra^{1/2}$ scaling (the best current constant in the no-slip case is $Nu\\le 0.02634\\,Ra^{1/2}$), while numerical/DNS evidence consistently points to $Nu\\sim Ra^{1/3}$ at larger $Ra$ (the Malkus–Howard marginal-stability boundary-layer assertion). The verifiable deliverable of this problem is: for given $Ra,Pr$ and boundary type, give an upper bound $\\overline{\\mathrm{Nu}}(Ra,Pr)$ with a verifiable constant and its “outer” proof, whose scaling exponent at $Ra\\to\\infty$ is strictly better than $1/2$, or prove, with no side-wall loophole, that this is impossible; the question is whether there exists a programmatic outer argument that, for a family of increasing $Ra$, produces in batch per-item independently verifiable upper/lower bound pairs for the normalized constant $c(Ra)=Nu/Ra^{1/3}$ that strictly decreases with $Ra$, and encloses them all via interval arithmetic in $[\\underline{c}(Ra),\\overline{c}(Ra)]$ with $\\overline{c}-\\underline{c}\\to 0$?',
     certificate: {
       r_model: {
-        bound: 'Boussinesq/边界层近似相对真实可压缩气体动力学的残差上界（含辐射衰减项）',
-        derivation: 'Boussinesq 近似的显式残差界',
+        bound: 'Residual upper bound of the Boussinesq/boundary-layer approximation relative to true compressible-gas dynamics (including the radiative decay term)',
+        derivation: 'Explicit residual bound of the Boussinesq approximation',
       },
       r_param: {
-        bound: '发热量、环境温度/流速测量不确定度传播到 Nu 上界的输入残差',
-        derivation: '测量区间内所有工况成立的传播界',
+        bound: 'Input residual from the propagation of heat-load and ambient temperature/flow-speed measurement uncertainty to the Nu upper bound',
+        derivation: 'Propagation bound valid for all operating conditions in the measurement interval',
       },
       r_num: {
-        bound: 'DNS/区间算术求解受控模型时网格、时间步与 SDP 对偶间隙的残差上界',
-        derivation: '区间算术与 SDP 对偶的零/小间隙证明',
+        bound: 'Residual upper bound of mesh, time step, and SDP duality gap when solving the controlled model by DNS/interval arithmetic',
+        derivation: 'Zero/small-gap proof via interval arithmetic and SDP duality',
       },
       total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
       certified_band: '[Nu_lo, Nu_hi]',
     },
-    engineering_deliverables: ['Nu(Ra,Pr) 上界证书', '散热设计保守裕量界'],
+    engineering_deliverables: ['Nu(Ra,Pr) upper-bound certificate', 'Conservative heat-margin bound for cooling design'],
     origin:
-      'Rayleigh–Bénard 对流是海洋、大气、地幔与工业散热中热输运的标准模型，其核心工程问题是把平均热流 $Nu$ 表达成 $Ra$ 的函数，用于设计散热器、预测边界层通量与气候模型中的热量交换。但把 $Nu(Ra)$ 变成严格不等式而非经验拟合，就要在无量纲参数全空间中提供不依赖人为闭合假设的、可直接饱含安全裕量的上界——这正是 background/变分法要回答的问题：既给出工程可用的保守上界，又逼近真实物理选择的 $1/3$ 标度。能在机器上核验的外包数值证书，等价于把这一经典问题转化为一个"可审计算"的优化问题。',
+      'Rayleigh–Bénard convection is the standard model of heat transport in oceans, atmospheres, the mantle, and industrial cooling; its core engineering question is to express the mean heat flux $Nu$ as a function of $Ra$, for designing heat sinks, predicting boundary-layer fluxes, and the heat exchange in climate models. But turning $Nu(Ra)$ into a rigorous inequality rather than an empirical fit requires upper bounds in the full space of dimensionless parameters that do not rely on ad hoc closure assumptions and can directly carry a safety margin — this is precisely what the background/variational method must answer: giving a conservative upper bound usable in engineering while approaching the physically selected $1/3$ scaling. A machine-verifiable outer numerical certificate is equivalent to turning this classical problem into an “auditable computation” optimization problem.',
     progress: [
-      '**Howard (1963)**: 首次给出严谨上界 $Nu\\le(\\tfrac{3}{64})^{1/2}Ra^{1/2}$，确立 $Ra^{1/2}$ 上界标度。',
-      '**Doering & Constantin (1996)**: background 方法改进前因子为 $Nu\\le\\frac16 Ra^{1/2}$，并成为可计算框架。',
-      '**Plasting & Kerswell (2003)**: 最优化 background，进一步压低 $Ra^{1/2}$ 前因子（no-slip $0.02634$）。',
-      '**Choffrut, Nobili & Otto (2016)**: 当 $Pr\\gtrsim Ra^{1/3}$ 时得到 $Nu\\lesssim Ra^{1/3}$（含对数修正），突破 $1/2$ 障碍。',
-      '**Ding & Kerswell (2020)**: 证明确有一类约束下 background/变分法已被"穷尽"，$Ra^{1/2}$ 上界障碍在 Levy 意义下无法用该框架逾越。',
+      '**Howard (1963)**: first gave the rigorous upper bound $Nu\\le(\\tfrac{3}{64})^{1/2}Ra^{1/2}$, establishing the $Ra^{1/2}$ upper-bound scaling.',
+      '**Doering & Constantin (1996)**: the background method improved the prefactor to $Nu\\le\\frac16 Ra^{1/2}$ and became a computable framework.',
+      '**Plasting & Kerswell (2003)**: optimized the background, further lowering the $Ra^{1/2}$ prefactor (no-slip $0.02634$).',
+      '**Choffrut, Nobili & Otto (2016)**: obtained $Nu\\lesssim Ra^{1/3}$ (with logarithmic corrections) when $Pr\\gtrsim Ra^{1/3}$, breaking through the $1/2$ barrier.',
+      '**Ding & Kerswell (2020)**: proved that under a certain class of constraints the background/variational method has been “exhausted,” and the $Ra^{1/2}$ upper-bound barrier cannot be crossed with that framework in the Levy sense.',
     ],
     obstacles: [
-      '**$Ra^{1/2}$ 上界障碍**: 现有变分/background 方法无法突破 $Ra^{1/2}$ 标度，而数据指向 $Ra^{1/3}$；两者差距（$1/6$ 次幂）正是缺少新动力学输入的体现，目前不存在会收敛到 $1/3$ 的严格上界技术。',
-      '**边缘稳定启发式未被证明**: Malkus–Howard 关于边界层保持边缘稳定从而导出 $1/3$ 的论断是非严格的，缺乏可量化的错误边界，难以直接转成外包证书。',
+      '**The $Ra^{1/2}$ upper-bound barrier**: existing variational/background methods cannot break through the $Ra^{1/2}$ scaling, while the data point to $Ra^{1/3}$; the gap between them (the $1/6$ power) reflects the lack of new dynamical input, and no rigorous upper-bound technique converging to $1/3$ currently exists.',
+      '**The marginal-stability heuristic is unproven**: the Malkus–Howard assertion that boundary layers remain marginally stable and thereby yield $1/3$ is non-rigorous, lacks a quantifiable error bound, and is hard to turn directly into an outer certificate.',
     ],
     engineering_value:
-      '本榜刻意把目标从"逼近 $Ra^{1/3}$ 的渐近标度"收窄为"对某一具体散热几何交付瞬时裕量判定"。这样价值就从**条件性**转为**可消费**：工程师不再需要等证书逼近真实曲线，而是直接消费"特定发热量下峰值温度是否越限"这一带证区间；模型层（Boussinesq 近似）与数值层（DNS/区间）残差被显式分开并合成总带，承担裕量设计时每个误差来源都可审计。渐近 $1/3$ 上界仍作为 open 的生物学目标保留在 statement 中，但不再是本溢价证书的交付前提。',
+      'This board deliberately narrows the goal from “approaching the asymptotic $Ra^{1/3}$ scaling” to “delivering an instantaneous margin decision for a specific cooling geometry.” The value thereby shifts from **conditional** to **consumable**: engineers no longer need to wait for certificates that approach the true curve, but directly consume the certified interval “whether the peak temperature exceeds the limit under a specific heat load”; model-layer (Boussinesq approximation) and numerical-layer (DNS/interval) residuals are explicitly separated and synthesized into a total band, making every error source auditable during margin design. The asymptotic $1/3$ upper bound remains in the statement as an open academic goal, but it is no longer a precondition for delivering this premium certificate.',
     formalization_notes:
-      '数值迁径最可行：把 background-field 上界问题表述为凸/半定规划，并用区间算术 + 有理数 SDP 对偶给出 $\\overline{Nu}$ 的刚性包围与零间隙证明；对 $Ra\\to\\infty$ 的族则用对偶间隙分解与渐近展开外包。',
+      'The numerical path is the most feasible: formulate the background-field upper-bound problem as a convex/semidefinite program, and use interval arithmetic + rational SDP duality to give a rigid enclosure of $\\overline{Nu}$ with a zero-gap proof; for the family $Ra\\to\\infty$, use duality-gap decomposition and asymptotic expansion to outsource the proof.',
     references: [
       {
         label: 'Howard, Heat transport by turbulent convection, J. Fluid Mech. 17 (1963)',
@@ -6516,22 +6516,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-040',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"二维局域自旋可模拟性判定"而非一般面积律定理：对某一具体二维、均匀、常数能隙的局域自旋哈密顿量，交付纠缠熵对子区域面积的可核验上界（面积律）或可证的非面积律反例信号，并附三层残差总带——(1) **R_model**：把真实（可能带阻挫/任意局域耦合）哈密顿量限制为"常数能隙局域"Hamiltonian 类所引入的残差上界（对 $\\Delta$、局域维度显式限定）；(2) **R_num**：能隙下界的可验证外包（区间/符号计算）与 AGSP 投影收缩率的区间估计所引入的残差上界，二者独立可复核且合成总带界；(3) 目标哈密顿量为精确给定的物理系统输入，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定具体 2D 哈密顿量与能隙证据，直接得到"该基态能否被 iPEPS 以多项式边界长度高效压缩（面积律）或必然超对数（反例）"的可核验判定，服务张量网络数值的可信度与误差上界。',
+      'A qualifying answer is a “simulability decision for a 2D local spin system” rather than a general area-law theorem: for a specific 2D, homogeneous, constant-gap local spin Hamiltonian, deliver a verifiable upper bound (area law) for the entanglement entropy of subregions in terms of the area, or a provable non-area-law counterexample signal, together with a three-layer residual total band — (1) **R_model**: the residual upper bound introduced by restricting the true (possibly frustrated / with arbitrary local couplings) Hamiltonian to the “constant-gap local” Hamiltonian class (with explicit restrictions on $\\Delta$ and the local dimension); (2) **R_num**: the residual upper bound introduced by the verifiable enclosure of the gap lower bound (interval/symbolic computation) and the interval estimate of the AGSP projection contraction rate, both independently checkable and synthesized into the total band; (3) the target Hamiltonian is an exactly given physical-system input, **R_param≡0 (no input-measurement residual layer; stated as such)**. Consumption form of a pass: given a concrete 2D Hamiltonian and gap evidence, directly obtain the verifiable decision “whether the ground state can be efficiently compressed by iPEPS with polynomial boundary length (area law) or is necessarily super-logarithmic (counterexample),” serving the trustworthiness and error bounds of tensor-network numerics.',
     certificate: {
       r_model: {
-        bound: '把真实（可能带阻挫/任意局域耦合）哈密顿量限制为常数能隙局域 Hamiltonian 类所引入的残差上界（显式限定 Δ 与局域维度）',
-        derivation: '常数能隙局域类限制残差界',
+        bound: 'Residual upper bound introduced by restricting the true (possibly frustrated / with arbitrary local couplings) Hamiltonian to the constant-gap local Hamiltonian class (with explicit restrictions on Δ and the local dimension)',
+        derivation: 'Residual bound from restriction to the constant-gap local class',
       },
       r_param: {
-        bound: '≡0（目标哈密顿量为精确给定的物理系统输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (target Hamiltonian is an exactly given physical-system input; no input-measurement residual layer)',
+        derivation: 'Parameters exactly given',
       },
       r_num: {
-        bound: '能隙下界的可验证外包（区间/符号）与 AGSP 投影收缩率的区间估计所引入的残差上界',
-        derivation: '区间/符号外包封闭界',
+        bound: 'Residual upper bound introduced by the verifiable enclosure of the gap lower bound (interval/symbolic) and the interval estimate of the AGSP projection contraction rate',
+        derivation: 'Interval/symbolic enclosure bound',
       },
-      total_band: '纠缠熵面积律上界 ≤ R_model + R_num',
-      certified_band: 'S_A ≤ c·|∂A|（面积律界）或 sqrt(n) 型反例信号',
+      total_band: 'entanglement entropy area-law upper bound ≤ R_model + R_num',
+      certified_band: 'S_A ≤ c·|∂A| (area-law bound) or sqrt(n)-type counterexample signal',
     },
     title: 'Certified entanglement area-law certificate (or counterexample) for gapped 2D local spin Hamiltonians',
     titleZh: '二维有能隙局域自旋系统纠缠面积律的可核验证书（或反例）',
@@ -6545,7 +6545,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-24',
     last_verified: '2026-08-24',
-    impact_domains: ['量子多体可模拟性/张量网络方法', '拓扑物相与纠缠分类', '量子哈密顿复杂度', '凝聚态基态结构'],
+    impact_domains: ['Quantum many-body simulability / tensor-network methods', 'Topological phases and entanglement classification', 'Quantum Hamiltonian complexity', 'Condensed-matter ground-state structure'],
     proposer: 'M. B. Hastings',
     proposed_year: 2007,
     via: {
@@ -6553,23 +6553,23 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       url: 'https://doi.org/10.1103/RevModPhys.82.277',
     },
     related_problems: [],
-    statement: '面积律猜测断言：任意常数能隙、局域相互作用的格点哈密顿量的基态，对任意二分区域 $A$ 的纠缠熵 $S_A$ 至多随界面面积 $|\\partial A|$ 线性增长。Hastings 2007 证明了一维情形；但之于二维或更高维的一般（有能隙、可带阻挫）系统，面积律仍是开放。Movassagh–Shor 2016 构造了 1D 的平方根增强（超对数、体积律）反例模型，显示了"禁区"的边界。本题可验证产物：对给定的一族二维、有能隙局域哈密顿量，交付纠缠熵的可审计上界（面积律）或可证的反例信号（非面积律），并附可复核的能隙与 Lieb–Robinson/AGSP 常数；请问是否存在可判定的判据（如局部能隙下的 AGSP 收缩率），能在机器上对给定 2D 哈密顿量输出"面积律成立该量级/或必然超对数"两端之一的证书，且对族内递增尺寸给出收敛的 $S_A/|\\partial A|$ 比值带？',
+    statement: 'The area-law conjecture asserts that the ground state of any constant-gap, local-interaction lattice Hamiltonian has entanglement entropy $S_A$ for any bipartition $A$ growing at most linearly with the interface area $|\\partial A|$. Hastings (2007) proved the one-dimensional case; but for general (gapped, possibly frustrated) systems in two or more dimensions, the area law remains open. Movassagh–Shor (2016) constructed 1D models with square-root enhancement (super-logarithmic, volume-law) counterexamples, showing the boundary of the “forbidden region.” The verifiable deliverable of this problem: for a given family of 2D, gapped local Hamiltonians, deliver an auditable upper bound (area law) or a provable counterexample signal (non-area-law) for the entanglement entropy, together with checkable gap and Lieb–Robinson/AGSP constants; the question is whether there exists a decidable criterion (e.g. the AGSP contraction rate under a local gap) that, on a machine, outputs for a given 2D Hamiltonian a certificate of either “the area law holds at this magnitude” or “necessarily super-logarithmic,” and that gives a converging band of the ratio $S_A/|\\partial A|$ for increasing sizes within the family?',
     origin:
-      '面积律与张量网络可模拟性直接挂钩：满足面积律的基态才能被 DMRG/MPS-style 方法高效压缩，进而支撑量子相、拓扑物态分类与量子哈密顿复杂度的理论。二维的开放是因为 Lieb–Robinson 与 AGSP 工具在 $d>1$ 无法给出与能隙无关的指数压缩；能把它变成"机器可审计"的判据，将同时服务于凝聚态数值可靠性（给仿真误差一个上界）与哈密顿复杂度（给出可判定的复杂性分类边界）。',
+      'The area law is directly tied to tensor-network simulability: only area-law ground states can be efficiently compressed by DMRG/MPS-style methods, thereby supporting the theory of quantum phases, topological-phase classification, and quantum Hamiltonian complexity. The two-dimensional case is open because the Lieb–Robinson and AGSP tools cannot give gap-independent exponential compression for $d>1$; turning this into a “machine-auditable” criterion would serve both condensed-matter numerical reliability (giving an upper bound on simulation error) and Hamiltonian complexity (giving a decidable complexity-classification boundary).',
     progress: [
-      '**Hastings (2007)**: 一维有能隙系统基态满足面积律，给出对数修正界。',
-      '**Bravyi–Hastings–Verstraete / Arad–Kitaev et al. (AGSP)**: 以类 AGSP 技术改进一维界并对能隙 tight，部分小常数被精确化。',
-      '**Cho (2014) 与近期 2D 进展**: 在"局部有能隙"或"无阻挫"等附加假设下证明 2D 面积律，但一般有能隙 2D 仍开放。',
-      '**Movassagh & Shor (2016)**: 构造 1D 局域哈密顿量，纠缠熵按 $\\sqrt{n}$（超对数、体积律）增强，构成重要的反例端点。',
+      '**Hastings (2007)**: ground states of 1D gapped systems satisfy the area law, with logarithmic-correction bounds.',
+      '**Bravyi–Hastings–Verstraete / Arad–Kitaev et al. (AGSP)**: improved the 1D bound with AGSP-type techniques, tight in the gap, with some small constants made exact.',
+      '**Cho (2014) and recent 2D progress**: proved 2D area laws under additional assumptions such as “locally gapped” or “frustration-free,” but general gapped 2D remains open.',
+      '**Movassagh & Shor (2016)**: constructed 1D local Hamiltonians whose entanglement entropy grows as $\\sqrt{n}$ (super-logarithmic, volume-law), forming an important counterexample endpoint.',
     ],
     obstacles: [
-      '**工具无法上维**: 一维证明依赖 Lieb–Robinson 的输入维压缩与 AGSP 收缩率，在 $d=2$ 无法给出对能隙独立的指数界，一般有能隙情形缺乏可判定的判据。',
-      '**无显式常数/可复核误差**: 现有上界（即使成立）的常数依赖复杂且随维数爆炸，难以转成机器可审计、可独立复核的证书。',
+      '**The tools do not lift to higher dimensions**: the 1D proofs rely on Lieb–Robinson input-dimension compression and AGSP contraction rates, which in $d=2$ cannot give gap-independent exponential bounds; general gapped systems lack a decidable criterion.',
+      '**No explicit constants / checkable errors**: the constants of existing bounds (even where valid) have complex dependence and blow up with dimension, making them hard to turn into machine-auditable, independently checkable certificates.',
     ],
     engineering_value:
-      '本榜把目标从"证明一般 2D 面积律"收窄为"对给定具体哈密顿量判定基态可压缩性"，价值从**条件性**转为**可消费**：工程师不再被动等待一般定理，而是直接消费"该基态能否以多项式边界长度被 iPEPS 压缩"这一带证判定，并把模型层（常数能隙局域类的限定）与数值层（能隙外包/AGSP 区间估计）残差显式分开合成总带，为张量网络仿真的可信度提供可审计的误差上界——现有实践靠数值收敛，本榜给它们一层可核验的支撑而非静默假设。',
+      'This board narrows the goal from “proving the general 2D area law” to “deciding ground-state compressibility for a given concrete Hamiltonian,” shifting the value from **conditional** to **consumable**: engineers no longer passively wait for a general theorem, but directly consume the certified decision “whether the ground state can be compressed by iPEPS with polynomial boundary length,” and explicitly separate the model-layer (constant-gap local class restriction) and numerical-layer (gap enclosure / AGSP interval estimation) residuals into a total band, providing an auditable error upper bound for the trustworthiness of tensor-network simulation — current practice relies on numerical convergence; this board gives them a verifiable layer of support rather than a silent assumption.',
     formalization_notes:
-      '数值路径可行：用能隙下界的可验证外包 + AGSP 投影收缩率的区间估计，把面积律转成对有限格的显式 $S_A\\le c|\\partial A|$ 的证明；对反例则以可证的非面积律放大信号（$\\sqrt{n}$ 型）给出。',
+      'The numerical path is feasible: use a verifiable enclosure of the gap lower bound + an interval estimate of the AGSP projection contraction rate to turn the area law into an explicit proof of $S_A\\le c|\\partial A|$ on finite lattices; for counterexamples, give a provable non-area-law amplifying signal (of $\\sqrt{n}$ type).',
     references: [
       {
         label: 'Eisert, Cramer & Plenio, Area laws for the entanglement entropy, Rev. Mod. Phys. 82 (2010) 277',
@@ -6585,22 +6585,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'me-034',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"最坏情形通信轮数的可核验证书"而非单一最优算法：对给定连通 $n$ 节点图 $G$，交付精确量化平均共识所需最坏轮数 $T^*(G,n)$ 的可核验上界（连带可证下界），使该收敛时间被一个受控括号包围，并附三层残差总带：(1) **R_model**：把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界（显式含对同步/消息传递假设的依赖）；(2) **R_num**：对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界；(3) 网络 $G$、带宽与时延为精确给定的系统输入，**R_param≡0（无输入测量残差层，如实注明）**。判定通过的消费形式：给定网络 $G$、带宽与时延预算，直接得到"最少通轮数落在 $[T_\\lo,T_\\hi]$"的可核验区间，供传感网/时钟同步/负载均衡决定采样与控制在多少轮内换取可审计的精确量化平均，替代当前经验轮数余量。',
+      'A qualifying answer is a “verifiable certificate for the worst-case number of communication rounds” rather than a single optimal algorithm: for a given connected $n$-node graph $G$, deliver a verifiable upper bound on the worst-case number of rounds $T^*(G,n)$ needed for exact quantized average consensus (together with a provable lower bound), so that the convergence time is enclosed by a controlled bracket, together with a three-layer residual total band: (1) **R_model**: the residual upper bound introduced by restricting the real distributed system to an information model with discrete quantization, finite bandwidth, and no global knowledge (with explicit dependence on synchronization/message-passing assumptions); (2) **R_num**: the residual upper bound introduced by enclosing via interval/exact arithmetic the computation of the algorithm round estimates and the random-walk mixing time / mass-transfer potential; (3) the network $G$, bandwidth, and delay are exactly given system inputs, **R_param≡0 (no input-measurement residual layer; stated as such)**. Consumption form of a pass: given network $G$, bandwidth, and delay budget, directly obtain the verifiable interval “the minimal number of communication rounds lies in $[T_\\lo,T_\\hi]$,” letting sensor networks/clock synchronization/load balancing decide in how many rounds to buy an auditable exact quantized average, replacing the current empirical round margins.',
     certificate: {
       r_model: {
-        bound: '把真实分布式系统限制为离散量化、有限带宽、无全局知识的信息模型所引入的残差上界（含对同步/消息传递假设的依赖）',
-        derivation: '离散量化信息模型限制残差界',
+        bound: 'Residual upper bound introduced by restricting the real distributed system to an information model with discrete quantization, finite bandwidth, and no global knowledge (with dependence on synchronization/message-passing assumptions)',
+        derivation: 'Residual bound from restriction to the discrete-quantization information model',
       },
       r_param: {
-        bound: '≡0（网络 G、带宽与时延为精确给定的系统输入，无输入测量残差层）',
-        derivation: '参数精确给定',
+        bound: '≡0 (network G, bandwidth, and delay are exactly given system inputs; no input-measurement residual layer)',
+        derivation: 'Parameters exactly given',
       },
       r_num: {
-        bound: '对算法轮数估计与随机游走混合时间/质量迁移势的计算用区间/精确算术封闭所引入的残差上界',
-        derivation: '区间/精确算术封闭界',
+        bound: 'Residual upper bound introduced by enclosing via interval/exact arithmetic the computation of the algorithm round estimates and the random-walk mixing time / mass-transfer potential',
+        derivation: 'Interval/exact arithmetic enclosure bound',
       },
-      total_band: '共识轮数括号 ≤ R_model + R_num',
-      certified_band: '[T_lo, T_hi]（最少通轮数）',
+      total_band: 'consensus round bracket ≤ R_model + R_num',
+      certified_band: '[T_lo, T_hi] (minimal number of communication rounds)',
     },
     title: 'Optimal Worst-Case Convergence Time for Finite-Rate Quantized Average Consensus',
     titleZh: '有限速率量化平均共识的最优最坏情形收敛时间',
@@ -6614,7 +6614,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-08-24',
     last_verified: '2026-08-24',
-    impact_domains: ['物联网与边缘传感网数据融合', '分布式时钟同步与事件触发估计', '处理器网络负载均衡', '多智能体编队共识'],
+    impact_domains: ['Data fusion in IoT and edge sensing networks', 'Distributed clock synchronization and event-triggered estimation', 'Load balancing in processor networks', 'Multi-agent formation consensus'],
     proposer: 'A. Kashyap, T. Başar & R. Srikant',
     proposed_year: 2007,
     via: {
@@ -6624,18 +6624,18 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     related_problems: [],
     statement: `Let a connected graph $G=(V,E)$ hold integer initial values $c_i\\in\\mathbb Z$; agents exchange states only along edges and only in discrete (quantized) rounds, so each transmission carries an integer. A quantized averaging scheme must drive every node to a value within one step of the exact average $\\bar c=\\sum_i c_i/n$ and then stop with a distributed certificate. **Determine, for an arbitrary connected $G$ on $n$ nodes, the optimal worst-case number of communication rounds $T^*(G,n)$ to reach finite-time quantized average consensus, and construct a distributed algorithm attaining it (matching the lower bound up to constants) — or give a network class on which every such algorithm requires a certified number of rounds that beats the known polynomial bounds by a stated factor.**`,
     origin:
-      '真实通信链路带宽与内存有限，传感器融合、时钟同步和处理器负载均衡都只能交换离散量化值而非实数，因此"实值平均"理想化不可落地。量化平均要既保质量守恒（和不变）又能在有限轮内以离散值达一致，但其最坏收敛时间在一般拓扑上只有相互分离的多项式界，缺少精确闭合；闭合它让工程师知道给定网络规模和带宽下分布式平均值能在多少轮内拿到可审计的最终值。',
+      'Real communication links have finite bandwidth and memory, so sensor fusion, clock synchronization, and processor load balancing can only exchange discrete quantized values rather than reals, making the “real-valued averaging” idealization unimplementable. Quantized averaging must both preserve mass conservation (the sum is invariant) and reach agreement on discrete values in finitely many rounds, but its worst-case convergence time on general topologies has only mutually separate polynomial bounds, lacking a precise closure; closing it lets engineers know within how many rounds a distributed average can deliver an auditable final value for a given network size and bandwidth.',
     progress: [
-      '**Kashyap–Başar–Srikant (2007)**: 提出量化平均问题的随机化算法，对完全图与线型图给出收敛时间界，并指出一般图上的长期开放困难。',
-      '**El Chamie–Liu–Başar (2014)**: 刻画量化平均的有限时间收敛与邻域循环现象，给出邻域大小的紧界。',
+      '**Kashyap–Başar–Srikant (2007)**: proposed randomized algorithms for the quantized averaging problem, giving convergence-time bounds for complete graphs and line graphs, and pointing out the long-standing open difficulty on general graphs.',
+      '**El Chamie–Liu–Başar (2014)**: characterized finite-time convergence and neighborhood cycling in quantized averaging, giving tight bounds on the neighborhood size.',
     ],
     obstacles: [
-      '**质量守恒与速率-延迟的耦合**: 达到精确离散均值要求在整数格上保持总和不漂移，同时每个节点独立判断停止；把收敛轮数压到谱/拓扑参数对应的信息下界需要同时控制"质量迁移速度"与"停止判据的局部完备性"，二者在一般图上互相制约，缺一个统一的（质量守恒+局部停止）下界论证。',
+      '**Coupling of mass conservation and rate–delay**: reaching the exact discrete mean requires keeping the total sum drift-free on the integer lattice while every node independently decides to stop; pushing the convergence rounds down to the information lower bound corresponding to spectral/topological parameters requires simultaneously controlling the “mass-transfer speed” and the “local completeness of the stopping criterion,” which constrain each other on general graphs, and a unified (mass-conservation + local stopping) lower-bound argument is missing.',
     ],
     engineering_value:
-      '闭合后给出"有限带宽下分布式平均的最少通信轮数"这个可直接消费的数字：工程师据此决定传感网采样/控制周期是否需要放宽为近似平均，或在给定时延预算下判断精确量化平均是否可行。产出是收敛轮数的证书化上界（与可证明的最坏网络实例下界），替代当前仅按经验设置的轮数余量。',
+      'Once closed, this gives the directly consumable number “the minimal number of communication rounds for distributed averaging under finite bandwidth”: engineers can then decide whether sensor-network sampling/control periods must be relaxed to approximate averaging, or whether exact quantized averaging is feasible within a given delay budget. The output is a certified upper bound on the convergence rounds (with a provable worst-case network-instance lower bound), replacing the currently empirical round margins.',
     formalization_notes:
-      '判定偏数值-结构：把收敛轮数化为整数格上的随机游走相遇时间与质量迁移势函数的组合，下界用随机游走混合时间论证；可先用指定拓扑上的仿真验证算法与下界间隙，再转成一般上界，形式化收益中等。',
+      'The decision is numerical-structural: reduce the convergence rounds to a combination of random-walk meeting times on the integer lattice and the mass-transfer potential function, with the lower bound argued via random-walk mixing times; one may first validate the algorithm and the lower-bound gap on specified topologies by simulation, then convert to a general upper bound, with medium formalization payoff.',
     references: [
       {
         label: 'A. Kashyap, T. Başar, R. Srikant, Quantized consensus, Automatica 43(7):1192–1203 (2007)',
@@ -6651,7 +6651,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mp-041',
     output: 'verified_behavior',
     judgment:
-      '对一具体自然对流翅片散热器（给定发热量、环境与倾斜角工况），交付 Nusselt 数总带 $[\\underline{Nu},\\overline{Nu}]$ 及证明其覆盖三层残差：(1) **R_model**：Boussinesq/边界层（含辐射）近似相对真实可压缩气体动力学的残差上界；(2) **R_param**：发热量、环境温度/流速来自测量/标定时，其不确定度传播到总带的输入残差上界（对测量区间内所有工况成立）；(3) **R_num**：DNS/区间算术求解该受控模型时网格、时间步与 SDP 对偶间隙的残差上界。三层各自附可复核常数且满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num。判定应能据此直接给出"给定发热量下翅片峰值温度是否低于裕量上限"，而非依赖 DNS 重算或经验相关式的统计外推。',
+      'For a specific natural-convection fin heat sink (with given heat load, ambient conditions, and tilt-angle operating point), deliver a total band $[\\underline{Nu},\\overline{Nu}]$ for the Nusselt number and a proof that it covers the three residual layers: (1) **R_model**: the residual upper bound of the Boussinesq/boundary-layer (including radiation) approximation relative to true compressible-gas dynamics; (2) **R_param**: the input residual upper bound on the total band from the uncertainty of the heat load and ambient temperature/flow speed when they come from measurement/calibration (valid for all operating conditions in the measurement interval); (3) **R_num**: the residual upper bound of mesh, time step, and SDP duality gap when solving the controlled model by DNS/interval arithmetic. The three layers each carry an independently checkable constant and satisfy $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num. The decision should thereby directly answer “whether the fin peak temperature stays below the margin upper limit under a given heat load,” rather than relying on DNS recomputation or statistical extrapolation of empirical correlations.',
     title: 'Certified heat-sink thermal margin via a three-layer residual total band on free convection',
     titleZh: '自然对流散热器峰值温度裕量的三层残差总带证书',
     domain: 'mathematical-physics',
@@ -6667,50 +6667,50 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     proposer: 'A. Bejan',
     proposed_year: 1984,
     via: {
-      label: 'Bejan, Convection Heat Transfer, 4th ed., Wiley, 2013（自然对流相关式与尺度的基准参考）',
+      label: 'Bejan, Convection Heat Transfer, 4th ed., Wiley, 2013 (reference benchmark for natural-convection correlations and scales)',
       url: 'https://doi.org/10.1002/9781118671627',
     },
-    impact_domains: ['功率电子与 LED 散热设计', '被动式自然冷却系统', '数据中心机柜热管理', '航空航天被动热控'],
+    impact_domains: ['Thermal design of power electronics and LEDs', 'Passive natural cooling systems', 'Data-center rack thermal management', 'Passive thermal control in aerospace'],
     related_problems: [
       {
         id: 'mp-037',
         relation: 'depends_on',
-        note: '总带继承（方向二）：mp-041 的散热裕量总带依赖 mp-037 给出的 Nu 上界体系。mp-037 是上游——若其 Ra^{1/3} 标度上界被收紧，则 mp-041 的 R_model 上界随之收窄，总带更紧；若 mp-037 的核心外包被反例击穿，则 mp-041 借用的上界骨架失效，裕量判定同时失效。换言之，要信任本裕量得先信 mp-037 的渐近上界证书。',
+        note: 'Total-band inheritance (direction 2): the heat-margin total band of mp-041 depends on the Nu upper-bound system given by mp-037. mp-037 is upstream — if its Ra^{1/3} scaling upper bound is tightened, the R_model upper bound of mp-041 narrows accordingly and the total band becomes tighter; if the core outer bound of mp-037 is pierced by a counterexample, the upper-bound skeleton borrowed by mp-041 fails and the margin decision fails at the same time. In other words, to trust this margin one must first trust mp-037’s asymptotic upper-bound certificate.',
       },
     ],
-    statement: `一具体翅片散热器在被动自然对流下散热，发热量 $Q$、环境与布置已定。工程师要的回答不是曲线而是裕量：翅片峰值温度 $T_{max}$ 是否低于热设计上限。本题要交付的可核验产物是 $Nu$ 的一个总带 $[\\underline{Nu},\\overline{Nu}]$，并附三层残差各自的界与证明：(1) R_model——Boussinesq/边界层近似相对真实可压缩气体动力学的模型残差上界；(2) R_param——发热量、环境温度/流速来自测量/标定时的输入不确定度残差上界；(3) R_num——对该受控模型求解放置网格/时间步/SDP 对偶的数值残差上界。三者满足 $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num 且逐层可独立复核。$T_{max}$ 的裕量判断由带直接给出而无需重算。`,
+    statement: `A specific fin heat sink dissipates heat under passive natural convection, with the heat load $Q$, ambient conditions, and layout already fixed. What the engineer wants is not a curve but a margin: whether the fin peak temperature $T_{max}$ stays below the thermal design limit. The verifiable deliverable of this problem is a total band $[\\underline{Nu},\\overline{Nu}]$ for $Nu$, together with bounds and proofs for each of the three residual layers: (1) R_model — the model residual upper bound of the Boussinesq/boundary-layer approximation relative to true compressible-gas dynamics; (2) R_param — the input-uncertainty residual upper bound when the heat load and ambient temperature/flow speed come from measurement/calibration; (3) R_num — the numerical residual upper bound from the mesh/time-step/SDP-duality discretization in solving the controlled model. The three satisfy $\\overline{Nu}-\\underline{Nu}\\le$ R_model+R_param+R_num and each layer is independently checkable. The margin decision for $T_{max}$ is given directly by the band without recomputation.`,
     certificate: {
       r_model: {
-        bound: 'Boussinesq/边界层近似相对真实可压缩气体动力学的模型残差上界（骨架借用 mp-037 的渐近外包）',
-        derivation: 'mp-037 的 Ra^{1/3} 标度上界 + Boussinesq 残差界',
+        bound: 'Model residual upper bound of the Boussinesq/boundary-layer approximation relative to true compressible-gas dynamics (skeleton borrowing mp-037’s asymptotic outer bound)',
+        derivation: 'mp-037’s Ra^{1/3} scaling upper bound + Boussinesq residual bound',
       },
       r_param: {
-        bound: '发热量、环境温度/流速测量不确定度传播到总带的输入残差上界',
-        derivation: '测量区间参数传播到 Nu 带的区间映像',
+        bound: 'Input residual upper bound on the total band from the propagation of heat-load and ambient temperature/flow-speed measurement uncertainty',
+        derivation: 'Interval image of propagating measurement-interval parameters to the Nu band',
       },
       r_num: {
-        bound: '网格、时间步与 SDP 对偶间隙的数值残差上界',
-        derivation: '区间算术与 SDP 对偶的零/小间隙证明',
+        bound: 'Numerical residual upper bound of mesh, time step, and SDP duality gap',
+        derivation: 'Zero/small-gap proof via interval arithmetic and SDP duality',
       },
       total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
       certified_band: '[Nu_lo, Nu_hi]',
     },
-    engineering_deliverables: ['散热器峰值温度裕量判定', '热设计评审带证区间'],
+    engineering_deliverables: ['Heat-sink peak-temperature margin decision', 'Certified band for thermal design review'],
     origin:
-      '功率电子与 LED 灯组普遍依赖被动散热，裕量设计长期靠经验相关式或昂贵 DNS 交叉验证。若能把"这条仿真可信度多高"换成一个低成本、可复验、且明确分离模型/输入/数值三层残差的带证区间，工程师便能在一次计算内拿到"峰值温度是否越限"的回答，并把信任从基准对准迁移到逐题可核验的总带。',
+      'Power electronics and LED arrays commonly rely on passive cooling, and margin design has long depended on empirical correlations or expensive DNS cross-validation. If “how trustworthy is this simulation” could be replaced by a low-cost, reproducible certified band that explicitly separates the model/input/numerical three residual layers, engineers could obtain the answer “does the peak temperature exceed the limit” within a single computation, shifting trust from benchmark alignment to per-problem verifiable total bands.',
     progress: [
-      '**经典相关式体系（Morgan, Raithby–Hollands 等）**: 给出自由对流 $Nu(Ra)$ 的经验相关式，精度有限且无残差界。',
-      '**Rigorous computation 工具**: 面向热输运的区间算术与 SDP 对偶上界已在平板上得到部分常数（参见边界层上界文献），但尚未落到具体散热器几何的三层总带。',
+      '**Classical correlation systems (Morgan, Raithby–Hollands, etc.)**: give empirical correlations for free convection $Nu(Ra)$ with limited accuracy and no residual bounds.',
+      '**Rigorous computation tools**: interval arithmetic and SDP-duality upper bounds for heat transport have yielded partial constants on flat plates (see the boundary-layer upper-bound literature), but have not yet landed on a three-layer total band for a specific heat-sink geometry.',
     ],
     obstacles: [
-      '**三层残差必须同时装箱**: 现有方法要么只给模型误差的严格界（远离工程几何），要么只靠数值收敛估计数值误差，缺把它们合成单带的分层证明；R_param 一层在工程实践中常被静默吞掉，必须显式列为不确定度传播项。',
-      '**几何依赖**: 翅片三维几何使严格上界依赖问题变得繁杂，需在可复核常数与几何逼近程度之间取一个工程可接受的平衡。',
-      '**继承依赖**: R_model 上界骨架借用 mp-037 的渐近外包结果，因此本证书的有效性链入 mp-037 的 Ra^{1/3} 标度上界是否成立。',
+      '**The three residual layers must be packed simultaneously**: existing methods either give a rigorous bound for the model error alone (far from engineering geometry) or estimate only the numerical error via convergence, lacking a layered proof that synthesizes them into a single band; the R_param layer is often silently dropped in engineering practice and must be explicitly listed as an uncertainty-propagation term.',
+      '**Geometry dependence**: the three-dimensional fin geometry makes rigorous upper-bound problems intricate, requiring an engineering-acceptable balance between checkable constants and geometric approximation.',
+      '**Inheritance dependence**: the R_model upper-bound skeleton borrows the asymptotic outer-bound result of mp-037, so the validity of this certificate chains into whether mp-037’s Ra^{1/3} scaling upper bound holds.',
     ],
     engineering_value:
-      '这是"可消费而非条件性"的样板：产出"给定发热量下峰值温度是否低于裕量上限"这一可直接使用的区间判断。它让被动散热工程师不必再做昂贵 DNS 就有带证的裕量结论，且把仿真可信度从"基准对准"换成"可复验总带"，一次计算即可上市热设计评审。',
+      'This is a template of “consumable rather than conditional”: it produces the directly usable interval decision “whether the peak temperature stays below the margin upper limit under a given heat load.” It lets passive-cooling engineers obtain a certified margin conclusion without expensive DNS, and shifts simulation trustworthiness from “benchmark alignment” to “reproducible total band,” ready for thermal design review in a single computation.',
     formalization_notes:
-      '数值路径现实：该受控模型的 DNS 可做区间化，把 $Nu$ 上/下界改成区间算术与对偶的零/小间隙证明（R_num）；模型层用 Boussinesq 对可压缩动力学的显式残差上界对接（R_model）；输入参数测量不确定度通过区间参数传播到总带（R_param）。形式化投入中等，收益是给散热设计一个可审计的裕量证书，且其有效性通过 depends_on 链入 mp-037 的渐近上界证书。',
+      'The numerical path is realistic: the DNS of this controlled model can be intervalized, turning the $Nu$ upper/lower bounds into zero/small-gap proofs via interval arithmetic and duality (R_num); the model layer is connected by an explicit residual upper bound of Boussinesq relative to compressible dynamics (R_model); input-parameter measurement uncertainty propagates to the total band via interval-parameter propagation (R_param). The formalization investment is medium, and the payoff is an auditable margin certificate for cooling design whose validity chains through depends_on into mp-037’s asymptotic upper-bound certificate.',
     references: [
       {
         label: 'A. Bejan, Convection Heat Transfer, 4th ed., Wiley (2013)',
@@ -6722,7 +6722,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mc-030',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"稳态可判定性证书"：对一具体催化反应网络与给定速率常数测量区间（本身带测量残差）与反应器工况，交付一个可核验的分类判据——该工况下是否恰有一个吸引稳态，且目标中间体浓度必然落入总带 [c_lo,c_hi]。带需同时覆盖三层残差：(1) **R_model**：把真实活度走离理想质量作用（活度系数≠浓度）引入的残差上界；(2) **R_param**：速率常数与工况参数来自测量时，其不确定度传播到 [c_lo,c_hi] 与稳态判别边界的输入残差上界（对测量区间内所有 $k$ 成立）；(3) **R_num**：稳态求根与区间算术的残差上界，三者合成使总带宽 ≤ R_model+R_param+R_num 且逐层可复核。判定通过的消费形式：给定催化反应器工况与测量不确定度，直接得到"该中间体浓度必落在此区间、系统不会在吸引稳态间跳变"的可核验声明。',
+      'A qualifying answer is a “steady-state decidability certificate”: for a specific catalytic reaction network with a given measurement interval for the rate constants (itself carrying measurement residuals) and reactor operating conditions, deliver a verifiable classification criterion — whether the system has exactly one attracting steady state under these conditions, and that the target intermediate concentration necessarily falls into the total band [c_lo,c_hi]. The band must simultaneously cover the three residual layers: (1) **R_model**: the residual upper bound introduced by the true activity deviating from ideal mass action (activity coefficient ≠ concentration); (2) **R_param**: the input residual upper bound on [c_lo,c_hi] and on the steady-state discrimination boundary from the uncertainty of the rate constants and operating parameters when they come from measurement (valid for all $k$ in the measurement interval); (3) **R_num**: the residual upper bound of steady-state root finding and interval arithmetic; the three are synthesized so that the total bandwidth ≤ R_model+R_param+R_num and each layer is checkable. Consumption form of a pass: given catalytic reactor conditions and measurement uncertainty, directly obtain the verifiable statement “this intermediate concentration necessarily falls in this interval, and the system does not jump between attracting steady states.”',
     title: 'Certified decidable stability of target-intermediate concentration for mass-action catalytic networks',
     titleZh: '催化反应网络目标中间体稳态可判定性与浓度总带证书',
     domain: 'mathematical-chemistry',
@@ -6741,12 +6741,12 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Feinberg, Chemical reaction network structure and the stability of complex isothermal reactors, Chem. Eng. Sci. 42(10):2229–2268 (1987)',
       url: 'https://doi.org/10.1016/0009-2509(87)80106-7',
     },
-    impact_domains: ['催化与反应器设计', '多稳态风险预警', '过程安全与动态控制', '生物化学信号网络'],
+    impact_domains: ['Catalysis and reactor design', 'Multistability risk warning', 'Process safety and dynamic control', 'Biochemical signaling networks'],
     related_problems: [
       {
         id: 'mc-005',
         relation: 'depends_on',
-        note: '总带继承（方向二）：mc-030 的稳态浓度带依赖 mc-005 的速率常数结构可辨识性分类。mc-005 是上游——它判定从可观测子集何时能分辨速率常数；若其可辨识性分类被收紧，mc-030 的测量区间普适性更可靠、带更可信；若 mc-005 判定该测量方案不可辨识，则 mc-030 在本应区分参数的测量区间上结论失效。要信任本浓度带，得先信 mc-005 的可辨识性证书。',
+        note: 'Total-band inheritance (direction 2): the steady-state concentration band of mc-030 depends on the structural identifiability classification of rate constants in mc-005. mc-005 is upstream — it decides when rate constants can be distinguished from observable subsets; if its identifiability classification is tightened, the measurement-interval universality of mc-030 becomes more reliable and its band more trustworthy; if mc-005 decides that a measurement scheme is non-identifiable, then mc-030’s conclusion fails on the measurement intervals where parameters should have been distinguished. To trust this concentration band, one must first trust mc-005’s identifiability certificate.',
       },
       {
         id: 'mc-004',
@@ -6754,38 +6754,38 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         note: 'Both reason about multistationarity of reaction networks; mc-004 is classification, mc-030 adds measurement-uncertainty residuals to a concrete operating point.',
       },
     ],
-    statement: `对一具体催化反应网络与反应器，速率常数只能以测量区间 $[k_i-\\delta_i,k_i+\\delta_i]$ 获取。工程师要判断：该工况下系统是否恰有一个吸引稳态，目标中间体稳态浓度 $c$ 落在哪个可核验区间。本题要交付：一个带证分类判据，其结论带同时覆盖理想化模型（活度走离质量作用）的模型残差与数值求解的残差两层。任何一根拾取一剂浓度得到的"浮点稳态"不构成答案；答案须为逐层分隔、各自有常数、合成为总带的区间。`,
+    statement: `For a specific catalytic reaction network and reactor, the rate constants can only be obtained as measurement intervals $[k_i-\\delta_i,k_i+\\delta_i]$. The engineer must decide: whether the system has exactly one attracting steady state under these conditions, and in which verifiable interval the target intermediate steady-state concentration $c$ lies. The deliverable is a certified classification criterion whose conclusion band simultaneously covers both the model residual of the idealized model (activity deviating from mass action) and the numerical-solution residual. A “floating-point steady state” obtained by picking one concentration per measurement does not constitute an answer; the answer must be an interval with layers separated, each with its own constant, synthesized into a total band.`,
     certificate: {
       r_model: {
-        bound: '把真实活度走离理想质量作用（活度系数≠浓度）引入的模型残差上界',
-        derivation: '活度系数残差显式界',
+        bound: 'Model residual upper bound introduced by the true activity deviating from ideal mass action (activity coefficient ≠ concentration)',
+        derivation: 'Explicit bound for the activity-coefficient residual',
       },
       r_param: {
-        bound: '速率常数与工况参数测量不确定度传播到 [c_lo,c_hi] 与稳态判别边界的输入残差上界（对测量区间内所有 k 成立）',
-        derivation: '测量区间参数传播到浓度带与稳态边界的区间映像',
+        bound: 'Input residual upper bound on [c_lo,c_hi] and the steady-state discrimination boundary from the propagation of rate-constant and operating-parameter measurement uncertainty (valid for all k in the measurement interval)',
+        derivation: 'Interval image of propagating measurement-interval parameters to the concentration band and steady-state boundary',
       },
       r_num: {
-        bound: '稳态求根与区间算术的数值残差上界',
-        derivation: '区间求根残差界',
+        bound: 'Numerical residual upper bound of steady-state root finding and interval arithmetic',
+        derivation: 'Interval root-finding residual bound',
       },
       total_band: 'c_hi - c_lo ≤ R_model + R_param + R_num',
       certified_band: '[c_lo, c_hi]',
     },
-    engineering_deliverables: ['催化反应器稳态可判定证书', '中间体浓度带证区间'],
+    engineering_deliverables: ['Certifiable steady-state decidability certificate for catalytic reactors', 'Certified band for intermediate concentration'],
     origin:
-      '催化与生化网络的速率常数从不精确，而工程师需要的是"在此测量不确定度下，我的目标中间体浓度落在哪儿、会不会在吸引稳态间跳变"。多稳态理论（缺陷、CRN）给出存在性判据，但对带测量残差的给定工况缺少把模型层与数值层残差合成一个可核验总带的判定。本题把它变成工程师可直接消费的声明。',
+      'Rate constants in catalysis and biochemical networks are never precise, and what engineers need is “under this measurement uncertainty, where does my target intermediate concentration lie, and will it jump between attracting steady states.” Multistationarity theory (deficiency, CRN) gives existence criteria, but for a given operating condition with measurement residuals there is no decision that synthesizes the model-layer and numerical-layer residuals into a verifiable total band. This problem turns it into a statement that engineers can directly consume.',
     progress: [
-      '**CRNT 缺陷理论（Feinberg 等）**: 对给定网络给出多稳态存在与至多单稳态的结构判据。',
-      '**区间根方法**: 用区间算术/包围求网络稳态，给出各自的数值残差带，但未与测量残差及活度残差分层合成。',
+      '**CRNT deficiency theory (Feinberg et al.)**: gives structural criteria for the existence of multistationarity and for at-most-one steady state for a given network.',
+      '**Interval root methods**: use interval arithmetic/enclosure to find network steady states, giving numerical residual bands for each, but without layering them together with measurement residuals and activity residuals.',
     ],
     obstacles: [
-      '**测量残差与动力学校验的费用**: 速度常数的区间放宽使"是否多稳态"的边界判定对残差敏感，须把活度模型残差显式写界而非默认理想。',
-      '**中间体稳态的全局收敛性**: 恰有一个吸引稳态要求排斥全局收敛的证明工具，与单点数值构造互补。',
+      '**The cost of measurement residuals and dynamical validation**: widening the rate constants into intervals makes the “multistationary or not” boundary decision sensitive to residuals, so the activity-model residual must be bounded explicitly rather than assuming ideal behavior by default.',
+      '**Global convergence of the intermediate steady state**: exactly one attracting steady state requires tools ruling out global convergence, complementary to single-point numerical constructions.',
     ],
     engineering_value:
-      '这是"可消费"样板：把"我的反应器会不会在稳态间跳变、中间体浓度落哪"从依赖每次仿真的猜测，换成一次带证、且明确把测量/活度/数值三层残差分开的总带区间。反应器设计、安全旁路和过程控制都能直接消费这个判定，而不必假设理想质量作用。',
+      'This is a “consumable” template: it converts “will my reactor jump between steady states and where does the intermediate concentration lie” from a guess depending on each simulation into a single certified total-band interval that explicitly separates the measurement/activity/numerical three residual layers. Reactor design, safety bypass, and process control can all directly consume this decision without assuming ideal mass action.',
     formalization_notes:
-      '数值路径现实：用区间算术求网络稳态并围成 $[c_lo,c_hi]$，用活度系数上/下界给出模型残差，用区间牛顿或包围构造给出数值残差，再把两层合成总带。形式化投入中等偏低，适配工程判定。',
+      'The numerical path is realistic: use interval arithmetic to find the network steady states and enclose them as $[c_lo,c_hi]$, use activity-coefficient upper/lower bounds to give the model residual, and use interval Newton or enclosure constructions to give the numerical residual, then synthesize the two layers into a total band. The formalization investment is medium-low, fitting engineering decisions.',
     references: [
       {
         label: 'M. Feinberg, Chemical reaction network structure and the stability of complex isothermal reactors, Chem. Eng. Sci. 42(10):2229–2268 (1987)',
@@ -6797,7 +6797,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     id: 'mb-028',
     output: 'verified_behavior',
     judgment:
-      '合格答案为"等位基因平衡频率带"而非单一预测点：对给定选择系数 $s$ 与突变率 $\\mu$（二者只以测量区间给出）的某耐药等位基因，交付平衡频率 $p^*$ 的可核验总带 [p_lo,p_hi]，并附证明该带同时覆盖三层残差：(1) **R_model**：把有限种群的离散 Wright–Fisher 动力学理想化为连续扩散/确定极限引入的模型残差上界（对给定种群大小显式包含有限 $N$ 漂移）；(2) **R_param**：选择系数 $s$ 与突变率 $\\mu$ 来自测量时，其测量区间传播到 $p^*$ 的输入残差上界（对测量区间内所有 $s,\\mu$ 成立）；(3) **R_num**：对扩散方程求根/区间映像时离散化与区间算术的数值残差上界。三者各自附可复核常数且总带满足 $p_{hi}-p_{lo}\\le$ R_model+R_param+R_num。判定通过的消费形式：给定测量不确定度与种群大小，直接得到"耐药等位基因平衡频率必将落在此区间"的可核验声明，用于突变监控与耐药风险评估。',
+      'A qualifying answer is an “allele equilibrium-frequency band” rather than a single prediction point: for a resistance allele with given selection coefficient $s$ and mutation rate $\\mu$ (both given only as measurement intervals), deliver a verifiable total band [p_lo,p_hi] for the equilibrium frequency $p^*$, together with a proof that the band simultaneously covers the three residual layers: (1) **R_model**: the model residual upper bound introduced by idealizing the discrete Wright–Fisher dynamics of a finite population to the continuous diffusion/deterministic limit (explicitly including the finite-$N$ drift for a given population size); (2) **R_param**: the input residual upper bound on $p^*$ from the propagation of the measurement intervals of the selection coefficient $s$ and mutation rate $\\mu$ when they come from measurement (valid for all $s,\\mu$ in the measurement intervals); (3) **R_num**: the numerical residual upper bound of the discretization and interval arithmetic in root finding / interval mapping of the diffusion equation. The three each carry an independently checkable constant and the total band satisfies $p_{hi}-p_{lo}\\le$ R_model+R_param+R_num. Consumption form of a pass: given measurement uncertainty and population size, directly obtain the verifiable statement “the equilibrium frequency of the resistance allele necessarily lies in this interval,” for mutation surveillance and drug-resistance risk assessment.',
     title: 'Certified equilibrium allele-frequency band for a resistance allele under measurement uncertainty',
     titleZh: '测量不确定度下耐药等位基因平衡频率的三层残差总带证书',
     domain: 'mathematical-biology',
@@ -6816,46 +6816,46 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Kimura, Stochastic processes and distribution of gene frequencies under natural selection, Cold Spring Harb. Symp. Quant. Biol. 20 (1955) 33–53',
       url: 'https://doi.org/10.1101/SQB.1955.020.01.006',
     },
-    impact_domains: ['抗菌与抗除草剂耐药风险评估', '突变监控与基因组流行病学', '作物与微生物育种', '进化医学'],
+    impact_domains: ['Risk assessment of antimicrobial and herbicide resistance', 'Mutation surveillance and genomic epidemiology', 'Crop and microbial breeding', 'Evolutionary medicine'],
     related_problems: [
       {
         id: 'mb-003',
         relation: 'depends_on',
-        note: '总带继承（方向二）：mb-028 的耐药等位基因平衡频率带依赖 mb-003 的带突变复制子动力学全局稳定性分类。mb-003 是上游——若其全局稳定性结构被收紧，则 mb-028 平衡带的动力学根基更稳、结论更可靠；若 mb-003 的核心分类被反例击穿（动力学无全局稳定结构），则 mb-028 的平衡带断言同时失效。要信任本平衡带，得先信 mb-003 的稳定性证书。',
+        note: 'Total-band inheritance (direction 2): the resistance-allele equilibrium-frequency band of mb-028 depends on the global-stability classification of replicator dynamics with mutation in mb-003. mb-003 is upstream — if its global-stability structure is tightened, the dynamical foundation of mb-028’s equilibrium band is firmer and its conclusion more reliable; if the core classification of mb-003 is pierced by a counterexample (the dynamics has no global stable structure), then mb-028’s equilibrium-band assertion fails at the same time. To trust this equilibrium band, one must first trust mb-003’s stability certificate.',
       },
     ],
-    statement: `某耐药等位基因在一有限种群中演化，选择系数 $s$ 与突变率 $\\mu$ 只能以测量区间获得。工程师/监管者要的不是一个点预测，而是"平衡频率落哪儿"的带证区间。本题要交付：平衡频率 $p^*$ 的可核验总带，其内含三层残差——R_model（有限种群 Wright–Fisher 漂移偏离连续扩散极限的模型残差）、R_param（$s,\\mu$ 测量区间传播到 $p^*$ 的输入残差）、R_num（扩散方程求根与区间映像的数值残差）；三层各有界并合成为单带。`,
+    statement: `A resistance allele evolves in a finite population, with the selection coefficient $s$ and mutation rate $\\mu$ available only as measurement intervals. What engineers/regulators want is not a point prediction but a certified interval for “where the equilibrium frequency lies.” The deliverable is a verifiable total band for the equilibrium frequency $p^*$, containing three residual layers — R_model (model residual of the finite-population Wright–Fisher drift deviating from the continuous diffusion limit), R_param (input residual from propagating the $s,\\mu$ measurement intervals to $p^*$), and R_num (numerical residual of root finding and interval mapping of the diffusion equation); the three layers each have bounds and are synthesized into a single band.`,
     certificate: {
       r_model: {
-        bound: '有限种群离散 Wright–Fisher 动力学理想化为连续扩散极限的模型残差上界（显式包含有限 N 漂移）',
-        derivation: '有限 N 漂移显式界',
+        bound: 'Model residual upper bound of idealizing the discrete Wright–Fisher dynamics of a finite population to the continuous diffusion limit (explicitly including finite-N drift)',
+        derivation: 'Explicit finite-N drift bound',
       },
       r_param: {
-        bound: '选择系数 s 与突变率 μ 测量区间传播到 p* 的输入残差上界（对测量区间内所有 s,μ 成立）',
-        derivation: '测量区间参数传播到平衡频率的区间映像',
+        bound: 'Input residual upper bound on p* from the propagation of the measurement intervals of the selection coefficient s and mutation rate μ (valid for all s,μ in the measurement intervals)',
+        derivation: 'Interval image of propagating measurement-interval parameters to the equilibrium frequency',
       },
       r_num: {
-        bound: '扩散方程求根/区间映像时离散化与区间算术的数值残差上界',
-        derivation: '区间映像与求根残差界',
+        bound: 'Numerical residual upper bound of discretization and interval arithmetic in root finding / interval mapping of the diffusion equation',
+        derivation: 'Interval-mapping and root-finding residual bound',
       },
       total_band: 'p_hi - p_lo ≤ R_model + R_param + R_num',
       certified_band: '[p_lo, p_hi]',
     },
-    engineering_deliverables: ['耐药等位基因平衡频率带', '突变监控风险评估'],
+    engineering_deliverables: ['Resistance-allele equilibrium frequency band', 'Risk assessment for mutation surveillance'],
     origin:
-      '耐药风险评估需要预测某一等位基因在多长时间内、以多大概率升到给定频率；而选择系数与突变率的测量本身带误差。把"有限种群漂移"这一层模型残差、"测量传播"这一层输入残差与"扩散求解"这一层数值残差分开并合成为可核验带，是把种群遗传学从"预测单一轨迹"推进到"给带证区间"的实际路径，能直接被耐药监控与进化医学消费。',
+      'Drug-resistance risk assessment needs to predict within how long and with what probability an allele rises to a given frequency; yet the measurement of the selection coefficient and mutation rate carries errors itself. Separating the “finite-population drift” model residual, the “measurement propagation” input residual, and the “diffusion solving” numerical residual and synthesizing them into a verifiable band is the practical route that advances population genetics from “predicting a single trajectory” to “giving certified intervals,” directly consumable by resistance surveillance and evolutionary medicine.',
     progress: [
-      '**选择-突变平衡理论（Kimura 等）**: 给出 Wright 平衡频率的经典公式与扩散近似。',
-      '**有限 $N$ 修正**: 有文献给出有限种群对平衡频率的漂移修正，但多半是近似式而非带界。',
+      '**Selection–mutation balance theory (Kimura et al.)**: gives the classical formula for the Wright equilibrium frequency and its diffusion approximation.',
+      '**Finite-$N$ corrections**: the literature gives drift corrections of the finite population to the equilibrium frequency, but mostly as approximate formulas rather than banded bounds.',
     ],
     obstacles: [
-      '**有限 $N$ 漂移界**: 把离散 Wright–Fisher 相对连续扩散的偏离写成显式、可复核的残差上界并不平凡，需覆盖中等到高频等位基因的整个区间。',
-      '**测量→频率映射的敏感传播**: 平衡频率对 $s,\\mu$ 的敏感非线性，使把测量区间传播为 $p^*$ 带需要显式的区间映像而非点估计。',
+      '**Finite-$N$ drift bounds**: writing the deviation of the discrete Wright–Fisher process from the continuous diffusion as an explicit, checkable residual upper bound is nontrivial and must cover the whole range from intermediate to high-frequency alleles.',
+      '**Sensitive propagation from measurement to frequency**: the sensitive nonlinearity of the equilibrium frequency in $s,\\mu$ means propagating the measurement intervals to a $p^*$ band requires an explicit interval image rather than a point estimate.',
     ],
     engineering_value:
-      '直接可消费：给定测量不确定度与种群大小，售出"耐药等位基因平衡频率必将落在此区间"，用于突变监控阈值与耐药风险评估，不再为单一预测值的可信度争辩。这是把"模型层（有限 $N$）+ 统计层（测量传播）"两层残差合成单带的范例。',
+      'Directly consumable: given measurement uncertainty and population size, deliver “the equilibrium frequency of the resistance allele necessarily lies in this interval,” for mutation-surveillance thresholds and drug-resistance risk assessment, without debating the credibility of a single predicted value. This is a template for synthesizing the “model layer (finite $N$) + statistical layer (measurement propagation)” two residual layers into a single band.',
     formalization_notes:
-      '数值路径现实：用区间算术把 $s,\\mu$ 的测量区间映射到 $p^*$ 的区间，再用 Sheppard–Kimura 或 Wright 公式的有限 $N$ 修正项给模型残差上界，两层合成总带。形式化投入中等偏低。',
+      'The numerical path is realistic: use interval arithmetic to map the measurement intervals of $s,\\mu$ to an interval for $p^*$, then use the finite-$N$ correction term of the Sheppard–Kimura or Wright formula to give the model residual upper bound, and synthesize the two layers into a total band. The formalization investment is medium-low.',
     references: [
       {
         label: 'M. Kimura, Stochastic processes and distribution of gene frequencies under natural selection, Cold Spring Harb. Symp. Quant. Biol. 20 (1955) 33–53',
@@ -6874,55 +6874,55 @@ export const DOMAINS: Record<
     labelZh: '数学物理',
     prefix: 'mp',
     color: '#2f4bb3',
-    blurb: '可积系统、谱理论、动理学与湍流的严格分析。',
-    excludes: '不收：宇宙学模型、高能唯象、以数值为主的计算物理。',
+    blurb: 'Rigorous analysis of integrable systems, spectral theory, kinetic theory, and turbulence.',
+    excludes: 'Not accepted: cosmological models, high-energy phenomenology, and predominantly numerical computational physics.',
   },
   'mathematical-chemistry': {
     label: 'Mathematical Chemistry',
     labelZh: '数学化学',
     prefix: 'mc',
     color: '#1e7a5a',
-    blurb: '化学图论与反应网络理论（CRNT）的开放问题。',
-    excludes: '不收：需实际合成验证的材料设计、药物发现。',
+    blurb: 'Open problems in chemical graph theory and reaction network theory (CRNT).',
+    excludes: 'Not accepted: materials design requiring actual synthesis validation, drug discovery.',
   },
   'mathematical-biology': {
     label: 'Mathematical Biology',
     labelZh: '数学生物',
     prefix: 'mb',
     color: '#9a5b13',
-    blurb: '进化动力学与流行病网络模型的精确阈值。',
-    excludes: '不收：需新实验数据的细胞生物学、神经科学。',
+    blurb: 'Sharp thresholds for evolutionary dynamics and epidemic network models.',
+    excludes: 'Not accepted: cell biology and neuroscience requiring new experimental data.',
   },
   'mathematical-engineering': {
     label: 'Mathematical Engineering',
     labelZh: '数学工程',
     prefix: 'me',
     color: '#8a2f3c',
-    blurb: '多智能体协调与分布式算法下界。',
-    excludes: '不收：需部署测试的控制器设计、协议工程实现。',
+    blurb: 'Multi-agent coordination and lower bounds for distributed algorithms.',
+    excludes: 'Not accepted: controller design requiring deployment testing, protocol engineering implementations.',
   },
 }
 
 export const RELATION_LABELS: Record<RelationType, string> = {
-  depends_on: '依赖于',
-  implies: '蕴含',
-  shares_tools: '共享工具',
-  generalizes: '推广',
-  analog_of: '平行类比',
+  depends_on: 'Depends on',
+  implies: 'Implies',
+  shares_tools: 'Shared tools',
+  generalizes: 'Generalizes',
+  analog_of: 'Analogy',
 }
 
 export const STATUS_LABELS: Record<ProblemStatus, string> = {
-  open: '开放',
-  partial: '部分解决',
-  resolved: '已解决',
+  open: 'Open',
+  partial: 'Partially solved',
+  resolved: 'Resolved',
 }
 
 /** 证书生命周期的中文标签（与 i18n 的 pd.lifecycle.* 对应，供非 React 场景复用）。 */
 export const LIFECYCLE_LABELS: Record<LifecycleStatus, string> = {
-  open: '开放待证',
-  tightened: '已收窄',
-  refuted: '已被反例击穿',
-  superseded: '已被取代',
+  open: 'Open (unproven)',
+  tightened: 'Tightened',
+  refuted: 'Refuted',
+  superseded: 'Superseded',
 }
 
 /** 缺省生命周期视为 open。 */
@@ -6931,15 +6931,15 @@ export function lifecycleOf(p: Problem): LifecycleStatus {
 }
 
 export const POTENTIAL_LABELS: Record<FormalizationPotential, string> = {
-  high: '高',
-  medium: '中',
-  low: '低',
+  high: 'High',
+  medium: 'Medium',
+  low: 'Low',
 }
 
 export const VERIFICATION_LABELS: Record<VerificationPath, string> = {
-  analytical: '分析证明',
-  numerical: '数值验证',
-  experimental: '实验',
+  analytical: 'Analytical proof',
+  numerical: 'Numerical verification',
+  experimental: 'Experimental',
 }
 
 /**
@@ -6947,26 +6947,26 @@ export const VERIFICATION_LABELS: Record<VerificationPath, string> = {
  * `impact_domains` inline). Kept as a map so legacy blocks stay untouched.
  */
 export const IMPACT_DOMAINS: Record<string, string[]> = {
-  'mp-001': ['稀薄气体工程', '航空航天气动', '动理学数值格式'],
-  'mp-002': ['大气海洋环流', '气候模式校准', '随机湍流建模'],
-  'mp-003': ['非线性晶格器件', '能量输运设计', '可积系统基准'],
-  'mp-004': ['无序半导体器件', '二维材料设计'],
-  'mp-005': ['量子磁性材料', '张量网络算法', '量子模拟基准'],
-  'mp-006': ['光孤子通信', '非线性光学器件'],
-  'mp-007': ['随机矩阵基准', '无序体系数值方法', '机器学习谱理论'],
-  'mp-008': ['CFD 湍流模型', '航空发动机设计', '能源转换效率'],
-  'mc-001': ['化工过程安全', '生物反应器设计', '合成生物学'],
-  'mc-002': ['工业催化网络', '代谢工程'],
-  'mc-003': ['有机半导体设计', '分子电子学'],
-  'mc-004': ['生化振荡器设计', '多稳态开关', '合成基因回路'],
-  'mc-005': ['反应动力学参数辨识', '系统生物学建模'],
-  'mb-001': ['肿瘤演化建模', '群体遗传学', '进化算法设计'],
-  'mb-002': ['公共卫生建模', '流行病防控策略', '网络安全传播'],
-  'mb-003': ['微生物群落管理', '生态干预设计'],
-  'mb-004': ['生态系统保育', '渔业资源管理', '入侵物种控制'],
-  'me-001': ['无人机编队', '传感器网络', '自动驾驶车队'],
-  'me-002': ['联邦学习', '边缘计算优化', '分布式训练系统'],
-  'me-003': ['群体机器人', '蜂拥控制安全认证', '生物群体建模'],
+  'mp-001': ['Rarefied gas engineering', 'Aerospace aerodynamics', 'Numerical schemes for kinetic equations'],
+  'mp-002': ['Atmospheric–oceanic circulation', 'Climate model calibration', 'Stochastic turbulence modeling'],
+  'mp-003': ['Nonlinear lattice devices', 'Energy transport design', 'Integrable-system benchmarks'],
+  'mp-004': ['Disordered semiconductor devices', 'Two-dimensional materials design'],
+  'mp-005': ['Quantum magnetic materials', 'Tensor-network algorithms', 'Quantum simulation benchmarks'],
+  'mp-006': ['Optical soliton communication', 'Nonlinear optical devices'],
+  'mp-007': ['Random matrix benchmarks', 'Numerical methods for disordered systems', 'Machine-learning spectral theory'],
+  'mp-008': ['CFD turbulence models', 'Aircraft engine design', 'Energy conversion efficiency'],
+  'mc-001': ['Chemical process safety', 'Bioreactor design', 'Synthetic biology'],
+  'mc-002': ['Industrial catalytic networks', 'Metabolic engineering'],
+  'mc-003': ['Organic semiconductor design', 'Molecular electronics'],
+  'mc-004': ['Biochemical oscillator design', 'Multistable switches', 'Synthetic gene circuits'],
+  'mc-005': ['Reaction-kinetics parameter identification', 'Systems biology modeling'],
+  'mb-001': ['Tumor evolution modeling', 'Population genetics', 'Evolutionary algorithm design'],
+  'mb-002': ['Public-health modeling', 'Epidemic prevention and control strategies', 'Network security propagation'],
+  'mb-003': ['Microbial community management', 'Ecological intervention design'],
+  'mb-004': ['Ecosystem conservation', 'Fisheries resource management', 'Invasive species control'],
+  'me-001': ['UAV formation', 'Sensor networks', 'Autonomous vehicle fleets'],
+  'me-002': ['Federated learning', 'Edge computing optimization', 'Distributed training systems'],
+  'me-003': ['Swarm robotics', 'Safety certification of swarm/flocking control', 'Biological collective modeling'],
 }
 
 export function impactOf(p: Problem): string[] {

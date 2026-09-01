@@ -30,7 +30,6 @@ export default function SubmitPage() {
   const { lang, t } = useI18n()
   const [form, setForm] = useState({
     title: '',
-    titleZh: '',
     domain: 'mathematical-physics' as Domain,
     subdomain: '',
     statement: '',
@@ -59,7 +58,6 @@ export default function SubmitPage() {
     setError(null)
     submit.mutate({
       title: form.title.trim(),
-      titleZh: form.titleZh.trim(),
       domain: form.domain,
       subdomain: form.subdomain.trim(),
       statement: form.statement.trim(),
@@ -94,14 +92,9 @@ export default function SubmitPage() {
         </div>
       ) : (
         <form onSubmit={onSubmit} className="mt-8 space-y-6">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <Field label={t('sb.titleEn')}>
-              <input className={inputCls} value={form.title} onChange={(e) => set('title')(e.target.value)} required />
-            </Field>
-            <Field label={t('sb.titleZh')}>
-              <input className={inputCls} value={form.titleZh} onChange={(e) => set('titleZh')(e.target.value)} required />
-            </Field>
-          </div>
+          <Field label="Title">
+            <input className={inputCls} value={form.title} onChange={(e) => set('title')(e.target.value)} required />
+          </Field>
           <Field label={t('sb.authorName')}>
             <input className={inputCls} value={form.authorName} onChange={(e) => set('authorName')(e.target.value)} />
           </Field>

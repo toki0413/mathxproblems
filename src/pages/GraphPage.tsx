@@ -90,7 +90,7 @@ export default function GraphPage() {
                       <span className="font-mono2 text-[11px] text-ink-3 shrink-0 uppercase">
                         {p.id}
                       </span>
-                      <span className="truncate">{p.titleZh || p.title}</span>
+                      <span className="truncate">{p.title}</span>
                     </button>
                   </li>
                 ))}

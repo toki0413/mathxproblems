@@ -12,7 +12,7 @@ import {
 
 const proposalSchema = z.object({
   title: z.string().min(4).max(500),
-  titleZh: z.string().min(2).max(500),
+  titleZh: z.string().max(500).optional(),
   domain: z.enum(DOMAIN_IDS),
   subdomain: z.string().max(120).default(""),
   statement: z.string().min(20),
@@ -36,10 +36,10 @@ export const submissionsRouter = createRouter({
       if (!(await writeAllowed(ctx.req.headers, ctx.visitorId, input.captchaToken))) {
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Slow down or captcha required" });
       }
-      const { title, titleZh, domain, authorName, ...rest } = input;
+      const { title, domain, authorName, ...rest } = input;
       await createSubmission({
         title,
-        titleZh,
+        titleZh: input.titleZh ?? "",
         domain,
         authorName,
         visitorId: ctx.visitorId,

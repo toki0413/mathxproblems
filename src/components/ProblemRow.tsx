@@ -18,7 +18,7 @@ export const DIFFICULTY_STARS: Record<Problem['difficulty'], number> = {
 export function Stars({ difficulty, className = '' }: { difficulty: Problem['difficulty']; className?: string }) {
   const n = DIFFICULTY_STARS[difficulty]
   return (
-    <span className={`font-mono2 text-[11px] tracking-wider ${className}`} title={`难度 ${n}/5`}>
+    <span className={`font-mono2 text-[11px] tracking-wider ${className}`} title={`Difficulty ${n}/5`}>
       <span className="text-ink">{'★'.repeat(n)}</span>
       <span className="text-line-strong">{'★'.repeat(5 - n)}</span>
     </span>
