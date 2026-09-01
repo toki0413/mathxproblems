@@ -34,6 +34,9 @@ jobs:
       - name: Type-check & build
         run: npm run build
       - name: Deploy to Cloudflare Pages
+        # 仓库尚未配置 CLOUDFLARE_API_TOKEN secret 时优雅跳过，
+        # 避免每次 push 都出现失败红叉（手动 wrangler 部署仍是主路径）。
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
         # wrangler 已是 devDependency（npm ci 本地安装），直接用本地 wrangler，
         # 避免 action 内 npx 拉取新版在 CI 无 TTY 时被取消。
         run: npx wrangler pages deploy dist/public --project-name=mathx-bridge
