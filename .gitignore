@@ -42,3 +42,6 @@ coverage/
 .nyc_output/
 # One-off debug/audit scripts (not part of the project)
 scripts/_*.mjs
+
+# IDE/tool artifacts
+.trae-html-share-packages/

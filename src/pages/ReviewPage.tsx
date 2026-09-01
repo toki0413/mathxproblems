@@ -55,12 +55,14 @@ function buildProblemFragment(
 
 export default function ReviewPage() {
   const { lang, t } = useI18n()
-  const { user, isAuthenticated } = useAuth()
+  const { isAdmin, adminToken, setAdmin, clearAdmin } = useAuth()
   const utils = trpc.useUtils()
-  const isAdmin = isAuthenticated && user?.role === 'admin'
+  const [adminInput, setAdminInput] = useState('')
+  const [gateErr, setGateErr] = useState<string | null>(null)
   const pending = trpc.submissions.pending.useQuery(undefined, { enabled: isAdmin })
   const review = trpc.submissions.review.useMutation({
     onSuccess: () => utils.submissions.pending.invalidate(),
+    onError: (e) => setGateErr(e.message),
   })
   const [note, setNote] = useState<Record<number, string>>({})
 
@@ -97,16 +99,55 @@ export default function ReviewPage() {
     },
   })
 
-  if (!isAdmin)
+  if (!isAdmin) {
+    const unlock = () => {
+      setGateErr(null)
+      setAdmin(adminInput)
+      // 令牌写入 localStorage 后，下一次查询会带上；稍作重取让 enabled=isAdmin 的查询触发。
+      window.setTimeout(() => utils.invalidate(), 0)
+    }
     return (
-      <div className="mx-auto max-w-2xl px-5 py-24 text-ink-3 text-sm">
-        {t('rv.adminOnly')}
+      <div className="mx-auto max-w-xl px-5 py-24">
+        <h1 className="font-statement text-3xl font-bold">{t('rv.title')}</h1>
+        <p className="mt-4 text-sm text-ink-3 leading-relaxed">{t('rv.adminIntro')}</p>
+        {gateErr && <p className="mt-4 text-sm text-me">{gateErr}</p>}
+        <div className="mt-6 flex items-stretch gap-2">
+          <input
+            type="password"
+            className="flex-1 w-full bg-paper border border-line px-3 py-2 text-sm focus:outline-none focus:border-ink"
+            placeholder={t('rv.adminPlaceholder')}
+            value={adminInput}
+            onChange={(e) => setAdminInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && unlock()}
+            autoComplete="off"
+          />
+          <button
+            onClick={unlock}
+            className="border border-ink px-5 py-2 text-sm hover:bg-ink hover:text-paper transition-colors"
+          >
+            {t('rv.adminUnlock')}
+          </button>
+        </div>
+        <p className="mt-3 font-mono2 text-[11px] text-ink-3">{t('rv.adminOnly')}</p>
       </div>
     )
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-12">
-      <h1 className="font-statement text-3xl font-bold">{t('rv.title')}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-statement text-3xl font-bold">{t('rv.title')}</h1>
+        <button
+          onClick={() => {
+            clearAdmin()
+            setGateErr(null)
+          }}
+          className="font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
+          title={adminToken}
+        >
+          {t('rv.adminLock')}
+        </button>
+      </div>
       <p className="mt-2 text-sm text-ink-3">
         {t('rv.guide')}
       </p>

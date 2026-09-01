@@ -6,7 +6,9 @@ import {
   text,
   timestamp,
   bigint,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 const roleEnum = pgEnum("role", ["user", "admin"]);
 const submissionStatusEnum = pgEnum("submission_status", [
@@ -34,7 +36,7 @@ const attemptStatusEnum = pgEnum("attempt_status", [
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  unionId: varchar("unionId", { length: 255 }).notNull().unique(),
+  unionId: varchar("unionId", { length: 255 }),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 320 }),
   avatar: text("avatar"),
@@ -57,9 +59,10 @@ export type InsertUser = typeof users.$inferInsert;
  */
 export const submissions = pgTable("submissions", {
   id: serial("id").primaryKey(),
-  userId: bigint("userId", { mode: "number" })
-    .notNull()
-    .references(() => users.id),
+  // 匿名社区：userId 仅在向下兼容存量登录投稿时保留，新投稿走 visitorId + authorName。
+  userId: bigint("userId", { mode: "number" }).references(() => users.id),
+  visitorId: varchar("visitorId", { length: 64 }),
+  authorName: varchar("authorName", { length: 128 }),
   title: varchar("title", { length: 500 }).notNull(),
   titleZh: varchar("titleZh", { length: 500 }).notNull(),
   domain: varchar("domain", { length: 64 }).notNull(),
@@ -84,9 +87,8 @@ export type InsertSubmission = typeof submissions.$inferInsert;
 export const problemUpdates = pgTable("problem_updates", {
   id: serial("id").primaryKey(),
   problemId: varchar("problemId", { length: 32 }).notNull(),
-  userId: bigint("userId", { mode: "number" })
-    .notNull()
-    .references(() => users.id),
+  // 独立管理入口（Bearer 令牌）直写；不再关联登录用户，userId 保留仅向下兼容。
+  userId: bigint("userId", { mode: "number" }).references(() => users.id),
   date: varchar("date", { length: 16 }).notNull(),
   note: text("note").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -112,6 +114,8 @@ export const problemAttempts = pgTable("problem_attempts", {
   id: serial("id").primaryKey(),
   problemId: varchar("problemId", { length: 32 }).notNull(),
   userId: bigint("userId", { mode: "number" }).references(() => users.id),
+  // 伪匿名访客 ID（新投稿填充）；userId 仅在向下兼容存量登录投稿时保留。
+  visitorId: varchar("visitorId", { length: 64 }),
   authorName: varchar("authorName", { length: 128 }),
   kind: attemptKindEnum("kind").default("progress").notNull(),
   title: varchar("title", { length: 300 }).notNull(),
@@ -156,17 +160,24 @@ export type ProblemAttempt = typeof problemAttempts.$inferSelect;
 export type InsertProblemAttempt = typeof problemAttempts.$inferInsert;
 
 /**
- * 投票记录：一个登录用户对某个已通过候选最多投一票。
- * `(attemptId, userId)` 唯一约束在数据库层去重，天然挡重复票，无需额外逻辑。
- * 投票用于给候选一个社区认可信号，review 仍是最终把关。
+ * 投票记录：一个访客对某个已通过候选最多投一票。
+ * 匿名社区无登录，按 visitorId 计一人一票（同设备清洗 cookie 可规避，属匿名模型
+ * 固有局限）；存量登录投票保留 userId。两个身份各有一组唯一约束兜底并发重复票。
  */
-export const problemAttemptVotes = pgTable("problem_attempt_votes", {
-  id: serial("id").primaryKey(),
-  attemptId: bigint("attemptId", { mode: "number" })
-    .notNull()
-    .references(() => problemAttempts.id),
-  userId: bigint("userId", { mode: "number" })
-    .notNull()
-    .references(() => users.id),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
+export const problemAttemptVotes = pgTable(
+  "problem_attempt_votes",
+  {
+    id: serial("id").primaryKey(),
+    attemptId: bigint("attemptId", { mode: "number" })
+      .notNull()
+      .references(() => problemAttempts.id),
+    userId: bigint("userId", { mode: "number" }).references(() => users.id),
+    visitorId: varchar("visitorId", { length: 64 }),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  (t) => [
+    uniqueIndex("problem_attempt_votes_visitor_uidx")
+      .on(t.attemptId, t.visitorId)
+      .where(sql`${t.visitorId} is not null`),
+  ],
+);

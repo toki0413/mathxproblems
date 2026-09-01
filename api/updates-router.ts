@@ -18,10 +18,10 @@ export const updatesRouter = createRouter({
         note: z.string().min(1).max(2000),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       await insertProblemUpdate({
         problemId: input.problemId,
-        userId: ctx.user.id,
+        userId: undefined,
         date: input.date,
         note: input.note,
       });

@@ -23,7 +23,8 @@ export async function listProblemUpdates(problemId: string) {
       authorName: schema.users.name,
     })
     .from(schema.problemUpdates)
-    .innerJoin(schema.users, eq(schema.problemUpdates.userId, schema.users.id))
+    // 匿名管理入口记录更新时 userId 为 NULL，用 leftJoin 保留记录、作者名缺省为 null。
+    .leftJoin(schema.users, eq(schema.problemUpdates.userId, schema.users.id))
     .where(eq(schema.problemUpdates.problemId, problemId))
     .orderBy(desc(schema.problemUpdates.createdAt));
 }

@@ -7,7 +7,6 @@ import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
-import { useAuth } from '@/hooks/useAuth'
 import { useMarkVisited } from '@/hooks/useVisited'
 import { BandRuler } from '@/components/BandRuler'
 
@@ -75,9 +74,7 @@ export default function ProblemDetailPage() {
     },
   })
 
-  const { isAuthenticated } = useAuth()
-  // 本地缓存"我投过哪些"的集合；投票后按 mutation 返回结果更新，刷新后靠票数重取（状态位会重置，属低风险社区信号的取舍）
-  // ponytail: 不新增"查询我投过哪些"接口，投票交互用乐观本地态 + 返回确认，避免多一趟往返
+  // 伪匿名：访客 httpOnly cookie 由后台签发，无需登录即可参与（一人一票按访客计）。
   const [myVotes, setMyVotes] = useState<ReadonlySet<number>>(() => new Set())
   const voteAttempt = trpc.attempts.vote.useMutation({
     onMutate: (v) => {
@@ -575,9 +572,9 @@ export default function ProblemDetailPage() {
                     <span className="font-mono2 text-[11px] text-ink-3">· {new Date(a.createdAt).toISOString().slice(0, 10)}</span>
                     {/* 候选投票：登录用户可投/撤一票，票数是社区认可信号 */}
                     <button
-                      onClick={() => isAuthenticated && voteAttempt.mutate({ attemptId: a.id })}
-                      disabled={!isAuthenticated || voteAttempt.isPending}
-                      title={isAuthenticated ? t('pd.attempts.vote.title') : t('pd.attempts.vote.login')}
+                      onClick={() => voteAttempt.mutate({ attemptId: a.id })}
+                      disabled={voteAttempt.isPending}
+                      title={t('pd.attempts.vote.title')}
                       className={`ml-auto inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 font-mono2 text-[11px] transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                         myVotes.has(a.id)
                           ? 'bg-mc text-paper border-mc'

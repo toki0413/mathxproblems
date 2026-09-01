@@ -18,17 +18,9 @@ services:
       # 容器启动时 entrypoint 会先跑 drizzle-kit migrate 自动建表，再拉起服务。
       - key: DATABASE_URL
         sync: false   # paste your Neon postgres://… connection string
-      - key: APP_ID
-        sync: false   # set in the Render dashboard (secret)
-      - key: APP_SECRET
-        sync: false
-      - key: SESSION_SECRET
-        sync: false
-      - key: KIMI_AUTH_URL
-        sync: false
-      - key: KIMI_OPEN_URL
-        sync: false
-      - key: OWNER_UNION_ID
-        sync: false
+      - key: ADMIN_TOKEN
+        sync: false   # 独立管理入口令牌 (secret)
+      - key: TURNSTILE_SECRET
+        sync: false   # 可选：人机验证密钥
       - key: CLAIMS_WRITE_ENABLED
         value: ""

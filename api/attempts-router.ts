@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { FORMAL_STATUSES, PROBLEM_ID_RE } from "@contracts/constants";
-import { adminQuery, authedQuery, createRouter, publicQuery } from "./middleware";
+import { adminQuery, createRouter, publicQuery } from "./middleware";
+import { writeAllowed } from "./visitor";
 import {
   insertAttempt,
   listApprovedAttempts,
-  listAttemptsByUser,
   listBitsIndex,
   listLatestVerifications,
   listPendingAttempts,
@@ -18,7 +19,7 @@ const attemptSchema = z
     kind: z.enum(["progress", "solution", "revision", "verification", "formal"]),
     title: z.string().min(4).max(300),
     content: z.string().min(20).max(5000),
-    // 匿名投稿可自报署名；留空则匿名（登录态也接受，userId 会自动带上）
+    // 匿名投稿可自报署名；留空则匿名
     authorName: z.string().trim().min(1).max(128).optional(),
     // 验证-收窄：kind='verification' 时必须给出收窄后的带证区间
     newBand: z.string().trim().min(1).max(80).optional(),
@@ -28,6 +29,8 @@ const attemptSchema = z
     method: z.string().trim().min(1).max(80).optional(),
     // 思路与反思（可选）：怎么想到的、卡在哪、为什么失败——把账本变成研究日志
     narrative: z.string().trim().min(10).max(3000).optional(),
+    // 人机验证令牌（配了 TURNSTILE_SECRET 后必填）
+    captchaToken: z.string().min(1).max(2048).optional(),
   })
   .refine((v) => v.kind !== "verification" || !!v.newBand, {
     message: "verification requires newBand",
@@ -38,11 +41,22 @@ const attemptSchema = z
     path: ["formalStatus"],
   });
 
+/** 匿名写接口的治理前置：访客+IP 双限流 + 人机验证。 */
+async function guardWrite(
+  ctx: { req: Request; visitorId: string },
+  captchaToken: string | undefined,
+) {
+  if (!(await writeAllowed(ctx.req.headers, ctx.visitorId, captchaToken))) {
+    throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Slow down or captcha required" });
+  }
+}
+
 export const attemptsRouter = createRouter({
-  /** 任何人向已有问题提交进展/解答候选，无需登录 */
+  /** 任何人向已有问题提交进展/解答候选，无需登录；以伪匿名访客身份写入 */
   submit: publicQuery
     .input(attemptSchema)
     .mutation(async ({ ctx, input }) => {
+      await guardWrite(ctx, input.captchaToken);
       const { problemId, kind, title, content, authorName, newBand, formalStatus, method, narrative } = input;
       await insertAttempt({
         problemId,
@@ -54,8 +68,7 @@ export const attemptsRouter = createRouter({
         formalStatus,
         method,
         narrative,
-        // 登录态才关联用户；匿名提交该字段为 null
-        userId: ctx.user ? ctx.user.id : undefined,
+        visitorId: ctx.visitorId,
       });
       return { ok: true };
     }),
@@ -73,14 +86,10 @@ export const attemptsRouter = createRouter({
   /** 全库逐题累计 bits 索引：图谱节点编码 / 索引徽标 / 监测摘要的前置呈现 */
   bitsIndex: publicQuery.query(async () => listBitsIndex()),
 
-  mine: authedQuery.query(async ({ ctx }) => listAttemptsByUser(ctx.user.id)),
-
-  /** 登录用户对某个已通过候选投/撤一票（切换式），返回最新票数与已投态 */
-  vote: authedQuery
+  /** 访客对某个已通过候选投/撤一票（切换式），按访客ID计一人一票 */
+  vote: publicQuery
     .input(z.object({ attemptId: z.number().int().positive() }))
-    .mutation(async ({ ctx, input }) =>
-      toggleVote(input.attemptId, ctx.user.id),
-    ),
+    .mutation(async ({ ctx, input }) => toggleVote(input.attemptId, ctx.visitorId)),
 
   pending: adminQuery.query(async () => listPendingAttempts()),
 

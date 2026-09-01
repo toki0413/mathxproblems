@@ -1,6 +1,8 @@
-import { ErrorMessages } from "@contracts/constants";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { ErrorMessages } from "@contracts/constants";
+import { env } from "./lib/env";
+import { readAdminToken } from "./visitor";
 import type { TrpcContext } from "./context";
 
 const t = initTRPC.context<TrpcContext>().create({
@@ -10,33 +12,17 @@ const t = initTRPC.context<TrpcContext>().create({
 export const createRouter = t.router;
 export const publicQuery = t.procedure;
 
-const requireAuth = t.middleware(async (opts) => {
+// 匿名社区模型：审核接口不对社区用户开放，改由独立管理入口的 Bearer 令牌把关。
+const requireAdmin = t.middleware((opts) => {
   const { ctx, next } = opts;
-
-  if (!ctx.user) {
+  const token = readAdminToken(ctx.req.headers);
+  if (!env.adminToken || token !== env.adminToken) {
     throw new TRPCError({
-      code: "UNAUTHORIZED",
-      message: ErrorMessages.unauthenticated,
+      code: "FORBIDDEN",
+      message: ErrorMessages.insufficientPermissions,
     });
   }
-
-  return next({ ctx: { ...ctx, user: ctx.user } });
+  return next({ ctx: { ...ctx, admin: true } });
 });
 
-function requireRole(role: string) {
-  return t.middleware(async (opts) => {
-    const { ctx, next } = opts;
-
-    if (!ctx.user || ctx.user.role !== role) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: ErrorMessages.insufficientPermissions,
-      });
-    }
-
-    return next({ ctx: { ...ctx, user: ctx.user } });
-  });
-}
-
-export const authedQuery = t.procedure.use(requireAuth);
-export const adminQuery = authedQuery.use(requireRole("admin"));
+export const adminQuery = publicQuery.use(requireAdmin);
