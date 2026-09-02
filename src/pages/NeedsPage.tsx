@@ -1,9 +1,11 @@
 import { Link } from 'react-router'
 import { PROBLEMS } from '@/data/problems'
 import { LAWS } from '@/data/laws'
+import { AUDITED_PROBLEMS } from '@/data/audits'
 import {
   ENGINEERING_NEEDS,
   chainStepState,
+  demandCoverage,
   NEED_WORKFLOW_LABEL,
   type NeedChainRole,
   type NeedStepState,
@@ -52,6 +54,8 @@ export default function NeedsPage() {
     if (g) g.needs.push(n)
     else areas.push({ area: n.area, needs: [n] })
   }
+  // 需求侧聚合覆盖（倒查的密度：多少题、多少定律被需求点名）
+  const cov = demandCoverage()
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -80,6 +84,43 @@ export default function NeedsPage() {
         </div>
       </Reveal>
 
+      {/* 需求侧覆盖聚合条：多少需求、多少题/定律被点名、就绪度分布、工作流落点 */}
+      <Reveal delay={90}>
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
+          <div className="bg-[#faf9f4] p-4">
+            <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.cov.needs')}</div>
+            <div className="mt-1 font-statement text-2xl font-bold">{cov.needs}</div>
+            <div className="mt-1 text-xs text-ink-3">
+              <span className="text-mc">{cov.readiness.served} {t('nd.served').toLowerCase()}</span>
+              <span className="mx-1">·</span>
+              <span className="text-[#9a5b13]">{cov.readiness.partial} {t('nd.partial').toLowerCase()}</span>
+              <span className="mx-1">·</span>
+              <span className="text-me">{cov.readiness.gap} {t('nd.gap').toLowerCase()}</span>
+            </div>
+          </div>
+          <div className="bg-[#faf9f4] p-4">
+            <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.cov.problems')}</div>
+            <div className="mt-1 font-statement text-2xl font-bold">
+              {cov.problems}
+              <span className="text-base font-normal text-ink-3"> / {AUDITED_PROBLEMS.length}</span>
+            </div>
+            <div className="mt-1 text-xs text-ink-3">{t('nd.cov.problems.body')}</div>
+          </div>
+          <div className="bg-[#faf9f4] p-4">
+            <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.cov.laws')}</div>
+            <div className="mt-1 font-statement text-2xl font-bold">
+              {cov.laws}
+              <span className="text-base font-normal text-ink-3"> / {LAWS.length}</span>
+            </div>
+          </div>
+          <div className="bg-[#faf9f4] p-4">
+            <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.cov.workflows')}</div>
+            <div className="mt-1 font-statement text-2xl font-bold">{cov.workflows}</div>
+            <div className="mt-1 text-xs text-ink-3">{t('nd.cov.workflows.body')}</div>
+          </div>
+        </div>
+      </Reveal>
+
       {areas.map(({ area, needs }, gi) => (
         <section key={area} className="mt-14">
           <Reveal delay={gi * 40}>
@@ -88,7 +129,7 @@ export default function NeedsPage() {
           <div className="space-y-4">
             {needs.map((n) => (
               <Reveal key={n.id}>
-                <div className="border border-line bg-white/50 p-6">
+                <div id={n.id} className="scroll-mt-24 border border-line bg-white/50 p-6">
                   <div className="flex items-start gap-3 flex-wrap">
                     <h3 className="font-statement text-lg font-bold leading-snug">{n.name}</h3>
                     <span

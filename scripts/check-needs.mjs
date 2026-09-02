@@ -20,6 +20,30 @@ const lawIds = new Set(
   [...lawsSrc.matchAll(/id: '(law-[a-z0-9-]+)'/g)].map((m) => m[1]),
 )
 
+// 解析顶层对象：problem id → { status, hasCert }；law id → status。复刻
+// engineeringNeeds.ts 的 chainStepState 派生逻辑，做就绪度 ↔ 判定链一致性审计。
+const problemMeta = new Map()
+for (const block of problemsSrc.split("\n  {\n    id: '").slice(1)) {
+  const id = (block.match(/^([^']+)'/) || [])[1]
+  if (!id) continue
+  const status = (block.match(/status: '([^']+)'/) || [])[1] ?? 'open'
+  const hasCert = /\bcertificate:\s*\{/.test(block)
+  problemMeta.set(id, { status, hasCert })
+}
+const lawMeta = new Map()
+for (const block of lawsSrc.split("id: 'law-").slice(1)) {
+  const id = `law-${(block.match(/^([^']+)'/) || [])[1]}`
+  if (!id || id === 'law-') continue
+  const status = (block.match(/status: '([^']+)'/) || [])[1] ?? 'gap'
+  lawMeta.set(id, status)
+}
+// 已审计展示的问题（audits.ts 中 status='passed'）。需求锚点必须落在可见问题上，
+// 否则"这道需求靠一道看不见的题支撑"会是空话。
+const auditsSrc = readFileSync(join(root, 'src/data/audits.ts'), 'utf8')
+const auditedIds = new Set(
+  [...auditsSrc.matchAll(/'((?:mp|mc|mb|me)-\d+)': \{ status: 'passed'/g)].map((m) => m[1]),
+)
+
 const READINESS = new Set(['served', 'partial', 'gap'])
 const WORKFLOWS = new Set([
   'design-review',
@@ -82,6 +106,47 @@ for (const n of needs) {
 if (badKind.length) failures.push(`chain references unknown id: ${badKind.join(', ')}`)
 if (badRole.length) failures.push(`chain invalid role: ${badRole.join(', ')}`)
 
+// ── 就绪度 ↔ 判定链一致性（诚实规则，深化）──
+// 从判定链派生"派生就绪度" derived：任一 certificate 角色链步可消费 → served；
+// 任一链步有进展（served/partial）→ partial；否则 gap。
+// 声明的 readiness 不得比 derived 更乐观（served > partial > gap > open），
+// 可以更保守，但不能把 gap 说成 served。
+const RANK = { served: 3, partial: 2, gap: 1, open: 0 }
+function chainStepState(step) {
+  if (step.kind === 'law') {
+    const l = lawMeta.get(step.id)
+    if (l === 'formalized') return 'served'
+    if (l === 'partial') return 'partial'
+    return 'open'
+  }
+  const p = problemMeta.get(step.id)
+  if (!p) return 'open'
+  if (step.role === 'certificate' && p.hasCert) return 'served'
+  if (p.status === 'partial') return 'partial'
+  return 'open'
+}
+const overstate = []
+const nonAudited = []
+const derivedDist = { served: 0, partial: 0, gap: 0 }
+for (const n of needs) {
+  const states = n.chain.map((s) => ({ id: s.id, state: chainStepState(s) }))
+  const best = Math.max(...states.map((x) => RANK[x.state]))
+  const derived = best >= 3 ? 'served' : best === 2 ? 'partial' : 'gap'
+  derivedDist[derived]++
+  if (RANK[n.readiness] > RANK[derived]) {
+    overstate.push(`${n.id} (declared ${n.readiness}, derived ${derived}; steps: ${states.map((x) => `${x.id}=${x.state}`).join(', ')})`)
+  }
+  for (const s of n.chain) {
+    if (s.kind === 'problem' && !auditedIds.has(s.id)) nonAudited.push(`${n.id}->${s.id}`)
+  }
+}
+if (overstate.length) {
+  failures.push(`readiness overstates derived chain state (fix data, not the rule): ${overstate.join(' | ')}`)
+}
+if (nonAudited.length) {
+  failures.push(`chain anchors a non-audited (hidden) problem: ${nonAudited.join(', ')}`)
+}
+
 const dup = needs.filter((n, i) => needs.findIndex((x) => x.id === n.id) !== i)
 if (dup.length) failures.push(`duplicate need ids: ${dup.map((n) => n.id).join(', ')}`)
 
@@ -95,6 +160,11 @@ console.log(
   `engineering needs: ${needs.length} (${Object.entries(dist)
     .map(([k, v]) => `${k}=${v}`)
     .join(', ')})`,
+)
+console.log(
+  `chain-derived readiness: (${Object.entries(derivedDist)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(', ')}) — declared never overstates derived`,
 )
 console.log(
   `chain steps: ${chainKinds.problem ?? 0} problems + ${chainKinds.law ?? 0} laws; problems referenced: ${referencedProblems.size}, laws referenced: ${referencedLaws.size}`,

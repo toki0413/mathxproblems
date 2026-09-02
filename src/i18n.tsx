@@ -177,8 +177,22 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.related': { zh: '关联问题', en: 'Related problems' },
   'pd.demanded': { zh: '被哪些工程需求倒查', en: 'Demanded by engineering needs' },
   'pd.demanded.body': {
-    zh: '从需求侧反查回来：下面这些工程需求把这道题当作支撑。把题做出来，就是把需求往前推一步。',
-    en: 'Reversed from the demand side: these engineering needs treat this problem as support. Solving it pushes the need forward.',
+    zh: '从需求侧反查回来：下面这些工程需求把这道题当作支撑。每一条都标注了本问题在需求判定链里扮演的角色、此刻的状态，以及解出后的落点。把题做出来，就是把需求往前推一步。',
+    en: 'Reversed from the demand side: these engineering needs treat this problem as support. Each shows the role this problem plays in the need\u2019s decision chain, its current state, and what solving it unlocks. Solving it pushes the need forward.',
+  },
+  'pd.demanded.role': { zh: '角色', en: 'Role' },
+  'pd.demanded.state': { zh: '此刻状态', en: 'Now' },
+  'pd.demanded.unlock.served': {
+    zh: '该子判定已可消费——这条链已就位，需求在此环节无需等待。',
+    en: 'This sub-judgement is consumable \u2014 this link is in place; the need does not wait here.',
+  },
+  'pd.demanded.unlock.partial': {
+    zh: '已有部分进展，但完整证书仍缺失——这条链尚欠一环。',
+    en: 'Partial progress, but a full certificate is still missing \u2014 this link is not complete.',
+  },
+  'pd.demanded.unlock.open': {
+    zh: '尚无证书：解出此题，需求就向前推进一步。',
+    en: 'No certificate yet: solve this problem and the need advances.',
   },
   'pd.comments': { zh: '讨论', en: 'Discussion' },
   // comments（自建评论区，D1 托管，匿名即发即见）
@@ -296,6 +310,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'api.needs.desc': {
     zh: '工程反向需求清单：工程需求 → 支撑问题/定律 + 就绪度',
     en: 'Engineering-need reverse demand list — need → supporting problems/laws + readiness',
+  },
+  'api.needs.cov.desc': {
+    zh: '需求侧聚合覆盖：被倒查的问题/定律数、就绪度分布、工作流落点',
+    en: 'Demand-side coverage: anchored problems/laws, readiness mix, workflow slots',
   },
   'api.feed.desc': {
     zh: '最新收录的 RSS 订阅源（自动从目录生成）',
@@ -490,6 +508,13 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '每条需求是一份"判定档案"：判定链按依赖顺序列出要 certify 的子判定（问题角色：可消费证书 / 奠基结构证 / 支撑；经验定律单独标注），并给出对接的工程标准、什么算被服务、当前障碍与工作流落点。链步状态（可消费 / 部分 / 开放）与需求就绪度（Served / Partial / Gap）都是从目录推导的评估性判断，非学术结论。',
     en: 'Each need is a decision dossier: the decision chain lists, in dependency order, the sub-judgements to certify (problem roles: consumable certificate / foundational anchor / related; empirical laws flagged separately), plus the engineering standard it plugs into, what "served" looks like, the current barrier, and the workflow slot. Step states (consumable / partial / open) and need readiness (Served / Partial / Gap) are assessments derived from the catalog, not academic claims.',
   },
+  // needs coverage（需求侧聚合覆盖条）
+  'nd.cov.needs': { zh: '需求总数', en: 'Total needs' },
+  'nd.cov.problems': { zh: '被倒查的问题', en: 'Problems demanded' },
+  'nd.cov.problems.body': { zh: '被需求点名的可见问题', en: 'visible problems anchored by needs' },
+  'nd.cov.laws': { zh: '被倒查的经验定律', en: 'Laws demanded' },
+  'nd.cov.workflows': { zh: '工作流落点', en: 'Workflow slots' },
+  'nd.cov.workflows.body': { zh: '判定在工程工作流中的落点种类', en: 'distinct workflow slots where judgements land' },
   // ledger page（协议账本）
   'lg.title': { zh: '协议账本', en: 'The protocol ledger' },
   'lg.subtitle': {

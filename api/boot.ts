@@ -7,7 +7,7 @@ import { createContext } from "./context";
 import { ensureVisitorId } from "./visitor";
 import { buildCatalog, buildBenchmark, buildTools, buildImpact, snapshotVersion } from "./catalog.json";
 import { buildLaws } from "./laws.json";
-import { buildNeeds } from "./needs.json";
+import { buildNeeds, buildCoverage } from "./needs.json";
 import { buildLedger } from "./ledger.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
@@ -94,6 +94,8 @@ app.get("/api/v1/laws.json", (c) => jsonReply(JSON.stringify(buildLaws()), c));
 app.get("/api/v1/impact.json", (c) => jsonReply(JSON.stringify(buildImpact()), c));
 // 工程反向需求清单：工程需求 → 支撑问题/定律 + 就绪度（C）。
 app.get("/api/v1/needs.json", (c) => jsonReply(JSON.stringify(buildNeeds()), c));
+// 需求侧聚合覆盖：被倒查的问题/定律数、就绪度分布、工作流落点（C，深化）。
+app.get("/api/v1/needs/coverage.json", (c) => jsonReply(JSON.stringify(buildCoverage()), c));
 // 协议账本的可核验导出：只追加 + 参考核验器判定（契约 v0.1）。
 // 无数据库时（如纯前端 dev）降级为空的契约外壳，不因 DB 缺失而 500。
 app.get("/api/v1/ledger.json", async (c) => {

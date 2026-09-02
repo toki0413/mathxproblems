@@ -656,9 +656,42 @@ export function needById(id: string): EngineeringNeed | undefined {
   return _byId.get(id)
 }
 
-/** 反查：某目录问题被哪些工程需求倒查引用（problem id → needs）。 */
-export function needsDemandingProblem(problemId: string): EngineeringNeed[] {
-  return ENGINEERING_NEEDS.filter((n) => n.chain.some((s) => s.kind === 'problem' && s.id === problemId))
+/** 反查深化：某目录问题在每条倒查需求里扮演的角色、链步当前状态与"要证什么"。 */
+export interface NeedDemandLink {
+  need: EngineeringNeed
+  step: NeedChainStep
+  /** 该链步当前状态（从目录推导）：本问题此刻在这条需求里是可消费 / 部分 / 开放。 */
+  state: NeedStepState
+}
+
+export function demandLinksForProblem(problemId: string): NeedDemandLink[] {
+  const links: NeedDemandLink[] = []
+  for (const n of ENGINEERING_NEEDS) {
+    for (const s of n.chain) {
+      if (s.kind === 'problem' && s.id === problemId) links.push({ need: n, step: s, state: chainStepState(s) })
+    }
+  }
+  return links
+}
+
+/** 需求侧聚合覆盖：被倒查的问题/定律数、就绪度分布、工作流落点数（供 NeedsPage 顶部统计条）。 */
+export function demandCoverage(): {
+  needs: number
+  readiness: Record<NeedReadiness, number>
+  problems: number
+  laws: number
+  workflows: number
+} {
+  const problems = new Set<string>()
+  const laws = new Set<string>()
+  const readiness: Record<NeedReadiness, number> = { served: 0, partial: 0, gap: 0 }
+  const workflows = new Set<NeedWorkflow>()
+  for (const n of ENGINEERING_NEEDS) {
+    readiness[n.readiness]++
+    workflows.add(n.workflow)
+    for (const s of n.chain) (s.kind === 'problem' ? problems : laws).add(s.id)
+  }
+  return { needs: ENGINEERING_NEEDS.length, readiness, problems: problems.size, laws: laws.size, workflows: workflows.size }
 }
 
 // ── 判定链步骤的派生状态（只读、从目录推导，供页面与 API 共用同一实现）──

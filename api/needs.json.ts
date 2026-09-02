@@ -2,11 +2,11 @@
 // 双桥愿景的需求侧出口：工程师/下游 agent 从工程需求反查支撑它的目录问题与
 // 经验定律（判定链），附就绪度（served/partial/gap）、对接标准、可消费形态、
 // 障碍与工作流落点。随契约 v0.1 版本化。
-import { ENGINEERING_NEEDS, chainStepState, type NeedStepState } from "../src/data/engineeringNeeds";
+import { ENGINEERING_NEEDS, chainStepState, demandCoverage, type NeedStepState } from "../src/data/engineeringNeeds";
 import { AUDITED_PROBLEMS } from "../src/data/audits";
 import { LAWS } from "../src/data/laws";
 
-export { chainStepState } from "../src/data/engineeringNeeds";
+export { chainStepState, demandCoverage } from "../src/data/engineeringNeeds";
 export type { NeedStepState } from "../src/data/engineeringNeeds";
 
 export function buildNeeds() {
@@ -42,3 +42,13 @@ export function buildNeeds() {
 
 export type NeedJson = ReturnType<typeof buildNeeds>[number];
 export type NeedChainJson = NeedJson["chain"][number];
+
+/** 需求侧聚合覆盖快照：被倒查的问题/定律数、就绪度分布、工作流落点数。 */
+export function buildCoverage() {
+  const cov = demandCoverage();
+  return {
+    ...cov,
+    shown_problems: AUDITED_PROBLEMS.length,
+    shown_laws: LAWS.length,
+  };
+}
