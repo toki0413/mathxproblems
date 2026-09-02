@@ -165,6 +165,27 @@ export type ProblemAttempt = typeof problemAttempts.$inferSelect;
 export type InsertProblemAttempt = typeof problemAttempts.$inferInsert;
 
 /**
+ * 自建评论区（不依赖 GitHub Discussions/Giscus）：每个目录问题下的匿名评论。
+ * 设计取向与「判定账本」刻意不同——评论即发即见（无审稿门槛），防滥用靠
+ * 访客+IP 限流与人机验证（writeAllowed）；这正是要避免「声明卡在待审」的体验。
+ * visitorId 保留用于限流/事后处置，不对外暴露。
+ */
+export const problemComments = sqliteTable("problem_comments", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  problemId: text("problemId", { length: 32 }).notNull(),
+  visitorId: text("visitorId", { length: 64 }),
+  // 自报署名，可选；留空则显示匿名。
+  authorName: text("authorName", { length: 128 }),
+  content: text("content").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+export type ProblemComment = typeof problemComments.$inferSelect;
+export type InsertProblemComment = typeof problemComments.$inferInsert;
+
+/**
  * 投票记录：一个访客对某个已通过候选最多投一票。
  * 匿名社区无登录，按 visitorId 计一人一票（同设备清洗 cookie 可规避，属匿名模型
  * 固有局限）；存量登录投票保留 userId。两个身份各有一组唯一约束兜底并发重复票。

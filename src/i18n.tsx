@@ -173,6 +173,14 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.references': { zh: '参考文献', en: 'References' },
   'pd.related': { zh: '关联问题', en: 'Related problems' },
   'pd.comments': { zh: '讨论', en: 'Discussion' },
+  // comments（自建评论区，D1 托管，匿名即发即见）
+  'cm.count': { zh: '条评论', en: 'comments' },
+  'cm.empty': { zh: '还没有评论。成为第一个发言的人——评论即发即见，无需审核。', en: 'No comments yet. Be the first to speak — comments publish immediately, no review gate.' },
+  'cm.anonymous': { zh: '匿名', en: 'Anonymous' },
+  'cm.author': { zh: '署名（可选）', en: 'Name (optional)' },
+  'cm.content': { zh: '写下你的评论……', en: 'Write a comment…' },
+  'cm.send': { zh: '发布', en: 'Post' },
+  'cm.note': { zh: '访客限流：同一设备每分钟至多 10 条。评论是社区讨论，不代表 MathX 的数学结论。', en: 'Rate-limited: max 10/min per visitor. Comments are community discussion, not MathX endorsements.' },
   'pd.meta': { zh: '元数据', en: 'Metadata' },
   'pd.obstacle.no': { zh: '障碍', en: 'Obstacle' },
   // stats

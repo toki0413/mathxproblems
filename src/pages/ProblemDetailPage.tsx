@@ -759,7 +759,7 @@ export default function ProblemDetailPage() {
           )}
 
           <Section title={t('pd.comments')}>
-            <Comments term={`${p.id} ${p.title}`} />
+            <Comments problemId={p.id} />
           </Section>
 
           <Section title={t('pd.attempts')}>

@@ -8,6 +8,13 @@
       "when": 1788287957440,
       "tag": "0000_thin_human_fly",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788351731801,
+      "tag": "0001_fuzzy_blur",
+      "breakpoints": true
     }
   ]
 }
