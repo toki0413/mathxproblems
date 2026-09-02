@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router'
-import { PROBLEMS, DOMAINS, type Domain } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { DOMAINS, type Domain } from '@/data/problems'
 import { DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
 import { useI18n, domainLabel, enumLabel } from '@/i18n'
@@ -19,26 +20,26 @@ export default function StatsPage() {
   const stats = useMemo(() => {
     const byDomain = (Object.keys(DOMAINS) as Domain[]).map((d) => ({
       domain: d,
-      count: PROBLEMS.filter((p) => p.domain === d).length,
+      count: AUDITED_PROBLEMS.filter((p) => p.domain === d).length,
       target: TARGETS[d],
     }))
     const byPotential = (['high', 'medium', 'low'] as const).map((v) => ({
       key: v,
-      count: PROBLEMS.filter((p) => p.formalization_potential === v).length,
+      count: AUDITED_PROBLEMS.filter((p) => p.formalization_potential === v).length,
     }))
     const byVerification = (['analytical', 'numerical'] as const).map((v) => ({
       key: v,
-      count: PROBLEMS.filter((p) => p.verification_path === v).length,
+      count: AUDITED_PROBLEMS.filter((p) => p.verification_path === v).length,
     }))
     const byStatus = (['open', 'partial', 'resolved'] as const).map((v) => ({
       key: v,
-      count: PROBLEMS.filter((p) => p.status === v).length,
+      count: AUDITED_PROBLEMS.filter((p) => p.status === v).length,
     }))
     const byOutput = (['verified_behavior', 'verified_truth', 'scaffolding'] as const).map((v) => ({
       key: v,
-      count: PROBLEMS.filter((p) => p.output === v).length,
+      count: AUDITED_PROBLEMS.filter((p) => p.output === v).length,
     }))
-    const relations = PROBLEMS.reduce((s, p) => s + p.related_problems.length, 0)
+    const relations = AUDITED_PROBLEMS.reduce((s, p) => s + p.related_problems.length, 0)
     return { byDomain, byPotential, byVerification, byStatus, byOutput, relations }
   }, [])
 
@@ -70,7 +71,7 @@ export default function StatsPage() {
         <p className="mt-4 text-ink-2">
           {t('st.milestone')
             .replace('{goal}', String(GOAL_PROBLEMS))
-            .replace('{n}', String(PROBLEMS.length))}
+            .replace('{n}', String(AUDITED_PROBLEMS.length))}
         </p>
       </Reveal>
 
@@ -115,7 +116,7 @@ export default function StatsPage() {
                       <span>{potentialLabel(key)}</span>
                       <span className="font-mono2 text-xs text-ink-3">{count}</span>
                     </div>
-                    <Bar value={count} max={PROBLEMS.length} />
+                    <Bar value={count} max={AUDITED_PROBLEMS.length} />
                   </div>
                 ))}
               </div>
@@ -134,7 +135,7 @@ export default function StatsPage() {
                       <span>{verificationLabel(key)}</span>
                       <span className="font-mono2 text-xs text-ink-3">{count}</span>
                     </div>
-                    <Bar value={count} max={PROBLEMS.length} />
+                    <Bar value={count} max={AUDITED_PROBLEMS.length} />
                   </div>
                 ))}
               </div>
@@ -153,7 +154,7 @@ export default function StatsPage() {
                       <span>{statusLabel(key)}</span>
                       <span className="font-mono2 text-xs text-ink-3">{count}</span>
                     </div>
-                    <Bar value={count} max={PROBLEMS.length} />
+                    <Bar value={count} max={AUDITED_PROBLEMS.length} />
                   </div>
                 ))}
               </div>
@@ -172,7 +173,7 @@ export default function StatsPage() {
                       <span>{outputLabel(key)}</span>
                       <span className="font-mono2 text-xs text-ink-3">{count}</span>
                     </div>
-                    <Bar value={count} max={PROBLEMS.length} color={OUTPUT_COLOR[key]} />
+                    <Bar value={count} max={AUDITED_PROBLEMS.length} color={OUTPUT_COLOR[key]} />
                   </div>
                 ))}
               </div>
@@ -185,7 +186,7 @@ export default function StatsPage() {
                 [t('st.relations'), String(stats.relations)],
                 [
                   t('st.avgObstacles'),
-                  (PROBLEMS.reduce((s, p) => s + p.obstacles.length, 0) / PROBLEMS.length).toFixed(1),
+                  (AUDITED_PROBLEMS.reduce((s, p) => s + p.obstacles.length, 0) / AUDITED_PROBLEMS.length).toFixed(1),
                 ],
               ].map(([k, v]) => (
                 <div key={k} className="bg-paper p-5">

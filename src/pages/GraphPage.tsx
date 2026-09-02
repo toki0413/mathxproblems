@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { PROBLEMS, DOMAINS, type Domain, type Problem } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { DOMAINS, type Domain, type Problem } from '@/data/problems'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { useI18n, pickLang, domainLabel } from '@/i18n'
 import { useVisited } from '@/hooks/useVisited'
@@ -23,7 +24,7 @@ export default function GraphPage() {
   const rowRefs = useRef(new Map<string, HTMLButtonElement>())
 
   const matches = q.trim()
-    ? PROBLEMS.filter((p) =>
+    ? AUDITED_PROBLEMS.filter((p) =>
         `${p.id} ${p.title} ${p.titleZh}`.toLowerCase().includes(q.trim().toLowerCase()),
       ).slice(0, 8)
     : []
@@ -33,7 +34,7 @@ export default function GraphPage() {
     () =>
       (Object.keys(DOMAINS) as Domain[]).map((d) => ({
         domain: d,
-        items: PROBLEMS.filter((p) => p.domain === d),
+        items: AUDITED_PROBLEMS.filter((p) => p.domain === d),
       })),
     [],
   )
@@ -122,7 +123,7 @@ export default function GraphPage() {
           >
             {t('gp.readcount')
               .replace('{v}', String(visited.size))
-              .replace('{t}', String(PROBLEMS.length))}
+              .replace('{t}', String(AUDITED_PROBLEMS.length))}
           </span>
         </div>
         <div className="overflow-y-auto min-h-0 flex-1">

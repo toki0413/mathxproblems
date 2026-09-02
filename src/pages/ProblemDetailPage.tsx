@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
-import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { impactRecord } from '@/data/impactDomains'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { Markdown } from '@/components/Markdown'
@@ -53,7 +54,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function ProblemDetailPage() {
   const { id } = useParams()
   const { lang, t } = useI18n()
-  const p = PROBLEMS.find((x) => x.id === id)
+  const p = AUDITED_PROBLEMS.find((x) => x.id === id)
   useMarkVisited(p?.id)
   const [copied, setCopied] = useState(false)
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
@@ -191,7 +192,7 @@ export default function ProblemDetailPage() {
   }
 
   const related = relatedOf(p)
-    .map((r) => ({ ...r, target: PROBLEMS.find((q) => q.id === r.id) }))
+    .map((r) => ({ ...r, target: AUDITED_PROBLEMS.find((q) => q.id === r.id) }))
     .filter((r) => r.target)
 
   return (

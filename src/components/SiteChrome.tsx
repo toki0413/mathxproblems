@@ -1,6 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router'
 import { useEffect, useState } from 'react'
-import { PROBLEMS } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
 import { GOAL_PROBLEMS } from '@/const'
 import { useI18n } from '@/i18n'
 
@@ -57,7 +57,7 @@ export function SiteHeader() {
             {t('nav.submit')}
           </Link>
           <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
-            {PROBLEMS.length} {t('nav.count')}
+            {AUDITED_PROBLEMS.length} {t('nav.count')}
           </span>
           <Link
             to="/review"
@@ -131,7 +131,7 @@ export function SiteFooter() {
             {t('footer.essay')}
           </Link>
           <span>
-            {t('footer.collected')} {PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
+            {t('footer.collected')} {AUDITED_PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
           </span>
           <span>{t('footer.license')}</span>
         </div>

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router'
 import { useMemo, useState } from 'react'
-import { PROBLEMS, DOMAINS, type Domain } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { DOMAINS, type Domain } from '@/data/problems'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { ProblemRow, DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
@@ -69,11 +70,11 @@ export default function HomePage() {
   const nav = useNavigate()
   const { lang, t } = useI18n()
   const latest = useMemo(
-    () => [...PROBLEMS].sort((a, b) => b.date_added.localeCompare(a.date_added)).slice(0, 5),
+    () => [...AUDITED_PROBLEMS].sort((a, b) => b.date_added.localeCompare(a.date_added)).slice(0, 5),
     [],
   )
   const [random, setRandom] = useState(
-    () => PROBLEMS[Math.floor(Math.random() * PROBLEMS.length)],
+    () => AUDITED_PROBLEMS[Math.floor(Math.random() * AUDITED_PROBLEMS.length)],
   )
   const recentVerif = trpc.attempts.recentVerifications.useQuery({ limit: 50 }, { retry: false })
   // 全站遥测：已验证收窄的累计信息量（比特），等宽数字防抖动
@@ -108,7 +109,7 @@ export default function HomePage() {
               to="/problems"
               className="rounded-full bg-ink text-paper px-6 py-2.5 text-sm font-medium hover:opacity-85 transition-opacity"
             >
-              {t('home.browse').replace('{n}', String(PROBLEMS.length))}
+              {t('home.browse').replace('{n}', String(AUDITED_PROBLEMS.length))}
             </Link>
             <Link
               to="/impact"
@@ -167,7 +168,7 @@ export default function HomePage() {
           ) : (
             <div className="border-t border-line">
               {(recentVerif.data ?? []).map((v, i) => {
-                const target = PROBLEMS.find((p) => p.id === v.problemId)
+                const target = AUDITED_PROBLEMS.find((p) => p.id === v.problemId)
                 if (!target) return null
                 return (
                   <Reveal key={v.id} delay={i * 30}>
@@ -232,7 +233,7 @@ export default function HomePage() {
           </Reveal>
           <div className="grid md:grid-cols-2 border-t border-l border-line">
             {(Object.keys(DOMAINS) as Domain[]).map((d, i) => {
-              const count = PROBLEMS.filter((p) => p.domain === d).length
+              const count = AUDITED_PROBLEMS.filter((p) => p.domain === d).length
               return (
                 <Reveal key={d} delay={i * 60}>
                   <Link
@@ -275,7 +276,7 @@ export default function HomePage() {
             </Reveal>
             <div>
               {latest.map((p) => (
-                <ProblemRow key={p.id} p={p} index={PROBLEMS.indexOf(p)} />
+                <ProblemRow key={p.id} p={p} index={AUDITED_PROBLEMS.indexOf(p)} />
               ))}
             </div>
           </div>
@@ -295,7 +296,7 @@ export default function HomePage() {
                   {t('home.view')}
                 </button>
                 <button
-                  onClick={() => setRandom(PROBLEMS[Math.floor(Math.random() * PROBLEMS.length)])}
+                  onClick={() => setRandom(AUDITED_PROBLEMS[Math.floor(Math.random() * AUDITED_PROBLEMS.length)])}
                   className="rounded-full border border-line-strong px-4 py-1.5 text-sm text-ink-2 hover:border-ink"
                 >
                   {t('home.another')}

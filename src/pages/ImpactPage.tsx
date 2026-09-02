@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
-import { PROBLEMS, DOMAINS, impactOf, type Problem } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { DOMAINS, impactOf, type Problem } from '@/data/problems'
 import { IMPACT_DOMAIN_RECORDS } from '@/data/impactDomains'
 import { Stars } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
@@ -61,7 +62,7 @@ const CERTIFICATION_MAP_EN: Record<string, { standard: string; impact: string }>
 
 export default function ImpactPage() {
   const { lang, t } = useI18n()
-  const certified = PROBLEMS.filter((p) => CERTIFICATION_MAP[p.id])
+  const certified = AUDITED_PROBLEMS.filter((p) => CERTIFICATION_MAP[p.id])
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -122,7 +123,7 @@ export default function ImpactPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0">
             {IMPACT_DOMAIN_RECORDS.map((rec) => {
-              const list = PROBLEMS.filter((p) => impactOf(p).includes(rec.name))
+              const list = AUDITED_PROBLEMS.filter((p) => impactOf(p).includes(rec.name))
               return (
                 <div key={rec.id} className="py-3 hairline-b">
                   <Link

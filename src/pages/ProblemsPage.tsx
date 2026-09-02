@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import Fuse from 'fuse.js'
+import { AUDITED_PROBLEMS } from '@/data/audits'
 import {
-  PROBLEMS,
   DOMAINS,
   ALL_IMPACT_DOMAINS,
   ALL_DELIVERABLES,
@@ -64,7 +64,7 @@ export default function ProblemsPage() {
 
   const fuse = useMemo(
     () =>
-      new Fuse(PROBLEMS, {
+      new Fuse(AUDITED_PROBLEMS, {
         keys: ['title', 'titleZh', 'tags', 'subdomain', 'statement'],
         threshold: 0.32,
         ignoreLocation: true,
@@ -73,7 +73,7 @@ export default function ProblemsPage() {
   )
 
   const filtered = useMemo(() => {
-    let list = query ? fuse.search(query).map((r) => r.item) : PROBLEMS
+    let list = query ? fuse.search(query).map((r) => r.item) : AUDITED_PROBLEMS
     if (domain) list = list.filter((p) => p.domain === domain)
     if (potential) list = list.filter((p) => p.formalization_potential === potential)
     if (verification) list = list.filter((p) => p.verification_path === verification)
@@ -92,6 +92,24 @@ export default function ProblemsPage() {
         <h1 className="font-statement text-4xl md:text-5xl font-bold tracking-tight">{t('pl.title')}</h1>
         <p className="mt-4 max-w-2xl text-ink-2">
           {t('pl.subtitle')}
+        </p>
+      </Reveal>
+
+      {/* 审计展示门说明：只有通过审计的问题在此展示 */}
+      <Reveal delay={40}>
+        <p className="mt-5 border border-line bg-white/50 px-4 py-3 text-xs text-ink-2 leading-relaxed">
+          {lang === 'zh' ? (
+            <>
+              展示 {AUDITED_PROBLEMS.length} 道已通过审计的问题。未通过的条目已从公共展示中撤下，
+              原因记录在审计表中，供人复核升级（<code className="font-mono2">src/data/audits.ts</code>）。
+            </>
+          ) : (
+            <>
+              Showing {AUDITED_PROBLEMS.length} problems that passed the audit gate. Flagged entries
+              are withheld from public display; their reasons remain on the audit record for review and
+              upgrade (<code className="font-mono2">src/data/audits.ts</code>).
+            </>
+          )}
         </p>
       </Reveal>
 
@@ -181,12 +199,12 @@ export default function ProblemsPage() {
 
       <div className="mt-10 flex items-baseline justify-between">
         <span className="font-mono2 text-xs text-ink-3">
-          {filtered.length} / {PROBLEMS.length} {t('pl.count')}
+          {filtered.length} / {AUDITED_PROBLEMS.length} {t('pl.count')}
         </span>
       </div>
       <div className="mt-2 hairline-t">
         {filtered.map((p) => (
-          <ProblemRow key={p.id} p={p} index={PROBLEMS.indexOf(p)} />
+          <ProblemRow key={p.id} p={p} index={AUDITED_PROBLEMS.indexOf(p)} />
         ))}
         {filtered.length === 0 && (
           <p className="py-16 text-center text-ink-3">

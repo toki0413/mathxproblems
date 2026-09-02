@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
+import { AUDITED_PROBLEMS } from '@/data/audits'
 import {
-  PROBLEMS,
   DOMAINS,
   RELATION_LABELS,
   impactOf,
@@ -134,7 +134,7 @@ export function ProblemGraph({
   const { data: dbRecent = [] } = trpc.updates.recent.useQuery(undefined, { staleTime: 60_000 })
   const recentIds = useMemo(() => {
     const s = new Set<string>(dbRecent)
-    PROBLEMS.forEach((p) => {
+    AUDITED_PROBLEMS.forEach((p) => {
       if (p.updates?.length) s.add(p.id)
     })
     return s
@@ -158,13 +158,13 @@ export function ProblemGraph({
   }, [hoverId])
 
   const allProblems = focusId
-    ? PROBLEMS.filter(
+    ? AUDITED_PROBLEMS.filter(
         (p) =>
           p.id === focusId ||
-          PROBLEMS.find((q) => q.id === focusId)?.related_problems.some((r) => r.id === p.id) ||
+          AUDITED_PROBLEMS.find((q) => q.id === focusId)?.related_problems.some((r) => r.id === p.id) ||
           p.related_problems.some((r) => r.id === focusId),
       )
-    : PROBLEMS
+    : AUDITED_PROBLEMS
 
   useEffect(() => {
     const canvas = canvasRef.current

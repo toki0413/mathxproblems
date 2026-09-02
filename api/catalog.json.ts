@@ -3,7 +3,10 @@
 // file: esbuild/Vite (and CF's bundler) parse TS + CJK fine, so there's no runtime
 // filesystem dependency — which keeps this module loadable in Cloudflare Workers.
 // Downstream agents/prover pipelines GET a versioned, etag-able snapshot.
-import { PROBLEMS, impactOf } from "../src/data/problems";
+// 展示门：公共 catalog 只暴露通过审计的问题（audits.ts status='passed'）。
+// 审计记录在 src/data/audits.ts（由 scripts/audit-gen.mjs 生成），flagged 条目不进入 API。
+import { AUDITED_PROBLEMS } from "../src/data/audits";
+import { impactOf } from "../src/data/problems";
 import type { Problem } from "../src/data/problems";
 import { MATHLIB_TOOLS } from "../src/data/mathlibTools";
 import { IMPACT_DOMAIN_RECORDS } from "../src/data/impactDomains";
@@ -76,7 +79,7 @@ function oneProblem(p: Problem) {
 }
 
 export function buildCatalog() {
-  return PROBLEMS.map(oneProblem).filter((p) => p.id);
+  return AUDITED_PROBLEMS.map(oneProblem).filter((p) => p.id);
 }
 
 export function buildTools() {

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { PROBLEMS, relatedOf } from '@/data/problems'
+import { AUDITED_PROBLEMS } from '@/data/audits'
+import { relatedOf } from '@/data/problems'
 import { MATHLIB_TOOLS } from '@/data/mathlibTools'
 import { LAWS } from '@/data/laws'
 import { IMPACT_DOMAIN_RECORDS } from '@/data/impactDomains'
@@ -9,13 +10,13 @@ import { useI18n } from '@/i18n'
 
 // Explicit, symmetric-complete edge list so AI consumers can traverse the
 // problem graph without parsing each problem's adjacency array.
-function relationsOf(list: typeof PROBLEMS) {
+function relationsOf(list: typeof AUDITED_PROBLEMS) {
   return list.flatMap((p) =>
     relatedOf(p).map((r) => ({ from: p.id, to: r.id, relation: r.relation })),
   )
 }
 
-function toJson(list: typeof PROBLEMS) {
+function toJson(list: typeof AUDITED_PROBLEMS) {
   return JSON.stringify(
     {
       generated: new Date().toISOString().slice(0, 10),
@@ -31,12 +32,12 @@ function toJson(list: typeof PROBLEMS) {
 export default function ApiPage() {
   const { t: t2 } = useI18n()
   const benchmark = useMemo(
-    () => PROBLEMS.filter((p) => p.formalization_potential === 'high'),
+    () => AUDITED_PROBLEMS.filter((p) => p.formalization_potential === 'high'),
     [],
   )
   const [which, setWhich] = useState<'problems' | 'benchmark'>('problems')
   const [copied, setCopied] = useState(false)
-  const data = which === 'problems' ? PROBLEMS : benchmark
+  const data = which === 'problems' ? AUDITED_PROBLEMS : benchmark
   const json = useMemo(() => toJson(data), [data])
 
   const download = () => {
@@ -60,7 +61,7 @@ export default function ApiPage() {
 
       <div className="mt-8 border border-line divide-y divide-[var(--line)]">
         {[
-          ['problems.json', t2('api.problems.desc'), PROBLEMS.length],
+          ['problems.json', t2('api.problems.desc'), AUDITED_PROBLEMS.length],
           ['benchmark.json', t2('api.benchmark.desc'), benchmark.length],
           ['tools.json', t2('api.tools.desc'), MATHLIB_TOOLS.length],
           ['laws.json', t2('api.laws.desc'), LAWS.length],
