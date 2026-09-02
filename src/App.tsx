@@ -16,6 +16,7 @@ const GraphPage = lazy(() => import('@/pages/GraphPage'))
 const LawsPage = lazy(() => import('@/pages/LawsPage'))
 const SubmitPage = lazy(() => import('@/pages/SubmitPage'))
 const ReviewPage = lazy(() => import('@/pages/ReviewPage'))
+const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="/laws" element={<LawsPage />} />
             <Route path="/submit" element={<SubmitPage />} />
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/blog/formalization-frontier" element={<BlogPostPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

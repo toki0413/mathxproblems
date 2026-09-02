@@ -127,6 +127,9 @@ export function SiteFooter() {
       <div className="hairline-t">
         <div className="mx-auto max-w-6xl px-5 py-4 font-mono2 text-[11px] text-ink-3 flex flex-wrap gap-x-6 gap-y-1">
           <span>© 2026 MathX Problems</span>
+          <Link to="/blog/formalization-frontier" className="hover:text-ink underline underline-offset-4">
+            {t('footer.essay')}
+          </Link>
           <span>
             {t('footer.collected')} {PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
           </span>
