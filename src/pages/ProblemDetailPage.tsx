@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { Markdown } from '@/components/Markdown'
@@ -106,6 +106,77 @@ export default function ProblemDetailPage() {
     ...(p?.updates ?? []).map((u) => ({ date: u.date, note: u.note, author: undefined as string | undefined })),
     ...(dbUpdates.data ?? []).map((u) => ({ date: u.date, note: u.note, author: u.authorName ?? undefined })),
   ].sort((a, b) => b.date.localeCompare(a.date))
+
+  // SEO：详情页标题 + OG meta + JSON-LD（ScholarlyArticle）。SPA 不能为每条
+  // 路由预渲染 head，因此在客户端注入，离开时还原标题并移除脚本。
+  useEffect(() => {
+    if (!p) return
+    const base = 'MathX Problems'
+    const url = `${window.location.origin}/problems/${p.id}`
+    const desc = `${p.domain} · ${p.subdomain} · ${p.status} · ${p.provenance ?? 'AI-drafted'} · added ${p.date_added}`
+    const prevTitle = document.title
+    document.title = `${p.title} — ${base}`
+
+    const setMeta = (prop: string, content: string) => {
+      let el = document.head.querySelector(`meta[property="${prop}"]`)
+      if (!el) {
+        el = document.createElement('meta')
+        el.setAttribute('property', prop)
+        document.head.appendChild(el)
+      }
+      el.setAttribute('content', content)
+    }
+    setMeta('og:title', `${p.title} — ${base}`)
+    setMeta('og:description', desc)
+    setMeta('og:url', url)
+
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'ScholarlyArticle',
+      headline: p.title,
+      alternativeHeadline: p.titleZh,
+      identifier: p.id,
+      url,
+      about: p.domain,
+      datePublished: p.date_added,
+      keywords: [...new Set([p.domain, p.subdomain, ...p.tags])].join(', '),
+      description: desc,
+      ...(p.proposer ? { author: { '@type': 'Person', name: p.proposer } } : {}),
+    }
+    let script = document.head.querySelector<HTMLScriptElement>('script[data-mathx-jsonld]')
+    if (!script) {
+      script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.setAttribute('data-mathx-jsonld', '')
+      document.head.appendChild(script)
+    }
+    script.textContent = JSON.stringify(ld)
+
+    return () => {
+      document.title = prevTitle
+      script?.remove()
+    }
+  }, [p])
+
+  // BibTeX：学术读者直接下载 .bib 条目（@misc，带 URL 与溯源说明）。
+  const bibtex = useMemo(() => {
+    if (!p) return ''
+    const key = `mathx-${p.id}`
+    const year = p.proposed_year ?? p.date_added.slice(0, 4)
+    const author = p.proposer ? `{${p.proposer}}` : '{Anonymous}'
+    const url = `${window.location.origin}/problems/${p.id}`
+    const note = `MathX Problems entry; provenance ${p.provenance ?? 'AI-drafted'}; statement of an open problem, not a result.`
+    return [
+      `@misc{${key},`,
+      `  title = {{${p.title}}},`,
+      `  howpublished = {\\url{${url}}},`,
+      `  year = {${year}},`,
+      `  author = ${author},`,
+      `  note = {${note}},`,
+      `}`,
+      '',
+    ].join('\n')
+  }, [p])
 
   if (!p) {
     return (
@@ -872,6 +943,20 @@ export default function ProblemDetailPage() {
                 className="w-full rounded-full border border-line-strong py-2 text-xs text-ink-2 hover:border-ink hover:text-ink transition-colors"
               >
                 {copied ? t('pd.copied') : t('pd.copyCit')}
+              </button>
+              <button
+                onClick={() => {
+                  const blob = new Blob([bibtex], { type: 'application/x-bibtex;charset=utf-8' })
+                  const url = URL.createObjectURL(blob)
+                  const a = document.createElement('a')
+                  a.href = url
+                  a.download = `${p.id}.bib`
+                  a.click()
+                  URL.revokeObjectURL(url)
+                }}
+                className="w-full rounded-full border border-line-strong py-2 mt-2 text-xs text-ink-2 hover:border-ink hover:text-ink transition-colors"
+              >
+                {t('pd.bibtex')}
               </button>
             </div>
           </div>

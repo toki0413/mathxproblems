@@ -30,6 +30,58 @@ const jsonReply = (body: string, c: import("hono").Context) => {
     "X-Contract-Version": JUDGEMENT_CONTRACT_VERSION,
   });
 };
+
+// ── RSS 2.0 feed ────────────────────────────────────────────────────────────
+// 从静态目录确定性生成「最新收录」feed，供读者订阅问题库的新增条目。
+// 与 problems.json 同一数据源，避免手维护 feed 内容与目录脱节。
+const SITE_URL = "https://mathx-bridge.pages.dev";
+const escapeXml = (s: string) =>
+  s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+/** YYYY-MM-DD → RFC-822 时间（RSS pubDate 格式）。 */
+const toRfc822 = (ymd: string) => {
+  const [y, m, d] = ymd.split("-").map(Number);
+  const date = new Date(Date.UTC(y || 1970, (m || 1) - 1, d || 1));
+  return date.toUTCString();
+};
+export function buildFeedXml(catalog: ReturnType<typeof buildCatalog>) {
+  const items = [...catalog]
+    .sort((a, b) => (b.date_added ?? "").localeCompare(a.date_added ?? ""))
+    .slice(0, 20)
+    .map((p) => {
+      const url = `${SITE_URL}/problems/${p.id}`;
+      const title = `[${p.id}] ${p.title}`;
+      const desc = `${p.domain} · ${p.status} · ${p.provenance ?? "AI-drafted"}`;
+      return `    <item>
+      <title>${escapeXml(title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${toRfc822(p.date_added ?? "")}</pubDate>
+      <description>${escapeXml(desc)}</description>
+    </item>`;
+    })
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MathX Problems — New entries</title>
+    <link>${SITE_URL}/</link>
+    <description>New open problems added to the MathX Problems catalog.</description>
+    <language>en</language>
+    <atom:link href="${SITE_URL}/api/v1/feed.xml" rel="self" type="application/rss+xml"/>
+${items}
+  </channel>
+</rss>`;
+}
+app.get("/api/v1/feed.xml", (c) =>
+  c.newResponse(buildFeedXml(buildCatalog()), 200, {
+    "Content-Type": "application/rss+xml; charset=utf-8",
+  }),
+);
 app.get("/api/v1/problems.json", (c) => jsonReply(JSON.stringify(buildCatalog()), c));
 app.get("/api/v1/benchmark.json", (c) => jsonReply(JSON.stringify(buildBenchmark()), c));
 // 形式工具注册表：mathlib 工具族 ↔ 工程判定的供给侧索引，供 agent 解析 tool_links。

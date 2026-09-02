@@ -18,6 +18,7 @@ function oneProblem(p: Problem) {
     status: p.status,
     provenance: p.provenance ?? "AI-drafted",
     lean_statement: p.lean_statement,
+    date_added: p.date_added,
     formalization_potential: p.formalization_potential,
     verification_path: p.verification_path,
     lifecycle_status: p.lifecycle_status ?? "open",

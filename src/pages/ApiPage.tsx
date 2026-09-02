@@ -69,6 +69,19 @@ export default function ApiPage() {
             <span className="font-mono2 text-xs text-ink-3">{n}</span>
           </div>
         ))}
+        {/* RSS 订阅：从同一目录确定性生成，无需单独维护 feed 内容 */}
+        <div className="grid md:grid-cols-[14rem_1fr_auto] gap-3 p-5 items-baseline">
+          <a href="/api/v1/feed.xml" className="font-mono2 text-sm underline decoration-line-strong underline-offset-4 hover:decoration-ink">
+            feed.xml
+          </a>
+          <span className="text-sm text-ink-2">{t2('api.feed.desc')}</span>
+          <a
+            href="/api/v1/feed.xml"
+            className="rounded-full border border-line-strong px-3.5 py-1 text-xs text-ink-2 hover:border-ink hover:text-ink transition-colors"
+          >
+            {t2('api.feed.subscribe')}
+          </a>
+        </div>
       </div>
 
       <div className="mt-10">

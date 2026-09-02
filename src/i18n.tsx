@@ -268,6 +268,11 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '经验定律边界图谱：失效域 + 形式化缺口（运动的需求清单）',
     en: 'Empirical-law boundary map — failure regimes + formalization gaps (the movement demand list)',
   },
+  'api.feed.desc': {
+    zh: '最新收录的 RSS 订阅源（自动从目录生成）',
+    en: 'RSS feed of the latest catalog additions (generated from the catalog)',
+  },
+  'api.feed.subscribe': { zh: '订阅', en: 'Subscribe' },
   'api.download': { zh: '下载', en: 'Download' },
   'api.copy': { zh: '复制', en: 'Copy' },
   'api.copied': { zh: '已复制', en: 'Copied' },
@@ -353,6 +358,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.provenance': { zh: '溯源', en: 'Provenance' },
   'pd.copied': { zh: '已复制', en: 'Copied' },
   'pd.copyCit': { zh: '复制引用格式', en: 'Copy citation' },
+  'pd.bibtex': { zh: '下载 BibTeX', en: 'Download BibTeX' },
   'pd.notFound': { zh: '未找到该问题。', en: 'Problem not found.' },
   'pd.back': { zh: '返回问题库', en: 'Back to catalog' },
   // problem detail - community attempts (提进展/解答候选)
