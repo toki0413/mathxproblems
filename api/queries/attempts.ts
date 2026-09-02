@@ -217,14 +217,17 @@ export async function listLatestClaimEvents(limit = 20) {
     ...r,
     authorName: r.authorName ?? registeredName,
   }));
-  const withHashes = withNames.map(({ content, narrative, ...r }) => ({
+  // 只追加账本的一致性要求：contentHash 覆盖 content/narrative 等全部证据字段，
+  // 因此 feed 输出必须保留这些字段，否则消费方无法按同一规范重算哈希
+  // （check-ledger.mjs 会因字段缺失而报告 hash-mismatch）。
+  const withHashes = withNames.map((r) => ({
     ...r,
     contentHash: evidenceHash({
       problemId: r.problemId,
       kind: r.kind,
       title: r.title,
-      content,
-      narrative,
+      content: r.content,
+      narrative: r.narrative,
       newBand: r.newBand,
       formalStatus: r.formalStatus,
       method: r.method,

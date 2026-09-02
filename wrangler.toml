@@ -14,3 +14,10 @@ pages_build_output_dir = "dist/public"
 binding = "DB"
 database_name = "mathx-bridge-db"
 database_id = "9ebfc6a9-4c93-42be-925e-63fabcbb01ba"
+
+# 运行时非敏感开关（随仓库部署注入；wrangler pages deploy 会以本文件为准重置
+# 项目 env_vars，因此非敏感配置放这里，敏感令牌走 `wrangler pages secret put`）。
+[vars]
+# 协议账本写路径门（契约 v0.1）：置 1 放开 POST /api/v1/claims/:id/narrow|formal，
+# 经审稿账本闭环后进 feed.json / ledger.json。留空/缺省即闭门（501）。
+CLAIMS_WRITE_ENABLED = "1"
