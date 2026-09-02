@@ -83,9 +83,9 @@ export const AUDITS: Record<string, ProblemAudit> = {
   'mp-025': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mp-026': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mp-027': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
-  'mp-028': { status: 'flagged', date: '2026-09-02', kind: 'ai-assisted', reason: "status=open is inconsistent: the cited reference Deng & Hani (Invent. Math. 233, 2023) proves the full derivation of the wave kinetic equation for this setup; status should reflect the resolved/partial state" },
+  'mp-028': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mp-029': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
-  'mp-030': { status: 'flagged', date: '2026-09-02', kind: 'ai-assisted', reason: "status=open is stale: the cited reference Imbrie (2016) proves many-body localization for exactly this disordered Heisenberg chain under strong-disorder conditions; status should reflect at least partial" },
+  'mp-030': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-016': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-017': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-018': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
@@ -103,7 +103,7 @@ export const AUDITS: Record<string, ProblemAudit> = {
   'mb-022': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mb-024': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'me-015': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
-  'me-017': { status: 'flagged', date: '2026-09-02', kind: 'ai-assisted', reason: "status=open is stale: global uniqueness for the Calderón problem in dimension >= 3 was settled by Haberman & Tataru (2013) for Lipschitz conductivities" },
+  'me-017': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'me-018': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'me-019': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'me-020': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
@@ -112,7 +112,7 @@ export const AUDITS: Record<string, ProblemAudit> = {
   'me-023': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mp-032': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mp-034': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
-  'mp-035': { status: 'flagged', date: '2026-09-02', kind: 'ai-assisted', reason: "verification_path=experimental violates the inclusion criterion (no new experiments needed); the BKT statement itself is a valid conjecture but must be re-mapped to analytical/numerical" },
+  'mp-035': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-027': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-028': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mb-026': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
@@ -135,7 +135,7 @@ export const AUDITS: Record<string, ProblemAudit> = {
 };
 
 /** 已通过审计、可在公共站点展示的问题 id 集合。 */
-export const AUDITED_PASSED = new Set(["mp-001","mp-002","mp-003","mp-004","mp-005","mp-006","mp-007","mp-008","mc-001","mc-002","mc-003","mc-004","mc-005","mb-001","mb-002","mb-003","mb-004","me-001","me-002","me-003","mp-009","mp-010","mp-011","mp-012","mp-013","mc-007","mc-008","mb-005","mb-006","mb-007","mb-008","me-004","me-005","me-006","mp-014","mp-015","mc-009","mb-009","mb-010","me-007","me-008","mp-016","mp-018","mc-011","mc-012","mb-011","mb-012","mb-013","me-009","me-010","me-011","me-012","me-013","me-014","mp-019","mp-020","mp-022","mc-014","mb-014","mb-015","mp-023","mp-024","mp-025","mp-026","mp-027","mp-029","mc-016","mc-017","mc-018","mc-019","mc-020","mc-021","mc-022","mc-023","mc-024","mb-016","mb-017","mb-019","mb-020","mb-021","mb-022","mb-024","me-015","me-018","me-019","me-020","me-021","me-022","me-023","mp-032","mp-034","mc-027","mc-028","mb-026","me-026","me-027","me-028","me-029","me-030","me-031","me-032","mp-036","mb-027","mc-029","mp-037","mp-040","me-034","mp-041","mc-030","mb-028"]);
+export const AUDITED_PASSED = new Set(["mp-001","mp-002","mp-003","mp-004","mp-005","mp-006","mp-007","mp-008","mc-001","mc-002","mc-003","mc-004","mc-005","mb-001","mb-002","mb-003","mb-004","me-001","me-002","me-003","mp-009","mp-010","mp-011","mp-012","mp-013","mc-007","mc-008","mb-005","mb-006","mb-007","mb-008","me-004","me-005","me-006","mp-014","mp-015","mc-009","mb-009","mb-010","me-007","me-008","mp-016","mp-018","mc-011","mc-012","mb-011","mb-012","mb-013","me-009","me-010","me-011","me-012","me-013","me-014","mp-019","mp-020","mp-022","mc-014","mb-014","mb-015","mp-023","mp-024","mp-025","mp-026","mp-027","mp-028","mp-029","mp-030","mc-016","mc-017","mc-018","mc-019","mc-020","mc-021","mc-022","mc-023","mc-024","mb-016","mb-017","mb-019","mb-020","mb-021","mb-022","mb-024","me-015","me-017","me-018","me-019","me-020","me-021","me-022","me-023","mp-032","mp-034","mp-035","mc-027","mc-028","mb-026","me-026","me-027","me-028","me-029","me-030","me-031","me-032","mp-036","mb-027","mc-029","mp-037","mp-040","me-034","mp-041","mc-030","mb-028"]);
 
 /** 已通过审计、可在公共站点展示的问题列表（展示门唯一事实来源）。 */
 export const AUDITED_PROBLEMS = PROBLEMS.filter((p) => AUDITS[p.id]?.status === "passed");

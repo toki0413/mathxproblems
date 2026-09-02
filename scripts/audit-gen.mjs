@@ -1,19 +1,23 @@
-// 生成 src/data/audits.ts：以 114 题真实 id 为基础，标记 4 条 flagged + 其余 passed。
+// 生成 src/data/audits.ts：以 114 题真实 id 为基础，标记 0 条 flagged（全部通过展示门）。
 // 审计为内部一致性审查（ai-assisted），非专家复核——这是诚实标签，不冒充专家意见。
 import { writeFileSync } from "node:fs";
 import { PROBLEMS } from "../src/data/problems.ts";
 
 const DATE = "2026-09-02";
 
-// 逐题审计后确认的真实问题（4 条）。其余 110 条通过。
-// 注：me-020 曾因引文乱码被 flagged，已于 2026-09-02 修复并核实
-// （Gérard-Varet–Dormy, JAMS 23 (2010)；Grenier–Guo–Nguyen, Duke Math. J. 165 (2016)），恢复为 passed。
-const FLAGS = {
-  "mp-035": "verification_path=experimental violates the inclusion criterion (no new experiments needed); the BKT statement itself is a valid conjecture but must be re-mapped to analytical/numerical",
-  "me-017": "status=open is stale: global uniqueness for the Calderón problem in dimension >= 3 was settled by Haberman & Tataru (2013) for Lipschitz conductivities",
-  "mp-030": "status=open is stale: the cited reference Imbrie (2016) proves many-body localization for exactly this disordered Heisenberg chain under strong-disorder conditions; status should reflect at least partial",
-  "mp-028": "status=open is inconsistent: the cited reference Deng & Hani (Invent. Math. 233, 2023) proves the full derivation of the wave kinetic equation for this setup; status should reflect the resolved/partial state",
-};
+// 首次审计（2026-09-02）标记了 5 条，随后逐条修复并核实，现全部恢复展示：
+//   me-020  — 引文乱码/DOI 误挂无关论文 → 修正为 Gérard-Varet–Dormy (JAMS 23, 2010)
+//            与 Grenier–Guo–Nguyen (Duke Math. J. 165, 2016)，已核实。
+//   mp-028  — 状态 open 与所引文献矛盾 → 改为 partial（Deng–Hani, Invent. Math. 233, 2023
+//            已证 O(1) 动力学时标的 WKE 推导；长时标/非高斯仍开）。
+//   mp-030  — 状态 open 过时 → 改为 partial（Imbrie, J. Stat. Phys. 163, 2016 已证强无序 MBL；
+//            无条件热力学极限稳定性仍争）。
+//   me-017  — 状态 open 过时 → 改为 partial（Haberman–Tataru, Duke Math. J. 162, 2013 已证
+//            Lipschitz 情形；L^∞ 情形仍开）。
+//   mp-035  — 验证路径 experimental 违反收录标准 → 改为 analytical（目标为严格证明，
+//            实验观测仅为佐证）。
+// FLAGS 现为空：任何新 flagged 应在这里显式登记并附修复路径，而非静默通过。
+const FLAGS = {};
 
 const lines = [];
 lines.push("// 逐题审计结果（2026-09-02，ai-assisted 内部一致性审查，非专家复核）。");
