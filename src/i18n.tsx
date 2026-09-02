@@ -160,6 +160,11 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.failure.method': { zh: '方法', en: 'Method' },
   'pd.failure.partial': { zh: '已知部分结果', en: 'Partial result' },
   'pd.failure.impact': { zh: '启示', en: 'Implication' },
+  'pd.failure.suggest': { zh: '建议工具族', en: 'Suggested tool families' },
+  'pd.failure.suggest.gap': {
+    zh: '本题尚未挂载任一建议工具族——可经双桥写路径补 tool_links 缺口。',
+    en: 'None of the suggested tool families is linked on this problem — a tool_links gap to fill via the dual-bridge write path.',
+  },
   'pd.tools': { zh: '形式工具映射', en: 'Formal tool mapping' },
   'pd.tools.hint': {
     zh: '本题 ↔ mathlib 工具族的双向索引（可用 / 部分 / 缺失）。',

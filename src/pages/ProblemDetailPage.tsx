@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { impactRecord } from '@/data/impactDomains'
-import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
+import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById, recommendedToolsForMechanism } from '@/data/mathlibTools'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
@@ -557,6 +557,42 @@ export default function ProblemDetailPage() {
                         <div className="font-statement leading-[1.85] text-ink-2 mt-1">{r.implication}</div>
                       </div>
                     )}
+                    {recommendedToolsForMechanism(r.mechanism).length > 0 &&
+                      (() => {
+                        const suggested = recommendedToolsForMechanism(r.mechanism)
+                        const linked = new Set((p.tool_links ?? []).map((tl) => tl.tool_id))
+                        const hasGap = !suggested.some((tool) => linked.has(tool.id))
+                        return (
+                          <div className="mt-3">
+                            <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+                              {t('pd.failure.suggest')}
+                            </div>
+                            <div className="flex flex-wrap gap-2 mt-1.5">
+                              {suggested.map((tool) => (
+                                <a
+                                  key={tool.id}
+                                  href={tool.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className={
+                                    'border rounded-full px-3 py-1 text-xs bg-white/50 ' +
+                                    (linked.has(tool.id)
+                                      ? 'border-ink-2/40 text-ink'
+                                      : 'border-line text-ink-3 hover:underline underline-offset-2')
+                                  }
+                                >
+                                  {tool.name}
+                                </a>
+                              ))}
+                            </div>
+                            {hasGap && (
+                              <p className="mt-2 font-statement text-[13px] leading-[1.7] text-ink-3">
+                                {t('pd.failure.suggest.gap')}
+                              </p>
+                            )}
+                          </div>
+                        )
+                      })()}
                   </div>
                 ))}
               </div>
