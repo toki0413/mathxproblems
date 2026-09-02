@@ -11,6 +11,7 @@ const StatsPage = lazy(() => import('@/pages/StatsPage'))
 const ApiPage = lazy(() => import('@/pages/ApiPage'))
 const ImpactPage = lazy(() => import('@/pages/ImpactPage'))
 const NeedsPage = lazy(() => import('@/pages/NeedsPage'))
+const LedgerPage = lazy(() => import('@/pages/LedgerPage'))
 const GraphPage = lazy(() => import('@/pages/GraphPage'))
 const LawsPage = lazy(() => import('@/pages/LawsPage'))
 const SubmitPage = lazy(() => import('@/pages/SubmitPage'))
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/api" element={<ApiPage />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/needs" element={<NeedsPage />} />
+            <Route path="/ledger" element={<LedgerPage />} />
             <Route path="/laws" element={<LawsPage />} />
             <Route path="/submit" element={<SubmitPage />} />
             <Route path="/review" element={<ReviewPage />} />

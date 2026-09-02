@@ -9,6 +9,7 @@ const NAV = [
   { to: '/graph', key: 'nav.graph' },
   { to: '/impact', key: 'nav.impact' },
   { to: '/needs', key: 'nav.needs' },
+  { to: '/ledger', key: 'nav.ledger' },
   { to: '/laws', key: 'nav.laws' },
   { to: '/stats', key: 'nav.stats' },
   { to: '/about', key: 'nav.about' },

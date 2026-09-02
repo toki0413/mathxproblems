@@ -66,6 +66,7 @@ export default function ApiPage() {
           ['laws.json', t2('api.laws.desc'), LAWS.length],
           ['impact.json', t2('api.impact.desc'), IMPACT_DOMAIN_RECORDS.length],
           ['needs.json', t2('api.needs.desc'), ENGINEERING_NEEDS.length],
+          ['ledger.json', t2('api.ledger.desc'), 'append-only'],
         ].map(([path, desc, n]) => (
           <div key={path as string} className="grid md:grid-cols-[14rem_1fr_auto] gap-3 p-5 items-baseline">
             <code className="font-mono2 text-sm">{path}</code>

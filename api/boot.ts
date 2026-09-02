@@ -8,6 +8,7 @@ import { ensureVisitorId } from "./visitor";
 import { buildCatalog, buildBenchmark, buildTools, buildImpact, snapshotVersion } from "./catalog.json";
 import { buildLaws } from "./laws.json";
 import { buildNeeds } from "./needs.json";
+import { buildLedger } from "./ledger.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
 import { registerClaimsWriteRoutes } from "./claims-write";
@@ -93,6 +94,17 @@ app.get("/api/v1/laws.json", (c) => jsonReply(JSON.stringify(buildLaws()), c));
 app.get("/api/v1/impact.json", (c) => jsonReply(JSON.stringify(buildImpact()), c));
 // 工程反向需求清单：工程需求 → 支撑问题/定律 + 就绪度（C）。
 app.get("/api/v1/needs.json", (c) => jsonReply(JSON.stringify(buildNeeds()), c));
+// 协议账本的可核验导出：只追加 + 参考核验器判定（契约 v0.1）。
+// 无数据库时（如纯前端 dev）降级为空的契约外壳，不因 DB 缺失而 500。
+app.get("/api/v1/ledger.json", async (c) => {
+  let ledger: unknown;
+  try {
+    ledger = await buildLedger();
+  } catch {
+    ledger = { contract: JUDGEMENT_CONTRACT_VERSION, generated: new Date().toISOString(), append_only: true, count: 0, events: [] };
+  }
+  return jsonReply(JSON.stringify(ledger), c);
+});
 // 变更 feed：最近被评审通过的声明事件——带证收窄（S 侧，kind='verification'）
 // 与形式化补证（M 侧，kind='formal'），供下游消费方做增量同步。
 // verification 事件附 bits（相对题内上一条已通过的收窄的信息量增益）。
