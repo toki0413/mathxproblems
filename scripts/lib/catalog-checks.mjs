@@ -6,6 +6,8 @@
 // 参考核验器（契约 v0.1）：Node 24 以 type-stripping 直接运行 contracts/*.ts，
 // 让结构守卫与共享核验器共用同一实现，而不是各写一套正则。
 import { verifyCertificate } from "../../contracts/verifier.ts";
+// 智能任务图（机制→建议工具族）与前端共用同一份数据，避免两处映射漂移。
+import { MECHANISM_GUIDANCE } from "../../src/data/mathlibTools.ts";
 
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
@@ -66,6 +68,8 @@ export function parseCatalog(src) {
   const bridges = new Set()
   const bridgeDirections = new Map() // id -> bridge.direction 值
   const bridgeResiduals = new Map() // id -> bridge.shared_residuals 数组
+  const procMechanisms = new Map() // id -> Set<failure mechanism> (failure_records)
+  const procTools = new Map() // id -> Set<tool_id> (tool_links)
   let pendingJudgment = false
   let pendingNote = false
   for (const line of src.split(/\r?\n/)) {
@@ -111,6 +115,16 @@ export function parseCatalog(src) {
     const sr = line.match(/^      shared_residuals: \[([^\]]*)\]/)
     if (sr && cur) bridgeResiduals.set(cur, [...sr[1].matchAll(/'([^']+)'/g)].map((m) => m[1]))
     if (/^    (proposer|via):/.test(line) && cur) hasTrace.add(cur)
+    const mechM = line.match(/mechanism: '([^']+)'/)
+    if (mechM && cur) {
+      if (!procMechanisms.has(cur)) procMechanisms.set(cur, new Set())
+      procMechanisms.get(cur).add(mechM[1])
+    }
+    const toolM = line.match(/tool_id: '([^']+)'/)
+    if (toolM && cur) {
+      if (!procTools.has(cur)) procTools.set(cur, new Set())
+      procTools.get(cur).add(toolM[1])
+    }
     const dMatch = line.match(/^    date_added: '([^']+)'/)
     if (dMatch && cur) dates.set(cur, dMatch[1])
     const to = line.match(/^        id: '([^']+)',/)
@@ -131,14 +145,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
+  return { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals, procMechanisms, procTools }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
+  const { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals, procMechanisms, procTools } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -398,6 +412,30 @@ export function checkCatalog(raw) {
   if (badMech.length) failures.push(`failure_records use unknown mechanism: ${[...new Set(badMech)].join(', ')}`)
   if (badLayer.length) failures.push(`failure_records use invalid layer: ${[...new Set(badLayer)].join(', ')}`)
   else notes.push(`pilot index: ${toolCount} tool_links blocks, ${failureCount} failure_records blocks`)
+
+  // 智能任务图（差异化第二项）：机制命中的题应挂上一族 MECHANISM_GUIDANCE 建议工具，
+  // 否则记工具缺口警告——这正是 agent 看到的"该往哪争取工具/补哪层"的机器可读指示。
+  // 语义图完整性：映射建议的工具必须存在于注册表，避免指向不存在的工具族。
+  const badSuggest = Object.entries(MECHANISM_GUIDANCE).flatMap(([m, { tools }]) =>
+    tools.filter((t) => !TOOL_IDS.has(t)).map((t) => `${m}:${t}`),
+  )
+  if (badSuggest.length)
+    failures.push(`MECHANISM_GUIDANCE references unknown tools: ${badSuggest.join(', ')}`)
+  const toolGaps = []
+  let mechHits = 0
+  for (const id of ids) {
+    const mechs = procMechanisms.get(id)
+    if (!mechs || mechs.size === 0) continue
+    mechHits += mechs.size
+    const linked = procTools.get(id) ?? new Set()
+    for (const mech of mechs) {
+      const rec = MECHANISM_GUIDANCE[mech]?.tools ?? []
+      if (!rec.some((t) => linked.has(t))) toolGaps.push(`${id}:${mech}（建议 ${rec.join('/') || '∅'}）`)
+    }
+  }
+  if (toolGaps.length)
+    warnings.push(`task map → tool gap: 机制命中但未挂建议工具族 — ${toolGaps.join('; ')}`)
+  else if (mechHits) notes.push(`task map: ${mechHits} mechanism hits, all link a recommended tool family`)
 
   const delivIds = [...hasDeliverables]
   if (delivIds.length) notes.push(`engineering_deliverables: ${delivIds.length} problems have structured deliverables`)

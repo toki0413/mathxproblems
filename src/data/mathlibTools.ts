@@ -173,3 +173,41 @@ export const TOOL_ROLE_LABEL: Record<ToolRole, string> = {
 }
 
 export const toolById = (id: string): FormalTool | undefined => MATHLIB_TOOLS.find((t) => t.id === id)
+
+/**
+ * 智能任务图（差异化第二项）：失败机制 → 建议 mathlib 工具族。
+ * 外部 agent 在某题被某机制卡住时，这里给出"该往哪争取工具/补哪层定义"的候选族。
+ * 工具族必须∈ MATHLIB_TOOLS；理由基于各工具 blurb 的支撑面，不虚构具体结论。
+ * 与 scripts/lib/catalog-checks.mjs 的任务图缺口检测共用同一份数据（scripts 直接 import 本模块）。
+ */
+export const MECHANISM_GUIDANCE: Record<
+  FailureMechanism,
+  { tools: FormalTool['id'][]; reason: string }
+> = {
+  combinatorial: {
+    tools: ['combinatorics-graph', 'analysis-asymptotics', 'lattice-order'],
+    reason: '枚举不可行 → 用图论分类 / 渐近量级 / 序结构把指数候选族降为可核验判定。',
+  },
+  missing_bound: {
+    tools: ['analysis-asymptotics', 'spectral-operator', 'lattice-order', 'interval-numerics'],
+    reason: '缺先验界 → 分析不等式 / 谱隙与预解式界 / 单调性 / 区间上界四族提供必要上界。',
+  },
+  nonconvex: {
+    tools: ['convex-optimization', 'polynomial-real'],
+    reason: '非凸/不可判定 → SOS–SDP 松弛或实代数判定把不可判定松弛为可核验可行性/最优性判据。',
+  },
+  unbounded_residual: {
+    tools: ['interval-numerics', 'analysis-asymptotics'],
+    reason: '残差不可控 → 认证数值（区间）封住 R_num，渐近分析给量级控制。',
+  },
+  parameter_sensitive: {
+    tools: ['interval-numerics', 'stochastic-processes', 'measure-ergodic'],
+    reason: '输入不确定度放大 → 区间传播 / 概率随机界 / 遍历稳健性把放大纳入显式上界。',
+  },
+}
+
+/** 按失败机制取建议工具族（任务图查询）。 */
+export function recommendedToolsForMechanism(m: FailureMechanism): FormalTool[] {
+  const ids = MECHANISM_GUIDANCE[m]?.tools ?? []
+  return ids.map((id) => toolById(id)).filter((t): t is FormalTool => t !== undefined)
+}

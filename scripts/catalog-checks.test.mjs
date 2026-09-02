@@ -7,6 +7,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { checkCatalog } from './lib/catalog-checks.mjs'
 import { verifyCertificate, checkInformation } from '../contracts/verifier.ts'
+import { MECHANISM_GUIDANCE, MATHLIB_TOOLS } from '../src/data/mathlibTools.ts'
 
 // Minimal but rule-valid problem block. Every field is required by some rule;
 // a "clean" vb problem must satisfy them all so the test targets one axis only.
@@ -413,4 +414,39 @@ test('residual ledger: missing a layer upper reports needs_form, not a pass', ()
   })
   assert.equal(v.checks.total_residual_arith, 'needs_form')
   assert.equal(v.pass, true) // needs_form 不算失败，但如实报告未机检
+})
+
+// ── 智能任务图（机制 → 建议工具族）──
+function mechProblem(id, mech, tools) {
+  return `
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+    failure_records: [
+      { method: 'm', mechanism: '${mech}' },
+    ],
+    tool_links: [${tools.map((t) => `{ tool_id: '${t}', role: 'partial' }`).join(', ')}],
+    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+`
+}
+
+test('task map: every recommended tool exists in the registry', () => {
+  const registry = new Set(MATHLIB_TOOLS.map((t) => t.id))
+  for (const [mech, { tools }] of Object.entries(MECHANISM_GUIDANCE)) {
+    assert.ok(tools.length > 0, `mechanism ${mech} must have ≥1 recommended tool`)
+    for (const t of tools) assert.ok(registry.has(t), `${mech}→${t} not in MATHLIB_TOOLS`)
+  }
+})
+
+test('task map: linking a recommended tool for the mechanism stays quiet', () => {
+  const src = `export const PROBLEMS = [ {${mechProblem('x-040', 'missing_bound', ['analysis-asymptotics'])}} ]`
+  assert.ok(!warnings(src).some((w) => w.includes('task map')))
+})
+
+test('task map: mechanism whose recommended tools are unlinked warns', () => {
+  const src = `export const PROBLEMS = [ {${mechProblem('x-041', 'missing_bound', ['topology'])}} ]`
+  assert.ok(warnings(src).some((w) => w.includes('task map') && w.includes('x-041:missing_bound')))
 })
