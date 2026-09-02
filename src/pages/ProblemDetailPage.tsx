@@ -4,6 +4,7 @@ import { AUDITED_PROBLEMS } from '@/data/audits'
 import { DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { impactRecord } from '@/data/impactDomains'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
+import { needsDemandingProblem } from '@/data/engineeringNeeds'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
@@ -194,6 +195,8 @@ export default function ProblemDetailPage() {
   const related = relatedOf(p)
     .map((r) => ({ ...r, target: AUDITED_PROBLEMS.find((q) => q.id === r.id) }))
     .filter((r) => r.target)
+  // 需求侧倒查：哪些工程需求把这道题当作支撑（从 /needs 反查回来）。
+  const demandingNeeds = needsDemandingProblem(p.id)
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -739,6 +742,35 @@ export default function ProblemDetailPage() {
               </ul>
               <div className="mt-6">
                 <ProblemGraph height={300} focusId={p.id} />
+              </div>
+            </Section>
+          )}
+
+          {demandingNeeds.length > 0 && (
+            <Section title={t('pd.demanded')}>
+              <p className="text-sm text-ink-2 leading-relaxed">{t('pd.demanded.body')}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {demandingNeeds.map((n) => (
+                  <Link
+                    key={n.id}
+                    to="/needs"
+                    className="group border border-line rounded-full pl-3 pr-2 py-1 text-xs flex items-center gap-2 hover:border-ink transition-colors"
+                  >
+                    <span className="font-mono2 text-[11px] text-ink-3 group-hover:text-ink">{n.id.replace('need-', '')}</span>
+                    <span className="max-w-[16rem] truncate text-ink-3">{n.name}</span>
+                    <span
+                      className={`rounded-full border px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider ${
+                        n.readiness === 'served'
+                          ? 'text-mc border-mc/50'
+                          : n.readiness === 'partial'
+                            ? 'text-[#9a5b13] border-[#9a5b13]/40'
+                            : 'text-me border-me/50'
+                      }`}
+                    >
+                      {t(`nd.${n.readiness}`)}
+                    </span>
+                  </Link>
+                ))}
               </div>
             </Section>
           )}

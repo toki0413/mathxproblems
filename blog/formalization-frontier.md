@@ -46,9 +46,9 @@ Engineers use empirical laws every day. Most of them fail to hold as rigorous ma
 
 Each gap is a *prover need*: a precisely stated target for someone to formalize, or to bound the error of. This is the demand side of the ledger, and it is published machine-readably.
 
-## Ten engineering needs, five with open gaps
+## Eighteen engineering needs, seven with open gaps
 
-From the demand side, we reverse-map concrete engineering needs back to the catalog. Ten needs across thermal, CFD, control, and bioreactor engineering; **five are partial, five are gaps**. One example: *"a certified thermal margin for convective cooling"* — two catalog problems provide certified bands, but the Fourier's-law residual from microscopic dynamics remains open. The gap is stated, so it can be attacked rather than hand-waved.
+From the demand side, we reverse-map concrete engineering needs back to the catalog. Eighteen needs across thermal, CFD, control, bioprocess, imaging, materials, and quantum metrology — **one is served, ten partial, seven are gaps**. Each need is a decision dossier: an ordered chain of sub-judgements to certify (consumable certificates, foundational anchors, empirical laws), the engineering standard it plugs into (JEDEC, ISO 26262, IEC 61511, ASME V&V, …), what "served" would look like, the current barrier, and its workflow slot. One example: *"a certified thermal margin for convective cooling"* — two catalog problems provide certified bands, but the Fourier's-law residual from microscopic dynamics remains open. Every problem page also reverses the lookup: *which engineering needs demand this problem*. The gap is stated, so it can be attacked rather than hand-waved.
 
 ## The ledger: an append-only, machine-checkable trust layer
 

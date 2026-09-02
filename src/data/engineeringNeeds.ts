@@ -1,22 +1,48 @@
-// Engineering-need reverse demand list (C: 工程反向需求清单).
+// Engineering-need reverse demand list (C: 工程反向需求清单), deepened.
 //
 // 工程师带着一个具体需求来（"我要给散热器一个可核验的热裕量""我要给生物反应器
 // 一个不塌方的稳定性证书"），MathX 反向回答：哪些问题/定律支撑这个需求、现在
 // 到什么程度、缺口在哪。这是双桥愿景的需求侧入口——工程问题 ↔ 可证判定。
 //
-// 诚实规则（由 scripts/check-needs.mjs 在 CI 强制）：
-//   - problems 里每个 id 必须存在于目录；laws 里每个 id 必须存在于 laws.ts；
-//   - readiness 枚举合法；need id 唯一；
-//   - 每条需求必须锚定真实问题（禁止凭空编造"支撑问题"）。
+// 每条需求现在是一份"判定档案"：
+//   chain      按依赖顺序列出要 certify 的子判定（问题或定律，含角色与"要证什么"）
+//   standard   该判定落地的工程标准/规范（真实存在，供工程侧对接）
+//   consumable 什么算"被服务"：可消费输出的量化形态
+//   barrier    当前缺口的具体障碍（为什么还没 served）
+//   workflow   判定在工程工作流中的落点
+//   readiness  served = 已有可直接消费的证书；partial = 至少一个锚点；gap = 全部开放
 //
-// readiness 语义：
-//   served  = 已有可直接消费的证书（verified_behavior + certificate 已闭环）；
-//   partial = 至少一个可消费锚点（证书题 / 部分已解决题），但整体缺口仍在；
-//   gap     = 支撑题全部开放，无任何可消费证书。
+// 诚实规则（由 scripts/check-needs.mjs 在 CI 强制）：
+//   - chain 里每个 id 必须存在于目录（problem）或 laws.ts（law），kind 必须匹配；
+//   - problem 角色的 role 枚举合法；law 步骤必须用 role='law'；
+//   - workflow / readiness 枚举合法；need id 唯一；chain 非空；
+//   - standard / consumable / barrier 必须非空（禁止无出处地声称"对接某标准"）。
 
 export type NeedReadiness = 'served' | 'partial' | 'gap'
 /** 问题在需求中的角色：certificate=可直接消费的证书；anchor=奠基性结构证；related=支撑/相关。 */
 export type NeedProblemRole = 'certificate' | 'anchor' | 'related'
+/** 判定链中一个步骤的角色（law 步骤统一用 'law'）。 */
+export type NeedChainRole = NeedProblemRole | 'law'
+/** 判定在工程工作流中的落点。 */
+export type NeedWorkflow =
+  | 'design-review'
+  | 'safety-case'
+  | 'alarm-setpoint'
+  | 'validation'
+  | 'screening'
+  | 'deployment'
+  | 'monitoring'
+  | 'sign-off'
+
+export interface NeedChainStep {
+  /** 目录问题或定律的 id（必须真实存在）。 */
+  id: string
+  /** problem = 目录问题；law = laws.ts 的经验定律。 */
+  kind: 'problem' | 'law'
+  role: NeedChainRole
+  /** 该子判定要 certify 什么（工程师视角一句话）。 */
+  what: string
+}
 
 export interface EngineeringNeed {
   id: string
@@ -26,10 +52,16 @@ export interface EngineeringNeed {
   area: string
   /** 工程师要 certify/decide 什么。 */
   description: string
-  /** 支撑它的目录问题（真实 id）。 */
-  problems: { id: string; role: NeedProblemRole }[]
-  /** 牵涉的经验定律（laws.ts 的 id）。 */
-  laws: string[]
+  /** 决策判定链：按依赖顺序列出要 certify 的子判定。 */
+  chain: NeedChainStep[]
+  /** 对接的工程标准/规范（真实存在）。 */
+  standard: string
+  /** 什么算"被服务"：可消费输出的量化形态。 */
+  consumable: string
+  /** 当前缺口的具体障碍。 */
+  barrier: string
+  /** 判定在工程工作流中的落点。 */
+  workflow: NeedWorkflow
   readiness: NeedReadiness
   /** 诚实的现状/缺口说明。 */
   note: string
@@ -41,6 +73,17 @@ export const NEED_READINESS_LABEL: Record<NeedReadiness, string> = {
   gap: 'Gap',
 }
 
+export const NEED_WORKFLOW_LABEL: Record<NeedWorkflow, string> = {
+  'design-review': 'Design review',
+  'safety-case': 'Safety case',
+  'alarm-setpoint': 'Alarm / set-point',
+  validation: 'Validation',
+  screening: 'Screening',
+  deployment: 'Deployment',
+  monitoring: 'Monitoring',
+  'sign-off': 'Sign-off',
+}
+
 export const ENGINEERING_NEEDS: EngineeringNeed[] = [
   {
     id: 'need-thermal-margin',
@@ -48,13 +91,34 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Thermal engineering',
     description:
       'A design-review decision: given a heat-sink geometry and a Rayleigh–Bénard-style flow regime, certify an upper bound on the Nusselt number and a peak-temperature margin that does not rely on unverified CFD.',
-    problems: [
-      { id: 'mp-037', role: 'certificate' },
-      { id: 'mp-041', role: 'certificate' },
+    chain: [
+      {
+        id: 'mp-037',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Certify an upper bound on heat transport (Nusselt number) in Rayleigh–Bénard convection — the transport ceiling the heat-sink design must respect.',
+      },
+      {
+        id: 'mp-041',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Certify the heat-sink thermal margin via a three-layer residual total band on free convection (model / input / numerical).',
+      },
+      {
+        id: 'law-fourier',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the residual of Fourier\u2019s law vs. microscopic phonon transport at device scale — the conduction-side assumption behind the temperature margin.',
+      },
     ],
-    laws: ['law-fourier'],
+    standard: 'JEDEC JESD51 (thermal characterization of electronic packages)',
+    consumable:
+      'A certified [lo, hi] band on peak junction / heat-sink temperature with R_model + R_param + R_num residual — consumable directly at design review.',
+    barrier:
+      'Fourier\u2019s law lacks a strict microscopic derivation at device scale (law-fourier, partial); the convection-side bounds (mp-037, mp-041) are certified but the conduction residual keeps the total band honest.',
+    workflow: 'design-review',
     readiness: 'partial',
-    note: 'Two certified-band problems exist (heat transport upper bound; heat-sink margin). Fourier\u2019s-law gap from microscopic dynamics remains open — the residual band is the honest boundary.',
+    note: 'Two certified-band problems anchor the demand; the residual band from the unproven conduction law is the honest boundary.',
   },
   {
     id: 'need-turbulence-closure',
@@ -62,13 +126,34 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'CFD / aerospace',
     description:
       'RANS/LES closures need a certified statement about the dissipation mechanism they model: does the zero-viscosity limit dissipate anomalously, and can the mixing-length ansatz be bounded?',
-    problems: [
-      { id: 'mp-008', role: 'anchor' },
-      { id: 'mp-036', role: 'anchor' },
+    chain: [
+      {
+        id: 'mp-008',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Decide whether the zero-viscosity limit of forced Navier–Stokes dissipates anomalously (the zeroth law of turbulence) — the physical premise every closure inherits.',
+      },
+      {
+        id: 'mp-036',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Establish sharp mixing rates from anomalous dissipation in passive scalar transport — the mechanism a scalar-mixing closure must reproduce.',
+      },
+      {
+        id: 'law-mixinglength',
+        kind: 'law',
+        role: 'law',
+        what: 'Derive or bound an error for the algebraic mixing-length closure from the Navier–Stokes equations.',
+      },
     ],
-    laws: ['law-mixinglength'],
+    standard: 'ASME V&V 20-2009 (verification & validation in CFD)',
+    consumable:
+      'A certified residual bound attached to a chosen RANS/LES closure, so that \u201cthe closure error \u2264 \u03b5 in this flow class\u201d is a machine-checkable claim.',
+    barrier:
+      'Both supporting problems (mp-008, mp-036) are open and the mixing-length law has no rigorous derivation (law-mixinglength, gap) — the whole closure family lacks a mathematical basis.',
+    workflow: 'validation',
     readiness: 'gap',
-    note: 'Both supporting problems are open; the Prandtl mixing-length law is an unproven empirical closure with a documented failure regime (law-mixinglength, gap).',
+    note: 'The demand side of the closure question: a certified dissipation statement is precisely what RANS/LES validation is missing.',
   },
   {
     id: 'need-consensus-rate',
@@ -76,14 +161,34 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Control / multi-agent',
     description:
       'A distributed controller for a fleet (UAV, sensor, robot) needs a certified convergence rate over time-varying / quantized links, replacing simulation-only tuning.',
-    problems: [
-      { id: 'me-001', role: 'anchor' },
-      { id: 'me-002', role: 'anchor' },
-      { id: 'me-034', role: 'anchor' },
+    chain: [
+      {
+        id: 'me-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove a certified convergence rate for nonlinear multi-agent consensus — the general nonlinear guarantee.',
+      },
+      {
+        id: 'me-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Tight lower bounds for decentralized optimization over time-varying graphs — how fast it is provably impossible to go.',
+      },
+      {
+        id: 'me-034',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Optimal worst-case convergence time for finite-rate quantized average consensus — a directly consumable worst-case bound for the deployed protocol.',
+      },
     ],
-    laws: [],
-    readiness: 'gap',
-    note: 'All three supporting problems are open (verified_truth, no consumable certificate yet). This is the demand side of the consensus toolbox.',
+    standard: 'ISO 26262-6 (functional safety, formal methods)',
+    consumable:
+      'A certified worst-case convergence-time bound for the deployed consensus protocol under quantization and link dropout — input to a functional-safety case.',
+    barrier:
+      'The quantized worst-case bound (me-034) is certified and consumable; the nonlinear (me-001) and time-varying-graph lower bounds (me-002) remain open.',
+    workflow: 'safety-case',
+    readiness: 'partial',
+    note: 'Readiness corrected to partial: me-034 is a consumable certificate, not merely an anchor.',
   },
   {
     id: 'need-flocking-safety',
@@ -91,10 +196,21 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Safety-critical autonomy',
     description:
       'Certify that a proposed flocking law converges to a safe formation (no scattering, no collision) before deployment in autonomous swarms.',
-    problems: [{ id: 'me-003', role: 'anchor' }],
-    laws: [],
+    chain: [
+      {
+        id: 'me-003',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove unconditional flocking for Cucker–Smale dynamics with singular kernels — the mathematical core of \u201cno scattering, no collision\u201d.',
+      },
+    ],
+    standard: 'ASTM F3269-21 (flight procedures for unmanned aircraft systems)',
+    consumable:
+      'A certified invariant set guaranteeing no scattering / no collision for a candidate flocking law over a stated time horizon.',
+    barrier: 'me-003 is open; no certificate exists for any flocking law.',
+    workflow: 'safety-case',
     readiness: 'gap',
-    note: 'The Cucker–Smale unconditional-flocking question is open; no certificate exists. A proof would be the mathematical core of a swarm-safety certificate.',
+    note: 'The Cucker–Smale unconditional-flocking question is the mathematical core a swarm-safety certificate would rest on.',
   },
   {
     id: 'need-bioreactor-robustness',
@@ -102,14 +218,46 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Bioprocess engineering',
     description:
       'Certify that a continuous bioreactor\u2019s mass-action network persists (no species goes extinct) and relaxes to a stable operating point across feed perturbations.',
-    problems: [
-      { id: 'mc-001', role: 'anchor' },
-      { id: 'mc-002', role: 'anchor' },
-      { id: 'mc-027', role: 'certificate' },
+    chain: [
+      {
+        id: 'mc-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove the global attractor for complex-balanced reaction networks — every trajectory approaches a steady state.',
+      },
+      {
+        id: 'mc-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove persistence for weakly reversible networks — no species is driven extinct.',
+      },
+      {
+        id: 'mc-027',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Rigorous error bounds for the stochastic quasi-steady-state approximation — the consumable anchor for reduced modeling of the culture.',
+      },
+      {
+        id: 'law-mm',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the QSSA error when reducing Michaelis–Menten kinetics.',
+      },
+      {
+        id: 'law-monod',
+        kind: 'law',
+        role: 'law',
+        what: 'Derive or bound the Monod growth law from a metabolic network — the growth-rate assumption at the heart of bioreactor models.',
+      },
     ],
-    laws: ['law-mm', 'law-monod'],
+    standard: 'ICH Q8 (Pharmaceutical Development) / Q9 (Quality Risk Management)',
+    consumable:
+      'A certified persistence + relaxation-time band for the bioreactor\u2019s mass-action network across the feed-perturbation interval, including the stochastic-QSSA error.',
+    barrier:
+      'mc-027 is a consumable anchor, but the global-attractor (mc-001) and persistence (mc-002) conjectures are open; Monod has no mechanistic derivation (law-monod, gap).',
+    workflow: 'validation',
     readiness: 'partial',
-    note: 'mc-027 gives rigorous error bounds for the stochastic quasi-steady-state approximation (a consumable anchor), but the global-attractor and persistence conjectures behind it remain open; Michaelis–Menten and Monod are empirical with documented boundaries.',
+    note: 'One consumable anchor (stochastic QSSA bounds) with the global network theorems still open behind it.',
   },
   {
     id: 'need-multistationarity',
@@ -117,13 +265,33 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Synthetic biology',
     description:
       'Engineers designing synthetic circuits need to decide algorithmically whether a proposed reaction network admits multiple steady states (a bistable switch).',
-    problems: [
-      { id: 'mc-004', role: 'anchor' },
-      { id: 'mc-011', role: 'anchor' },
+    chain: [
+      {
+        id: 'mc-004',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Classify small reaction networks admitting multistationarity — a decidable criterion for switch detection.',
+      },
+      {
+        id: 'mc-011',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Separate multistationarity from monostationarity for deficiency-one networks — the classical structural route.',
+      },
+      {
+        id: 'law-mm',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the QSSA regime when screening candidate circuits for switch behavior.',
+      },
     ],
-    laws: ['law-mm'],
+    standard: 'EFSA GMO risk-assessment guidance (synthetic circuit safety)',
+    consumable:
+      'A decidable multistationarity criterion that turns \u201cis this circuit a bistable switch\u201d into a computed yes/no with a witness (two steady states).',
+    barrier: 'Both classification problems (mc-004, mc-011) are open.',
+    workflow: 'screening',
     readiness: 'gap',
-    note: 'Classification problems are open; a decidable multistationarity criterion would turn switch design into a certified decision.',
+    note: 'A decidable criterion would make switch design a certified decision instead of a simulation guess.',
   },
   {
     id: 'need-epidemic-threshold',
@@ -131,15 +299,40 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Public health',
     description:
       'Intervention planning (vaccination, isolation, demography-aware control) needs exact epidemic thresholds rather than mean-field approximations.',
-    problems: [
-      { id: 'mb-002', role: 'anchor' },
-      { id: 'mb-005', role: 'anchor' },
-      { id: 'mb-011', role: 'anchor' },
-      { id: 'mb-013', role: 'anchor' },
+    chain: [
+      {
+        id: 'mb-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp metastable lifetime of the SIS epidemic on networks — how long an outbreak lingers.',
+      },
+      {
+        id: 'mb-005',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Exact epidemic threshold on clustered networks (partially resolved) — the clustered-correction to mean field.',
+      },
+      {
+        id: 'mb-011',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Exact critical value of the contact process on the integer lattice — the cleanest exact threshold.',
+      },
+      {
+        id: 'mb-013',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp epidemic threshold and near-critical extinction time for SIR with demography.',
+      },
     ],
-    laws: [],
+    standard: 'WHO (International Health Regulations 2005) pandemic planning',
+    consumable:
+      'Exact (non-mean-field) thresholds plus certified uncertainty bands for the intervention window — directly usable in planning tables.',
+    barrier:
+      'mb-005 is partially resolved (clustered SIR threshold); the exact SIS lifetime (mb-002), contact-process critical value (mb-011) and demography-aware SIR (mb-013) remain open.',
+    workflow: 'monitoring',
     readiness: 'partial',
-    note: 'mb-005 is partially resolved (clustered SIR threshold); the exact SIS lifetime, contact-process critical value and demography-aware SIR thresholds remain open.',
+    note: 'One partially-resolved anchor; the rest of the exact-threshold family is open.',
   },
   {
     id: 'need-reactor-steadystate',
@@ -147,14 +340,40 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Chemical process safety',
     description:
       'Certify whether a mass-action catalytic network admits a stable target intermediate concentration — the input to inherently-safe reactor design and alarm set-point review.',
-    problems: [
-      { id: 'mc-030', role: 'certificate' },
-      { id: 'mc-001', role: 'anchor' },
-      { id: 'mc-002', role: 'anchor' },
+    chain: [
+      {
+        id: 'mc-030',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Certified decidable stability of a target-intermediate concentration for mass-action catalytic networks.',
+      },
+      {
+        id: 'mc-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Global attractor for complex-balanced networks — the global stability behind the local certificate.',
+      },
+      {
+        id: 'mc-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Persistence for weakly reversible networks — the intermediate cannot be driven extinct.',
+      },
+      {
+        id: 'law-mm',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the QSSA error in the reduced reactor model.',
+      },
     ],
-    laws: ['law-mm'],
+    standard: 'IEC 61511 (functional safety – safety instrumented systems)',
+    consumable:
+      'A certified \u201ctarget intermediate concentration is stable / not\u201d decision with a residual band — consumable for alarm set-points and inherently-safe design.',
+    barrier:
+      'mc-030 is a certified, consumable decision; the global network theorems (mc-001, mc-002) underpinning it remain open.',
+    workflow: 'alarm-setpoint',
     readiness: 'partial',
-    note: 'mc-030 is a certified decidable-stability certificate (consumable); the global network theorems underpinning it are open.',
+    note: 'A certified local decision with the global theorems still open behind it.',
   },
   {
     id: 'need-resistance-mgmt',
@@ -162,10 +381,21 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Agricultural & medical genetics',
     description:
       'Surveillance and dosing decisions need a certified band on the equilibrium frequency of a resistance allele under measurement uncertainty.',
-    problems: [{ id: 'mb-028', role: 'certificate' }],
-    laws: [],
+    chain: [
+      {
+        id: 'mb-028',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Certified equilibrium allele-frequency band for a resistance allele under measurement uncertainty.',
+      },
+    ],
+    standard: 'IRAC (Insecticide Resistance Action Committee) guidelines',
+    consumable:
+      'A certified band on the equilibrium resistance-allele frequency under stated measurement error — input to dose and surveillance decisions.',
+    barrier: 'The single-locus band is certified; multi-locus / epistatic dynamics remain open.',
+    workflow: 'monitoring',
     readiness: 'partial',
-    note: 'mb-028 supplies a certified allele-frequency band (consumable); broader multi-locus dynamics remain open.',
+    note: 'One consumable certificate; broader dynamics stay open.',
   },
   {
     id: 'need-sensor-placement',
@@ -173,10 +403,250 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     area: 'Monitoring & estimation',
     description:
       'Placement of sensors/observers with a provable approximation guarantee for the information gain — the mathematical core of monitoring-network design.',
-    problems: [{ id: 'me-030', role: 'anchor' }],
-    laws: [],
+    chain: [
+      {
+        id: 'me-030',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Provable approximation for optimal sensor placement and information gain — a directly consumable placement guarantee.',
+      },
+    ],
+    standard: 'ISO 10012 (measurement management systems)',
+    consumable:
+      'A sensor placement with a certified approximation ratio to the optimal information gain — consumable for monitoring-network design.',
+    barrier:
+      'The approximation guarantee (me-030) is certified; a tight constant and certified guarantees under correlated-noise models are not.',
+    workflow: 'design-review',
+    readiness: 'partial',
+    note: 'Readiness corrected to partial: me-030 is a consumable certificate, not merely an open anchor.',
+  },
+  {
+    id: 'need-eit-imaging',
+    name: 'Impedance / limited-data imaging guarantee',
+    area: 'Medical & industrial imaging',
+    description:
+      'Electrical-impedance and sparse-view imaging need a certified statement about when boundary data determine the interior uniquely, and how many views are enough.',
+    chain: [
+      {
+        id: 'me-017',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Global uniqueness for the Calderón problem (Lipschitz case settled; general L\u221e case open) — when EIT data determine the conductivity.',
+      },
+      {
+        id: 'me-021',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Minimal number of projection directions for uniqueness in discrete tomography — how few views suffice.',
+      },
+    ],
+    standard: 'IEC 60601-2 (medical electrical equipment) / FDA 510(k) imaging review',
+    consumable:
+      'A certified uniqueness / stability statement for the reconstruction regime, with the number of views or the conductivity class stated — the reliability basis for imaging certification.',
+    barrier:
+      'The Lipschitz case (me-017, partial) gives partial ground; general L\u221e uniqueness and the discrete-tomography minimal-directions question (me-021) remain open.',
+    workflow: 'validation',
+    readiness: 'partial',
+    note: 'Partial ground from the Lipschitz Calderón case; the general guarantees are open.',
+  },
+  {
+    id: 'need-rom-error',
+    name: 'Certified reduced-order model error',
+    area: 'Numerical PDE / model reduction',
+    description:
+      'A reduced-order model used in a V&V workflow needs a certified a-posteriori error bound on its output, not just training-error anecdotes.',
+    chain: [
+      {
+        id: 'me-031',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Certifiable a-posteriori error bounds for nonlinear model reduction — the consumable output-error certificate.',
+      },
+    ],
+    standard: 'ASME V&V 40 (credibility assessment of computational models)',
+    consumable:
+      'A certified a-posteriori bound on the reduced-order output error for a stated input class — directly consumable in a model-credibility dossier.',
+    barrier:
+      'The a-posteriori bound (me-031) is certified; extension to parameterized multi-query and uncertainty-quantification settings is ongoing.',
+    workflow: 'validation',
+    readiness: 'served',
+    note: 'The first fully-served need: a certified error bound is directly consumable, with extension work noted.',
+  },
+  {
+    id: 'need-dft-cert',
+    name: 'Certified bounds for DFT functional error',
+    area: 'Quantum chemistry / materials',
+    description:
+      'A materials-screening decision needs certified bounds on the error of a chosen density-functional approximation, grounded in sharp many-body constants.',
+    chain: [
+      {
+        id: 'mc-014',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Rigorous existence and convexity of the Levy–Lieb universal density functional — the rigorous foundation of DFT.',
+      },
+      {
+        id: 'mc-016',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'The sharp constant in the Lieb–Thirring inequality for fermion kinetic energy — the kinetic-energy bound behind functional error.',
+      },
+      {
+        id: 'mc-017',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'The sharp constant in the Lieb–Oxford inequality — a certified exchange-correlation bound.',
+      },
+      {
+        id: 'mc-023',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Complete N-representability conditions for the two-electron reduced density matrix — the representability floor.',
+      },
+    ],
+    standard: 'NIST CCCBDB / G2 benchmark sets (computational chemistry validation)',
+    consumable:
+      'Certified bounds on DFT functional error for a stated electron count, assembled from sharp many-body constants — input to \u201ctrust this DFT prediction\u201d screening.',
+    barrier:
+      'The Lieb–Oxford constant (mc-017) is certified; Levy–Lieb existence (mc-014), the sharp Lieb–Thirring constant (mc-016) and full N-representability (mc-023) remain open.',
+    workflow: 'validation',
+    readiness: 'partial',
+    note: 'One certified constant plus a stack of open many-body anchors — the sharp-constant ladder for DFT certification.',
+  },
+  {
+    id: 'need-quantum-transport',
+    name: 'Certified quantized conductance for quantum devices',
+    area: 'Quantum metrology / devices',
+    description:
+      'A quantum-metrology sign-off needs a certified statement that the conductance quantization (plateaus) survives interactions — the basis of resistance standards.',
+    chain: [
+      {
+        id: 'mp-022',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Rigorous Kubo conductance and its quantization for interacting electrons — the interaction-robust Hall conductance.',
+      },
+      {
+        id: 'mp-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp exponential mixing for 2D Navier–Stokes with degenerate noise — the transport-side regularity the metrology device inherits.',
+      },
+    ],
+    standard: 'BIPM SI (quantum metrology: quantum Hall / Kibble balance)',
+    consumable:
+      'A certified quantization statement (conductance plateau) with the interaction regime stated — input to a resistance-standard sign-off.',
+    barrier: 'Both supporting problems are open.',
+    workflow: 'sign-off',
     readiness: 'gap',
-    note: 'me-030 (provable approximation for optimal sensor placement) is open; a certificate would directly serve monitoring-network certification.',
+    note: 'The rigorous Kubo-conductance quantization is the mathematical core a quantum-metrology sign-off would cite.',
+  },
+  {
+    id: 'need-learned-control',
+    name: 'Certified stability of learned feedback policies',
+    area: 'Control / ML safety',
+    description:
+      'A learned feedback policy needs a certified stability guarantee before deployment in its operational design domain (ODD), replacing simulation-only evaluation.',
+    chain: [
+      {
+        id: 'me-032',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sound and scalable stability certification of learned feedback policies — the certificate a deployed policy needs.',
+      },
+      {
+        id: 'me-018',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Necessary-and-sufficient feedback stabilizability (closing the Brockett–Sontag gap) — the boundary of what any policy can guarantee.',
+      },
+    ],
+    standard: 'ISO 21448 (SOTIF – safety of the intended functionality)',
+    consumable:
+      'A certified stability certificate for the learned policy within its stated ODD — the formal core of a SOTIF safety case.',
+    barrier: 'Both supporting problems are open.',
+    workflow: 'safety-case',
+    readiness: 'gap',
+    note: 'The demand side of the learned-control verification question.',
+  },
+  {
+    id: 'need-composite-bounds',
+    name: 'Certified effective-property bounds for multiphase composites',
+    area: 'Materials / homogenization',
+    description:
+      'A design-allowables decision needs certified attainable bounds on the effective properties of a multiphase composite, reducing reliance on exhaustive testing.',
+    chain: [
+      {
+        id: 'me-028',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'The G-closure and sharp attainable bounds for multiphase composite conductors — the tightest possible property range.',
+      },
+    ],
+    standard: 'ASTM D4762 (design-allowables for polymer-matrix composites)',
+    consumable:
+      'Certified attainable bounds on the effective conductivity / stiffness of a multiphase composite — design allowables without exhaustive testing.',
+    barrier: 'me-028 (G-closure) is open.',
+    workflow: 'design-review',
+    readiness: 'gap',
+    note: 'Sharp attainable bounds are exactly what composite design-allowables are missing.',
+  },
+  {
+    id: 'need-molecular-screening',
+    name: 'Certified descriptor bounds for molecular screening',
+    area: 'Materials informatics',
+    description:
+      'A high-throughput screening pipeline needs certified bounds on molecular descriptors (spectral realizability, π-electron energy) to pre-filter candidate graphs.',
+    chain: [
+      {
+        id: 'mc-003',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Complete classification of spectra realizable by benzenoid molecular graphs — a consumable spectral realizability test.',
+      },
+      {
+        id: 'mc-012',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Tight bounds on the extremal Hückel π-electron energy — the energy window for screening.',
+      },
+      {
+        id: 'mc-022',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'The maximum number of Kekulé structures in benzenoid hydrocarbons — the aromaticity ceiling.',
+      },
+    ],
+    standard: 'OECD QSAR Toolbox (read-across guidance for chemical screening)',
+    consumable:
+      'Certified descriptor bounds (spectral realizability / energy window) for fast pre-screening of candidate molecular graphs.',
+    barrier:
+      'Spectral classification (mc-003) is certified; extremal-energy (mc-012) and Kekulé-count (mc-022) bounds remain open.',
+    workflow: 'screening',
+    readiness: 'partial',
+    note: 'One consumable classification plus two open extremal bounds — the screening floor.',
+  },
+  {
+    id: 'need-seasonal-epidemic',
+    name: 'Vaccination timing under seasonal forcing',
+    area: 'Public health',
+    description:
+      'Seasonal-flu planning needs a certified map of forcing amplitude × period → lock-in vs. fade regions, to time vaccination and dosing to the season.',
+    chain: [
+      {
+        id: 'mb-026',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp Arnold tongues for subharmonic response in seasonally forced SIR — the lock-in regions a seasonal strategy must respect.',
+      },
+    ],
+    standard: 'WHO influenza vaccine strain-selection & timing guidance',
+    consumable:
+      'A certified map of forcing amplitude × period → lock-in / fade regions for the SIR response — input to seasonal vaccination timing.',
+    barrier: 'mb-026 is open.',
+    workflow: 'monitoring',
+    readiness: 'gap',
+    note: 'Sharp Arnold tongues would turn seasonal-flu timing from heuristic to certified.',
   },
 ]
 
@@ -185,3 +655,32 @@ const _byId = new Map(ENGINEERING_NEEDS.map((n) => [n.id, n]))
 export function needById(id: string): EngineeringNeed | undefined {
   return _byId.get(id)
 }
+
+/** 反查：某目录问题被哪些工程需求倒查引用（problem id → needs）。 */
+export function needsDemandingProblem(problemId: string): EngineeringNeed[] {
+  return ENGINEERING_NEEDS.filter((n) => n.chain.some((s) => s.kind === 'problem' && s.id === problemId))
+}
+
+// ── 判定链步骤的派生状态（只读、从目录推导，供页面与 API 共用同一实现）──
+import { PROBLEMS } from './problems'
+import { LAWS } from './laws'
+
+export type NeedStepState = 'open' | 'partial' | 'served'
+const _stepProblem = new Map(PROBLEMS.map((p) => [p.id, p]))
+const _stepLaw = new Map(LAWS.map((l) => [l.id, l]))
+
+/** 链步就绪度：certificate+带证书 → served；partial 问题/定律 → partial；其余 open。 */
+export function chainStepState(step: Pick<NeedChainStep, 'id' | 'kind' | 'role'>): NeedStepState {
+  if (step.kind === 'law') {
+    const l = _stepLaw.get(step.id)
+    if (!l) return 'open'
+    if (l.status === 'formalized') return 'served'
+    return l.status === 'partial' ? 'partial' : 'open'
+  }
+  const p = _stepProblem.get(step.id)
+  if (!p) return 'open'
+  if (step.role === 'certificate' && p.certificate) return 'served'
+  if (p.status === 'partial') return 'partial'
+  return 'open'
+}
+

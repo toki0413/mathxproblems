@@ -1,21 +1,43 @@
 import { Link } from 'react-router'
 import { PROBLEMS } from '@/data/problems'
 import { LAWS } from '@/data/laws'
-import { ENGINEERING_NEEDS, type NeedProblemRole } from '@/data/engineeringNeeds'
+import {
+  ENGINEERING_NEEDS,
+  chainStepState,
+  NEED_WORKFLOW_LABEL,
+  type NeedChainRole,
+  type NeedStepState,
+} from '@/data/engineeringNeeds'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
-// 角色 → 徽章样式：certificate=可直接消费（绿），anchor=奠基结构证（蓝），related=支撑（灰）。
-const ROLE_COLOR: Record<NeedProblemRole, { cls: string; label: string }> = {
+// 角色 → 徽章：certificate=可直接消费（绿），anchor=奠基结构证（蓝），related=支撑（灰），law=经验定律（琥珀）。
+const ROLE_COLOR: Record<NeedChainRole, { cls: string; label: string }> = {
   certificate: { cls: 'text-mc border-mc/50', label: 'certificate' },
   anchor: { cls: 'text-[#2563eb] border-[#2563eb]/50', label: 'anchor' },
   related: { cls: 'text-ink-3 border-line-strong', label: 'related' },
+  law: { cls: 'text-[#9a5b13] border-[#9a5b13]/40', label: 'law' },
+}
+
+const STATE_COLOR: Record<NeedStepState, string> = {
+  served: 'text-mc border-mc/50',
+  partial: 'text-[#9a5b13] border-[#9a5b13]/40',
+  open: 'text-me border-me/50',
 }
 
 const READINESS_COLOR: Record<string, string> = {
   served: 'text-mc border-mc/50',
   partial: 'text-[#9a5b13] border-[#9a5b13]/40',
   gap: 'text-me border-me/50',
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-4">
+      <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-1.5">{label}</div>
+      <div className="text-sm text-ink-2 leading-relaxed">{children}</div>
+    </div>
+  )
 }
 
 export default function NeedsPage() {
@@ -49,6 +71,9 @@ export default function NeedsPage() {
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-2 w-2 rounded-full bg-[#8b887c]" /> {t('nd.role.related')}
           </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2 w-2 rounded-full bg-[#9a5b13]" /> {t('nd.role.law')}
+          </span>
           <span className="flex items-center gap-1.5 ml-4">
             {t('nd.readiness.hint')} — {t('nd.served')} / {t('nd.partial')} / {t('nd.gap')}
           </span>
@@ -71,61 +96,69 @@ export default function NeedsPage() {
                     >
                       {t(`nd.${n.readiness}`)}
                     </span>
+                    <span className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono2 text-[11px] uppercase tracking-wider text-ink-3">
+                      {NEED_WORKFLOW_LABEL[n.workflow]}
+                    </span>
                   </div>
                   <p className="mt-3 text-sm text-ink-2 leading-relaxed max-w-3xl">{n.description}</p>
 
-                  <div className="mt-4">
-                    <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
-                      {t('nd.supported')}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {n.problems.map(({ id, role }) => {
-                        const p = byId.get(id)
-                        if (!p) return null
-                        const rc = ROLE_COLOR[role]
+                  {/* 判定链：按依赖顺序列出要 certify 的子判定 */}
+                  <Field label={t('nd.chain')}>
+                    <ol className="space-y-2">
+                      {n.chain.map((s, i) => {
+                        const title = s.kind === 'problem' ? byId.get(s.id)?.title : lawById.get(s.id)?.name
+                        const rc = ROLE_COLOR[s.role]
+                        const st = chainStepState(s)
                         return (
-                          <Link
-                            key={id}
-                            to={`/problems/${id}`}
-                            className="group border border-line rounded-full pl-3 pr-1 py-1 text-xs flex items-center gap-2 hover:border-ink transition-colors"
-                          >
-                            <span className="font-mono2 text-ink-2 group-hover:text-ink">{id}</span>
-                            <span className="max-w-[14rem] truncate text-ink-3">{p.title}</span>
-                            <span className={`border rounded-full px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider ${rc.cls}`}>
-                              {rc.label}
+                          <li key={s.id} className="flex items-start gap-3">
+                            <span className="font-mono2 text-[11px] text-ink-3 shrink-0 w-5 pt-0.5">
+                              {String(i + 1).padStart(2, '0')}
                             </span>
-                          </Link>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex flex-wrap items-center gap-2">
+                                {s.kind === 'problem' ? (
+                                  <Link
+                                    to={`/problems/${s.id}`}
+                                    className="font-mono2 text-[11px] text-ink-2 hover:text-ink underline decoration-line-strong underline-offset-4"
+                                  >
+                                    {s.id}
+                                  </Link>
+                                ) : (
+                                  <Link
+                                    to="/laws"
+                                    className="font-mono2 text-[11px] text-ink-2 hover:text-ink underline decoration-line-strong underline-offset-4"
+                                  >
+                                    {s.id}
+                                  </Link>
+                                )}
+                                <span className={`border rounded-full px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider ${rc.cls}`}>
+                                  {rc.label}
+                                </span>
+                                <span className={`border rounded-full px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider ${STATE_COLOR[st]}`}>
+                                  {t(`nd.st.${st}`)}
+                                </span>
+                              </div>
+                              <p className="mt-0.5 text-[13px] text-ink-2 leading-relaxed">{s.what}</p>
+                              {title && <p className="text-[11px] text-ink-3 truncate">{title}</p>}
+                            </div>
+                          </li>
                         )
                       })}
-                    </div>
-                  </div>
+                    </ol>
+                  </Field>
 
-                  {n.laws.length > 0 && (
-                    <div className="mt-3">
-                      <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
-                        {t('nd.laws')}
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {n.laws.map((lid) => {
-                          const l = lawById.get(lid)
-                          if (!l) return null
-                          return (
-                            <Link
-                              key={lid}
-                              to="/laws"
-                              className="border border-line rounded-full px-3 py-1 text-xs text-ink-2 hover:border-ink hover:text-ink transition-colors"
-                            >
-                              {l.name}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
+                  {/* 对接标准 */}
+                  <Field label={t('nd.standard')}>{n.standard}</Field>
 
-                  <p className="mt-4 text-xs text-ink-3 leading-relaxed border-t border-line pt-3">
-                    {n.note}
-                  </p>
+                  {/* 什么算被服务 */}
+                  <Field label={t('nd.consumable')}>{n.consumable}</Field>
+
+                  {/* 当前障碍 */}
+                  <Field label={t('nd.barrier')}>
+                    <span className="text-me/90">{n.barrier}</span>
+                  </Field>
+
+                  <p className="mt-4 text-xs text-ink-3 leading-relaxed border-t border-line pt-3">{n.note}</p>
                 </div>
               </Reveal>
             ))}
