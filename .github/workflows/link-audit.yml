@@ -1,0 +1,46 @@
+name: link-audit
+
+# 每周一晚 01:00 UTC 自动审计目录里的参考文献/影响域证据链接健康度。
+# 沙箱/本地代理对 doi.org 的解析不可靠（会把真实 DOI 误报为 404），因此放在
+# GitHub Actions（真实网络出口）上跑才有权威性：404/410 = 确定死亡（开 issue），
+# 403（出版社封爬虫）/超时 = 仅警告不报错。
+# 已存在同名 open issue 时不再重复创建（防刷屏）。
+
+on:
+  schedule:
+    - cron: "0 1 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run link audit
+        id: audit
+        run: |
+          set +e
+          node scripts/check-links.mjs > /tmp/links.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+      - name: Open issue if dead links found
+        if: steps.audit.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --search "in:title 死链 link-audit" --state open --json number -q '.[0].number' 2>/dev/null || echo "")
+          if [ -z "$existing" ]; then
+            body="Automated weekly link audit found confirmed-dead (404) references.\\n\\n\\\`\\\`\\\`\\n$(cat /tmp/links.txt)\\n\\\`\\\`\\\`"
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "死链 link-audit: 目录存在失效链接" --body "$body"
+          else
+            echo "Existing audit issue #$existing, skipping duplicate."
+          fi

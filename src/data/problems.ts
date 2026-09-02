@@ -130,7 +130,7 @@ export interface Problem {
   /** 证书生命周期；缺省视为 open。refuted 时应在 updates 里记录反例来源。 */
   lifecycle_status?: LifecycleStatus
   formalization_notes: string
-  references: { label: string; url: string }[]
+  references: { label: string; url?: string }[]
   /** 判定形式：一个被认可的答案必须满足什么、如何被核验（证明证书 / 数值判据 / 反例构造…）。
    *  对 verified_behavior 的判定应显式覆盖三层残差并可合成为总带：
    *    R_model —— 把真实系统限制为受控模型/理想化所丢掉的近似残差上界；
@@ -182,7 +182,7 @@ export const PROBLEMS: Problem[] = [
     proposed_year: 1975,
     via: {
       label: 'Lanford, Time evolution of large classical systems, Springer Lecture Notes in Physics 38 (1975)',
-      url: 'https://doi.org/10.1007/3-540-07160-1_16',
+      url: 'https://doi.org/10.1007/3-540-07171-7_1',
     },
     failure_records: [
       {
@@ -231,11 +231,11 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     references: [
       {
         label: 'Lanford, Time evolution of large classical systems, Lecture Notes in Physics 38, 1975',
-        url: 'https://link.springer.com/chapter/10.1007/3-540-08771-6_1',
+        url: 'https://doi.org/10.1007/3-540-07171-7_1',
       },
       {
         label: 'Gallagher, Saint-Raymond, Texier, From Newton to Boltzmann, EMS, 2013',
-        url: 'https://ems.press/books/zl/215',
+        url: 'https://doi.org/10.4171/129',
       },
     ],
   },
@@ -379,7 +379,7 @@ fix energy per particle $\\varepsilon > 0$. Prove that for generic initial data 
     references: [
       {
         label: 'Benettin, Ponno, Time-scales to equipartition in the FPUT problem, J. Stat. Phys., 2011',
-        url: 'https://link.springer.com/article/10.1007/s10955-011-0280-0',
+        url: 'https://doi.org/10.1007/s10955-011-0277-9',
       },
     ],
     judgment: 'A pass supplies an asymptotic formula for the equilibration time $T_{\\mathrm{eq}}(N,\\varepsilon)$ as $N\\to\\infty$ for generic low-mode initial data, identifies the slow-drift (Arnold-diffusion-like) mechanism rigorously, and certifies the threshold separating KAM blocking from equipartition; heuristic or simulation-only scaling is not accepted.',
@@ -553,8 +553,8 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     proposer: 'J. Bourgain',
     proposed_year: 1996,
     via: {
-      label: 'Bourgain, On the growth in time of higher Sobolev norms of smooth solutions of Hamiltonian PDE, GAFA 6 (1996)',
-      url: 'https://doi.org/10.1007/BF02246886',
+      label: 'Bourgain, On growth in time of Sobolev norms of smooth solutions of nonlinear Schrödinger equations, J. Anal. Math. 72 (1997)',
+      url: 'https://doi.org/10.1007/bf02843163',
     },
     failure_records: [
       {
@@ -863,8 +863,8 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
     proposer: 'D. Angeli, P. De Leenheer & E. Sontag',
     proposed_year: 2007,
     via: {
-      label: 'Angeli–De Leenheer–Sontag, A graph-theoretic approach to persistence, SIAM J. Appl. Dyn. Syst. 6 (2007)',
-      url: 'https://doi.org/10.1137/060664017',
+      label: 'Angeli, De Leenheer, Sontag, A Petri net approach to the study of persistence in chemical reaction networks, Math. Biosci. 210 (2007)',
+      url: 'https://doi.org/10.1016/j.mbs.2007.07.003',
     },
     failure_records: [
       {
@@ -1029,8 +1029,8 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
-      label: 'Craciun & Feinberg, Multiple equilibria in complex chemical reaction networks, SIAM J. Appl. Math. 65 (2005) (combined with injectivity/parameterization criteria)',
-      url: 'https://doi.org/10.1137/S0895479803446819',
+      label: 'Craciun & Feinberg, Multiple Equilibria in Complex Chemical Reaction Networks: I. The Injectivity Property, SIAM J. Appl. Math. 65 (2005)',
+      url: 'https://doi.org/10.1137/s0036139904440278',
     },
     failure_records: [
       {
@@ -1340,7 +1340,7 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
     proposed_year: 1998,
     via: {
       label: 'Stability of replicator dynamics with mutation: Hofbauer & Sigmund, Evolutionary Games and Population Dynamics (1998)',
-      url: 'https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics',
+      url: 'https://doi.org/10.1017/cbo9781139173179',
     },
     failure_records: [
       {
@@ -1558,7 +1558,7 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
       },
       {
         label: 'Arcak, Passivity as a design tool for group coordination, IEEE TAC, 2007',
-        url: 'https://doi.org/10.1109/TAC.2007.901315',
+        url: 'https://doi.org/10.1109/tac.2007.902733',
       },
     ],
   },
@@ -1630,7 +1630,7 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
     references: [
       {
         label: 'Scaman, Bach, Bubeck, Lee, Massoulié, Optimal convergence rates for convex distributed optimization in networks, JMLR, 2019',
-        url: 'https://jmlr.org/papers/v20/16-512.html',
+        url: 'https://arxiv.org/abs/1710.08734',
       },
     ],
     judgment: 'A pass proves a matching (up to constants) lower bound on the worst-case per-agent iteration complexity of decentralized first-order methods over $B$-connected time-varying graphs, or supplies an order-optimal algorithm, with the oracle model, the adversary, and the extremal graph-sequence construction made explicit and verified; a bound valid only for static graphs or a restricted communication model is not accepted.',
@@ -2237,7 +2237,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     references: [
       {
         label: 'Etheridge, Pfaffelhuber, Wakolbinger, How often does the ratchet click? Facts, heuristics, asymptotics, Trends in Stochastic Analysis, 2009',
-        url: 'https://www.maths.ox.ac.uk/people/professor.alison.etheridge',
+        url: 'https://doi.org/10.1017/cbo9781139107020.016',
       },
       {
         label: 'Jain, Loss of least-loaded class in asexual populations due to drift and epistasis, Genetics 179, 2008',
@@ -2318,7 +2318,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposed_year: 2017,
     via: {
       label: 'Complexity of triangle detection in CONGEST: the lower bound of Izumi & Le Gall, OPODIS (2017)',
-      url: 'https://doi.org/10.1007/978-3-319-72581-1_10',
+      url: 'https://doi.org/10.1145/3087801.3087811',
     },
     failure_records: [
       {
@@ -2742,7 +2742,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     proposed_year: 1974,
     via: {
       label: 'Harris, Contact interactions on a lattice, Ann. Probab. 2 (1974); subcritical asymptotics see Liggett’s monograph',
-      url: 'https://doi.org/10.1214/aop/1176996477',
+      url: 'https://doi.org/10.1214/aop/1176996493',
     },
     related_problems: [
       {
@@ -2828,7 +2828,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       },
       {
         label: 'Borodin, El-Yaniv, Online Computation and Competitive Analysis, Cambridge University Press, 1998',
-        url: 'https://doi.org/10.1017/CBO9780511544738',
+        url: '',
       },
     ],
     judgment: 'A pass determines the exact optimal competitive ratio $c^*$ for online metric facility location: proves tightness of the $O(\\log n)$ deterministic or $O(\\log n/\\log\\log n)$ randomized bound via a matching Yao-type adversary construction, or finds a strictly better algorithm, with the lower-bound request sequence made explicit; a bound that leaves the gap open is not accepted.',
@@ -3043,8 +3043,8 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
-      label: 'Deficiency-one network mono/multistability criteria: the injectivity criteria of Craciun & Feinberg (2005) and reviews',
-      url: 'https://doi.org/10.1137/S0895479803446819',
+      label: 'Deficiency-one network mono/multistability criteria: the injectivity criteria of Craciun & Feinberg, SIAM J. Appl. Math. 65 (2005)',
+      url: 'https://doi.org/10.1137/s0036139904440278',
     },
     related_problems: [
       {
@@ -3078,7 +3078,7 @@ and when (by contrast) every such class contains a unique positive steady state.
     references: [
       {
         label: 'Feinberg, Chemical reaction network structure and the stability of complex isothermal reactors II: Multiple steady states, Chem. Eng. Sci. 43(10), 1988',
-        url: 'https://doi.org/10.1016/0009-2509(88)80015-2',
+        url: 'https://doi.org/10.1016/0009-2509(87)80099-4',
       },
       {
         label: 'Conradi, Shiu, Dynamics of post-translational modification systems, Adv. Appl. Math. 56, 2014',
@@ -3158,7 +3158,7 @@ and when (by contrast) every such class contains a unique positive steady state.
     proposed_year: 1974,
     via: {
       label: 'Contact process critical value: Harris (1974); upper/lower bounds see Liggett, Stochastic Interacting Systems (1999)',
-      url: 'https://doi.org/10.1214/aop/1176996477',
+      url: 'https://doi.org/10.1214/aop/1176996493',
     },
     related_problems: [
       {
@@ -3296,7 +3296,7 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     references: [
       {
         label: 'Allen, Some stochastic SIR models and the basic reproduction number, J. Math. Biol. 55, 2007',
-        url: 'https://doi.org/10.1007/s00285-007-0113-1',
+        url: '',
       },
       {
         label: 'Kermack, McKendrick, A contribution to the mathematical theory of epidemics, Proc. R. Soc. A 115, 1927',
@@ -3322,8 +3322,8 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     proposer: 'M. Babaioff, N. Immorlica & R. Kleinberg',
     proposed_year: 2007,
     via: {
-      label: 'Babaioff–Immorlica–Kleinberg, Matroids, secretary problems, and online mechanisms, SODA (2007)',
-      url: 'https://doi.org/10.5555/1283383.1283496',
+      label: 'Babaioff, Immorlica, Kleinberg, Matroid Secretary Problems, J. ACM 65(6) (2018)',
+      url: 'https://doi.org/10.1145/3212512',
     },
     related_problems: [
       {
@@ -3351,8 +3351,8 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       'Fully combinatorial; the threshold/DP machinery factors into finite certificate checks, but the tight uniform constant depends on unresolved structure of general matroids (high potential since the claim itself is clean).',
     references: [
       {
-        label: 'Babaioff, Immorlica, Kleinberg, Matroids, secretary problems, and online mechanisms, SODA 2007',
-        url: 'https://doi.org/10.5555/1283383.1283398',
+        label: 'Babaioff, Immorlica, Kleinberg, Matroid Secretary Problems, J. ACM 65(6) (2018)',
+        url: 'https://doi.org/10.1145/3212512',
       },
       {
         label: 'Lachish, O(\\log\\log rank) competitive ratio for the matroid secretary problem, FOCS 2014',
@@ -3409,7 +3409,7 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       },
       {
         label: 'Kaplan, Shamir, The bandwidth problem and bandwidth of a graph, in: Handbook of Graph Theory, 2004',
-        url: 'https://doi.org/10.1201/9781439832954',
+        url: '',
       },
     ],
     judgment: 'A pass decides whether graph bandwidth is approximable within a constant: either a polynomial algorithm outputting an ordering of bandwidth $\\le C\\cdot\\mathrm{bw}(G)$ for a constant $C$ (improving the polylog upper bound), or a proof of an $\\Omega(1)$ inapproximability factor; progress strictly between the polylog upper and polynomial lower bounds that does not resolve constant-approximability is not accepted.',
@@ -3463,11 +3463,11 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
     references: [
       {
         label: 'Christofides, Worst-case analysis of a new heuristic for the travelling salesman problem, Tech. Report, 1976',
-        url: 'https://doi.org/10.1184/R1/6621578.v1',
+        url: '',
       },
       {
         label: 'Sebő, Vygen, Shorter tours by nicer ears: 7/5-approximation for the graph-TSP, 3/2 for the path version, and 4/3 for two-edge-connected subgraphs, Combinatorica 34, 2014',
-        url: 'https://doi.org/10.1007/s00493-014-2961-3',
+        url: 'https://doi.org/10.1007/s00493-014-2960-3',
       },
     ],
     judgment: 'A pass proves or disproves the $4/3$-conjecture for graphic TSP — that every $2$-edge-connected unit-weight graph has a tour of cost at most $\\tfrac{4}{3}n$ — or otherwise determines the exact optimal constant-factor approximation for graphic TSP, with the underlying structural cut inequality certified; a sub-$3/2$ constant on special graph classes alone is not the resolution.',
@@ -3519,7 +3519,7 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
     references: [
       {
         label: 'Khachiyan, Polynomial Algorithms in Linear Programming, USSR Comput. Math. and Math. Phys. 20, 1980',
-        url: 'https://doi.org/10.1016/0041-5553(80)90061-5'
+        url: 'https://doi.org/10.1016/0041-5553(80)90061-0'
       },
       {
         label: 'Smale, Mathematical Problems for the Next Century, Math. Intelligencer 20, 1998 (problem 9: integer linear programming is in P)',
@@ -3586,7 +3586,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
       },
       {
         label: 'Johnson, Near-optimal bin packing algorithms, 1973 (first harmonic-type analysis)',
-        url: 'https://doi.org/10.1137/S0218-1010'
+        url: ''
       },
     ],
   },
@@ -3610,7 +3610,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     proposed_year: 1995,
     via: {
       label: 'Kučera, Expected complexity of graph partitioning problems, Discrete Appl. Math. 57 (1995); algorithmic thresholds see Alon–Krivelevich–Sudakov',
-      url: 'https://doi.org/10.1016/0166-218X(94)00103-G',
+      url: 'https://doi.org/10.1016/0166-218x(94)00103-k',
     },
     related_problems: [
       {
@@ -3637,7 +3637,7 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     references: [
       {
         label: 'Alon, Krivelevich, Sudakov, Finding a large hidden clique in a random graph, Random Structures & Algorithms 13, 1998',
-        url: 'https://doi.org/10.1002/(SICI)1098-2418(199810/12)13:3/4<457::AID-RSA14>3.0.CO;2-2'
+        url: 'https://doi.org/10.1002/(sici)1098-2418(199810/12)13:3/4<457::aid-rsa14>3.0.co;2-w'
       },
       {
         label: 'Jerrum, Large cliques elude the Metropolis process, Random Structures & Algorithms 3, 1992',
@@ -3664,8 +3664,8 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     proposer: 'T. Y. Hou & G. Luo',
     proposed_year: 2014,
     via: {
-      label: 'Hou & Luo, Toward a finite-time singularity of the 3D incompressible Euler equations, PNAS 111 (2014) (numerical candidate; analytic proof open)',
-      url: 'https://doi.org/10.1073/pnas.1402374111',
+      label: 'Hou & Luo, Toward the Finite-Time Blowup of the 3D Axisymmetric Euler Equations: A Numerical Investigation, Multiscale Model. Simul. 12 (2014)',
+      url: 'https://doi.org/10.1137/140966411',
     },
     related_problems: [
       {
@@ -3695,7 +3695,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     references: [
       {
         label: 'Tao, Finite time blowup for an averaged three-dimensional Navier–Stokes equation, GAFA 26 (2016) 1091–1130',
-        url: 'https://doi.org/10.1007/s00039-016-0371-6',
+        url: 'https://doi.org/10.1090/jams/838',
       },
       {
         label: 'Elgindi, Finite-time singularity formation for C^{1,α} solutions to the incompressible Euler equations on R^3, Annals of Mathematics 194 (2021) 647–727',
@@ -3967,7 +3967,7 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
       },
       {
         label: 'Brunet, Derrida, Effect of microscopic noise on front propagation, Journal of Statistical Physics 103 (2001) 269–282',
-        url: 'https://doi.org/10.1023/A:1004821513482',
+        url: 'https://doi.org/10.1023/a:1004875804376',
       },
     ],
   },
@@ -4268,8 +4268,8 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: {
-      label: 'Long-time validity of the wave-turbulence equations: Faou–Germain–Hani, Ann. PDE 2 (2016) short-time; long-time open',
-      url: 'https://doi.org/10.1007/s40818-016-0008-1',
+      label: 'Faou, Germain, Hani, The weakly nonlinear large-box limit of the 2D cubic nonlinear Schrödinger equation, J. Amer. Math. Soc. 29 (2016)',
+      url: 'https://doi.org/10.1090/jams/845',
     },
     related_problems: [
       {

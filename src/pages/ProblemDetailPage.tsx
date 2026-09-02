@@ -695,14 +695,19 @@ export default function ProblemDetailPage() {
             <ul className="space-y-2.5 text-sm">
               {p.references.map((r, i) => (
                 <li key={i}>
-                  <a
-                    href={r.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-ink-2 underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-                  >
-                    {r.label}
-                  </a>
+                  {r.url ? (
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-ink-2 underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                    >
+                      {r.label}
+                    </a>
+                  ) : (
+                    // 无核验到稳定链接的引文：保留文字，不渲染死链
+                    <span className="text-ink-2">{r.label}</span>
+                  )}
                 </li>
               ))}
             </ul>

@@ -13,6 +13,7 @@
     "check:problems": "node scripts/check-problems.mjs",
     "check:laws": "node scripts/check-laws.mjs",
     "check:impact": "node scripts/check-impact.mjs",
+    "check:links": "node scripts/check-links.mjs",
     "check:ledger": "node scripts/check-ledger.mjs",
     "check:lean": "node scripts/check-lean.mjs",
     "format": "prettier --write .",
