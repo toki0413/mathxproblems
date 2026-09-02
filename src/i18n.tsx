@@ -8,6 +8,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'nav.graph': { zh: '问题图谱', en: 'Graph' },
   'nav.impact': { zh: '工程价值', en: 'Impact' },
   'nav.laws': { zh: '经验定律', en: 'Laws' },
+  'nav.needs': { zh: '工程需求', en: 'Needs' },
   'nav.stats': { zh: '统计', en: 'Stats' },
   'nav.about': { zh: '关于', en: 'About' },
   'nav.api': { zh: 'API', en: 'API' },
@@ -275,6 +276,10 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '影响域实证链：每个影响域挂接的真实 arXiv 文献证据',
     en: 'Impact-domain evidence chains — real arXiv papers grounding each domain',
   },
+  'api.needs.desc': {
+    zh: '工程反向需求清单：工程需求 → 支撑问题/定律 + 就绪度',
+    en: 'Engineering-need reverse demand list — need → supporting problems/laws + readiness',
+  },
   'api.feed.desc': {
     zh: '最新收录的 RSS 订阅源（自动从目录生成）',
     en: 'RSS feed of the latest catalog additions (generated from the catalog)',
@@ -440,6 +445,26 @@ const STR: Record<string, { zh: string; en: string }> = {
   'laws.tools': { zh: '建议工具', en: 'Suggested tools' },
   'laws.expand': { zh: '展开边界', en: 'Show boundary' },
   'laws.collapse': { zh: '收起', en: 'Collapse' },
+  // needs page（工程反向需求清单）
+  'nd.title': { zh: '工程反向需求清单', en: 'Engineering needs, reversed' },
+  'nd.subtitle': {
+    zh: '工程师带着一个具体需求来（"给散热器一个可核验的热裕量""给生物反应器一个不塌方的稳定性证书"），MathX 反查：哪些目录问题与经验定律支撑这个需求、现在到什么程度、缺口在哪。',
+    en: 'Bring a concrete engineering need (a certified thermal margin for a heat sink, a no-collapse robustness certificate for a bioreactor); MathX maps it back to the catalog problems and empirical laws that back it, how far it currently goes, and where the gap is.',
+  },
+  'nd.role.certificate': { zh: '可消费证书', en: 'consumable certificate' },
+  'nd.role.anchor': { zh: '奠基结构证', en: 'foundational anchor' },
+  'nd.role.related': { zh: '支撑', en: 'related' },
+  'nd.readiness.hint': { zh: '就绪度', en: 'Readiness' },
+  'nd.served': { zh: '已就绪', en: 'Served' },
+  'nd.partial': { zh: '部分', en: 'Partial' },
+  'nd.gap': { zh: '缺口', en: 'Gap' },
+  'nd.supported': { zh: '支撑问题', en: 'Supporting problems' },
+  'nd.laws': { zh: '牵涉经验定律', en: 'Implicated empirical laws' },
+  'nd.how.title': { zh: '如何阅读', en: 'How to read this' },
+  'nd.how.body': {
+    zh: '每条需求列出支撑它的目录问题（角色：可消费证书 / 奠基结构证 / 支撑）与牵涉的经验定律，并诚实标注就绪度：Served = 已有可消费证书；Partial = 至少一个锚点但整体缺口仍在；Gap = 支撑题全部开放。角色与就绪度是评估性判断，非学术结论。',
+    en: 'Each need lists the catalog problems backing it (roles: consumable certificate / foundational anchor / related) and implicated empirical laws, with an honest readiness label: Served = a consumable certificate exists; Partial = at least one anchor but the overall gap remains; Gap = all supporting problems open. Roles and readiness are assessments, not academic claims.',
+  },
   'im.card1.h': { zh: '当前瓶颈', en: 'The bottleneck' },
   'im.card1.b': {
     zh: 'AI 证明器在纯数学上突飞猛进，但工业界无法验证"AI 给出的控制器是否安全"——因为问题本身没有被数学化陈述。',

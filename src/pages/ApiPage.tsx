@@ -3,6 +3,7 @@ import { PROBLEMS, relatedOf } from '@/data/problems'
 import { MATHLIB_TOOLS } from '@/data/mathlibTools'
 import { LAWS } from '@/data/laws'
 import { IMPACT_DOMAIN_RECORDS } from '@/data/impactDomains'
+import { ENGINEERING_NEEDS } from '@/data/engineeringNeeds'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
@@ -64,6 +65,7 @@ export default function ApiPage() {
           ['tools.json', t2('api.tools.desc'), MATHLIB_TOOLS.length],
           ['laws.json', t2('api.laws.desc'), LAWS.length],
           ['impact.json', t2('api.impact.desc'), IMPACT_DOMAIN_RECORDS.length],
+          ['needs.json', t2('api.needs.desc'), ENGINEERING_NEEDS.length],
         ].map(([path, desc, n]) => (
           <div key={path as string} className="grid md:grid-cols-[14rem_1fr_auto] gap-3 p-5 items-baseline">
             <code className="font-mono2 text-sm">{path}</code>
