@@ -45,7 +45,7 @@ export default function App() {
             <Route path="/laws" element={<LawsPage />} />
             <Route path="/submit" element={<SubmitPage />} />
             <Route path="/review" element={<ReviewPage />} />
-            <Route path="/blog/formalization-frontier" element={<BlogPostPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

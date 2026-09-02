@@ -45,6 +45,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'footer.goal': { zh: '目标', en: 'goal' },
   'footer.license': { zh: 'CC BY 4.0（问题陈述与元数据）', en: 'CC BY 4.0 (statements & metadata)' },
   'footer.essay': { zh: '论形式化边界', en: 'Essay: the frontier' },
+  'footer.essay.cn': { zh: '审计博文', en: 'Essay: the audit (CN)' },
   'bp.back': { zh: '返回', en: 'Back to catalog' },
   // home
   'home.kicker': { zh: '开放问题目录', en: 'Catalog of open problems' },

@@ -1,13 +1,21 @@
-import { Link } from 'react-router'
-import raw from '../../blog/formalization-frontier.md?raw'
+import { Link, useParams } from 'react-router'
+import rawEn from '../../blog/formalization-frontier.md?raw'
+import rawCn from '../../blog/cn-audit-gate.md?raw'
 import { Markdown } from '@/components/Markdown'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
-// 传播锚点：数据驱动的技术博客（内容在 blog/formalization-frontier.md，
+// 传播锚点：数据驱动的技术博客（内容在 blog/*.md，
 // 与仓库内可独立发布的源文件保持同源，避免站内副本漂移）。
+const BLOG: Record<string, string> = {
+  'formalization-frontier': rawEn,
+  'cn-audit-gate': rawCn,
+}
+
 export default function BlogPostPage() {
   const { t } = useI18n()
+  const { slug } = useParams()
+  const raw = BLOG[slug ?? ''] ?? rawEn
   return (
     <div className="mx-auto max-w-3xl px-5 py-14">
       <Reveal>

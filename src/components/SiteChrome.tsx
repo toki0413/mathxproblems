@@ -130,6 +130,9 @@ export function SiteFooter() {
           <Link to="/blog/formalization-frontier" className="hover:text-ink underline underline-offset-4">
             {t('footer.essay')}
           </Link>
+          <Link to="/blog/cn-audit-gate" className="hover:text-ink underline underline-offset-4">
+            {t('footer.essay.cn')}
+          </Link>
           <span>
             {t('footer.collected')} {AUDITED_PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
           </span>
