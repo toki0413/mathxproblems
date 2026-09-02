@@ -32,10 +32,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node 24：本地运行依赖 type-stripping 直接 import contracts/*.ts
+          # （参考核验器与守卫共用同一实现），且满足 wrangler 4.x 的最低要求。
+          node-version: 24
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Guardrails (contract verifier + catalog + laws + ledger unit tests)
+        run: |
+          node scripts/check-problems.mjs
+          node scripts/check-laws.mjs
+          node --test scripts/catalog-checks.test.mjs
       - name: Type-check & build
         run: npm run build
       - name: Deploy to Cloudflare Pages
@@ -48,3 +55,6 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ env.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ env.CF_ACCOUNT_ID }}
+      - name: Post-deploy ledger smoke (append-only audit against production)
+        if: ${{ env.CF_API_TOKEN != '' }}
+        run: node scripts/check-ledger.mjs https://mathx-bridge.pages.dev

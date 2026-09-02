@@ -11,6 +11,8 @@
     "start": "NODE_ENV=production node dist/server.js",
     "check": "tsc -b",
     "check:problems": "node scripts/check-problems.mjs",
+    "check:laws": "node scripts/check-laws.mjs",
+    "check:ledger": "node scripts/check-ledger.mjs",
     "format": "prettier --write .",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",

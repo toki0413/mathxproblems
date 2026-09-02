@@ -6,6 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { checkCatalog } from './lib/catalog-checks.mjs'
+import { verifyCertificate, checkInformation } from '../contracts/verifier.ts'
 
 // Minimal but rule-valid problem block. Every field is required by some rule;
 // a "clean" vb problem must satisfy them all so the test targets one axis only.
@@ -240,4 +241,58 @@ test('formal_view judgment check is block-scoped, not a global includes', () => 
     '    },',
   ].join('\n')
   assert.ok(failures(src).some((f) => f.includes("formal_view missing 'judgment'") && f.includes('x1')))
+})
+
+// ── 参考核验器（契约 v0.1）──
+const GOOD_CERT = {
+  r_model: { bound: 'Boussinesq 近似的显式残差界' },
+  r_param: { bound: '≡0（参数精确给定）' },
+  r_num: { bound: '区间算术封闭界' },
+  total_band: 'X_hi - X_lo ≤ R_model + R_param + R_num',
+  certified_band: '[1.52, 1.56]',
+}
+
+test('verifier: a machine-readable, non-vacuous certificate passes', () => {
+  const v = verifyCertificate(GOOD_CERT)
+  assert.equal(v.pass, true)
+  assert.deepEqual(Object.values(v.checks), ['pass', 'pass', 'pass', 'pass'])
+  assert.ok(v.relative_width !== null && v.relative_width < 0.2)
+})
+
+test('verifier: r_param without ≡0 or uncertainty fails the clause', () => {
+  const v = verifyCertificate({ ...GOOD_CERT, r_param: { bound: '一个界' } })
+  assert.equal(v.checks.r_param_clause, 'fail')
+  assert.equal(v.pass, false)
+})
+
+test('verifier: vacuous band (relative width > 1) fails', () => {
+  const v = verifyCertificate({ ...GOOD_CERT, certified_band: '[0, 100]' })
+  assert.equal(v.checks.band_nonvacuous, 'fail')
+  assert.equal(v.pass, false)
+  assert.equal(v.relative_width, 2)
+})
+
+test('verifier: descriptive certified_band is reported as needs_form, not a pass', () => {
+  const v = verifyCertificate({ ...GOOD_CERT, certified_band: '候选核谱隙确认区间' })
+  assert.equal(v.checks.band_form, 'needs_form')
+  assert.equal(v.pass, true) // needs_form 不算失败，但如实报告
+  assert.ok(v.reasons.some((r) => r.includes('machine form')))
+})
+
+test('verifier is deterministic: same input, same verdict', () => {
+  const a = verifyCertificate(GOOD_CERT)
+  const b = verifyCertificate(GOOD_CERT)
+  assert.deepEqual(a, b)
+})
+
+test('verifier: missing certificate is a hard fail', () => {
+  const v = verifyCertificate(undefined)
+  assert.equal(v.pass, false)
+  assert.ok(v.reasons.includes('certificate missing'))
+})
+
+test('checkInformation: crossing-zero band defers the vacuous gate', () => {
+  const info = checkInformation('[-1, 1]')
+  assert.equal(info.relative_width, null)
+  assert.equal(info.within_vacuous, true)
 })

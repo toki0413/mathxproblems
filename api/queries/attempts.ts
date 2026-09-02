@@ -2,6 +2,7 @@ import { and, asc, desc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 import * as schema from "@db/schema";
 import type { InsertProblemAttempt } from "@db/schema";
 import { bandBits } from "@contracts/band";
+import { evidenceHash } from "@contracts/ledger";
 import { getDb } from "./connection";
 
 export async function insertAttempt(data: InsertProblemAttempt) {
@@ -183,6 +184,8 @@ export async function listLatestVerifications(limit = 12) {
  * 形式化补证（M 侧，kind='formal'），供下游 agent/prover 流水线增量同步。
  * 对应 spec docs/superpowers/specs/2026-08-30-dual-bridge-design.md §6 同步节：
  * feed 从「覆盖 narrow 收窄」扩展为「覆盖 narrow + formal 补证」。
+ * 每条事件附证据哈希 contentHash（契约 v0.1 只追加账本）：id 严格递增即追加序，
+ * 消费方可用哈希复核历史未被改写（scripts/check-ledger.mjs）。
  */
 export async function listLatestClaimEvents(limit = 20) {
   const rows = await getDb()
@@ -191,6 +194,8 @@ export async function listLatestClaimEvents(limit = 20) {
       problemId: schema.problemAttempts.problemId,
       kind: schema.problemAttempts.kind,
       title: schema.problemAttempts.title,
+      content: schema.problemAttempts.content,
+      narrative: schema.problemAttempts.narrative,
       authorName: schema.problemAttempts.authorName,
       registeredName: schema.users.name,
       newBand: schema.problemAttempts.newBand,
@@ -212,7 +217,20 @@ export async function listLatestClaimEvents(limit = 20) {
     ...r,
     authorName: r.authorName ?? registeredName,
   }));
-  return attachBandBits(withNames);
+  const withHashes = withNames.map(({ content, narrative, ...r }) => ({
+    ...r,
+    contentHash: evidenceHash({
+      problemId: r.problemId,
+      kind: r.kind,
+      title: r.title,
+      content,
+      narrative,
+      newBand: r.newBand,
+      formalStatus: r.formalStatus,
+      method: r.method,
+    }),
+  }));
+  return attachBandBits(withHashes);
 }
 
 /**
@@ -294,6 +312,9 @@ export async function reviewAttempt(
   status: "approved" | "rejected",
   reviewerNote?: string,
 ) {
+  // 只追加账本守卫：评审只允许改写 status / reviewerNote——证据字段
+  // （problemId/kind/title/content/narrative/newBand/formalStatus/method）一经
+  // 插入即不可变，否则破坏 evidenceHash 一致性并被 check-ledger 审计发现。
   await getDb()
     .update(schema.problemAttempts)
     .set({ status, reviewerNote: reviewerNote ?? null })

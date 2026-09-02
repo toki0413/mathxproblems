@@ -3,6 +3,10 @@
 // notes) can be unit-tested without spawning the CLI. check-problems.mjs calls
 // checkCatalog() and prints the result; tests feed it synthetic snippets.
 
+// 参考核验器（契约 v0.1）：Node 24 以 type-stripping 直接运行 contracts/*.ts，
+// 让结构守卫与共享核验器共用同一实现，而不是各写一套正则。
+import { verifyCertificate } from "../../contracts/verifier.ts";
+
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
 export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superseded'])
@@ -252,9 +256,12 @@ export function checkCatalog(raw) {
     warnings.push(`depends_on edges from verified_behavior missing inheritance note: ${noInheritanceNote.map((e) => `${e.from}->${e.to}`).join(', ')}`)
   else if (vbDependsOn.length) notes.push(`inheritance chain: all ${vbDependsOn.length} depends_on edges from verified_behavior carry inheritance notes`)
 
-  // 结构化证书（方向一 L1）
+  // 结构化证书（方向一 L1）+ 参考核验器（契约 v0.1 四条不变量）
   const certIds = [...hasCertificate]
   const badCert = []
+  let vPass = 0
+  let vNeedsForm = 0
+  const vFail = []
   for (const id of certIds) {
     const start = src.indexOf(`\n    id: '${id}',`)
     if (start < 0) { badCert.push(`${id}:block-not-found`); continue }
@@ -266,9 +273,28 @@ export function checkCatalog(raw) {
     if (rpBound && rpBound[1] && !rpBound[1].includes('≡0') && !/测量|不确定度|输入残差|measurement|uncertainty|input residual/i.test(rpBound[1])) {
       badCert.push(`${id}:r_param-bound`)
     }
+    // 参考核验器：从块内提取字段，交由共享 verifier 判定（契约 v0.1）。
+    const field = (re) => (block.match(re) || [])[1] ?? ''
+    const cert = {
+      r_model: { bound: field(/r_model:\s*\{\s*bound:\s*'([^']*)'/) },
+      r_param: { bound: field(/r_param:\s*\{\s*bound:\s*'([^']*)'/) },
+      r_num: { bound: field(/r_num:\s*\{\s*bound:\s*'([^']*)'/) },
+      total_band: field(/total_band:\s*'([^']*)'/),
+      certified_band: (block.match(/certified_band:\s*'([^']*)'/) || [])[1] ?? undefined,
+    }
+    const verdict = verifyCertificate(cert)
+    const failChecks = Object.entries(verdict.checks)
+      .filter(([, s]) => s === 'fail')
+      .map(([k]) => k)
+    if (failChecks.length) vFail.push(`${id}:${failChecks.join('+')}`)
+    else if (verdict.checks.band_form === 'pass') vPass += 1
+    else vNeedsForm += 1
   }
   if (badCert.length) failures.push(`certificate structural issues: ${badCert.join(', ')}`)
   else if (certIds.length) notes.push(`certificate: all ${certIds.length} structured certificates have complete layers`)
+  if (vFail.length) failures.push(`certificate verifier (contract v0.1): ${vFail.join(', ')}`)
+  else if (certIds.length)
+    notes.push(`verifier: ${vPass} certificates machine-verified, ${vNeedsForm} need machine form (${certIds.length} total)`)
 
   // 试点：形式工具映射 + 结构化失败记录契约（工具 id / 机制 / 层 / 角色 枚举合法）。
   const badTool = [...src.matchAll(/tool_id: '([^']+)'/g)]
