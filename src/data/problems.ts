@@ -4545,7 +4545,7 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         kind: 'numerical',
       },
       total_band: 'C_0 - c ≤ R_model + R_num',
-      certified_band: '[c, C_0]',
+      certified_band: '[1.44, 1.58]',
     },
     engineering_deliverables: ['DFT functional lower-bound compliance review', 'Exchange-correlation energy contraction bracket'],
     origin:
