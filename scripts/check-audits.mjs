@@ -45,7 +45,15 @@ if (flaggedMissingReason.length) failures.push(`flagged audit missing reason: ${
 const passedCount = (auditsSrc.match(/status: 'passed'/g) || []).length;
 const flaggedCount = (auditsSrc.match(/status: 'flagged'/g) || []).length;
 
-console.log(`audit: ${problemIds.size} problems, ${passedCount} passed, ${flaggedCount} flagged`);
+// 5) 主包里的 build-time 目录元数据必须与审计通过数一致，
+//    否则页头/页脚计数的常量会与数据静默脱节。
+const metaSrc = readFileSync(join(root, "src/data/catalogMeta.ts"), "utf8");
+const metaCount = Number((metaSrc.match(/CATALOG_COUNT = (\d+)/) || [])[1]);
+if (!Number.isInteger(metaCount) || metaCount !== passedCount) {
+  failures.push(`catalogMeta.CATALOG_COUNT (${metaCount}) != audited passed (${passedCount}) — update src/data/catalogMeta.ts`);
+}
+
+console.log(`audit: ${problemIds.size} problems, ${passedCount} passed, ${flaggedCount} flagged, catalogMeta=${metaCount}`);
 
 if (failures.length) {
   for (const f of failures) console.error(`  FAIL ${f}`);

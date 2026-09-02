@@ -89,14 +89,21 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pt-20 pb-16 md:pt-28">
+      <section className="relative isolate mx-auto max-w-6xl px-5 pt-20 pb-16 md:pt-28">
+        {/* 装帧：幽灵目录数——极淡的衬线巨字压在标题后（装饰性，可访问性豁免） */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -top-4 right-0 md:right-2 -z-10 select-none font-statement text-[9rem] md:text-[14rem] leading-none font-bold text-[#16150f]/[0.045] tracking-tight"
+        >
+          {AUDITED_PROBLEMS.length}
+        </span>
         <Reveal>
           <p className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">
             Open problems at the interface of mathematics & the sciences
           </p>
         </Reveal>
         <Reveal delay={80}>
-          <h1 className="mt-6 font-statement text-4xl md:text-6xl font-bold leading-[1.08] tracking-tight max-w-4xl whitespace-pre-line">
+          <h1 className="relative mt-6 font-statement text-4xl md:text-6xl font-bold leading-[1.08] tracking-tight max-w-4xl whitespace-pre-line">
             {t('home.heroHeadline')}
           </h1>
         </Reveal>
@@ -107,22 +114,51 @@ export default function HomePage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               to="/problems"
-              className="rounded-full bg-ink text-paper px-6 py-2.5 text-sm font-medium hover:opacity-85 transition-opacity"
+              className="rounded-full bg-ink text-paper px-6 py-2.5 text-sm font-medium hover:opacity-85 transition-opacity active:scale-[0.98]"
             >
               {t('home.browse').replace('{n}', String(AUDITED_PROBLEMS.length))}
             </Link>
             <Link
               to="/impact"
-              className="rounded-full border border-line-strong px-6 py-2.5 text-sm text-ink-2 hover:border-ink hover:text-ink transition-colors"
+              className="rounded-full border border-line-strong px-6 py-2.5 text-sm text-ink-2 hover:border-ink hover:text-ink transition-colors active:scale-[0.98]"
             >
               {t('home.impact')}
             </Link>
             <Link
               to="/about"
-              className="rounded-full border border-line-strong px-6 py-2.5 text-sm text-ink-2 hover:border-ink hover:text-ink transition-colors"
+              className="rounded-full border border-line-strong px-6 py-2.5 text-sm text-ink-2 hover:border-ink hover:text-ink transition-colors active:scale-[0.98]"
             >
               {t('home.criteria')}
             </Link>
+          </div>
+        </Reveal>
+        {/* 编辑风统计行：目录规模一行见底 */}
+        <Reveal delay={320}>
+          <div className="mt-14 border-t border-line">
+            <dl className="pt-4 flex flex-wrap gap-x-10 gap-y-2 font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+              <div className="flex items-baseline gap-1.5">
+                <dt className="sr-only">{t('home.ledger.problems')}</dt>
+                <dd className="font-statement text-ink text-base font-semibold" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                  {AUDITED_PROBLEMS.length}
+                </dd>
+                <dd>{t('home.ledger.problems')}</dd>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <dt className="sr-only">{t('home.ledger.domains')}</dt>
+                <dd className="font-statement text-ink text-base font-semibold">{Object.keys(DOMAINS).length}</dd>
+                <dd>{t('home.ledger.domains')}</dd>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <dt className="sr-only">{t('home.ledger.certs')}</dt>
+                <dd className="font-statement text-ink text-base font-semibold">
+                  {AUDITED_PROBLEMS.filter((p) => p.output === 'verified_behavior').length}
+                </dd>
+                <dd>{t('home.ledger.certs')}</dd>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <dd>{t('home.ledger.ledger')}</dd>
+              </div>
+            </dl>
           </div>
         </Reveal>
       </section>

@@ -460,6 +460,11 @@ const STR: Record<string, { zh: string; en: string }> = {
   'home.live': { zh: '实时动态', en: 'Live monitor' },
   'home.view': { zh: '查看', en: 'Open' },
   'home.another': { zh: '换一题', en: 'Another' },
+  // hero ledger strip（编辑风统计行）
+  'home.ledger.problems': { zh: '收录问题', en: 'problems in catalog' },
+  'home.ledger.domains': { zh: '学科域', en: 'domains' },
+  'home.ledger.certs': { zh: '可证行为证书', en: 'behavior certificates' },
+  'home.ledger.ledger': { zh: '只追加协议账本', en: 'append-only ledger' },
   // impact page
   'im.subtitle': {
     zh: '这些问题的解答可直接嵌入现有工业认证体系——把仿真测试换成机器可检的数学证明，把经验法则换成可验证的定理。',

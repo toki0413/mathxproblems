@@ -1,6 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router'
 import { useEffect, useState } from 'react'
-import { AUDITED_PROBLEMS } from '@/data/audits'
+import { CATALOG_COUNT } from '@/data/catalogMeta'
 import { GOAL_PROBLEMS } from '@/const'
 import { useI18n } from '@/i18n'
 
@@ -43,7 +43,9 @@ export function SiteHeader() {
               to={n.to}
               className={({ isActive }) =>
                 `px-3 py-1.5 text-sm transition-colors ${
-                  isActive ? 'text-ink font-medium' : 'text-ink-3 hover:text-ink'
+                  isActive
+                    ? 'text-ink font-medium underline decoration-ink decoration-[1.5px] underline-offset-[7px]'
+                    : 'text-ink-3 hover:text-ink'
                 }`
               }
             >
@@ -57,7 +59,7 @@ export function SiteHeader() {
             {t('nav.submit')}
           </Link>
           <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
-            {AUDITED_PROBLEMS.length} {t('nav.count')}
+            {CATALOG_COUNT} {t('nav.count')}
           </span>
           <Link
             to="/review"
@@ -134,7 +136,7 @@ export function SiteFooter() {
             {t('footer.essay.cn')}
           </Link>
           <span>
-            {t('footer.collected')} {AUDITED_PROBLEMS.length} / {t('footer.goal')} {GOAL_PROBLEMS}
+            {t('footer.collected')} {CATALOG_COUNT} / {t('footer.goal')} {GOAL_PROBLEMS}
           </span>
           <span>{t('footer.license')}</span>
         </div>

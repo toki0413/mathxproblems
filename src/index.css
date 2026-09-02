@@ -48,6 +48,9 @@
   body {
     @apply text-foreground antialiased;
     background-color: var(--paper);
+    /* 纸张质感：极淡的 fractal-noise 颗粒（不随滚动动，prefers-reduced-motion 无影响） */
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     color: var(--ink);
     font-family:
       ui-sans-serif, -apple-system, "Segoe UI", "PingFang SC",
@@ -59,16 +62,23 @@
     background: var(--ink);
     color: var(--paper);
   }
+  /* 键盘可访问性：全站统一的墨色焦点环 */
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
 }
 
 @layer utilities {
   .font-statement {
-    font-family: Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC",
-      "SimSun", serif;
+    /* STIX Two Text：科学/数学排版的文本伴侣字体，与 KaTeX 同族，契合"可证数学"的编辑风 */
+    font-family: "STIX Two Text", Georgia, "Times New Roman", "Songti SC",
+      "Noto Serif CJK SC", "SimSun", serif;
+    font-feature-settings: "liga" 1, "kern" 1;
   }
   .font-mono2 {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New",
-      monospace;
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas,
+      "Courier New", monospace;
   }
   .text-ink { color: var(--ink); }
   .text-paper { color: var(--paper); }
@@ -80,6 +90,12 @@
   .border-line-strong { border-color: var(--line-strong); }
   .hairline-t { border-top: 1px solid var(--line); }
   .hairline-b { border-bottom: 1px solid var(--line); }
+  /* 编辑风装帧：墨色→透明的渐隐发丝线（Hero 压印/段落分隔） */
+  .imprint-line {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, var(--ink), transparent 78%);
+  }
   .text-mp { color: var(--mp); }
   .text-mc { color: var(--mc); }
   .text-mb { color: var(--mb); }
@@ -108,8 +124,8 @@
 
 /* Markdown (problem statements) */
 .md-body {
-  font-family: Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC",
-    "SimSun", serif;
+  font-family: "STIX Two Text", Georgia, "Times New Roman", "Songti SC",
+    "Noto Serif CJK SC", "SimSun", serif;
   font-size: 1.12rem;
   line-height: 1.9;
   color: var(--ink);

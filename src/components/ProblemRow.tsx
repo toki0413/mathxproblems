@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import type { CSSProperties } from 'react'
 import { DOMAINS, type Problem, type ProblemStatus } from '@/data/problems'
 import { useI18n, pickLang, domainLabel, enumLabel } from '@/i18n'
 
@@ -40,7 +41,8 @@ export function ProblemRow({ p, index }: { p: Problem; index: number }) {
   return (
     <Link
       to={`/problems/${p.id}`}
-      className="group grid grid-cols-[1fr_auto] md:grid-cols-[1fr_9rem_6.5rem_5.5rem] items-baseline gap-x-6 py-4 hairline-b hover:bg-[#f2f0e8] transition-colors px-2 -mx-2"
+      className="group grid grid-cols-[1fr_auto] md:grid-cols-[1fr_9rem_6.5rem_5.5rem] items-baseline gap-x-6 py-4 hairline-b hover:bg-[#f2f0e8] hover:shadow-[inset_3px_0_0_0_var(--row-accent)] transition-colors px-2 -mx-2"
+      style={{ '--row-accent': DOMAINS[p.domain].color } as CSSProperties}
     >
       <span className="min-w-0">
         <span className="block truncate text-[1.05rem] font-medium text-ink group-hover:underline underline-offset-4 decoration-line-strong">
