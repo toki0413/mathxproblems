@@ -296,3 +296,52 @@ test('checkInformation: crossing-zero band defers the vacuous gate', () => {
   assert.equal(info.relative_width, null)
   assert.equal(info.within_vacuous, true)
 })
+
+// ── 诚实标签（provenance）──
+// provLine/leanLine 自带 4 空格缩进（与解析器要求的列宽一致），
+// 因此放在模板第 0 列，避免模板自身空格造成 8 空格双重缩进而解析不到。
+function provProblem(id, provLine = '', leanLine = '') {
+  const prov = provLine ? `${provLine}\n` : ''
+  const lean = leanLine ? `${leanLine}\n` : ''
+  return `export const PROBLEMS = [ {
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+${prov}${lean}    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+} ]`
+}
+
+test('expert-reviewed without a review record is rejected', () => {
+  const src = provProblem('x-020', "    provenance: 'expert-reviewed',")
+  assert.ok(failures(src).some((f) => f.includes('provenance upgrade lacks recorded evidence') && f.includes('x-020')))
+})
+
+test('lean-compilable without a lean_statement is rejected', () => {
+  const src = provProblem('x-021', "    provenance: 'lean-compilable',")
+  assert.ok(failures(src).some((f) => f.includes('provenance upgrade lacks recorded evidence') && f.includes('x-021')))
+})
+
+test('lean-compilable with a lean_statement is allowed', () => {
+  const src = provProblem('x-022', "    provenance: 'lean-compilable',", "    lean_statement: 'theorem t : True := by trivial',")
+  assert.ok(!failures(src).some((f) => f.includes('provenance upgrade lacks recorded evidence')))
+  assert.ok(!failures(src).some((f) => f.includes('invalid provenance')))
+})
+
+test('invalid provenance value fails', () => {
+  const src = provProblem('x-023', "    provenance: 'self-verified',")
+  assert.ok(failures(src).some((f) => f.includes('invalid provenance')))
+})
+
+test('lean_statement present but still AI-drafted warns (honest default)', () => {
+  const src = provProblem('x-024', '', "    lean_statement: 'theorem t : True := by trivial',")
+  assert.ok(warnings(src).some((w) => w.includes('lean_statement present but provenance not')))
+})
+
+test('default (no provenance field) counts as AI-drafted', () => {
+  const src = provProblem('x-025', '', '')
+  const note = checkCatalog(src).notes.find((n) => n.startsWith('provenance:'))
+  assert.ok(note.includes('AI-drafted=1'))
+})
