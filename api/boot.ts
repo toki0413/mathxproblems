@@ -5,7 +5,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 import { ensureVisitorId } from "./visitor";
-import { buildCatalog, buildBenchmark, buildTools, snapshotVersion } from "./catalog.json";
+import { buildCatalog, buildBenchmark, buildTools, buildImpact, snapshotVersion } from "./catalog.json";
 import { buildLaws } from "./laws.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
@@ -88,6 +88,8 @@ app.get("/api/v1/benchmark.json", (c) => jsonReply(JSON.stringify(buildBenchmark
 app.get("/api/v1/tools.json", (c) => jsonReply(JSON.stringify(buildTools()), c));
 // 经验定律边界图谱：工程经验定律的失效域与形式化缺口（运动的需求清单）。
 app.get("/api/v1/laws.json", (c) => jsonReply(JSON.stringify(buildLaws()), c));
+// 影响域实证链：每个影响域挂接的真实 arXiv 文献证据（可核验锚点，B5）。
+app.get("/api/v1/impact.json", (c) => jsonReply(JSON.stringify(buildImpact()), c));
 // 变更 feed：最近被评审通过的声明事件——带证收窄（S 侧，kind='verification'）
 // 与形式化补证（M 侧，kind='formal'），供下游消费方做增量同步。
 // verification 事件附 bits（相对题内上一条已通过的收窄的信息量增益）。

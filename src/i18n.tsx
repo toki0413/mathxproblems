@@ -149,6 +149,9 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.engineering': { zh: '工程价值与转化', en: 'Engineering value & translation' },
   'pd.formalization': { zh: '形式化评注', en: 'Formalization notes' },
   'pd.impact': { zh: '影响领域', en: 'Impact domains' },
+  'pd.impact.backed': { zh: '已挂文献', en: 'literature-backed' },
+  'pd.impact.evidence': { zh: '证据链', en: 'Evidence' },
+  'pd.impact.pending': { zh: '证据待领域专家补充。', en: 'Evidence pending expert sourcing.' },
   'pd.failure': { zh: '为何已知方法失败', en: 'Why known methods fail' },
   'pd.failure.hint': {
     zh: '已知方法的结构化失败记录——AI 智能体的路标。',
@@ -267,6 +270,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'api.laws.desc': {
     zh: '经验定律边界图谱：失效域 + 形式化缺口（运动的需求清单）',
     en: 'Empirical-law boundary map — failure regimes + formalization gaps (the movement demand list)',
+  },
+  'api.impact.desc': {
+    zh: '影响域实证链：每个影响域挂接的真实 arXiv 文献证据',
+    en: 'Impact-domain evidence chains — real arXiv papers grounding each domain',
   },
   'api.feed.desc': {
     zh: '最新收录的 RSS 订阅源（自动从目录生成）',
@@ -451,6 +458,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'im.cert': { zh: '对应认证标准', en: 'Matching standard' },
   'im.effect': { zh: '直接工程影响', en: 'Direct engineering impact' },
   'im.index': { zh: '影响领域索引', en: 'Impact domain index' },
+  'im.backed': { zh: '证据', en: 'Evidence' },
   'im.why': { zh: '为什么这是 AI for Math 的落地点？', en: 'Why this is where AI for math lands' },
   // submit page
   'sb.guide': { zh: '贡献指南见「关于」页 · 三问筛选器同样适用', en: 'See About for the contributor guide · the three-question filter applies' },

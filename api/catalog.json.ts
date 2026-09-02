@@ -3,9 +3,10 @@
 // file: esbuild/Vite (and CF's bundler) parse TS + CJK fine, so there's no runtime
 // filesystem dependency — which keeps this module loadable in Cloudflare Workers.
 // Downstream agents/prover pipelines GET a versioned, etag-able snapshot.
-import { PROBLEMS } from "../src/data/problems";
+import { PROBLEMS, impactOf } from "../src/data/problems";
 import type { Problem } from "../src/data/problems";
 import { MATHLIB_TOOLS } from "../src/data/mathlibTools";
+import { IMPACT_DOMAIN_RECORDS } from "../src/data/impactDomains";
 
 function oneProblem(p: Problem) {
   return {
@@ -58,6 +59,7 @@ function oneProblem(p: Problem) {
       : undefined,
     proposer: p.proposer || undefined,
     proposed_year: p.proposed_year ?? undefined,
+    impact_domains: impactOf(p).length ? impactOf(p) : undefined,
     failure_records: p.failure_records?.length
       ? p.failure_records.map((r) => ({
           method: r.method,
@@ -85,6 +87,23 @@ export function buildTools() {
     category: t.category,
     blurb: t.blurb,
     url: t.url,
+  }));
+}
+
+/** 影响域实证链快照：每个影响域的文献证据（真实 arXiv 论文，可点击核验）。 */
+export function buildImpact() {
+  return IMPACT_DOMAIN_RECORDS.map((r) => ({
+    id: r.id,
+    name: r.name,
+    description: r.description,
+    status: r.status,
+    retrieved: r.retrieved,
+    evidence: r.evidence.map((e) => ({
+      title: e.title,
+      authors: e.authors,
+      year: e.year,
+      url: e.url,
+    })),
   }));
 }
 

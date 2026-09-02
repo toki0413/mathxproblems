@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { PROBLEMS, DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
+import { impactRecord } from '@/data/impactDomains'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
@@ -582,21 +583,56 @@ export default function ProblemDetailPage() {
 
           {impactOf(p).length > 0 && (
             <Section title={t('pd.impact')}>
-              <div className="flex flex-wrap gap-2">
-                {impactOf(p).map((d) => (
-                  <Link
-                    key={d}
-                    to={`/problems?impact=${encodeURIComponent(d)}`}
-                    className="border border-line rounded-full px-3.5 py-1.5 text-sm text-ink-2 hover:border-ink hover:text-ink transition-colors"
-                  >
-                    {d}
-                  </Link>
-                ))}
+              <div className="space-y-4">
+                {impactOf(p).map((d) => {
+                  const rec = impactRecord(d)
+                  return (
+                    <div key={d} className="border border-line bg-white/50 p-5">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <Link
+                          to={`/problems?impact=${encodeURIComponent(d)}`}
+                          className="font-statement font-bold text-ink hover:underline underline-offset-4"
+                        >
+                          {d}
+                        </Link>
+                        {rec?.status === 'literature-backed' && (
+                          <span className="border border-mc/40 text-mc rounded-full px-2.5 py-0.5 text-[11px]">
+                            {t('pd.impact.backed')}
+                          </span>
+                        )}
+                      </div>
+                      {rec?.description && (
+                        <p className="mt-2 text-sm text-ink-2 leading-relaxed">{rec.description}</p>
+                      )}
+                      {rec && rec.evidence.length > 0 ? (
+                        <div className="mt-3 space-y-1.5">
+                          <div className="font-mono2 text-[10px] uppercase tracking-[0.15em] text-ink-3">
+                            {t('pd.impact.evidence')}
+                          </div>
+                          {rec.evidence.map((e, i) => (
+                            <a
+                              key={i}
+                              href={e.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="block text-xs text-ink-2 leading-relaxed hover:underline underline-offset-2"
+                            >
+                              {e.authors[0]}
+                              {e.authors.length > 1 ? ' et al.' : ''} ({e.year}) — {e.title}
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="mt-2 text-xs text-ink-3 italic">{t('pd.impact.pending')}</p>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
               <p className="mt-3 text-xs text-ink-3 leading-relaxed">
                 {lang === 'zh'
-                  ? '点击影响领域可查看传导至同一工程/技术方向的全部问题。'
-                  : 'Click an impact domain to see every problem translating into the same engineering direction.'}
+                  ? '影响域证据为真实 arXiv 文献（可点击核验）；点击域名称可查看传导至同一工程方向的全部问题。'
+                  : 'Impact-domain evidence links to real arXiv papers (click to verify); click a domain to see every problem translating into the same engineering direction.'}
               </p>
             </Section>
           )}

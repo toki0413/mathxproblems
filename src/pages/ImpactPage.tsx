@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
-import { PROBLEMS, DOMAINS, ALL_IMPACT_DOMAINS, impactOf, type Problem } from '@/data/problems'
+import { PROBLEMS, DOMAINS, impactOf, type Problem } from '@/data/problems'
+import { IMPACT_DOMAIN_RECORDS } from '@/data/impactDomains'
 import { Stars } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
 import { useI18n, pickLang } from '@/i18n'
@@ -120,21 +121,35 @@ export default function ImpactPage() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0">
-            {ALL_IMPACT_DOMAINS.map((d) => {
-              const list = PROBLEMS.filter((p) => impactOf(p).includes(d))
+            {IMPACT_DOMAIN_RECORDS.map((rec) => {
+              const list = PROBLEMS.filter((p) => impactOf(p).includes(rec.name))
               return (
-                <Link
-                  key={d}
-                  to={`/problems?impact=${encodeURIComponent(d)}`}
-                  className="group flex items-baseline justify-between py-3 hairline-b"
-                >
-                  <span className="text-sm text-ink-2 group-hover:text-ink group-hover:underline underline-offset-4">
-                    {d}
-                  </span>
-                  <span className="font-mono2 text-[11px] text-ink-3">
-                    {list.map((p) => p.id).join(' · ')}
-                  </span>
-                </Link>
+                <div key={rec.id} className="py-3 hairline-b">
+                  <Link
+                    to={`/problems?impact=${encodeURIComponent(rec.name)}`}
+                    className="group flex items-baseline justify-between gap-3"
+                  >
+                    <span className="text-sm text-ink-2 group-hover:text-ink group-hover:underline underline-offset-4">
+                      {rec.name}
+                    </span>
+                    <span className="font-mono2 text-[11px] text-ink-3 shrink-0">
+                      {list.map((p) => p.id).join(' · ')}
+                    </span>
+                  </Link>
+                  {rec.status === 'literature-backed' && (
+                    <p className="mt-1 font-mono2 text-[10px] text-ink-3 leading-relaxed">
+                      {t('im.backed')}:{' '}
+                      <a
+                        href={rec.evidence[0].url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-line-strong underline-offset-2 hover:decoration-ink"
+                      >
+                        {rec.evidence[0].authors[0]} et al. ({rec.evidence[0].year})
+                      </a>
+                    </p>
+                  )}
+                </div>
               )
             })}
           </div>

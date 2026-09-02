@@ -38,10 +38,11 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Guardrails (contract verifier + catalog + laws + ledger unit tests)
+      - name: Guardrails (contract verifier + catalog + laws + impact + ledger unit tests)
         run: |
           node scripts/check-problems.mjs
           node scripts/check-laws.mjs
+          node scripts/check-impact.mjs
           node --test scripts/catalog-checks.test.mjs
       - name: Lean anchor guard (compile lean/*.lean + inline sync)
         # Lean 4 工具链（elan, Std-only）——陈述必须真实编译通过，否则部署失败。
