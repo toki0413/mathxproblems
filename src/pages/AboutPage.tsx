@@ -23,7 +23,7 @@ const C = {
       ['什么经过机器校验', '结构不变量（唯一 id、关系边、三层残差契约）由守卫脚本强制；证书由参考核验器（契约 v0.1）校验；参考文献指向真实可查的文献；每周自动任务扫描 OpenAlex / arXiv 检测解决信号。'],
       ['什么尚未验证', '陈述与障碍的数学正确性未经专家逐条复核。难度与形式化潜力评级是模型推断，不是专家判断。影响域由模型生成，正在收缩为有文献支撑的集合。社区层（收窄、候选）刻意留空——从你贡献开始。'],
       ['可信度阶梯', 'AI 初稿 → 专家复核 → Lean 编译通过。升级必须留下可追踪记录（专家签注写入更新记录，或附上可编译的 Lean 文件）。在那之前，请把每条视为草稿，对照其参考文献核查。'],
-      ['审计展示门', '2026-09-02 起对全部 114 条执行逐题一致性审计（陈述精确性 / 收录标准 / 状态时效 / 文献支撑 / 评级合理，kind=ai-assisted，非专家复核）。只有通过审计的条目才在公共站点展示；未通过的 5 条已撤下，原因留在审计表（src/data/audits.ts）供人复核升级。'],
+      ['审计展示门', '2026-09-02 起对全部 114 条执行逐题一致性审计（陈述精确性 / 收录标准 / 状态时效 / 文献支撑 / 评级合理，kind=ai-assisted，非专家复核）。只有通过审计的条目才在公共站点展示；未通过的 4 条已撤下，原因留在审计表（src/data/audits.ts）供人复核升级。',],
       ['如何帮助', '对照参考文献核查陈述；提出评级修正；提交带证收窄；或贡献一份可编译的 Lean 形式化陈述——每一样都是沿阶梯的一次真实升级。'],
     ],
     filter: [
@@ -95,7 +95,7 @@ const C = {
       ['What is machine-checked', 'Structural invariants (unique ids, relation edges, the three-layer residual contract) are enforced by guard-rail scripts; certificates are checked against the reference verifier (contract v0.1); references point to real, verifiable literature; a weekly automation scans OpenAlex/arXiv for resolution signals.'],
       ['What is not yet verified', 'The mathematical correctness of statements and obstacles is not individually expert-reviewed. Difficulty and formalization-potential ratings are model estimates, not expert judgement. Impact domains are model-derived and are being pruned to evidence-backed ones. The community layer (narrowings, attempts) is intentionally empty — it begins when you contribute.'],
       ['Provenance ladder', 'AI-drafted → expert-reviewed → lean-compilable. Upgrades require a tracked record (an expert sign-off in the updates, or a Lean file that compiles). Until then, treat every entry as a draft worth checking against its references.'],
-      ['Audit display gate', 'Since 2026-09-02 every entry is subject to a per-problem consistency audit (statement precision / inclusion criterion / status timeliness / reference support / rating soundness; kind=ai-assisted, not expert review). Only entries that pass the audit are shown on the public site; the 5 flagged entries are withheld, with their reasons kept on the audit record (src/data/audits.ts) for review and upgrade.'],
+      ['Audit display gate', 'Since 2026-09-02 every entry is subject to a per-problem consistency audit (statement precision / inclusion criterion / status timeliness / reference support / rating soundness; kind=ai-assisted, not expert review). Only entries that pass the audit are shown on the public site; the 4 flagged entries are withheld, with their reasons kept on the audit record (src/data/audits.ts) for review and upgrade.'],
       ['How to help', 'Verify a statement against its references; propose a rating correction; submit a verified narrowing; or contribute a Lean formal statement that compiles — each is a real step up the ladder.'],
     ],
     filter: [

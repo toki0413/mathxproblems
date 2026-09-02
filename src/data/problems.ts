@@ -5632,12 +5632,12 @@ Provide an explicit convexity/transversality criterion and test it against the k
       'The decision is a spectral-analysis statement: it reduces the spectrum of the Prandtl linearized operator and the regularity loss to verifying upper bounds on finitely many derivatives, with ill-posedness falsifiable by finite-dimensional spectral instances, of medium effort.',
     references: [
       {
-        label: 'Y. Maekawa, A. Gérard-Varet, D. Gérard-Varet, D. Dormy, On the ill-posedness of the Prandtl equation, J. Amer. Math. Soc. 23 (2010) 591–609',
+        label: 'D. Gérard-Varet, E. Dormy, On the ill-posedness of the Prandtl equation, J. Amer. Math. Soc. 23 (2010) 591–609',
         url: 'https://doi.org/10.1090/S0894-0347-09-00652-3',
       },
       {
-        label: 'Y. Maekawa, A. Gérard-Varet, E. Grenier, N. Guo, E. Nguyen, Spectral instability of characteristic boundary layer flows, Proc. Natl. Acad. Sci. U.S.A. 112 (2015) 5299–5303',
-        url: 'https://doi.org/10.1073/pnas.1506451112',
+        label: 'E. Grenier, Y. Guo, T. T. Nguyen, Spectral instability of characteristic boundary layer flows, Duke Math. J. 165 (2016) 3085–3146',
+        url: 'https://doi.org/10.1215/00127094-3645437',
       },
     ],
   },
