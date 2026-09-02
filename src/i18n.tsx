@@ -326,11 +326,23 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pl.comm.ctaEnd': { zh: '。', en: '.' },
   'pl.comm.invite': { zh: '尚无社区投稿——第一个贡献者就是你。', en: 'No community contributions yet — be the first.' },
   // problem detail
-  'pd.verified': { zh: '最近核验', en: 'Verified' },
+  'pd.provenance.hint': {
+    zh: 'AI 生成初稿，未经领域专家逐条复核。难度、形式化评级与影响域均为模型推断，仅供索引参考，不作为学术结论。',
+    en: 'AI-drafted content, not yet individually reviewed by domain experts. Difficulty, formalization ratings and impact domains are model estimates for indexing only, not academic claims.',
+  },
+  'pd.ratings.ai': {
+    zh: '难度与形式化评级为 AI 模型推断，非专家评审；有待专家复核升级。',
+    en: 'Difficulty and formalization ratings are AI model estimates, not expert review; they await expert upgrade.',
+  },
   'pd.status': { zh: '状态', en: 'Status' },
   'pd.output': { zh: '产出类型', en: 'Output type' },
   'pd.difficulty': { zh: '难度', en: 'Difficulty' },
   'pd.formalize': { zh: '形式化潜力', en: 'Formalization' },
+  'pd.lean.title': { zh: '形式化陈述（Lean 4）', en: 'Formal statement (Lean 4)' },
+  'pd.lean.hint': {
+    zh: '已在 Lean 4（Std，无 mathlib）中编译通过；证明仍开放（sorry）。陈述为机器可核验锚点，对应 lean/<id>.lean，由 check-lean 在 CI 强制保持一致。',
+    en: 'Compiles in Lean 4 (Std, no mathlib); the proof is still open (sorry). The statement is a machine-verified anchor, mirrored in lean/<id>.lean and kept in sync by check-lean in CI.',
+  },
   'pd.verify': { zh: '验证路径', en: 'Verification' },
   'pd.contrib': { zh: '贡献者', en: 'Contributor' },
   'pd.judgment': { zh: '判定形式', en: 'Deciding form' },
@@ -517,6 +529,11 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     open: { zh: '开放', en: 'Open' },
     partial: { zh: '部分解决', en: 'Partially resolved' },
     resolved: { zh: '已解决', en: 'Resolved' },
+  },
+  provenance: {
+    'AI-drafted': { zh: 'AI 初稿', en: 'AI-drafted' },
+    'expert-reviewed': { zh: '专家复核', en: 'Expert-reviewed' },
+    'lean-compilable': { zh: 'Lean 编译通过', en: 'Lean-compilable' },
   },
   output: {
     verified_behavior: { zh: '可消费行为证书', en: 'Consumable behavior certificate' },

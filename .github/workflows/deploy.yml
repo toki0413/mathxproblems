@@ -43,6 +43,14 @@ jobs:
           node scripts/check-problems.mjs
           node scripts/check-laws.mjs
           node --test scripts/catalog-checks.test.mjs
+      - name: Lean anchor guard (compile lean/*.lean + inline sync)
+        # Lean 4 工具链（elan, Std-only）——陈述必须真实编译通过，否则部署失败。
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
+          sh /tmp/elan-init.sh -y --default-toolchain=stable >/dev/null
+          export PATH="$HOME/.elan/bin:$PATH"
+          lean --version
+          node scripts/check-lean.mjs
       - name: Type-check & build
         run: npm run build
       - name: Deploy to Cloudflare Pages

@@ -6,6 +6,14 @@ export type FormalizationPotential = 'high' | 'medium' | 'low'
 export type VerificationPath = 'analytical' | 'numerical' | 'experimental'
 export type ProblemStatus = 'open' | 'partial' | 'resolved'
 /**
+ * 内容的可信度来源（诚实标签，替代旧的 last_verified 自盖章）：
+ *  - AI-drafted:        AI 初稿，未经人工复核——站内现状；
+ *  - expert-reviewed:   经领域专家逐条复核后升级；
+ *  - lean-compilable:   已附在 Lean 中编译通过的形式化陈述。
+ * 缺省视为 AI-drafted；升级必须有可追踪记录（updates / 备注）。
+ */
+export type ProblemProvenance = 'AI-drafted' | 'expert-reviewed' | 'lean-compilable'
+/**
  * 证书生命周期（方向四：治理与诚实）：与 status（解决程度）正交，描述"这道的
  * 带证结论当前健康与否"。默认缺省视为 open。
  *  - open:       尚未被证实或否定，结论可信度待定；
@@ -105,7 +113,11 @@ export interface Problem {
   tags: string[]
   contributor: string
   date_added: string
-  last_verified?: string
+  /** 内容可信度来源；缺省 AI-drafted。见 ProblemProvenance。 */
+  provenance?: ProblemProvenance
+  /** 附带的 Lean 4 形式化陈述（对应 lean/<id>.lean，可编译）。与
+   *  provenance='lean-compilable' 配套：陈述编译通过即升级，证明仍开放（sorry）。 */
+  lean_statement?: string
   related_problems: RelatedProblem[]
   statement: string
   origin: string
@@ -166,14 +178,12 @@ export const PROBLEMS: Problem[] = [
     tags: ['bbgky-hierarchy', 'boltzmann-equation', 'lanford-theorem', 'statistical-mechanics'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'O. E. Lanford III',
     proposed_year: 1975,
     via: {
       label: 'Lanford, Time evolution of large classical systems, Springer Lecture Notes in Physics 38 (1975)',
       url: 'https://doi.org/10.1007/3-540-07160-1_16',
     },
-    impact_domains: ["Rarefied gas dynamics","Hypersonic and microfluidic gas simulation"],
     failure_records: [
       {
         method: 'Lanford collision-tree expansion',
@@ -243,14 +253,12 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     tags: ['stochastic-navier-stokes', 'mixing', 'hypoellipticity', 'ergodicity'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'M. Hairer & J. C. Mattingly',
     proposed_year: 2006,
     via: {
       label: 'Hairer & Mattingly, Ergodicity of the 2D Navier–Stokes equations with degenerate stochastic forcing, Ann. of Math. 164 (2006)',
       url: 'https://doi.org/10.4007/annals.2006.164.993',
     },
-    impact_domains: ["Atmospheric and oceanic turbulence assimilation","Climate and ocean model predictability"],
     failure_records: [
       {
         method: 'Harris-type / asymptotic strong Feller coupling (Hairer–Mattingly)',
@@ -319,9 +327,6 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     tags: ['fput', 'thermalization', 'kams-theory', 'ergodic-hypothesis'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
-    impact_domains:
-    ["Nonequilibrium statistical physics","First-principles modeling of thermal conductivity"],
     failure_records: [
       {
         method: 'KAM / Nekhoroshev perturbation theory',
@@ -395,14 +400,12 @@ fix energy per particle $\\varepsilon > 0$. Prove that for generic initial data 
     tags: ['anderson-localization', 'random-schrodinger', 'spectral-theory'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'P. W. Anderson',
     proposed_year: 1958,
     via: {
       label: 'Anderson, Absence of diffusion in certain random lattices, Physical Review 109 (1958)',
       url: 'https://doi.org/10.1103/PhysRev.109.1492',
     },
-    impact_domains: ["Disordered electron and photon transport","Insulator–metal transition materials design"],
     failure_records: [
       {
         method: 'Multi-scale analysis (Fröhlich–Spencer)',
@@ -475,14 +478,12 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     tags: ['aklt-model', 'spectral-gap', 'tensor-networks', 'quantum-many-body'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'I. Affleck, T. Kennedy, E. H. Lieb & H. Tasaki',
     proposed_year: 1987,
     via: {
       label: 'AKLT, Rigorous results on valence-bond ground states, Commun. Math. Phys. 115 (1988)',
       url: 'https://doi.org/10.1007/BF01217704',
     },
-    impact_domains: ["Quantum spin systems and topological states","Quantum simulation and quantum error correction"],
     failure_records: [
       {
         method: 'Projector-anticommutator / finite-volume eigenvalue certificates (Lemm–Sandvik–Wang; Pomata–Wei)',
@@ -549,14 +550,12 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     tags: ['nonlinear-schrodinger', 'sobolev-norms', 'weak-turbulence', 'i-method'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'J. Bourgain',
     proposed_year: 1996,
     via: {
       label: 'Bourgain, On the growth in time of higher Sobolev norms of smooth solutions of Hamiltonian PDE, GAFA 6 (1996)',
       url: 'https://doi.org/10.1007/BF02246886',
     },
-    impact_domains: ["Wave turbulence and extreme-event prediction","Nonlinear optics and oceanic rogue waves"],
     failure_records: [
       {
         method: 'I-method (Bourgain; CKSTT)',
@@ -619,11 +618,9 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     tags: ['band-matrices', 'anderson-transition', 'random-matrix', 'universality'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'L. Erdős & H.-T. Yau',
     proposed_year: 2012,
     via: { label: 'Survey of localization–delocalization for random band matrices and recent results: the Becker–Cipolloni–Erdős series; together with Erdős–Yau, A dynamical approach to random matrix theory (2012)' },
-    impact_domains: ["Quantum chaos and random matrix theory","Quantum transport and open systems"],
     failure_records: [
       {
         method: 'Matrix-Brownian-motion embedding / moment method (Yau–Yin)',
@@ -703,14 +700,12 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     tags: ['navier-stokes', 'turbulence', 'anomalous-dissipation', 'weak-solutions'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'L. Onsager',
     proposed_year: 1949,
     via: {
       label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento 6 (1949); modern formulation see the Eyink–Sreenivasan review',
       url: 'https://doi.org/10.1007/BF02780991',
     },
-    impact_domains: ["Statistical modeling of turbulent dissipation","CFD subgrid model benchmarks"],
     failure_records: [
       {
         method: 'Suitable weak solutions (Caffarelli–Kohn–Nirenberg partial regularity)',
@@ -781,14 +776,12 @@ i.e. dissipation does not vanish with viscosity — the empirically universal si
     tags: ['crnt', 'global-attractor-conjecture', 'mass-action-kinetics', 'persistence'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'F. Horn & R. Jackson',
     proposed_year: 1972,
     via: {
       label: 'Horn & Jackson, General mass action kinetics, ARMA 47 (1972); modern formulation of the conjecture see Katz–Weinberg (2017/2019)',
       url: 'https://doi.org/10.1007/BF00251396',
     },
-    impact_domains: ["Reaction network dynamics theory","Mathematical stability of metabolic and signaling networks"],
     failure_records: [
       {
         method: 'Pseudo-Helmholtz Lyapunov function (Horn–Jackson)',
@@ -867,14 +860,12 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
     tags: ['crnt', 'persistence', 'weakly-reversible', 'endotactic-networks'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'D. Angeli, P. De Leenheer & E. Sontag',
     proposed_year: 2007,
     via: {
       label: 'Angeli–De Leenheer–Sontag, A graph-theoretic approach to persistence, SIAM J. Appl. Dyn. Syst. 6 (2007)',
       url: 'https://doi.org/10.1137/060664017',
     },
-    impact_domains: ["Reaction network persistence criteria","Long-term stable operation of catalytic processes"],
     failure_records: [
       {
         method: 'Endotactic / geometric reaction-vector criteria (Craciun–Nazarov–Pantea; Gopalkrishnan–Miller–Shiu)',
@@ -942,11 +933,9 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['molecular-graphs', 'inverse-eigenvalue-problem', 'benzenoids', 'huckel-theory'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Survey of inverse eigenvalue / realizable spectra of chemical graphs: Gutman & Cyvin, Advances in the Theory of Benzenoid Hydrocarbons' },
-    impact_domains: ["Band-gap design of organic electronic materials","Synthetic screening of aromatic hydrocarbons"],
     failure_records: [
       {
         method: 'Inverse eigenvalue / realizability constraints for benzenoids',
@@ -1037,14 +1026,12 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['multistationarity', 'real-algebraic-geometry', 'sign-patterns', 'bistability'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
       label: 'Craciun & Feinberg, Multiple equilibria in complex chemical reaction networks, SIAM J. Appl. Math. 65 (2005) (combined with injectivity/parameterization criteria)',
       url: 'https://doi.org/10.1137/S0895479803446819',
     },
-    impact_domains: ["Cellular multistability and cell-fate decisions","Bistable design of reaction networks"],
     failure_records: [
       {
         method: 'Quantifier elimination on multistationarity conditions',
@@ -1126,11 +1113,9 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['identifiability', 'parameter-estimation', 'differential-algebra', 'model-reduction'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'E. Sontag',
     proposed_year: 2008,
     via: { label: 'Sontag, Dynamic compensation, parameter identifiability, and equivariances, PLoS Comput. Biol. 13 (2017); review of identifiability methods see Miao et al., SIAM Review 53 (2011)', url: 'https://doi.org/10.1371/journal.pcbi.1005447' },
-    impact_domains: ["Experimental kinetics modeling","Parameterization in catalysis and systems biology"],
     failure_records: [
       {
         method: 'Differential-algebra identifiability (DAISY and successors)',
@@ -1197,14 +1182,12 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['evolutionary-graph-theory', 'moran-process', 'fixation-probability', 'amplifiers-of-selection'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
     via: {
       label: 'Lieberman–Hauert–Nowak, Evolutionary dynamics on graphs, Nature 433 (2005)',
       url: 'https://doi.org/10.1038/nature03204',
     },
-    impact_domains: ["Synthetic biology population design","Tumor evolution and treatment strategies"],
     failure_records: [
       {
         method: 'Markov-chain state-space aggregation (isothermal theorem)',
@@ -1273,14 +1256,12 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['sis-epidemic', 'metastability', 'spectral-threshold', 'interacting-particle-systems'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'R. Pastor-Satorras & A. Vespignani',
     proposed_year: 2001,
     via: {
       label: 'Tradition on network SIS metastable lifetimes: Pastor-Satorras & Vespignani, Epidemic spreading in scale-free networks, PRL 86 (2001)',
       url: 'https://doi.org/10.1103/PhysRevLett.86.3200',
     },
-    impact_domains: ["Network epidemiology","Vaccine and quarantine strategies for infectious-disease control"],
     failure_records: [
       {
         method: 'Potential-theoretic metastability (reversible tunneling theory)',
@@ -1355,14 +1336,12 @@ and characterize the quasi-stationary distribution. Determine for which graph fa
     tags: ['replicator-dynamics', 'mutation', 'global-stability', 'evolutionary-game-theory'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'J. Hofbauer & K. Sigmund',
     proposed_year: 1998,
     via: {
       label: 'Stability of replicator dynamics with mutation: Hofbauer & Sigmund, Evolutionary Games and Population Dynamics (1998)',
       url: 'https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics',
     },
-    impact_domains: ["Evolutionary game dynamics","Social learning and evolutionary economics"],
     failure_records: [
       {
         method: 'ESS / perturbation arguments (Hofbauer–Sigmund)',
@@ -1436,11 +1415,9 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     tags: ['lotka-volterra', 'permanence', 'average-lyapunov-functions', 'coexistence'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'J. Hofbauer',
     proposed_year: 1981,
     via: { label: 'Hofbauer, A general cooperation theorem for hypercycles, MAB 53 (1981); review of persistence see Hofbauer & Sigmund (1998)' },
-    impact_domains: ["Community coexistence theory in ecology","Stability design of engineered microbiomes"],
     failure_records: [
       {
         method: 'Average Lyapunov function / splitting method (Hofbauer–Schreiber)',
@@ -1516,14 +1493,12 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     tags: ['multi-agent-systems', 'spectral-graph-theory', 'lyapunov-methods', 'consensus'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'R. Olfati-Saber, J. A. Fax & R. M. Murray',
     proposed_year: 2007,
     via: {
       label: 'Olfati-Saber–Fax–Murray, Consensus and cooperation in networked multi-agent systems, Proc. IEEE 95 (2007)',
       url: 'https://doi.org/10.1109/JPROC.2006.887291',
     },
-    impact_domains: ["Multi-agent cooperative control","UAV swarms and connected vehicles"],
     failure_records: [
       {
         method: 'Spectral / quadratic-form rate analysis via lambda_2(L)',
@@ -1601,14 +1576,12 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
     tags: ['decentralized-optimization', 'lower-bounds', 'gossip-algorithms', 'time-varying-graphs'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'K. Scaman et al.',
     proposed_year: 2017,
     via: {
       label: 'Scaman et al., Optimal algorithms for smooth and strongly convex distributed optimization in networks, ICML (2017)',
       url: 'https://proceedings.mlr.press/v70/scaman17a.html',
     },
-    impact_domains: ["Distributed optimization and federated learning","Communication efficiency of edge computing"],
     failure_records: [
       {
         method: 'Worst-case adversarial graph-sequence construction',
@@ -1676,14 +1649,12 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
     tags: ['cucker-smale', 'flocking', 'singular-kernels', 'swarm-robotics'],
     contributor: 'admin',
     date_added: '2026-08-21',
-    last_verified: '2026-08-22',
     proposer: 'F. Cucker & S. Smale',
     proposed_year: 2007,
     via: {
       label: 'Cucker & Smale, Emergent behavior in flocks, IEEE Trans. Auto. Control 52 (2007); singular-kernel case see the Ha–Tadmor tradition',
       url: 'https://doi.org/10.1109/TAC.2007.895842',
     },
-    impact_domains: ["Collision avoidance and formation for robot swarms","Formation keeping in unmanned systems"],
     failure_records: [
       {
         method: 'Energy / entropy dissipation estimate (Cucker–Smale; Ha–Liu)',
@@ -1756,12 +1727,10 @@ prove **unconditional flocking** (velocity alignment $\\|v_i(t) - v_j(t)\\| \\to
     verification_path: 'analytical',
     tags: ['area-law', 'entanglement-entropy', 'tensor-networks', 'peps'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Area-law survey (1D proven; 2D generally open): Brandão & Harrow; the Eisert–Cramer–Plenio review' },
-    impact_domains: ['Quantum computing', 'Tensor-network algorithms', 'Materials simulation'],
     related_problems: [
       {
         id: 'mp-005',
@@ -1813,12 +1782,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['anderson-model', 'delocalization', 'random-matrix', 'spectral-theory'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1958,
     via: { label: 'Delocalization for the 3D weak-disorder Anderson model (distinct from the resolved 2D/strong-disorder cases): Anderson (1958) and recent delocalization literature' },
-    impact_domains: ['Semiconductor devices', 'Disordered materials design'],
     related_problems: [
       {
         id: 'mp-007',
@@ -1868,11 +1835,11 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     tags: ['almost-mathieu', 'gap-labelling', 'quasiperiodic', 'hofstadter-butterfly'],
     contributor: 'admin',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-011 — The Dry Ten Martini Problem for the Almost Mathieu operator.\n\nFor the almost Mathieu operator H(lam,α) on ℓ²(ℤ) with irrational α and lam ≠ 0,\nevery energy predicted as a spectral gap by the gap-labelling theorem is in fact\nNOT in the spectrum (the gaps are open). The predicates are formalization\ntargets; the implication is the headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\ndef GapLabelledEnergy (lam alpha E : Rat) : Prop := by\n  exact False\n\ndef InSpectrum (lam alpha E : Rat) : Prop := by\n  exact True\n\ntheorem dry_ten_martini (lam alpha E : Rat) (hlam : lam ≠ 0) :\n    GapLabelledEnergy lam alpha E → ¬ InSpectrum lam alpha E := by\n  sorry\n\nend MathX\n',
     proposer: 'B. Simon',
     proposed_year: 1982,
     via: { label: 'Survey of open problems for the Almost Mathieu operator: Simon, von Neumann eigenvalues conjecture (1982); Dry Ten Martini see the Avila–Jitomirskaya series' },
-    impact_domains: ['Topological materials', 'Moiré superlattices'],
     related_problems: [
       {
         id: 'mp-010',
@@ -1920,10 +1887,7 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['bethe-ansatz', 'integrability', 'heisenberg-chain', 'string-solutions'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains:
-    ['Quantum magnetic materials', 'Cold-atom simulation'],
+  date_added: '2026-08-22',
     via: { label: 'Bethe, Zur Theorie der Metalle, Z. Phys. 71 (1931) 205-226', url: 'https://doi.org/10.1007/BF01341708' },
     related_problems: [
       {
@@ -1976,15 +1940,13 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'analytical',
     tags: ['kpz', 'universality', 'stochastic-growth', 'directed-polymers'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Kardar, G. Parisi & Y.-C. Zhang',
     proposed_year: 1986,
     via: {
       label: 'KPZ, Dynamic scaling of growing interfaces, PRL 56 (1986); review of universality see Corwin (arXiv:1106.1596)',
       url: 'https://doi.org/10.1103/PhysRevLett.56.889',
     },
-    impact_domains: ['Interfacial growth processes', 'Stochastic modeling benchmarks'],
     related_problems: [
       {
         id: 'mp-002',
@@ -2032,12 +1994,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'analytical',
     tags: ['crnt', 'boundedness', 'mass-action', 'dynamical-systems'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Feinberg',
     proposed_year: 1980,
     via: { label: 'Tradition on boundedness of complex-balanced systems: Feinberg, Chemical reaction network structure and stability of complex isothermal reactors (lecture notes)' },
-    impact_domains: ['Chemical process safety', 'Bioreactor design'],
     related_problems: [
       {
         id: 'mc-002',
@@ -2085,12 +2045,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['inverse-eigenvalue', 'graph-spectra', 'huckel-model', 'molecular-graphs'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'I. Gutman',
     proposed_year: 2008,
     via: { label: 'Gutman & Furtula (eds.), Distance in Molecular Graphs — Theory (2012); review of the inverse eigenvalue problem for chemical graphs see the molecular-topology work of Graovac et al.' },
-    impact_domains: ['Molecular electronics', 'Inverse materials design'],
     related_problems: [
       {
         id: 'mc-003',
@@ -2139,15 +2097,13 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'analytical',
     tags: ['sir-epidemic', 'clustering', 'configuration-model', 'branching-process'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. E. J. Newman',
     proposed_year: 2002,
     via: {
       label: 'Newman, Spread of epidemic disease on networks, PRE 66 (2002)',
       url: 'https://doi.org/10.1103/PhysRevE.66.016128',
     },
-    impact_domains: ['Public-health modeling', 'Network infrastructure protection'],
     related_problems: [
       {
         id: 'mb-002',
@@ -2197,12 +2153,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['moran-process', 'fixation-probability', 'evolutionary-graph-theory', 'amplifiers'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
     via: { label: 'Strong amplifiers: Lieberman–Hauert–Nowak (2005); super-amplifiers see Pavlogiannis–Tkadlec–Chatterjee–Nowak, Nat. Commun. 8 (2017)' },
-    impact_domains: ['Tumor evolution modeling', 'Population genetics'],
     related_problems: [
       {
         id: 'mb-001',
@@ -2250,15 +2204,13 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['mullers-ratchet', 'fixation', 'traveling-waves', 'population-genetics'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'H. J. Muller',
     proposed_year: 1932,
     via: {
       label: 'Muller, Some genetic aspects of sex, Am. Nat. 66 (1932); rigorous rates see Haigh (1978)',
       url: 'https://doi.org/10.1086/280418',
     },
-    impact_domains: ['Viral evolution prediction', 'Breeding population management'],
     related_problems: [
       {
         id: 'mb-004',
@@ -2308,12 +2260,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['isothermal-theorem', 'fixation-probability', 'weighted-graphs', 'temperature'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
     via: { label: 'Isothermal theorem: Lieberman–Hauert–Nowak (2005); weighted/directed generalizations see the related fixation-probability literature' },
-    impact_domains: ['Population genetics', 'Distributed network dynamics'],
     related_problems: [
       {
         id: 'mb-006',
@@ -2362,14 +2312,14 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     tags: ['congest', 'distributed-complexity', 'triangle-detection', 'lower-bounds'],
     contributor: 'admin',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-004 — Optimal round complexity of triangle detection in the CONGEST model.\n\nAny distributed protocol that decides whether an n-vertex graph contains a\ntriangle must communicate Ω(n) rounds in the worst case. `TriangleDetectionRounds`\nis the formalization target; the linear lower bound is the headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\ndef TriangleDetectionRounds (n : Nat) : Nat := by\n  exact 0\n\ntheorem congest_triangle_lower_bound :\n    ∃ c : Nat, 0 < c ∧ ∀ n : Nat, 0 < n → c * n ≤ TriangleDetectionRounds n := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: {
       label: 'Complexity of triangle detection in CONGEST: the lower bound of Izumi & Le Gall, OPODIS (2017)',
       url: 'https://doi.org/10.1007/978-3-319-72581-1_10',
     },
-    impact_domains: ['Distributed systems', 'Network analysis infrastructure'],
     failure_records: [
       {
         method: 'Expander-decomposition algorithms (Chang–Pettie–Saranurak–Zhang)',
@@ -2438,12 +2388,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'analytical',
     tags: ['byzantine-consensus', 'randomized-algorithms', 'adaptive-adversary', 'lower-bounds'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Ben-Or',
     proposed_year: 1983,
     via: { label: 'Tradition on randomized-consensus lower bounds: Ben-Or, Another advantage of free choice, PODC (1983)' },
-    impact_domains: ['Blockchain protocols', 'Fault-tolerant control'],
     related_problems: [
       {
         id: 'me-003',
@@ -2493,15 +2441,13 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'numerical',
     tags: ['rumor-spreading', 'push-pull', 'conductance', 'epidemic-algorithms'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'R. Karp, C. Schindelhauer, S. Shenker & B. Vöcking',
     proposed_year: 2000,
     via: {
       label: 'Karp et al., Randomized rumor spreading, FOCS (2000)',
       url: 'https://doi.org/10.1109/SFCS.2000.892141',
     },
-    impact_domains: ['Distributed database replication', 'IoT gossip protocols'],
     failure_records: [
       {
         method: 'Martingale / drift analysis of informed-set sizes',
@@ -2570,15 +2516,13 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     verification_path: 'analytical',
     tags: ['fouriers-law', 'heat-conduction', 'anharmonic-chains', 'transport'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'S. Lepri, R. Livi & A. Politi',
     proposed_year: 2003,
     via: {
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
-    impact_domains: ['Micro/nano-scale heat transfer', 'Thermal management materials'],
     related_problems: [
       {
         id: 'mp-003',
@@ -2628,10 +2572,7 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['onsager', 'anomalous-dissipation', 'euler-equations', 'weak-solutions'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains:
-    ['Numerical simulation of turbulence', 'Atmospheric and oceanic flows'],
+  date_added: '2026-08-22',
     via: { label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento Suppl. 6 (1949) 279-287' },
     related_problems: [
       {
@@ -2683,15 +2624,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['fullerene', 'hamiltonicity', 'planar-graphs', 'molecular-graphs'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'T. Došlić',
     proposed_year: 2007,
     via: {
       label: 'Hamiltonicity of fullerenes (already resolved by Král′–Škrekovski–Vukičević–Wagner, J. Graph Theory (2012))',
       url: 'https://doi.org/10.1002/jgt.20652',
     },
-    impact_domains: ['Structure prediction of carbon nanomaterials', 'Molecular graph algorithms'],
     related_problems: [
       {
         id: 'mc-003',
@@ -2741,15 +2680,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['infinitesimal-model', 'quantitative-genetics', 'many-loci', 'gaussian-limits'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'N. Barton, A. Etheridge & A. Véber',
     proposed_year: 2017,
     via: {
       label: 'Barton–Etheridge–Véber, The infinitesimal model: definition, derivation and dominance, Theor. Popul. Biol. 118 (2017)',
       url: 'https://doi.org/10.1016/j.tpb.2017.05.001',
     },
-    impact_domains: ['Genetic breeding of plants and animals', 'Polygenic trait prediction'],
     related_problems: [
       {
         id: 'mc-001',
@@ -2798,15 +2735,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['contact-process', 'metastability', 'extinction', 'spatial-epidemics'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'T. E. Harris',
     proposed_year: 1974,
     via: {
       label: 'Harris, Contact interactions on a lattice, Ann. Probab. 2 (1974); subcritical asymptotics see Liggett’s monograph',
       url: 'https://doi.org/10.1214/aop/1176996477',
     },
-    impact_domains: ['Spatial modeling of infectious diseases', 'Ecological extinction times'],
     related_problems: [
       {
         id: 'mb-005',
@@ -2854,15 +2789,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['online-facility-location', 'competitive-ratio', 'metric-spaces', 'online-algorithms'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'A. Meyerson',
     proposed_year: 2001,
     via: {
       label: 'Meyerson, Online facility location, FOCS (2001)',
       url: 'https://doi.org/10.1109/SFCS.2001.959910',
     },
-    impact_domains: ['Logistics network optimization', 'Edge caching deployment'],
     related_problems: [
       {
         id: 'me-008',
@@ -2912,15 +2845,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['k-server', 'competitive-ratio', 'online-algorithms', 'potentials'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Manasse, L. McGeoch & D. Sleator',
     proposed_year: 1988,
     via: {
       label: 'Manasse–McGeoch–Sleator, Competitive algorithms for on-line problems, STOC (1988)',
       url: 'https://doi.org/10.1145/62212.62249',
     },
-    impact_domains: ['Robot scheduling', 'Caching and page replacement'],
     failure_records: [
       {
         method: 'Work-function / potential method (Koutsoupias–Papadimitriou)',
@@ -2989,15 +2920,13 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     verification_path: 'analytical',
     tags: ['quantum-ergodicity', 'laplacian-eigenfunctions', 'negative-curvature'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'Z. Rudnick & P. Sarnak',
     proposed_year: 1994,
     via: {
       label: 'Rudnick & Sarnak, The behaviour of eigenstates of arithmetic hyperbolic manifolds, Comment. Math. Helv. 74 (1994)',
       url: 'https://doi.org/10.1007/PL00000356',
     },
-    impact_domains: ['Quantum chaos', 'Acoustic and vibrational eigenstates'],
     related_problems: [
       {
         id: 'mp-006',
@@ -3051,9 +2980,7 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
     verification_path: 'numerical',
     tags: ['eth', 'thermalization', 'isolated-quantum-systems', 'many-body'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains: ['Quantum heat engines', 'Nonequilibrium evolution of isolated quantum gases'],
+  date_added: '2026-08-22',
     related_problems: [
       {
         id: 'mp-003',
@@ -3110,15 +3037,13 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
     verification_path: 'analytical',
     tags: ['crnt', 'multistationarity', 'deficiency-one', 'steady-states'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
       label: 'Deficiency-one network mono/multistability criteria: the injectivity criteria of Craciun & Feinberg (2005) and reviews',
       url: 'https://doi.org/10.1137/S0895479803446819',
     },
-    impact_domains: ['Biochemical reaction design', 'Metabolic flux control'],
     related_problems: [
       {
         id: 'mc-001',
@@ -3175,11 +3100,11 @@ and when (by contrast) every such class contains a unique positive steady state.
     tags: ['graph-energy', 'huckel-theory', 'extremal-problems', 'molecular-graphs'],
     contributor: 'admin',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-012 — Extremal Hückel π-electron energy: sharp bound.\n\nThe Hückel energy of a molecular graph with n vertices and m edges satisfies\nE(G)² ≤ 2·m·n (McClelland-type bound). `GraphEnergySq` is the formalization\ntarget; the bound statement is the headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\ndef GraphEnergySq (n : Nat) (A : Nat → Nat → Rat) : Rat := by\n  exact 0\n\ndef edgeCount (n : Nat) (A : Nat → Nat → Rat) : Nat :=\n  (List.range n).foldl (fun acc i =>\n    (List.range n).foldl (fun acc2 j =>\n      if i < j ∧ A i j ≠ 0 then acc2 + 1 else acc2) acc) 0\n\ntheorem hueckel_energy_bound (n : Nat) (A : Nat → Nat → Rat) :\n    GraphEnergySq n A ≤ ((2 * edgeCount n A * n : Nat) : Rat) := by\n  sorry\n\nend MathX\n',
     proposer: 'I. Gutman',
     proposed_year: 1978,
     via: { label: 'Gutman, The energy of a graph, Ber. Math.-Statist. Sekt. 103 (1978) (Hückel π-electron energy theory)' },
-    impact_domains: ['Conjugated hydrocarbon design', 'Aromaticity indices'],
     related_problems: [
       {
         id: 'mc-003',
@@ -3226,15 +3151,13 @@ and when (by contrast) every such class contains a unique positive steady state.
     verification_path: 'analytical',
     tags: ['contact-process', 'critical-value', 'percolation', 'phase-transition'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'T. E. Harris',
     proposed_year: 1974,
     via: {
       label: 'Contact process critical value: Harris (1974); upper/lower bounds see Liggett, Stochastic Interacting Systems (1999)',
       url: 'https://doi.org/10.1214/aop/1176996477',
     },
-    impact_domains: ['Critical spread of infectious diseases', 'Species invasion thresholds'],
     related_problems: [
       {
         id: 'mb-001',
@@ -3284,15 +3207,13 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     verification_path: 'analytical',
     tags: ['cyclic-competition', 'rock-paper-scissors', 'coexistence', 'spatial-ecology'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'R. M. May & W. J. Leonard',
     proposed_year: 1975,
     via: {
       label: 'May & Leonard, Nonlinear aspects of competition between three species, SIAM J. Appl. Math. 29 (1975)',
       url: 'https://doi.org/10.1137/0129033',
     },
-    impact_domains: ['Microbial community stability', 'Biodiversity maintenance'],
     related_problems: [
       {
         id: 'mb-001',
@@ -3341,15 +3262,13 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     verification_path: 'analytical',
     tags: ['sir-model', 'epidemic-threshold', 'extinction-time', 'basic-reproduction-number'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'H. Andersson & T. Britton',
     proposed_year: 2000,
     via: {
       label: 'Stochastic epidemic models (threshold/near-critical): Andersson & Britton, Stochastic Epidemic Models and Their Statistical Analysis (2000)',
       url: 'https://doi.org/10.1007/978-1-4612-1158-7',
     },
-    impact_domains: ['Infectious-disease control strategies', 'Vaccine coverage thresholds'],
     related_problems: [
       {
         id: 'mb-001',
@@ -3397,15 +3316,13 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
     verification_path: 'analytical',
     tags: ['matroid-secretary', 'online-selection', 'competitive-ratio', 'environmental'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Babaioff, N. Immorlica & R. Kleinberg',
     proposed_year: 2007,
     via: {
       label: 'Babaioff–Immorlica–Kleinberg, Matroids, secretary problems, and online mechanisms, SODA (2007)',
       url: 'https://doi.org/10.5555/1283383.1283496',
     },
-    impact_domains: ['Online talent/resource matching', 'Cloud resource auction allocation'],
     related_problems: [
       {
         id: 'me-007',
@@ -3454,15 +3371,13 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
     verification_path: 'analytical',
     tags: ['graph-bandwidth', 'approximation', 'layout-problems', 'matrix-bandwidth'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'U. Feige',
     proposed_year: 2000,
     via: {
       label: 'Feige, Approximating the bandwidth via volume respecting embeddings, JCSS 60 (2000)',
       url: 'https://doi.org/10.1006/jcss.1999.1682',
     },
-    impact_domains: ['Sparse matrix solvers', 'Chip routing and placement'],
     related_problems: [
       {
         id: 'me-003',
@@ -3511,14 +3426,14 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
     tags: ['graphic-tsp', '4-3-conjecture', 'approximation', 'christofides'],
     contributor: 'admin',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-011 — Graphic TSP 4/3-conjecture.\n\nFor every finite weighted graph, the shortest Hamiltonian cycle in its metric\nclosure costs at most 4/3 the minimum-spanning-tree weight. The definitions of\n`MSTWeight` and `GraphicTSPOpt` are themselves part of the formalization target;\nthe statement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MetricGraph where\n  n : Nat\n  dist : Nat → Nat → Nat\n\ndef MSTWeight (g : MetricGraph) : Nat := by\n  exact 0\n\ndef GraphicTSPOpt (g : MetricGraph) : Nat := by\n  exact 0\n\ntheorem graphic_tsp_4over3 (g : MetricGraph) (hg : 3 ≤ g.n) :\n    (GraphicTSPOpt g : Rat) ≤ ((4 : Rat) / 3) * (MSTWeight g : Rat) := by\n  sorry\n\nend MathX\n',
     proposer: 'S. O. Gharan, A. Saberi & M. Singh',
     proposed_year: 2011,
     via: {
       label: 'Gharan–Saberi–Singh, A randomized rounding approach to the traveling salesman problem, FOCS (2011)',
       url: 'https://doi.org/10.1109/FOCS.2011.76',
     },
-    impact_domains: ['Logistics route planning', 'Chip wiring planning'],
     related_problems: [
       {
         id: 'me-001',
@@ -3568,10 +3483,7 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
     verification_path: 'analytical',
     tags: ['linear-programming', 'strong-polynomiality', 'ellipsoid-method', 'smale-problems'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains:
-    ['Industrial scheduling optimization', 'Supply chain planning'],
+  date_added: '2026-08-22',
     via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998) 7-15 (Problem 9: strongly-polynomial linear programming)' },
     related_problems: [
       {
@@ -3630,12 +3542,10 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
     verification_path: 'analytical',
     tags: ['bin-packing', 'online-algorithms', 'competitive-ratio', 'harmonic'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. G. Coffman, M. R. Garey & D. S. Johnson',
     proposed_year: 1997,
     via: { label: 'Survey of online bin packing: Coffman–Garey–Johnson, Bin packing surveys (1997)' },
-    impact_domains: ['Cloud computing resource packing', 'Intelligent logistics packing'],
     related_problems: [
       {
         id: 'me-007',
@@ -3691,15 +3601,13 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     verification_path: 'analytical',
     tags: ['planted-clique', 'detection-threshold', 'community-detection', 'average-case'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'L. Kučera',
     proposed_year: 1995,
     via: {
       label: 'Kučera, Expected complexity of graph partitioning problems, Discrete Appl. Math. 57 (1995); algorithmic thresholds see Alon–Krivelevich–Sudakov',
       url: 'https://doi.org/10.1016/0166-218X(94)00103-G',
     },
-    impact_domains: ['Network community detection', 'Noise detection in biological networks'],
     related_problems: [
       {
         id: 'me-004',
@@ -3748,15 +3656,13 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
     verification_path: 'analytical',
     tags: ['3d-euler', 'blow-up', 'singularity-formation', 'fluid-mechanics'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'T. Y. Hou & G. Luo',
     proposed_year: 2014,
     via: {
       label: 'Hou & Luo, Toward a finite-time singularity of the 3D incompressible Euler equations, PNAS 111 (2014) (numerical candidate; analytic proof open)',
       url: 'https://doi.org/10.1073/pnas.1402374111',
     },
-    impact_domains: ['CFD turbulence models', 'Aircraft engine design'],
     related_problems: [
       {
         id: 'mp-002',
@@ -3806,15 +3712,13 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     verification_path: 'analytical',
     tags: ['constructive-qft', 'triviality', 'phi-4-4', 'renormalization'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Aizenman',
     proposed_year: 1981,
     via: {
       label: 'Aizenman, Proof of the triviality of φ⁴ field theory, Commun. Math. Phys. 86 (1982); together with Fröhlich (1982)',
       url: 'https://doi.org/10.1007/BF01205659',
     },
-    impact_domains: ['Quantum field theory benchmarks', 'Numerical renormalization', 'Stochastic geometry'],
     related_problems: [
       {
         id: 'mp-005',
@@ -3864,15 +3768,13 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     verification_path: 'analytical',
     tags: ['kubo-formula', 'quantum-hall', 'noncommutative-geometry', 'many-body'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. B. Hastings & S. Michalakis',
     proposed_year: 2014,
     via: {
       label: 'Hastings & Michalakis, Quantization of Hall conductance for interacting electrons on a torus, Commun. Math. Phys. 330 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-2167-x',
     },
-    impact_domains: ['Topological materials', 'Quantum transport', 'Hall effect devices'],
     related_problems: [
       {
         id: 'mp-004',
@@ -3920,12 +3822,10 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     verification_path: 'analytical',
     tags: ['dft', 'levy-lieb', 'kohn-sham', 'hohenberg-kohn'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. H. Lieb',
     proposed_year: 2006,
     via: { label: 'Lieb, Density functionals for Coulomb systems, Int. J. Quantum Chem. 24 (1983); rigorous properties of the Lévy–Lieb functional see the same work and its sequels' },
-    impact_domains: ['Electronic structure computation', 'Materials design', 'Quantum chemistry'],
     related_problems: [
       {
         id: 'mp-020',
@@ -3973,10 +3873,7 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     verification_path: 'analytical',
     tags: ['hopfield', 'associative-memory', 'storage-capacity', 'spin-glass'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
-    impact_domains:
-    ['Brain-inspired computing', 'Memory device design', 'Neural network theory'],
+  date_added: '2026-08-22',
     via: { label: 'Gardner, The space of interactions in neural network models, J. Phys. A 21 (1988) 257-270', url: 'https://doi.org/10.1088/0305-4470/21/1/030' },
     related_problems: [
       {
@@ -4028,15 +3925,13 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     verification_path: 'analytical',
     tags: ['adaptation', 'desai-fisher', 'traveling-wave', 'mutation-selection'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. M. Desai & D. S. Fisher',
     proposed_year: 2007,
     via: {
       label: 'Desai & Fisher, Beneficial mutation-selection balance and the effect of linkage, Genetics 176 (2007)',
       url: 'https://doi.org/10.1534/genetics.106.067082',
     },
-    impact_domains: ['Evolutionary algorithm design', 'Microbial breeding', 'Viral evolution surveillance'],
     related_problems: [
       {
         id: 'mb-001',
@@ -4088,15 +3983,13 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
     verification_path: 'analytical',
     tags: ['yang-mills', 'mass-gap', 'constructive-qft', 'gauge-theory'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'A. Jaffe & E. Witten',
     proposed_year: 2000,
     via: {
       label: 'Yang–Mills mass gap, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/yang-mills/',
     },
-    impact_domains: ['Rigorous construction of quantum field theory', 'Fundamental particle physics', 'Mathematics–physics interface'],
     related_problems: [
       {
         id: 'mp-020',
@@ -4146,15 +4039,13 @@ A pass fixes the theory at one loop and removes the ultraviolet cutoff, and exhi
     verification_path: 'analytical',
     tags: ['bose-einstein-condensation', 'gross-pitaevskii', 'mean-field-limit', 'many-body-qm'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'L. Erdős, B. Schlein & H.-T. Yau',
     proposed_year: 2007,
     via: {
       label: 'Erdős–Schlein–Yau, Rigorous derivation of the Gross–Pitaevskii equation, PRL 98 (2007)',
       url: 'https://doi.org/10.1103/PhysRevLett.98.040404',
     },
-    impact_domains: ['Cold-atom physics', 'Effective equations for quantum many-body systems', 'Nonlinear Schrödinger equations'],
     related_problems: [
       {
         id: 'mp-001',
@@ -4206,15 +4097,13 @@ with $a_0$ the scattering length of $V$. A pass bounds the convergence rate and 
     verification_path: 'analytical',
     tags: ['navier-stokes', 'millennium-problem', 'regularity', 'pde'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'C. Fefferman',
     proposed_year: 2000,
     via: {
       label: 'Navier–Stokes global regularity, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/navier-stokes/',
     },
-    impact_domains: ['Mathematical theory of fluid mechanics', 'Turbulent fluid dynamics', 'Global theory of partial differential equations'],
     related_problems: [
       {
         id: 'mp-019',
@@ -4264,12 +4153,10 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
     verification_path: 'numerical',
     tags: ['wigner-crystal', 'coulomb-gas', 'crystallization', 'ground-state'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Wigner, On the interaction of electrons in metals, Phys. Rev. 46 (1934); review of the rigorous state of 2D Coulomb/long-range crystallization see Bétermin & Knüpfer, arXiv:1710.05581 (2017)' },
-    impact_domains: ['Crystallization phenomena in condensed matter', 'Classical and quantum Coulomb systems', 'Optimal point configurations'],
     related_problems: [
       {
         id: 'mp-009',
@@ -4317,15 +4204,13 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
     verification_path: 'analytical',
     tags: ['haldane-conjecture', 'spectral-gap', 'quantum-spin-chains', 'heisenberg-model'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'F. D. M. Haldane',
     proposed_year: 1983,
     via: {
       label: 'Haldane, Continuum dynamics of the 1D Heisenberg antiferromagnet, PRL 50 (1983)',
       url: 'https://doi.org/10.1103/PhysRevLett.50.1153',
     },
-    impact_domains: ['Spectral gaps of quantum spin chains', 'Symmetry-protected topological phases', 'Low-dimensional quantum magnetism'],
     related_problems: [
       {
         id: 'mp-005',
@@ -4375,15 +4260,13 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
     verification_path: 'analytical',
     tags: ['wave-kinetic-equation', 'wave-turbulence', 'nonlinear-schrodinger', 'thermalization'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: {
       label: 'Long-time validity of the wave-turbulence equations: Faou–Germain–Hani, Ann. PDE 2 (2016) short-time; long-time open',
       url: 'https://doi.org/10.1007/s40818-016-0008-1',
     },
-    impact_domains: ['Wave turbulence theory', 'Statistical description of weakly nonlinear dispersive systems', 'Long-time behavior of nonlinear PDEs'],
     related_problems: [
       {
         id: 'mp-006',
@@ -4435,15 +4318,13 @@ on a kinetic-time interval of length that exceeds the already-established O(1) w
     verification_path: 'analytical',
     tags: ['vlasov-poisson', 'mean-field-limit', 'propagation-of-chaos', 'coulomb-interaction'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2020,
     via: {
       label: 'Mean-field limits with singular interactions: the Duerinckx & Serfaty series (2020–2023)',
       url: 'https://arxiv.org/abs/2001.07038',
     },
-    impact_domains: ['Mathematical theory of plasma dynamics', 'Celestial mechanics and self-gravitating systems', 'Propagation of chaos'],
     related_problems: [
       {
         id: 'mp-001',
@@ -4494,15 +4375,13 @@ A pass removes the N-dependent cut-off of the force, or else lets the cut-off va
     verification_path: 'numerical',
     tags: ['many-body-localization', 'quantum-many-body', 'disorder', 'ergodicity'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'P. W. Anderson',
     proposed_year: 1958,
     via: {
       label: 'Review of many-body localization: Nandkishore & Huse, Ann. Rev. Cond. Matter Phys. 6 (2015); first-principles characterization open',
       url: 'https://doi.org/10.1146/annurev-conmatphys-031214-014726',
     },
-    impact_domains: ['Strongly correlated disordered quantum systems', 'Quantum thermalization and ergodicity', 'Local conserved quantities in quantum information'],
     related_problems: [
       {
         id: 'mp-004',
@@ -4553,15 +4432,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['many-body-bound', 'kinetic-energy', 'fermion', 'sharp-constant'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. H. Lieb & W. Thirring',
     proposed_year: 1975,
     via: {
       label: 'Lieb & Thirring, Bound for the kinetic energy of fermions which proves stability of matter, PRL 35 (1975); sharp constants see Frank et al.',
       url: 'https://doi.org/10.1103/PhysRevLett.35.687',
     },
-    impact_domains: ['Stability arguments for atomic and condensed systems', 'Mathematical lower bounds in density functional theory'],
     related_problems: [
       {
         id: 'mp-026',
@@ -4612,15 +4489,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['exchange-correlation-energy', 'lieb-oxford', 'sharp-constant', 'density-functional-theory'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'E. H. Lieb & S. Oxford',
     proposed_year: 1981,
     via: {
       label: 'Lieb & Oxford, Improved lower bound on the indirect Coulomb energy, Int. J. Quantum Chem. 19 (1981)',
       url: 'https://doi.org/10.1002/qua.560190308',
     },
-    impact_domains: ['Construction constraints on density functional approximations', 'Rigorous lower bounds for exchange–correlation energy functionals'],
     related_problems: [
       {
         id: 'mc-014',
@@ -4697,15 +4572,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'numerical',
     tags: ['generalized-pauli-constraints', 'reduced-density-matrix', 'natural-occupation', 'pinning'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Altunbulak & A. Klyachko',
     proposed_year: 2008,
     via: {
       label: 'Altunbulak & Klyachko, The Pauli principle revisited, Commun. Math. Phys. 327 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-1962-8',
     },
-    impact_domains: ['Number of Slater determinants needed in wavefunction expansions', 'Natural orbitals and active-space methods'],
     related_problems: [
       {
         id: 'mc-023',
@@ -4759,15 +4632,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['molecular-dynamics', 'thermostat', 'ergodicity', 'nonhamiltonian'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'S. Nosé',
     proposed_year: 1984,
     via: {
       label: 'Nosé, A unified formulation of the constant temperature molecular dynamics methods, J. Chem. Phys. 81 (1984)',
       url: 'https://doi.org/10.1063/1.447334',
     },
-    impact_domains: ['Sampling reliability of thermostatted molecular dynamics', 'Integrability and ergodic theory of dynamical systems'],
     related_problems: [
       {
         id: 'mc-020',
@@ -4816,15 +4687,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['monte-carlo', 'parallel-tempering', 'mixing-time', 'spectral-gap'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'R. H. Swendsen & J.-S. Wang',
     proposed_year: 1986,
     via: {
       label: 'Swendsen & Wang, Replica Monte Carlo simulation of spin-glasses, PRL 57 (1986); mixing/cutoff open',
       url: 'https://doi.org/10.1103/PhysRevLett.57.2607',
     },
-    impact_domains: ['Equilibrium sampling of clusters and polymers', 'Monte Carlo efficiency in analytical chemistry and statistical mechanics'],
     related_problems: [
       {
         id: 'mc-019',
@@ -4874,15 +4743,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['stochastic-reaction-network', 'product-form', 'master-equation', 'complex-balancing'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2010,
     via: {
       label: 'Product-form stationary distributions of stochastic reaction networks: Anderson, Craciun & Kurtz, Trans. AMS 362 (2010)',
       url: 'https://arxiv.org/abs/0802.1262',
     },
-    impact_domains: ['Analytical solution of biochemical master equations', 'Steady-state analysis of stochastic chemical biology'],
     related_problems: [
       {
         id: 'mc-001',
@@ -4938,11 +4805,11 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     tags: ['kekule-structure', 'perfect-matching', 'benzenoid', 'enumeration'],
     contributor: 'admin',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-022 — The maximum number of Kekulé structures in benzenoid hydrocarbons.\n\nFor a benzenoid with h hexagons, the maximum number of Kekulé structures\n(perfect matchings of the carbon skeleton) is the conjectured extremal value.\nBoth functions are formalization targets; the equality is the headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\ndef MaxKekuleStructures (h : Nat) : Nat := by\n  exact 0\n\ndef ConjecturedMaxKekule (h : Nat) : Nat := by\n  exact 0\n\ntheorem kekule_extremal (h : Nat) :\n    MaxKekuleStructures h = ConjecturedMaxKekule h := by\n  sorry\n\nend MathX\n',
     proposer: 'I. Gutman',
     proposed_year: 2008,
     via: { label: 'Number of Kekulé structures of benzenoid hydrocarbons: literature on chemical graph theory, e.g. Gutman & Cyvin' },
-    impact_domains: ['Graph-theoretic indices of aromaticity and stability', 'Structure enumeration of synthesizable hydrocarbons'],
     related_problems: [
       {
         id: 'mc-024',
@@ -4994,12 +4861,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['reduced-density-matrix', 'n-representability', 'quantum-marginal', 'many-body-theory'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2007,
     via: { label: 'Two-electron RDM N-representability: Mazziotti (ed.), Reduced-Density-Matrix Mechanics, Adv. Chem. Phys. 134 (2007)' },
-    impact_domains: ['Second-order reduced density matrix functional theory', 'Rigorous constraints in deterministic many-electron theories'],
     related_problems: [
       {
         id: 'mc-018',
@@ -5063,12 +4928,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'numerical',
     tags: ['clar-number', 'clar-cover', 'aromatic-sextet', 'enumeration'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1992,
     via: { label: 'Clar numbers and Clar covers: chemical graph theory / combinatorial literature, e.g. Gutman et al.' },
-    impact_domains: ['Quantum-chemical foundations of aromaticity indices', 'Structure and enumeration of synthesizable hydrocarbons'],
     related_problems: [
       {
         id: 'mc-022',
@@ -5113,12 +4976,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     verification_path: 'analytical',
     tags: ['walsh-fourier', 'selection-recombination', 'gamete-frequencies', 'moment-closure'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Closure of selection–recombination in the Walsh basis: related to mixed population-genetic formulations; recent analytic closure results' },
-    impact_domains: ['Quantitative genetics', 'Mathematical theory of fitness landscapes'],
     related_problems: [
       {
         id: 'mb-003',
@@ -5174,15 +5035,13 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
     verification_path: 'analytical',
     tags: ['stochastic-persistence', 'lotka-volterra', 'environmental-noise', 'almost-sure-extinction'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: {
       label: 'Persistence and extinction rates of noisy Lotka–Volterra: the Hening & Nguyen series',
       url: 'https://doi.org/10.1007/s00285-017-1188-y',
     },
-    impact_domains: ['Species coexistence theory', 'Stochastic ecology'],
     related_problems: [
       {
         id: 'mb-004',
@@ -5234,12 +5093,10 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     verification_path: 'analytical',
     tags: ['turing-instability', 'pattern-selection', 'domain-growth', 'dispersion-relation'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2012,
     via: { label: 'Turing, The chemical basis of morphogenesis, Phil. Trans. R. Soc. B 237 (1952); discussion of pattern selection see Murray, Mathematical Biology II (3rd ed., 2003)' },
-    impact_domains: ['Turing patterns and self-organization', 'Morphogenesis theory in developmental biology'],
     related_problems: [
       {
         id: 'mb-012',
@@ -5293,12 +5150,10 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     verification_path: 'analytical',
     tags: ['wright-fisher-diffusion', 'stationary-density', 'multiallelic', 'reversible-mutation'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: { label: 'Kimura, A stochastic model concerning the maintenance of genetic variability in quantitative characters, Proc. Natl. Acad. Sci. USA 54 (1965); two-allele equilibrium density see Kimura, Genetics (1964)' },
-    impact_domains: ['Foundational theory of population genetics', 'Allele frequency spectrum theory'],
     related_problems: [
       {
         id: 'mb-009',
@@ -5348,15 +5203,13 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     verification_path: 'analytical',
     tags: ['kin-selection', 'inclusive-fitness', 'structured-populations', 'hamilton-rule'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'W. D. Hamilton',
     proposed_year: 1964,
     via: {
       label: 'Hamilton, The genetical evolution of social behaviour, J. Theor. Biol. 7 (1964)',
       url: 'https://doi.org/10.1016/0022-5193(64)90038-4',
     },
-    impact_domains: ['Kin selection theory', 'Evolutionary games of social behavior'],
     related_problems: [
       {
         id: 'mb-006',
@@ -5410,15 +5263,13 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     verification_path: 'analytical',
     tags: ['complexity-stability', 'random-matrices', 'food-webs', 'sign-patterns'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'R. M. May',
     proposed_year: 1972,
     via: {
       label: 'May, Will a large complex system be stable? Nature 238 (1972)',
       url: 'https://doi.org/10.1038/238413a0',
     },
-    impact_domains: ['Ecosystem stability theory', 'Random matrix methods in ecology'],
     related_problems: [
       {
         id: 'mb-004',
@@ -5484,12 +5335,10 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     verification_path: 'analytical',
     tags: ['berg-purcell-limit', 'chemical-sensing', 'morphogen-gradient', 'fundamental-noise-limit'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Information lower bound for morphogen-gradient concentration sensing: related to the Berg–Purcell limit (1977)' },
-    impact_domains: ['Physical limits of developmental signal processing', 'Intracellular molecular noise theory'],
     related_problems: [
       {
         id: 'mb-014',
@@ -5544,12 +5393,10 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     verification_path: 'analytical',
     tags: ['navier-stokes', 'partial-regularity', 'hausdorff-dimension', 'turbulence'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2007,
     via: { label: 'Dimension of the singular set of NS suitable weak solutions: the Caffarelli–Kohn–Nirenberg partial regularity tradition and subsequent dimension results' },
-    impact_domains: ['Validation of numerical turbulence simulation', 'CFD mesh adaptivity', 'Energy-conserving numerical schemes'],
     related_problems: [],
     statement: `Consider incompressible Navier–Stokes on a bounded domain for all $t>0$. By the Cafarelli–Kohn–Nirenberg partial regularity theorem every suitable weak solution is smooth away from a set whose box-counting dimension is at most $5/3$. **Prove or disprove the sharp improvement**: the singular set has vanishing one-dimensional Hausdorff measure $\\mathcal H^1(S)=0$, or find an exponent sharper than $5/3$ that is provably optimal.
 
@@ -5594,15 +5441,13 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
     verification_path: 'analytical',
     tags: ['impedance-tomography', 'calderon-problem', 'electrical-impedance-tomography', 'uniqueness'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'A. P. Calderón',
     proposed_year: 1980,
     via: {
       label: 'Calderón, On an inverse boundary value problem, Seminário Brasileiro de Análise (1980); uniqueness in 3D open',
       url: 'https://doi.org/10.1007/978-3-662-12877-0_1',
     },
-    impact_domains: ['Electrical impedance tomography', 'Nondestructive testing', 'Sensor inversion aperture design'],
     related_problems: [],
     statement: `Let $\\Omega \\subset \\mathbb R^3$ be a bounded connected domain and let $\\gamma \\in L^\\infty_+(\\Omega)$ be a strictly positive conductivity. The Dirichlet-to-Neumann map $\\Lambda_\\gamma$ is defined by $\\Lambda_\\gamma(f) = \\gamma \\partial_\\nu u|_{\\partial\\Omega}$ for the unique solution of $-\\nabla\\cdot(\\gamma\\nabla u)=0$ with $u|_{\\partial\\Omega}=f$. **Prove that $\\Lambda_{\\gamma_1} = \\Lambda_{\\gamma_2}$ implies $\\gamma_1=\\gamma_2$ for general $L^\\infty$ conductivities.**
 
@@ -5651,15 +5496,13 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
     verification_path: 'analytical',
     tags: ['feedback-stabilization', 'nonlinear-control', 'lyapunov-functions', 'asymptotic-controllability'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'R. W. Brockett',
     proposed_year: 1983,
     via: {
       label: 'Brockett, Asymptotic stability and feedback stabilization, in Differential Geometric Control Theory (1983); Sontag (1983)',
       url: 'https://doi.org/10.1007/978-1-4612-5423-6_18',
     },
-    impact_domains: ['Stabilization control for robotics and autonomous driving', 'Spacecraft attitude control', 'Sensorless feedback design'],
     related_problems: [
       {
         id: 'me-001',
@@ -5710,12 +5553,10 @@ Provide an explicit convexity/transversality criterion and test it against the k
     verification_path: 'analytical',
     tags: ['model-order-reduction', 'kolmogorov-n-width', 'parametric-pde', 'reduced-basis'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: { label: 'n-width decay of parametrized-PDE solution manifolds: recent literature (e.g. the Cohen–DeVore width estimates)' },
-    impact_domains: ['Simulation reduction and digital twins', 'Multi-parameter optimization design', 'Uncertainty quantification'],
     related_problems: [],
     statement: `Let $\\mathcal M = \\{u(a) : a \\in \\Lambda\\} \\subset V$ be the solution manifold of a parametrized linear elliptic equation $\\mathcal A(a) u = f$, $a$ ranging over a parameter set $\\Lambda$ in finite or countable dimension. Let $d_n(\\mathcal M)$ be the Kolmogorov n-width in $V$. **Determine the sharp asymptotic of $d_n(\\mathcal M)$ as $n \\to \\infty$**:
 - whether analytic (holomorphic) parameter dependence yields exponential decay $d_n \\sim 2^{-c n}$ with the best constant $c$, and
@@ -5760,15 +5601,13 @@ Provide an explicit convexity/transversality criterion and test it against the k
     verification_path: 'analytical',
     tags: ['prandtl-boundary-layer', 'inviscid-limit', 'navier-stokes', 'spectral-instability'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'L. Prandtl',
     proposed_year: 1904,
     via: {
       label: 'Prandtl boundary layers (1904); review of regularity loss in the inviscid limit see Gérard-Varet (2023) et al.',
       url: 'https://doi.org/10.1007/978-3-662-33948-0_2',
     },
-    impact_domains: ['Aviation boundary-layer simulation', 'High-Reynolds-number CFD validation', 'Turbulent wall models'],
     related_problems: [],
     statement: `As viscosity $\\nu \\to 0$, any sufficiently smooth Navier–Stokes solution is expected to converge to its Euler counterpart together with a near-wall Prandtl layer. It is known that for analytic data the convergence holds, whereas for merely $C^\\infty$ (non-analytic) data the Prandtl expansion is unstable. **Determine the exact regularity space in which the zero-viscosity limit is stable**: prove that the Prandtl system is ill-posed in Sobolev spaces yet well-posed in a Gevrey class $G^s$ with the optimal exponent $s$, and exhibit a solution whose Sobolev norm growth rate is sharp, so the expansion holds precisely up to a stated Gevrey threshold.`,
     origin:
@@ -5811,12 +5650,10 @@ Provide an explicit convexity/transversality criterion and test it against the k
     verification_path: 'analytical',
     tags: ['discrete-tomography', 'limited-data', 'combinatorial-geometry', 'uniqueness'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 1996,
     via: { label: 'Minimal projection directions for discrete tomography reconstruction: the discrete tomography survey (Herman & Kuba, eds.)' },
-    impact_domains: ['Sparse-view CT imaging', 'Industrial nondestructive testing', 'Material mesh-shape inversion'],
     related_problems: [],
     statement: `Let a binary image $f \\in \\{0,1\\}^{n\\times n}$ be observed by the line sums $\\sum f$ along a fixed set $D$ of distinct lattice directions $v \\in \\mathbb Z^2$. **Determine the minimal cardinality $k$ of $D$ (and which directions) such that every binary image is uniquely determined by this $D$-line-sum data**, and when uniqueness holds, give a polynomial reconstruction algorithm; if uniqueness fails, give the smallest counterexample.
 
@@ -5861,12 +5698,10 @@ Decide also whether the decision problem of uniqueness for a given finite $D$ is
     verification_path: 'analytical',
     tags: ['network-controllability', 'leader-selection', 'approximation-hardness', 'sensor-placement'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2011,
     via: { label: 'Minimum leader selection for network controllability: surveys of the minimum-control problem and the NP-hardness tradition (Olshevsky et al.)' },
-    impact_domains: ['UAV formation and smart grids', 'Sensor and actuator placement', 'Social network influence control'],
     related_problems: [],
     statement: `Let $G=(V,E)$ be a weighted graph of $n$ nodes with linear dynamics $\\dot x = A x + B u$. Choosing a set $L \\subseteq V$ of leaders amounts to fixing a diagonal support for the input matrix $B$. **Determine the computational complexity and constant approximability of the minimum-leadert-choice problem: find the smallest leader set $L$ such that $(A,B_L)$ is controllable (or observable)**, with the weights and topology of $G$ given as input.
 
@@ -5911,15 +5746,13 @@ Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching ha
     verification_path: 'analytical',
     tags: ['numerical-range', 'spectral-sets', 'krylov-convergence', 'matrix-theory'],
     contributor: 'admin',
-    date_added: '2026-08-22',
-    last_verified: '2026-08-22',
+  date_added: '2026-08-22',
     proposer: 'M. Crouzeix',
     proposed_year: 2004,
     via: {
       label: 'Crouzeix, Bounds for analytic functions of matrices, Integral Equ. Oper. Theory 48 (2004); constant conjecture 1+√2',
       url: 'https://doi.org/10.1007/s00020-002-1184-6',
     },
-    impact_domains: ['Krylov subspace convergence', 'Matrix function estimation', 'Preconditioning and perturbation analysis'],
     related_problems: [],
     statement: `For any $n \\times n$ matrix $A$ and any polynomial $p$, let $W(A) = \\{x^* A x : \\|x\\|=1\\}$ be the numerical range. **Determine the optimal constant $C^*(W)$ such that**
 $\\|p(A)\\| \\le C^* \\, \\sup_{z \\in W(A)} |p(z)|, \\qquad \\forall p \\in \\mathbb C[z],$
@@ -5966,14 +5799,12 @@ with $\\|\\cdot\\|$ the operator norm. Prove that $W(A)$ is a spectral set with 
     tags: ['fourier-law', 'heat-conduction', 'anharmonic-chain', 'green-kubo', 'thermal-transport'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'S. Lepri, R. Livi & A. Politi',
     proposed_year: 2003,
     via: {
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
-    impact_domains: ['Nanoscale heat conduction', 'Transport in low-dimensional systems', 'Nonequilibrium statistical physics'],
     related_problems: [
       {
         id: 'mp-026',
@@ -6026,11 +5857,9 @@ coupled at the two ends to Langevin reservoirs at temperatures $T_1<T_2$. Prove 
     tags: ['bose-einstein-condensation', 'superfluidity', 'many-body-qm', 'grand-canonical', 'positive-temperature'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: { label: 'Bose condensation of interacting gases at positive temperature: review of rigorous BEC results (e.g. related work of Seiringer)' },
-    impact_domains: ['Superfluid physics', 'Low-temperature many-body quantum theory', 'Phase transitions in Bose systems'],
     related_problems: [
       {
         id: 'mp-024',
@@ -6083,14 +5912,12 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['bkt-transition', 'xy-model', 'coulomb-gas', 'phase-transition', 'superfluid'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'J. M. Kosterlitz & D. J. Thouless',
     proposed_year: 1973,
     via: {
       label: 'Kosterlitz & Thouless, Ordering metastability and phase transitions in two-dimensional systems, J. Phys. C 6 (1973)',
       url: 'https://doi.org/10.1088/0022-3719/6/7/010',
     },
-    impact_domains: ['Superfluid thin films', 'Two-dimensional phase transition theory', 'Rigorous condensed-matter models'],
     related_problems: [
       {
         id: 'mp-026',
@@ -6163,11 +5990,9 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['quasi-steady-state', 'stochastic-kinetics', 'master-equation', 'model-reduction'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Rigorous error bounds for stochastic QSSA: the limit theorems of Kang–Kurtz et al. and the traditional literature' },
-    impact_domains: ['Stochastic modeling and dimension reduction of enzyme kinetics', 'Stiff decomposition of biochemical master equations'],
     related_problems: [
       {
         id: 'mc-021',
@@ -6218,14 +6043,12 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['graph-spectrum', 'cospectral', 'molecular-graph', 'signless-laplacian'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2011,
     via: {
       label: 'Survey of spectral determination of molecular graphs: van Dam & Haemers, Which graphs are determined by their spectrum? LAA 373 (2003)',
       url: 'https://doi.org/10.1016/j.laa.2003.07.008',
     },
-    impact_domains: ['Unambiguous structure identification by molecular graph isomorphism', 'Chemical fingerprints and structure retrieval'],
     related_problems: [
       {
         id: 'mc-022',
@@ -6273,11 +6096,9 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['seasonal-forcing', 'arnold-tongue', 'subharmonic-response', 'intermittent-chaos'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2014,
     via: { label: 'Harmonic response and Arnold tongues of seasonally driven SIR: epidemiological reviews (e.g. Keeling & Rohani)' },
-    impact_domains: ['Theory of interannual infectious-disease fluctuations', 'Attractor locking and chaotic-state forecasting'],
     related_problems: [
       {
         id: 'mb-005',
@@ -6334,11 +6155,9 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['polynomial-systems', 'sms-17th-problem', 'global-optimization', 'complexity'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2008,
     via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998), Problem 17 (polynomial-time algorithm for the zeros of polynomial systems); average-case complexity see Bürgisser & Cucker, Condition: The Geometry of Numerical Algorithms (Springer, 2013)' },
-    impact_domains: ['Regression and parameter identification', 'Global optimization solvers', 'Symbolic–numerical hybrid verification'],
     related_problems: [],
     statement: `Let $f: \\mathbb R^n \\to \\mathbb R$ be a degree-$d$ polynomial, or let $F:\\mathbb C^n \\to \\mathbb C^n$ be a square polynomial system with $n$ equations in $n$ unknowns. **Determine the average-case tractability: prove that there is an algorithm that, given a random such system drawn from a product/projection model, finds an approximate zero or approximates $\\min f$ on $\\mathbb R^n$/a compact basic-semialgebraic set in time polynomial in $n$ and the degree, with the output error certified to machine precision, or prove that such a feasible algorithm cannot exist (unconditionally or modulo a plausible cryptographic/antiparadoxical hypothesis).**
 
@@ -6384,14 +6203,12 @@ Equivalently, resolve whether the decision problems of real-solvability and of g
     tags: ['decentralized-control', 'stochastic-control', 'nonlinear-control', 'team-theory'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'H. Witsenhausen',
     proposed_year: 1968,
     via: {
       label: 'Witsenhausen, A counterexample in stochastic optimum control, SIAM J. Control 6 (1968)',
       url: 'https://doi.org/10.1137/0306048',
     },
-    impact_domains: ['Multi-agent cooperative control', 'Distributed sensing networks', 'Fault-tolerant and robust controller design'],
     failure_records: [
       {
         method: 'Dynamic programming / value iteration',
@@ -6464,14 +6281,12 @@ Numerically discovered nonlinear policies beat the best linear ones for large $\
     tags: ['G-closure', 'hashin-shtrikman-bounds', 'composite-conductivity', 'homogenization'],
     contributor: 'community',
     date_added: '2026-08-22',
-    last_verified: '2026-08-22',
     proposer: 'multiple contributors',
     proposed_year: 2002,
     via: {
       label: 'G-closure and attainable bounds for multiphase composite media: Milton, The Theory of Composites (2002)',
       url: 'https://www.cambridge.org/core/books/the-theory-of-composites',
     },
-    impact_domains: ['Multiphase materials design', 'Microstructure optimization in additive manufacturing', 'Thermo-mechanically coupled multimaterials'],
     failure_records: [
       {
         method: 'Rank-k sequential laminate constructions',
@@ -6553,8 +6368,6 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     tags: ['information-based-complexity', 'high-dimensional-integration', 'tractability', 'numerical-quadrature'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Financial derivatives pricing', 'Posterior normalization in Bayesian inverse problems', 'Parametric PDEs and surrogate models', 'High-dimensional statistical computation'],
     proposer: 'H. Woźniakowski',
     proposed_year: 1994,
     via: {
@@ -6622,8 +6435,6 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     tags: ['sensor-placement', 'observability', 'submodular-optimization', 'state-estimation', 'experimental-design'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Environmental monitoring network deployment', 'Redundant sensing design for fault diagnosis', 'Structural health monitoring', 'Active sampling in machine learning'],
     proposer: 'A. Krause & C. Guestrin',
     proposed_year: 2007,
     via: {
@@ -6690,8 +6501,6 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     tags: ['model-order-reduction', 'pod', 'a-posteriori-bounds', 'digital-twin', 'parametric-pde'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Digital twins and real-time simulation', 'Real-time surgical/driving decisions', 'Flexible multibody structures and MEMS', 'Parametric design-space exploration'],
     proposer: 'K. Veroy & A. T. Patera',
     proposed_year: 2005,
     via: {
@@ -6741,8 +6550,6 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     tags: ['neural-network-verification', 'lyapunov-functions', 'learning-based-control', 'formal-methods'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Safety control for autonomous driving/robotics', 'Provable stability of power grids and process automation', 'Fault tolerance of aerospace actuators', 'Industrial deployment of reinforcement learning'],
     proposer: 'M. Fazlyab, M. Morari & G. J. Pappas',
     proposed_year: 2020,
     via: {
@@ -6810,8 +6617,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['passive-scalar', 'anomalous-dissipation', 'chaotic-mixing', 'onsager', 'optimal-transport'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Microfluidic mixer design', 'Atmospheric/oceanic transport models', 'Combustion and mixing processes', 'Transient mixing in drug delivery'],
     proposer: 'L. Onsager; modern statement attributed to A. Shnirelman and A. Kiselev',
     proposed_year: 1949,
     via: {
@@ -6861,8 +6666,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['evolutionary-graph-theory', 'fixation-probability', 'population-structure', 'moran-process'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Evolution prediction of drug resistance', 'Modeling of tumor clonal evolution', 'Species invasion and ecological networks', 'Self-stabilizing synthetic biology populations'],
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2008,
     via: {
@@ -6912,8 +6715,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['crnt', 'absolute-concentration-robustness', 'multistationarity', 'futile-cycle', 'algebraic-certificate'],
     contributor: 'community',
     date_added: '2026-08-23',
-    last_verified: '2026-08-23',
-    impact_domains: ['Robust circuit design in synthetic biology', 'Metabolic flux regulatory elements', 'Signal-pathway design against environmental perturbations', 'Drug-target robustness'],
     proposer: 'G. A. Shinar & M. Feinberg',
     proposed_year: 2010,
     via: {
@@ -6963,8 +6764,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['rayleigh-benard-convection', 'nusselt-number-bounds', 'variational-bounds', 'certified-computation', 'turbulence'],
     contributor: 'community',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
-    impact_domains: ['Modeling of oceanic and atmospheric heat transport', 'Nuclear reactor and electronics cooling design', 'Climate/magma-mantle convection prediction', 'Rigorous constraints on extreme turbulent scaling'],
     proposer: 'W. V. R. Malkus',
     proposed_year: 1954,
     via: {
@@ -7060,8 +6859,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['area-law', 'entanglement-entropy', 'spectral-gap', 'spin-systems', 'tensor-networks'],
     contributor: 'community',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
-    impact_domains: ['Quantum many-body simulability / tensor-network methods', 'Topological phases and entanglement classification', 'Quantum Hamiltonian complexity', 'Condensed-matter ground-state structure'],
     proposer: 'M. B. Hastings',
     proposed_year: 2007,
     via: {
@@ -7129,8 +6926,6 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['quantized-consensus', 'distributed-averaging', 'finite-time-convergence', 'mass-preservation', 'load-balancing'],
     contributor: 'community',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
-    impact_domains: ['Data fusion in IoT and edge sensing networks', 'Distributed clock synchronization and event-triggered estimation', 'Load balancing in processor networks', 'Multi-agent formation consensus'],
     proposer: 'A. Kashyap, T. Başar & R. Srikant',
     proposed_year: 2007,
     via: {
@@ -7179,14 +6974,12 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['free-convection', 'nusselt-bounds', 'elementary-margins', 'interval-arithmetic', 'certified-computation'],
     contributor: 'admin',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
     proposer: 'A. Bejan',
     proposed_year: 1984,
     via: {
       label: 'Bejan, Convection Heat Transfer, 4th ed., Wiley, 2013 (reference benchmark for natural-convection correlations and scales)',
       url: 'https://doi.org/10.1002/9781118671627',
     },
-    impact_domains: ['Thermal design of power electronics and LEDs', 'Passive natural cooling systems', 'Data-center rack thermal management', 'Passive thermal control in aerospace'],
     related_problems: [
       {
         id: 'mp-037',
@@ -7250,14 +7043,12 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['chemical-reaction-networks', 'multistationarity', 'interval-arithmetic', 'parameter-uncertainty', 'certified-computation'],
     contributor: 'admin',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
     proposer: 'M. Feinberg',
     proposed_year: 1987,
     via: {
       label: 'Feinberg, Chemical reaction network structure and the stability of complex isothermal reactors, Chem. Eng. Sci. 42(10):2229–2268 (1987)',
       url: 'https://doi.org/10.1016/0009-2509(87)80106-7',
     },
-    impact_domains: ['Catalysis and reactor design', 'Multistability risk warning', 'Process safety and dynamic control', 'Biochemical signaling networks'],
     related_problems: [
       {
         id: 'mc-005',
@@ -7325,14 +7116,12 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['selection-mutation', 'wright-fisher', 'parameter-uncertainty', 'population-genetics', 'finitesize-effect'],
     contributor: 'admin',
     date_added: '2026-08-24',
-    last_verified: '2026-08-24',
     proposer: 'M. Kimura',
     proposed_year: 1955,
     via: {
       label: 'Kimura, Stochastic processes and distribution of gene frequencies under natural selection, Cold Spring Harb. Symp. Quant. Biol. 20 (1955) 33–53',
       url: 'https://doi.org/10.1101/SQB.1955.020.01.006',
     },
-    impact_domains: ['Risk assessment of antimicrobial and herbicide resistance', 'Mutation surveillance and genomic epidemiology', 'Crop and microbial breeding', 'Evolutionary medicine'],
     related_problems: [
       {
         id: 'mb-003',
@@ -7461,28 +7250,25 @@ export const VERIFICATION_LABELS: Record<VerificationPath, string> = {
 /**
  * Impact domains for the original catalog entries (newer entries carry
  * `impact_domains` inline). Kept as a map so legacy blocks stay untouched.
+ * 可信度收敛（2026-09）：从 40+ 个域收缩到 30 个，只保留与题面直接相关的实证
+ * 挂接；余下的 AI 外推影响域已删除。收缩仍待领域专家复核。
  */
 export const IMPACT_DOMAINS: Record<string, string[]> = {
-  'mp-001': ['Rarefied gas engineering', 'Aerospace aerodynamics', 'Numerical schemes for kinetic equations'],
-  'mp-002': ['Atmospheric–oceanic circulation', 'Climate model calibration', 'Stochastic turbulence modeling'],
-  'mp-003': ['Nonlinear lattice devices', 'Energy transport design', 'Integrable-system benchmarks'],
+  'mp-001': ['Rarefied gas engineering', 'Aerospace aerodynamics'],
+  'mp-003': ['Nonlinear lattice devices', 'Energy transport design'],
   'mp-004': ['Disordered semiconductor devices', 'Two-dimensional materials design'],
-  'mp-005': ['Quantum magnetic materials', 'Tensor-network algorithms', 'Quantum simulation benchmarks'],
+  'mp-005': ['Quantum magnetic materials', 'Tensor-network algorithms'],
   'mp-006': ['Optical soliton communication', 'Nonlinear optical devices'],
-  'mp-007': ['Random matrix benchmarks', 'Numerical methods for disordered systems', 'Machine-learning spectral theory'],
-  'mp-008': ['CFD turbulence models', 'Aircraft engine design', 'Energy conversion efficiency'],
-  'mc-001': ['Chemical process safety', 'Bioreactor design', 'Synthetic biology'],
+  'mp-007': ['Random matrix benchmarks', 'Numerical methods for disordered systems'],
+  'mp-008': ['CFD turbulence models', 'Aircraft engine design'],
+  'mc-001': ['Chemical process safety', 'Bioreactor design'],
   'mc-002': ['Industrial catalytic networks', 'Metabolic engineering'],
-  'mc-003': ['Organic semiconductor design', 'Molecular electronics'],
-  'mc-004': ['Biochemical oscillator design', 'Multistable switches', 'Synthetic gene circuits'],
-  'mc-005': ['Reaction-kinetics parameter identification', 'Systems biology modeling'],
-  'mb-001': ['Tumor evolution modeling', 'Population genetics', 'Evolutionary algorithm design'],
-  'mb-002': ['Public-health modeling', 'Epidemic prevention and control strategies', 'Network security propagation'],
-  'mb-003': ['Microbial community management', 'Ecological intervention design'],
-  'mb-004': ['Ecosystem conservation', 'Fisheries resource management', 'Invasive species control'],
-  'me-001': ['UAV formation', 'Sensor networks', 'Autonomous vehicle fleets'],
-  'me-002': ['Federated learning', 'Edge computing optimization', 'Distributed training systems'],
-  'me-003': ['Swarm robotics', 'Safety certification of swarm/flocking control', 'Biological collective modeling'],
+  'mc-004': ['Biochemical oscillator design', 'Synthetic gene circuits'],
+  'mb-001': ['Tumor evolution modeling', 'Population genetics'],
+  'mb-002': ['Public-health modeling', 'Epidemic prevention and control strategies'],
+  'mb-004': ['Ecosystem conservation', 'Fisheries resource management'],
+  'me-001': ['UAV formation', 'Sensor networks'],
+  'me-003': ['Swarm robotics', 'Safety certification of swarm/flocking control'],
 }
 
 export function impactOf(p: Problem): string[] {

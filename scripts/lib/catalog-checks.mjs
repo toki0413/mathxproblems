@@ -9,6 +9,7 @@ import { verifyCertificate } from "../../contracts/verifier.ts";
 
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
+export const PROVENANCE_KINDS = new Set(['AI-drafted', 'expert-reviewed', 'lean-compilable'])
 export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superseded'])
 export const FORMAL_STATUSES = new Set(['provable', 'conjectured', 'refuted'])
 export const BRIDGE_DIRECTIONS = new Set(['formal_idealizes_banded', 'banded_instantiates_formal', 'mutual_boundary'])
@@ -49,6 +50,8 @@ export function parseCatalog(src) {
   const judged = new Set()
   const judgments = new Map()
   const outputs = new Map()
+  const provenances = new Map()
+  const hasLeanStatement = new Set()
   const hasEngValue = new Set()
   const hasImpact = new Set()
   const hasTrace = new Set()
@@ -86,6 +89,9 @@ export function parseCatalog(src) {
     }
     const outMatch = line.match(/^    output: '([^']+)',/)
     if (outMatch && cur) outputs.set(cur, outMatch[1])
+    const provMatch = line.match(/^    provenance: '([^']+)',/)
+    if (provMatch && cur) provenances.set(cur, provMatch[1])
+    if (/^    lean_statement:/.test(line) && cur) hasLeanStatement.add(cur)
     if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
     if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
     if (/^    certificate:/.test(line) && cur) hasCertificate.add(cur)
@@ -124,14 +130,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
+  return { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
+  const { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -223,8 +229,32 @@ export function checkCatalog(raw) {
     notes.push(`output: all covered (${distStr})`)
   }
 
+  // 诚实标签（provenance）：值必须是三态枚举；显式升级必须配可追踪证据——
+  //  lean-compilable 必须附 lean_statement（由 check-lean 编译核验）；
+  //  expert-reviewed 尚无记录机制，禁止自盖章。
+  const badProvenance = [...provenances.entries()].filter(([, v]) => !PROVENANCE_KINDS.has(v))
+  if (badProvenance.length) failures.push(`invalid provenance: ${badProvenance.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+  const prematureUpgrade = [...provenances.entries()].filter(([id, v]) =>
+    v === 'expert-reviewed' || (v === 'lean-compilable' && !hasLeanStatement.has(id)),
+  )
+  if (prematureUpgrade.length)
+    failures.push(`provenance upgrade lacks recorded evidence: ${prematureUpgrade.map(([k]) => k).join(', ')}`)
+  const unclaimedLean = [...hasLeanStatement].filter((id) => provenances.get(id) !== 'lean-compilable')
+  if (unclaimedLean.length)
+    warnings.push(`lean_statement present but provenance not 'lean-compilable': ${unclaimedLean.join(', ')}`)
+  else {
+    const provDist = {}
+    for (const id of ids) {
+      const v = provenances.get(id) ?? 'AI-drafted'
+      provDist[v] = (provDist[v] ?? 0) + 1
+    }
+    notes.push(`provenance: all ${ids.length} problems labeled (${Object.entries(provDist).map(([k, n]) => `${k}=${n}`).join(', ')})`)
+  }
+
+  // 影响域现在可选（可信度收敛）：不再强制每题填充——AI 外推的影响域正在收缩为
+  // 有实证的集合，缺失不再是失败，而是如实反映"该题暂未挂接工程影响"。
   const noImpact = ids.filter((id) => !hasImpact.has(id))
-  if (noImpact.length) failures.push(`problems missing 'impact_domains': ${noImpact.join(', ')}`)
+  if (noImpact.length) notes.push(`impact_domains: optional, ${ids.length - noImpact.length}/${ids.length} problems carry impact domains`)
   else notes.push(`impact_domains: all ${ids.length} problems covered`)
 
   const vbNoEng = ids.filter((id) => outputs.get(id) === 'verified_behavior' && !hasEngValue.has(id))

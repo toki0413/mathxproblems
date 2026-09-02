@@ -45,3 +45,7 @@ scripts/_*.mjs
 
 # IDE/tool artifacts
 .trae-html-share-packages/
+
+# Lean toolchain artifacts
+lean/.lake/
+lean/lake-manifest.json

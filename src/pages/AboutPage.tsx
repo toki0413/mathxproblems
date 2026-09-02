@@ -17,6 +17,14 @@ const C = {
         再在社区反馈中生长。
       </>
     ),
+    disclosureTitle: '内容来源与可信度声明',
+    disclosure: [
+      ['当前条目的来源', '现有 114 条由大语言模型于 2026-08 一次性起草，每题标注为「AI 初稿」（AI-drafted）——即 AI 生成、未经领域专家逐条复核。本站不再对任何条目盖章"已验证"；此前误导性的 Verified 自盖章已移除。'],
+      ['什么经过机器校验', '结构不变量（唯一 id、关系边、三层残差契约）由守卫脚本强制；证书由参考核验器（契约 v0.1）校验；参考文献指向真实可查的文献；每周自动任务扫描 OpenAlex / arXiv 检测解决信号。'],
+      ['什么尚未验证', '陈述与障碍的数学正确性未经专家逐条复核。难度与形式化潜力评级是模型推断，不是专家判断。影响域由模型生成，正在收缩为有文献支撑的集合。社区层（收窄、候选）刻意留空——从你贡献开始。'],
+      ['可信度阶梯', 'AI 初稿 → 专家复核 → Lean 编译通过。升级必须留下可追踪记录（专家签注写入更新记录，或附上可编译的 Lean 文件）。在那之前，请把每条视为草稿，对照其参考文献核查。'],
+      ['如何帮助', '对照参考文献核查陈述；提出评级修正；提交带证收窄；或贡献一份可编译的 Lean 形式化陈述——每一样都是沿阶梯的一次真实升级。'],
+    ],
     filter: [
       ['Q1', '能否精确陈述“要算什么 / 证什么 / 分什么类”？', '证明、计算、显式公式、复杂度判定均可'],
       ['Q2', '解决它是否需要做新实验或部署真实系统？', '答案必须为“否”'],
@@ -80,6 +88,14 @@ const C = {
         Pragmatism first: make problems stand, then grow with community feedback.
       </>
     ),
+    disclosureTitle: 'Provenance & credibility statement',
+    disclosure: [
+      ['Origin of current entries', 'The current 114 entries were drafted by a large language model in one batch (2026-08). Each is labeled "AI-drafted" — AI-generated, not yet reviewed by a domain expert. No entry is stamped "verified" as a claim of independent review; the previously misleading Verified stamp has been removed.'],
+      ['What is machine-checked', 'Structural invariants (unique ids, relation edges, the three-layer residual contract) are enforced by guard-rail scripts; certificates are checked against the reference verifier (contract v0.1); references point to real, verifiable literature; a weekly automation scans OpenAlex/arXiv for resolution signals.'],
+      ['What is not yet verified', 'The mathematical correctness of statements and obstacles is not individually expert-reviewed. Difficulty and formalization-potential ratings are model estimates, not expert judgement. Impact domains are model-derived and are being pruned to evidence-backed ones. The community layer (narrowings, attempts) is intentionally empty — it begins when you contribute.'],
+      ['Provenance ladder', 'AI-drafted → expert-reviewed → lean-compilable. Upgrades require a tracked record (an expert sign-off in the updates, or a Lean file that compiles). Until then, treat every entry as a draft worth checking against its references.'],
+      ['How to help', 'Verify a statement against its references; propose a rating correction; submit a verified narrowing; or contribute a Lean formal statement that compiles — each is a real step up the ladder.'],
+    ],
     filter: [
       ['Q1', 'Can it be stated precisely — what to compute, prove, or classify?', 'Proofs, computations, explicit formulas, complexity classifications all count'],
       ['Q2', 'Does solving it require new experiments or deployed systems?', 'The answer must be “no”'],
@@ -144,6 +160,16 @@ export default function AboutPage() {
         <h1 className="font-statement text-4xl md:text-5xl font-bold tracking-tight">{t('ab.title')}</h1>
         <p className="mt-6 text-lg text-ink-2 leading-relaxed">{c.intro}</p>
       </Reveal>
+
+      <H2>{c.disclosureTitle}</H2>
+      <div className="border border-line divide-y divide-[var(--line)]">
+        {c.disclosure.map(([k, v]) => (
+          <div key={k} className="grid md:grid-cols-[12rem_1fr] gap-2 p-4 text-[15px]">
+            <span className="font-medium">{k}</span>
+            <span className="text-ink-2 leading-relaxed">{v}</span>
+          </div>
+        ))}
+      </div>
 
       <H2>{t('ab.filter')}</H2>
       <div className="border border-line divide-y divide-[var(--line)]">

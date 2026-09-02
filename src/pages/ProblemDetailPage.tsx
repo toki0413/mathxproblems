@@ -149,7 +149,12 @@ export default function ProblemDetailPage() {
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 font-mono2 text-xs text-ink-3">
             <Stars difficulty={p.difficulty} />
-            <span>{t('pd.verified')} {p.last_verified ?? p.date_added}</span>
+            <span
+              title={t('pd.provenance.hint')}
+              className="border border-line rounded-full px-2.5 py-1 cursor-help"
+            >
+              {enumLabel(lang, 'provenance', p.provenance ?? 'AI-drafted')} · {p.date_added}
+            </span>
           </div>
 
           {lifecycleOf(p) === 'refuted' && (
@@ -570,6 +575,15 @@ export default function ProblemDetailPage() {
             </div>
           </Section>
 
+          {p.lean_statement && (
+            <Section title={t('pd.lean.title')}>
+              <p className="text-xs text-ink-3 mb-3 leading-relaxed">{t('pd.lean.hint')}</p>
+              <pre className="bg-[#14181f] text-[#e6e1cf] text-[12px] leading-relaxed p-5 overflow-x-auto rounded-sm">
+                <code>{p.lean_statement}</code>
+              </pre>
+            </Section>
+          )}
+
           <Section title={t('pd.references')}>
             <ul className="space-y-2.5 text-sm">
               {p.references.map((r, i) => (
@@ -845,6 +859,9 @@ export default function ProblemDetailPage() {
                 }
               />
             )}
+            <p className="pt-3 mt-3 text-[11px] leading-relaxed text-ink-3 border-t border-line">
+              {t('pd.ratings.ai')}
+            </p>
             <div className="pt-3">
               <button
                 onClick={() => {

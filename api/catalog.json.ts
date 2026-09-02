@@ -16,6 +16,8 @@ function oneProblem(p: Problem) {
     subdomain: p.subdomain,
     output: p.output,
     status: p.status,
+    provenance: p.provenance ?? "AI-drafted",
+    lean_statement: p.lean_statement,
     formalization_potential: p.formalization_potential,
     verification_path: p.verification_path,
     lifecycle_status: p.lifecycle_status ?? "open",
