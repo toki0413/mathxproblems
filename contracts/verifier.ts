@@ -14,6 +14,10 @@ import { parseBand } from "./band.ts";
 
 export interface ResidualLike {
   bound?: string;
+  /** 残差清单（L1.5）：机器可读数值上界（≥0，有限）。缺省表示该层尚无机器形式。 */
+  upper?: number;
+  /** 支撑该层 bound 的证书类型（proof/numerical/counterexample/assumption）。 */
+  kind?: string;
 }
 
 export interface CertificateLike {
@@ -22,6 +26,8 @@ export interface CertificateLike {
   r_num?: ResidualLike;
   total_band?: string;
   certified_band?: string;
+  /** 总带宽的机器可读合成上界；齐备时做带算术 total ≤ R_model+R_param+R_num。 */
+  total?: number;
 }
 
 export type CheckStatus = "pass" | "fail" | "needs_form";
@@ -34,6 +40,7 @@ export interface JudgementVerdict {
     band_form: CheckStatus;
     band_nonempty: CheckStatus;
     band_nonvacuous: CheckStatus;
+    total_residual_arith: CheckStatus;
   };
   /** 相对宽度 = 带宽 / |带中点|；带不可解析时为 null。 */
   relative_width: number | null;
@@ -88,6 +95,22 @@ export function checkInformation(
 }
 
 /**
+ * 残差清单带算术（机器可读数值路径）：r_model/r_param/r_num 的 `upper` 与 `total`
+ * 全部为有限数时，判定 total ≤ R_model+R_param+R_num；任一数值缺失 → needs_form
+ * （描述性带如实报告无法机检，不伪装通过）。
+ */
+export function checkTotalResidualArith(cert?: CertificateLike): CheckStatus {
+  const upper = (r?: ResidualLike) =>
+    r && typeof r.upper === "number" && Number.isFinite(r.upper) ? r.upper : null;
+  const layers = [upper(cert?.r_model), upper(cert?.r_param), upper(cert?.r_num)];
+  const total = cert?.total;
+  if (layers.some((u) => u === null) || typeof total !== "number" || !Number.isFinite(total)) {
+    return "needs_form";
+  }
+  return total <= layers[0]! + layers[1]! + layers[2]! ? "pass" : "fail";
+}
+
+/**
  * 核验一份证书。逐条落实契约不变量，返回结构化判定。
  *  - 带算术（total ≤ R_model+R_param+R_num）：当前数据多为描述性公式，
  *    无法机检时如实报 needs_form，并在 reasons 里说明契约要求机器形式。
@@ -105,6 +128,7 @@ export function verifyCertificate(
         band_form: "needs_form",
         band_nonempty: "needs_form",
         band_nonvacuous: "needs_form",
+        total_residual_arith: "needs_form",
       },
       relative_width: null,
       reasons: ["certificate missing"],
@@ -114,6 +138,7 @@ export function verifyCertificate(
   const rParamClause = checkRParamClause(cert.r_param);
   const band = parseBand(cert.certified_band);
   const info = checkInformation(cert.certified_band, opts);
+  const totalResidualArith = checkTotalResidualArith(cert);
 
   // 带形式与包含
   const bandForm: CheckStatus = cert.certified_band
@@ -138,6 +163,8 @@ export function verifyCertificate(
     reasons.push("certified_band is descriptive text, not a parseable [lo,hi] band (contract requires machine form)");
   if (bandNonvacuous === "fail")
     reasons.push(`band is vacuous: relative width ${info.relative_width?.toFixed(2)} > ${VACUOUS_THRESHOLD}`);
+  if (totalResidualArith === "fail")
+    reasons.push("residual ledger arithmetic: total > R_model+R_param+R_num");
   if (!info.within_info_gate && band)
     reasons.push(
       `information gate advisory: relative width ${info.relative_width?.toFixed(2)} > recommended ${opts?.infoGateThreshold ?? INFO_GATE_DEFAULT}`,
@@ -148,6 +175,7 @@ export function verifyCertificate(
     band_form: bandForm,
     band_nonempty: bandNonempty,
     band_nonvacuous: bandNonvacuous,
+    total_residual_arith: totalResidualArith,
   };
   const pass = !Object.values(checks).includes("fail");
   return { pass, checks, relative_width: info.relative_width, reasons };

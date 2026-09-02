@@ -245,17 +245,18 @@ test('formal_view judgment check is block-scoped, not a global includes', () => 
 
 // ── 参考核验器（契约 v0.1）──
 const GOOD_CERT = {
-  r_model: { bound: 'Boussinesq 近似的显式残差界' },
-  r_param: { bound: '≡0（参数精确给定）' },
-  r_num: { bound: '区间算术封闭界' },
+  r_model: { bound: 'Boussinesq 近似的显式残差界', upper: 0.02, kind: 'proof' },
+  r_param: { bound: '≡0（参数精确给定）', upper: 0, kind: 'assumption' },
+  r_num: { bound: '区间算术封闭界', upper: 0.004, kind: 'numerical' },
   total_band: 'X_hi - X_lo ≤ R_model + R_param + R_num',
   certified_band: '[1.52, 1.56]',
+  total: 0.024,
 }
 
 test('verifier: a machine-readable, non-vacuous certificate passes', () => {
   const v = verifyCertificate(GOOD_CERT)
   assert.equal(v.pass, true)
-  assert.deepEqual(Object.values(v.checks), ['pass', 'pass', 'pass', 'pass'])
+  assert.deepEqual(Object.values(v.checks), ['pass', 'pass', 'pass', 'pass', 'pass'])
   assert.ok(v.relative_width !== null && v.relative_width < 0.2)
 })
 
@@ -344,4 +345,72 @@ test('default (no provenance field) counts as AI-drafted', () => {
   const src = provProblem('x-025', '', '')
   const note = checkCatalog(src).notes.find((n) => n.startsWith('provenance:'))
   assert.ok(note.includes('AI-drafted=1'))
+})
+
+// ── 残差清单（方向一 L1.5）──
+// 每层带机器可读 upper（≥0 有限数值）+ kind（枚举）；合成 total 满足带算术。
+const CERT_RESIDUAL = `{
+  r_model: { bound: 'b', derivation: 'd', upper: 0.02, kind: 'proof' },
+  r_param: { bound: '测量不确定度传播', derivation: 'd', upper: 0.001, kind: 'numerical' },
+  r_num: { bound: 'b', derivation: 'd', upper: 0.0005, kind: 'numerical' },
+  total_band: 'T',
+  certified_band: 'c',
+  total: 0.02,
+}`
+
+test('residual ledger: valid uppers + kind pass the guards', () => {
+  const src = `export const PROBLEMS = [ {${vbProblem('x-030', OK_JUDGMENT, CERT_RESIDUAL)}} ]`
+  const f = failures(src)
+  assert.ok(!f.some((x) => x.includes('residual ledger')))
+  assert.ok(!f.some((x) => x.includes('total_residual_arith')))
+})
+
+test('residual ledger: unknown kind fails', () => {
+  const bad = CERT_RESIDUAL.replace("kind: 'proof'", "kind: 'heuristic'")
+  const src = `export const PROBLEMS = [ {${vbProblem('x-031', OK_JUDGMENT, bad)}} ]`
+  assert.ok(failures(src).some((f) => f.includes('residual ledger invalid kind: x-031:r_model=heuristic')))
+})
+
+test('residual ledger: negative upper fails', () => {
+  const bad = CERT_RESIDUAL.replace('upper: 0.02', 'upper: -1')
+  const src = `export const PROBLEMS = [ {${vbProblem('x-032', OK_JUDGMENT, bad)}} ]`
+  assert.ok(failures(src).some((f) => f.includes('residual ledger upper must be a finite, ≥0 number')))
+})
+
+test('residual ledger: verifier fails when total > R_model+R_param+R_num', () => {
+  const bad = CERT_RESIDUAL.replace('total: 0.02', 'total: 5')
+  const src = `export const PROBLEMS = [ {${vbProblem('x-033', OK_JUDGMENT, bad)}} ]`
+  assert.ok(failures(src).some((f) => f.includes('total_residual_arith')))
+})
+
+test('residual ledger: verifier accepts total ≤ sum', () => {
+  const v = verifyCertificate({
+    r_model: { bound: 'b', upper: 0.02 },
+    r_param: { bound: '≡0（参数精确给定）', upper: 0 },
+    r_num: { bound: 'b', upper: 0.004 },
+    total_band: 'T',
+    certified_band: '[1.52, 1.56]',
+    total: 0.024,
+  })
+  assert.equal(v.checks.total_residual_arith, 'pass')
+  assert.equal(v.pass, true)
+})
+
+test('residual ledger: three uppers but no machine total warns', () => {
+  const bad = CERT_RESIDUAL.replace(/,\n  total: 0\.02,/, '')
+  const src = `export const PROBLEMS = [ {${vbProblem('x-034', OK_JUDGMENT, bad)}} ]`
+  assert.ok(warnings(src).some((w) => w.includes('三层 upper 齐备但无机器')))
+})
+
+test('residual ledger: missing a layer upper reports needs_form, not a pass', () => {
+  const v = verifyCertificate({
+    r_model: { bound: 'b', upper: 0.02 },
+    r_param: { bound: '测量不确定度传播' },
+    r_num: { bound: 'b', upper: 0.004 },
+    total_band: 'T',
+    certified_band: '[1.52, 1.56]',
+    total: 0.02,
+  })
+  assert.equal(v.checks.total_residual_arith, 'needs_form')
+  assert.equal(v.pass, true) // needs_form 不算失败，但如实报告未机检
 })

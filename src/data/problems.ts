@@ -49,19 +49,28 @@ export interface ProblemUpdate {
   note: string
 }
 
-/** 三层残差中一层的结构化形式：把 judgment 中的残差层提取为字段，
- *  供 UI 渲染带证区间与各层常数，而非让人读一段中文判断"这是不是带证区间"。
- *  R_param≡0 时 bound 写 "≡0"。 */
+/** 三层残差中一层的结构化形式：把 judgment 中的残差层提取为字段，供 UI 渲染带证区间
+ *  与各层常数；R_param≡0 时 bound 写 "≡0"。每层可挂机器可读 `upper` 数值上界。
+ *  支撑某层残差上界的核验方式：证明证书 / 数值判据 / 反例构造 / 设定假设。 */
+export type ResidualCertKind = 'proof' | 'numerical' | 'counterexample' | 'assumption'
+
 export interface ResidualLayer {
   /** 该层残差上界的表达（公式或描述），如 "Boussinesq 近似的显式残差界" */
   bound: string
   /** 该层可独立复核的常数/方法来源 */
   derivation: string
+  /** 该层残差上界的机器可读数值上界（≥0，有限）。缺省表示该层尚无机器形式——
+   *  即"缺口服位"：可经双桥写路径提交收窄，也如实标为该层待机检。 */
+  upper?: number
+  /** 支撑该层 bound 的证书类型（proof/numerical/counterexample/assumption）。 */
+  kind?: ResidualCertKind
 }
 
 /** 三层残差总带的结构化形式（方向一 L1）。
  *  目的：让 judgment 的三层残差从散文升级为可被 UI 渲染、可被审计的字段。
- *  这不是为接入形式化核验服务，而是为工程消费层（带证区间图 + 继承链可视化）做数据基础。 */
+ *  这不是为接入形式化核验服务，而是为工程消费层（带证区间图 + 继承链可视化）做数据基础。
+ *  扩展（残差清单，L1.5）：每层可挂机器可读 `upper` 数值上界 + `kind` 证书类型；
+ *  合成总带 `total` 齐备时，参考核验器做机器带算术 total ≤ R_model+R_param+R_num。 */
 export interface Certificate {
   r_model: ResidualLayer
   r_param: ResidualLayer
@@ -70,6 +79,8 @@ export interface Certificate {
   total_band: string
   /** 带证区间表达，如 "[Nu_lo, Nu_hi]" */
   certified_band?: string
+  /** 总带宽的机器可读合成上界：应满足 total ≤ R_model+R_param+R_num（见核验器）。 */
+  total?: number
 }
 
 /** 形式视图侧 AI4Math 端状态;verified_truth/verified_behavior 均可填 provable,缺省 conjectured。 */

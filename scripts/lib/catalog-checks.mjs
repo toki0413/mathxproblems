@@ -15,6 +15,7 @@ export const FORMAL_STATUSES = new Set(['provable', 'conjectured', 'refuted'])
 export const BRIDGE_DIRECTIONS = new Set(['formal_idealizes_banded', 'banded_instantiates_formal', 'mutual_boundary'])
 export const BATCH_ADDED = '2026-08-23'
 export const CERT_LAYERS = ['r_model', 'r_param', 'r_num']
+export const RESIDUAL_KINDS = new Set(['proof', 'numerical', 'counterexample', 'assumption'])
 export const INHERITANCE_MARKERS = ['总带继承', 'inheritance']
 // 试点数据契约：tool_links 只能引用注册表工具，failure_records 用固定类型学枚举。
 export const TOOL_IDS = new Set([
@@ -292,6 +293,10 @@ export function checkCatalog(raw) {
   let vPass = 0
   let vNeedsForm = 0
   const vFail = []
+  const badKind = []
+  const badUpper = []
+  const noTotalAdvisory = []
+  const numericLayerIds = new Set()
   for (const id of certIds) {
     const start = src.indexOf(`\n    id: '${id}',`)
     if (start < 0) { badCert.push(`${id}:block-not-found`); continue }
@@ -303,14 +308,55 @@ export function checkCatalog(raw) {
     if (rpBound && rpBound[1] && !rpBound[1].includes('≡0') && !/测量|不确定度|输入残差|measurement|uncertainty|input residual/i.test(rpBound[1])) {
       badCert.push(`${id}:r_param-bound`)
     }
-    // 参考核验器：从块内提取字段，交由共享 verifier 判定（契约 v0.1）。
+    // 残差清单（L1.5）：逐层提取机器可读 upper（≥0 有限数值）+ kind（枚举），校验合法性。
+    // 某层块形如 r_model: { bound: '…', derivation: '…', upper: 1e-3, kind: 'numerical' },
+    const layerInfo = (L) => {
+      const m = block.match(new RegExp(`${L}:\\s*\\{([\\s\\S]*?)\\n\\s*\\}`))
+      const seg = m ? m[1] : ''
+      const raw = seg.match(/\bupper:\s*([^,\n}]+)/)
+      let upper
+      if (raw) {
+        const v = Number(raw[1].trim().replace(/^['"]|['"]$/g, ''))
+        upper = Number.isFinite(v) ? v : NaN
+      }
+      const kind = (seg.match(/\bkind:\s*'([^']+)'/) || [])[1]
+      return { seg, kind, upper }
+    }
+    const layers = { r_model: layerInfo('r_model'), r_param: layerInfo('r_param'), r_num: layerInfo('r_num') }
+    for (const L of CERT_LAYERS) {
+      const info = layers[L]
+      if (info.kind !== undefined && !RESIDUAL_KINDS.has(info.kind)) badKind.push(`${id}:${L}=${info.kind}`)
+      if (info.upper !== undefined && (Number.isNaN(info.upper) || info.upper < 0)) badUpper.push(`${id}:${L}`)
+    }
+    const totalToken = block.match(/\btotal:\s*([^,\n}]+)/)
+    let total
+    if (totalToken) {
+      const v = Number(totalToken[1].trim().replace(/^['"]|['"]$/g, ''))
+      total = Number.isFinite(v) ? v : undefined
+    }
+    const uppersValid = CERT_LAYERS.every(
+      (L) => layers[L].upper !== undefined && Number.isFinite(layers[L].upper) && layers[L].upper >= 0,
+    )
+    if (uppersValid && total === undefined) noTotalAdvisory.push(id)
+    CERT_LAYERS.forEach((L) => {
+      const u = layers[L].upper
+      if (u !== undefined && Number.isFinite(u) && u >= 0) numericLayerIds.add(id)
+    })
+    // 参考核验器：从块内提取字段，交由共享 verifier 判定（契约 v0.1，含带算术）。
     const field = (re) => (block.match(re) || [])[1] ?? ''
+    const mkResid = (L) => ({
+      bound: field(new RegExp(`${L}:\\s*\\{\\s*bound:\\s*'([^']*)'`)),
+      ...(layers[L].upper !== undefined && !Number.isNaN(layers[L].upper)
+        ? { upper: layers[L].upper }
+        : {}),
+    })
     const cert = {
-      r_model: { bound: field(/r_model:\s*\{\s*bound:\s*'([^']*)'/) },
-      r_param: { bound: field(/r_param:\s*\{\s*bound:\s*'([^']*)'/) },
-      r_num: { bound: field(/r_num:\s*\{\s*bound:\s*'([^']*)'/) },
+      r_model: mkResid('r_model'),
+      r_param: mkResid('r_param'),
+      r_num: mkResid('r_num'),
       total_band: field(/total_band:\s*'([^']*)'/),
       certified_band: (block.match(/certified_band:\s*'([^']*)'/) || [])[1] ?? undefined,
+      ...(total !== undefined ? { total } : {}),
     }
     const verdict = verifyCertificate(cert)
     const failChecks = Object.entries(verdict.checks)
@@ -322,6 +368,12 @@ export function checkCatalog(raw) {
   }
   if (badCert.length) failures.push(`certificate structural issues: ${badCert.join(', ')}`)
   else if (certIds.length) notes.push(`certificate: all ${certIds.length} structured certificates have complete layers`)
+  if (badKind.length) failures.push(`residual ledger invalid kind: ${badKind.join(', ')}`)
+  if (badUpper.length) failures.push(`residual ledger upper must be a finite, ≥0 number: ${badUpper.join(', ')}`)
+  if (noTotalAdvisory.length)
+    warnings.push(`residual ledger: 三层 upper 齐备但无机器 'total'（可合成收窄）: ${noTotalAdvisory.join(', ')}`)
+  if (numericLayerIds.size)
+    notes.push(`residual ledger: ${numericLayerIds.size}/${certIds.length} certificates carry machine-readable upper bounds`)
   if (vFail.length) failures.push(`certificate verifier (contract v0.1): ${vFail.join(', ')}`)
   else if (certIds.length)
     notes.push(`verifier: ${vPass} certificates machine-verified, ${vNeedsForm} need machine form (${certIds.length} total)`)
