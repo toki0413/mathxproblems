@@ -1000,10 +1000,13 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       r_param: {
         bound: '≡0 (the target gap and hexagon count are exactly specified design inputs; no input measurement residual layer)',
         derivation: 'Parameters exactly specified',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Upper bound on the residual of the interval/exact arithmetic used in the spectral computation and realizability adjudication (number-theoretic constraints + hexagon embedding verification)',
         derivation: 'Interval/exact arithmetic closure',
+        kind: 'numerical',
       },
       total_band: 'Gap-realizability decision envelope ≤ R_model + R_num',
       certified_band: 'Candidate-core spectral-gap confirmation interval',
@@ -1109,6 +1112,7 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
       r_num: {
         bound: 'Verification residual upper bound of the algebraic decision steps (differential-algebraic symbolic computation)',
         derivation: 'Symbolic computation / quantifier-elimination closure bound',
+        kind: 'numerical',
       },
       total_band: 'Identifiability decision boundary ≤ R_model + R_param + R_num',
       certified_band: 'Structurally identifiable / non-identifiable classification decision',
@@ -4532,10 +4536,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       r_param: {
         bound: '≡0 (purely mathematical structure; no input measurement residual layer)',
         derivation: 'Constant is purely mathematical structure; parameters exactly specified',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Numerical-residual upper bound introduced by closing the attainability construction and the lower-bound functional with interval/symbolic computation',
         derivation: 'Interval/symbolic computation closure bound',
+        kind: 'numerical',
       },
       total_band: 'C_0 - c ≤ R_model + R_num',
       certified_band: '[c, C_0]',
@@ -4925,10 +4932,13 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       r_param: {
         bound: '≡0 (the hexagon count and geometric family are exactly specified number-theoretic inputs; no input measurement residual layer)',
         derivation: 'Parameters exactly specified',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Interval/exact-arithmetic residual upper bound of the enumeration and closed-form computation',
         derivation: 'Interval/exact arithmetic closure',
+        kind: 'numerical',
       },
       total_band: 'Clar number / Clar cover counting closure ≤ R_model + R_num',
       certified_band: 'Verified closed form for the Clar number and cover count',
@@ -5338,6 +5348,7 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
       r_num: {
         bound: 'Residual upper bound of stochastic-dynamics / master-equation solution or interval closure',
         derivation: 'Master-equation solution residual bound / interval closure',
+        kind: 'numerical',
       },
       total_band: 'Sensing-error floor ≤ R_model + R_param + R_num',
       certified_band: 'Minimal achievable ligand-count sensing-error interval',
@@ -5996,6 +6007,7 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
       r_num: {
         bound: 'Residual upper bound introduced by solving the controlled process via master equation/Gillespie sampling or interval arithmetic',
         derivation: 'Interval arithmetic / sampling-error closure bound',
+        kind: 'numerical',
       },
       total_band: 'D_tot ≤ R_model + R_param + R_num',
       certified_band: 'Certified total-variation-distance band between tQSSA and the full process',
@@ -6370,10 +6382,13 @@ In particular settle whether the two-phase H–S bound structure, where the opti
       r_param: {
         bound: '≡0 (function class, dimension, and error target are exact information-model inputs; no input-measurement residual layer)',
         derivation: 'Parameters exactly given',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Residual upper bound introduced by enclosing explicit quadrature rules / attainable sampling-set constructions via interval or exact arithmetic',
         derivation: 'Interval/exact arithmetic enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'error exponent bracket ≤ R_model + R_num',
       certified_band: '[e_lo, e_hi] (number of samples n in [n_lo, n_hi])',
@@ -6441,6 +6456,7 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
       r_num: {
         bound: 'Residual upper bound introduced by enclosing the estimate of f and the involved determinants/eigenvalues via interval arithmetic',
         derivation: 'Interval arithmetic enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'information-gain guarantee c·f(S*) not eroded ≤ R_model + R_param + R_num',
       certified_band: 'Certified lower bound on the information gain of the selected placement relative to the optimum',
@@ -6503,10 +6519,13 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
       r_param: {
         bound: '≡0 (online parameter μ and reduced basis are exactly given algorithmic inputs; no input-measurement residual layer)',
         derivation: 'Parameters exactly given',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Residual upper bound introduced by enclosing the residual norm/continuity constants (SVD/eigenvalue bands) via interval/symbolic computation',
         derivation: 'Interval/symbolic computation enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'a-posteriori error bound Δ(μ) ≤ R_model + R_num',
       certified_band: "‖u - u_hat_r‖ ≤ Δ(μ) hard trust interval",
@@ -6619,10 +6638,13 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_param: {
         bound: '≡0 (control-cost budget and target scale are exact inputs given by the designer; no input-measurement residual layer)',
         derivation: 'Parameters exactly given',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Residual upper bound introduced by discretization/interval arithmetic when solving the controlled model on a verifiable velocity-field construction',
         derivation: 'Discretization/interval arithmetic enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'E_hi - E_lo ≤ R_model + R_param + R_num',
       certified_band: '[E_lo, E_hi] (minimal energy budget to flatten to ε)',
@@ -6811,6 +6833,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_num: {
         bound: 'Residual upper bound of mesh, time step, and SDP duality gap when solving the controlled model by DNS/interval arithmetic',
         derivation: 'Zero/small-gap proof via interval arithmetic and SDP duality',
+        kind: 'numerical',
       },
       total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
       certified_band: '[Nu_lo, Nu_hi]',
@@ -6861,10 +6884,13 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_param: {
         bound: '≡0 (target Hamiltonian is an exactly given physical-system input; no input-measurement residual layer)',
         derivation: 'Parameters exactly given',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Residual upper bound introduced by the verifiable enclosure of the gap lower bound (interval/symbolic) and the interval estimate of the AGSP projection contraction rate',
         derivation: 'Interval/symbolic enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'entanglement entropy area-law upper bound ≤ R_model + R_num',
       certified_band: 'S_A ≤ c·|∂A| (area-law bound) or sqrt(n)-type counterexample signal',
@@ -6928,10 +6954,13 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_param: {
         bound: '≡0 (network G, bandwidth, and delay are exactly given system inputs; no input-measurement residual layer)',
         derivation: 'Parameters exactly given',
+        kind: 'assumption',
+        upper: 0,
       },
       r_num: {
         bound: 'Residual upper bound introduced by enclosing via interval/exact arithmetic the computation of the algorithm round estimates and the random-walk mixing time / mass-transfer potential',
         derivation: 'Interval/exact arithmetic enclosure bound',
+        kind: 'numerical',
       },
       total_band: 'consensus round bracket ≤ R_model + R_num',
       certified_band: '[T_lo, T_hi] (minimal number of communication rounds)',
@@ -7021,6 +7050,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_num: {
         bound: 'Numerical residual upper bound of mesh, time step, and SDP duality gap',
         derivation: 'Zero/small-gap proof via interval arithmetic and SDP duality',
+        kind: 'numerical',
       },
       total_band: 'Nu_hi - Nu_lo ≤ R_model + R_param + R_num',
       certified_band: '[Nu_lo, Nu_hi]',
@@ -7095,6 +7125,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_num: {
         bound: 'Numerical residual upper bound of steady-state root finding and interval arithmetic',
         derivation: 'Interval root-finding residual bound',
+        kind: 'numerical',
       },
       total_band: 'c_hi - c_lo ≤ R_model + R_param + R_num',
       certified_band: '[c_lo, c_hi]',
@@ -7163,6 +7194,7 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       r_num: {
         bound: 'Numerical residual upper bound of discretization and interval arithmetic in root finding / interval mapping of the diffusion equation',
         derivation: 'Interval-mapping and root-finding residual bound',
+        kind: 'numerical',
       },
       total_band: 'p_hi - p_lo ≤ R_model + R_param + R_num',
       certified_band: '[p_lo, p_hi]',
