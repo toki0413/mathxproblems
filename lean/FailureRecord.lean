@@ -363,6 +363,24 @@ def me003 : Profile :=
         implication := "Formalize the regular-kernel Ha–Liu proof first; singular-kernel well-posedness needs measure-theory infrastructure beyond current libraries." },
     ] }
 
+def mp009 : Profile :=
+  { problemId := "mp-009",
+    records := [
+      { method := "1D ground-state projection (AGSP) techniques",
+        mechanism := .combinatorial, layer := .formal,
+        known := "1D proof techniques degrade exponentially with boundary length",
+        implication := "Boundary entanglement organizes nonlocally; needs a higher-dimensional many-body argument." },
+    ] }
+
+def mp010 : Profile :=
+  { problemId := "mp-010",
+    records := [
+      { method := "Tree-like delocalization recursion",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Delocalization proofs on trees exploit the absence of loops",
+        implication := "Lattice loops destroy the recursion; resonant tunneling between distant regions resists control." },
+    ] }
+
 def mp012 : Profile :=
   { problemId := "mp-012",
     records := [
@@ -374,6 +392,15 @@ def mp012 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "spin-1/2 XXX completeness proved (Babbit–Thomas); XXZ at roots of unity classified (Fabricius–McCoy)",
         implication := "Higher-spin singular solutions need regularization proven consistent with the Hilbert-space completeness statement." },
+    ] }
+
+def mp013 : Profile :=
+  { problemId := "mp-013",
+    records := [
+      { method := "Fredholm-determinant / integrable formulas",
+        mechanism := .missing_bound, layer := .formal,
+        known := "All distributional proofs pass through exact Fredholm-determinant formulas off the solvable manifold",
+        implication := "Integrability is load-bearing; needs soft universality machinery analogous to non-integrable NLS." },
     ] }
 
 def mc007 : Profile :=
@@ -485,6 +512,24 @@ def me006 : Profile :=
         implication := "Identify the composite graph parameter (e.g. vertex expansion combined with diameter) that yields matching upper and lower bounds." },
     ] }
 
+def mp014 : Profile :=
+  { problemId := "mp-014",
+    records := [
+      { method := "Equilibrium perturbation expansion",
+        mechanism := .missing_bound, layer := .formal,
+        known := "No rigorous a priori control on the steady state far from equilibrium",
+        implication := "The thermostatted dynamics is genuinely non-equilibrium with no equilibrium measure to expand around." },
+    ] }
+
+def mp015 : Profile :=
+  { problemId := "mp-015",
+    records := [
+      { method := "Commutator endpoint estimates",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Energy conservation at α = 1/3 fails without size decay conditions on the commutator; no counterexample at exactly 1/3 known",
+        implication := "Endpoint sensitivity blocks a clean threshold proof at α = 1/3." },
+    ] }
+
 def mb009 : Profile :=
   { problemId := "mb-009",
     records := [
@@ -531,6 +576,24 @@ def me008 : Profile :=
         mechanism := .combinatorial, layer := .param,
         known := "Matching lower bounds are known only in special cases (lines, trees); the crossing / dual-instance request families are not constructed generally.",
         implication := "Build the extremal request-sequence family so the matching lower bound is certified by explicit dual certificates." },
+    ] }
+
+def mp016 : Profile :=
+  { problemId := "mp-016",
+    records := [
+      { method := "Arithmetic entropy/delocalization machinery",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Forces unique limits on arithmetic surfaces",
+        implication := "No analogue for random hyperbolic surfaces; possible counterexamples at high eigenvalues." },
+    ] }
+
+def mp018 : Profile :=
+  { problemId := "mp-018",
+    records := [
+      { method := "Matrix-element variance control",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Proving a vanishing variance of matrix elements requires fine control of the spectrum and eigenfunction overlaps",
+        implication := "The current rigorous toolkit cannot deliver the variance bound for interacting systems." },
     ] }
 
 def mc011 : Profile :=
@@ -647,6 +710,24 @@ def me013 : Profile :=
         implication := "Refuting tightness of the current ratio needs a genuinely new adversary beyond the weighting framework." },
     ] }
 
+def mp019 : Profile :=
+  { problemId := "mp-019",
+    records := [
+      { method := "Beale–Kato–Majda vorticity control",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Reduces the problem to controlling the vorticity magnitude",
+        implication := "Vortex stretching can concentrate the vorticity; no a priori ∇u in L^∞ control." },
+    ] }
+
+def mp020 : Profile :=
+  { problemId := "mp-020",
+    records := [
+      { method := "Renormalization-flow inequalities at d = 4",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Log-divergences make the flow logarithmically slow (infrared freedom)",
+        implication := "Neither a clean d > 4-style inequality nor an interacting fixed point is available." },
+    ] }
+
 def mp022 : Profile :=
   { problemId := "mp-022",
     records := [
@@ -689,6 +770,78 @@ def mb015 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "Fractional-power speed conjectured in the mutation-limited regime",
         implication := "The speed depends on controlling rare high-fitness lineages." },
+    ] }
+
+def mp023 : Profile :=
+  { problemId := "mp-023",
+    records := [
+      { method := "Continuum construction / renormalization",
+        mechanism := .missing_bound, layer := .formal,
+        known := "No rigorous continuum construction at arbitrary high energy for the interacting 4d theory",
+        implication := "Gap control requires a positive mass gap after renormalization; the ultraviolet problem blocks it." },
+    ] }
+
+def mp024 : Profile :=
+  { problemId := "mp-024",
+    records := [
+      { method := "Naive Gronwall control of the hierarchy",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The N²V(N(x−y)) interaction has no uniform L^∞ bound",
+        implication := "Hierarchy equations cannot be controlled by a naive Gronwall argument; long-time control fails." },
+    ] }
+
+def mp025 : Profile :=
+  { problemId := "mp-025",
+    records := [
+      { method := "A priori estimates for vortex stretching",
+        mechanism := .missing_bound, layer := .formal,
+        known := "All known a priori estimates are dimension- or supercritical-limited",
+        implication := "Neither a blow-up mechanism nor a global estimate is known." },
+    ] }
+
+def mp026 : Profile :=
+  { problemId := "mp-026",
+    records := [
+      { method := "Boundary charge fluctuation control",
+        mechanism := .unbounded_residual, layer := .formal,
+        known := "The logarithmic kernel is critical; boundary charge fluctuations produce macroscopic energy shifts",
+        implication := "Rigid lattice identification requires controlling long-range boundary effects." },
+    ] }
+
+def mp027 : Profile :=
+  { problemId := "mp-027",
+    records := [
+      { method := "Gapped trial ground state construction",
+        mechanism := .missing_bound, layer := .formal,
+        known := "No explicit gapped trial ground state known that certifies a uniform spectral gap for general integer spin",
+        implication := "Uniform gap control for S ≥ 2 resists explicit construction." },
+    ] }
+
+def mp028 : Profile :=
+  { problemId := "mp-028",
+    records := [
+      { method := "Resonant Feynman diagram cancellations",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Resonant and quasi-resonant Feynman diagrams multiply factorially",
+        implication := "Delicate cancellations and non-Gaussian data block long-time validity." },
+    ] }
+
+def mp029 : Profile :=
+  { problemId := "mp-029",
+    records := [
+      { method := "Dobrushin / Lipschitz force argument",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The 1/|x|^{d−1} force is not Lipschitz; the Dobrushin approach collapses near collisions",
+        implication := "Moment control in 3D (and 1D logarithmic) case fails." },
+    ] }
+
+def mp030 : Profile :=
+  { problemId := "mp-030",
+    records := [
+      { method := "Signature-equivalence for MBL",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Distinct MBL signatures (suppressed transport, area-law entanglement, l-bits, Poisson statistics) are not known to be equivalent",
+        implication := "Different proofs may target different definitions; no unified criterion." },
     ] }
 
 def mc016 : Profile :=
@@ -913,6 +1066,24 @@ def me023 : Profile :=
         implication := "The optimal constant between 1+√2 and 2 needs a sharp spectral-set argument." },
     ] }
 
+def mp032 : Profile :=
+  { problemId := "mp-032",
+    records := [
+      { method := "Linear-response / conserved-mode estimates",
+        mechanism := .missing_bound, layer := .formal,
+        known := "1D nonlinear chains are not integrable",
+        implication := "Green-Kubo correlations and the interaction between linear response and conserved modes resist estimation." },
+    ] }
+
+def mp034 : Profile :=
+  { problemId := "mp-034",
+    records := [
+      { method := "Condensate/non-condensate separation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The definition of the condensate mode must be handled carefully",
+        implication := "Particle-number conservation and rigorous mode separation block a positive-temperature proof." },
+    ] }
+
 def mp035 : Profile :=
   { problemId := "mp-035",
     records := [
@@ -1072,6 +1243,15 @@ def mp037 : Profile :=
         implication := "The 1/6-power gap to the empirical Ra^{1/3} reflects the saturation of the background-method ansatz." },
     ] }
 
+def mp040 : Profile :=
+  { problemId := "mp-040",
+    records := [
+      { method := "Lieb–Robinson / AGSP dimensional lift",
+        mechanism := .missing_bound, layer := .formal,
+        known := "1D proofs rely on input-dimension compression and AGSP contraction rates",
+        implication := "In d = 2 these cannot give gap-independent exponential bounds." },
+    ] }
+
 def me034 : Profile :=
   { problemId := "me-034",
     records := [
@@ -1108,6 +1288,15 @@ def mb028 : Profile :=
         implication := "Needs an explicit, checkable finite-N drift residual bound covering the full population-size range." },
     ] }
 
+def mp042 : Profile :=
+  { problemId := "mp-042",
+    records := [
+      { method := "Convex-integration non-uniqueness construction",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Convex-integration and non-uniqueness constructions are notoriously hard to formalize",
+        implication := "No algorithmically stable proof structure; formalization potential is low." },
+    ] }
+
 example : mp001.records.all wellFormed = true := by native_decide
 example : mp002.records.all wellFormed = true := by native_decide
 example : mp003.records.all wellFormed = true := by native_decide
@@ -1128,7 +1317,10 @@ example : mb004.records.all wellFormed = true := by native_decide
 example : me001.records.all wellFormed = true := by native_decide
 example : me002.records.all wellFormed = true := by native_decide
 example : me003.records.all wellFormed = true := by native_decide
+example : mp009.records.all wellFormed = true := by native_decide
+example : mp010.records.all wellFormed = true := by native_decide
 example : mp012.records.all wellFormed = true := by native_decide
+example : mp013.records.all wellFormed = true := by native_decide
 example : mc007.records.all wellFormed = true := by native_decide
 example : mc008.records.all wellFormed = true := by native_decide
 example : mb005.records.all wellFormed = true := by native_decide
@@ -1138,10 +1330,14 @@ example : mb008.records.all wellFormed = true := by native_decide
 example : me004.records.all wellFormed = true := by native_decide
 example : me005.records.all wellFormed = true := by native_decide
 example : me006.records.all wellFormed = true := by native_decide
+example : mp014.records.all wellFormed = true := by native_decide
+example : mp015.records.all wellFormed = true := by native_decide
 example : mb009.records.all wellFormed = true := by native_decide
 example : mb010.records.all wellFormed = true := by native_decide
 example : me007.records.all wellFormed = true := by native_decide
 example : me008.records.all wellFormed = true := by native_decide
+example : mp016.records.all wellFormed = true := by native_decide
+example : mp018.records.all wellFormed = true := by native_decide
 example : mc011.records.all wellFormed = true := by native_decide
 example : mc012.records.all wellFormed = true := by native_decide
 example : mb011.records.all wellFormed = true := by native_decide
@@ -1152,10 +1348,20 @@ example : me010.records.all wellFormed = true := by native_decide
 example : me011.records.all wellFormed = true := by native_decide
 example : me012.records.all wellFormed = true := by native_decide
 example : me013.records.all wellFormed = true := by native_decide
+example : mp019.records.all wellFormed = true := by native_decide
+example : mp020.records.all wellFormed = true := by native_decide
 example : mp022.records.all wellFormed = true := by native_decide
 example : mc014.records.all wellFormed = true := by native_decide
 example : mb014.records.all wellFormed = true := by native_decide
 example : mb015.records.all wellFormed = true := by native_decide
+example : mp023.records.all wellFormed = true := by native_decide
+example : mp024.records.all wellFormed = true := by native_decide
+example : mp025.records.all wellFormed = true := by native_decide
+example : mp026.records.all wellFormed = true := by native_decide
+example : mp027.records.all wellFormed = true := by native_decide
+example : mp028.records.all wellFormed = true := by native_decide
+example : mp029.records.all wellFormed = true := by native_decide
+example : mp030.records.all wellFormed = true := by native_decide
 example : mc016.records.all wellFormed = true := by native_decide
 example : mc017.records.all wellFormed = true := by native_decide
 example : mc018.records.all wellFormed = true := by native_decide
@@ -1178,6 +1384,8 @@ example : me019.records.all wellFormed = true := by native_decide
 example : me020.records.all wellFormed = true := by native_decide
 example : me021.records.all wellFormed = true := by native_decide
 example : me023.records.all wellFormed = true := by native_decide
+example : mp032.records.all wellFormed = true := by native_decide
+example : mp034.records.all wellFormed = true := by native_decide
 example : mp035.records.all wellFormed = true := by native_decide
 example : mc027.records.all wellFormed = true := by native_decide
 example : mc028.records.all wellFormed = true := by native_decide
@@ -1193,10 +1401,12 @@ example : mp036.records.all wellFormed = true := by native_decide
 example : mb027.records.all wellFormed = true := by native_decide
 example : mc029.records.all wellFormed = true := by native_decide
 example : mp037.records.all wellFormed = true := by native_decide
+example : mp040.records.all wellFormed = true := by native_decide
 example : me034.records.all wellFormed = true := by native_decide
 example : mp041.records.all wellFormed = true := by native_decide
 example : mc030.records.all wellFormed = true := by native_decide
 example : mb028.records.all wellFormed = true := by native_decide
+example : mp042.records.all wellFormed = true := by native_decide
 end Catalog
 
 end MathX.FailureRecord

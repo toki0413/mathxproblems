@@ -1780,6 +1780,8 @@ prove **unconditional flocking** (velocity alignment $\\|v_i(t) - v_j(t)\\| \\to
   },
   {
     id: 'mp-009',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-009 — Area law for ground states of two-dimensional gapped local\nHamiltonians.\n\nProve (or disprove) that the ground state of any constant-gap, local-interaction\nlattice Hamiltonian in two dimensions has entanglement entropy growing at most\nlinearly with the interface area. The definitions of `GappedHamiltonian`,\n`EntanglementEntropy` and `AreaLaw` are themselves part of the formalization\ntarget; the statement is the well-typed headline claim (proof left open via\n`sorry`).\n-/\nnamespace MathX\n\nstructure GappedHamiltonian where\n  size : Nat\n\n/-- 面积律：纠缠熵至多随界面面积线性增长（形式化目标）。 -/\ndef AreaLaw (_h : GappedHamiltonian) : Prop :=\n  True\n\n/-- 头条声明：二维有能隙局域哈密顿量基态满足面积律。 -/\ntheorem area_law_2d (h : GappedHamiltonian) :\n    AreaLaw h := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Area Law for Ground States of Two-Dimensional Gapped Local Hamiltonians',
     titleZh: '二维有能隙局域哈密顿量基态的面积律',
@@ -1795,6 +1797,15 @@ prove **unconditional flocking** (velocity alignment $\\|v_i(t) - v_j(t)\\| \\to
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Area-law survey (1D proven; 2D generally open): Brandão & Harrow; the Eisert–Cramer–Plenio review' },
+    failure_records: [
+      {
+        method: '1D ground-state projection (AGSP) techniques',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: '1D proof techniques degrade exponentially with boundary length',
+        implication: 'Boundary entanglement organizes nonlocally; needs a higher-dimensional many-body argument.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-005',
@@ -1834,6 +1845,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-010',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-010 — Delocalization of the Anderson model at weak disorder in dimension\nthree.\n\nProve that the Anderson model in dimension three exhibits delocalization at\nweak disorder: the spectrum is purely absolutely continuous (or at least\ntransport is delocalized) for sufficiently small disorder. The definitions of\n`AndersonModel`, `Localization` and `Delocalization` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure AndersonModel (d : Nat) where\n  disorder : Rat\n\n/-- 离域化（形式化目标）。 -/\ndef Delocalization (_m : AndersonModel d) : Prop :=\n  True\n\n/-- 头条声明：三维 Anderson 模型在弱无序下离域化。 -/\ntheorem anderson_delocalization_3d (m : AndersonModel 3) :\n    Delocalization m := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass must prove the existence of energies with absolutely continuous spectrum and extended eigenstates for sufficiently small lambda on Z^3, established by a rigorous resolvent or multiscale argument, and corroborated by certified numerical transfer-matrix scaling if the claim is stated as quantitative.',
     title: 'Delocalization of the Anderson Model at Weak Disorder in Dimension Three',
@@ -1850,6 +1863,15 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'multiple contributors',
     proposed_year: 1958,
     via: { label: 'Delocalization for the 3D weak-disorder Anderson model (distinct from the resolved 2D/strong-disorder cases): Anderson (1958) and recent delocalization literature' },
+    failure_records: [
+      {
+        method: 'Tree-like delocalization recursion',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Delocalization proofs on trees exploit the absence of loops',
+        implication: 'Lattice loops destroy the recursion; resonant tunneling between distant regions resists control.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-007',
@@ -2010,6 +2032,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-013',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-013 — Universality of the KPZ fixed point beyond integrable models.\n\nProve that a non-integrable one-dimensional stochastic growth model converges\nunder the 1:2:3 scaling to the KPZ fixed point of Matetski–Quastel–Remenik,\nwith Tracy–Widom one-point statistics, removing the algebraic-integrability\nassumptions. The definitions of `GrowthModel`, `KPZScaling` and `KPZUniversality`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure GrowthModel where\n  scaling : Rat\n\n/-- KPZ 普适性（形式化目标）。 -/\ndef KPZUniversality (_m : GrowthModel) : Prop :=\n  True\n\n/-- 头条声明：非可积一维随机生长模型在 1:2:3 标度下收敛到 KPZ 不动点。 -/\ntheorem kpz_universality_beyond_integrable (m : GrowthModel) :\n    KPZUniversality m := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves distributional convergence under 1:2:3 scaling of a genuinely non-integrable growth model to the KPZ fixed point with Tracy-Widom one-point statistics, established without algebraic integrability, and therefore requires a rigorous proof that does not pass through exact Fredholm-determinant formulas.',
     title: 'Universality of the KPZ Fixed Point Beyond Integrable Models',
@@ -2029,6 +2053,15 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'KPZ, Dynamic scaling of growing interfaces, PRL 56 (1986); review of universality see Corwin (arXiv:1106.1596)',
       url: 'https://doi.org/10.1103/PhysRevLett.56.889',
     },
+    failure_records: [
+      {
+        method: 'Fredholm-determinant / integrable formulas',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'All distributional proofs pass through exact Fredholm-determinant formulas off the solvable manifold',
+        implication: 'Integrability is load-bearing; needs soft universality machinery analogous to non-integrable NLS.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-002',
@@ -2698,6 +2731,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-014',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-014 — Derivation of Fourier\'s law in deterministic Hamiltonian chains.\n\nProve that a deterministic Hamiltonian chain with anharmonic interactions —\ne.g. the Fermi–Pasta–Ulam–Tsingou chain coupled at its ends to Langevin/thermal\nreservoirs — exhibits normal heat conduction in the hydrodynamic limit: the\nheat current obeys Fourier\'s law with a finite thermal conductivity. The\ndefinitions of `HamiltonianChain`, `HeatCurrent` and `FourierLaw` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure HamiltonianChain (N : Nat) where\n  particles : Nat\n\n/-- Fourier 定律：热流正比于温度梯度（形式化目标）。 -/\ndef FourierLaw (_c : HamiltonianChain N) : Prop :=\n  True\n\n/-- 头条声明：确定性哈密顿链在流体动力学极限下满足 Fourier 定律。 -/\ntheorem fourier_law_derivation (N : Nat) (c : HamiltonianChain N) :\n    FourierLaw c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves normal heat conduction in the scaling limit: J equals -kappa(T) grad T with a finite positive temperature-dependent conductivity independent of chain length N, backed by a rigorous steady-state error bound showing the energy current scales as kappa delta T / N and kappa converges to a nonzero constant.',
     title: 'Derivation of Fourier\u2019s Law in Deterministic Hamiltonian Chains',
@@ -2717,6 +2752,15 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
+    failure_records: [
+      {
+        method: 'Equilibrium perturbation expansion',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'No rigorous a priori control on the steady state far from equilibrium',
+        implication: 'The thermostatted dynamics is genuinely non-equilibrium with no equilibrium measure to expand around.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-003',
@@ -2755,6 +2799,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mp-015',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-015 — Sharp energy conservation threshold in the Onsager theory of\nturbulence.\n\nSettle the sharp exponent in Onsager\'s conjecture: prove (i) that every weak\nsolution of the incompressible Euler equations with Hölder regularity C^α, for\nα > 1/3, conserves kinetic energy; and (ii) that for every α < 1/3 there exist\nC^α weak solutions that do not conserve energy. The definitions of\n`EulerSolution`, `EnergyConservation` and `OnsagerThreshold` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure EulerSolution where\n  holderExponent : Rat\n\n/-- 能量守恒（形式化目标）。 -/\ndef EnergyConservation (_u : EulerSolution) : Prop :=\n  True\n\n/-- 头条声明（Onsager 猜想）：α > 1/3 守恒能量，α < 1/3 存在不守恒解。 -/\ntheorem onsager_threshold (u : EulerSolution) (h : 1 / 3 < u.holderExponent) :\n    EnergyConservation u := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Sharp Energy Conservation Threshold in the Onsager Theory of Turbulence',
     titleZh: 'Onsager 湍流理论中的能量守恒临界正则性',
@@ -2768,6 +2814,15 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
     contributor: 'admin',
   date_added: '2026-08-22',
     via: { label: 'Onsager, Statistical hydrodynamics, Nuovo Cimento Suppl. 6 (1949) 279-287' },
+    failure_records: [
+      {
+        method: 'Commutator endpoint estimates',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Energy conservation at α = 1/3 fails without size decay conditions on the commutator; no counterexample at exactly 1/3 known',
+        implication: 'Endpoint sensitivity blocks a clean threshold proof at α = 1/3.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-008',
@@ -3151,6 +3206,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mp-016',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-016 — Quantum unique ergodicity on compact negatively curved manifolds\n(general case).\n\nProve that the eigenfunctions of the Laplacian on a compact negatively curved\nmanifold equidistribute in the high-frequency limit: quantum unique ergodicity\n(QUE) holds for the general (non-arithmetic) case. The definitions of\n`CompactManifold`, `Eigenfunction` and `QuantumUniqueErgodicity` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure CompactManifold (d : Nat) where\n  dimension : Nat\n\n/-- 量子唯一遍历性（形式化目标）。 -/\ndef QuantumUniqueErgodicity (_m : CompactManifold d) : Prop :=\n  True\n\n/-- 头条声明：负曲率紧流形（一般情形）的 Laplace 特征函数满足 QUE。 -/\ntheorem que_general_case (d : Nat) (m : CompactManifold d) :\n    QuantumUniqueErgodicity m := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves that every weak-* subsequential limit of |phi_j|^2 dg equals the normalized volume measure for a general compact negatively curved manifold without arithmetic structure, as a rigorous equidistribution statement, and therefore does not admit a fixed exceptional subsequence of scarring eigenfunctions.',
     title: 'Quantum Unique Ergodicity on Compact Negatively Curved Manifolds (General Case)',
@@ -3170,6 +3227,15 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Rudnick & Sarnak, The behaviour of eigenstates of arithmetic hyperbolic manifolds, Comment. Math. Helv. 74 (1994)',
       url: 'https://doi.org/10.1007/PL00000356',
     },
+    failure_records: [
+      {
+        method: 'Arithmetic entropy/delocalization machinery',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Forces unique limits on arithmetic surfaces',
+        implication: 'No analogue for random hyperbolic surfaces; possible counterexamples at high eigenvalues.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-006',
@@ -3212,6 +3278,8 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
   },
   {
     id: 'mp-018',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-018 — Eigenstate thermalization hypothesis (ETH) from first principles.\n\nProve that for a generic interacting many-body system, the expectation values\nof local observables in individual eigenstates of the Hamiltonian agree with the\nmicrocanonical ensemble in the thermodynamic limit — the Eigenstate\nThermalization Hypothesis — from first principles. The definitions of\n`InteractingSystem`, `LocalObservable` and `EigenstateThermalization` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure InteractingSystem where\n  size : Nat\n\n/-- 本征态热化（形式化目标）。 -/\ndef EigenstateThermalization (_s : InteractingSystem) : Prop :=\n  True\n\n/-- 头条声明：相互作用多体系统从第一性原理满足 ETH。 -/\ntheorem eth_first_principles (s : InteractingSystem) :\n    EigenstateThermalization s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Eigenstate Thermalization Hypothesis (ETH) from First Principles',
     titleZh: '从第一性原理建立本征态热化假设（ETH）',
@@ -3224,6 +3292,15 @@ i.e. the only weak-$*$ limit of the measures $|\\phi_j|^2\\,\\mathrm{d}\\!g$ is 
     tags: ['eth', 'thermalization', 'isolated-quantum-systems', 'many-body'],
     contributor: 'admin',
   date_added: '2026-08-22',
+    failure_records: [
+      {
+        method: 'Matrix-element variance control',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Proving a vanishing variance of matrix elements requires fine control of the spectrum and eigenfunction overlaps',
+        implication: 'The current rigorous toolkit cannot deliver the variance bound for interacting systems.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-003',
@@ -4037,6 +4114,8 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
   },
   {
     id: 'mp-019',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-019 — Finite-time singularity formation for smooth 3D incompressible Euler.\n\nDetermine whether there exist smooth, finite-energy, compactly supported\nsolutions of the incompressible three-dimensional Euler equations that develop\na singularity in finite time. The definitions of `EulerSolution3D`,\n`FiniteTimeSingularity` and `GlobalRegularity` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure EulerSolution3D where\n  vorticity : Rat\n\n/-- 有限时间奇点（形式化目标）。 -/\ndef FiniteTimeSingularity (_u : EulerSolution3D) : Prop :=\n  True\n\n/-- 头条声明：光滑 3D 不可压 Euler 是否存在有限时间奇点（可判定为开放问题）。 -/\ntheorem euler_singularity_decidable (u : EulerSolution3D) :\n    FiniteTimeSingularity u ∨ ¬ FiniteTimeSingularity u := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves or disproves the existence of smooth finite-energy compactly supported initial data for 3D incompressible Euler that lose regularity in finite time, i.e. whose gradient L^infinity norm is unbounded as t approaches the blow-up time, certified by a rigorous gradient-growth estimate of Beale-Kato-Majda type.',
     title: 'Finite-Time Singularity Formation for Smooth 3D Incompressible Euler',
@@ -4056,6 +4135,15 @@ the smallest achievable asymptotic competitive ratio, for deterministic online b
       label: 'Hou & Luo, Toward the Finite-Time Blowup of the 3D Axisymmetric Euler Equations: A Numerical Investigation, Multiscale Model. Simul. 12 (2014)',
       url: 'https://doi.org/10.1137/140966411',
     },
+    failure_records: [
+      {
+        method: 'Beale–Kato–Majda vorticity control',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Reduces the problem to controlling the vorticity magnitude',
+        implication: 'Vortex stretching can concentrate the vorticity; no a priori ∇u in L^∞ control.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-002',
@@ -4094,6 +4182,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mp-020',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-020 — Triviality of the scalar λφ⁴ quantum field theory in 4 dimensions.\n\nProve (or disprove) that the four-dimensional scalar λφ⁴ quantum field theory\nis trivial: the renormalized coupling vanishes in the continuum limit, so the\ntheory is a free (Gaussian) field. The definitions of `ScalarFieldTheory`,\n`RenormalizedCoupling` and `Triviality` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure ScalarFieldTheory where\n  dimension : Nat\n\n/-- 平凡性：连续极限下重整化耦合消失（形式化目标）。 -/\ndef Triviality (_t : ScalarFieldTheory) : Prop :=\n  True\n\n/-- 头条声明：四维标量 λφ⁴ 场论平凡（自由场）。 -/\ntheorem phi4_triviality (t : ScalarFieldTheory) :\n    Triviality t := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Triviality of the Scalar λφ^4 Quantum Field Theory in 4 Dimensions',
     titleZh: '四维标量 λφ⁴ 量子场论的平凡性',
@@ -4112,6 +4202,15 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
       label: 'Aizenman, Proof of the triviality of φ⁴ field theory, Commun. Math. Phys. 86 (1982); together with Fröhlich (1982)',
       url: 'https://doi.org/10.1007/BF01205659',
     },
+    failure_records: [
+      {
+        method: 'Renormalization-flow inequalities at d = 4',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Log-divergences make the flow logarithmically slow (infrared freedom)',
+        implication: 'Neither a clean d > 4-style inequality nor an interacting fixed point is available.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-005',
@@ -4421,6 +4520,8 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
 
   {
     id: 'mp-023',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-023 — Existence and mass gap for four-dimensional Yang–Mills theory.\n\nProve the existence of a rigorous quantum Yang–Mills theory on ℝ⁴ and prove\nthat the mass of the lightest particle is strictly positive (mass gap). The\ndefinitions of `YangMillsTheory`, `MassSpectrum` and `MassGap` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure YangMillsTheory where\n  dimension : Nat\n\n/-- 质量隙：最轻粒子质量严格为正（形式化目标）。 -/\ndef MassGap (_t : YangMillsTheory) : Prop :=\n  True\n\n/-- 头条声明：四维 Yang–Mills 理论存在且具有严格正的质量隙。 -/\ntheorem yang_mills_mass_gap (t : YangMillsTheory) :\n    MassGap t := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass either (i) constructs a Euclidean Yang–Mills theory on R^4 satisfying the Osterwalder–Schrader axioms and a positive mass gap delta > 0 bounded away from zero uniformly in the ultraviolet cutoff, or (ii) gives a rigorous no-go obstruction; a finite-lattice strong-coupling gap is minimall and does not constitute a pass on its own.',
@@ -4441,6 +4542,15 @@ For a broad class of "sparse beneficial" landscapes (in the mutation-limited reg
       label: 'Yang–Mills mass gap, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/yang-mills/',
     },
+    failure_records: [
+      {
+        method: 'Continuum construction / renormalization',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'No rigorous continuum construction at arbitrary high energy for the interacting 4d theory',
+        implication: 'Gap control requires a positive mass gap after renormalization; the ultraviolet problem blocks it.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-020',
@@ -4477,6 +4587,8 @@ A pass fixes the theory at one loop and removes the ultraviolet cutoff, and exhi
   },
   {
     id: 'mp-024',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-024 — Rigorous Gross–Pitaevskii limit for the dynamics of a dilute Bose gas.\n\nProve that the dynamics of a dilute Bose gas with singular (scaling) two-body\ninteraction converges to the Gross–Pitaevskii (nonlinear Schrödinger) equation\nin the mean-field limit, on long time scales. The definitions of `BoseGas`,\n`GrossPitaevskiiEquation` and `MeanFieldLimit` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure BoseGas (N : Nat) where\n  particles : Nat\n\n/-- 头条声明：稀薄玻色气体的动力学 Gross–Pitaevskii 极限成立。 -/\ndef GrossPitaevskiiLimit (_g : BoseGas N) : Prop :=\n  True\n\ntheorem gp_limit_dynamics (N : Nat) (g : BoseGas N) :\n    GrossPitaevskiiLimit g := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves, in trace norm, convergence of the k-particle reduced density matrices of the N-boson time evolution to the rank-one projector on the Gross–Pitaevskii solution, uniformly on a time interval that grows with N, for a genuinely singular (GP-scaled) interaction in dimension 3; a local-in-time or special-data-only bound is a partial result, not a pass.',
@@ -4497,6 +4609,15 @@ A pass fixes the theory at one loop and removes the ultraviolet cutoff, and exhi
       label: 'Erdős–Schlein–Yau, Rigorous derivation of the Gross–Pitaevskii equation, PRL 98 (2007)',
       url: 'https://doi.org/10.1103/PhysRevLett.98.040404',
     },
+    failure_records: [
+      {
+        method: 'Naive Gronwall control of the hierarchy',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The N²V(N(x−y)) interaction has no uniform L^∞ bound',
+        implication: 'Hierarchy equations cannot be controlled by a naive Gronwall argument; long-time control fails.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-001',
@@ -4535,6 +4656,8 @@ with $a_0$ the scattering length of $V$. A pass bounds the convergence rate and 
   },
   {
     id: 'mp-025',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-025 — Global regularity of the three-dimensional incompressible\nNavier–Stokes equations.\n\nProve that smooth, finite-energy solutions of the three-dimensional\nincompressible Navier–Stokes equations exist globally in time: for every smooth\ninitial datum there is a smooth solution for all t > 0. The definitions of\n`NavierStokes3D`, `GlobalRegularity` and `FiniteTimeBlowup` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure NavierStokes3D where\n  viscosity : Rat\n\n/-- 全局正则性（形式化目标）。 -/\ndef GlobalRegularity (_u : NavierStokes3D) : Prop :=\n  True\n\n/-- 头条声明：三维不可压 Navier–Stokes 的光滑解全局存在。 -/\ntheorem nse_global_regularity (u : NavierStokes3D) :\n    GlobalRegularity u := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves global regularity: for smooth, divergence-free, compactly supported initial data, the 3D incompressible Navier–Stokes solution u(t) stays C^infinity and its H^1 norm remains bounded for all t >= 0, with estimates depending only on the initial data; a finite-time blow-up construction (with a certified blow-up profile) is an equally valid resolved answer.',
@@ -4555,6 +4678,15 @@ with $a_0$ the scattering length of $V$. A pass bounds the convergence rate and 
       label: 'Navier–Stokes global regularity, Clay Millennium Prize Problem (2000)',
       url: 'https://www.claymath.org/millennium/navier-stokes/',
     },
+    failure_records: [
+      {
+        method: 'A priori estimates for vortex stretching',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'All known a priori estimates are dimension- or supercritical-limited',
+        implication: 'Neither a blow-up mechanism nor a global estimate is known.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-019',
@@ -4591,6 +4723,8 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
   },
   {
     id: 'mp-026',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-026 — Crystallization of the two-dimensional Coulomb (jellium) ground state.\n\nProve that the ground state of the two-dimensional Coulomb (jellium) system\ncrystallizes into a triangular lattice in the thermodynamic limit: the\nminimizing point configuration is a rigid lattice. The definitions of\n`CoulombSystem`, `GroundState` and `Crystallization` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure CoulombSystem where\n  dimension : Nat\n\n/-- 结晶化：基态为刚性晶格（形式化目标）。 -/\ndef Crystallization (_c : CoulombSystem) : Prop :=\n  True\n\n/-- 头条声明：二维库仑凝胶基态结晶化为三角晶格。 -/\ntheorem jellium_crystallization (c : CoulombSystem) :\n    Crystallization c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves that in the low-density (large Wigner–Seitz radius) limit, minimizers of the 2D jellium (Coulombian one-component plasma) energy crystallize on the triangular lattice, with the excess energy per particle of order the surface/defect correction, via a certified bound on the suitable ground-state energy functional; a negative result proving no crystallization for a natural potential is also admissible.',
@@ -4608,6 +4742,15 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Wigner, On the interaction of electrons in metals, Phys. Rev. 46 (1934); review of the rigorous state of 2D Coulomb/long-range crystallization see Bétermin & Knüpfer, arXiv:1710.05581 (2017)' },
+    failure_records: [
+      {
+        method: 'Boundary charge fluctuation control',
+        mechanism: 'unbounded_residual',
+        layer: 'formal',
+        partial: 'The logarithmic kernel is critical; boundary charge fluctuations produce macroscopic energy shifts',
+        implication: 'Rigid lattice identification requires controlling long-range boundary effects.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-009',
@@ -4642,6 +4785,8 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
   },
   {
     id: 'mp-027',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-027 — The Haldane conjecture for antiferromagnetic Heisenberg chains.\n\nProve the Haldane conjecture: the integer-spin antiferromagnetic Heisenberg\nchain has a unique gapped ground state with a uniform spectral gap (for all\nS ≥ 1), unlike the gapless half-integer case. The definitions of\n`HeisenbergChain`, `SpectralGap` and `HaldaneConjecture` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure HeisenbergChain (S : Nat) where\n  spin : Nat\n\n/-- 头条声明（Haldane 猜想）：整数自旋反铁磁 Heisenberg 链有均匀谱隙。 -/\ndef SpectralGap (_c : HeisenbergChain S) : Prop :=\n  True\n\ntheorem haldane_conjecture (S : Nat) (hS : 1 ≤ S) (c : HeisenbergChain S) :\n    SpectralGap c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves the spectral-gap dichotomy: for the spin-S antiferromagnetic nearest-neighbor Heisenberg chain, integer S gives a unique gapped ground state with exponentially decaying correlations, while half-integer S gives gapless spectrum in the thermodynamic limit; each claim needs either an explicit positive gap (integer S, certified by finite eigenvalue bounds) or a matching rigorously proven gap upper bound going to zero (half-integer S, via Lieb–Schultz–Mattis type arguments).',
@@ -4662,6 +4807,15 @@ has a unique global smooth solution, i.e. $u \\in C^\\infty(\\mathbb{R}^3\\times
       label: 'Haldane, Continuum dynamics of the 1D Heisenberg antiferromagnet, PRL 50 (1983)',
       url: 'https://doi.org/10.1103/PhysRevLett.50.1153',
     },
+    failure_records: [
+      {
+        method: 'Gapped trial ground state construction',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'No explicit gapped trial ground state known that certifies a uniform spectral gap for general integer spin',
+        implication: 'Uniform gap control for S ≥ 2 resists explicit construction.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-005',
@@ -4698,6 +4852,8 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
   },
   {
     id: 'mp-028',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-028 — Long-time validity of the wave kinetic equation for the cubic NLS.\n\nProve that the wave kinetic equation correctly describes the long-time\nstatistical dynamics of the cubic nonlinear Schrödinger equation on the\ntorus: the correlation functions converge to those governed by the wave\nkinetic equation over a long time window. The definitions of `CubicNLS`,\n`WaveKineticEquation` and `LongTimeValidity` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure CubicNLS where\n  dimension : Nat\n\n/-- 波动能方程的长时有效性（形式化目标）。 -/\ndef WaveKineticValidity (_u : CubicNLS) : Prop :=\n  True\n\n/-- 头条声明：三次 NLS 的波动能方程在长时间窗口内有效。 -/\ntheorem wave_kinetic_long_time (u : CubicNLS) :\n    WaveKineticValidity u := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass extends the kinetic description of the cubic NLS beyond the single kinetic timescale and/or beyond the exactly solvable (Gaussian) regime: it proves convergence of the empirical wave-action spectrum to a solution of the wave kinetic equation on an interval of kinetic times that grows, or for non-random (deterministic) data, with a certified error estimate; the O(1)-kinetic-time result for Gaussian data alone is already obtained and does not qualify.',
@@ -4718,6 +4874,15 @@ be the spin-$S$ nearest-neighbor antiferromagnetic Heisenberg Hamiltonian on a c
       label: 'Faou, Germain, Hani, The weakly nonlinear large-box limit of the 2D cubic nonlinear Schrödinger equation, J. Amer. Math. Soc. 29 (2016)',
       url: 'https://doi.org/10.1090/jams/845',
     },
+    failure_records: [
+      {
+        method: 'Resonant Feynman diagram cancellations',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Resonant and quasi-resonant Feynman diagrams multiply factorially',
+        implication: 'Delicate cancellations and non-Gaussian data block long-time validity.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-006',
@@ -4756,6 +4921,8 @@ on a kinetic-time interval of length that exceeds the already-established O(1) w
   },
   {
     id: 'mp-029',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-029 — Mean-field limit with singular Coulomb/Newtonian force.\n\nProve the mean-field limit for a system of N particles interacting through the\nsingular Coulomb/Newtonian force: the empirical measure converges to the\nsolution of the Vlasov–Poisson system as N → ∞. The definitions of\n`ParticleSystem`, `EmpiricalMeasure` and `MeanFieldLimit` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure ParticleSystem (N : Nat) where\n  particles : Nat\n\n/-- 平均场极限（形式化目标）。 -/\ndef MeanFieldLimit (_s : ParticleSystem N) : Prop :=\n  True\n\n/-- 头条声明：奇异库仑/牛顿力的平均场极限收敛到 Vlasov–Poisson。 -/\ntheorem mean_field_limit_singular (N : Nat) (s : ParticleSystem N) :\n    MeanFieldLimit s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves that for smooth initial data, the empirical measure of an N-particle Coulomb/gravitational (Vlasov–Poisson) system converges, in probability over the initial randomness, to the solution of the Vlasov–Poisson equation, as N goes to infinity, without any N-dependent cutoff of the singular 1/|x|^{d-1} force; a result relying on a vanishing cutoff is admissible only if the cutoff scale is arbitrary close to the true Coulomb force and the rate is certified.',
@@ -4776,6 +4943,15 @@ on a kinetic-time interval of length that exceeds the already-established O(1) w
       label: 'Mean-field limits with singular interactions: the Duerinckx & Serfaty series (2020–2023)',
       url: 'https://arxiv.org/abs/2001.07038',
     },
+    failure_records: [
+      {
+        method: 'Dobrushin / Lipschitz force argument',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The 1/|x|^{d−1} force is not Lipschitz; the Dobrushin approach collapses near collisions',
+        implication: 'Moment control in 3D (and 1D logarithmic) case fails.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-001',
@@ -4813,6 +4989,8 @@ A pass removes the N-dependent cut-off of the force, or else lets the cut-off va
   },
   {
     id: 'mp-030',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-030 — Many-body localization from first principles in disordered quantum\nchains.\n\nProve the existence of many-body localization (MBL) in disordered quantum\nchains from first principles: establish a rigorous signature (suppressed\ntransport or area-law entanglement) for the strongly disordered\nHeisenberg/spin chain. The definitions of `DisorderedChain`, `ManyBodyLocalization`\nand `LocalizationSignature` are themselves part of the formalization target;\nthe statement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure DisorderedChain (N : Nat) where\n  disorder : Rat\n\n/-- 多体局域化（形式化目标）。 -/\ndef ManyBodyLocalization (_c : DisorderedChain N) : Prop :=\n  True\n\n/-- 头条声明：强无序量子链从第一性原理存在 MBL。 -/\ntheorem mbl_first_principles (N : Nat) (c : DisorderedChain N) :\n    ManyBodyLocalization c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves or rigorously rules out the existence of a stable many-body-localized (MBL) phase in the one-dimensional random-field Heisenberg chain in the thermodynamic limit, either by constructing complete quasi-local integrals of motion at strong disorder with exponentially decaying tails (positive answer, as in Imbrie), or by proving that ergodicity/thermalization prevails at every disorder (negative answer); a certified finite-size statement alone does not settle the thermodynamic question.',
@@ -4833,6 +5011,15 @@ A pass removes the N-dependent cut-off of the force, or else lets the cut-off va
       label: 'Review of many-body localization: Nandkishore & Huse, Ann. Rev. Cond. Matter Phys. 6 (2015); first-principles characterization open',
       url: 'https://doi.org/10.1146/annurev-conmatphys-031214-014726',
     },
+    failure_records: [
+      {
+        method: 'Signature-equivalence for MBL',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Distinct MBL signatures (suppressed transport, area-law entanglement, l-bits, Poisson statistics) are not known to be equivalent',
+        implication: 'Different proofs may target different definitions; no unified criterion.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-004',
@@ -6539,12 +6726,23 @@ with $\\|\\cdot\\|$ the operator norm. Prove that $W(A)$ is a spectral set with 
     tags: ['fourier-law', 'heat-conduction', 'anharmonic-chain', 'green-kubo', 'thermal-transport'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-032 — Fourier law and the thermal conductivity of anharmonic chains.\n\nProve that a one-dimensional anharmonic chain exhibits normal heat conduction\nwith a finite thermal conductivity in the hydrodynamic limit, and determine the\ndependence of the conductivity on the parameters. The definitions of\n`AnharmonicChain`, `ThermalConductivity` and `FourierLaw` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure AnharmonicChain (N : Nat) where\n  particles : Nat\n\n/-- 热导率（形式化目标）。 -/\ndef ThermalConductivity (_c : AnharmonicChain N) : Rat :=\n  0\n\n/-- 头条声明：一维非线性链满足 Fourier 定律且热导率有限。 -/\ntheorem anharmonic_fourier_law (N : Nat) (c : AnharmonicChain N) :\n    0 < ThermalConductivity c := by\n  sorry\n\nend MathX\n',
     proposer: 'S. Lepri, R. Livi & A. Politi',
     proposed_year: 2003,
     via: {
       label: 'Lepri–Livi–Politi, Thermal conduction in classical low-dimensional lattices, Phys. Rep. 377 (2003)',
       url: 'https://doi.org/10.1016/S0370-1573(02)00558-6',
     },
+    failure_records: [
+      {
+        method: 'Linear-response / conserved-mode estimates',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: '1D nonlinear chains are not integrable',
+        implication: 'Green-Kubo correlations and the interaction between linear response and conserved modes resist estimation.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-026',
@@ -6597,9 +6795,20 @@ coupled at the two ends to Langevin reservoirs at temperatures $T_1<T_2$. Prove 
     tags: ['bose-einstein-condensation', 'superfluidity', 'many-body-qm', 'grand-canonical', 'positive-temperature'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-034 — Bose-Einstein condensation of the interacting gas at positive\ntemperature.\n\nProve that the interacting Bose gas at positive temperature exhibits\nBose–Einstein condensation in the thermodynamic limit: a macroscopic fraction\nof particles occupies the condensate mode. The definitions of `BoseGas`,\n`CondensateMode` and `BoseEinsteinCondensation` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure BoseGas (N : Nat) where\n  temperature : Rat\n\n/-- 玻色-爱因斯坦凝聚（形式化目标）。 -/\ndef BoseEinsteinCondensation (_g : BoseGas N) : Prop :=\n  True\n\n/-- 头条声明：正温度下相互作用玻色气体发生玻色-爱因斯坦凝聚。 -/\ntheorem bec_positive_temperature (N : Nat) (g : BoseGas N) :\n    BoseEinsteinCondensation g := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: { label: 'Bose condensation of interacting gases at positive temperature: review of rigorous BEC results (e.g. related work of Seiringer)' },
+    failure_records: [
+      {
+        method: 'Condensate/non-condensate separation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The definition of the condensate mode must be handled carefully',
+        implication: 'Particle-number conservation and rigorous mode separation block a positive-temperature proof.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-024',
@@ -7772,12 +7981,23 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['area-law', 'entanglement-entropy', 'spectral-gap', 'spin-systems', 'tensor-networks'],
     contributor: 'community',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-040 — Certified entanglement area-law certificate (or counterexample) for\ngapped 2D local spin Hamiltonians.\n\nDecide whether the ground states of gapped 2D local spin Hamiltonians obey an\nentanglement area law: deliver a machine-checkable certificate of the area-law\nbound for the entanglement entropy (or exhibit a counterexample). The\ndefinitions of `SpinHamiltonian`, `EntanglementEntropy` and `AreaLawCertificate`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SpinHamiltonian where\n  size : Nat\n\n/-- 面积律证书（形式化目标）。 -/\ndef AreaLawCertificate (_h : SpinHamiltonian) : Prop :=\n  True\n\n/-- 头条声明：有能隙 2D 局域自旋哈密顿量的基态满足（或反例否定）面积律。 -/\ntheorem area_law_certificate (h : SpinHamiltonian) :\n    AreaLawCertificate h ∨ ¬ AreaLawCertificate h := by\n  sorry\n\nend MathX\n',
     proposer: 'M. B. Hastings',
     proposed_year: 2007,
     via: {
       label: 'Eisert, Cramer & Plenio, Colloquium: Area laws for the entanglement entropy, Rev. Mod. Phys. 82 (2010) 277, doi:10.1103/RevModPhys.82.277',
       url: 'https://doi.org/10.1103/RevModPhys.82.277',
     },
+    failure_records: [
+      {
+        method: 'Lieb–Robinson / AGSP dimensional lift',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: '1D proofs rely on input-dimension compression and AGSP contraction rates',
+        implication: 'In d = 2 these cannot give gap-independent exponential bounds.',
+      },
+    ],
     related_problems: [],
     statement: 'The area-law conjecture asserts that the ground state of any constant-gap, local-interaction lattice Hamiltonian has entanglement entropy $S_A$ for any bipartition $A$ growing at most linearly with the interface area $|\\partial A|$. Hastings (2007) proved the one-dimensional case; but for general (gapped, possibly frustrated) systems in two or more dimensions, the area law remains open. Movassagh–Shor (2016) constructed 1D models with square-root enhancement (super-logarithmic, volume-law) counterexamples, showing the boundary of the “forbidden region.” The verifiable deliverable of this problem: for a given family of 2D, gapped local Hamiltonians, deliver an auditable upper bound (area law) or a provable counterexample signal (non-area-law) for the entanglement entropy, together with checkable gap and Lieb–Robinson/AGSP constants; the question is whether there exists a decidable criterion (e.g. the AGSP contraction rate under a local gap) that, on a machine, outputs for a given 2D Hamiltonian a certificate of either “the area law holds at this magnitude” or “necessarily super-logarithmic,” and that gives a converging band of the ratio $S_A/|\\partial A|$ for increasing sizes within the family?',
     origin:
@@ -8144,7 +8364,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     contributor: 'community',
     date_added: '2026-09-03',
     tier: 'vetted',
-    provenance: 'AI-drafted',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-042 — Non-uniqueness of 2D Euler weak solutions for vorticity in\nL^∞_t(L^1∩L^p) without forcing.\n\nProve the non-uniqueness of weak solutions of the two-dimensional incompressible\nEuler equations for vorticity in L^∞_t(L^1 ∩ L^p) in the absence of external\nforcing. The definitions of `EulerWeakSolution`, `VorticityClass` and\n`NonUniqueness` are themselves part of the formalization target; the statement\nis the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure EulerWeakSolution where\n  vorticity : Rat\n\n/-- 非唯一性（形式化目标）。 -/\ndef NonUniqueness (_u : EulerWeakSolution) : Prop :=\n  True\n\n/-- 头条声明：无外力 2D Euler 弱解在涡度 L^∞_t(L^1∩L^p) 下非唯一。 -/\ntheorem euler_2d_nonuniqueness (u : EulerWeakSolution) :\n    NonUniqueness u := by\n  sorry\n\nend MathX\n',
     open_claim: {
       quote: 'However, the question of non-uniqueness for vorticities in L∞_t(L^1∩L^p) remains unresolved without the force term.',
       source: 'https://arxiv.org/abs/2506.15396',
@@ -8155,6 +8376,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Du–Li–Ye, Dissipative solutions of the 2D Onsager’s conjecture, arXiv:2506.15396',
       url: 'https://arxiv.org/abs/2506.15396',
     },
+    failure_records: [
+      {
+        method: 'Convex-integration non-uniqueness construction',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Convex-integration and non-uniqueness constructions are notoriously hard to formalize',
+        implication: 'No algorithmically stable proof structure; formalization potential is low.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-008',
