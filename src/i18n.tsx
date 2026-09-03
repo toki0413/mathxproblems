@@ -115,6 +115,7 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '由工程反向需求清单的缺口直接派生：给稳定 id、挂来源需求，待实采（补题面/来源/逐字引文）后升级为正式候选题。这是"从问题收录到解题层"的需求侧入口。',
     en: 'Derived directly from gaps in the engineering-needs list: stable id, linked to the source need, awaiting intake (statement / source / verbatim citation) before promotion to a full candidate problem. This is the demand-side entry of the problem-intake to solution-layer pipeline.',
   },
+  'pl.candidates.proposals.intaked': { zh: '已实采', en: 'intaked' },
   'pd.tier.candidateNote': {
     zh: '候选条目：题面与来源已记录，但未经审计。元数据为 AI 草拟，待人工评审。勿当作已确认的开放问题引用。',
     en: 'Candidate entry: statement and source are recorded, but this has not been audited. Metadata is AI-drafted and pending human review. Do not cite as a confirmed open problem.',

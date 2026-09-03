@@ -138,6 +138,10 @@ export const AUDITS: Record<string, ProblemAudit> = {
   // 进入主目录；mp-043 保留 candidate，待评审。
   'mp-042': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
   'mp-043': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — open_claim present but statement is engineering-modeling and not yet independently verified; pending review for upgrade' },
+  // 需求缺口实采批次（收题流水线 cn-002/cn-004 → 候选池正式题）：题面 + 来源 + AI 草拟，
+  // 未经独立核验，保留 candidate 待评审；升级后转 passed 进入主目录。
+  'mp-044': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-quantum-transport / cn-004），引文待独立核验；pending review' },
+  'me-035': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-flocking-safety / cn-002），题面待独立核验；pending review' },
 };
 
 /** 已通过审计、可在公共站点展示的问题 id 集合。 */

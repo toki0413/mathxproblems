@@ -47,12 +47,20 @@ const PROPOSAL_TITLE: Record<string, string> = {
   "need-grid-frequency-control": "Worst-case AGC consensus time under quantization and link dropout",
 };
 
+/** 已实采的提案 → 目录正式题注册表（在 problems.ts 建好 tier='candidate' 题后登记）。
+ *  让闭环可见：提案状态从"待实采"变为"已实采"，并指向对应目录题。 */
+const INTAKED: Record<string, string> = {
+  "need-quantum-transport": "mp-044",
+  "need-flocking-safety": "me-035",
+};
+
 /** 从需求数据派生全部候选池提案（new 条目 → 提案）。零漂移：无独立事实来源。 */
 export function sourcingProposals(): SourcingProposal[] {
   const out: SourcingProposal[] = [];
   for (const n of ENGINEERING_NEEDS) {
     for (const s of n.sourcing ?? []) {
       if (s.kind !== "new") continue;
+      const intaked = INTAKED[n.id];
       out.push({
         id: `cn-${String(out.length + 1).padStart(3, "0")}`,
         needId: n.id,
@@ -61,14 +69,11 @@ export function sourcingProposals(): SourcingProposal[] {
         title: PROPOSAL_TITLE[n.id] ?? s.what,
         what: s.what,
         needReadiness: n.readiness,
-        status: "proposal",
+        status: intaked ? "intaked" : "proposal",
+        problemId: intaked,
       });
     }
   }
   return out;
 }
 
-/** 提案 → 目录正式题的实采登记（在 problems.ts 建好 tier='candidate' 题后调用）。 */
-export function markIntaked(proposals: SourcingProposal[], needId: string, problemId: string): SourcingProposal[] {
-  return proposals.map((p) => (p.needId === needId && p.status === "proposal" ? { ...p, status: "intaked", problemId } : p));
-}

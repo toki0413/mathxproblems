@@ -355,15 +355,31 @@ export default function ProblemsPage() {
                   <div key={p.id} className="flex items-baseline gap-4 py-3">
                     <span className="font-mono2 text-[11px] text-ink-3 shrink-0 uppercase w-14">{p.id}</span>
                     <div className="min-w-0 flex-1">
-                      <div className="text-ink leading-snug">{p.title}</div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-ink leading-snug">{p.title}</span>
+                        {p.status === 'intaked' && (
+                          <span className="rounded-full border border-mc/50 px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider text-mc shrink-0">
+                            {t('pl.candidates.proposals.intaked')}
+                          </span>
+                        )}
+                      </div>
                       <div className="text-xs text-ink-3 truncate mt-0.5">{p.what}</div>
                     </div>
-                    <Link
-                      to={`/needs#${p.needId}`}
-                      className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4 shrink-0 hidden sm:inline"
-                    >
-                      {p.needId}
-                    </Link>
+                    {p.status === 'intaked' && p.problemId ? (
+                      <Link
+                        to={`/problems/${p.problemId}`}
+                        className="font-mono2 text-[10px] text-mc hover:underline underline-offset-4 shrink-0 hidden sm:inline"
+                      >
+                        {p.problemId}
+                      </Link>
+                    ) : (
+                      <Link
+                        to={`/needs#${p.needId}`}
+                        className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4 shrink-0 hidden sm:inline"
+                      >
+                        {p.needId}
+                      </Link>
+                    )}
                   </div>
                 ))}
               </div>

@@ -7325,6 +7325,108 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'mp-044',
+    output: 'verified_truth',
+    judgment:
+      'Decide whether the Hall conductance of a gapped two-dimensional interacting lattice system is quantized in integer multiples of 2πħσ_Hall/e² for every system in an invertible (short-range-entangled) gapped phase in the infinite-volume limit: either extend the short-range-entangled proof to all invertible phases, or exhibit an invertible gapped phase whose Hall conductance is not quantized; a pass settles the residual case left open by Kapustin–Sopenko.',
+    title: 'Hall Conductance Quantization for Arbitrary Invertible Gapped Phases (Infinite Volume)',
+    titleZh: '任意可逆门控相（无穷体积）的霍尔电导量子化',
+    domain: 'mathematical-physics',
+    subdomain: 'spectral-theory',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['quantum-hall', 'hall-conductance', 'invertible-phases', 'interacting-electrons'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'It should be possible to prove quantization of 2πħσ_Hall/e² for an arbitrary system in an invertible gapped phase.',
+      source: 'https://arxiv.org/abs/2006.14151',
+    },
+    proposer: 'A. Kapustin & N. Sopenko',
+    proposed_year: 2020,
+    via: {
+      label: 'Kapustin–Sopenko, Hall conductance and the statistics of flux insertions in gapped interacting lattice systems, arXiv:2006.14151',
+      url: 'https://arxiv.org/abs/2006.14151',
+    },
+    related_problems: [
+      {
+        id: 'mp-022',
+        relation: 'analog_of',
+        note: 'mp-022 asks the general Kubo-conductance quantization for interacting electrons; this candidate pins the residual infinite-volume / invertible-phase case left open by Kapustin–Sopenko.',
+      },
+    ],
+    statement:
+      'For a gapped 2D interacting lattice system with short-range interactions and a U(1) charge symmetry, decide whether the Hall conductance $\\sigma_{Hall}$ is quantized in integer multiples of $2\\pi\\hbar\\,\\sigma_{Hall}/e^{2}$ in the infinite-volume limit for every system in an invertible (short-range-entangled) gapped phase: Kapustin–Sopenko (arXiv:2006.14151) prove quantization for short-range-entangled systems and state that proving it for an arbitrary invertible gapped phase "should be possible", leaving that as the boundary.',
+    origin:
+      'Hastings–Michalakis (arXiv:1306.1258) proved quantization on a large torus with a non-degenerate ground state, up to almost-exponentially small corrections in system size; Kapustin–Sopenko (arXiv:2006.14151) moved to infinite-volume lattice systems and proved quantization for short-range-entangled systems, explicitly leaving the arbitrary invertible-phase case open. Generated as a demand-gap candidate from need-quantum-transport (cn-004).',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Candidate entry — statement not yet independently verified. A proof is many-body analysis (spectral flow / flux insertion) without a stable formal structure, so formalization potential is low; the statement itself is formalizable.',
+    references: [
+      {
+        label: 'A. Kapustin, N. Sopenko, Hall conductance and the statistics of flux insertions in gapped interacting lattice systems, arXiv:2006.14151 (2020)',
+        url: 'https://arxiv.org/abs/2006.14151',
+      },
+      {
+        label: 'M. B. Hastings, S. Michalakis, Quantization of Hall conductance for interacting electrons on a torus, arXiv:1306.1258 (2014)',
+        url: 'https://arxiv.org/abs/1306.1258',
+      },
+    ],
+  },
+  {
+    id: 'me-035',
+    output: 'verified_behavior',
+    judgment:
+      'Deliver a parameter-explicit, machine-checkable certificate for the Cucker–Smale flocking system with a Lipschitz (non-singular) communication kernel: a closed-form invariant set — explicit bounds on pairwise velocity disagreement and spatial diameter in terms of the kernel parameters and initial configuration — that proves convergence to a flock (velocity consensus, bounded diameter) without scattering or collision. The certificate must state its three-layer residual: R_model (Cucker–Smale idealization vs. the actual swarm dynamics it certifies), R_param (uncertainty in the kernel parameters and measured initial configuration), and R_num (round-off in any numerical verification of the defining inequality); a verifier must be able to re-check the invariant-set inequality from the kernel data alone.',
+    title: 'Constructive Invariant Sets for Flocking Laws with Non-Singular Kernels',
+    titleZh: '非奇异核 flocking 定律的构造性不变集',
+    domain: 'mathematical-engineering',
+    subdomain: 'collective-dynamics',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'high',
+    verification_path: 'analytical',
+    tags: ['flocking', 'cucker-smale', 'invariant-sets', 'collective-dynamics'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    proposer: 'F. Cucker & S. Smale',
+    proposed_year: 2007,
+    via: {
+      label: 'Cucker & Smale, Emergent behavior in flocks, IEEE Trans. Autom. Control 52(5) 852–862, 2007',
+      url: 'https://doi.org/10.1109/TAC.2007.895842',
+    },
+    related_problems: [
+      {
+        id: 'me-003',
+        relation: 'shares_tools',
+        note: 'me-003 asks unconditional flocking for singular kernels; this candidate is the tractable non-singular certificate a swarm-safety proof would build first.',
+      },
+    ],
+    statement:
+      'For the Cucker–Smale system $\\dot x_i = v_i$, $\\dot v_i = \\frac{1}{N}\\sum_j \\psi(|x_i - x_j|)(v_j - v_i)$ with a non-singular Lipschitz communication kernel $\\psi$, construct an explicit invariant set: a certified bound on the velocity diameter and a bound on the spatial diameter, both parameter-explicit and machine-checkable, that guarantees convergence to a flock (velocity consensus with bounded relative positions) with no scattering and no collision.',
+    origin:
+      'Cucker–Smale (2007) prove unconditional asymptotic flocking for non-singular kernels via a velocity-diameter Lyapunov estimate; this candidate asks for the same guarantee as an explicit, parameter-explicit, verifiable invariant set — the tractable stepping stone toward the singular-kernel case me-003 and the mathematical core a swarm-safety certificate (need-flocking-safety, cn-002) would rest on.',
+    progress: [],
+    obstacles: [],
+    engineering_value:
+      'A certified invariant set is the mathematical core of a swarm-safety certificate: it converts "this flocking law does not scatter or collide" from a simulation observation into a machine-checkable bound, directly usable in ASTM F3269-21 flight-procedure safety cases for autonomous swarms.',
+    formalization_notes:
+      'Candidate entry — statement not yet independently verified. The non-singular case is analytically tractable (a finite-dimensional ODE estimate) and is a natural first formalization target before the singular-kernel me-003.',
+    references: [
+      {
+        label: 'F. Cucker, S. Smale, Emergent behavior in flocks, IEEE Trans. Autom. Control 52(5) 852–862 (2007)',
+        url: 'https://doi.org/10.1109/TAC.2007.895842',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<

@@ -1,6 +1,7 @@
 import { test, expect } from "vitest";
 import { sourcingProposals } from "../src/data/sourcingCandidates";
 import { ENGINEERING_NEEDS } from "../src/data/engineeringNeeds";
+import { PROBLEMS } from "../src/data/problems";
 
 test("sourcing pipeline: every new item becomes exactly one stable candidate-pool proposal", () => {
   const proposals = sourcingProposals();
@@ -24,6 +25,18 @@ test("sourcing pipeline: every new item becomes exactly one stable candidate-poo
     expect(p.area).toBeTruthy();
     expect(p.title).toBeTruthy();
     expect(p.what).toBeTruthy();
-    expect(p.status).toBe("proposal");
+    expect(["proposal", "intaked"]).toContain(p.status);
+  }
+});
+
+test("intaked proposals point to real candidate-tier catalog problems", () => {
+  const proposals = sourcingProposals();
+  const intaked = proposals.filter((p) => p.status === "intaked");
+  expect(intaked.length).toBeGreaterThan(0);
+  const byId = new Map(PROBLEMS.map((p) => [p.id, p]));
+  for (const p of intaked) {
+    const prob = byId.get(p.problemId ?? "");
+    if (!prob) throw new Error(`intaked proposal ${p.id} targets missing problem ${p.problemId}`);
+    expect(prob.tier).toBe("candidate");
   }
 });
