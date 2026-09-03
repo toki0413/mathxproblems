@@ -5,7 +5,10 @@
 
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { checkCatalog } from './lib/catalog-checks.mjs'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+import { checkCatalog, MECHANISMS, FAILURE_LAYERS } from './lib/catalog-checks.mjs'
 import { verifyCertificate, checkInformation, checkRParamClause } from '../contracts/verifier.ts'
 
 // Minimal but rule-valid problem block. Every field is required by some rule;
@@ -360,6 +363,18 @@ test('current_record with lo >= hi fails', () => {
 test('current_record vacuous band fails', () => {
   const src = recordProblem('x-052', "      current_record: { lo: 0, hi: 100 },")
   assert.ok(failures(src).some((f) => f.includes('current_record malformed') && f.includes('x-052:vacuous')))
+})
+
+// ── L2 双实现交叉核验（Lean FailureRecord 类型学 ↔ TS 守卫枚举）──
+test('L2 cross-check: Lean FailureRecord typology matches the TS guard enums', () => {
+  const p = join(dirname(fileURLToPath(import.meta.url)), '..', 'lean', 'FailureRecord.lean')
+  const src = readFileSync(p, 'utf8')
+  const mechBlock = src.match(/inductive Mechanism : Type([\s\S]*?)inductive Layer : Type/)
+  const layerBlock = src.match(/inductive Layer : Type([\s\S]*?)structure Record/)
+  assert.ok(mechBlock && layerBlock, 'Lean FailureRecord enums parseable')
+  const cons = (b) => new Set([...b[1].matchAll(/^\s*\| (\w+)/gm)].map((m) => m[1]))
+  assert.deepEqual(cons(mechBlock), MECHANISMS)
+  assert.deepEqual(cons(layerBlock), FAILURE_LAYERS)
 })
 
 // ── 诚实标签（provenance）──
