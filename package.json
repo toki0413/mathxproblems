@@ -18,6 +18,7 @@
     "check:links": "node scripts/check-links.mjs",
     "check:ledger": "node scripts/check-ledger.mjs",
     "check:lean": "node scripts/check-lean.mjs",
+    "check:tools": "node scripts/check-tools.mjs",
     "format": "prettier --write .",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",

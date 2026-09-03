@@ -2266,6 +2266,10 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
         implication: 'Overlapping cliques induce dependence across infection generations; requires a law-of-large-numbers bound robust to clustered degree–clique distributions.',
       },
     ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mb-002',
@@ -3382,6 +3386,11 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
         implication: 'Bounding the max multistationarity number needs a structural (not enumerative) argument.',
       },
     ],
+    tool_links: [
+      { tool_id: 'algebra', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+      { tool_id: 'lattice-order', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -3459,6 +3468,10 @@ and when (by contrast) every such class contains a unique positive steady state.
         implication: 'Off-boundary sparse / non-regular classes are unexplored; needs tighter envelopes off the boundary.',
       },
     ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-003',
@@ -3522,6 +3535,10 @@ and when (by contrast) every such class contains a unique positive steady state.
         partial: 'No exact solvability; current tools give only variational bounds on λ_c',
         implication: 'Closing the variational bound to an identity needs a genuinely new argument (spatial contact processes lack self-duality).',
       },
+    ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'measure-ergodic', role: 'partial' },
     ],
     related_problems: [
       {
@@ -3662,6 +3679,11 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
         partial: 'Too crude at the critical window R_0 = 1 where fluctuations trade between branching and catastrophe',
         implication: 'Near-critical extinction needs refined diffusion approximations with matched constants.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'dynamical-systems', role: 'partial' },
     ],
     related_problems: [
       {
@@ -3808,6 +3830,10 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
         implication: 'The embedding-based upper bound is loose; closing to a constant needs a stronger structural upper bound.',
       },
     ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'missing' },
+      { tool_id: 'convex-optimization', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'me-003',
@@ -3872,6 +3898,10 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
         partial: 'Prove the 3/2 ratio; the tight 4/3 needs a sharp lower bound on removable edges',
         implication: 'A sharp structural lower bound on removable edges feeding the parity cut is the bottleneck.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'missing' },
+      { tool_id: 'convex-optimization', role: 'partial' },
     ],
     related_problems: [
       {
@@ -3941,6 +3971,11 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
         partial: 'Polynomial in the bit length, not strongly polynomial',
         implication: 'Removing the bit-length dependence requires exact intermediate arithmetic with bounded complexity.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'missing' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
     ],
     related_problems: [
       {
@@ -4013,6 +4048,10 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
         partial: 'All known upper and lower bounds are driven by weighting functions over item sizes',
         implication: 'Refuting tightness of the current ratio needs a genuinely new adversary beyond the weighting framework.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'missing' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
     ],
     related_problems: [
       {
@@ -4278,6 +4317,10 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
         implication: 'Needs a many-body ground-state invariant with spectral-gap stability and a transport argument free of current conservation.',
       },
     ],
+    tool_links: [
+      { tool_id: 'spectral-operator', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-004',
@@ -4339,6 +4382,10 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
         partial: 'Which densities are ground states of some external potential is not fully resolved',
         implication: 'Pure-state attainability of the Levy–Lieb infimum is blocked by the open v-representability characterization.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
     ],
     related_problems: [
       {
@@ -5088,6 +5135,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         implication: 'The variational problem has no obvious extremizer profile; needs a non-trial optimality argument.',
       },
     ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'convex-optimization', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-026',
@@ -5155,6 +5206,11 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         partial: 'No easy extremizer; different spin symmetries give different exchange-only optima',
         implication: 'Kinematic over-counting of the indirect energy blocks local-density inequalities; needs full N-particle wave-function analysis.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+      { tool_id: 'convex-optimization', role: 'partial' },
     ],
     related_problems: [
       {
@@ -5547,6 +5603,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         implication: 'Branching-maximizing vs matching-restricting tradeoff has no proven closed form; the exact constant stays open.',
       },
     ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'algebra', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mc-024',
@@ -5612,6 +5672,10 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         partial: 'Representability spans all antisymmetric N-particle states with enormous dimension',
         implication: 'Quantum marginal hardness evidence blocks a compact characterization; needs a structural (not enumerative) certificate.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
     ],
     related_problems: [
       {
@@ -6311,6 +6375,11 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
         implication: 'Global 3D uniqueness is blocked by the regularity gap between L^∞ conductivity and the inversion formula.',
       },
     ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'topology', role: 'partial' },
+      { tool_id: 'spectral-operator', role: 'partial' },
+    ],
     related_problems: [],
     statement: `Let $\\Omega \\subset \\mathbb R^3$ be a bounded connected domain and let $\\gamma \\in L^\\infty_+(\\Omega)$ be a strictly positive conductivity. The Dirichlet-to-Neumann map $\\Lambda_\\gamma$ is defined by $\\Lambda_\\gamma(f) = \\gamma \\partial_\\nu u|_{\\partial\\Omega}$ for the unique solution of $-\\nabla\\cdot(\\gamma\\nabla u)=0$ with $u|_{\\partial\\Omega}=f$. **Prove that $\\Lambda_{\\gamma_1} = \\Lambda_{\\gamma_2}$ implies $\\gamma_1=\\gamma_2$ for general $L^\\infty$ conductivities.**
 
@@ -6376,6 +6445,10 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
         partial: 'Fails when the reachable set lacks a smooth Lipschitz structure',
         implication: 'A necessary-and-sufficient tractable criterion must handle nonsmooth reachable sets beyond gradient feedback.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'topology', role: 'partial' },
     ],
     related_problems: [
       {
@@ -6560,6 +6633,10 @@ Provide an explicit convexity/transversality criterion and test it against the k
         partial: 'Highly sensitive to the choice of directions; many permutations share identical line sums',
         implication: 'Proving a direction set determines the binary matrix needs a structural uniqueness argument, not enumeration.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'polynomial-real', role: 'partial' },
     ],
     related_problems: [],
     statement: `Let a binary image $f \\in \\{0,1\\}^{n\\times n}$ be observed by the line sums $\\sum f$ along a fixed set $D$ of distinct lattice directions $v \\in \\mathbb Z^2$. **Determine the minimal cardinality $k$ of $D$ (and which directions) such that every binary image is uniquely determined by this $D$-line-sum data**, and when uniqueness holds, give a polynomial reconstruction algorithm; if uniqueness fails, give the smallest counterexample.
@@ -6978,6 +7055,11 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
         implication: 'The discreteness residual of the reduction needs an explicit bound.',
       },
     ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [
       {
         id: 'mc-021',
@@ -7112,6 +7194,10 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
         partial: 'Apply only to weak seasonal forcing',
         implication: 'The forcing lifts the flow to a 3D dynamical system and strong forcing distorts the reduction; needs non-perturbative bounds covering the measured strong-forcing range.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'measure-ergodic', role: 'partial' },
     ],
     related_problems: [
       {
@@ -7490,6 +7576,11 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
         implication: 'A tighter ratio needs an information-theoretic lower bound over a wider objective class with a worst-case instance.',
       },
     ],
+    tool_links: [
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+    ],
     related_problems: [],
     statement: `Let $\\Sigma$ be a measurement model with candidate sensor positions $S$, and $f: 2^S \\to \\mathbb R_{\\ge 0}$ a set function measuring information gained (e.g. $-\\log\\det$ posterior covariance, or D-optimal experimental design objective). **Determine the best approximation ratio achievable in polynomial time for maximizing $f$ over a cardinality-$k$ subset when $f$ is submodular but no longer monotone (or a monotone submodular with observation-noise coupling), and construct an algorithm attaining it.**
 
@@ -7567,6 +7658,11 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
         implication: 'Non-polynomial nonlinearities defeat explicit residual bounds; needs a sharp-and-cheap certified estimator.',
       },
     ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'spectral-operator', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+    ],
     related_problems: [],
     statement: `Given a parameter-dependent evolution or steady problem solved approximately by a reduced-order model with basis of rank $r$, find a computable quantity $\\Delta(\\mu)$ such that $\\|u(\\mu) - \\hat u_r(\\mu)\\| \\le \\Delta(\\mu)$, with $\\Delta$ both **sharp** (near the true error on representative $\\mu$) and **cheap** (evaluated in reduced cost, independent of full-order dimension). **Determine whether a unified, non-empirical $\\Delta$ exists that is simultaneously sharp and cheap for nonlinear operators with non-polynomial nonlinearities, or give the parametric counterexample where the residual-based bound necessarily overestimates by a super-constant factor, and a certified way to pay for it (adaptive basis enrichment).**`,
     origin:
@@ -7626,6 +7722,11 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
         partial: 'Each active partition adds one large SDP matrix; the relaxation constant grows exponentially with depth',
         implication: 'Needs a general bound on the relaxation gap that scales gracefully with network depth.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'dynamical-systems', role: 'partial' },
+      { tool_id: 'convex-optimization', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'partial' },
     ],
     related_problems: [],
     statement: `For a closed-loop system $\\dot x = f(x, \\pi_\\theta(x))$ where $\\pi_\\theta$ is a ReLU neural-network controller, a Lyapunov candidate $V$ and a piecewise-affine partition of the region $\\mathcal X$, **determine the tightest computable upper bound on $\\max_{x \\in \\mathcal X}( \\dot V(x) + \\lambda V(x) )$ — close the gap between the SDP/MILP-relaxed over-estimate used today and the true value — using the activation-pattern structure of $\\pi_\\theta$, so the certified basin of attraction is as large and as sound as $n$ training data can justify.**
@@ -7704,6 +7805,11 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         partial: 'Lower bound relies on a conservation-law-type inequality (scalar-gradient growth)',
         implication: 'The duality does not cross to closure; needs a certified conservation-law-type inequality for the upper bound.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'measure-ergodic', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'convex-optimization', role: 'partial' },
     ],
     related_problems: [],
     statement: `Advect a passive scalar $\\theta$ by an incompressible velocity field $u$ ($\\partial_t \\theta + u \\cdot \\nabla \\theta = 0$) with control cost $\\int_0^T \\|u\\|_{H^s}^2 \\, dt$. Let the mixing rate be measured by how fast a Sobolev-type functional decays (e.g., $\\|\\theta\\|_{H^{-1}}$ or $\\|\\theta_{\\text{high}}\\|$). **Determine — for the critical smoothness $s$ — the sharp exponent $e$ such that the guaranteed mixing efficiency is $\\Theta(\\text{cost}^{-e})$, with an explicit admissible velocity field attaining the exponent (upper bound) and a matching lower bound via the relevant conservation law (e.g. a companion estimate from anomalous dissipation).**`,
@@ -7892,6 +7998,11 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         implication: 'The 1/6-power gap to the empirical Ra^{1/3} reflects the saturation of the background-method ansatz.',
       },
     ],
+    tool_links: [
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
+      { tool_id: 'measure-ergodic', role: 'partial' },
+    ],
     related_problems: [
       {
         id: 'mp-041',
@@ -8076,6 +8187,11 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         implication: 'Integer-lattice mass conservation plus independent stopping needs a drift-free convergence-time bound.',
       },
     ],
+    tool_links: [
+      { tool_id: 'combinatorics-graph', role: 'partial' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
+      { tool_id: 'dynamical-systems', role: 'partial' },
+    ],
     related_problems: [],
     statement: `Let a connected graph $G=(V,E)$ hold integer initial values $c_i\\in\\mathbb Z$; agents exchange states only along edges and only in discrete (quantized) rounds, so each transmission carries an integer. A quantized averaging scheme must drive every node to a value within one step of the exact average $\\bar c=\\sum_i c_i/n$ and then stop with a distributed certificate. **Determine, for an arbitrary connected $G$ on $n$ nodes, the optimal worst-case number of communication rounds $T^*(G,n)$ to reach finite-time quantized average consensus, and construct a distributed algorithm attaining it (matching the lower bound up to constants) — or give a network class on which every such algorithm requires a certified number of rounds that beats the known polynomial bounds by a stated factor.**`,
     origin:
@@ -8134,6 +8250,10 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         partial: 'Either rigorous model-error bounds far from engineering geometry, or only numerical convergence estimates',
         implication: 'A certified thermal-margin band requires packing R_model + R_param + R_num simultaneously into one verifiable total band.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'interval-numerics', role: 'available' },
+      { tool_id: 'analysis-asymptotics', role: 'partial' },
     ],
     related_problems: [
       {
@@ -8214,6 +8334,11 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         partial: 'Widening constants into intervals makes the multistationary boundary decision residual-sensitive',
         implication: 'The activity-model residual must be bounded for the certified decision to hold under measurement intervals.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'interval-numerics', role: 'available' },
+      { tool_id: 'polynomial-real', role: 'partial' },
+      { tool_id: 'lattice-order', role: 'partial' },
     ],
     related_problems: [
       {
@@ -8298,6 +8423,10 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
         partial: 'Deviation of the discrete process from the diffusion known only informally',
         implication: 'Needs an explicit, checkable finite-N drift residual bound covering the full population-size range.',
       },
+    ],
+    tool_links: [
+      { tool_id: 'stochastic-processes', role: 'partial' },
+      { tool_id: 'interval-numerics', role: 'available' },
     ],
     related_problems: [
       {
