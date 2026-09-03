@@ -9,6 +9,7 @@ import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
+import { Flags } from '@/components/Flags'
 import { useObstacleGraph } from '@/hooks/useObstacleGraph'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
@@ -939,6 +940,10 @@ export default function ProblemDetailPage() {
 
           <Section title={t('pd.comments')}>
             <Comments problemId={p.id} />
+          </Section>
+
+          <Section title={t('pd.flags')}>
+            <Flags problemId={p.id} />
           </Section>
 
           <Section title={t('pd.attempts')}>

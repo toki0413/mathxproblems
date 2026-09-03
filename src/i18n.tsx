@@ -223,6 +223,27 @@ const STR: Record<string, { zh: string; en: string }> = {
   'cm.content': { zh: '写下你的评论……', en: 'Write a comment…' },
   'cm.send': { zh: '发布', en: 'Post' },
   'cm.note': { zh: '访客限流：同一设备每分钟至多 10 条。评论是社区讨论，不代表 MathX 的数学结论。', en: 'Rate-limited: max 10/min per visitor. Comments are community discussion, not MathX endorsements.' },
+  // flags（社区红旗：对问题可信度的公开质疑，即发即见）
+  'pd.flags': { zh: '社区红旗', en: 'Community flags' },
+  'fl.count': { zh: '面红旗', en: 'flags' },
+  'fl.empty': {
+    zh: '还没有红旗。发现陈述有误、已被解决、来源误植或评级失真？公开提出来——任何读者都能看到并复核。',
+    en: 'No flags yet. Spotted a wrong statement, an already-solved claim, a misattributed source, or a misleading rating? Raise it publicly — anyone can see it and verify.',
+  },
+  'fl.anonymous': { zh: '匿名', en: 'Anonymous' },
+  'fl.type.label': { zh: '红旗类型', en: 'Flag type' },
+  'fl.type.statement': { zh: '陈述有误', en: 'Statement' },
+  'fl.type.solved': { zh: '已被解决', en: 'Solved' },
+  'fl.type.attribution': { zh: '来源误植', en: 'Attribution' },
+  'fl.type.rating': { zh: '评级失真', en: 'Rating' },
+  'fl.type.other': { zh: '其他', en: 'Other' },
+  'fl.author': { zh: '署名（可选）', en: 'Name (optional)' },
+  'fl.content': { zh: '说明质疑（如：已解决来源、错误出处、为何评级失真）……', en: 'Explain the concern (e.g. the solving source, the wrong citation, why the rating misleads)…' },
+  'fl.send': { zh: '提交红旗', en: 'Raise flag' },
+  'fl.note': {
+    zh: '访客限流：同一设备每分钟至多 10 条。红旗是公开质疑，不代表 MathX 认可；有助于策展人复核修订。',
+    en: 'Rate-limited: max 10/min per visitor. Flags are public challenges, not MathX endorsements; they help curators recheck and revise.',
+  },
   'pd.meta': { zh: '元数据', en: 'Metadata' },
   'pd.obstacle.no': { zh: '障碍', en: 'Obstacle' },
   // stats

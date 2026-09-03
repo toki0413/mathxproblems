@@ -15,6 +15,13 @@
       "when": 1788351731801,
       "tag": "0001_fuzzy_blur",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788416855156,
+      "tag": "0002_friendly_revanche",
+      "breakpoints": true
     }
   ]
 }

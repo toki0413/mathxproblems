@@ -53,6 +53,9 @@ export function parseCatalog(src) {
   const outputs = new Map()
   const provenances = new Map()
   const tiers = new Map() // id -> tier 值
+  const hasOpenClaim = new Set() // id 含 open_claim 块
+  const openClaimQuotes = new Map() // id -> quote 值
+  const openClaimSources = new Map() // id -> source 值
   const hasLeanStatement = new Set()
   const hasEngValue = new Set()
   const hasImpact = new Set()
@@ -95,6 +98,11 @@ export function parseCatalog(src) {
     if (provMatch && cur) provenances.set(cur, provMatch[1])
     const tierMatch = line.match(/^    tier: '([^']+)',/)
     if (tierMatch && cur) tiers.set(cur, tierMatch[1])
+    if (/^    open_claim: \{/.test(line) && cur) hasOpenClaim.add(cur)
+    const ocQuote = line.match(/^      quote: '((?:[^'\\]|\\.)*)'/)
+    if (ocQuote && cur) openClaimQuotes.set(cur, ocQuote[1])
+    const ocSource = line.match(/^      source: '((?:[^'\\]|\\.)*)'/)
+    if (ocSource && cur) openClaimSources.set(cur, ocSource[1])
     if (/^    lean_statement:/.test(line) && cur) hasLeanStatement.add(cur)
     if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
     if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
@@ -134,14 +142,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
+  return { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasOpenClaim, openClaimQuotes, openClaimSources, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
+  const { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasOpenClaim, openClaimQuotes, openClaimSources, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -160,6 +168,17 @@ export function checkCatalog(raw) {
     failures.push(`candidate-tier problems must stay AI-drafted (no expert/lean claim before review): ${candidateOverclaim.join(', ')}`)
   const candidateLean = [...hasLeanStatement].filter((id) => tiers.get(id) === 'candidate')
   if (candidateLean.length) failures.push(`candidate-tier problems cannot carry lean_statement: ${candidateLean.join(', ')}`)
+  // 开放声明引文（文献即专家）：vetted 必须有 open_claim；open_claim 必须齐 quote+source。
+  const vettedNoClaim = [...ids].filter(
+    (id) => tiers.get(id) === 'vetted' && !hasOpenClaim.has(id),
+  )
+  if (vettedNoClaim.length)
+    failures.push(`vetted-tier problems require an open_claim quote (literature-as-expert evidence): ${vettedNoClaim.join(', ')}`)
+  const incompleteClaim = [...hasOpenClaim].filter(
+    (id) => !openClaimQuotes.get(id) || !openClaimSources.get(id),
+  )
+  if (incompleteClaim.length)
+    failures.push(`open_claim must carry both quote and source: ${incompleteClaim.join(', ')}`)
   const tierDist = {}
   for (const id of ids) {
     const t = tiers.get(id) ?? 'core'

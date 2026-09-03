@@ -186,6 +186,33 @@ export type ProblemComment = typeof problemComments.$inferSelect;
 export type InsertProblemComment = typeof problemComments.$inferInsert;
 
 /**
+ * 社区红旗：匿名访客对目录问题的可信度质疑（陈述有误 / 已被人解决 / 来源误植 /
+ * 评级失真 / 其他）。与评论同模型——即发即见（无审稿门槛），公开可见本身就是
+ * 治理信号：任何读者都能看到「有人对此题的可信度提出质疑」，也都能复核。
+ * 防滥用靠 writeAllowed（访客+IP 双限流 + 可选 Turnstile）。
+ * visitorId 保留用于限流/事后处置，不对外暴露。
+ */
+const flagTypeEnum = ["statement", "solved", "attribution", "rating", "other"] as const;
+
+export const problemFlags = sqliteTable("problem_flags", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  problemId: text("problemId", { length: 32 }).notNull(),
+  visitorId: text("visitorId", { length: 64 }),
+  // 自报署名，可选；留空则匿名。
+  authorName: text("authorName", { length: 128 }),
+  // 红旗类型（固定枚举，见 FLAG_TYPES）。
+  flagType: text("flagType", { enum: flagTypeEnum }).notNull(),
+  // 质疑内容（为什么该题可信度存疑 / 已解决来源等）。
+  content: text("content").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+export type ProblemFlag = typeof problemFlags.$inferSelect;
+export type InsertProblemFlag = typeof problemFlags.$inferInsert;
+
+/**
  * 投票记录：一个访客对某个已通过候选最多投一票。
  * 匿名社区无登录，按 visitorId 计一人一票（同设备清洗 cookie 可规避，属匿名模型
  * 固有局限）；存量登录投票保留 userId。两个身份各有一组唯一约束兜底并发重复票。

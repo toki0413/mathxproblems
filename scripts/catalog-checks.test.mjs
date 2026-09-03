@@ -387,3 +387,39 @@ test('default (no tier field) counts as core in the distribution note', () => {
   const note = checkCatalog(src).notes.find((n) => n.startsWith('tier:'))
   assert.ok(note.includes('core=1'))
 })
+
+// ── 开放声明引文（文献即专家 / 升级证据门）──
+function claimProblem(id, tierLine, claimLines = '') {
+  const claim = claimLines ? `${claimLines}\n` : ''
+  return `export const PROBLEMS = [ {
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+${tierLine}    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+${claim}} ]`
+}
+
+test('vetted tier without open_claim fails the evidence gate', () => {
+  const src = claimProblem('x-040', "    tier: 'vetted',\n")
+  assert.ok(failures(src).some((f) => f.includes('vetted-tier problems require an open_claim') && f.includes('x-040')))
+})
+
+test('vetted tier with a complete open_claim passes', () => {
+  const claim = `    open_claim: {
+      quote: 'the question remains unresolved',
+      source: 'https://arxiv.org/abs/0000.00000',
+    },`
+  const src = claimProblem('x-041', "    tier: 'vetted',\n", claim)
+  assert.ok(!failures(src).some((f) => f.includes('open_claim')))
+})
+
+test('open_claim missing quote or source fails the structure check', () => {
+  const partial = `    open_claim: {
+      quote: 'only a quote',
+    },`
+  const src = claimProblem('x-042', "    tier: 'vetted',\n", partial)
+  assert.ok(failures(src).some((f) => f.includes('open_claim must carry both') && f.includes('x-042')))
+})

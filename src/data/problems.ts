@@ -125,6 +125,10 @@ export interface Problem {
   date_added: string
   /** 三层质量分层；缺省视为 core（存量条目无需改动）。 */
   tier?: ProblemTier
+  /** 开放声明引文（文献即专家）：升级 vetted 的证据门——原文逐字引用 + 可解析来源。
+   *  任何人对原文即可核验该句是否真实存在，无需真人专家。candidate 可带（升级就绪），
+   *  vetted 必须有（守卫强制）。 */
+  open_claim?: { quote: string; source: string }
   /** 内容可信度来源；缺省 AI-drafted。见 ProblemProvenance。 */
   provenance?: ProblemProvenance
   /** 附带的 Lean 4 形式化陈述（对应 lean/<id>.lean，可编译）。与
@@ -7208,8 +7212,12 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['euler-equations', 'non-uniqueness', 'convex-integration', '2d-incompressible'],
     contributor: 'community',
     date_added: '2026-09-03',
-    tier: 'candidate',
+    tier: 'vetted',
     provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'However, the question of non-uniqueness for vorticities in L∞_t(L^1∩L^p) remains unresolved without the force term.',
+      source: 'https://arxiv.org/abs/2506.15396',
+    },
     proposer: 'L. Du, X. Li & W. Ye (open-problem note)',
     proposed_year: 2025,
     via: {
@@ -7256,6 +7264,10 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     date_added: '2026-09-03',
     tier: 'candidate',
     provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'proper treatment of backscatter in this and other contexts remains an open problem.',
+      source: 'https://arxiv.org/abs/2511.09847',
+    },
     proposer: 'B. Choi, M. Ugliotti, M. Reynoso, D. R. Gurevich & R. O. Grigoriev (open-problem note)',
     proposed_year: 2025,
     via: {
