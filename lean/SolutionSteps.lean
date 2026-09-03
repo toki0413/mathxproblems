@@ -14,6 +14,12 @@ SHARED-MODULE: SolutionSteps
   2. me-001（非线性多智能体共识收敛率）：奇耦合 ⇒ φ(0)=0
      共识动态 ẋ_i = Σ_{j∈N(i)} φ(x_j - x_i) 中，Lipschitz 奇耦合 φ 满足 φ(0)=0，
      一致状态是不动点——收敛证明的起点。
+  3. me-001（第二台阶）：奇耦合配对抵消
+     (i,j) 与反向 (j,i) 的贡献 φ(x_j-x_i) + φ(x_i-x_j) 之和为零——
+     完整图所有有序对 Σ φ(x_j-x_i) 逐对抵消，是总量/均值守恒论证的原子步。
+  4. me-013（在线装箱·最优渐近竞争比）：容量下界
+     每个 bin 负载 ≤ C ⇒ n 个 bin 总负载 ≤ n·C（bin 数 ≥ totalLoad/C），
+     在线装箱竞争比下界论证的平凡但可证的容量约束。
 -/
 namespace MathX.SolutionSteps
 
@@ -70,5 +76,82 @@ theorem odd_coupling_zero (φ : Int → Int) (hφ : OddCoupling φ) : φ 0 = 0 :
   have h0 : φ 0 = -φ 0 := by
     simpa using hφ 0
   omega
+
+/-- 配对抵消（me-001 第二台阶）：奇耦合下，有序对 (i,j) 的贡献 φ(x_j - x_i)
+    与反向 (j,i) 的贡献 φ(x_i - x_j) 之和为零。
+    这是共识动态总量/均值守恒论证的原子步：完整图所有有序对的
+    Σ_{i≠j} φ(x_j - x_i) 因此逐对抵消，总量不变。 -/
+theorem odd_pair_cancels (φ : Int → Int) (hφ : OddCoupling φ) (a b : Int) :
+    φ (a - b) + φ (b - a) = 0 := by
+  have hb : b - a = -(a - b) := by
+    omega
+  rw [hb, hφ (a - b)]
+  omega
+
+-- 机器核验样例：两节点共识 a=1, b=3 上，反向贡献 φ(-2)+φ(2) 抵消。
+example (φ : Int → Int) (hφ : OddCoupling φ) : φ (-2) + φ 2 = 0 :=
+  odd_pair_cancels φ hφ 1 3
+
+/-! ── me-013 台阶：装箱容量下界 ───────────────────────────────────── -/
+
+/-- 一个 bin 的负载：物品权重之和（权重为自然数；1D bin packing 容量归一化为 C）。 -/
+def binLoad (items : List Nat) : Nat := items.foldl (fun a x => a + x) 0
+
+/-- 装箱：bin 列表（每个 bin 是一个物品权重列表）。abbrev 保持可约，List 的 ∈ 实例可用。 -/
+abbrev BinPacking := List (List Nat)
+
+/-- 总负载：所有 bin 负载之和。 -/
+def totalLoad (p : BinPacking) : Nat := p.foldl (fun a b => a + binLoad b) 0
+
+/-- n 个 bin、容量 C 的总容量：逐 bin 累加 C（= C × bin 数；用递归避免乘法原子）。 -/
+def capacitySum (C : Nat) (p : BinPacking) : Nat := p.foldl (fun acc _ => acc + C) 0
+
+/-- foldl 提公因式：foldl (λa b, a + w b) x ys = x + foldl (λa b, a + w b) 0 ys。
+    这是"求和可提取首项"的组合恒等式，供 totalLoad / capacitySum 展开。 -/
+theorem foldl_extract_sum {α : Type} (ys : List α) (w : α → Nat) :
+    ∀ x : Nat, ys.foldl (fun a b => a + w b) x = x + ys.foldl (fun a b => a + w b) 0 := by
+  intro x
+  induction ys generalizing x with
+  | nil => simp [List.foldl]
+  | cons y ys ih =>
+      simp [List.foldl]
+      have ih1 := ih (x + w y)
+      have ih2 := ih (w y)
+      omega
+
+/-- 总负载单步提取：totalLoad (b::p) = binLoad b + totalLoad p。 -/
+theorem totalLoad_cons (b : List Nat) (p : BinPacking) :
+    totalLoad (b :: p) = binLoad b + totalLoad p := by
+  unfold totalLoad
+  simp [List.foldl]
+  rw [foldl_extract_sum p binLoad (binLoad b)]
+
+/-- 容量和单步提取：capacitySum C (b::p) = C + capacitySum C p。 -/
+theorem capacitySum_cons (C : Nat) (b : List Nat) (p : BinPacking) :
+    capacitySum C (b :: p) = C + capacitySum C p := by
+  unfold capacitySum
+  simp [List.foldl]
+
+/-- 容量下界：若每个 bin 负载 ≤ C（容量 C），则 n 个 bin 的总负载 ≤ n·C，
+    即 bin 数 ≥ totalLoad / C——任何装箱的平凡但可证的容量约束，
+    在线装箱竞争比下界论证的起点。证明：对 bin 数归纳，逐 bin 累加。 -/
+theorem totalLoad_le_capacity {C : Nat} (p : BinPacking) (h : ∀ b ∈ p, binLoad b ≤ C) :
+    totalLoad p ≤ capacitySum C p := by
+  induction p with
+  | nil =>
+      simp [totalLoad, capacitySum]
+  | cons b p ih =>
+      rw [totalLoad_cons, capacitySum_cons]
+      have hb : binLoad b ≤ C := h b (by simp)
+      have ih' : totalLoad p ≤ capacitySum C p := ih (fun b' hb' => h b' (by simp [hb']))
+      omega
+
+/-- 机器核验样例：装箱 [[1,1],[2]] 负载 2+2=4，bin 数 2，容量 3：2·3=6 ≥ 4。 -/
+example : totalLoad [[1, 1], [2]] = 4 := by
+  native_decide
+example : capacitySum 3 [[1, 1], [2]] = 6 := by
+  native_decide
+example : totalLoad [[1, 1], [2]] ≤ capacitySum 3 [[1, 1], [2]] := by
+  native_decide
 
 end MathX.SolutionSteps

@@ -291,6 +291,11 @@ export default function NeedsPage() {
                                 <span className={`border rounded-full px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider ${STATE_COLOR[st]}`}>
                                   {t(`nd.st.${st}`)}
                                 </span>
+                                {s.kind === 'problem' && byId.get(s.id)?.proof_steps?.length ? (
+                                  <span className="border border-mc/50 text-mc rounded-full px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider">
+                                    L3
+                                  </span>
+                                ) : null}
                               </div>
                               <p className="mt-0.5 text-[13px] text-ink-2 leading-relaxed">{s.what}</p>
                               {title && <p className="text-[11px] text-ink-3 truncate">{title}</p>}

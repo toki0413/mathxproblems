@@ -956,7 +956,7 @@ export type NeedStepState = 'open' | 'partial' | 'served'
 const _stepProblem = new Map(PROBLEMS.map((p) => [p.id, p]))
 const _stepLaw = new Map(LAWS.map((l) => [l.id, l]))
 
-/** 链步就绪度：certificate+带证书 → served；partial 问题/定律 → partial；其余 open。 */
+/** 链步就绪度：certificate+带证书 → served；有 L3 真实证明台阶或 partial 问题/定律 → partial；其余 open。 */
 export function chainStepState(step: Pick<NeedChainStep, 'id' | 'kind' | 'role'>): NeedStepState {
   if (step.kind === 'law') {
     const l = _stepLaw.get(step.id)
@@ -967,6 +967,8 @@ export function chainStepState(step: Pick<NeedChainStep, 'id' | 'kind' | 'role'>
   const p = _stepProblem.get(step.id)
   if (!p) return 'open'
   if (step.role === 'certificate' && p.certificate) return 'served'
+  // L3 解题层：已有真实证明台阶（非 sorry）→ 部分进展——题仍 open，但解题层动了。
+  if (p.proof_steps?.length) return 'partial'
   if (p.status === 'partial') return 'partial'
   return 'open'
 }

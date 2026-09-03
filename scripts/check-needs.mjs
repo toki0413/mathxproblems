@@ -28,7 +28,8 @@ for (const block of problemsSrc.split("\n  {\n    id: '").slice(1)) {
   if (!id) continue
   const status = (block.match(/status: '([^']+)'/) || [])[1] ?? 'open'
   const hasCert = /\bcertificate:\s*\{/.test(block)
-  problemMeta.set(id, { status, hasCert })
+  const hasProofSteps = /proof_steps:\s*\[/.test(block)
+  problemMeta.set(id, { status, hasCert, hasProofSteps })
 }
 const lawMeta = new Map()
 for (const block of lawsSrc.split("id: 'law-").slice(1)) {
@@ -147,6 +148,8 @@ function chainStepState(step) {
   const p = problemMeta.get(step.id)
   if (!p) return 'open'
   if (step.role === 'certificate' && p.hasCert) return 'served'
+  // L3 解题层：已有真实证明台阶（非 sorry）→ 部分进展（与 engineeringNeeds.ts 的 chainStepState 零漂移）。
+  if (p.hasProofSteps) return 'partial'
   if (p.status === 'partial') return 'partial'
   return 'open'
 }

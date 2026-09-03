@@ -1602,6 +1602,12 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
         theorem: 'odd_coupling_zero',
         what: '奇耦合在 0 处取 0：一致状态是共识动态的不动点——非线性共识收敛证明的起点。',
       },
+      {
+        module: 'SolutionSteps',
+        step: 'odd-pair-cancels',
+        theorem: 'odd_pair_cancels',
+        what: '奇耦合配对抵消：反向有序对 (j,i) 与 (i,j) 的贡献之和为零——共识动态总量/均值守恒论证的原子步。',
+      },
     ],
     related_problems: [
       {
@@ -4076,6 +4082,14 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
     tool_links: [
       { tool_id: 'combinatorics-graph', role: 'missing' },
       { tool_id: 'analysis-asymptotics', role: 'partial' },
+    ],
+    proof_steps: [
+      {
+        module: 'SolutionSteps',
+        step: 'capacity-lower-bound',
+        theorem: 'totalLoad_le_capacity',
+        what: '装箱容量下界：每 bin 负载 ≤ C ⇒ 总负载 ≤ n·C（bin 数 ≥ totalLoad/C）——在线装箱竞争比下界论证的容量约束。',
+      },
     ],
     related_problems: [
       {
