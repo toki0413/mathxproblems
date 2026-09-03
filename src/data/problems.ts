@@ -7427,6 +7427,114 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'mp-045',
+    output: 'verified_truth',
+    judgment:
+      'Prove a certified upper bound on the error of the algebraic mixing-length closure (the Prandtl ansatz ν_t = ℓ_m²|∂U/∂y|, ℓ_m ~ δ) relative to the Reynolds-averaged Navier–Stokes mean-flow equation, in a stated flow class: either derive the bound from the NS equations for a class where the ansatz holds, or prove the ansatz fails (unbounded residual) in a class such as non-equilibrium free shear flows; progress strictly between no bound and a sharp bound is admissible only if the error bound is explicit and machine-checkable.',
+    title: 'Certified Error Bounds for the Algebraic Mixing-Length Closure in Turbulent Shear Flows',
+    titleZh: '湍流剪切流中代数混合长闭合的可证误差界',
+    domain: 'mathematical-physics',
+    subdomain: 'turbulence',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['mixing-length', 'turbulence-closure', 'rans', 'boundary-layer'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'We show that the mixing length model, with l_m∼δ, does not comply with the scalings stemming from the non-equilibrium version of the theory.',
+      source: 'https://arxiv.org/abs/1811.02444',
+    },
+    proposer: 'G. Cafiero, M. Obligado & J. C. Vassilicos',
+    proposed_year: 2018,
+    via: {
+      label: 'Cafiero–Obligado–Vassilicos, Length scales and eddy viscosities in turbulent free shear flows, arXiv:1811.02444',
+      url: 'https://arxiv.org/abs/1811.02444',
+    },
+    related_problems: [
+      {
+        id: 'mp-008',
+        relation: 'analog_of',
+        note: 'Both target the rigorous fine structure of turbulent closure/dissipation: mp-008 the zero-viscosity dissipation mechanism, this candidate the certified residual of an algebraic closure.',
+      },
+    ],
+    statement:
+      'The algebraic mixing-length closure replaces the Reynolds stress by $\\nu_t \\partial U/\\partial y$ with $\\nu_t = \\ell_m^2|\\partial U/\\partial y|$ and $\\ell_m \\sim \\delta$ (Prandtl). Decide whether a certified, explicit bound exists on the residual of this closure relative to the Reynolds-averaged Navier–Stokes equation in a stated flow class: Cafiero–Obligado–Vassilicos (arXiv:1811.02444) show the $\\ell_m\\sim\\delta$ scaling fails in non-equilibrium free shear flows, and no rigorous error bound for the ansatz is known — the demand-side source is the turbulence-closure gap (need-turbulence-closure / cn-001).',
+    origin:
+      'Prandtl (1925) proposed the mixing-length ansatz by analogy with the kinetic-theory mean free path, an analogy that is not exact and whose rigorous residual has never been bounded. Cafiero–Obligado–Vassilicos (arXiv:1811.02444) show the model "does not comply" with non-equilibrium dissipation scalings in free shear flows, confirming the gap that law-mixinglength records. Generated as a demand-gap candidate from need-turbulence-closure (cn-001).',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Candidate entry — statement not yet independently verified. A proof is turbulence analysis (RANS residuals) with no stable formal structure; the statement itself is formalizable.',
+    references: [
+      {
+        label: 'G. Cafiero, M. Obligado, J. C. Vassilicos, Length scales and eddy viscosities in turbulent free shear flows, arXiv:1811.02444 (2018)',
+        url: 'https://arxiv.org/abs/1811.02444',
+      },
+      {
+        label: 'L. Prandtl, Über die ausgebildete Turbulenz, Z. Angew. Math. Mech. 5 (1925)',
+        url: '',
+      },
+    ],
+  },
+  {
+    id: 'me-036',
+    output: 'verified_truth',
+    judgment:
+      'Decide, for the effective conductivity of an isotropic composite with three (or more) isotropic phases, whether the Hashin–Shtrikman (HS) bounds are attainable and characterize the attainable range: either settle attainability for the two- and three-phase isotropic case (which microstructures attain the bounds), or prove the HS bounds are not optimal in some parameter range and supply a sharper bound; a pass gives an explicit, machine-checkable attainability or sharpness statement.',
+    title: 'Attainability of Hashin–Shtrikman Bounds for Isotropic Two- and Three-Phase Composites',
+    titleZh: '各向同性两相/三相复合材料 Hashin–Shtrikman 界的可达性',
+    domain: 'mathematical-engineering',
+    subdomain: 'materials-mechanics',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['homogenization', 'hashin-shtrikman', 'composites', 'effective-properties'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'The Hashin-Shtrikman bound cannot be optimal for multiphase composites in all range of parameters.',
+      source: 'https://arxiv.org/abs/1010.2278',
+    },
+    proposer: 'L. Silvestre',
+    proposed_year: 2010,
+    via: {
+      label: 'Silvestre, Upper bounds for multiphase composites in any dimension, arXiv:1010.2278',
+      url: 'https://arxiv.org/abs/1010.2278',
+    },
+    related_problems: [
+      {
+        id: 'me-028',
+        relation: 'analog_of',
+        note: 'me-028 asks the G-closure and sharp attainable bounds for multiphase conductors; this candidate is the transitional two-/three-phase isotropic attainability sub-case.',
+      },
+    ],
+    statement:
+      'For an isotropic composite of three (or more) isotropic conductive phases with given conductivities and volume fractions, characterize the set of attainable effective conductivities: decide whether the Hashin–Shtrikman bounds are attained (and by which microstructures), or whether they are not optimal in some parameter range — Silvestre (arXiv:1010.2278) proves the HS bound cannot be optimal for multiphase composites in all parameter ranges and provides the first upper bound refining HS in dimension greater than two; the full attainable range (G-closure analogue) remains open. Generated as a demand-gap candidate from need-composite-bounds (cn-006).',
+    origin:
+      'Hashin–Shtrikman (1962–63) give exact bounds for two-phase composites; extending them to three or more phases, they are not exact for all parameters (Milton; Silvestre arXiv:1010.2278). Liu (SIAM 2010) gives attainability conditions for multiphase HS bounds; the complete attainable range for the isotropic two-/three-phase case is the transitional step toward the G-closure problem me-028.',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Candidate entry — statement not yet independently verified. The statement is variational analysis of effective tensors; formalization is of medium effort once the attainable-range conjecture is pinned down.',
+    references: [
+      {
+        label: 'L. Silvestre, Upper bounds for multiphase composites in any dimension, arXiv:1010.2278 (2010)',
+        url: 'https://arxiv.org/abs/1010.2278',
+      },
+      {
+        label: 'L. P. Liu, Hashin-Shtrikman bounds and their attainability for multiphase composites, SIAM J. Math. Anal. (2010)',
+        url: 'https://sites.math.rutgers.edu/~ll502/papers/AttainMay2010.pdf',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<
