@@ -77,6 +77,8 @@ export interface NeedSourcingItem {
   target?: string
   /** 收题建议一句话（机器可核验的非空承诺）。 */
   what: string
+  /** 收题建议的英文译文（双语切换时用；缺省回退 what）。 */
+  whatEn?: string
 }
 
 export const NEED_READINESS_LABEL: Record<NeedReadiness, string> = {
@@ -167,8 +169,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The demand side of the closure question: a certified dissipation statement is precisely what RANS/LES validation is missing.',
     sourcing: [
-      { kind: 'push', target: 'mp-008', what: '零粘性极限下奇异耗散的显式可证刻画' },
-      { kind: 'new', what: '混合长闭合（law-mixinglength）误差的可证上界' },
+      {
+        kind: 'push',
+        target: 'mp-008',
+        what: '零粘性极限下奇异耗散的显式可证刻画',
+        whatEn: 'Explicit provable characterization of anomalous dissipation in the zero-viscosity limit',
+      },
+      {
+        kind: 'new',
+        what: '混合长闭合（law-mixinglength）误差的可证上界',
+        whatEn: 'Certified upper bound on the error of the mixing-length closure (law-mixinglength)',
+      },
     ],
   },
   {
@@ -228,8 +239,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The Cucker–Smale unconditional-flocking question is the mathematical core a swarm-safety certificate would rest on.',
     sourcing: [
-      { kind: 'push', target: 'me-003', what: '奇异核 Cucker–Smale 无条件 flocking' },
-      { kind: 'new', what: '非奇异核 flocking 不变集的构造性证明（过渡锚点）' },
+      {
+        kind: 'push',
+        target: 'me-003',
+        what: '奇异核 Cucker–Smale 无条件 flocking',
+        whatEn: 'Unconditional flocking for Cucker–Smale with singular kernels',
+      },
+      {
+        kind: 'new',
+        what: '非奇异核 flocking 不变集的构造性证明（过渡锚点）',
+        whatEn: 'Constructive proof of invariant sets for flocking with non-singular kernels (transition anchor)',
+      },
     ],
   },
   {
@@ -313,7 +333,12 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'A decidable criterion would make switch design a certified decision instead of a simulation guess.',
     sourcing: [
-      { kind: 'new', what: '小网络多稳态的可判定判据（CRNT 结构性判据，deficiency 理论算法化）' },
+      {
+        kind: 'new',
+        what: '小网络多稳态的可判定判据（CRNT 结构性判据，deficiency 理论算法化）',
+        whatEn:
+          'Decidable multistationarity criterion for small reaction networks (structural CRNT criteria, algorithmized deficiency theory)',
+      },
     ],
   },
   {
@@ -564,8 +589,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The rigorous Kubo-conductance quantization is the mathematical core a quantum-metrology sign-off would cite.',
     sourcing: [
-      { kind: 'new', what: '相互作用电子 Kubo 电导的严格量化（mp-022 量子化平台稳健性）' },
-      { kind: 'push', target: 'mp-002', what: '耗散混合作为传输侧前置' },
+      {
+        kind: 'new',
+        what: '相互作用电子 Kubo 电导的严格量化（mp-022 量子化平台稳健性）',
+        whatEn: 'Rigorous quantization of Kubo conductance for interacting electrons (robustness of the mp-022 quantization plateau)',
+      },
+      {
+        kind: 'push',
+        target: 'mp-002',
+        what: '耗散混合作为传输侧前置',
+        whatEn: 'Dissipative mixing as a transport-side prerequisite',
+      },
     ],
   },
   {
@@ -596,9 +630,23 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The demand side of the learned-control verification question.',
     sourcing: [
-      { kind: 'push', target: 'me-032', what: '学习策略的可证稳定性证书' },
-      { kind: 'push', target: 'me-018', what: 'Brockett–Sontag 充要判据' },
-      { kind: 'new', what: 'ODD 内 LTI 子类的可判定稳定性判据' },
+      {
+        kind: 'push',
+        target: 'me-032',
+        what: '学习策略的可证稳定性证书',
+        whatEn: 'Provable stability certificate for learned policies',
+      },
+      {
+        kind: 'push',
+        target: 'me-018',
+        what: 'Brockett–Sontag 充要判据',
+        whatEn: 'Brockett–Sontag necessary-and-sufficient criterion',
+      },
+      {
+        kind: 'new',
+        what: 'ODD 内 LTI 子类的可判定稳定性判据',
+        whatEn: 'Decidable stability criterion for LTI subclasses within an ODD',
+      },
     ],
   },
   {
@@ -623,8 +671,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'Sharp attainable bounds are exactly what composite design-allowables are missing.',
     sourcing: [
-      { kind: 'push', target: 'me-028', what: 'G-closure 与多相复合材料的锐可达界' },
-      { kind: 'new', what: '两相/三相各向同性复合材料的可达界（过渡）' },
+      {
+        kind: 'push',
+        target: 'me-028',
+        what: 'G-closure 与多相复合材料的锐可达界',
+        whatEn: 'G-closure and sharp attainable bounds for multiphase composites',
+      },
+      {
+        kind: 'new',
+        what: '两相/三相各向同性复合材料的可达界（过渡）',
+        whatEn: 'Attainable bounds for isotropic two- and three-phase composites (transition)',
+      },
     ],
   },
   {
@@ -684,8 +741,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'Sharp Arnold tongues would turn seasonal-flu timing from heuristic to certified.',
     sourcing: [
-      { kind: 'push', target: 'mb-026', what: '季节强迫 SIR 的锐 Arnold 舌' },
-      { kind: 'new', what: '周期强迫下 SIR 的次谐波响应区域地图（过渡）' },
+      {
+        kind: 'push',
+        target: 'mb-026',
+        what: '季节强迫 SIR 的锐 Arnold 舌',
+        whatEn: 'Sharp Arnold tongues for seasonally forced SIR',
+      },
+      {
+        kind: 'new',
+        what: '周期强迫下 SIR 的次谐波响应区域地图（过渡）',
+        whatEn: 'Subharmonic response regions for periodically forced SIR (transition)',
+      },
     ],
   },
   {
@@ -723,9 +789,23 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The EDA demand side: certified layout/routing bounds, not heuristics, are what \u201cguaranteed routability\u201d would rest on.',
     sourcing: [
-      { kind: 'push', target: 'me-011', what: '图 TSP 4/3 猜想' },
-      { kind: 'push', target: 'me-010', what: '图带宽常数近似' },
-      { kind: 'new', what: '网格图/稀疏图上布线成本的锐上界（过渡锚点）' },
+      {
+        kind: 'push',
+        target: 'me-011',
+        what: '图 TSP 4/3 猜想',
+        whatEn: 'The 4/3 conjecture for graphic TSP',
+      },
+      {
+        kind: 'push',
+        target: 'me-010',
+        what: '图带宽常数近似',
+        whatEn: 'Constant-factor approximation for graph bandwidth',
+      },
+      {
+        kind: 'new',
+        what: '网格图/稀疏图上布线成本的锐上界（过渡锚点）',
+        whatEn: 'Sharp wiring-cost upper bounds on grid and sparse graphs (transition anchor)',
+      },
     ],
   },
   {
@@ -756,8 +836,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The safety-instrumented demand side: choosing the controller form is currently heuristic; a certified criterion would make it a decision.',
     sourcing: [
-      { kind: 'push', target: 'me-018', what: 'Brockett–Sontag 充要判据' },
-      { kind: 'new', what: '仿射非线性系统的 Lipschitz 镇定可判性（过渡）' },
+      {
+        kind: 'push',
+        target: 'me-018',
+        what: 'Brockett–Sontag 充要判据',
+        whatEn: 'Brockett–Sontag necessary-and-sufficient criterion',
+      },
+      {
+        kind: 'new',
+        what: '仿射非线性系统的 Lipschitz 镇定可判性（过渡）',
+        whatEn: 'Decidability of Lipschitz stabilizability for control-affine systems (transition)',
+      },
     ],
   },
   {
@@ -795,8 +884,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'The conduction side of thermal budgets lacks any certified microscopic anchor; the convection side is already served.',
     sourcing: [
-      { kind: 'push', target: 'mp-003', what: 'FPUT 热化时间（均匀 N 的 KAM/Nekhoroshev 常数）' },
-      { kind: 'new', what: '谐波晶格声子色散的严格界（过渡）' },
+      {
+        kind: 'push',
+        target: 'mp-003',
+        what: 'FPUT 热化时间（均匀 N 的 KAM/Nekhoroshev 常数）',
+        whatEn: 'FPUT thermalization time (uniform-N KAM / Nekhoroshev constants)',
+      },
+      {
+        kind: 'new',
+        what: '谐波晶格声子色散的严格界（过渡）',
+        whatEn: 'Rigorous phonon-dispersion bounds for harmonic lattices (transition)',
+      },
     ],
   },
   {
@@ -833,7 +931,12 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'Oscillation vs. stable-operating-point is currently a simulation guess; a structural classification would certify it.',
     sourcing: [
-      { kind: 'new', what: 'mass-action 网络振荡性的可判定判据（deficiency 分类 → 动态判据）' },
+      {
+        kind: 'new',
+        what: 'mass-action 网络振荡性的可判定判据（deficiency 分类 → 动态判据）',
+        whatEn:
+          'Decidable oscillation criterion for mass-action networks (deficiency classification → dynamical criteria)',
+      },
     ],
   },
   {
@@ -858,8 +961,17 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'gap',
     note: 'Capacity over-provisioning currently rests on empirical factors; a tight certified ratio would replace them.',
     sourcing: [
-      { kind: 'push', target: 'me-013', what: '在线装箱最优渐近竞争比' },
-      { kind: 'new', what: '特定箱型族（如 1D bin packing）的锐界（过渡）' },
+      {
+        kind: 'push',
+        target: 'me-013',
+        what: '在线装箱最优渐近竞争比',
+        whatEn: 'Optimal asymptotic competitive ratio for online bin packing',
+      },
+      {
+        kind: 'new',
+        what: '特定箱型族（如 1D bin packing）的锐界（过渡）',
+        whatEn: 'Sharp competitive-ratio bounds for restricted bin-packing families (e.g. 1D) (transition)',
+      },
     ],
   },
   {
@@ -897,9 +1009,23 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     readiness: 'partial',
     note: 'One consumable certificate (me-034) with the graph lower bounds still open behind it.',
     sourcing: [
-      { kind: 'push', target: 'me-002', what: '时变图下界' },
-      { kind: 'push', target: 'me-001', what: '非线性共识收敛保证' },
-      { kind: 'new', what: '量化 + 丢包的 AGC 一致性最坏收敛时间推广（过渡）' },
+      {
+        kind: 'push',
+        target: 'me-002',
+        what: '时变图下界',
+        whatEn: 'Lower bounds over time-varying graphs',
+      },
+      {
+        kind: 'push',
+        target: 'me-001',
+        what: '非线性共识收敛保证',
+        whatEn: 'Nonlinear consensus convergence guarantee',
+      },
+      {
+        kind: 'new',
+        what: '量化 + 丢包的 AGC 一致性最坏收敛时间推广（过渡）',
+        whatEn: 'Generalized worst-case AGC consensus time under quantization and link dropout (transition)',
+      },
     ],
   },
 ]

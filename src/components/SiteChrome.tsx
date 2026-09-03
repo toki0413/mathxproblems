@@ -18,6 +18,31 @@ const NAV = [
   { to: '/api', key: 'nav.api' },
 ]
 
+/** 语言切换（EN / 中文）：英文为主，切中文时 UI/标题/页面长文随语言变化。 */
+function LangSwitch() {
+  const { lang, setLang } = useI18n()
+  return (
+    <div
+      className="flex items-center gap-0.5 border border-line rounded-full px-1 py-0.5 font-mono2 text-[11px] ml-2"
+      role="group"
+      aria-label="Language"
+    >
+      {(['en', 'zh'] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          className={`px-2 py-0.5 rounded-full transition-colors ${
+            lang === l ? 'bg-ink text-paper' : 'text-ink-3 hover:text-ink'
+          }`}
+        >
+          {l === 'en' ? 'EN' : '中文'}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 export function SiteHeader() {
   const loc = useLocation()
   const [open, setOpen] = useState(false)
@@ -60,16 +85,20 @@ export function SiteHeader() {
           >
             {t('nav.submit')}
           </Link>
+          <LangSwitch />
           <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
             {CATALOG_COUNT} {t('nav.count')}
           </span>
         </nav>
-        <button
-          className="md:hidden font-mono2 text-xs uppercase tracking-widest text-ink-2"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? t('nav.close') : t('nav.menu')}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <LangSwitch />
+          <button
+            className="font-mono2 text-xs uppercase tracking-widest text-ink-2"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? t('nav.close') : t('nav.menu')}
+          </button>
+        </div>
       </div>
       {open && (
         <nav className="md:hidden hairline-t px-5 py-3 flex flex-col gap-1">

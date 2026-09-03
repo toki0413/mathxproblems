@@ -777,7 +777,7 @@ export default function ProblemDetailPage() {
                         {t('pd.proofs.theorem')}: {ps.theorem}
                       </div>
                     )}
-                    <p className="font-statement leading-[1.85] text-ink-2 mt-2">{ps.what}</p>
+                    <p className="font-statement leading-[1.85] text-ink-2 mt-2">{lang === 'zh' ? ps.whatZh ?? ps.what : ps.what}</p>
                   </div>
                 ))}
               </div>

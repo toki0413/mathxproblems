@@ -363,7 +363,7 @@ export default function ProblemsPage() {
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-ink-3 truncate mt-0.5">{p.what}</div>
+                      <div className="text-xs text-ink-3 truncate mt-0.5">{lang === 'zh' ? p.what : p.whatEn ?? p.title}</div>
                     </div>
                     {p.status === 'intaked' && p.problemId ? (
                       <Link

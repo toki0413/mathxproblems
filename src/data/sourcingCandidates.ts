@@ -22,6 +22,8 @@ export interface SourcingProposal {
   title: string;
   /** 收题建议原文（what）。 */
   what: string;
+  /** 收题建议的英文译文（双语切换时用；缺省回退 title）。 */
+  whatEn?: string;
   /** 需求就绪度（缺口驱动，通常是 gap）。 */
   needReadiness: string;
   /** proposal = 待实采；intaked = 已实采为目录正式题（见 problemId）。 */
@@ -45,6 +47,23 @@ const PROPOSAL_TITLE: Record<string, string> = {
   "need-bioprocess-oscillation": "Decidable oscillation criterion for mass-action networks",
   "need-provisioning-worstcase": "Sharp competitive-ratio bounds for restricted bin-packing families",
   "need-grid-frequency-control": "Worst-case AGC consensus time under quantization and link dropout",
+};
+
+/** 每条 new 提案的收题建议英文译文（按来源需求 id 键控；缺省回退 title）。 */
+const PROPOSAL_WHAT: Record<string, string> = {
+  "need-turbulence-closure": "Certified error upper bound for the mixing-length closure (law-mixinglength).",
+  "need-flocking-safety": "Constructive proof of invariant sets for flocking with non-singular kernels (transition anchor).",
+  "need-multistationarity": "Decidable multistationarity criterion for small reaction networks (structural CRNT criteria, algorithmized deficiency theory).",
+  "need-quantum-transport": "Rigorous quantization of Kubo conductance for interacting electrons (robustness of the mp-022 quantization plateau).",
+  "need-learned-control": "Decidable stability criterion for LTI subclasses within an ODD.",
+  "need-composite-bounds": "Attainable bounds for isotropic two- and three-phase composites (transition).",
+  "need-seasonal-epidemic": "Subharmonic response regions for periodically forced SIR (transition).",
+  "need-eda-routing": "Sharp wiring-cost upper bounds on grid and sparse graphs (transition anchor).",
+  "need-plc-stabilization": "Decidability of Lipschitz stabilizability for control-affine systems (transition).",
+  "need-lattice-thermal": "Rigorous phonon-dispersion bounds for harmonic lattices (transition).",
+  "need-bioprocess-oscillation": "Decidable oscillation criterion for mass-action networks (deficiency classification → dynamical criteria).",
+  "need-provisioning-worstcase": "Sharp competitive-ratio bounds for restricted bin-packing families (e.g. 1D bin packing) (transition).",
+  "need-grid-frequency-control": "Worst-case AGC consensus time under quantization and link dropout (generalization) (transition).",
 };
 
 /** 已实采的提案 → 目录正式题注册表（在 problems.ts 建好 tier='candidate' 题后登记）。
@@ -71,6 +90,7 @@ export function sourcingProposals(): SourcingProposal[] {
         area: n.area,
         title: PROPOSAL_TITLE[n.id] ?? s.what,
         what: s.what,
+        whatEn: PROPOSAL_WHAT[n.id] ?? PROPOSAL_TITLE[n.id] ?? s.what,
         needReadiness: n.readiness,
         status: intaked ? "intaked" : "proposal",
         problemId: intaked,

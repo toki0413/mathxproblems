@@ -829,6 +829,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   },
 }
 
+const LANG_KEY = 'mathx.lang'
+
 const LangCtx = createContext<{
   lang: Lang
   setLang: (l: Lang) => void
@@ -836,13 +838,25 @@ const LangCtx = createContext<{
 }>({ lang: 'en', setLang: () => {}, t: (k) => k })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // 纯英文站点：固定 en，不读 localStorage、不提供切换。
-  const [lang] = useState<Lang>('en')
+  // 英文为主：默认 en，可在 header 切换到中文（localStorage 记忆）。
+  const [lang, setLang] = useState<Lang>(() => {
+    try {
+      const saved = localStorage.getItem(LANG_KEY)
+      return saved === 'zh' || saved === 'en' ? saved : 'en'
+    } catch {
+      return 'en'
+    }
+  })
   useEffect(() => {
-    document.documentElement.lang = 'en'
-  }, [])
-  const t = (key: string) => STR[key]?.en ?? STR[key]?.zh ?? key
-  return <LangCtx.Provider value={{ lang, setLang: () => {}, t }}>{children}</LangCtx.Provider>
+    document.documentElement.lang = lang
+    try {
+      localStorage.setItem(LANG_KEY, lang)
+    } catch {
+      /* 忽略存储不可用 */
+    }
+  }, [lang])
+  const t = (key: string) => STR[key]?.[lang] ?? STR[key]?.en ?? key
+  return <LangCtx.Provider value={{ lang, setLang, t }}>{children}</LangCtx.Provider>
 }
 
 export const useI18n = () => useContext(LangCtx)

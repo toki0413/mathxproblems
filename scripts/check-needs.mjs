@@ -68,11 +68,11 @@ for (const block of needsSrc.split("\n  {\n    id: '").slice(1)) {
   const standard = (block.match(/standard: '([^']*)'/) || [])[1]
   const consumable = (block.match(/consumable:\s*\n\s*'([^']*)'/) || [])[1]
   const barrier = (block.match(/barrier:\s*\n?\s*'([^']*)'/) || [])[1]
-  // 结构化收题流水线：sourcing: [ { kind, target?, what } ]。
+  // 结构化收题流水线：sourcing: [ { kind, target?, what, whatEn? } ]（容忍多行与 whatEn）。
   const sourcing = []
   const si = block.indexOf('sourcing:')
   if (si >= 0) {
-    for (const m of block.slice(si).matchAll(/\{\s*kind: '([^']+)'(?:,\s*target: '([^']+)')?,\s*what: '([^']*)'\s*\}/g)) {
+    for (const m of block.slice(si).matchAll(/\{\s*kind: '([^']+)'(?:,\s*target: '([^']+)')?,\s*what: '([^']*)'/g)) {
       sourcing.push({ kind: m[1], target: m[2] ?? null, what: m[3] })
     }
   }

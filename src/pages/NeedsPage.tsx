@@ -45,7 +45,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 export default function NeedsPage() {
-  const { t } = useI18n()
+  const { lang, t } = useI18n()
   const byId = new Map(PROBLEMS.map((p) => [p.id, p]))
   const lawById = new Map(LAWS.map((l) => [l.id, l]))
 
@@ -75,10 +75,11 @@ export default function NeedsPage() {
   const proposals = useMemo(() => sourcingProposals(), [])
   const pipeline = useMemo(() => {
     const news = proposals
-    const pushes: { needId: string; needName: string; target: string; what: string }[] = []
+    const pushes: { needId: string; needName: string; target: string; what: string; whatEn: string }[] = []
     for (const n of ENGINEERING_NEEDS) {
       for (const s of n.sourcing ?? []) {
-        if (s.kind === 'push' && s.target) pushes.push({ needId: n.id, needName: n.name, target: s.target, what: s.what })
+        if (s.kind === 'push' && s.target)
+          pushes.push({ needId: n.id, needName: n.name, target: s.target, what: s.what, whatEn: s.whatEn ?? s.what })
       }
     }
     return { news, pushes, intaked: proposals.filter((p) => p.status === 'intaked') }
@@ -220,7 +221,7 @@ export default function NeedsPage() {
                     <Link to={`/needs#${x.needId}`} className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4 shrink-0 pt-px">
                       {x.needId}
                     </Link>
-                    <span className="min-w-0 flex-1">{x.what}</span>
+                    <span className="min-w-0 flex-1">{lang === 'zh' ? x.what : x.whatEn ?? x.title}</span>
                     {x.status === 'intaked' && x.problemId && (
                       <Link
                         to={`/problems/${x.problemId}`}
@@ -244,7 +245,7 @@ export default function NeedsPage() {
                     <Link to={`/problems/${x.target}`} className="font-mono2 text-[10px] text-[#2563eb] hover:underline shrink-0 pt-px">
                       {x.target}
                     </Link>
-                    <span>{x.what}</span>
+                    <span>{lang === 'zh' ? x.what : x.whatEn}</span>
                   </li>
                 ))}
               </ul>
@@ -439,7 +440,7 @@ export default function NeedsPage() {
                                 {s.target}
                               </Link>
                             )}
-                            <span className="text-sm text-ink-2 leading-relaxed">{s.what}</span>
+                            <span className="text-sm text-ink-2 leading-relaxed">{lang === 'zh' ? s.what : s.whatEn ?? s.what}</span>
                           </li>
                         ))}
                       </ul>
