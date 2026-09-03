@@ -6,7 +6,7 @@
 // 展示门：公共 catalog 只暴露通过审计的问题（audits.ts status='passed'）。
 // 审计记录在 src/data/audits.ts（由 scripts/audit-gen.mjs 生成），flagged 条目不进入 API。
 import { AUDITED_PROBLEMS } from "../src/data/audits";
-import { impactOf } from "../src/data/problems";
+import { impactOf, anchorOf } from "../src/data/problems";
 import type { Problem } from "../src/data/problems";
 import { MATHLIB_TOOLS } from "../src/data/mathlibTools";
 import { IMPACT_DOMAIN_RECORDS } from "../src/data/impactDomains";
@@ -22,6 +22,9 @@ function oneProblem(p: Problem) {
     status: p.status,
     provenance: p.provenance ?? "AI-drafted",
     lean_statement: p.lean_statement,
+    /** 机器核验锚点状态（L0 陈述 / L1 证书括区 / L2 失败类型学）：
+     *  由既有字段派生，agent 可按"有机器核验锚"筛选；核验 ≠ 已解决。 */
+    formalization: anchorOf(p),
     date_added: p.date_added,
     formalization_potential: p.formalization_potential,
     verification_path: p.verification_path,

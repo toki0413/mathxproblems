@@ -183,6 +183,27 @@ export interface Problem {
   tool_links?: ToolLink[]
 }
 
+/** 机器核验锚点状态：目录条目的形式化信任信号（L0 陈述 / L1 证书括区 / L2 失败类型学）。
+ *  全部由既有字段派生（零漂移），编码的是"这条目录里哪些结构性质被机器核验过"：
+ *   - statement_anchor     L0：有 lean_statement，由 check-lean 在 CI 编译类型核验；
+ *   - certificate_record   L1：证书携带机器可核验的纪录括区 [lo, hi]（非目标带）；
+ *   - failure_typology     L2：有 failure_records，已生成 Lean 类型化档案（gen-failure-lean 零漂移）。
+ *  注意：核验的是结构性质，绝不等于"问题已解决"。api/catalog.json.ts 把它暴露给
+ *  agent 消费，详情页 UI 也用同一函数，保证站点与数据契约一致。 */
+export interface FormalizationAnchor {
+  statement_anchor: boolean
+  certificate_record?: { lo: number; hi: number }
+  failure_typology: boolean
+}
+
+export function anchorOf(p: Problem): FormalizationAnchor {
+  return {
+    statement_anchor: !!p.lean_statement,
+    certificate_record: p.certificate?.current_record,
+    failure_typology: !!(p.failure_records?.length),
+  }
+}
+
 export const PROBLEMS: Problem[] = [
   {
     id: 'mp-001',
