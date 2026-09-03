@@ -376,6 +376,15 @@ def mp012 : Profile :=
         implication := "Higher-spin singular solutions need regularization proven consistent with the Hilbert-space completeness statement." },
     ] }
 
+def mc007 : Profile :=
+  { problemId := "mc-007",
+    records := [
+      { method := "Pseudo-Helmholtz Lyapunov function",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Controls decay toward the equilibrium, not growth at infinity",
+        implication := "At infinity the dynamics are governed by boundary behavior; needs a growth-controlling Lyapunov argument." },
+    ] }
+
 def mc008 : Profile :=
   { problemId := "mc-008",
     records := [
@@ -413,6 +422,15 @@ def mb006 : Profile :=
         mechanism := .combinatorial, layer := .formal,
         known := "Stars amplify; strong amplifiers exist (Galanais et al., Pavlogiannis et al.)",
         implication := "The classification may not admit a smooth combinatorial criterion; needs a decision-theoretic bound." },
+    ] }
+
+def mb007 : Profile :=
+  { problemId := "mb-007",
+    records := [
+      { method := "Traveling-wave diffusion approximation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The ratchet is driven by the tail of a traveling wave of fitness; diffusion approximations break down in the fast-click regime",
+        implication := "The click-rate asymptotics need control of the traveling-wave tail in the speed-limit regime." },
     ] }
 
 def mb008 : Profile :=
@@ -480,6 +498,15 @@ def mb009 : Profile :=
         implication := "Needs uniformity of the Gaussian approximation in the selection intensity." },
     ] }
 
+def mb010 : Profile :=
+  { problemId := "mb-010",
+    records := [
+      { method := "Large-deviation of the infection cluster",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The exact exponential constant requires precise control of the largest supercritical cluster volume",
+        implication := "Sharp extinction asymptotics need a sharp large-deviation bound on the infection cluster." },
+    ] }
+
 def me007 : Profile :=
   { problemId := "me-007",
     records := [
@@ -539,6 +566,19 @@ def mb011 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "No exact solvability; current tools give only variational bounds on λ_c",
         implication := "Closing the variational bound to an identity needs a genuinely new argument (spatial contact processes lack self-duality)." },
+    ] }
+
+def mb012 : Profile :=
+  { problemId := "mb-012",
+    records := [
+      { method := "Closed-form interface description",
+        mechanism := .nonconvex, layer := .formal,
+        known := "The moving interfaces that drive coexistence have no closed-form description in dimension d > 1",
+        implication := "Coexistence threshold needs a multi-species dual / duality argument, not interface closed forms." },
+      { method := "Multi-species duality machinery",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Duality arguments exist for two-species systems",
+        implication := "The duality machinery for three species resists closure; needs a new duality bound." },
     ] }
 
 def mb013 : Profile :=
@@ -669,6 +709,50 @@ def mc017 : Profile :=
         implication := "Kinematic over-counting of the indirect energy blocks local-density inequalities; needs full N-particle wave-function analysis." },
     ] }
 
+def mc018 : Profile :=
+  { problemId := "mc-018",
+    records := [
+      { method := "Facet-resolving numerical occupation data",
+        mechanism := .unbounded_residual, layer := .num,
+        known := "Resolving equality on a polytope facet requires exponentially precise occupation data",
+        implication := "Exact pinning is heuristic at finite precision; needs an exact criterion on the constraint polytope." },
+      { method := "Hamiltonian-constrained ground-state search",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Ground states expected to saturate generalized Pauli constraints in specific systems",
+        implication := "Determining which ground states sit exactly on facets resists a direct variational criterion." },
+    ] }
+
+def mc019 : Profile :=
+  { problemId := "mc-019",
+    records := [
+      { method := "Hamiltonian embedding of the friction form",
+        mechanism := .nonconvex, layer := .formal,
+        known := "The friction form does not preserve canonical phase-space volume; a naive Hamiltonian embedding fails by Liouville",
+        implication := "Ergodicity of Nosé–Hoover requires a non-Hamiltonian (volume-non-preserving) analysis." },
+    ] }
+
+def mc020 : Profile :=
+  { problemId := "mc-020",
+    records := [
+      { method := "Ladder-spacing heuristics",
+        mechanism := .parameter_sensitive, layer := .num,
+        known := "Swap acceptance couples the gap to the temperature increments; optimal spacing is model-dependent",
+        implication := "Sharp mixing bounds need a model-independent spacing rule." },
+      { method := "Worst-case multimodal analysis",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Cutoff observed numerically on simple targets",
+        implication := "Strong worst cases (multimodality) resist a uniform cutoff proof." },
+    ] }
+
+def mc021 : Profile :=
+  { problemId := "mc-021",
+    records := [
+      { method := "Reversible-but-not-balanced classification",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Reversible yet not complex-balanced networks may or may not admit product form; the exact condition is elusive",
+        implication := "The product-form characterization needs a precise closure condition beyond reversibility." },
+    ] }
+
 def mc022 : Profile :=
   { problemId := "mc-022",
     records := [
@@ -689,6 +773,73 @@ def mc023 : Profile :=
         mechanism := .combinatorial, layer := .formal,
         known := "Representability spans all antisymmetric N-particle states with enormous dimension",
         implication := "Quantum marginal hardness evidence blocks a compact characterization; needs a structural (not enumerative) certificate." },
+    ] }
+
+def mb016 : Profile :=
+  { problemId := "mb-016",
+    records := [
+      { method := "Moment-closure truncation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Selection couples first moments to higher-order product moments; recombination cannot cancel the nonlinear coupling",
+        implication := "Moment closure has no well-defined truncation principle on general landscapes." },
+      { method := "L-independent contraction constant",
+        mechanism := .unbounded_residual, layer := .formal,
+        known := "The spectral radius of the recombination operator is 1; selection can arbitrarily amplify the ratio",
+        implication := "The contraction bound c < 1 must be uniform across trajectories; selection amplification breaks the naive bound." },
+    ] }
+
+def mb017 : Profile :=
+  { problemId := "mb-017",
+    records := [
+      { method := "Boundary large-deviation analysis",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Reflecting diffusions at degenerate boundaries: extinction probability follows a large-deviation law",
+        implication := "Almost-sure persistence needs a quasi-stationary-distribution argument at degenerate boundaries." },
+    ] }
+
+def mb019 : Profile :=
+  { problemId := "mb-019",
+    records := [
+      { method := "Quasi-steady-state mode relaxation",
+        mechanism := .missing_bound, layer := .model,
+        known := "Fails when the domain-growth timescale exceeds the mode relaxation timescale; the dispersion spectrum changes adiabatically",
+        implication := "Pattern selection needs a coupled growth–spectrum analysis beyond quasi-steady-state." },
+    ] }
+
+def mb020 : Profile :=
+  { problemId := "mb-020",
+    records := [
+      { method := "Potential-structure reduction",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Non-reversible mutation introduces a cyclic flow that breaks the potential structure",
+        implication := "Closed-form stationary density needs solving the full irreversible flow." },
+    ] }
+
+def mb021 : Profile :=
+  { problemId := "mb-021",
+    records := [
+      { method := "Order-of-limits interchange",
+        mechanism := .parameter_sensitive, layer := .formal,
+        known := "The large-N and weak-selection limits lead to different values of r when they do not commute",
+        implication := "Hamilton-rule validity needs a fixed, consistent order of limits." },
+    ] }
+
+def mb022 : Profile :=
+  { problemId := "mb-022",
+    records := [
+      { method := "RMT trace-method independence",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Correlations and sign constraints on food-web edges destroy independence; RMT trace errors cannot be controlled uniformly",
+        implication := "The complexity–stability threshold needs a sign-structure-aware random matrix bound." },
+    ] }
+
+def mb024 : Profile :=
+  { problemId := "mb-024",
+    records := [
+      { method := "Equilibrium-sampling argument",
+        mechanism := .missing_bound, layer := .model,
+        known := "Morphogen gradients are nonequilibrium, non-uniform spatial distributions; classical equilibrium sampling fails",
+        implication := "The sensing-error floor needs a nonequilibrium information-theoretic bound." },
     ] }
 
 def me015 : Profile :=
@@ -720,6 +871,24 @@ def me018 : Profile :=
         mechanism := .nonconvex, layer := .formal,
         known := "Fails when the reachable set lacks a smooth Lipschitz structure",
         implication := "A necessary-and-sufficient tractable criterion must handle nonsmooth reachable sets beyond gradient feedback." },
+    ] }
+
+def me019 : Profile :=
+  { problemId := "me-019",
+    records := [
+      { method := "Dimension–analyticity tradeoff",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The linear approximation rate of a manifold with smooth nonlinear dependence over finite samples is constrained",
+        implication := "Sharp n-width decay needs reconciling dimension and parametric analyticity." },
+    ] }
+
+def me020 : Profile :=
+  { problemId := "me-020",
+    records := [
+      { method := "Gevrey-exponent stability coupling",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The Gevrey order required for stability couples to the growth rate of higher derivatives of initial-data regularity",
+        implication := "The inviscid-limit/Prandtl validity threshold is set by the Gevrey-regularity requirement." },
     ] }
 
 def me021 : Profile :=
@@ -792,6 +961,15 @@ def mb026 : Profile :=
         implication := "The forcing lifts the flow to a 3D dynamical system and strong forcing distorts the reduction; needs non-perturbative bounds covering the measured strong-forcing range." },
     ] }
 
+def me026 : Profile :=
+  { problemId := "me-026",
+    records := [
+      { method := "Geometric-bifurcation analysis",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Real solution-set bifurcations stem from critical trajectory branching and loss of nondegeneracy",
+        implication := "Average-case complexity needs a geometric (bifurcation-aware) solution-count theory." },
+    ] }
+
 def me027 : Profile :=
   { problemId := "me-027",
     records := [
@@ -816,6 +994,15 @@ def me028 : Profile :=
         mechanism := .unbounded_residual, layer := .model,
         known := "Give two-sided bounds but not the exact G-closure for m >= 3 phases.",
         implication := "A constructive interior counterexample (attainable tensor strictly inside the bounds) is the decisive accepted form." },
+    ] }
+
+def me029 : Profile :=
+  { problemId := "me-029",
+    records := [
+      { method := "Optimal twisted approximation / N-width duality",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Direct lower bounds rely on the optimal twisted approximation in nonlinear approximation",
+        implication := "Sharp integration exponents need a duality between worst-case error and nonlinear N-widths." },
     ] }
 
 def me030 : Profile :=
@@ -852,6 +1039,15 @@ def mp036 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "Lower bound relies on a conservation-law-type inequality (scalar-gradient growth)",
         implication := "The duality does not cross to closure; needs a certified conservation-law-type inequality for the upper bound." },
+    ] }
+
+def mb027 : Profile :=
+  { problemId := "mb-027",
+    records := [
+      { method := "Universal upper bound via graph-theoretic translation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Squeezing the fixation probability of arbitrary graphs under a single bound depending only on N is hard",
+        implication := "Extremal amplification needs a dynamics-aware graph bound, not a purely graph-theoretic one." },
     ] }
 
 def mc029 : Profile :=
@@ -933,19 +1129,23 @@ example : me001.records.all wellFormed = true := by native_decide
 example : me002.records.all wellFormed = true := by native_decide
 example : me003.records.all wellFormed = true := by native_decide
 example : mp012.records.all wellFormed = true := by native_decide
+example : mc007.records.all wellFormed = true := by native_decide
 example : mc008.records.all wellFormed = true := by native_decide
 example : mb005.records.all wellFormed = true := by native_decide
 example : mb006.records.all wellFormed = true := by native_decide
+example : mb007.records.all wellFormed = true := by native_decide
 example : mb008.records.all wellFormed = true := by native_decide
 example : me004.records.all wellFormed = true := by native_decide
 example : me005.records.all wellFormed = true := by native_decide
 example : me006.records.all wellFormed = true := by native_decide
 example : mb009.records.all wellFormed = true := by native_decide
+example : mb010.records.all wellFormed = true := by native_decide
 example : me007.records.all wellFormed = true := by native_decide
 example : me008.records.all wellFormed = true := by native_decide
 example : mc011.records.all wellFormed = true := by native_decide
 example : mc012.records.all wellFormed = true := by native_decide
 example : mb011.records.all wellFormed = true := by native_decide
+example : mb012.records.all wellFormed = true := by native_decide
 example : mb013.records.all wellFormed = true := by native_decide
 example : me009.records.all wellFormed = true := by native_decide
 example : me010.records.all wellFormed = true := by native_decide
@@ -958,23 +1158,39 @@ example : mb014.records.all wellFormed = true := by native_decide
 example : mb015.records.all wellFormed = true := by native_decide
 example : mc016.records.all wellFormed = true := by native_decide
 example : mc017.records.all wellFormed = true := by native_decide
+example : mc018.records.all wellFormed = true := by native_decide
+example : mc019.records.all wellFormed = true := by native_decide
+example : mc020.records.all wellFormed = true := by native_decide
+example : mc021.records.all wellFormed = true := by native_decide
 example : mc022.records.all wellFormed = true := by native_decide
 example : mc023.records.all wellFormed = true := by native_decide
+example : mb016.records.all wellFormed = true := by native_decide
+example : mb017.records.all wellFormed = true := by native_decide
+example : mb019.records.all wellFormed = true := by native_decide
+example : mb020.records.all wellFormed = true := by native_decide
+example : mb021.records.all wellFormed = true := by native_decide
+example : mb022.records.all wellFormed = true := by native_decide
+example : mb024.records.all wellFormed = true := by native_decide
 example : me015.records.all wellFormed = true := by native_decide
 example : me017.records.all wellFormed = true := by native_decide
 example : me018.records.all wellFormed = true := by native_decide
+example : me019.records.all wellFormed = true := by native_decide
+example : me020.records.all wellFormed = true := by native_decide
 example : me021.records.all wellFormed = true := by native_decide
 example : me023.records.all wellFormed = true := by native_decide
 example : mp035.records.all wellFormed = true := by native_decide
 example : mc027.records.all wellFormed = true := by native_decide
 example : mc028.records.all wellFormed = true := by native_decide
 example : mb026.records.all wellFormed = true := by native_decide
+example : me026.records.all wellFormed = true := by native_decide
 example : me027.records.all wellFormed = true := by native_decide
 example : me028.records.all wellFormed = true := by native_decide
+example : me029.records.all wellFormed = true := by native_decide
 example : me030.records.all wellFormed = true := by native_decide
 example : me031.records.all wellFormed = true := by native_decide
 example : me032.records.all wellFormed = true := by native_decide
 example : mp036.records.all wellFormed = true := by native_decide
+example : mb027.records.all wellFormed = true := by native_decide
 example : mc029.records.all wellFormed = true := by native_decide
 example : mp037.records.all wellFormed = true := by native_decide
 example : me034.records.all wellFormed = true := by native_decide

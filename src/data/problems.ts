@@ -2065,6 +2065,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mc-007',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-007 — Boundedness conjecture for complex-balanced systems.\n\nProve that every trajectory of a complex-balanced mass-action system with\npositive initial condition is bounded: sup_{t≥0} ‖x(t)‖ < ∞. The definitions\nof `ReactionNetwork`, `ComplexBalanced` and `TrajectoryBounded` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 复平衡（形式化目标）。 -/\ndef ComplexBalanced (_N : ReactionNetwork s) : Prop :=\n  True\n\n/-- 轨迹有界性：sup ‖x(t)‖ < ∞（形式化目标）。 -/\ndef TrajectoryBounded (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=\n  True\n\n/-- 头条声明（有界性猜想）：复平衡质量作用系统的正轨迹一致有界。 -/\ntheorem boundedness_conjecture (s : Nat) (N : ReactionNetwork s)\n    (h : ComplexBalanced N) (x0 : Fin s → Rat) :\n    TrajectoryBounded N x0 := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Boundedness Conjecture for Complex-Balanced Systems',
     titleZh: '复平衡系统的有界性猜想',
@@ -2080,6 +2082,15 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'M. Feinberg',
     proposed_year: 1980,
     via: { label: 'Tradition on boundedness of complex-balanced systems: Feinberg, Chemical reaction network structure and stability of complex isothermal reactors (lecture notes)' },
+    failure_records: [
+      {
+        method: 'Pseudo-Helmholtz Lyapunov function',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Controls decay toward the equilibrium, not growth at infinity',
+        implication: 'At infinity the dynamics are governed by boundary behavior; needs a growth-controlling Lyapunov argument.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-002',
@@ -2329,6 +2340,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mb-007',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-007 — Rigorous click rate of Muller\'s ratchet in the speed-limit regime.\n\nFor the classical Muller\'s ratchet model (haploid population of size N,\ndeleterious mutation rate U, selection coefficient s, no back mutation, no\nrecombination), prove the asymptotic rate of the ratchet clicks — the rate at\nwhich the least-loaded class is lost. The definitions of `MullerRatchet`,\n`LeastLoadedClass` and `ClickRate` are themselves part of the formalization\ntarget; the statement is the well-typed headline claim (proof left open via\n`sorry`).\n-/\nnamespace MathX\n\nstructure MullerRatchet where\n  populationSize : Nat\n\n/-- 棘轮点击率（形式化目标）。 -/\ndef ClickRate (_m : MullerRatchet) : Rat :=\n  0\n\n/-- 头条声明：Muller 棘轮在速度限制机制下存在可刻画的点击率渐近。 -/\ntheorem muller_ratchet_click_rate (m : MullerRatchet) :\n    0 ≤ ClickRate m := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Rigorous Click Rate of Muller’s Ratchet in the Speed-Limit Regime',
     titleZh: 'Muller 棘轮咔嗒速率的严格渐近',
@@ -2347,6 +2360,15 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Muller, Some genetic aspects of sex, Am. Nat. 66 (1932); rigorous rates see Haigh (1978)',
       url: 'https://doi.org/10.1086/280418',
     },
+    failure_records: [
+      {
+        method: 'Traveling-wave diffusion approximation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The ratchet is driven by the tail of a traveling wave of fitness; diffusion approximations break down in the fast-click regime',
+        implication: 'The click-rate asymptotics need control of the traveling-wave tail in the speed-limit regime.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-004',
@@ -2915,6 +2937,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mb-010',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-010 — Sharp extinction-time asymptotics for the subcritical contact process.\n\nFor the subcritical contact process (the SIS-type epidemic) on ℤ^d with\ninfection rate close to the critical value, prove sharp asymptotics for the\nextinction time of a finite infection started from a single site. The\ndefinitions of `SubcriticalContactProcess`, `ExtinctionTime` and\n`SharpExtinctionAsymptotics` are themselves part of the formalization target;\nthe statement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SubcriticalContactProcess (d : Nat) where\n  dimension : Nat\n\n/-- 灭绝时间（形式化目标）。 -/\ndef ExtinctionTime (_p : SubcriticalContactProcess d) : Rat :=\n  0\n\n/-- 头条声明：次临界接触过程的灭绝时间存在锐利渐近。 -/\ntheorem sharp_extinction_time (d : Nat) (p : SubcriticalContactProcess d) :\n    0 < ExtinctionTime p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves E[tau] is comparable to e^(c/delta) with the exact exponential constant c identified and the fluctuations of tau characterized, including a large-deviation and cutoff description, with the two-parameter large-deviation estimate for the largest supercritical cluster made rigorous.',
     title: 'Sharp Extinction-Time Asymptotics for the Subcritical Contact Process',
@@ -2934,6 +2958,15 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Harris, Contact interactions on a lattice, Ann. Probab. 2 (1974); subcritical asymptotics see Liggett’s monograph',
       url: 'https://doi.org/10.1214/aop/1176996493',
     },
+    failure_records: [
+      {
+        method: 'Large-deviation of the infection cluster',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The exact exponential constant requires precise control of the largest supercritical cluster volume',
+        implication: 'Sharp extinction asymptotics need a sharp large-deviation bound on the infection cluster.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-005',
@@ -3451,6 +3484,8 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'mb-012',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-012 — Coexistence threshold of cyclic three-species competition on lattices.\n\nFix the cyclic (rock–paper–scissors) three-species contact process on ℤ^d:\neach site is in one of three states A, B, C, or empty; A invades B at rate 1,\nB invades C, C invades A, and all reproduce into empty sites at rate λ and die\nat rate 1. Determine the coexistence region in (λ, d) and its threshold. The\ndefinitions of `CyclicCompetition`, `Coexistence` and `CoexistenceThreshold` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure CyclicCompetition (d : Nat) where\n  dimension : Nat\n  reproductionRate : Rat\n\n/-- 共存：三物种长期并存（形式化目标）。 -/\ndef Coexistence (_p : CyclicCompetition d) : Prop :=\n  True\n\n/-- 头条声明：环状三物种竞争的共存阈值存在可刻画区域。 -/\ntheorem coexistence_threshold (d : Nat) (p : CyclicCompetition d) :\n    Coexistence p ∨ ¬ Coexistence p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Coexistence Threshold of Cyclic Three-Species Competition on Lattices',
     titleZh: '格子环状三物种竞争的共存阈值',
@@ -3469,6 +3504,22 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       label: 'May & Leonard, Nonlinear aspects of competition between three species, SIAM J. Appl. Math. 29 (1975)',
       url: 'https://doi.org/10.1137/0129033',
     },
+    failure_records: [
+      {
+        method: 'Closed-form interface description',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'The moving interfaces that drive coexistence have no closed-form description in dimension d > 1',
+        implication: 'Coexistence threshold needs a multi-species dual / duality argument, not interface closed forms.',
+      },
+      {
+        method: 'Multi-species duality machinery',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Duality arguments exist for two-species systems',
+        implication: 'The duality machinery for three species resists closure; needs a new duality bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -4984,6 +5035,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-018',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-018 — Exact pinning by generalized Pauli constraints in fermionic ground\nstates.\n\nFor N fermions in a d-dimensional one-particle space, the natural occupation\nnumbers λ_1 ≥ … ≥ λ_d (ordered eigenvalues of the one-particle reduced density\nmatrix) satisfy generalized Pauli constraints; determine when the ground state\nis exactly pinned on a facet of the constraint polytope. The definitions of\n`FermionSystem`, `OccupationNumbers` and `PauliPinning` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure FermionSystem (N d : Nat) where\n  particles : Nat\n  orbitals : Nat\n\n/-- 广义 Pauli 约束下的钉扎（形式化目标）。 -/\ndef PauliPinning (_s : FermionSystem N d) : Prop :=\n  True\n\n/-- 头条声明：费米子基态在广义 Pauli 约束多面体面上的精确钉扎可刻画。 -/\ntheorem pauli_pinning_exact (N d : Nat) (s : FermionSystem N d) :\n    PauliPinning s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves, for a stated family of fermion Hamiltonians, either the existence of a ground state whose natural occupation numbers exactly saturate a nontrivial generalized Pauli constraint (with an explicit state construction and a machine-checkable eigenvalue certificate), or a rigorous impossibility result establishing that only quasipinning can occur in that family.',
@@ -5004,6 +5057,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Altunbulak & Klyachko, The Pauli principle revisited, Commun. Math. Phys. 327 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-1962-8',
     },
+    failure_records: [
+      {
+        method: 'Facet-resolving numerical occupation data',
+        mechanism: 'unbounded_residual',
+        layer: 'num',
+        partial: 'Resolving equality on a polytope facet requires exponentially precise occupation data',
+        implication: 'Exact pinning is heuristic at finite precision; needs an exact criterion on the constraint polytope.',
+      },
+      {
+        method: 'Hamiltonian-constrained ground-state search',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Ground states expected to saturate generalized Pauli constraints in specific systems',
+        implication: 'Determining which ground states sit exactly on facets resists a direct variational criterion.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-023',
@@ -5044,6 +5113,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-019',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-019 — Hamiltonian structure and ergodicity of the Nosé–Hoover thermostat.\n\nConsider the Nosé–Hoover equations on ℝ⁶, q̇=p, ṗ=−V\'(q)−ζp, ζ̇=p²/T−1, which on\nthe manifold of constant extended energy are intended to reproduce the\ncanonical ensemble. Determine the Hamiltonian structure and ergodicity of the\nthermostat. The definitions of `NoseHooverSystem`, `CanonicalEnsemble` and\n`Ergodic` are themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure NoseHooverSystem where\n  temperature : Rat\n\n/-- 头条声明：Nosé–Hoover 恒温器的哈密顿结构与遍历性成立（正则系综复现）。 -/\ndef CanonicalEnsemble (_s : NoseHooverSystem) : Prop :=\n  True\n\ntheorem nose_hoover_ergodicity (s : NoseHooverSystem) :\n    CanonicalEnsemble s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass either exhibits a Hamiltonian (or Poisson) function on a finite-dimensional extended phase space whose flow coincides exactly with a stated Nosé–Hoover chain, or proves rigorously that for a specified chain order no such finite-dimensional Hamiltonian flow exists, and in either case supplies a certified ergodicity or non-ergodicity statement for a benchmark family',
@@ -5064,6 +5135,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Nosé, A unified formulation of the constant temperature molecular dynamics methods, J. Chem. Phys. 81 (1984)',
       url: 'https://doi.org/10.1063/1.447334',
     },
+    failure_records: [
+      {
+        method: 'Hamiltonian embedding of the friction form',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'The friction form does not preserve canonical phase-space volume; a naive Hamiltonian embedding fails by Liouville',
+        implication: 'Ergodicity of Nosé–Hoover requires a non-Hamiltonian (volume-non-preserving) analysis.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-020',
@@ -5099,6 +5179,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-020',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-020 — Rapid mixing and cutoff for the parallel tempering (replica exchange)\nchain.\n\nFor target densities π_β ∝ e^{−βH} on a finite state space at temperatures\n0 = β_0 < … < β_L, the parallel-tempering chain alternates coordinate Metropolis\nupdates with swap moves between adjacent temperatures. Determine the mixing time\nand prove (or disprove) the cutoff phenomenon. The definitions of\n`ParallelTemperingChain`, `MixingTime` and `Cutoff` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure ParallelTemperingChain (L : Nat) where\n  temperatures : Fin L → Rat\n\n/-- 混合时间（形式化目标）。 -/\ndef MixingTime (_c : ParallelTemperingChain L) : Nat :=\n  0\n\n/-- 头条声明：并行回火链存在混合时间刻画并出现（或不出现）cutoff。 -/\ntheorem parallel_tempering_mixing (L : Nat) (c : ParallelTemperingChain L) :\n    0 < MixingTime c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves a polynomial upper bound on the total-variation mixing time, or a matching exponential lower bound (slow mixing), for the parallel-tempering (replica-exchange) chain on a stated nontrivial family of target measures, the bound being certified and independent of tuning heuristics, or establishes cutoff with certified thresholds for a family where it occurs.',
@@ -5119,6 +5201,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Swendsen & Wang, Replica Monte Carlo simulation of spin-glasses, PRL 57 (1986); mixing/cutoff open',
       url: 'https://doi.org/10.1103/PhysRevLett.57.2607',
     },
+    failure_records: [
+      {
+        method: 'Ladder-spacing heuristics',
+        mechanism: 'parameter_sensitive',
+        layer: 'num',
+        partial: 'Swap acceptance couples the gap to the temperature increments; optimal spacing is model-dependent',
+        implication: 'Sharp mixing bounds need a model-independent spacing rule.',
+      },
+      {
+        method: 'Worst-case multimodal analysis',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Cutoff observed numerically on simple targets',
+        implication: 'Strong worst cases (multimodality) resist a uniform cutoff proof.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-019',
@@ -5155,6 +5253,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-021',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-021 — Complete characterization of product-form stationary distributions in\nstochastic mass-action networks.\n\nFor the continuous-time Markov chain of a stochastic mass-action network, the\nstationary distribution restricted to a closed communicating class is of\nproduct form π(x) = Π_i c_i^{x_i}/x_i!. Give a complete characterization of the\nnetworks admitting product-form stationary distributions. The definitions of\n`StochasticMassActionNetwork`, `ProductForm` and `StationaryDistribution` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure StochasticMassActionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 乘积形式平稳分布（形式化目标）。 -/\ndef ProductForm (_N : StochasticMassActionNetwork s) : Prop :=\n  True\n\n/-- 头条声明：随机质量作用网络存在乘积形式平稳分布的完整刻画。 -/\ntheorem product_form_characterization (s : Nat) (N : StochasticMassActionNetwork s) :\n    ProductForm N := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass provides a complete necessary-and-sufficient characterization of the reaction networks within a stated class whose stochastic dynamics admits a product-form stationary distribution, or a counterexample network disproving a proposed sufficiency or necessity claim, with the network and the distribution certificate rigorously verified.',
@@ -5175,6 +5275,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Product-form stationary distributions of stochastic reaction networks: Anderson, Craciun & Kurtz, Trans. AMS 362 (2010)',
       url: 'https://arxiv.org/abs/0802.1262',
     },
+    failure_records: [
+      {
+        method: 'Reversible-but-not-balanced classification',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Reversible yet not complex-balanced networks may or may not admit product form; the exact condition is elusive',
+        implication: 'The product-form characterization needs a precise closure condition beyond reversibility.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -5418,6 +5527,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
 
   {
     id: 'mb-016',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-016 — Closure of selection–recombination dynamics under the Walsh basis.\n\nFor a haploid L-locus biallelic population with gamete frequencies in the\nsimplex, determine whether the combined selection–recombination dynamics\np ↦ R·S[p] admits a closed finite-dimensional description under the Walsh\n(Fourier) transform of gamete frequencies for arbitrary fitness surfaces, and\nprove or disprove a sharp L-independent contraction bound. The definitions of\n`WalshBasis`, `SelectionRecombinationMap` and `MomentClosure` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure WalshSystem (L : Nat) where\n  loci : Fin L\n\n/-- 矩闭合：Walsh 变换下有限维闭合描述（形式化目标）。 -/\ndef MomentClosure (_s : WalshSystem L) : Prop :=\n  True\n\n/-- 头条声明：任意适应度曲面下选择—重组动力学在 Walsh 基下闭合（或存在反例）。 -/\ntheorem walsh_moment_closure (L : Nat) (s : WalshSystem L) :\n    MomentClosure s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass establishes whether the Walsh (Fourier) moment dynamics of a selection plus recombination system closes on an arbitrary fitness surface, and gives a sharp, L-independent contraction bound for the recombination map on the simplex, plus a rigorous counterexample or proof for non-additive surfaces; a heuristic or simulation-only claim is not accepted.',
     title: 'Closure of Selection–Recombination Dynamics under the Walsh Basis',
@@ -5434,6 +5545,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Closure of selection–recombination in the Walsh basis: related to mixed population-genetic formulations; recent analytic closure results' },
+    failure_records: [
+      {
+        method: 'Moment-closure truncation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Selection couples first moments to higher-order product moments; recombination cannot cancel the nonlinear coupling',
+        implication: 'Moment closure has no well-defined truncation principle on general landscapes.',
+      },
+      {
+        method: 'L-independent contraction constant',
+        mechanism: 'unbounded_residual',
+        layer: 'formal',
+        partial: 'The spectral radius of the recombination operator is 1; selection can arbitrarily amplify the ratio',
+        implication: 'The contraction bound c < 1 must be uniform across trajectories; selection amplification breaks the naive bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-003',
@@ -5477,6 +5604,8 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
   },
   {
     id: 'mb-017',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-017 — Almost-sure persistence and sharp stochastic extinction rates in\nnoisy populations.\n\nFor population models in fluctuating environments, determine the almost-sure\npersistence criterion and sharp stochastic extinction rates: when does a\npopulation survive almost surely, and at what exponential rate does it go\nextinct in the survival-failing regime. The definitions of `NoisyPopulation`,\n`AlmostSurePersistence` and `ExtinctionRate` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure NoisyPopulation where\n  fluctuation : Rat\n\n/-- 几乎必然持久（形式化目标）。 -/\ndef AlmostSurePersistence (_p : NoisyPopulation) : Prop :=\n  True\n\n/-- 头条声明：噪声种群存在几乎必然持久判据与锐利随机灭绝率。 -/\ntheorem persistence_extinction_rates (p : NoisyPopulation) :\n    AlmostSurePersistence p ∨ ¬ AlmostSurePersistence p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves an almost-sure persistence criterion for the stochastic Lotka–Volterra system with bounded environmental noise in terms of the mean structure of the drift, and gives a sharp exponential upper bound on the probability of hitting low-density extinction from a positive initial condition; simulation evidence is not accepted.',
     title: 'Almost-Sure Persistence and Sharp Stochastic Extinction Rates in Noisy Lotka–Volterra Communities',
@@ -5496,6 +5625,15 @@ with a constant $c<1$ independent of $L$, which would guarantee eventual fixatio
       label: 'Persistence and extinction rates of noisy Lotka–Volterra: the Hening & Nguyen series',
       url: 'https://doi.org/10.1007/s00285-017-1188-y',
     },
+    failure_records: [
+      {
+        method: 'Boundary large-deviation analysis',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Reflecting diffusions at degenerate boundaries: extinction probability follows a large-deviation law',
+        implication: 'Almost-sure persistence needs a quasi-stationary-distribution argument at degenerate boundaries.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-004',
@@ -5535,6 +5673,8 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
   },
   {
     id: 'mb-019',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-019 — Turing pattern selection under smooth domain growth.\n\nFor reaction–diffusion systems on a smoothly growing domain, determine which\nTuring patterns are selected: characterize the mode that dominates as the\ndomain expands and the dispersion spectrum changes adiabatically. The\ndefinitions of `ReactionDiffusion`, `TuringPattern` and `PatternSelection` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionDiffusion where\n  domainGrowth : Rat\n\n/-- 头条声明：光滑生长区域上反应扩散系统的 Turing 图样选择可刻画。 -/\ndef TuringPattern (_r : ReactionDiffusion) : Prop :=\n  True\n\ntheorem turing_pattern_selection (r : ReactionDiffusion) :\n    TuringPattern r := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass gives a spectral (Turing) characterization of pattern selection in a class of reaction–diffusion systems on a smoothly growing spatial domain, proves that the selected wavenumber scales with a power of the instantaneous domain size, and decides whether mode-doubling bifurcations must appear as the domain grows; dispersion-relation-maximization heuristics alone are not accepted.',
     title: 'Turing Pattern Selection under Smooth Domain Growth',
@@ -5551,6 +5691,15 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     proposer: 'multiple contributors',
     proposed_year: 2012,
     via: { label: 'Turing, The chemical basis of morphogenesis, Phil. Trans. R. Soc. B 237 (1952); discussion of pattern selection see Murray, Mathematical Biology II (3rd ed., 2003)' },
+    failure_records: [
+      {
+        method: 'Quasi-steady-state mode relaxation',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Fails when the domain-growth timescale exceeds the mode relaxation timescale; the dispersion spectrum changes adiabatically',
+        implication: 'Pattern selection needs a coupled growth–spectrum analysis beyond quasi-steady-state.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-012',
@@ -5592,6 +5741,8 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
   },
   {
     id: 'mb-020',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-020 — Closed-form stationary densities under non-reversible\nmutation–selection.\n\nFor mutation–selection models with a non-reversible mutation kernel, determine\nwhen the stationary density admits a closed form: characterize the balance\nconditions that make the stationary distribution explicit despite the cyclic\n(irreversible) flow. The definitions of `MutationSelectionModel`,\n`StationaryDensity` and `ClosedFormDensity` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure MutationSelectionModel where\n  mutationRate : Rat\n\n/-- 闭合形式平稳密度（形式化目标）。 -/\ndef ClosedFormDensity (_m : MutationSelectionModel) : Prop :=\n  True\n\n/-- 头条声明：非可逆突变—选择模型的平稳密度存在闭合形式刻画。 -/\ntheorem closed_form_stationary_density (m : MutationSelectionModel) :\n    ClosedFormDensity m := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass determines exactly for which mutation schemes (reversibility criteria) the multiallelic mutation–selection–drift diffusion admits a closed-form stationary density, and proves the absence of a closed form for the complementary class of non-reversible schemes, isolating the diagonalizable condition; numerical histograms are not accepted.',
     title: 'Closed-Form Stationary Densities under Non-Reversible Mutation–Selection–Drift',
@@ -5608,6 +5759,15 @@ a Lotka–Volterra system perturbed by bounded multiplicative environmental nois
     proposer: 'multiple contributors',
     proposed_year: 2016,
     via: { label: 'Kimura, A stochastic model concerning the maintenance of genetic variability in quantitative characters, Proc. Natl. Acad. Sci. USA 54 (1965); two-allele equilibrium density see Kimura, Genetics (1964)' },
+    failure_records: [
+      {
+        method: 'Potential-structure reduction',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Non-reversible mutation introduces a cyclic flow that breaks the potential structure',
+        implication: 'Closed-form stationary density needs solving the full irreversible flow.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-009',
@@ -5645,6 +5805,8 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'mb-021',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-021 — Hamilton rule and the zero relatedness claim in finite structured\npopulations.\n\nFor the evolution of altruism in finite structured populations, determine the\nvalidity of Hamilton\'s rule and the relatedness coefficient: prove or disprove\nthe conditions under which the zero relatedness claim holds, fixing a\nconsistent order of the large-N and weak-selection limits. The definitions of\n`StructuredPopulation`, `Relatedness` and `HamiltonRule` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure StructuredPopulation (N : Nat) where\n  individuals : Fin N\n\n/-- Hamilton 规则（形式化目标）。 -/\ndef HamiltonRule (_p : StructuredPopulation N) : Prop :=\n  True\n\n/-- 头条声明：有限结构化种群中 Hamilton 规则与零亲缘度断言的成立条件可判定。 -/\ntheorem hamilton_rule_validity (N : Nat) (p : StructuredPopulation N) :\n    HamiltonRule p ∨ ¬ HamiltonRule p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass derives from first principles an exact condition under which a costly helping allele increases in frequency in a finite structured population, states a precise (nonzero) value of the inclusive fitness r in that structured setting, and decides the celebrated claim that for spatially viscous populations r tends to zero in the large-population limit; a verbal evolutionary heuristic is not accepted.',
     title: 'Hamilton Rule and the Zero Relatedness Claim in Finite Structured Populations',
@@ -5664,6 +5826,15 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
       label: 'Hamilton, The genetical evolution of social behaviour, J. Theor. Biol. 7 (1964)',
       url: 'https://doi.org/10.1016/0022-5193(64)90038-4',
     },
+    failure_records: [
+      {
+        method: 'Order-of-limits interchange',
+        mechanism: 'parameter_sensitive',
+        layer: 'formal',
+        partial: 'The large-N and weak-selection limits lead to different values of r when they do not commute',
+        implication: 'Hamilton-rule validity needs a fixed, consistent order of limits.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-006',
@@ -5705,6 +5876,8 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'mb-022',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-022 — Quantitative complexity–stability threshold for sign-structured\nfood webs.\n\nFor random food-web matrices with prescribed sign structure (predator–prey\nedges), determine the quantitative complexity–stability threshold: prove\nbounds on the largest real eigenvalue / stability of the ecosystem matrix as a\nfunction of connectance and sign asymmetry. The definitions of `FoodWeb`,\n`SignStructure` and `StabilityThreshold` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure FoodWeb (n : Nat) where\n  species : Fin n\n\n/-- 头条声明：符号结构食物网的复杂度—稳定性阈值存在可刻画定量界。 -/\ndef StabilityThreshold (_w : FoodWeb n) : Rat :=\n  0\n\ntheorem foodweb_stability_threshold (n : Nat) (w : FoodWeb n) :\n    0 ≤ StabilityThreshold w := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass derives a sharp stability threshold for random interaction matrices sampled from a food-web sign pattern and its quantitative correction relative to the spectral circle of i.i.d. random matrices, then applies it to decide when a real food web with its expected degree distribution is asymptotically stable; empirical fitting of a simulation cloud is not accepted.',
     title: 'Quantitative Complexity-Stability Threshold for Sign-Structured Food Webs',
@@ -5724,6 +5897,15 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
       label: 'May, Will a large complex system be stable? Nature 238 (1972)',
       url: 'https://doi.org/10.1038/238413a0',
     },
+    failure_records: [
+      {
+        method: 'RMT trace-method independence',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Correlations and sign constraints on food-web edges destroy independence; RMT trace errors cannot be controlled uniformly',
+        implication: 'The complexity–stability threshold needs a sign-structure-aware random matrix bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-004',
@@ -5761,6 +5943,8 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'mb-024',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-024 — Information-theoretic floor on morphogen gradient concentration\nsensing.\n\nFor a cell sensing its position via a morphogen gradient, determine the\ninformation-theoretic lower bound on the concentration-sensing error: prove the\nminimum achievable relative error of positional information from a finite\nnumber of molecules. The definitions of `MorphogenGradient`, `PositionalInfo`\nand `SensingErrorFloor` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MorphogenGradient where\n  moleculeCount : Nat\n\n/-- 位置感知误差的信息论下界（形式化目标）。 -/\ndef SensingErrorFloor (_g : MorphogenGradient) : Rat :=\n  0\n\n/-- 头条声明：形态素梯度浓度感知存在信息论误差下界。 -/\ntheorem sensing_error_floor (g : MorphogenGradient) :\n    0 ≤ SensingErrorFloor g := by\n  sorry\n\nend MathX\n',
     output: 'verified_behavior',
     judgment: 'A pass proves a fundamental lower bound on the relative variance of an intracellular readout of a spatially distributed morphogen concentration, establishes whether negative feedback can beat the linear-sensing Berg-Purcell scaling or whether an information-theoretic floor persists, and gives the minimal achievable ligand-count sensing error for a given gradient geometry under the molecular-number-noise constraint; a diffusion-only estimate is not accepted. The acceptable answer is a verifiable decision accompanied by a three-layer residual total band: (1) **R_model** = the approximate residual upper bound lost by restricting real developmental signal transduction to the ligand–receptor Poisson counting / Berg–Purcell model; (2) **R_param** = the input residual upper bound on the sensing floor arising from the uncertainty of ligand concentration, receptor number, and gradient geometry when these come from measurement/calibration (holding for all configurations in the measurement interval); (3) **R_num** = the residual upper bound of stochastic-dynamics / master-equation solution or interval closure. When there is no input measurement uncertainty, R_param≡0 must be explicitly noted.',
     certificate: {
@@ -5793,6 +5977,15 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Information lower bound for morphogen-gradient concentration sensing: related to the Berg–Purcell limit (1977)' },
+    failure_records: [
+      {
+        method: 'Equilibrium-sampling argument',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Morphogen gradients are nonequilibrium, non-uniform spatial distributions; classical equilibrium sampling fails',
+        implication: 'The sensing-error floor needs a nonequilibrium information-theoretic bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-014',
@@ -6034,6 +6227,8 @@ Provide an explicit convexity/transversality criterion and test it against the k
   },
   {
     id: 'me-019',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-019 — Sharp Kolmogorov n-width decay for parametrized PDE solution\nmanifolds.\n\nLet M = {u(a) : a ∈ Λ} ⊂ V be the solution manifold of a parametrized linear\nelliptic equation A(a)u = f. Determine the sharp decay rate of the Kolmogorov\nn-width of M in terms of the parametric regularity and dimension. The\ndefinitions of `SolutionManifold`, `KolmogorovNWidth` and `SharpNWidthDecay`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SolutionManifold (d : Nat) where\n  parameters : Fin d\n\n/-- Kolmogorov n-宽度（形式化目标）。 -/\ndef KolmogorovNWidth (_m : SolutionManifold d) (_n : Nat) : Rat :=\n  0\n\n/-- 头条声明：参数化 PDE 解流形的 Kolmogorov n-宽度存在锐利衰减率。 -/\ntheorem sharp_nwidth_decay (d : Nat) (m : SolutionManifold d) :\n    0 ≤ KolmogorovNWidth m 0 := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass computes the sharp rate of decay of the Kolmogorov n-width of the solution manifold $\\{u(a)\\}$ of a parametrized elliptic PDE as a function of the analytic or only smooth parameter dependence, with an explicit algebraic (or exponential) exponent and a matching lower-bound construction certifying optimality, so the reduced-order approximation barrier is pinned.',
@@ -6051,6 +6246,15 @@ Provide an explicit convexity/transversality criterion and test it against the k
     proposer: 'multiple contributors',
     proposed_year: 2017,
     via: { label: 'n-width decay of parametrized-PDE solution manifolds: recent literature (e.g. the Cohen–DeVore width estimates)' },
+    failure_records: [
+      {
+        method: 'Dimension–analyticity tradeoff',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The linear approximation rate of a manifold with smooth nonlinear dependence over finite samples is constrained',
+        implication: 'Sharp n-width decay needs reconciling dimension and parametric analyticity.',
+      },
+    ],
     related_problems: [],
     statement: `Let $\\mathcal M = \\{u(a) : a \\in \\Lambda\\} \\subset V$ be the solution manifold of a parametrized linear elliptic equation $\\mathcal A(a) u = f$, $a$ ranging over a parameter set $\\Lambda$ in finite or countable dimension. Let $d_n(\\mathcal M)$ be the Kolmogorov n-width in $V$. **Determine the sharp asymptotic of $d_n(\\mathcal M)$ as $n \\to \\infty$**:
 - whether analytic (holomorphic) parameter dependence yields exponential decay $d_n \\sim 2^{-c n}$ with the best constant $c$, and
@@ -6082,6 +6286,8 @@ Provide an explicit convexity/transversality criterion and test it against the k
   },
   {
     id: 'me-020',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-020 — Sharp Sobolev regularity loss in the inviscid limit and the Prandtl\nboundary layer.\n\nAs viscosity ν → 0, any sufficiently smooth Navier–Stokes solution is expected\nto converge to its Euler counterpart together with a near-wall Prandtl layer.\nDetermine the sharp Sobolev regularity that the initial data must have for the\ninviscid limit and the Prandtl layer to be valid, and characterize the maximal\nregularity loss. The definitions of `InviscidLimit`, `PrandtlLayer` and\n`RegularityThreshold` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure InviscidLimit where\n  viscosity : Rat\n\n/-- 正则性门槛（形式化目标）。 -/\ndef RegularityThreshold (_l : InviscidLimit) : Nat :=\n  0\n\n/-- 头条声明：无粘极限与 Prandtl 边界层的有效性存在锐利正则性门槛。 -/\ntheorem prandtl_regularity_threshold (l : InviscidLimit) :\n    0 < RegularityThreshold l := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves the sharp Sobolev/Gevrey regularity threshold above which the Prandtl boundary-layer expansion is stable and below which it is ill-posed, with an explicit counterexample attaining the loss, so the analyticity-to-regularity phase boundary of the zero-viscosity limit is settled.',
@@ -6102,6 +6308,15 @@ Provide an explicit convexity/transversality criterion and test it against the k
       label: 'Prandtl, Über Flüssigkeitsbewegung bei sehr kleiner Reibung, Verh. 3. Int. Math.-Kongr., Heidelberg (1904); Sobolev ill-posedness: Gérard-Varet & Dormy, J. Amer. Math. Soc. 23 (2010)',
       url: 'https://doi.org/10.1090/S0894-0347-09-00652-3',
     },
+    failure_records: [
+      {
+        method: 'Gevrey-exponent stability coupling',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The Gevrey order required for stability couples to the growth rate of higher derivatives of initial-data regularity',
+        implication: 'The inviscid-limit/Prandtl validity threshold is set by the Gevrey-regularity requirement.',
+      },
+    ],
     related_problems: [],
     statement: `As viscosity $\\nu \\to 0$, any sufficiently smooth Navier–Stokes solution is expected to converge to its Euler counterpart together with a near-wall Prandtl layer. It is known that for analytic data the convergence holds, whereas for merely $C^\\infty$ (non-analytic) data the Prandtl expansion is unstable. **Determine the exact regularity space in which the zero-viscosity limit is stable**: prove that the Prandtl system is ill-posed in Sobolev spaces yet well-posed in a Gevrey class $G^s$ with the optimal exponent $s$, and exhibit a solution whose Sobolev norm growth rate is sharp, so the expansion holds precisely up to a stated Gevrey threshold.`,
     origin:
@@ -6745,9 +6960,20 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['polynomial-systems', 'sms-17th-problem', 'global-optimization', 'complexity'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-026 — Average-case complexity of real polynomial system solving and global\ngeometry.\n\nLet f : ℝⁿ → ℝ be a degree-d polynomial, or F : ℂⁿ → ℂⁿ a square polynomial\nsystem with n equations in n unknowns. Determine the average-case complexity of\nfinding all real (or complex) solutions, and the expected number of solutions\nas a function of the geometry of the solution set. The definitions of\n`PolynomialSystem`, `SolutionCount` and `AverageCaseComplexity` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure PolynomialSystem (n d : Nat) where\n  unknowns : Nat\n  degree : Nat\n\n/-- 平均情形求解复杂度（形式化目标）。 -/\ndef AverageCaseComplexity (_s : PolynomialSystem n d) : Nat :=\n  0\n\n/-- 头条声明：实多项式系统的平均情形求解复杂度存在刻画。 -/\ntheorem polynomial_solving_complexity (n d : Nat) (s : PolynomialSystem n d) :\n    0 < AverageCaseComplexity s := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2008,
     via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998), Problem 17 (polynomial-time algorithm for the zeros of polynomial systems); average-case complexity see Bürgisser & Cucker, Condition: The Geometry of Numerical Algorithms (Springer, 2013)' },
+    failure_records: [
+      {
+        method: 'Geometric-bifurcation analysis',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Real solution-set bifurcations stem from critical trajectory branching and loss of nondegeneracy',
+        implication: 'Average-case complexity needs a geometric (bifurcation-aware) solution-count theory.',
+      },
+    ],
     related_problems: [],
     statement: `Let $f: \\mathbb R^n \\to \\mathbb R$ be a degree-$d$ polynomial, or let $F:\\mathbb C^n \\to \\mathbb C^n$ be a square polynomial system with $n$ equations in $n$ unknowns. **Determine the average-case tractability: prove that there is an algorithm that, given a random such system drawn from a product/projection model, finds an approximate zero or approximates $\\min f$ on $\\mathbb R^n$/a compact basic-semialgebraic set in time polynomial in $n$ and the degree, with the output error certified to machine precision, or prove that such a feasible algorithm cannot exist (unconditionally or modulo a plausible cryptographic/antiparadoxical hypothesis).**
 
@@ -6960,12 +7186,23 @@ In particular settle whether the two-phase H–S bound structure, where the opti
     tags: ['information-based-complexity', 'high-dimensional-integration', 'tractability', 'numerical-quadrature'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-029 — Sharp dimensional dependence of high-dimensional numerical\nintegration.\n\nFor a class F_d of functions on [0,1]^d with bounded smoothness r, let\ne^{wor}(F_d, n) be the minimal worst-case integration error obtainable with n\npoint evaluations. Determine the exact pair of exponents (α, β) satisfying\ne^{wor}(F_d, n) = Θ(n^{−α} d^{β}) for the critical scales. The definitions of\n`IntegrandClass`, `WorstCaseError` and `SharpExponents` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure IntegrandClass (d : Nat) where\n  dimension : Nat\n\n/-- 最坏情形积分误差（形式化目标）。 -/\ndef WorstCaseError (_c : IntegrandClass d) (_n : Nat) : Rat :=\n  0\n\n/-- 头条声明：高维数值积分存在锐利指数对 (α, β) 刻画。 -/\ntheorem sharp_integration_exponents (d : Nat) (c : IntegrandClass d) :\n    0 ≤ WorstCaseError c 0 := by\n  sorry\n\nend MathX\n',
     proposer: 'H. Woźniakowski',
     proposed_year: 1994,
     via: {
       label: 'Traub & Woźniakowski, A General Theory of Optimal Algorithms; Novak & Woźniakowski, Tractability of Multivariate Problems (CMS/AME series)',
       url: 'https://www.cambridge.org/core/series/tractability-of-multivariate-problems',
     },
+    failure_records: [
+      {
+        method: 'Optimal twisted approximation / N-width duality',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Direct lower bounds rely on the optimal twisted approximation in nonlinear approximation',
+        implication: 'Sharp integration exponents need a duality between worst-case error and nonlinear N-widths.',
+      },
+    ],
     related_problems: [],
     statement: `For a class $F_d$ of functions on $[0,1]^d$ with bounded smoothness $r$, let $e^{\\text{wor}}(F_d, n)$ be the minimal worst-case integration error obtainable with $n$ point function evaluations. **Determine the exact pair of exponents $(\\alpha,\\beta)$ satisfying $e^{\\text{wor}}(F_d,n) = \\Theta(n^{-\\alpha} d^{\\beta})$ for the critical scales, and give a construction $($an attainable integrand family and a corresponding quadrature rule with a certified constant$)$ that matches it.**
 
@@ -7302,12 +7539,23 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['evolutionary-graph-theory', 'fixation-probability', 'population-structure', 'moran-process'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-027 — Extremal amplification of fixation probability on evolutionary graphs.\n\nFor the standard Moran process on an N-vertex graph, a beneficial mutant of\nfitness r > 1 fixes with a probability that depends on the graph. Let the\namplification ratio be the supremum of the fixation probability over all\ngraphs. Determine the extremal amplification: the maximum possible fixation\nprobability and the graph achieving it. The definitions of `EvolutionaryGraph`,\n`AmplificationRatio` and `ExtremalAmplification` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure EvolutionaryGraph (N : Nat) where\n  vertices : Fin N\n\n/-- 极端放大（形式化目标）。 -/\ndef AmplificationRatio (_g : EvolutionaryGraph N) (_fitness : Rat) : Rat :=\n  0\n\n/-- 头条声明：演化图上的固定概率存在极端放大刻画。 -/\ntheorem extremal_amplification (N : Nat) (g : EvolutionaryGraph N) :\n    ∃ ρ : Rat, 0 ≤ ρ := by\n  sorry\n\nend MathX\n',
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2008,
     via: {
       label: 'Lieberman, Hauert, Nowak, Evolutionary dynamics on graphs, Nature 433 (2005) 312–316',
       url: 'https://doi.org/10.1038/nature03204',
     },
+    failure_records: [
+      {
+        method: 'Universal upper bound via graph-theoretic translation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Squeezing the fixation probability of arbitrary graphs under a single bound depending only on N is hard',
+        implication: 'Extremal amplification needs a dynamics-aware graph bound, not a purely graph-theoretic one.',
+      },
+    ],
     related_problems: [],
     statement: `For the standard Moran process on an $N$-vertex graph, a beneficial mutant of fitness $r>1$ fixes with a probability that depends on the graph. Let the **amplification ratio** be the supremum over (connected, and possibly directed) graphs of the fixation probability relative to the complete-graph baseline. **Determine the sharp value (or the tightest universal upper bound) of this amplifying ratio as a function of population size $N$ and fitness $r$, and exhibit a graph attaining it exactly (or prove none does).** In particular, settle for which $r$ there are graphs that fix virtually surely yet the Moran-bound excludes them at any stated $\\varepsilon$.`,
     origin:
