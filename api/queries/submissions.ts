@@ -32,6 +32,25 @@ export async function listApprovedSubmissions() {
   }));
 }
 
+/**
+ * 公开的社区列表投影：只返回展示字段（id/标题/领域/自报署名/日期），
+ * 不含完整草稿 payload，也不回退到真实注册名——完整内容仅 admin 可见。
+ */
+export async function listApprovedSubmissionsPublic() {
+  return getDb()
+    .select({
+      id: schema.submissions.id,
+      title: schema.submissions.title,
+      titleZh: schema.submissions.titleZh,
+      domain: schema.submissions.domain,
+      authorName: schema.submissions.authorName,
+      createdAt: schema.submissions.createdAt,
+    })
+    .from(schema.submissions)
+    .where(eq(schema.submissions.status, "approved"))
+    .orderBy(desc(schema.submissions.createdAt));
+}
+
 export async function reviewSubmission(
   id: number,
   status: "approved" | "rejected",

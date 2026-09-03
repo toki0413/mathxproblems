@@ -61,13 +61,6 @@ export function SiteHeader() {
           <span className="font-mono2 text-[11px] text-ink-3 border border-line rounded-full px-2.5 py-0.5 ml-2">
             {CATALOG_COUNT} {t('nav.count')}
           </span>
-          <Link
-            to="/review"
-            className="ml-2 font-mono2 text-[11px] text-ink-3 hover:text-ink transition-colors"
-            title={t('nav.review')}
-          >
-            {t('nav.review')}
-          </Link>
         </nav>
         <button
           className="md:hidden font-mono2 text-xs uppercase tracking-widest text-ink-2"
@@ -85,9 +78,6 @@ export function SiteHeader() {
           ))}
           <NavLink to="/submit" className="py-2 text-sm text-ink-2">
             {t('nav.submit')}
-          </NavLink>
-          <NavLink to="/review" className="py-2 text-sm text-ink-2">
-            {t('nav.review')}
           </NavLink>
         </nav>
       )}

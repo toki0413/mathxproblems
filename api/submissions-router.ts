@@ -6,6 +6,7 @@ import { writeAllowed } from "./visitor";
 import {
   createSubmission,
   listApprovedSubmissions,
+  listApprovedSubmissionsPublic,
   listPendingSubmissions,
   reviewSubmission,
 } from "./queries/submissions";
@@ -49,7 +50,8 @@ export const submissionsRouter = createRouter({
     }),
 
   approved: publicQuery.query(async () => {
-    return listApprovedSubmissions();
+    // 公开只给展示投影：完整草稿 payload 与真实注册名不进公共面。
+    return listApprovedSubmissionsPublic();
   }),
 
   /** 供审核页生成入库片段用：已通过投稿的完整 payload */
