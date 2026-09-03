@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import Fuse from 'fuse.js'
 import { AUDITED_PROBLEMS } from '@/data/audits'
+import { MATHLIB_TOOLS } from '@/data/mathlibTools'
 import {
   DOMAINS,
   ALL_IMPACT_DOMAINS,
@@ -62,14 +63,27 @@ export default function ProblemsPage() {
     setParams(next, { replace: true })
   }
 
+  // 检索索引（QKV）：Query 是搜索词，Key 不只有标题/标签/陈述——把障碍记录、
+  // 工程价值、影响域、mathlib 工具名一并纳入，让"用工具找题/用障碍找题"能命中。
+  const toolNameById = useMemo(() => new Map(MATHLIB_TOOLS.map((t) => [t.id, t.name])), [])
   const fuse = useMemo(
     () =>
       new Fuse(AUDITED_PROBLEMS, {
-        keys: ['title', 'titleZh', 'tags', 'subdomain', 'statement'],
+        keys: [
+          'title',
+          'titleZh',
+          'tags',
+          'subdomain',
+          'statement',
+          'obstacles',
+          'engineering_value',
+          'impact_domains',
+          { name: 'tools', getFn: (p) => (p.tool_links ?? []).map((l) => toolNameById.get(l.tool_id) ?? l.tool_id) },
+        ],
         threshold: 0.32,
         ignoreLocation: true,
       }),
-    [],
+    [toolNameById],
   )
 
   const filtered = useMemo(() => {

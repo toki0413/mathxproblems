@@ -163,6 +163,28 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      {/* Query entry：从工程需求（Q）直达支撑它的题目（K）——需求侧第一入口 */}
+      <section className="mx-auto max-w-6xl px-5">
+        <Reveal delay={60}>
+          <Link
+            to="/needs"
+            className="group flex items-center justify-between gap-6 border border-line bg-white/50 px-6 py-5 hover:border-ink hover:bg-[#f2f0e8] transition-colors"
+          >
+            <div className="min-w-0">
+              <div className="font-mono2 text-[10px] uppercase tracking-[0.22em] text-ink-3">
+                {t('home.q.kicker')}
+              </div>
+              <div className="mt-1 font-statement text-lg font-semibold leading-snug">
+                {t('home.q.title')}
+              </div>
+            </div>
+            <span className="shrink-0 font-mono2 text-xs uppercase tracking-[0.15em] text-ink-3 group-hover:text-ink">
+              {t('home.q.cta')} →
+            </span>
+          </Link>
+        </Reveal>
+      </section>
+
       {/* Live monitor strip */}
       <section className="hairline-t bg-[#f4f2ec]">
         <div className="mx-auto max-w-6xl px-5 py-8">

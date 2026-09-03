@@ -465,6 +465,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'home.ledger.domains': { zh: '学科域', en: 'domains' },
   'home.ledger.certs': { zh: '可证行为证书', en: 'behavior certificates' },
   'home.ledger.ledger': { zh: '只追加协议账本', en: 'append-only ledger' },
+  // query entry（从需求出发的检索入口）
+  'home.q.kicker': { zh: '从需求出发', en: 'Start from a need' },
+  'home.q.title': { zh: '你有一个工程判定要做？反查支撑它的数学。', en: 'Have an engineering decision to make? Reverse-search the math behind it.' },
+  'home.q.cta': { zh: '工程反向需求清单', en: 'Engineering needs, reversed' },
   // impact page
   'im.subtitle': {
     zh: '这些问题的解答可直接嵌入现有工业认证体系——把仿真测试换成机器可检的数学证明，把经验法则换成可验证的定理。',
