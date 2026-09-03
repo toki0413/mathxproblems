@@ -345,3 +345,45 @@ test('default (no provenance field) counts as AI-drafted', () => {
   const note = checkCatalog(src).notes.find((n) => n.startsWith('provenance:'))
   assert.ok(note.includes('AI-drafted=1'))
 })
+
+// ── 三层质量分层（扩库基础设施）──
+function tierProblem(id, tierLine = '', provLine = '', leanLine = '') {
+  const tier = tierLine ? `${tierLine}\n` : ''
+  const prov = provLine ? `${provLine}\n` : ''
+  const lean = leanLine ? `${leanLine}\n` : ''
+  return `export const PROBLEMS = [ {
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+${tier}${prov}${lean}    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+} ]`
+}
+
+test('invalid tier value fails', () => {
+  const src = tierProblem('x-030', "    tier: 'gold',")
+  assert.ok(failures(src).some((f) => f.includes('invalid tier')))
+})
+
+test('candidate tier claiming expert review is rejected', () => {
+  const src = tierProblem('x-031', "    tier: 'candidate',", "    provenance: 'expert-reviewed',")
+  assert.ok(failures(src).some((f) => f.includes('candidate-tier problems must stay AI-drafted') && f.includes('x-031')))
+})
+
+test('candidate tier carrying lean_statement is rejected', () => {
+  const src = tierProblem('x-032', "    tier: 'candidate',", '', "    lean_statement: 'theorem t : True := by trivial',")
+  assert.ok(failures(src).some((f) => f.includes('candidate-tier problems cannot carry lean_statement') && f.includes('x-032')))
+})
+
+test('candidate tier AI-drafted without lean stays quiet', () => {
+  const src = tierProblem('x-033', "    tier: 'candidate',")
+  assert.ok(!failures(src).some((f) => f.includes('candidate-tier')))
+})
+
+test('default (no tier field) counts as core in the distribution note', () => {
+  const src = tierProblem('x-034', '')
+  const note = checkCatalog(src).notes.find((n) => n.startsWith('tier:'))
+  assert.ok(note.includes('core=1'))
+})

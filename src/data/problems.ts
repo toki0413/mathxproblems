@@ -30,6 +30,16 @@ export type RelationType =
   | 'generalizes'
   | 'analog_of'
 
+/**
+ * 三层质量模型（扩库基础设施）：
+ *   - core      精选核心：审计全过、元数据齐、provenance 完整（现有 114 道的标准）
+ *   - vetted    已验证题面：精确陈述 + 判定 + 溯源已审，但障碍/工具/工程价值等
+ *               元数据欠全（AI 辅助标注置信度）——可公开、可升级为 core
+ *   - candidate 候选池：未经审计，仅题面 + 来源 + AI 草拟元数据，公开标注、供评审升级
+ * 门不降，只分层：旗舰层可信度不因扩量稀释。
+ */
+export type ProblemTier = 'core' | 'vetted' | 'candidate'
+
 export interface RelatedProblem {
   id: string
   relation: RelationType
@@ -113,6 +123,8 @@ export interface Problem {
   tags: string[]
   contributor: string
   date_added: string
+  /** 三层质量分层；缺省视为 core（存量条目无需改动）。 */
+  tier?: ProblemTier
   /** 内容可信度来源；缺省 AI-drafted。见 ProblemProvenance。 */
   provenance?: ProblemProvenance
   /** 附带的 Lean 4 形式化陈述（对应 lean/<id>.lean，可编译）。与
@@ -7178,6 +7190,100 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  // ── 候选池第一批（Tier 3，扩库实采）：题面 + 来源 + AI 草拟元数据，未经审计。
+  // 来源均为可核验的 arXiv 文献对"仍未解决"的明确表述；待人工评审后升级。
+  {
+    id: 'mp-042',
+    output: 'verified_truth',
+    judgment:
+      'Deliver either (i) two distinct weak solutions of the unforced two-dimensional incompressible Euler equations on the torus, sharing identical initial data, with vorticities in L∞_t(L^1∩L^p) for some p>1, backed by a fully certified construction, or (ii) a proof of uniqueness in that class; the forced case is settled, the unforced case is what is open.',
+    title: 'Non-uniqueness of 2D Euler weak solutions for Vorticity in L∞_t(L^1∩L^p) without Forcing',
+    titleZh: '无外力 2D Euler 弱解在涡度 L∞_t(L^1∩L^p) 类中的非唯一性',
+    domain: 'mathematical-physics',
+    subdomain: 'fluid-dynamics',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['euler-equations', 'non-uniqueness', 'convex-integration', '2d-incompressible'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    proposer: 'L. Du, X. Li & W. Ye (open-problem note)',
+    proposed_year: 2025,
+    via: {
+      label: 'Du–Li–Ye, Dissipative solutions of the 2D Onsager’s conjecture, arXiv:2506.15396',
+      url: 'https://arxiv.org/abs/2506.15396',
+    },
+    related_problems: [
+      {
+        id: 'mp-008',
+        relation: 'analog_of',
+        note: 'Both concern the rigorous fine structure of weak/dissipative solutions in turbulent fluid limits (anomalous dissipation vs. non-uniqueness).',
+      },
+    ],
+    statement:
+      'Determine whether non-uniqueness of weak solutions to the unforced two-dimensional incompressible Euler equations holds for vorticities in L∞_t(L^1∩L^p) for some p>1: the paper Du–Li–Ye (arXiv:2506.15396) settles the forced case with dissipative Hölder solutions, and explicitly states the question "remains unresolved without the force term."',
+    origin:
+      'Noted as open in Du–Li–Ye, "Dissipative solutions of the 2D Onsager’s conjecture" (arXiv:2506.15396, 2025), where the forced-case non-uniqueness construction is completed and the unforced extension is left open.',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Convex-integration and non-uniqueness constructions are notoriously hard to formalize (no algorithmically stable proof structure); formalization potential is low and is mostly a statement-formalization exercise. Candidate entry — statement not yet independently verified.',
+    references: [
+      {
+        label: 'L. Du, X. Li, W. Ye, Dissipative solutions of the 2D Onsager’s conjecture (2025)',
+        url: 'https://arxiv.org/abs/2506.15396',
+      },
+    ],
+  },
+  {
+    id: 'mp-043',
+    output: 'scaffolding',
+    judgment:
+      'Deliver a subgrid-scale (SGS) closure that demonstrably represents backscatter (energy transfer from unresolved to resolved scales) with a precise statement of its accuracy on a validated case (e.g., 2D turbulence or MHD), or a rigorous argument that no local SGS model can represent backscatter faithfully; the accepted form is a model with validation evidence or an impossibility argument.',
+    title: 'Proper Treatment of Backscatter in Turbulence Subgrid-Scale Modeling',
+    titleZh: '湍流亚网格模型中反向散射的妥善处理',
+    domain: 'mathematical-physics',
+    subdomain: 'turbulence',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'numerical',
+    tags: ['turbulence', 'large-eddy-simulation', 'subgrid-model', 'backscatter'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    proposer: 'B. Choi, M. Ugliotti, M. Reynoso, D. R. Gurevich & R. O. Grigoriev (open-problem note)',
+    proposed_year: 2025,
+    via: {
+      label: 'Choi–Ugliotti–Reynoso–Gurevich–Grigoriev, Data-driven modeling of multiscale phenomena with applications to fluid turbulence, arXiv:2511.09847',
+      url: 'https://arxiv.org/abs/2511.09847',
+    },
+    related_problems: [
+      {
+        id: 'mp-008',
+        relation: 'shares_tools',
+        note: 'Both target the small-scale energy-transfer structure of turbulence (anomalous dissipation vs. backscatter) and its effective closure.',
+      },
+    ],
+    statement:
+      'Construct an SGS closure for turbulence that faithfully treats backscatter — the flow of energy from small to large scales, pronounced in 2D and in magnetohydrodynamics — which the paper Choi et al. (arXiv:2511.09847) states "remains an open problem" for existing phenomenological and data-driven models alike.',
+    origin:
+      'Noted as open in Choi–Ugliotti–Reynoso–Gurevich–Grigoriev, "Data-driven modeling of multiscale phenomena with applications to fluid turbulence" (arXiv:2511.09847, 2025): no existing SGS model handles backscatter, and its proper treatment in MHD and other contexts is called an open problem.',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Engineering-modeling open problem: the precise mathematical form of a faithful backscatter closure is not yet established, so formalization is premature. Candidate entry — statement not yet independently verified.',
+    references: [
+      {
+        label: 'B. Choi, M. Ugliotti, M. Reynoso, D. R. Gurevich, R. O. Grigoriev, Data-driven modeling of multiscale phenomena with applications to fluid turbulence (2025)',
+        url: 'https://arxiv.org/abs/2511.09847',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<
@@ -7243,6 +7349,22 @@ export const LIFECYCLE_LABELS: Record<LifecycleStatus, string> = {
 /** 缺省生命周期视为 open。 */
 export function lifecycleOf(p: Problem): LifecycleStatus {
   return p.lifecycle_status ?? 'open'
+}
+
+export const TIER_LABELS: Record<ProblemTier, string> = {
+  core: 'Core',
+  vetted: 'Vetted',
+  candidate: 'Candidate',
+}
+
+/** 缺省质量分层视为 core（存量条目无需显式标注）。 */
+export function tierOf(p: Problem): ProblemTier {
+  return p.tier ?? 'core'
+}
+
+/** 展示门：主目录只放「已通过审计且非候选池」的题（core + vetted）。 */
+export function isCatalogShown(p: Problem): boolean {
+  return tierOf(p) !== 'candidate'
 }
 
 export const POTENTIAL_LABELS: Record<FormalizationPotential, string> = {

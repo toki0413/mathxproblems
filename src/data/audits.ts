@@ -132,6 +132,10 @@ export const AUDITS: Record<string, ProblemAudit> = {
   'mp-041': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mc-030': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
   'mb-028': { status: 'passed', date: '2026-09-02', kind: 'ai-assisted' },
+  // 候选池第一批（Tier 3，扩库实采）：题面 + 来源 + AI 草拟元数据，未经审计。
+  // flagged 使它们被展示门排除出主目录；候选池分区单独展示，评审升级后转 passed。
+  'mp-042': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — statement sourced from arXiv:2506.15396, not yet independently verified; pending review for upgrade' },
+  'mp-043': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — statement sourced from arXiv:2511.09847, not yet independently verified; pending review for upgrade' },
 };
 
 /** 已通过审计、可在公共站点展示的问题 id 集合。 */

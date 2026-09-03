@@ -105,6 +105,19 @@ const STR: Record<string, { zh: string; en: string }> = {
     en: 'Support = how many problems depend on this one (deterministic, auditable)',
   },
   'pl.community': { zh: '社区投稿', en: 'Community submissions' },
+  'pl.candidates': { zh: '候选池（未经审计）', en: 'Candidate pool (not yet audited)' },
+  'pl.candidates.hint': {
+    zh: '这些条目仅有题面 + 来源 + AI 草拟元数据，尚未通过审计。与精选核心明确分离——评审通过后升级为已认证题面，再补齐元数据进入主目录。',
+    en: 'These entries carry only a statement, source and AI-drafted metadata, and have not passed the audit. Kept clearly separate from the curated core — they upgrade to Vetted after review, then to the main catalog once metadata is completed.',
+  },
+  'pd.tier.candidateNote': {
+    zh: '候选条目：题面与来源已记录，但未经审计。元数据为 AI 草拟，待人工评审。勿当作已确认的开放问题引用。',
+    en: 'Candidate entry: statement and source are recorded, but this has not been audited. Metadata is AI-drafted and pending human review. Do not cite as a confirmed open problem.',
+  },
+  'pd.tier.vettedNote': {
+    zh: '已验证题面：精确陈述、判定与溯源已审，但障碍/工具/工程价值等元数据欠全（AI 辅助标注）。可升级为精选核心。',
+    en: 'Vetted statement: precise statement, judgement and provenance reviewed; obstacle/tool/engineering-value metadata is incomplete (AI-assisted). Upgradable to the curated core.',
+  },
   // detail
   'pd.statement': { zh: '精确陈述', en: 'Precise statement' },
   'pd.certificate': { zh: '残余总带证书', en: 'Residual total-band certificate' },

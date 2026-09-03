@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import type { CSSProperties } from 'react'
-import { DOMAINS, type Problem, type ProblemStatus } from '@/data/problems'
+import { DOMAINS, tierOf, TIER_LABELS, type Problem, type ProblemStatus } from '@/data/problems'
 import { useI18n, pickLang, domainLabel, enumLabel } from '@/i18n'
 
 /** 解析状态的颜色：开放=中性、部分解决=琥珀、已解决=绿，与详情页观感一致 */
@@ -48,6 +48,17 @@ export function ProblemRow({ p, index }: { p: Problem; index: number }) {
         <span className="block truncate text-[1.05rem] font-medium text-ink group-hover:underline underline-offset-4 decoration-line-strong">
           {pickLang(p, lang)}
         </span>
+        {tierOf(p) !== 'core' && (
+          <span
+            className={`mt-0.5 inline-flex items-center rounded-full border px-2 py-px font-mono2 text-[9px] uppercase tracking-wider ${
+              tierOf(p) === 'vetted'
+                ? 'text-[#9a5b13] border-[#9a5b13]/40'
+                : 'border-dashed text-ink-3 border-line-strong'
+            }`}
+          >
+            {TIER_LABELS[tierOf(p)]}
+          </span>
+        )}
       </span>
       <span className="hidden md:inline-flex items-center gap-2 text-ink-2">
         <DomainDot domain={p.domain} />

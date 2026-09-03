@@ -10,6 +10,8 @@ import {
   impactOf,
   deliverablesOf,
   topologyOf,
+  PROBLEMS,
+  tierOf,
   type Domain,
   type FormalizationPotential,
   type VerificationPath,
@@ -67,6 +69,8 @@ export default function ProblemsPage() {
   const impact = params.get('impact') ?? ''
   const deliverable = params.get('deliverable') ?? ''
   const approved = trpc.submissions.approved.useQuery(undefined, { retry: false })
+  // 候选池：未经审计的 Tier 3 条目，单独分区、明确标注，不混入已过审主目录。
+  const candidatePool = useMemo(() => PROBLEMS.filter((p) => tierOf(p) === 'candidate'), [])
 
   const setParam = (k: string, v: string) => {
     const next = new URLSearchParams(params)
@@ -308,6 +312,32 @@ export default function ProblemsPage() {
             {t('pl.comm.invite')}{' '}
             <Link to="/submit" className="underline underline-offset-4">{t('pl.comm.ctaLink')}</Link>
           </p>
+        </section>
+      )}
+
+      {/* 候选池（Tier 3）：未经审计的题面 + 来源 + AI 草拟元数据，供评审升级。
+          明确与主目录分离——扩量不稀释旗舰层可信度。 */}
+      {candidatePool.length > 0 && (
+        <section className="mt-16 border border-dashed border-line-strong p-6">
+          <h2 className="font-statement text-2xl font-bold">{t('pl.candidates')}</h2>
+          <p className="mt-2 text-sm text-ink-2 leading-relaxed">{t('pl.candidates.hint')}</p>
+          <div className="mt-4 divide-y divide-line border-t border-b border-line">
+            {candidatePool.map((p) => (
+              <Link
+                key={p.id}
+                to={`/problems/${p.id}`}
+                className="flex items-baseline gap-4 py-3 group"
+              >
+                <span className="font-mono2 text-[11px] text-ink-3 shrink-0 uppercase w-14">{p.id}</span>
+                <span className="min-w-0 flex-1 truncate text-ink group-hover:underline underline-offset-4">
+                  {pickLang(p, lang)}
+                </span>
+                <span className="font-mono2 text-[10px] text-ink-3 shrink-0 uppercase hidden sm:inline">
+                  {p.subdomain}
+                </span>
+              </Link>
+            ))}
+          </div>
         </section>
       )}
     </div>

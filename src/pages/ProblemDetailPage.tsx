@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { AUDITED_PROBLEMS } from '@/data/audits'
-import { DOMAINS, impactOf, topologyOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
+import { DOMAINS, impactOf, topologyOf, upstreamPath, downstreamOf, lifecycleOf, PROBLEMS, tierOf, TIER_LABELS, type OutputKind } from '@/data/problems'
 import { impactRecord } from '@/data/impactDomains'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { demandLinksForProblem, type NeedChainRole, type NeedStepState } from '@/data/engineeringNeeds'
@@ -77,7 +77,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function ProblemDetailPage() {
   const { id } = useParams()
   const { lang, t } = useI18n()
-  const p = AUDITED_PROBLEMS.find((x) => x.id === id)
+  // 详情页从全量目录解析（含候选池/已验证题面），主目录展示门只影响列表层。
+  const p = PROBLEMS.find((x) => x.id === id)
   useMarkVisited(p?.id)
   const [copied, setCopied] = useState(false)
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
@@ -249,6 +250,22 @@ export default function ProblemDetailPage() {
       <Link to="/problems" className="font-mono2 text-xs text-ink-3 hover:text-ink">
         ← {t('pd.back')}
       </Link>
+
+      {/* 分层横幅：候选/已验证题面在详情页显式披露，不冒充精选核心。 */}
+      {tierOf(p) !== 'core' && (
+        <div
+          className={`mt-6 border px-5 py-3 text-sm leading-relaxed ${
+            tierOf(p) === 'candidate'
+              ? 'border-dashed border-line-strong text-ink-2'
+              : 'border-line bg-white/50 text-ink-2'
+          }`}
+        >
+          <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mr-2">
+            {TIER_LABELS[tierOf(p)]}
+          </span>
+          {tierOf(p) === 'candidate' ? t('pd.tier.candidateNote') : t('pd.tier.vettedNote')}
+        </div>
+      )}
 
       <div className="mt-8 grid lg:grid-cols-[1fr_19rem] gap-14">
         <article>

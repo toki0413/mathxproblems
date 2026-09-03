@@ -10,6 +10,7 @@ import { verifyCertificate } from "../../contracts/verifier.ts";
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
 export const PROVENANCE_KINDS = new Set(['AI-drafted', 'expert-reviewed', 'lean-compilable'])
+export const TIER_KINDS = new Set(['core', 'vetted', 'candidate'])
 export const LIFECYCLE_KINDS = new Set(['open', 'tightened', 'refuted', 'superseded'])
 export const FORMAL_STATUSES = new Set(['provable', 'conjectured', 'refuted'])
 export const BRIDGE_DIRECTIONS = new Set(['formal_idealizes_banded', 'banded_instantiates_formal', 'mutual_boundary'])
@@ -51,6 +52,7 @@ export function parseCatalog(src) {
   const judgments = new Map()
   const outputs = new Map()
   const provenances = new Map()
+  const tiers = new Map() // id -> tier 值
   const hasLeanStatement = new Set()
   const hasEngValue = new Set()
   const hasImpact = new Set()
@@ -91,6 +93,8 @@ export function parseCatalog(src) {
     if (outMatch && cur) outputs.set(cur, outMatch[1])
     const provMatch = line.match(/^    provenance: '([^']+)',/)
     if (provMatch && cur) provenances.set(cur, provMatch[1])
+    const tierMatch = line.match(/^    tier: '([^']+)',/)
+    if (tierMatch && cur) tiers.set(cur, tierMatch[1])
     if (/^    lean_statement:/.test(line) && cur) hasLeanStatement.add(cur)
     if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
     if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
@@ -130,14 +134,14 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
+  return { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
 // and tests share exactly the same logic.
 export function checkCatalog(raw) {
   const cat = typeof raw === 'string' ? parseCatalog(raw) : raw
-  const { src, ids, edges, judged, judgments, outputs, provenances, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
+  const { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals } = cat
   const notes = []
   const failures = []
   const warnings = []
@@ -145,6 +149,23 @@ export function checkCatalog(raw) {
   notes.push(`problems: ${ids.length}`)
   const dupIds = ids.filter((id, i) => ids.indexOf(id) !== i)
   if (dupIds.length) failures.push(`duplicate ids: ${[...new Set(dupIds)].join(', ')}`)
+
+  // 三层质量分层（扩库基础设施）：枚举合法 + 候选池不得自盖章。
+  const badTier = [...tiers.entries()].filter(([, v]) => !TIER_KINDS.has(v))
+  if (badTier.length) failures.push(`invalid tier: ${badTier.map(([k, v]) => `${k}=${v}`).join(', ')}`)
+  const candidateOverclaim = [...ids].filter(
+    (id) => tiers.get(id) === 'candidate' && ['expert-reviewed', 'lean-compilable'].includes(provenances.get(id) ?? ''),
+  )
+  if (candidateOverclaim.length)
+    failures.push(`candidate-tier problems must stay AI-drafted (no expert/lean claim before review): ${candidateOverclaim.join(', ')}`)
+  const candidateLean = [...hasLeanStatement].filter((id) => tiers.get(id) === 'candidate')
+  if (candidateLean.length) failures.push(`candidate-tier problems cannot carry lean_statement: ${candidateLean.join(', ')}`)
+  const tierDist = {}
+  for (const id of ids) {
+    const t = tiers.get(id) ?? 'core'
+    tierDist[t] = (tierDist[t] ?? 0) + 1
+  }
+  notes.push(`tier: ${Object.entries(tierDist).map(([k, n]) => `${k}=${n}`).join(', ')}`)
 
   const idSet = new Set(ids)
   const dangling = [...new Set(edges.filter((e) => !idSet.has(e.to)).map((e) => e.to))]
