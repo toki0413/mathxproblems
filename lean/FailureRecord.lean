@@ -1297,6 +1297,32 @@ def mp042 : Profile :=
         implication := "No algorithmically stable proof structure; formalization potential is low." },
     ] }
 
+def mp043 : Profile :=
+  { problemId := "mp-043",
+    records := [
+      { method := "Phenomenological eddy-viscosity closures (Smagorinsky-type)",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Eddy-viscosity models dissipate energy at resolved scales and cannot inject it (backscatter is structurally absent)",
+        implication := "A faithful backscatter closure needs a sign-changing or stochastic transport term whose well-posedness and accuracy are unproven." },
+      { method := "Data-driven closure regression (neural SGS)",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Learned closures can represent backscatter locally but generalize only to the training regime and lack stability certificates",
+        implication := "The representation exists empirically but not as a provable model; the stability/accuracy contract of a faithful closure stays open." },
+    ] }
+
+def me035 : Profile :=
+  { problemId := "me-035",
+    records := [
+      { method := "Velocity-diameter Lyapunov estimate (Cucker–Smale)",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Cucker–Smale prove asymptotic convergence to a common velocity but give no explicit, parameter-explicit bound on the spatial diameter",
+        implication := "An explicit invariant-set certificate (velocity + spatial diameter bounds) usable for swarm-safety cases is not in the literature." },
+      { method := "Finite-time / discrete-rate analysis",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Rates are established only asymptotically (t → ∞) for non-singular kernels, with no machine-checkable invariant set extracted",
+        implication := "Converting the asymptotic guarantee into a verified invariant set is a constructive gap, not a statement-gap." },
+    ] }
+
 example : mp001.records.all wellFormed = true := by native_decide
 example : mp002.records.all wellFormed = true := by native_decide
 example : mp003.records.all wellFormed = true := by native_decide
@@ -1407,6 +1433,8 @@ example : mp041.records.all wellFormed = true := by native_decide
 example : mc030.records.all wellFormed = true := by native_decide
 example : mb028.records.all wellFormed = true := by native_decide
 example : mp042.records.all wellFormed = true := by native_decide
+example : mp043.records.all wellFormed = true := by native_decide
+example : me035.records.all wellFormed = true := by native_decide
 end Catalog
 
 end MathX.FailureRecord
