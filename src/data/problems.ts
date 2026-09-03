@@ -5651,6 +5651,20 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       { tool_id: 'combinatorics-graph', role: 'partial' },
       { tool_id: 'algebra', role: 'partial' },
     ],
+    proof_steps: [
+      {
+        module: 'SolutionSteps',
+        step: 'covered-length-eq-two-mul',
+        theorem: 'covered_length_eq_two_mul',
+        what: 'Kekulé 双计数：完美匹配中，被覆盖顶点数 = 2 × 匹配边数——每条边贡献恰好 2 个新顶点（对边归纳）。',
+      },
+      {
+        module: 'SolutionSteps',
+        step: 'kekule-requires-even-vertices',
+        theorem: 'kekule_requires_even_vertices',
+        what: 'Kekulé 结构存在的必要条件是顶点数为偶：完美匹配覆盖 n 个顶点 ⇒ n 是偶数——苯并类必须偶数碳才可能有 Kekulé 结构。',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-024',

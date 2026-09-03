@@ -23,6 +23,10 @@ SHARED-MODULE: SolutionSteps
   5. me-001（第三台阶）：一致状态是共识动态的不动点
      所有分量相等时，耦合项 Σ_j φ(x_j - x_i) 全零，一步后每个分量不变
      （consensus_step_fixes_equal）——共识收敛极限形态的完整证明。
+  6. mc-022（数学化学·Kekulé 结构）：完美匹配 ⇒ 顶点数为偶
+     苯并类 Kekulé 结构即完美匹配；双计数（covered_length_eq_two_mul）
+     证明被覆盖顶点数 = 2 × 匹配边数，故覆盖 n 个顶点 ⇒ n 是偶数
+     （kekule_requires_even_vertices）——Kekulé 结构存在性的必要条件。
 -/
 namespace MathX.SolutionSteps
 
@@ -212,5 +216,75 @@ example : capacitySum 3 [[1, 1], [2]] = 6 := by
   native_decide
 example : totalLoad [[1, 1], [2]] ≤ capacitySum 3 [[1, 1], [2]] := by
   native_decide
+
+/-! ── mc-022 台阶：Kekulé 结构 = 完美匹配 ⇒ 顶点数为偶 ────────────── -/
+
+/-- 一条边展成两个端点（flatMap 的映射函数）。 -/
+def edgeVerts (e : Nat × Nat) : List Nat := [e.1, e.2]
+
+/-- 匹配覆盖的顶点列表：所有边的端点平铺。 -/
+def covered (edges : List (Nat × Nat)) : List Nat :=
+  edges.flatMap edgeVerts
+
+/-- 完美匹配：所有端点无重复（自动蕴含每条边端点不同），且恰好覆盖 n 个顶点。
+    苯并类 Kekulé 结构正是这样的完美匹配。 -/
+def PerfectMatching (edges : List (Nat × Nat)) (n : Nat) : Prop :=
+  (covered edges).Nodup ∧ (covered edges).length = n ∧
+    (∀ v, v < n → v ∈ covered edges)
+
+/-- n 是偶数：∃ k, n = 2k（std-only 无 mathlib 的 Even，自行定义）。 -/
+def IsEven (n : Nat) : Prop := ∃ k : Nat, n = 2 * k
+
+/-- Kekulé 双计数：完美匹配中，被覆盖顶点数 = 2 × 匹配边数。
+    证明：对边归纳；Nodup 保证新边两个端点不与已覆盖顶点重复，
+    每条边贡献恰好 2 个新顶点。 -/
+theorem covered_length_eq_two_mul {edges : List (Nat × Nat)}
+    (hn : (covered edges).Nodup) :
+    (covered edges).length = 2 * edges.length := by
+  induction edges with
+  | nil =>
+      simp [covered]
+  | cons e es ih =>
+      have hc : covered (e :: es) = [e.1, e.2] ++ covered es := by
+        simp [covered, edgeVerts]
+      have hnes : (covered es).Nodup := by
+        rw [hc] at hn
+        rw [List.nodup_append] at hn
+        exact hn.2.1
+      rw [hc, List.length_append]
+      rw [ih hnes]
+      simp
+      omega
+
+/-- Kekulé 结构存在的必要条件是顶点数为偶：完美匹配覆盖 n 个顶点 ⇒ n 是偶数。
+    苯并类（苯、石墨烯碎片等）必须有偶数个碳原子才可能有 Kekulé 结构。 -/
+theorem kekule_requires_even_vertices {edges : List (Nat × Nat)} {n : Nat}
+    (h : PerfectMatching edges n) : IsEven n := by
+  rcases h with ⟨hnodup, hlen, _⟩
+  have h2 : n = 2 * edges.length := by
+    rw [← hlen]
+    exact covered_length_eq_two_mul hnodup
+  exact ⟨edges.length, h2⟩
+
+-- 机器核验样例：苯（6 个碳，3 条 Kekulé 双键）覆盖 6 个顶点。
+example : covered [(0, 1), (2, 3), (4, 5)] = [0, 1, 2, 3, 4, 5] := by
+  native_decide
+example : PerfectMatching [(0, 1), (2, 3), (4, 5)] 6 := by
+  refine ⟨?_, ?_, ?_⟩
+  · native_decide
+  · native_decide
+  · intro v hv
+    have hv' : v = 0 ∨ v = 1 ∨ v = 2 ∨ v = 3 ∨ v = 4 ∨ v = 5 := by
+      omega
+    rcases hv' with rfl | rfl | rfl | rfl | rfl | rfl <;> simp [covered, edgeVerts]
+example : IsEven 6 := by
+  exact kekule_requires_even_vertices (edges := [(0, 1), (2, 3), (4, 5)]) (n := 6) (by
+    refine ⟨?_, ?_, ?_⟩
+    · native_decide
+    · native_decide
+    · intro v hv
+      have hv' : v = 0 ∨ v = 1 ∨ v = 2 ∨ v = 3 ∨ v = 4 ∨ v = 5 := by
+        omega
+      rcases hv' with rfl | rfl | rfl | rfl | rfl | rfl <;> simp [covered, edgeVerts])
 
 end MathX.SolutionSteps
