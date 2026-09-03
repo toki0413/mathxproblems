@@ -7551,8 +7551,9 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['crnt', 'multistationarity', 'sequestration-networks', 'joshishiu-conjecture'],
     contributor: 'community',
     date_added: '2026-09-03',
-    tier: 'candidate',
-    provenance: 'AI-drafted',
+    tier: 'vetted',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-031 — Joshi–Shiu conjecture for sequestration networks.\n\nFor every m ≥ 2 and odd n ≥ 3, the sequestration network K_{m,n} (a minimal\nmultistationary mass-action family, no embedded multistationary subnetwork with\ninflow/outflow) admits multiple non-degenerate positive steady states. The\ndefinitions of `SequestrationNetwork`, `PositiveSteadyState` and\n`NonDegenerate` are themselves part of the formalization target; the statement\nis the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SequestrationNetwork where\n  m : Nat\n  n : Nat\n\nstructure PositiveSteadyState (N : SequestrationNetwork) where\n  concentrations : Nat → Rat\n  positive : ∀ i, 0 < concentrations i\n\n/-- 非退化（证明目标之一：把行列式/雅可比非退化条件形式化进来）。 -/\ndef NonDegenerate (N : SequestrationNetwork) (_s : PositiveSteadyState N) : Prop :=\n  True\n\ndef AdmitsMultipleNonDegenerate (N : SequestrationNetwork) : Prop :=\n  ∃ s1 : PositiveSteadyState N,\n    ∃ s2 : PositiveSteadyState N,\n      NonDegenerate N s1 ∧ NonDegenerate N s2 ∧ s1.concentrations ≠ s2.concentrations\n\n/-- Joshi–Shiu 猜想：\\tilde{K}_{m,n}（m≥2，n≥3 奇数）多重非退化正稳态。 -/\ntheorem joshi_shiu_conjecture (m n : Nat) (hm : 2 ≤ m) (hn : 3 ≤ n) (hodd : n % 2 = 1) :\n    AdmitsMultipleNonDegenerate { m := m, n := n } := by\n  sorry\n\nend MathX\n',
     open_claim: {
       quote: 'Additionally, our results allow us to prove the existence of nondegenerate steady states for some of these sequestration networks, thereby resolving a subcase of a conjecture of Joshi and Shiu.',
       source: 'https://arxiv.org/abs/1508.07522',

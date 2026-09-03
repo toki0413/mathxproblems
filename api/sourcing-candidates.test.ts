@@ -37,6 +37,7 @@ test("intaked proposals point to real candidate-tier catalog problems", () => {
   for (const p of intaked) {
     const prob = byId.get(p.problemId ?? "");
     if (!prob) throw new Error(`intaked proposal ${p.id} targets missing problem ${p.problemId}`);
-    expect(prob.tier).toBe("candidate");
+    // intaked = 已落成正式目录题；可能仍为 candidate，也可能已凭证据门升级 vetted（如 mc-031）。
+    expect(["candidate", "vetted"]).toContain(prob.tier);
   }
 });

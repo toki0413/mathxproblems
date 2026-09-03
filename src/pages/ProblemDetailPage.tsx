@@ -1218,6 +1218,32 @@ export default function ProblemDetailPage() {
             <p className="pt-3 mt-3 text-[11px] leading-relaxed text-ink-3 border-t border-line">
               {t('pd.ratings.ai')}
             </p>
+
+            {/* 信任信号怎么读：产出类型/溯源/审计/机器锚点 均 ≠ 已解决 */}
+            <div className="pt-3 mt-3 border-t border-line">
+              <div className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mb-2">
+                {t('pd.trust.title')}
+              </div>
+              <ul className="space-y-1.5 text-[11px] text-ink-2 leading-relaxed">
+                <li>
+                  <span className="font-mono2 text-[10px] uppercase tracking-wider text-ink-3">{t('pd.trust.output')}</span>
+                  <span>{t('pd.trust.output.body')}</span>
+                </li>
+                <li>
+                  <span className="font-mono2 text-[10px] uppercase tracking-wider text-ink-3">{t('pd.trust.provenance')}</span>
+                  <span>{t('pd.trust.provenance.body')}</span>
+                </li>
+                <li>
+                  <span className="font-mono2 text-[10px] uppercase tracking-wider text-ink-3">{t('pd.trust.audit')}</span>
+                  <span>{t('pd.trust.audit.body')}</span>
+                </li>
+                <li>
+                  <span className="font-mono2 text-[10px] uppercase tracking-wider text-ink-3">{t('pd.trust.anchor')}</span>
+                  <span>{t('pd.trust.anchor.body')}</span>
+                </li>
+              </ul>
+            </div>
+
             <div className="pt-3">
               <button
                 onClick={() => {

@@ -11,6 +11,7 @@ import {
   type NeedChainRole,
   type NeedStepState,
 } from '@/data/engineeringNeeds'
+import { sourcingProposals } from '@/data/sourcingCandidates'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
@@ -71,17 +72,17 @@ export default function NeedsPage() {
       : [{ area: t('nd.view.gapArea'), needs: gapSorted }]
 
   // 收题流水线聚合：所有需求缺口 → 候选题提案（new）与推进目标（push）
+  const proposals = useMemo(() => sourcingProposals(), [])
   const pipeline = useMemo(() => {
-    const news: { needId: string; needName: string; what: string }[] = []
+    const news = proposals
     const pushes: { needId: string; needName: string; target: string; what: string }[] = []
     for (const n of ENGINEERING_NEEDS) {
       for (const s of n.sourcing ?? []) {
-        if (s.kind === 'new') news.push({ needId: n.id, needName: n.name, what: s.what })
-        else if (s.target) pushes.push({ needId: n.id, needName: n.name, target: s.target, what: s.what })
+        if (s.kind === 'push' && s.target) pushes.push({ needId: n.id, needName: n.name, target: s.target, what: s.what })
       }
     }
-    return { news, pushes }
-  }, [])
+    return { news, pushes, intaked: proposals.filter((p) => p.status === 'intaked') }
+  }, [proposals])
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -169,6 +170,20 @@ export default function NeedsPage() {
         <div className="mt-6 border border-line bg-[#faf9f4] p-6">
           <div className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">{t('nd.pipeline.title')}</div>
           <p className="mt-2 text-sm text-ink-2 leading-relaxed max-w-3xl">{t('nd.pipeline.body')}</p>
+
+          {/* 闭环进度：提案 → 已实采（缺口驱动收题的完成度） */}
+          <div className="mt-3 flex items-center gap-3">
+            <span className="font-mono2 text-[11px] text-ink-2">
+              {t('nd.pipeline.intaked')}: {pipeline.intaked.length}/{pipeline.news.length}
+            </span>
+            <div className="h-1.5 w-full max-w-[240px] bg-line rounded-full overflow-hidden">
+              <div
+                className="h-full bg-mc transition-all"
+                style={{ width: `${pipeline.news.length ? (pipeline.intaked.length / pipeline.news.length) * 100 : 0}%` }}
+              />
+            </div>
+          </div>
+
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-px bg-line border border-line">
             <div className="bg-[#faf9f4] p-4">
               <div className="flex items-baseline gap-2">
@@ -177,12 +192,19 @@ export default function NeedsPage() {
               </div>
               <ul className="mt-3 space-y-1.5">
                 {pipeline.news.map((x, i) => (
-                  <li key={i} className="text-[13px] text-ink-2 leading-snug">
-                    <Link to={`/needs#${x.needId}`} className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4">
+                  <li key={i} className="flex items-start gap-2 text-[13px] text-ink-2 leading-snug">
+                    <Link to={`/needs#${x.needId}`} className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4 shrink-0 pt-px">
                       {x.needId}
                     </Link>
-                    <span className="mx-1 text-ink-3">·</span>
-                    {x.what}
+                    <span className="min-w-0 flex-1">{x.what}</span>
+                    {x.status === 'intaked' && x.problemId && (
+                      <Link
+                        to={`/problems/${x.problemId}`}
+                        className="font-mono2 text-[10px] text-mc hover:underline underline-offset-4 shrink-0 pt-px"
+                      >
+                        {x.problemId} ✓
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
