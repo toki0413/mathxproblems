@@ -363,6 +363,19 @@ def me003 : Profile :=
         implication := "Formalize the regular-kernel Ha–Liu proof first; singular-kernel well-posedness needs measure-theory infrastructure beyond current libraries." },
     ] }
 
+def mb005 : Profile :=
+  { problemId := "mb-005",
+    records := [
+      { method := "Galton–Watson exploration branching process",
+        mechanism := .combinatorial, layer := .model,
+        known := "Works for configuration-model networks without clustering",
+        implication := "Clustering breaks the branching-process exploration limit; needs a non-branching exploration bound tracking overlapping-clique dependence." },
+      { method := "Branching-process final-size approximation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "LLN for the final size known only in the clustering-free setting",
+        implication := "Overlapping cliques induce dependence across infection generations; requires a law-of-large-numbers bound robust to clustered degree–clique distributions." },
+    ] }
+
 def me004 : Profile :=
   { problemId := "me-004",
     records := [
@@ -402,6 +415,201 @@ def me008 : Profile :=
         implication := "Build the extremal request-sequence family so the matching lower bound is certified by explicit dual certificates." },
     ] }
 
+def mc011 : Profile :=
+  { problemId := "mc-011",
+    records := [
+      { method := "Injective-map certificate verification",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Verifying the injective-map certificate is NP-hard in general",
+        implication := "A clean algebraic multistationarity criterion for deficiency-one networks must avoid the NP-hard injective-map check." },
+      { method := "Reaction-count enumeration",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Maximum number of steady states not pinned even within deficiency one",
+        implication := "Bounding the max multistationarity number needs a structural (not enumerative) argument." },
+    ] }
+
+def mc012 : Profile :=
+  { problemId := "mc-012",
+    records := [
+      { method := "Variational / smooth extremal arguments",
+        mechanism := .nonconvex, layer := .formal,
+        known := "The energy functional is non-smooth (absolute values), so variational maximizer arguments are delicate",
+        implication := "Extremal graph existence needs a non-smooth optimization argument." },
+      { method := "Nikiforov / McClelland-type bounds",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Tight only on boundary (forbidden-region) classes",
+        implication := "Off-boundary sparse / non-regular classes are unexplored; needs tighter envelopes off the boundary." },
+    ] }
+
+def mb011 : Profile :=
+  { problemId := "mb-011",
+    records := [
+      { method := "Self-duality / closed-form critical value",
+        mechanism := .missing_bound, layer := .formal,
+        known := "No exact solvability; current tools give only variational bounds on λ_c",
+        implication := "Closing the variational bound to an identity needs a genuinely new argument (spatial contact processes lack self-duality)." },
+    ] }
+
+def mb013 : Profile :=
+  { problemId := "mb-013",
+    records := [
+      { method := "Standard martingale bounds",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Too crude at the critical window R_0 = 1 where fluctuations trade between branching and catastrophe",
+        implication := "Near-critical extinction needs refined diffusion approximations with matched constants." },
+    ] }
+
+def me010 : Profile :=
+  { problemId := "me-010",
+    records := [
+      { method := "Hardness frameworks / integrality gaps",
+        mechanism := .missing_bound, layer := .formal,
+        known := "No constant inapproximability produced for bandwidth (no UGC-style gap)",
+        implication := "Constant approximability stays open; needs either a constant-factor algorithm or a new inapproximability framework." },
+      { method := "Volume-respecting embedding upper bound",
+        mechanism := .unbounded_residual, layer := .formal,
+        known := "Gives only a polylogarithmic approximation",
+        implication := "The embedding-based upper bound is loose; closing to a constant needs a stronger structural upper bound." },
+    ] }
+
+def me011 : Profile :=
+  { problemId := "me-011",
+    records := [
+      { method := "Christofides / parity cut arguments",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Prove the 3/2 ratio; the tight 4/3 needs a sharp lower bound on removable edges",
+        implication := "A sharp structural lower bound on removable edges feeding the parity cut is the bottleneck." },
+    ] }
+
+def me012 : Profile :=
+  { problemId := "me-012",
+    records := [
+      { method := "Simplex pivot rules",
+        mechanism := .combinatorial, layer := .formal,
+        known := "No pivot rule proven polynomial in the worst case; exponential pivot sequences not excluded",
+        implication := "A strongly polynomial simplex pivot rule must provably avoid exponential pivot sequences." },
+      { method := "Bit-length-parameterized polynomial algorithms (ellipsoid / interior-point)",
+        mechanism := .parameter_sensitive, layer := .param,
+        known := "Polynomial in the bit length, not strongly polynomial",
+        implication := "Removing the bit-length dependence requires exact intermediate arithmetic with bounded complexity." },
+    ] }
+
+def me013 : Profile :=
+  { problemId := "me-013",
+    records := [
+      { method := "Weighting-function analysis",
+        mechanism := .missing_bound, layer := .formal,
+        known := "All known upper and lower bounds are driven by weighting functions over item sizes",
+        implication := "Refuting tightness of the current ratio needs a genuinely new adversary beyond the weighting framework." },
+    ] }
+
+def mp022 : Profile :=
+  { problemId := "mp-022",
+    records := [
+      { method := "Single-particle Chern index",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Interactions break single-particle index formulas",
+        implication := "Needs a many-body ground-state invariant with spectral-gap stability and a transport argument free of current conservation." },
+    ] }
+
+def mc014 : Profile :=
+  { problemId := "mc-014",
+    records := [
+      { method := "Pure-state v-representability characterization",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Which densities are ground states of some external potential is not fully resolved",
+        implication := "Pure-state attainability of the Levy–Lieb infimum is blocked by the open v-representability characterization." },
+    ] }
+
+def mc016 : Profile :=
+  { problemId := "mc-016",
+    records := [
+      { method := "Slater-determinant trial minimization",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Optimum is not a one-particle Slater determinant; no trial density reaches the bound",
+        implication := "The variational problem has no obvious extremizer profile; needs a non-trial optimality argument." },
+    ] }
+
+def mc017 : Profile :=
+  { problemId := "mc-017",
+    records := [
+      { method := "Density extremizer search",
+        mechanism := .nonconvex, layer := .formal,
+        known := "No easy extremizer; different spin symmetries give different exchange-only optima",
+        implication := "Kinematic over-counting of the indirect energy blocks local-density inequalities; needs full N-particle wave-function analysis." },
+    ] }
+
+def mc022 : Profile :=
+  { problemId := "mc-022",
+    records := [
+      { method := "Transfer-matrix closure for planar families",
+        mechanism := .combinatorial, layer := .formal,
+        known := "The growth rate resists transfer-matrix closure; exact values tabulated only for small h",
+        implication := "The extremal growth constant of the benzenoid family lacks a closed form; needs a spectral-type constant argument." },
+      { method := "Recursive upper bounds (Gutman / Cyvin)",
+        mechanism := .missing_bound, layer := .formal,
+        known := "K_max(h) ≤ 2^{h-1}+1-type recurrences give explicit upper estimates",
+        implication := "Branching-maximizing vs matching-restricting tradeoff has no proven closed form; the exact constant stays open." },
+    ] }
+
+def mc023 : Profile :=
+  { problemId := "mc-023",
+    records := [
+      { method := "Extremal-set enumeration over antisymmetric states",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Representability spans all antisymmetric N-particle states with enormous dimension",
+        implication := "Quantum marginal hardness evidence blocks a compact characterization; needs a structural (not enumerative) certificate." },
+    ] }
+
+def me017 : Profile :=
+  { problemId := "me-017",
+    records := [
+      { method := "Complex-phasor / Brown–Uhlmann reduction",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Requires L^∞ bounds; the inversion formula needs extra regularity",
+        implication := "Global 3D uniqueness is blocked by the regularity gap between L^∞ conductivity and the inversion formula." },
+    ] }
+
+def me018 : Profile :=
+  { problemId := "me-018",
+    records := [
+      { method := "Gradient-type feedback construction",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Fails when the reachable set lacks a smooth Lipschitz structure",
+        implication := "A necessary-and-sufficient tractable criterion must handle nonsmooth reachable sets beyond gradient feedback." },
+    ] }
+
+def me021 : Profile :=
+  { problemId := "me-021",
+    records := [
+      { method := "Line-sum / direction-set enumeration",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Highly sensitive to the choice of directions; many permutations share identical line sums",
+        implication := "Proving a direction set determines the binary matrix needs a structural uniqueness argument, not enumeration." },
+    ] }
+
+def mc027 : Profile :=
+  { problemId := "mc-027",
+    records := [
+      { method := "Quasi-steady-state (complex near equilibrium) assumption",
+        mechanism := .missing_bound, layer := .model,
+        known := "Fails transiently; uniform-in-time bounds must control fast transients",
+        implication := "Needs separation-of-scales bounds that dominate the fast complex transient uniformly in time." },
+      { method := "Reduced continuous-state approximation",
+        mechanism := .unbounded_residual, layer := .num,
+        known := "Reduced process lives on a discrete state space",
+        implication := "The discreteness residual of the reduction needs an explicit bound." },
+    ] }
+
+def mb026 : Profile :=
+  { problemId := "mb-026",
+    records := [
+      { method := "Perturbation methods for the forced flow",
+        mechanism := .parameter_sensitive, layer := .model,
+        known := "Apply only to weak seasonal forcing",
+        implication := "The forcing lifts the flow to a 3D dynamical system and strong forcing distorts the reduction; needs non-perturbative bounds covering the measured strong-forcing range." },
+    ] }
+
 def me027 : Profile :=
   { problemId := "me-027",
     records := [
@@ -428,6 +636,87 @@ def me028 : Profile :=
         implication := "A constructive interior counterexample (attainable tensor strictly inside the bounds) is the decisive accepted form." },
     ] }
 
+def me030 : Profile :=
+  { problemId := "me-030",
+    records := [
+      { method := "Lovász-extension / greedy analysis",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Gaps remain under non-monotone or coupled constraints",
+        implication := "A tighter ratio needs an information-theoretic lower bound over a wider objective class with a worst-case instance." },
+    ] }
+
+def me031 : Profile :=
+  { problemId := "me-031",
+    records := [
+      { method := "Explicit residual estimation for the truncated operator",
+        mechanism := .unbounded_residual, layer := .num,
+        known := "Spectral constants degenerate to huge values or require full-order solves",
+        implication := "Non-polynomial nonlinearities defeat explicit residual bounds; needs a sharp-and-cheap certified estimator." },
+    ] }
+
+def me032 : Profile :=
+  { problemId := "me-032",
+    records := [
+      { method := "SDP/MILP relaxation over activation patterns",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Each active partition adds one large SDP matrix; the relaxation constant grows exponentially with depth",
+        implication := "Needs a general bound on the relaxation gap that scales gracefully with network depth." },
+    ] }
+
+def mp036 : Profile :=
+  { problemId := "mp-036",
+    records := [
+      { method := "Mixing-rate ↔ dissipation duality",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Lower bound relies on a conservation-law-type inequality (scalar-gradient growth)",
+        implication := "The duality does not cross to closure; needs a certified conservation-law-type inequality for the upper bound." },
+    ] }
+
+def mp037 : Profile :=
+  { problemId := "mp-037",
+    records := [
+      { method := "Background (Doering–Constantin) variational method",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Proves Nu ≤ (1/6)Ra^{1/2}; cannot break the Ra^{1/2} scaling",
+        implication := "The 1/6-power gap to the empirical Ra^{1/3} reflects the saturation of the background-method ansatz." },
+    ] }
+
+def me034 : Profile :=
+  { problemId := "me-034",
+    records := [
+      { method := "Continuous-time consensus analysis",
+        mechanism := .missing_bound, layer := .model,
+        known := "Assumes real-valued transmissions; quantization breaks exact average tracking",
+        implication := "Integer-lattice mass conservation plus independent stopping needs a drift-free convergence-time bound." },
+    ] }
+
+def mp041 : Profile :=
+  { problemId := "mp-041",
+    records := [
+      { method := "Model-only or numerical-only residual estimation",
+        mechanism := .unbounded_residual, layer := .model,
+        known := "Either rigorous model-error bounds far from engineering geometry, or only numerical convergence estimates",
+        implication := "A certified thermal-margin band requires packing R_model + R_param + R_num simultaneously into one verifiable total band." },
+    ] }
+
+def mc030 : Profile :=
+  { problemId := "mc-030",
+    records := [
+      { method := "Interval rate-constant propagation",
+        mechanism := .parameter_sensitive, layer := .param,
+        known := "Widening constants into intervals makes the multistationary boundary decision residual-sensitive",
+        implication := "The activity-model residual must be bounded for the certified decision to hold under measurement intervals." },
+    ] }
+
+def mb028 : Profile :=
+  { problemId := "mb-028",
+    records := [
+      { method := "Wright–Fisher → continuous diffusion approximation",
+        mechanism := .unbounded_residual, layer := .num,
+        known := "Deviation of the discrete process from the diffusion known only informally",
+        implication := "Needs an explicit, checkable finite-N drift residual bound covering the full population-size range." },
+    ] }
+
 example : mp001.records.all wellFormed = true := by native_decide
 example : mp002.records.all wellFormed = true := by native_decide
 example : mp003.records.all wellFormed = true := by native_decide
@@ -448,11 +737,40 @@ example : mb004.records.all wellFormed = true := by native_decide
 example : me001.records.all wellFormed = true := by native_decide
 example : me002.records.all wellFormed = true := by native_decide
 example : me003.records.all wellFormed = true := by native_decide
+example : mb005.records.all wellFormed = true := by native_decide
 example : me004.records.all wellFormed = true := by native_decide
 example : me006.records.all wellFormed = true := by native_decide
 example : me008.records.all wellFormed = true := by native_decide
+example : mc011.records.all wellFormed = true := by native_decide
+example : mc012.records.all wellFormed = true := by native_decide
+example : mb011.records.all wellFormed = true := by native_decide
+example : mb013.records.all wellFormed = true := by native_decide
+example : me010.records.all wellFormed = true := by native_decide
+example : me011.records.all wellFormed = true := by native_decide
+example : me012.records.all wellFormed = true := by native_decide
+example : me013.records.all wellFormed = true := by native_decide
+example : mp022.records.all wellFormed = true := by native_decide
+example : mc014.records.all wellFormed = true := by native_decide
+example : mc016.records.all wellFormed = true := by native_decide
+example : mc017.records.all wellFormed = true := by native_decide
+example : mc022.records.all wellFormed = true := by native_decide
+example : mc023.records.all wellFormed = true := by native_decide
+example : me017.records.all wellFormed = true := by native_decide
+example : me018.records.all wellFormed = true := by native_decide
+example : me021.records.all wellFormed = true := by native_decide
+example : mc027.records.all wellFormed = true := by native_decide
+example : mb026.records.all wellFormed = true := by native_decide
 example : me027.records.all wellFormed = true := by native_decide
 example : me028.records.all wellFormed = true := by native_decide
+example : me030.records.all wellFormed = true := by native_decide
+example : me031.records.all wellFormed = true := by native_decide
+example : me032.records.all wellFormed = true := by native_decide
+example : mp036.records.all wellFormed = true := by native_decide
+example : mp037.records.all wellFormed = true := by native_decide
+example : me034.records.all wellFormed = true := by native_decide
+example : mp041.records.all wellFormed = true := by native_decide
+example : mc030.records.all wellFormed = true := by native_decide
+example : mb028.records.all wellFormed = true := by native_decide
 end Catalog
 
 end MathX.FailureRecord

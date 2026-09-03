@@ -2170,6 +2170,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
       label: 'Newman, Spread of epidemic disease on networks, PRE 66 (2002)',
       url: 'https://doi.org/10.1103/PhysRevE.66.016128',
     },
+    failure_records: [
+      {
+        method: 'Galton–Watson exploration branching process',
+        mechanism: 'combinatorial',
+        layer: 'model',
+        partial: 'Works for configuration-model networks without clustering',
+        implication: 'Clustering breaks the branching-process exploration limit; needs a non-branching exploration bound tracking overlapping-clique dependence.',
+      },
+      {
+        method: 'Branching-process final-size approximation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'LLN for the final size known only in the clustering-free setting',
+        implication: 'Overlapping cliques induce dependence across infection generations; requires a law-of-large-numbers bound robust to clustered degree–clique distributions.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-002',
@@ -3114,6 +3130,22 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
       label: 'Deficiency-one network mono/multistability criteria: the injectivity criteria of Craciun & Feinberg, SIAM J. Appl. Math. 65 (2005)',
       url: 'https://doi.org/10.1137/s0036139904440278',
     },
+    failure_records: [
+      {
+        method: 'Injective-map certificate verification',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Verifying the injective-map certificate is NP-hard in general',
+        implication: 'A clean algebraic multistationarity criterion for deficiency-one networks must avoid the NP-hard injective-map check.',
+      },
+      {
+        method: 'Reaction-count enumeration',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Maximum number of steady states not pinned even within deficiency one',
+        implication: 'Bounding the max multistationarity number needs a structural (not enumerative) argument.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -3175,6 +3207,22 @@ and when (by contrast) every such class contains a unique positive steady state.
     proposer: 'I. Gutman',
     proposed_year: 1978,
     via: { label: 'Gutman, The energy of a graph, Ber. Math.-Statist. Sekt. 103 (1978) (Hückel π-electron energy theory)' },
+    failure_records: [
+      {
+        method: 'Variational / smooth extremal arguments',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'The energy functional is non-smooth (absolute values), so variational maximizer arguments are delicate',
+        implication: 'Extremal graph existence needs a non-smooth optimization argument.',
+      },
+      {
+        method: 'Nikiforov / McClelland-type bounds',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Tight only on boundary (forbidden-region) classes',
+        implication: 'Off-boundary sparse / non-regular classes are unexplored; needs tighter envelopes off the boundary.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-003',
@@ -3230,6 +3278,15 @@ and when (by contrast) every such class contains a unique positive steady state.
       label: 'Contact process critical value: Harris (1974); upper/lower bounds see Liggett, Stochastic Interacting Systems (1999)',
       url: 'https://doi.org/10.1214/aop/1176996493',
     },
+    failure_records: [
+      {
+        method: 'Self-duality / closed-form critical value',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'No exact solvability; current tools give only variational bounds on λ_c',
+        implication: 'Closing the variational bound to an identity needs a genuinely new argument (spatial contact processes lack self-duality).',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -3343,6 +3400,15 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       label: 'Stochastic epidemic models (threshold/near-critical): Andersson & Britton, Stochastic Epidemic Models and Their Statistical Analysis (2000)',
       url: 'https://doi.org/10.1007/978-1-4612-1158-7',
     },
+    failure_records: [
+      {
+        method: 'Standard martingale bounds',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Too crude at the critical window R_0 = 1 where fluctuations trade between branching and catastrophe',
+        implication: 'Near-critical extinction needs refined diffusion approximations with matched constants.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -3454,6 +3520,22 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       label: 'Feige, Approximating the bandwidth via volume respecting embeddings, JCSS 60 (2000)',
       url: 'https://doi.org/10.1006/jcss.1999.1682',
     },
+    failure_records: [
+      {
+        method: 'Hardness frameworks / integrality gaps',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'No constant inapproximability produced for bandwidth (no UGC-style gap)',
+        implication: 'Constant approximability stays open; needs either a constant-factor algorithm or a new inapproximability framework.',
+      },
+      {
+        method: 'Volume-respecting embedding upper bound',
+        mechanism: 'unbounded_residual',
+        layer: 'formal',
+        partial: 'Gives only a polylogarithmic approximation',
+        implication: 'The embedding-based upper bound is loose; closing to a constant needs a stronger structural upper bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-003',
@@ -3510,6 +3592,15 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
       label: 'Gharan–Saberi–Singh, A randomized rounding approach to the traveling salesman problem, FOCS (2011)',
       url: 'https://doi.org/10.1109/FOCS.2011.76',
     },
+    failure_records: [
+      {
+        method: 'Christofides / parity cut arguments',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Prove the 3/2 ratio; the tight 4/3 needs a sharp lower bound on removable edges',
+        implication: 'A sharp structural lower bound on removable edges feeding the parity cut is the bottleneck.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-001',
@@ -3563,6 +3654,22 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
     contributor: 'admin',
   date_added: '2026-08-22',
     via: { label: 'Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998) 7-15 (Problem 9: strongly-polynomial linear programming)' },
+    failure_records: [
+      {
+        method: 'Simplex pivot rules',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'No pivot rule proven polynomial in the worst case; exponential pivot sequences not excluded',
+        implication: 'A strongly polynomial simplex pivot rule must provably avoid exponential pivot sequences.',
+      },
+      {
+        method: 'Bit-length-parameterized polynomial algorithms (ellipsoid / interior-point)',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Polynomial in the bit length, not strongly polynomial',
+        implication: 'Removing the bit-length dependence requires exact intermediate arithmetic with bounded complexity.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-007',
@@ -3626,6 +3733,15 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
     proposer: 'E. G. Coffman, M. R. Garey & D. S. Johnson',
     proposed_year: 1997,
     via: { label: 'Survey of online bin packing: Coffman–Garey–Johnson, Bin packing surveys (1997)' },
+    failure_records: [
+      {
+        method: 'Weighting-function analysis',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'All known upper and lower bounds are driven by weighting functions over item sizes',
+        implication: 'Refuting tightness of the current ratio needs a genuinely new adversary beyond the weighting framework.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-007',
@@ -3859,6 +3975,15 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
       label: 'Hastings & Michalakis, Quantization of Hall conductance for interacting electrons on a torus, Commun. Math. Phys. 330 (2014)',
       url: 'https://doi.org/10.1007/s00220-014-2167-x',
     },
+    failure_records: [
+      {
+        method: 'Single-particle Chern index',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Interactions break single-particle index formulas',
+        implication: 'Needs a many-body ground-state invariant with spectral-gap stability and a transport argument free of current conservation.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-004',
@@ -3912,6 +4037,15 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     proposer: 'E. H. Lieb',
     proposed_year: 2006,
     via: { label: 'Lieb, Density functionals for Coulomb systems, Int. J. Quantum Chem. 24 (1983); rigorous properties of the Lévy–Lieb functional see the same work and its sequels' },
+    failure_records: [
+      {
+        method: 'Pure-state v-representability characterization',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Which densities are ground states of some external potential is not fully resolved',
+        implication: 'Pure-state attainability of the Levy–Lieb infimum is blocked by the open v-representability characterization.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-020',
@@ -4527,6 +4661,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Lieb & Thirring, Bound for the kinetic energy of fermions which proves stability of matter, PRL 35 (1975); sharp constants see Frank et al.',
       url: 'https://doi.org/10.1103/PhysRevLett.35.687',
     },
+    failure_records: [
+      {
+        method: 'Slater-determinant trial minimization',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Optimum is not a one-particle Slater determinant; no trial density reaches the bound',
+        implication: 'The variational problem has no obvious extremizer profile; needs a non-trial optimality argument.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-026',
@@ -4586,6 +4729,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       label: 'Lieb & Oxford, Improved lower bound on the indirect Coulomb energy, Int. J. Quantum Chem. 19 (1981)',
       url: 'https://doi.org/10.1002/qua.560190308',
     },
+    failure_records: [
+      {
+        method: 'Density extremizer search',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'No easy extremizer; different spin symmetries give different exchange-only optima',
+        implication: 'Kinematic over-counting of the indirect energy blocks local-density inequalities; needs full N-particle wave-function analysis.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-014',
@@ -4903,6 +5055,22 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'I. Gutman',
     proposed_year: 2008,
     via: { label: 'Number of Kekulé structures of benzenoid hydrocarbons: literature on chemical graph theory, e.g. Gutman & Cyvin' },
+    failure_records: [
+      {
+        method: 'Transfer-matrix closure for planar families',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'The growth rate resists transfer-matrix closure; exact values tabulated only for small h',
+        implication: 'The extremal growth constant of the benzenoid family lacks a closed form; needs a spectral-type constant argument.',
+      },
+      {
+        method: 'Recursive upper bounds (Gutman / Cyvin)',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'K_max(h) ≤ 2^{h-1}+1-type recurrences give explicit upper estimates',
+        implication: 'Branching-maximizing vs matching-restricting tradeoff has no proven closed form; the exact constant stays open.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-024',
@@ -4960,6 +5128,15 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
     proposer: 'multiple contributors',
     proposed_year: 2007,
     via: { label: 'Two-electron RDM N-representability: Mazziotti (ed.), Reduced-Density-Matrix Mechanics, Adv. Chem. Phys. 134 (2007)' },
+    failure_records: [
+      {
+        method: 'Extremal-set enumeration over antisymmetric states',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Representability spans all antisymmetric N-particle states with enormous dimension',
+        implication: 'Quantum marginal hardness evidence blocks a compact characterization; needs a structural (not enumerative) certificate.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-018',
@@ -5547,6 +5724,15 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
       label: 'Calderón, On an inverse boundary value problem, Seminário Brasileiro de Análise (1980); uniqueness in 3D open',
       url: 'https://doi.org/10.1007/978-3-662-12877-0_1',
     },
+    failure_records: [
+      {
+        method: 'Complex-phasor / Brown–Uhlmann reduction',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Requires L^∞ bounds; the inversion formula needs extra regularity',
+        implication: 'Global 3D uniqueness is blocked by the regularity gap between L^∞ conductivity and the inversion formula.',
+      },
+    ],
     related_problems: [],
     statement: `Let $\\Omega \\subset \\mathbb R^3$ be a bounded connected domain and let $\\gamma \\in L^\\infty_+(\\Omega)$ be a strictly positive conductivity. The Dirichlet-to-Neumann map $\\Lambda_\\gamma$ is defined by $\\Lambda_\\gamma(f) = \\gamma \\partial_\\nu u|_{\\partial\\Omega}$ for the unique solution of $-\\nabla\\cdot(\\gamma\\nabla u)=0$ with $u|_{\\partial\\Omega}=f$. **Prove that $\\Lambda_{\\gamma_1} = \\Lambda_{\\gamma_2}$ implies $\\gamma_1=\\gamma_2$ for general $L^\\infty$ conductivities.**
 
@@ -5604,6 +5790,15 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
       label: 'Brockett, Asymptotic stability and feedback stabilization, in Differential Geometric Control Theory (1983); Sontag (1983)',
       url: 'https://doi.org/10.1007/978-1-4612-5423-6_18',
     },
+    failure_records: [
+      {
+        method: 'Gradient-type feedback construction',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Fails when the reachable set lacks a smooth Lipschitz structure',
+        implication: 'A necessary-and-sufficient tractable criterion must handle nonsmooth reachable sets beyond gradient feedback.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-001',
@@ -5757,6 +5952,15 @@ Provide an explicit convexity/transversality criterion and test it against the k
     proposer: 'multiple contributors',
     proposed_year: 1996,
     via: { label: 'Minimal projection directions for discrete tomography reconstruction: the discrete tomography survey (Herman & Kuba, eds.)' },
+    failure_records: [
+      {
+        method: 'Line-sum / direction-set enumeration',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Highly sensitive to the choice of directions; many permutations share identical line sums',
+        implication: 'Proving a direction set determines the binary matrix needs a structural uniqueness argument, not enumeration.',
+      },
+    ],
     related_problems: [],
     statement: `Let a binary image $f \\in \\{0,1\\}^{n\\times n}$ be observed by the line sums $\\sum f$ along a fixed set $D$ of distinct lattice directions $v \\in \\mathbb Z^2$. **Determine the minimal cardinality $k$ of $D$ (and which directions) such that every binary image is uniquely determined by this $D$-line-sum data**, and when uniqueness holds, give a polynomial reconstruction algorithm; if uniqueness fails, give the smallest counterexample.
 
@@ -6100,6 +6304,22 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Rigorous error bounds for stochastic QSSA: the limit theorems of Kang–Kurtz et al. and the traditional literature' },
+    failure_records: [
+      {
+        method: 'Quasi-steady-state (complex near equilibrium) assumption',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Fails transiently; uniform-in-time bounds must control fast transients',
+        implication: 'Needs separation-of-scales bounds that dominate the fast complex transient uniformly in time.',
+      },
+      {
+        method: 'Reduced continuous-state approximation',
+        mechanism: 'unbounded_residual',
+        layer: 'num',
+        partial: 'Reduced process lives on a discrete state space',
+        implication: 'The discreteness residual of the reduction needs an explicit bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-021',
@@ -6208,6 +6428,15 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     proposer: 'multiple contributors',
     proposed_year: 2014,
     via: { label: 'Harmonic response and Arnold tongues of seasonally driven SIR: epidemiological reviews (e.g. Keeling & Rohani)' },
+    failure_records: [
+      {
+        method: 'Perturbation methods for the forced flow',
+        mechanism: 'parameter_sensitive',
+        layer: 'model',
+        partial: 'Apply only to weak seasonal forcing',
+        implication: 'The forcing lifts the flow to a 3D dynamical system and strong forcing distorts the reduction; needs non-perturbative bounds covering the measured strong-forcing range.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-005',
@@ -6554,6 +6783,15 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
       label: 'Krause, Singh, Guestrin, Near-Optimal Sensor Placements in Gaussian Processes, ICML (2008)',
       url: 'https://ojs.aaai.org/index.php/ICML/article/view/21370',
     },
+    failure_records: [
+      {
+        method: 'Lovász-extension / greedy analysis',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Gaps remain under non-monotone or coupled constraints',
+        implication: 'A tighter ratio needs an information-theoretic lower bound over a wider objective class with a worst-case instance.',
+      },
+    ],
     related_problems: [],
     statement: `Let $\\Sigma$ be a measurement model with candidate sensor positions $S$, and $f: 2^S \\to \\mathbb R_{\\ge 0}$ a set function measuring information gained (e.g. $-\\log\\det$ posterior covariance, or D-optimal experimental design objective). **Determine the best approximation ratio achievable in polynomial time for maximizing $f$ over a cardinality-$k$ subset when $f$ is submodular but no longer monotone (or a monotone submodular with observation-noise coupling), and construct an algorithm attaining it.**
 
@@ -6622,6 +6860,15 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
       label: 'Veroy, Patera, Certified real-time solution of the parametrized steady incompressible Navier–Stokes equations (2005)',
       url: 'https://doi.org/10.1002/fld.911',
     },
+    failure_records: [
+      {
+        method: 'Explicit residual estimation for the truncated operator',
+        mechanism: 'unbounded_residual',
+        layer: 'num',
+        partial: 'Spectral constants degenerate to huge values or require full-order solves',
+        implication: 'Non-polynomial nonlinearities defeat explicit residual bounds; needs a sharp-and-cheap certified estimator.',
+      },
+    ],
     related_problems: [],
     statement: `Given a parameter-dependent evolution or steady problem solved approximately by a reduced-order model with basis of rank $r$, find a computable quantity $\\Delta(\\mu)$ such that $\\|u(\\mu) - \\hat u_r(\\mu)\\| \\le \\Delta(\\mu)$, with $\\Delta$ both **sharp** (near the true error on representative $\\mu$) and **cheap** (evaluated in reduced cost, independent of full-order dimension). **Determine whether a unified, non-empirical $\\Delta$ exists that is simultaneously sharp and cheap for nonlinear operators with non-polynomial nonlinearities, or give the parametric counterexample where the residual-based bound necessarily overestimates by a super-constant factor, and a certified way to pay for it (adaptive basis enrichment).**`,
     origin:
@@ -6673,6 +6920,15 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
       label: 'Fazlyab, Morari, Pappas, Safety Verification and Robustness Analysis of Neural Networks via Quadratic Constraints and Semidefinite Programming, IEEE TAC (2022)',
       url: 'https://doi.org/10.1109/TAC.2022.3160509',
     },
+    failure_records: [
+      {
+        method: 'SDP/MILP relaxation over activation patterns',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Each active partition adds one large SDP matrix; the relaxation constant grows exponentially with depth',
+        implication: 'Needs a general bound on the relaxation gap that scales gracefully with network depth.',
+      },
+    ],
     related_problems: [],
     statement: `For a closed-loop system $\\dot x = f(x, \\pi_\\theta(x))$ where $\\pi_\\theta$ is a ReLU neural-network controller, a Lyapunov candidate $V$ and a piecewise-affine partition of the region $\\mathcal X$, **determine the tightest computable upper bound on $\\max_{x \\in \\mathcal X}( \\dot V(x) + \\lambda V(x) )$ — close the gap between the SDP/MILP-relaxed over-estimate used today and the true value — using the activation-pattern structure of $\\pi_\\theta$, so the certified basin of attraction is as large and as sound as $n$ training data can justify.**
 
@@ -6742,6 +6998,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Shnirelman (1985), On the evolution of passive scalar equilibria; Kiselev–Nazarov–Shterenberg (2008)',
       url: 'https://www.ams.org/journals/era/2008-14-06/S1079-6762-08-00179-0/',
     },
+    failure_records: [
+      {
+        method: 'Mixing-rate ↔ dissipation duality',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Lower bound relies on a conservation-law-type inequality (scalar-gradient growth)',
+        implication: 'The duality does not cross to closure; needs a certified conservation-law-type inequality for the upper bound.',
+      },
+    ],
     related_problems: [],
     statement: `Advect a passive scalar $\\theta$ by an incompressible velocity field $u$ ($\\partial_t \\theta + u \\cdot \\nabla \\theta = 0$) with control cost $\\int_0^T \\|u\\|_{H^s}^2 \\, dt$. Let the mixing rate be measured by how fast a Sobolev-type functional decays (e.g., $\\|\\theta\\|_{H^{-1}}$ or $\\|\\theta_{\\text{high}}\\|$). **Determine — for the critical smoothness $s$ — the sharp exponent $e$ such that the guaranteed mixing efficiency is $\\Theta(\\text{cost}^{-e})$, with an explicit admissible velocity field attaining the exponent (upper bound) and a matching lower bound via the relevant conservation law (e.g. a companion estimate from anomalous dissipation).**`,
     origin:
@@ -6891,6 +7156,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Ding & Kerswell, Exhausting the background approach for bounding the heat transport in Rayleigh–Bénard convection, J. Fluid Mech. 889, A33 (2020), doi:10.1017/jfm.2020.41',
       url: 'https://doi.org/10.1017/jfm.2020.41',
     },
+    failure_records: [
+      {
+        method: 'Background (Doering–Constantin) variational method',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Proves Nu ≤ (1/6)Ra^{1/2}; cannot break the Ra^{1/2} scaling',
+        implication: 'The 1/6-power gap to the empirical Ra^{1/3} reflects the saturation of the background-method ansatz.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-041',
@@ -7055,6 +7329,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Kashyap, Başar, Srikant, Quantized consensus, Automatica 43(7):1192–1203 (2007)',
       url: 'https://doi.org/10.1016/j.automatica.2007.01.002',
     },
+    failure_records: [
+      {
+        method: 'Continuous-time consensus analysis',
+        mechanism: 'missing_bound',
+        layer: 'model',
+        partial: 'Assumes real-valued transmissions; quantization breaks exact average tracking',
+        implication: 'Integer-lattice mass conservation plus independent stopping needs a drift-free convergence-time bound.',
+      },
+    ],
     related_problems: [],
     statement: `Let a connected graph $G=(V,E)$ hold integer initial values $c_i\\in\\mathbb Z$; agents exchange states only along edges and only in discrete (quantized) rounds, so each transmission carries an integer. A quantized averaging scheme must drive every node to a value within one step of the exact average $\\bar c=\\sum_i c_i/n$ and then stop with a distributed certificate. **Determine, for an arbitrary connected $G$ on $n$ nodes, the optimal worst-case number of communication rounds $T^*(G,n)$ to reach finite-time quantized average consensus, and construct a distributed algorithm attaining it (matching the lower bound up to constants) — or give a network class on which every such algorithm requires a certified number of rounds that beats the known polynomial bounds by a stated factor.**`,
     origin:
@@ -7105,6 +7388,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Bejan, Convection Heat Transfer, 4th ed., Wiley, 2013 (reference benchmark for natural-convection correlations and scales)',
       url: 'https://doi.org/10.1002/9781118671627',
     },
+    failure_records: [
+      {
+        method: 'Model-only or numerical-only residual estimation',
+        mechanism: 'unbounded_residual',
+        layer: 'model',
+        partial: 'Either rigorous model-error bounds far from engineering geometry, or only numerical convergence estimates',
+        implication: 'A certified thermal-margin band requires packing R_model + R_param + R_num simultaneously into one verifiable total band.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-037',
@@ -7176,6 +7468,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Feinberg, Chemical reaction network structure and the stability of complex isothermal reactors, Chem. Eng. Sci. 42(10):2229–2268 (1987)',
       url: 'https://doi.org/10.1016/0009-2509(87)80106-7',
     },
+    failure_records: [
+      {
+        method: 'Interval rate-constant propagation',
+        mechanism: 'parameter_sensitive',
+        layer: 'param',
+        partial: 'Widening constants into intervals makes the multistationary boundary decision residual-sensitive',
+        implication: 'The activity-model residual must be bounded for the certified decision to hold under measurement intervals.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-005',
@@ -7251,6 +7552,15 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Kimura, Stochastic processes and distribution of gene frequencies under natural selection, Cold Spring Harb. Symp. Quant. Biol. 20 (1955) 33–53',
       url: 'https://doi.org/10.1101/SQB.1955.020.01.006',
     },
+    failure_records: [
+      {
+        method: 'Wright–Fisher → continuous diffusion approximation',
+        mechanism: 'unbounded_residual',
+        layer: 'num',
+        partial: 'Deviation of the discrete process from the diffusion known only informally',
+        implication: 'Needs an explicit, checkable finite-N drift residual bound covering the full population-size range.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-003',
