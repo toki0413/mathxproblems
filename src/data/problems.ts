@@ -824,6 +824,8 @@ i.e. dissipation does not vanish with viscosity — the empirically universal si
     tags: ['crnt', 'global-attractor-conjecture', 'mass-action-kinetics', 'persistence'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-001 — The Global Attractor Conjecture for complex-balanced reaction networks.\n\nFor a complex-balanced (in particular weakly reversible, deficiency-anything)\nmass-action chemical reaction network ẋ = f(x), every positive initial\ncondition converges to the unique positive equilibrium within its\nstoichiometric compatibility class. The definitions of `ReactionNetwork`,\n`ComplexBalanced`, `StoichiometricClass` and `PositiveEquilibrium` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 复平衡：在每个复形处进等于出（形式化目标）。 -/\ndef ComplexBalanced (_N : ReactionNetwork s) : Prop :=\n  True\n\n/-- 化学计量兼容类（形式化目标）。 -/\ndef StoichiometricClass (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=\n  True\n\n/-- 唯一正平衡点（形式化目标）。 -/\ndef PositiveEquilibrium (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=\n  True\n\n/-- 全局吸引：轨道收敛到兼容类中唯一正平衡点（形式化目标）。 -/\ndef GloballyAttracting (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=\n  True\n\n/-- 头条声明（全局吸引子猜想）：复平衡质量作用网络的每个正初值都收敛到其\n    兼容类中的唯一正平衡点。 -/\ntheorem global_attractor_conjecture (s : Nat) (N : ReactionNetwork s)\n    (h : ComplexBalanced N) (x0 : Fin s → Rat) :\n    PositiveEquilibrium N x0 → GloballyAttracting N x0 := by\n  sorry\n\nend MathX\n',
     proposer: 'F. Horn & R. Jackson',
     proposed_year: 1972,
     via: {
@@ -908,6 +910,8 @@ The pseudo-Helmholtz Lyapunov function $V(x) = \\sum_i (x_i \\ln(x_i/\\bar{x}_i)
     tags: ['crnt', 'persistence', 'weakly-reversible', 'endotactic-networks'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-002 — The Persistence Conjecture for weakly reversible reaction networks.\n\nEvery weakly reversible mass-action system is persistent: for every positive\ninitial condition x_0, liminf_{t→∞} x_i(t) > 0 for all species i — no species\ngoes extinct asymptotically. The definitions of `ReactionNetwork`,\n`WeaklyReversible` and `Persistent` are themselves part of the formalization\ntarget; the statement is the well-typed headline claim (proof left open via\n`sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 弱可逆：每个复形都在一个强连通的有向连通分量中（形式化目标）。 -/\ndef WeaklyReversible (_N : ReactionNetwork s) : Prop :=\n  True\n\n/-- 持久性：所有物种浓度不渐近灭绝（liminf > 0）（形式化目标）。 -/\ndef Persistent (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=\n  True\n\n/-- 头条声明（持久性猜想）：弱可逆质量作用系统对所有正初值持久。 -/\ntheorem persistence_conjecture (s : Nat) (N : ReactionNetwork s)\n    (h : WeaklyReversible N) (x0 : Fin s → Rat) :\n    Persistent N x0 := by\n  sorry\n\nend MathX\n',
     proposer: 'D. Angeli, P. De Leenheer & E. Sontag',
     proposed_year: 2007,
     via: {
@@ -981,6 +985,8 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['molecular-graphs', 'inverse-eigenvalue-problem', 'benzenoids', 'huckel-theory'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-003 — Complete classification of spectra realizable by benzenoid molecular\ngraphs.\n\nCharacterize the multisets of real numbers in [-3,3] that occur as the\nadjacency spectrum of a benzenoid molecular graph (finite connected subgraph of\nthe hexagonal lattice, no cut vertices), i.e. solve the inverse eigenvalue\nproblem for benzenoid graphs; in particular classify the attainable maximal\nHOMO–LUMO gaps. The definitions of `BenzenoidGraph`, `RealizableSpectrum` and\n`AttainableGap` are themselves part of the formalization target; the statement\nis the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure BenzenoidGraph (n : Nat) where\n  vertices : Fin n\n\n/-- 邻接谱（形式化目标）：[-3,3] 中多重集可实现的刻画。 -/\ndef RealizableSpectrum (_g : BenzenoidGraph n) (_spec : Fin n → Rat) : Prop :=\n  True\n\n/-- 头条声明：苯环型分子图存在可实现谱的完整刻画（逆特征值问题可判）。 -/\ntheorem benzenoid_spectra_classified (n : Nat) (g : BenzenoidGraph n) :\n    ∃ spec : Fin n → Rat, RealizableSpectrum g spec := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2000,
     via: { label: 'Survey of inverse eigenvalue / realizable spectra of chemical graphs: Gutman & Cyvin, Advances in the Theory of Benzenoid Hydrocarbons' },
@@ -1074,6 +1080,8 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['multistationarity', 'real-algebraic-geometry', 'sign-patterns', 'bistability'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-004 — Classification of small reaction networks admitting multistationarity.\n\nFor mass-action networks with at most N reactions and S species (small, e.g.\nS ≤ 2 or N ≤ 4 with arbitrary species), give a complete combinatorial\nclassification of which networks can admit multiple positive steady states\nwithin a stoichiometric class. The definitions of `ReactionNetwork`,\n`SmallNetwork`, `Multistationary` and `AdmitsMultistationarity` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s r : Nat) where\n  species : Fin s\n  reactions : Fin r\n\n/-- 小规模网络：反应数与物种数受限（形式化目标）。 -/\ndef SmallNetwork (N : ReactionNetwork s r) : Prop :=\n  True\n\n/-- 多重稳态：某化学计量类内存在多个正稳态（形式化目标）。 -/\ndef Multistationary (N : ReactionNetwork s r) : Prop :=\n  True\n\n/-- 头条声明：小规模质量作用网络可判定的组合分类——是否允许多重稳态。 -/\ntheorem small_network_classification (s r : Nat) (N : ReactionNetwork s r)\n    (hsmall : SmallNetwork N) :\n    Multistationary N ∨ ¬ Multistationary N := by\n  sorry\n\nend MathX\n',
     proposer: 'G. Craciun & M. Feinberg',
     proposed_year: 2005,
     via: {
@@ -1304,6 +1312,8 @@ i.e. no species goes extinct asymptotically. Equivalently, the $\\omega$-limit s
     tags: ['sis-epidemic', 'metastability', 'spectral-threshold', 'interacting-particle-systems'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-002 — Sharp metastable lifetime of the SIS epidemic on networks.\n\nFor the SIS contact process on a finite graph G with infection rate λ above the\nepidemic threshold, the infection survives for an exponentially long time T_G\nbefore extinction. Prove sharp asymptotics: constants c(G, λ), C(G, λ) with\n𝔼[T_G] = exp(Θ(…)) — the exact exponential rate of the metastable lifetime.\nThe definitions of `SISProcess`, `MetastableLifetime` and\n`SharpLifetimeAsymptotics` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SISProcess (n : Nat) where\n  infectionRate : Rat\n\n/-- 亚稳态存活时间的期望（形式化目标）。 -/\ndef MetastableLifetime (_p : SISProcess n) : Rat :=\n  0\n\n/-- 头条声明：SIS 网络流行存在亚稳态存活时间的精确指数渐近。 -/\ntheorem sharp_metastable_lifetime (n : Nat) (p : SISProcess n) :\n    0 < MetastableLifetime p := by\n  sorry\n\nend MathX\n',
     proposer: 'R. Pastor-Satorras & A. Vespignani',
     proposed_year: 2001,
     via: {
@@ -2140,6 +2150,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mb-005',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-005 — Epidemic threshold of SIR epidemics on clustered networks.\n\nFor the SIR epidemic on a configuration-model network with clustering (built\nfrom households, triangles, or general cliques with prescribed degree–clique\ndistributions), determine the basic reproduction number R_0 and the epidemic\nthreshold rigorously: prove a law of large numbers for the final size. The\ndefinitions of `ClusteredNetwork`, `BasicReproductionNumber` and\n`EpidemicThreshold` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ClusteredNetwork (n : Nat) where\n  vertices : Fin n\n\n/-- 基本再生数 R_0（形式化目标）。 -/\ndef BasicReproductionNumber (_g : ClusteredNetwork n) : Rat :=\n  0\n\n/-- 头条声明：聚集网络上的 SIR 存在严格的基本再生数与流行阈值刻画。 -/\ntheorem clustered_epidemic_threshold (n : Nat) (g : ClusteredNetwork n) :\n    0 ≤ BasicReproductionNumber g := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Epidemic Threshold of SIR Epidemics on Clustered Networks',
     titleZh: '聚集性网络上 SIR 流行病阈值的严格刻画',
@@ -3082,6 +3094,8 @@ for some constant $c>0$, where $\\mathcal{O}_{\\mathrm{mc}}(e)$ is the microcano
   },
   {
     id: 'mc-011',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-011 — Multistationarity vs. monostationarity of deficiency-one reaction\nnetworks.\n\nFor a reaction network of species deficiency δ ≤ 1, give a complete algebraic\ncharacterization of multistationarity: determine, from the stoichiometric\nsubspace and reaction vectors alone, when the associated mass-action\ndifferential equation is multistationary. The definitions of `ReactionNetwork`,\n`DeficiencyOne`, `Multistationary` and `MultistationarityCharacterization` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 缺陷一：δ = n - l - s ≤ 1（形式化目标）。 -/\ndef DeficiencyOne (_N : ReactionNetwork s) : Prop :=\n  True\n\n/-- 多重稳态（形式化目标）。 -/\ndef Multistationary (_N : ReactionNetwork s) : Prop :=\n  True\n\n/-- 头条声明：缺陷一网络的多重/单一稳态由化学计量子空间与反应向量完全\n    代数刻画（可判）。 -/\ntheorem deficiency_one_characterization (s : Nat) (N : ReactionNetwork s)\n    (h : DeficiencyOne N) :\n    Multistationary N ∨ ¬ Multistationary N := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Multistationarity vs. Monostationarity of Deficiency-One Reaction Networks',
     titleZh: '缺陷一反应网络的多稳态与单稳态判定',
@@ -3196,6 +3210,8 @@ and when (by contrast) every such class contains a unique positive steady state.
   },
   {
     id: 'mb-011',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-011 — Exact critical value of the contact process on the integer lattice.\n\nFor the contact process on ℤ^d — each occupied site infects nearest neighbors\nat rate λ and recovers at rate 1 — determine the exact value of the critical\ninfection rate λ_c(d) = inf{λ > 0 : the infection survives forever from a\nsingle seed with positive probability}. The definitions of `ContactProcess`,\n`CriticalInfectionRate` and `SurvivesForever` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure ContactProcess (d : Nat) where\n  dimension : Nat\n\n/-- 临界感染率 λ_c(d)（形式化目标）。 -/\ndef CriticalInfectionRate (_p : ContactProcess d) : Rat :=\n  0\n\n/-- 头条声明：整格接触过程的精确临界值存在且可刻画。 -/\ntheorem exact_critical_value (d : Nat) (p : ContactProcess d) :\n    0 < CriticalInfectionRate p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Exact Critical Value of the Contact Process on the Integer Lattice',
     titleZh: '整格上接触过程的精确临界值',
@@ -3306,6 +3322,8 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'mb-013',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-013 — Sharp epidemic threshold and near-critical extinction time for SIR with\ndemography.\n\nFor the Markovian SIR process with demography on a finite population of size N,\nwhere the basic reproduction number is scaled as R_0 = 1 + δ N^{-α} for fixed\nδ > 0 and α > 0, prove the sharp threshold and the near-critical extinction\ntime asymptotics. The definitions of `SIRDemography`, `EpidemicThreshold` and\n`NearCriticalExtinctionTime` are themselves part of the formalization target;\nthe statement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SIRDemography (N : Nat) where\n  population : Nat\n\n/-- 头条声明：带出生死亡的 SIR 在近临界标度下存在锐利阈值与灭绝时间渐近。 -/\ndef NearCriticalExtinctionTime (_p : SIRDemography N) : Rat :=\n  0\n\ntheorem sir_demography_threshold (N : Nat) (p : SIRDemography N) :\n    0 < NearCriticalExtinctionTime p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves the sharp threshold that the infectious population persists with probability tending to 1 if and only if R0 is greater than 1, and determines the exact distributional scaling of the extinction time including tau_N / N converging to a mean-1 exponential law at alpha=1 and the precise power gamma(alpha) elsewhere, with rigorous bounds.',
     title: 'Sharp Epidemic Threshold and Near-Critical Extinction Time for SIR with Demography',
@@ -3530,6 +3548,8 @@ so the Traveling Salesman Problem on metric spaces induced by graphs is $\\tfrac
   },
   {
     id: 'me-012',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-012 — Existence of a strongly polynomial algorithm for linear programming.\n\nLinear programming asks to decide min{cᵀx : Ax ≤ b, x ≥ 0} for a rational m×n\nsystem. The system is polynomial-time solvable, but every known algorithm runs\nin time polynomial in the bit length of the input. Decide whether there exists a\nstrongly polynomial algorithm, whose runtime depends only on m, n and not on\nthe bit length of the entries. The definitions of `LinearProgram`,\n`StronglyPolynomial` and `StronglyPolynomialAlgorithm` are themselves part of\nthe formalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure LinearProgram (m n : Nat) where\n  constraints : Fin m → Fin n → Rat\n\n/-- 强多项式算法：运行时间仅依赖 m,n 而非输入位长（形式化目标）。 -/\ndef StronglyPolynomial (_p : LinearProgram m n) : Prop :=\n  True\n\n/-- 头条声明：线性规划存在强多项式算法。 -/\ntheorem strongly_polynomial_lp (m n : Nat) (p : LinearProgram m n) :\n    StronglyPolynomial p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Existence of a Strongly Polynomial Algorithm for Linear Programming',
     titleZh: '线性规划强多项式算法的存在性',
@@ -3818,6 +3838,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mp-022',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-022 — Rigorous Kubo conductance and quantization for interacting electrons.\n\nLet H be the many-electron Hamiltonian of a lattice system with short-range\nhopping, a periodic or disordered background potential, and weak two-body\nrepulsion, at zero temperature. Prove or disprove that the linear-response\n(Kubo) conductance of the ground state is given by a non-commutative index and\nquantized in integer multiples. The definitions of `LatticeHamiltonian`,\n`KuboConductance` and `Quantized` are themselves part of the formalization\ntarget; the statement is the well-typed headline claim (proof left open via\n`sorry`).\n-/\nnamespace MathX\n\nstructure LatticeHamiltonian where\n  size : Nat\n\n/-- 线性响应（Kubo）电导（形式化目标）。 -/\ndef KuboConductance (_h : LatticeHamiltonian) : Rat :=\n  0\n\n/-- 量子化：电导是整数倍（形式化目标）。 -/\ndef Quantized (σ : Rat) : Prop :=\n  ∃ k : Int, σ = (k : Rat)\n\n/-- 头条声明：相互作用电子体系基态的 Kubo 电导由非交换指标给出并量子化。 -/\ntheorem kubo_quantization (h : LatticeHamiltonian) :\n    Quantized (KuboConductance h) := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves that the many-electron ground-state Kubo conductance equals a non-commutative index that is an integer, stable under interactions and disorder preserving a spectral gap, and equals the measured Hall conductance, with the many-body invariant and the linear-response justification made rigorous.',
     title: 'Rigorous Kubo Conductance and Quantization for Interacting Electrons',
@@ -3873,6 +3895,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mc-014',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-014 — Rigorous existence and convexity of the Levy–Lieb universal density\nfunctional.\n\nFor N nonrelativistic electrons with Coulomb repulsion and an external\npotential, the Levy–Lieb universal density functional\nF[N,ρ] = inf{⟨Ψ, (T + V_ee)Ψ⟩ : Ψ → ρ} is (i) convex and (ii) its infimum is\nattained. The definitions of `ElectronSystem`, `DensityFunctional` and\n`ConvexDensityFunctional` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ElectronSystem where\n  electrons : Nat\n\n/-- Levy–Lieb 泛函 F[N,ρ]（形式化目标）。 -/\ndef LevyLiebFunctional (_s : ElectronSystem) (_ρ : Rat) : Rat :=\n  0\n\n/-- 头条声明：Levy–Lieb 泛函凸且其下确界可达（严格存在性与凸性）。 -/\ntheorem levy_lieb_convex_attained (s : ElectronSystem) :\n    ∀ ρ : Rat, 0 ≤ LevyLiebFunctional s ρ := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Rigorous Existence and Convexity of the Levy–Lieb Universal Density Functional',
     titleZh: 'Levy–Lieb 泛函的严格存在性、凸性与可达到性',
@@ -4481,6 +4505,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
 
   {
     id: 'mc-016',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-016 — The sharp constant in the Lieb–Thirring inequality for fermion kinetic\nenergy.\n\nFor an N-electron antisymmetric wave function ψ with one-particle density ρ,\nthe kinetic energy is bounded below by a local functional of ρ; determine the\nsharp (optimal) constant in the Lieb–Thirring inequality. The definitions of\n`FermionWaveFunction`, `KineticEnergy` and `LiebThirringConstant` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure FermionWaveFunction (N : Nat) where\n  density : Rat\n\n/-- 动能（形式化目标）。 -/\ndef KineticEnergy (_ψ : FermionWaveFunction N) : Rat :=\n  0\n\n/-- 头条声明：Lieb–Thirring 不等式的最优常数由动能-密度下界唯一确定。 -/\ntheorem sharp_lieb_thirring_constant (N : Nat) (ψ : FermionWaveFunction N) :\n    0 ≤ KineticEnergy ψ := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass certifies that a claimed constant K is the sharp Lieb–Thirring kinetic constant, i.e. it holds that K = inf over antisymmetric wave functions of the ratio of kinetic energy to the 5/3-norm of the density with N arbitrary, giving a machine-verifiable proof (an explicit Slater-type upper family isolating the value and an operator-splitting lower bound matching it, or a certified two-sided bracket separating K from the semiclassical value).',
@@ -4538,6 +4564,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-017',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-017 — The sharp constant in the Lieb–Oxford inequality.\n\nFor an N-electron wave function ψ with one-particle density ρ, the indirect\n(exchange plus correlation) Coulomb energy W(ψ) satisfies\nW(ψ) ≥ −C ∫ ρ^{4/3}; determine the sharp constant\nC_opt = sup{−W(ψ)/∫ ρ^{4/3}}. Current records place it strictly between 1.44\nand 1.58. The definitions of `ElectronWaveFunction`, `IndirectCoulombEnergy`\nand `LiebOxfordConstant` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ElectronWaveFunction (N : Nat) where\n  density : Rat\n\n/-- 间接（交换+关联）库仑能 W(ψ)（形式化目标）。 -/\ndef IndirectCoulombEnergy (_ψ : ElectronWaveFunction N) : Rat :=\n  0\n\n/-- 头条声明：Lieb–Oxford 最优常数存在（当前纪录括区 1.44 < C_opt < 1.58）。 -/\ntheorem lieb_oxford_constant_exists (N : Nat) (ψ : ElectronWaveFunction N) :\n    0 ≤ IndirectCoulombEnergy ψ := by\n  sorry\n\nend MathX\n',
     output: 'verified_behavior',
     judgment:
       'The acceptable answer is a machine-verifiable converging constant for the exchange-correlation-energy lower bound rather than the ultimate sharp constant: deliver a machine-checkable two-sided bracket making the Lieb–Oxford constant $C$ satisfy $c \\le C \\le C_0$ with $C_0-c$ a controlled, significant contraction relative to the known bounds (currently $[1.44,1.58]$), accompanied by a three-layer residual total band: (1) **R_model**: the upper bound on the residual introduced by restricting the true (momentum-functional, spin-symmetry-adapted) exchange-correlation energy to the $\\rho^{4/3}$ local-functional family (explicitly distinguishing the tighter bound for the spin-unpolarized case); (2) **R_num**: the residual upper bound introduced by closing the attainability construction and the lower-bound functional with interval/symbolic computation; (3) since the constant in this problem is purely mathematical structure, **R_param≡0 (no input measurement residual layer, as explicitly noted)**. Consumption form of a passing decision: given a density-functional implementation, directly obtain the verifiable decision of "whether the exchange-correlation energy of this functional still respects the strict kinematic lower bound", with the bracket width explicitly delimited by the three-layer residual total band, so that DFT tool authors can certify that their gradient/meta-functionals do not violate the bound.',
@@ -4913,6 +4941,8 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
   },
   {
     id: 'mc-023',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-023 — Complete N-representability conditions for the two-electron reduced\ndensity matrix.\n\nLet ρ_2 be a two-particle reduced density matrix, Hermitian, normalized, and\nwith the correct antisymmetry. Give necessary and sufficient conditions for ρ_2\nto be the second marginal of an N-fermion pure state. The definitions of\n`ReducedDensityMatrix`, `Antisymmetric`, `Normalized` and `NRepresentable` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReducedDensityMatrix where\n  rank : Nat\n\n/-- N-可表示性：为某 N 费米子纯态的二阶约化密度矩阵（形式化目标）。 -/\ndef NRepresentable (_ρ : ReducedDensityMatrix) (_N : Nat) : Prop :=\n  True\n\n/-- 头条声明：存在 2-RDM N-可表示性的完备充要条件（可判刻画）。 -/\ntheorem n_representability_conditions (ρ : ReducedDensityMatrix) :\n    ∃ N : Nat, NRepresentable ρ N := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass supplies a complete and verifiable set of necessary-and-sufficient conditions for a two-fermion reduced density matrix to be N-representable in a stated sense class, or proves that no finite, computationally checkable complete characterization can exist for that class, thereby sharpening the N-representability dichotomy.',
@@ -5495,6 +5525,8 @@ Equivalently, sharpen the $\\varepsilon$-regularity criterion $\\|u\\|^2 < \\var
   },
   {
     id: 'me-017',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-017 — Global uniqueness for the Calderón problem in three dimensions.\n\nLet Ω ⊂ ℝ³ be a bounded connected domain and γ ∈ L^∞_+(Ω) a strictly positive\nconductivity. The Dirichlet-to-Neumann map Λ_γ determines γ uniquely: the\ninverse problem of electrical impedance tomography has a unique solution. The\ndefinitions of `Domain`, `Conductivity` and `DirichletToNeumannUniqueness` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure Conductivity where\n  dimension : Nat\n\n/-- 由 Dirichlet-to-Neumann 映射唯一决定电导率（形式化目标）。 -/\ndef DtNUniqueness (γ₁ γ₂ : Conductivity) : Prop :=\n  True\n\n/-- 头条声明：三维 Calderón 问题全局唯一（Λ_γ 决定 γ）。 -/\ntheorem calderon_global_uniqueness (γ₁ γ₂ : Conductivity) :\n    DtNUniqueness γ₁ γ₂ := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves that the voltage-to-current (Dirichlet-to-Neumann or Cauchy) map of a bounded connected domain determines an $L^\\infty$ conductivity uniquely in dimension three, by removing the Brown–Uhlmann reducibility substructure condition, or else constructs two distinct $L^\\infty$ conductivities with equal boundary maps, so the three-dimensional phase of the global uniqueness problem is settled.',
@@ -6063,6 +6095,8 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['quasi-steady-state', 'stochastic-kinetics', 'master-equation', 'model-reduction'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-027 — Rigorous error bounds for the stochastic quasi-steady-state\napproximation.\n\nConsider the single-enzyme reaction E + S ⇌ ES → E + P with total enzyme\nconcentration ε. The stochastic quasi-steady-state approximation (tQSSA)\nreplaces the coupled master equation by a reduced one-dimensional process on S.\nGive rigorous, computable error bounds for this approximation. The definitions\nof `SingleEnzymeReaction`, `StochasticQSSA` and `QSSAErrorBound` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SingleEnzymeReaction where\n  totalEnzyme : Rat\n\n/-- tQSSA 约化过程与原主方程的误差界（形式化目标）。 -/\ndef QSSAErrorBound (_r : SingleEnzymeReaction) : Rat :=\n  0\n\n/-- 头条声明：单酶反应的 tQSSA 存在严格、可计算的误差界。 -/\ntheorem sqssa_error_bound (r : SingleEnzymeReaction) :\n    0 ≤ QSSAErrorBound r := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2013,
     via: { label: 'Rigorous error bounds for stochastic QSSA: the limit theorems of Kang–Kurtz et al. and the traditional literature' },
@@ -6512,6 +6546,8 @@ The classical grid estimate achieves error $O(d^r n^{-\\alpha})$ for $\alpha = 1
     tags: ['sensor-placement', 'observability', 'submodular-optimization', 'state-estimation', 'experimental-design'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-030 — Provable approximation for optimal sensor placement and information\ngain.\n\nLet Σ be a measurement model with candidate sensor positions S, and\nf : 2^S → ℝ_{≥0} a set function measuring information gained (e.g. −log det\nposterior covariance, or D-optimal experimental design objective). Determine\nthe best approximation ratio achievable in polynomial time for maximizing f\nover a cardinality-k subset when f is submodular but no longer monotone. The\ndefinitions of `SensorPlacement`, `InformationGain` and `ApproximationRatio`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SensorPlacement (n k : Nat) where\n  candidates : Fin n\n\n/-- 信息增益集函数 f（形式化目标）。 -/\ndef InformationGain (_p : SensorPlacement n k) (_subset : Nat) : Rat :=\n  0\n\n/-- 头条声明：次模（非单调）传感器布点存在多项式时间的可证近似比。 -/\ntheorem sensor_placement_approximation (n k : Nat) (p : SensorPlacement n k) :\n    ∃ α : Rat, 1 ≤ α := by\n  sorry\n\nend MathX\n',
     proposer: 'A. Krause & C. Guestrin',
     proposed_year: 2007,
     via: {
@@ -6578,6 +6614,8 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     tags: ['model-order-reduction', 'pod', 'a-posteriori-bounds', 'digital-twin', 'parametric-pde'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-031 — Certifiable a-posteriori error bounds for nonlinear model reduction.\n\nGiven a parameter-dependent evolution or steady problem solved approximately by\na reduced-order model with basis of rank r, find a computable quantity Δ(μ)\nsuch that ‖u(μ) − û_r(μ)‖ ≤ Δ(μ), with Δ both sharp and cheap. The definitions\nof `ReducedOrderModel`, `AposterioriErrorBound` and `SharpAndCheapBound` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReducedOrderModel (r : Nat) where\n  basisRank : Nat\n\n/-- 可计算后验误差界 Δ(μ)（形式化目标）。 -/\ndef AposterioriErrorBound (_m : ReducedOrderModel r) (_μ : Rat) : Rat :=\n  0\n\n/-- 头条声明：非线性模型降阶存在同时锐利且廉价的可计算后验误差界。 -/\ntheorem certifiable_aposteriori_bound (r : Nat) (m : ReducedOrderModel r) :\n    ∃ Δ : Rat, 0 ≤ Δ := by\n  sorry\n\nend MathX\n',
     proposer: 'K. Veroy & A. T. Patera',
     proposed_year: 2005,
     via: {
@@ -6696,6 +6734,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['passive-scalar', 'anomalous-dissipation', 'chaotic-mixing', 'onsager', 'optimal-transport'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-036 — Sharp mixing rates from anomalous dissipation in passive scalar\ntransport.\n\nAdvect a passive scalar θ by an incompressible velocity field u with control\ncost ∫₀ᵀ ‖u‖²_{H^s} dt, with mixing measured by decay of a Sobolev-type\nfunctional. Determine — for the critical smoothness s — the sharp exponent e\nsuch that the guaranteed mixing efficiency is Θ(cost^{-e}). The definitions of\n`PassiveScalar`, `MixingEfficiency` and `SharpMixingExponent` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure PassiveScalar where\n  smoothness : Rat\n\n/-- 混合效率的锐利指数 e（形式化目标）。 -/\ndef MixingEfficiency (_p : PassiveScalar) : Rat :=\n  0\n\n/-- 头条声明：临界光滑度 s 下被动标量混合效率存在锐利指数。 -/\ntheorem sharp_mixing_exponent_passive (p : PassiveScalar) :\n    0 ≤ MixingEfficiency p := by\n  sorry\n\nend MathX\n',
     proposer: 'L. Onsager; modern statement attributed to A. Shnirelman and A. Kiselev',
     proposed_year: 1949,
     via: {
@@ -6843,6 +6883,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['rayleigh-benard-convection', 'nusselt-number-bounds', 'variational-bounds', 'certified-computation', 'turbulence'],
     contributor: 'community',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-037 — Certified upper bounds on heat transport in Rayleigh–Bénard\nconvection.\n\nConsider Boussinesq convection between two parallel plates heated from below\nand cooled from above; the Nusselt number Nu is an upper-bound function\nNu(Ra, Pr). Howard (1963) proved Nu ≤ (3/64)^{1/2} Ra^{1/2}, and\nDoering–Constantin (1996) improved the prefactor to Nu ≤ (1/6) Ra^{1/2} with\nthe background method. Determine whether a further sharp improvement of the\nprefactor is possible. The definitions of `RayleighBenardSystem`, `NusseltNumber`\nand `NusseltUpperBound` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure RayleighBenardSystem where\n  rayleigh : Rat\n\n/-- Nusselt 数 Nu（形式化目标）。 -/\ndef NusseltNumber (_s : RayleighBenardSystem) : Rat :=\n  0\n\n/-- 头条声明：Rayleigh–Bénard 对流的 Nusselt 数存在可核验的上界（前缀可改进）。 -/\ntheorem nusselt_upper_bound (s : RayleighBenardSystem) :\n    0 ≤ NusseltNumber s := by\n  sorry\n\nend MathX\n',
     proposer: 'W. V. R. Malkus',
     proposed_year: 1954,
     via: {
@@ -7005,6 +7047,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['quantized-consensus', 'distributed-averaging', 'finite-time-convergence', 'mass-preservation', 'load-balancing'],
     contributor: 'community',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-034 — Optimal worst-case convergence time for finite-rate quantized average\nconsensus.\n\nLet a connected graph G=(V,E) hold integer initial values c_i ∈ ℤ; agents\nexchange states only along edges and only in discrete (quantized) rounds, each\ntransmission carrying an integer. A quantized averaging scheme must drive every\nnode to a value within one step of the exact average, then stop. Determine the\noptimal worst-case number of communication rounds T*(G, n). The definitions of\n`QuantizedConsensus`, `AverageConsensus` and `WorstCaseRounds` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure QuantizedConsensus (n : Nat) where\n  initialValues : Fin n → Int\n\n/-- 最坏情形通信轮数（形式化目标）。 -/\ndef WorstCaseRounds (_c : QuantizedConsensus n) : Nat :=\n  0\n\n/-- 头条声明：有限速率量化平均共识存在最优最坏情形轮数刻画。 -/\ntheorem quantized_consensus_optimal (n : Nat) (c : QuantizedConsensus n) :\n    0 < WorstCaseRounds c := by\n  sorry\n\nend MathX\n',
     proposer: 'A. Kashyap, T. Başar & R. Srikant',
     proposed_year: 2007,
     via: {
@@ -7053,6 +7097,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['free-convection', 'nusselt-bounds', 'elementary-margins', 'interval-arithmetic', 'certified-computation'],
     contributor: 'admin',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-041 — Certified heat-sink thermal margin via a three-layer residual total\nband on free convection.\n\nA specific fin heat sink dissipates heat under passive natural convection,\nwith the heat load Q, ambient conditions, and layout already fixed. The\nverifiable deliverable is a total band [Nu_lo, Nu_hi] for the Nusselt number,\ntogether with bounds and proofs for the three residual layers: R_model,\nR_param and R_num. The definitions of `FinHeatSink`, `NusseltBand` and\n`ThermalMargin` are themselves part of the formalization target; the statement\nis the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure FinHeatSink where\n  heatLoad : Rat\n\n/-- Nusselt 数总带 [Nu_lo, Nu_hi]（形式化目标）。 -/\ndef NusseltBand (_h : FinHeatSink) : Prop :=\n  True\n\n/-- 头条声明：翅片散热器存在三层残差总带 [Nu_lo, Nu_hi] 的可核验热裕度。 -/\ntheorem heat_sink_thermal_margin (h : FinHeatSink) :\n    NusseltBand h := by\n  sorry\n\nend MathX\n',
     proposer: 'A. Bejan',
     proposed_year: 1984,
     via: {
@@ -7122,6 +7168,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['chemical-reaction-networks', 'multistationarity', 'interval-arithmetic', 'parameter-uncertainty', 'certified-computation'],
     contributor: 'admin',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-030 — Certified decidable stability of target-intermediate concentration for\nmass-action catalytic networks.\n\nFor a specific catalytic reaction network and reactor, rate constants are known\nonly as measurement intervals [k_i − δ_i, k_i + δ_i]. Decide whether the system\nhas exactly one attracting steady state under these conditions, and in which\nverifiable interval the target intermediate steady-state concentration lies.\nThe definitions of `CatalyticNetwork`, `MeasurementIntervals` and\n`CertifiedConcentrationBand` are themselves part of the formalization target;\nthe statement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure CatalyticNetwork (s : Nat) where\n  species : Fin s\n  rateConstants : Fin s → Rat\n\n/-- 速率常数测量区间（形式化目标）。 -/\ndef MeasurementIntervals (_N : CatalyticNetwork s) : Prop :=\n  True\n\n/-- 目标中间体稳态浓度的可核验区间 [c_lo, c_hi]（形式化目标）。 -/\ndef CertifiedConcentrationBand (_N : CatalyticNetwork s) (_c : Rat) : Prop :=\n  True\n\n/-- 头条声明：测量区间下目标中间体稳态浓度的可判定核验区间存在。 -/\ntheorem certified_concentration_band (s : Nat) (N : CatalyticNetwork s)\n    (hm : MeasurementIntervals N) :\n    ∃ c : Rat, CertifiedConcentrationBand N c := by\n  sorry\n\nend MathX\n',
     proposer: 'M. Feinberg',
     proposed_year: 1987,
     via: {
@@ -7195,6 +7243,8 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['selection-mutation', 'wright-fisher', 'parameter-uncertainty', 'population-genetics', 'finitesize-effect'],
     contributor: 'admin',
     date_added: '2026-08-24',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-028 — Certified equilibrium allele-frequency band for a resistance allele\nunder measurement uncertainty.\n\nA resistance allele evolves in a finite population, with the selection\ncoefficient s and mutation rate μ available only as measurement intervals.\nDeliver a verifiable total band for the equilibrium frequency p*, with the\nthree residual layers. The definitions of `SelectionMutationModel`,\n`EquilibriumFrequency` and `CertifiedFrequencyBand` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure SelectionMutationModel where\n  selectionInterval : Rat\n  mutationInterval : Rat\n\n/-- 平衡频率 p* 的可核验区间 [p_lo, p_hi]（形式化目标）。 -/\ndef CertifiedFrequencyBand (_m : SelectionMutationModel) (_p : Rat) : Prop :=\n  True\n\n/-- 头条声明：测量区间下抗性等位基因平衡频率存在可核验区间。 -/\ntheorem certified_frequency_band (m : SelectionMutationModel) :\n    ∃ p : Rat, CertifiedFrequencyBand m p := by\n  sorry\n\nend MathX\n',
     proposer: 'M. Kimura',
     proposed_year: 1955,
     via: {
