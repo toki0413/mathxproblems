@@ -9,6 +9,7 @@ import {
   ALL_DELIVERABLES,
   impactOf,
   deliverablesOf,
+  topologyOf,
   type Domain,
   type FormalizationPotential,
   type VerificationPath,
@@ -47,6 +48,17 @@ export default function ProblemsPage() {
   const { lang, t } = useI18n()
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState('')
+  // 图谱支撑度排序（P1-1）：按"依赖该题的下游题数"降序——哪个未解题被最多
+  // 结构支撑，优先看。确定性、可复核。
+  const [sort, setSort] = useState<'default' | 'support'>('default')
+  const supportRank = useMemo(() => {
+    const m = new Map<string, { support: number; links: number }>()
+    for (const p of AUDITED_PROBLEMS) {
+      const t = topologyOf(p)
+      m.set(p.id, { support: t.supportCount, links: t.linkCount })
+    }
+    return m
+  }, [])
   const domain = (params.get('domain') ?? '') as Domain | ''
   const potential = (params.get('potential') ?? '') as FormalizationPotential | ''
   const verification = (params.get('verification') ?? '') as VerificationPath | ''
@@ -95,8 +107,15 @@ export default function ProblemsPage() {
     if (output) list = list.filter((p) => p.output === output)
     if (impact) list = list.filter((p) => impactOf(p).includes(impact))
     if (deliverable) list = list.filter((p) => deliverablesOf(p).includes(deliverable))
+    if (sort === 'support') {
+      list = [...list].sort((a, b) => {
+        const ra = supportRank.get(a.id)
+        const rb = supportRank.get(b.id)
+        return (rb?.support ?? 0) - (ra?.support ?? 0) || (rb?.links ?? 0) - (ra?.links ?? 0)
+      })
+    }
     return list
-  }, [query, domain, potential, verification, status, output, impact, deliverable, fuse])
+  }, [query, domain, potential, verification, status, output, impact, deliverable, fuse, sort, supportRank])
 
   const label = (kind: 'potential' | 'verification', v: string) => enumLabel(lang, kind, v)
 
@@ -211,10 +230,29 @@ export default function ProblemsPage() {
         </div>
       </div>
 
-      <div className="mt-10 flex items-baseline justify-between">
+      <div className="mt-10 flex items-baseline justify-between gap-4 flex-wrap">
         <span className="font-mono2 text-xs text-ink-3">
           {filtered.length} / {AUDITED_PROBLEMS.length} {t('pl.count')}
         </span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
+            {t('pl.sort')}
+          </span>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as 'default' | 'support')}
+            title={t('pl.sortSupportHint')}
+            className="bg-transparent border border-line rounded-full px-3 py-1 text-xs text-ink-2 focus:outline-none focus:border-ink"
+          >
+            <option value="default">{t('pl.sortDefault')}</option>
+            <option value="support">{t('pl.sortSupport')}</option>
+          </select>
+          {sort === 'support' && (
+            <span className="hidden sm:inline font-mono2 text-[10px] text-ink-3">
+              {t('pl.sortSupportHint')}
+            </span>
+          )}
+        </div>
       </div>
       <div className="mt-2 hairline-t">
         {filtered.map((p) => (

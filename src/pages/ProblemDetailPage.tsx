@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { AUDITED_PROBLEMS } from '@/data/audits'
-import { DOMAINS, RELATION_LABELS, impactOf, relatedOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
+import { DOMAINS, impactOf, topologyOf, upstreamPath, downstreamOf, lifecycleOf, type OutputKind } from '@/data/problems'
 import { impactRecord } from '@/data/impactDomains'
 import { MECHANISM_LABEL, TOOL_ROLE_LABEL, toolById } from '@/data/mathlibTools'
 import { demandLinksForProblem, type NeedChainRole, type NeedStepState } from '@/data/engineeringNeeds'
@@ -9,6 +9,7 @@ import { Markdown } from '@/components/Markdown'
 import { ProblemGraph } from '@/components/ProblemGraph'
 import { Stars } from '@/components/ProblemRow'
 import { Comments } from '@/components/Comments'
+import { useObstacleGraph } from '@/hooks/useObstacleGraph'
 import { useI18n, enumLabel, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
 import { useMarkVisited } from '@/hooks/useVisited'
@@ -218,12 +219,30 @@ export default function ProblemDetailPage() {
     )
   }
 
-  const related = relatedOf(p)
-    .map((r) => ({ ...r, target: AUDITED_PROBLEMS.find((q) => q.id === r.id) }))
-    .filter((r) => r.target)
   // 需求侧倒查：哪些工程需求把这道题当作支撑（从 /needs 反查回来），并给出本问题
   // 在每条需求链里扮演的角色、此刻状态与"解出即推进"的落点。
   const demandingLinks = demandLinksForProblem(p.id)
+  // 障碍路由层（P1-2 复用市场）：跨题障碍链 + 方法解锁，供「同障碍问题」面板使用。
+  const obstacleGraph = useObstacleGraph()
+  // 与本题共享已知障碍的邻题（按 Jaccard 相似度取最高、截 8 条）。
+  const obstacleNeighbors = useMemo(() => {
+    const links = obstacleGraph?.links ?? []
+    const map = new Map<string, { head: string; score: number }>()
+    for (const l of links) {
+      if (l.a.problem === p.id) {
+        const cur = map.get(l.b.problem)
+        if (!cur || l.score > cur.score) map.set(l.b.problem, { head: l.b.head, score: l.score })
+      } else if (l.b.problem === p.id) {
+        const cur = map.get(l.a.problem)
+        if (!cur || l.score > cur.score) map.set(l.a.problem, { head: l.a.head, score: l.score })
+      }
+    }
+    return [...map.entries()]
+      .map(([id, v]) => ({ id, ...v, target: AUDITED_PROBLEMS.find((q) => q.id === id) }))
+      .filter((x) => x.target)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+  }, [obstacleGraph, p.id])
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -744,34 +763,102 @@ export default function ProblemDetailPage() {
             </ul>
           </Section>
 
-          {related.length > 0 && (
-            <Section title={t('pd.related')}>
-              <ul className="space-y-0">
-                {related.map((r) => (
-                  <li key={r.id}>
-                    <Link
-                      to={`/problems/${r.id}`}
-                      className="flex items-baseline gap-4 py-3 hairline-b group"
-                    >
-                      <span className="font-mono2 text-xs text-ink-3 uppercase w-16 shrink-0">{r.id}</span>
-                      <span className="flex-1 min-w-0">
-                        <span className="block truncate text-ink group-hover:underline underline-offset-4">
-                          {r.target!.title}
-                        </span>
-                        <span className="block text-xs text-ink-3 mt-0.5">{r.note}</span>
+          {(() => {
+            const topo = topologyOf(p)
+            const groups = [
+              { key: 'upstream', items: topo.upstream, label: t('pd.topo.upstream'), hint: t('pd.topo.upstreamHint') },
+              { key: 'downstream', items: topo.downstream, label: t('pd.topo.downstream'), hint: t('pd.topo.downstreamHint') },
+              { key: 'implies', items: topo.implies, label: t('pd.topo.implies'), hint: undefined },
+              { key: 'generalized', items: topo.generalized, label: t('pd.topo.generalized'), hint: undefined },
+              { key: 'analogies', items: topo.analogies, label: t('pd.topo.analogies'), hint: undefined },
+              { key: 'sharedTools', items: topo.sharedTools, label: t('pd.topo.sharedTools'), hint: undefined },
+            ].filter((g) => g.items.length > 0)
+            const hasTopo = topo.linkCount > 0
+            const hasObstacleNeighbors = obstacleNeighbors.length > 0
+            if (!hasTopo && !hasObstacleNeighbors) return null
+            return (
+              <Section title={t('pd.topo.title')}>
+                <p className="text-xs text-ink-3 mb-4 leading-relaxed">
+                  {t('pd.topo.hint')
+                    .replace('{d}', String(topo.dependencyCount))
+                    .replace('{s}', String(topo.supportCount))}
+                </p>
+                {hasTopo && (
+                  <div className="space-y-4">
+                    {groups.map((g) => (
+                      <div key={g.key} className="border border-line">
+                        <div className="px-5 py-2.5 hairline-b font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 flex items-baseline gap-2">
+                          <span>{g.label}</span>
+                          {g.hint && <span className="normal-case tracking-normal font-sans text-ink-3/80">{g.hint}</span>}
+                          <span className="ml-auto">{g.items.length}</span>
+                        </div>
+                        <ul className="divide-y divide-line">
+                          {g.items.map((r) => {
+                            const target = AUDITED_PROBLEMS.find((q) => q.id === r.id)
+                            return (
+                              <li key={r.id}>
+                                <Link
+                                  to={`/problems/${r.id}`}
+                                  className="flex items-baseline gap-4 px-5 py-3 group"
+                                >
+                                  <span className="font-mono2 text-[10px] text-ink-3 shrink-0 w-16 uppercase">{r.id}</span>
+                                  <span className="flex-1 min-w-0">
+                                    <span className="block truncate text-sm text-ink group-hover:underline underline-offset-4">
+                                      {target?.title ?? r.id}
+                                    </span>
+                                    {r.note && (
+                                      <span className="block text-xs text-ink-3 mt-0.5">{r.note}</span>
+                                    )}
+                                  </span>
+                                </Link>
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {hasObstacleNeighbors && (
+                  <div className="border border-line mt-4">
+                    <div className="px-5 py-2.5 hairline-b font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 flex items-baseline gap-2">
+                      <span>{t('pd.topo.obstacleNeighbors')}</span>
+                      <span className="normal-case tracking-normal font-sans text-ink-3/80">
+                        {t('pd.topo.obstacleNeighborsHint')}
                       </span>
-                      <span className="font-mono2 text-[11px] text-ink-3 shrink-0">
-                        {RELATION_LABELS[r.relation]}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6">
-                <ProblemGraph height={300} focusId={p.id} />
-              </div>
-            </Section>
-          )}
+                    </div>
+                    <ul className="divide-y divide-line">
+                      {obstacleNeighbors.map((o) => (
+                        <li key={o.id}>
+                          <Link
+                            to={`/problems/${o.id}`}
+                            className="flex items-baseline gap-4 px-5 py-3 group"
+                          >
+                            <span className="font-mono2 text-[10px] text-ink-3 shrink-0 w-16 uppercase">{o.id}</span>
+                            <span className="flex-1 min-w-0">
+                              <span className="block truncate text-sm text-ink group-hover:underline underline-offset-4">
+                                {o.target!.title}
+                              </span>
+                              <span className="block text-xs text-ink-3 mt-0.5 truncate">{o.head}</span>
+                            </span>
+                            <span
+                              className="font-mono2 text-[10px] text-ink-3 shrink-0"
+                              style={{ fontVariantNumeric: 'tabular-nums' }}
+                            >
+                              {o.score.toFixed(2)}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <div className="mt-6">
+                  <ProblemGraph height={300} focusId={p.id} />
+                </div>
+              </Section>
+            )
+          })()}
 
           {demandingLinks.length > 0 && (
             <Section title={t('pd.demanded')}>

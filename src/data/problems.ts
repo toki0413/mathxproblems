@@ -7328,6 +7328,59 @@ export function relatedOf(p: Problem): RelatedProblem[] {
   return own
 }
 
+/**
+ * 图谱拓扑导航（P1-1）：把 p 的一跳邻接按方向语义分组，供详情页/列表做确定性
+ * 导航，零模型、零幻觉。方向读法：
+ *   - upstream    p depends_on X   → X 是 p 的上游前提（p 依赖 X）
+ *   - downstream  X depends_on p   → X 依赖 p（p 支撑 X）
+ *   - implies     p implies X      → X 是 p 的蕴含结论
+ *   - generalized p generalizes X  → X 是 p 的特例（p 的结论下沉到 X）
+ *   - analogies   analog_of（对称，反向边由 relatedOf 派生）
+ *   - sharedTools shares_tools（对称，反向边派生）
+ * 支撑度（supportCount）= 依赖本问题的下游题数——"哪个未解题被最多已证部分
+ * 支撑"的确定性代理，可复核、可审计。
+ */
+export interface TopologyView {
+  upstream: RelatedProblem[]
+  downstream: RelatedProblem[]
+  implies: RelatedProblem[]
+  generalized: RelatedProblem[]
+  analogies: RelatedProblem[]
+  sharedTools: RelatedProblem[]
+  supportCount: number
+  dependencyCount: number
+  linkCount: number
+}
+
+export function topologyOf(p: Problem): TopologyView {
+  const upstream = p.related_problems.filter((r) => r.relation === 'depends_on')
+  const implies = p.related_problems.filter((r) => r.relation === 'implies')
+  const generalized = p.related_problems.filter((r) => r.relation === 'generalizes')
+  // 对称关系（含反向派生边）统一走 relatedOf，避免重复实现反向推导
+  const sym = relatedOf(p).filter((r) => SYMMETRIC_RELATIONS.has(r.relation))
+  const sharedTools = sym.filter((r) => r.relation === 'shares_tools')
+  const analogies = sym.filter((r) => r.relation === 'analog_of')
+  // 下游：其他题声明 depends_on 指向 p
+  const downstream = PROBLEMS.flatMap((q) => {
+    if (q.id === p.id) return []
+    return q.related_problems
+      .filter((r) => r.id === p.id && r.relation === 'depends_on')
+      .map((r) => ({ id: q.id, relation: 'depends_on' as const, note: r.note }))
+  })
+  return {
+    upstream,
+    downstream,
+    implies,
+    generalized,
+    analogies,
+    sharedTools,
+    supportCount: downstream.length,
+    dependencyCount: upstream.length,
+    linkCount:
+      upstream.length + downstream.length + implies.length + generalized.length + sym.length,
+  }
+}
+
 // ---- 信任审计（方向二消费端）：上游证书依赖树 ----
 // 由 p.depends_on X 可知 X 是 p 的上游；若 p 是 verified_behavior，其总带
 // 可信度链入 X 的证书。render 上游树把"要信任此裕量需先信哪些上游"可视化，

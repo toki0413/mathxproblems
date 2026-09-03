@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { AUDITED_PROBLEMS } from '@/data/audits'
 import { MECHANISM_LABEL, type FailureMechanism, type FailureLayer } from '@/data/mathlibTools'
 import { Reveal } from '@/components/Reveal'
+import { useObstacleGraph } from '@/hooks/useObstacleGraph'
 import { useI18n } from '@/i18n'
 
 const MECHANISM_ORDER: FailureMechanism[] = [
@@ -22,6 +23,8 @@ const LAYER_COLOR: Record<FailureLayer, string> = {
 
 export default function ObstaclesPage() {
   const { t } = useI18n()
+  // 障碍路由层：跨题障碍链 + 方法解锁（复用市场）。纯静态部署 404 时静默为 null。
+  const obstacleGraph = useObstacleGraph()
 
   // mechanism → 带有该机制失败记录的题目
   const byMechanism = useMemo(() => {
@@ -43,6 +46,20 @@ export default function ObstaclesPage() {
     }
     return m
   }, [])
+
+  // 方法解锁（复用市场）：method → 沿障碍链一跳可达、尚未被该方法触及的问题
+  const unlocks = useMemo(() => {
+    const raw = obstacleGraph?.unlocks ?? {}
+    return Object.entries(raw)
+      .filter(([, ids]) => ids.length > 0)
+      .map(([method, ids]) => ({
+        method,
+        items: ids
+          .map((id) => ({ id, target: AUDITED_PROBLEMS.find((q) => q.id === id) }))
+          .filter((x) => x.target),
+      }))
+      .filter((u) => u.items.length > 0)
+  }, [obstacleGraph])
 
   const recordCount = useMemo(() => [...byMechanism.values()].reduce((s, arr) => s + arr.length, 0), [byMechanism])
   const problemCount = useMemo(
@@ -66,6 +83,47 @@ export default function ObstaclesPage() {
           <span>{problemCount} {t('ob.problems')}</span>
         </div>
       </Reveal>
+
+      {/* 复用市场（P1-2）：已通过的方法 → 下一步可试的题。失败知识从"看"变成"用"。 */}
+      <section className="mt-14">
+        <Reveal>
+          <h2 className="font-statement text-xl font-bold">{t('ob.unlocks.title')}</h2>
+          <p className="mt-1.5 max-w-2xl text-sm text-ink-3 leading-relaxed">{t('ob.unlocks.subtitle')}</p>
+        </Reveal>
+        <div className="mt-3 space-y-4">
+          {unlocks.map((u, i) => (
+            <Reveal key={u.method} delay={i * 20}>
+              <div className="border border-line bg-white/50 p-5">
+                <div className="font-mono2 text-[10px] uppercase tracking-[0.15em] text-mc mb-2">
+                  {u.method}
+                </div>
+                <ul className="divide-y divide-line border-t border-b border-line">
+                  {u.items.map(({ id, target }) => (
+                    <li key={id}>
+                      <Link
+                        to={`/problems/${id}`}
+                        className="group flex items-baseline gap-3 py-2.5 hover:bg-[#f2f0e8] transition-colors px-1 -mx-1"
+                      >
+                        <span className="font-mono2 text-[11px] text-ink-3 shrink-0">{id}</span>
+                        <span className="min-w-0 flex-1 truncate text-ink group-hover:underline underline-offset-4 decoration-line-strong">
+                          {target!.title}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
+          {unlocks.length === 0 && (
+            <Reveal>
+              <p className="border border-dashed border-line-strong p-5 text-sm text-ink-3 leading-relaxed">
+                {t('ob.unlocks.empty')}
+              </p>
+            </Reveal>
+          )}
+        </div>
+      </section>
 
       {MECHANISM_ORDER.map((mech, gi) => {
         const items = byMechanism.get(mech) ?? []

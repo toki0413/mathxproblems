@@ -97,6 +97,13 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pl.output': { zh: '产出类型', en: 'Output type' },
   'pl.domain': { zh: '领域', en: 'Domain' },
   'pl.count': { zh: '道题', en: 'problems' },
+  'pl.sort': { zh: '排序', en: 'Sort' },
+  'pl.sortDefault': { zh: '目录序', en: 'Catalog order' },
+  'pl.sortSupport': { zh: '图谱支撑度', en: 'Graph support' },
+  'pl.sortSupportHint': {
+    zh: '支撑度 = 依赖该题的下游题数（确定性、可复核）',
+    en: 'Support = how many problems depend on this one (deterministic, auditable)',
+  },
   'pl.community': { zh: '社区投稿', en: 'Community submissions' },
   // detail
   'pd.statement': { zh: '精确陈述', en: 'Precise statement' },
@@ -455,6 +462,25 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '候选会先进入审核队列，通过后在此展示。',
     en: 'Candidates enter the review queue and appear here once approved.',
   },
+  // graph topology navigation (P1-1)
+  'pd.topo.title': { zh: '图谱导航', en: 'Graph navigation' },
+  'pd.topo.hint': {
+    zh: '方向明确的邻接：本问题依赖 {d} 个上游前提，被 {s} 个问题作为依赖。支撑度 = 依赖该题的下游题数，确定性、可复核。',
+    en: 'Direction-aware neighbors: this problem depends on {d} upstream prerequisites and is itself a dependency of {s} problems. Support = how many problems depend on it — deterministic and auditable.',
+  },
+  'pd.topo.upstream': { zh: '上游依赖', en: 'Upstream' },
+  'pd.topo.upstreamHint': { zh: '（本题依赖它们）', en: 'this depends on them' },
+  'pd.topo.downstream': { zh: '下游支撑', en: 'Downstream' },
+  'pd.topo.downstreamHint': { zh: '（它们依赖本题）', en: 'they depend on this' },
+  'pd.topo.implies': { zh: '蕴含结论', en: 'Implied' },
+  'pd.topo.generalized': { zh: '推广下沉', en: 'Generalizes to' },
+  'pd.topo.analogies': { zh: '类比', en: 'Analogies' },
+  'pd.topo.sharedTools': { zh: '共享工具', en: 'Shared tools' },
+  'pd.topo.obstacleNeighbors': { zh: '同障碍问题', en: 'Shared-obstacle problems' },
+  'pd.topo.obstacleNeighborsHint': {
+    zh: '（与本题共享已知障碍——另一条路也卡在这里，可复用技术）',
+    en: 'share known obstacles with this problem — another route blocked the same way; techniques may transfer',
+  },
   // stats page
   'st.domainProgress': { zh: '各领域进度 / 六个月目标', en: 'Progress by domain / 6-month target' },
   'st.relations': { zh: '关系连线', en: 'Relations' },
@@ -654,6 +680,15 @@ const STR: Record<string, { zh: string; en: string }> = {
   'ob.partial': { zh: '部分进展', en: 'Partial progress' },
   'ob.implication': { zh: '对 AI/形式化的启示', en: 'Implication' },
   'ob.empty': { zh: '该机制暂无失败记录。', en: 'No failure records under this mechanism yet.' },
+  'ob.unlocks.title': { zh: '方法解锁 · 复用市场', en: 'Method unlocks · reuse market' },
+  'ob.unlocks.subtitle': {
+    zh: '已通过声明携带的方法标签，沿跨题障碍链扩散——回答「这项技术下一步还能试哪些题」。失败知识从「看」变成「用」。',
+    en: 'Approved methods diffuse one hop along the cross-problem obstacle chain — answering “which problems should this technique try next.” Failure knowledge moves from viewing to reuse.',
+  },
+  'ob.unlocks.empty': {
+    zh: '还没有可解锁的方法。提交带 method 标签的带证收窄或形式化补证、审批通过后，这里会出现「下一步可试的题」。',
+    en: 'No unlockable methods yet. Submit a verified narrowing or formalization claim carrying a method tag; once approved, candidate problems appear here.',
+  },
   'ob.m.combinatorial': {
     zh: '解空间组合爆炸：候选集合随规模指数或阶乘增长，穷举不可行，且未找到结构性剪枝。',
     en: 'Combinatorial explosion: the candidate space grows exponentially or factorially, exhaustive search is infeasible, and no structural pruning is known.',
