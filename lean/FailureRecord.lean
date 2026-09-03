@@ -363,6 +363,32 @@ def me003 : Profile :=
         implication := "Formalize the regular-kernel Ha–Liu proof first; singular-kernel well-posedness needs measure-theory infrastructure beyond current libraries." },
     ] }
 
+def mp012 : Profile :=
+  { problemId := "mp-012",
+    records := [
+      { method := "String hypothesis",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Exact treatments need the full set of complex solutions whose combinatorics is not controlled for s ≥ 1",
+        implication := "String hypothesis fails quantitatively at finite L; needs a completeness argument handling all complex solutions with a consistent prescription." },
+      { method := "Singular-solution regularization",
+        mechanism := .missing_bound, layer := .formal,
+        known := "spin-1/2 XXX completeness proved (Babbit–Thomas); XXZ at roots of unity classified (Fabricius–McCoy)",
+        implication := "Higher-spin singular solutions need regularization proven consistent with the Hilbert-space completeness statement." },
+    ] }
+
+def mc008 : Profile :=
+  { problemId := "mc-008",
+    records := [
+      { method := "Algebraic obstructions (Newton identities / interlacing)",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Necessary but far from sufficient for graph realizability",
+        implication := "\"Comes from a graph\" is a combinatorial constraint, not semialgebraic; direct algebraic-geometry methods fail." },
+      { method := "Semialgebraic realizability criteria",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Minimum-rank and zero-forcing parameters give partial obstructions (AIM work group)",
+        implication := "The graph-source constraint defeats algebraic geometry; needs combinatorial realization criteria." },
+    ] }
+
 def mb005 : Profile :=
   { problemId := "mb-005",
     records := [
@@ -374,6 +400,32 @@ def mb005 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "LLN for the final size known only in the clustering-free setting",
         implication := "Overlapping cliques induce dependence across infection generations; requires a law-of-large-numbers bound robust to clustered degree–clique distributions." },
+    ] }
+
+def mb006 : Profile :=
+  { problemId := "mb-006",
+    records := [
+      { method := "Structural formula for fixation probability",
+        mechanism := .nonconvex, layer := .formal,
+        known := "No known formula beyond isothermal and circulant classes",
+        implication := "Fixation is a global hitting probability; small structural changes flip amplification, so a smooth combinatorial criterion may not exist." },
+      { method := "Combinatorial criterion search",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Stars amplify; strong amplifiers exist (Galanais et al., Pavlogiannis et al.)",
+        implication := "The classification may not admit a smooth combinatorial criterion; needs a decision-theoretic bound." },
+    ] }
+
+def mb008 : Profile :=
+  { problemId := "mb-008",
+    records := [
+      { method := "Closed-form inverse of the fixation linear system",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Fixation solves a linear system whose inverse has no closed form",
+        implication := "Translating spectral conditions into temperature equalities is the crux." },
+      { method := "Degenerate-case classification",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Isothermal theorem known for doubly stochastic circulations",
+        implication := "Sources, sinks and reducible components must be classified separately." },
     ] }
 
 def me004 : Profile :=
@@ -389,6 +441,19 @@ def me004 : Profile :=
         implication := "A multi-party reduction capturing the graph topology is needed to settle the exact exponent and logarithmic factors." },
     ] }
 
+def me005 : Profile :=
+  { problemId := "me-005",
+    records := [
+      { method := "Independence arguments for oblivious adversaries",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Give polylog bounds against oblivious adversaries",
+        implication := "Adaptive adversaries see coin outcomes, breaking the independence; needs indistinguishability-chain arguments." },
+      { method := "Compressed lower-bound constructions",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Θ(n²) total step complexity known (Aspnes; Attiya–Censor)",
+        implication := "Lower bounds need indistinguishability chains exponential in the hiding quality, resisting compression." },
+    ] }
+
 def me006 : Profile :=
   { problemId := "me-006",
     records := [
@@ -400,6 +465,32 @@ def me006 : Profile :=
         mechanism := .parameter_sensitive, layer := .param,
         known := "Give almost tight bounds via conductance; bottleneck-chain graphs show conductance alone is not the right parameter.",
         implication := "Identify the composite graph parameter (e.g. vertex expansion combined with diameter) that yields matching upper and lower bounds." },
+    ] }
+
+def mb009 : Profile :=
+  { problemId := "mb-009",
+    records := [
+      { method := "Independent-segregation conditional normality",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Fisher (1918) laid the Gaussian foundation; Barton–Etheridge–Véber gave a careful definition",
+        implication := "Linkage disequilibrium built up by drift or selection breaks the required independence." },
+      { method := "Rate-uniformity under selection intensity",
+        mechanism := .parameter_sensitive, layer := .model,
+        known := "Existing proofs assume small selection intensity",
+        implication := "Needs uniformity of the Gaussian approximation in the selection intensity." },
+    ] }
+
+def me007 : Profile :=
+  { problemId := "me-007",
+    records := [
+      { method := "Yao-type adversarial constructions",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Deterministic O(log n) competitive via primal–dual / greedy (Meyerson; Alon et al.)",
+        implication := "Adversarial request ordering makes lower bounds intricate; tight to doubly-logarithmic factors only with care." },
+      { method := "Non-metric / capacity / concave variants",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Randomized gap to O(log n / log log n) known for metric case",
+        implication := "Extending the competitive ratio beyond metric settings resists current algorithms." },
     ] }
 
 def me008 : Profile :=
@@ -457,6 +548,19 @@ def mb013 : Profile :=
         mechanism := .missing_bound, layer := .formal,
         known := "Too crude at the critical window R_0 = 1 where fluctuations trade between branching and catastrophe",
         implication := "Near-critical extinction needs refined diffusion approximations with matched constants." },
+    ] }
+
+def me009 : Profile :=
+  { problemId := "me-009",
+    records := [
+      { method := "Simultaneous two-sided bound for all rank profiles",
+        mechanism := .missing_bound, layer := .formal,
+        known := "1/e for greedy/regular matroids; 1/poly(log log rank) for general via threshold schemes",
+        implication := "Matching the bound for every rank profile simultaneously is delicate." },
+      { method := "Base-to-independent relaxation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Most positive results select near-bases",
+        implication := "Enforcing exact basis feasibility loses the constant; the matroid secretary conjecture stays open." },
     ] }
 
 def me010 : Profile :=
@@ -521,6 +625,32 @@ def mc014 : Profile :=
         implication := "Pure-state attainability of the Levy–Lieb infimum is blocked by the open v-representability characterization." },
     ] }
 
+def mb014 : Profile :=
+  { problemId := "mb-014",
+    records := [
+      { method := "Closed spin-glass solution of the weight set",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Gardner (1988): exact capacity α = 2 for unconstrained weights",
+        implication := "|J| ≤ 1 forces a boolean/threshold structure with no closed spin-glass solution." },
+      { method := "Dilute spin-glass regime analysis",
+        mechanism := .combinatorial, layer := .formal,
+        known := "Hebbian rule yields associative retrieval under unconstrained weights",
+        implication := "Sparse weights fall into the dilute spin-glass regime whose capacity thresholds are open." },
+    ] }
+
+def mb015 : Profile :=
+  { problemId := "mb-015",
+    records := [
+      { method := "Mean-field closure of clonal interference",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Desai & Fisher heuristic v ~ (Nμσ²)^{1/3}; traveling-wave theory",
+        implication := "Coupled lineage evolution resists mean-field closure; correlations block traveling-wave-pulling analysis." },
+      { method := "Rare-events scaling control",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Fractional-power speed conjectured in the mutation-limited regime",
+        implication := "The speed depends on controlling rare high-fitness lineages." },
+    ] }
+
 def mc016 : Profile :=
   { problemId := "mc-016",
     records := [
@@ -561,6 +691,19 @@ def mc023 : Profile :=
         implication := "Quantum marginal hardness evidence blocks a compact characterization; needs a structural (not enumerative) certificate." },
     ] }
 
+def me015 : Profile :=
+  { problemId := "me-015",
+    records := [
+      { method := "Cafarelli–Kohn–Nirenberg ε-regularity discretized estimates",
+        mechanism := .missing_bound, layer := .formal,
+        known := "CKN (1982): box-dimension ≤ 5/3 for the singular set",
+        implication := "Dimension-1 squeezing needs stronger modulus-of-continuity information than the ε-regularity criterion yields." },
+      { method := "Backward uniqueness / L_{3,∞} estimates",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Backward uniqueness and L_{3,∞} control partially applied",
+        implication := "Reducing the singular-set dimension needs sharper backward-uniqueness and L_{3,∞} control." },
+    ] }
+
 def me017 : Profile :=
   { problemId := "me-017",
     records := [
@@ -588,6 +731,32 @@ def me021 : Profile :=
         implication := "Proving a direction set determines the binary matrix needs a structural uniqueness argument, not enumeration." },
     ] }
 
+def me023 : Profile :=
+  { problemId := "me-023",
+    records := [
+      { method := "Extremal-matrix / eigenvector construction",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Crouzeix (2007) 11.08; Crouzeix–Palencia (2017) 1+√2",
+        implication := "Pushing to 2 requires attaining extrema in the optimal-condition-number direction; numerical-range counterexamples are hard to search." },
+      { method := "Functional-calculus bound sharpening",
+        mechanism := .missing_bound, layer := .formal,
+        known := "2×2 and special classes achieve C* = 2",
+        implication := "The optimal constant between 1+√2 and 2 needs a sharp spectral-set argument." },
+    ] }
+
+def mp035 : Profile :=
+  { problemId := "mp-035",
+    records := [
+      { method := "Rigorous vortex-binding control",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Fröhlich–Spencer (1981): low-temperature order established",
+        implication := "Complete binding of opposite vortex pairs and the critical exponents lack a unified rigorous argument." },
+      { method := "Universal-jump derivation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Kosterlitz–Thouless (1973) picture; ρ_s(T_c)/T_c = 2/π conjectured",
+        implication := "The universal jump at the endpoint still lacks a rigorous derivation." },
+    ] }
+
 def mc027 : Profile :=
   { problemId := "mc-027",
     records := [
@@ -599,6 +768,19 @@ def mc027 : Profile :=
         mechanism := .unbounded_residual, layer := .num,
         known := "Reduced process lives on a discrete state space",
         implication := "The discreteness residual of the reduction needs an explicit bound." },
+    ] }
+
+def mc028 : Profile :=
+  { problemId := "mc-028",
+    records := [
+      { method := "Sporadic cospectral-pair exclusion",
+        mechanism := .combinatorial, layer := .formal,
+        known := "van Dam–Haemers (2003) DS program; many families classified",
+        implication := "Controlled families keep admitting sporadic cospectral pairs hard to rule out." },
+      { method := "Tree signless-Laplacian analysis",
+        mechanism := .missing_bound, layer := .formal,
+        known := "The tree case is tightly constrained",
+        implication := "Tree structure both helps and blocks the DS classification; the constrained spectrum leaves a tight but unresolved gap." },
     ] }
 
 def mb026 : Profile :=
@@ -672,6 +854,19 @@ def mp036 : Profile :=
         implication := "The duality does not cross to closure; needs a certified conservation-law-type inequality for the upper bound." },
     ] }
 
+def mc029 : Profile :=
+  { problemId := "mc-029",
+    records := [
+      { method := "Algebraic-to-topological translation",
+        mechanism := .missing_bound, layer := .formal,
+        known := "Shinar–Feinberg (2010) same-side dual concentration; Pérez-Millán / Gao et al.",
+        implication := "ACR involves zero ideals of the parameter algebra; network-topological translation loses completeness." },
+      { method := "Zero-ideal (identically-zero term) characterization",
+        mechanism := .nonconvex, layer := .formal,
+        known := "Sufficient graphical criteria proven for futile cycles",
+        implication := "A precise ACR characterization needs the parameter-algebra zero ideal, resisting purely graphical conditions." },
+    ] }
+
 def mp037 : Profile :=
   { problemId := "mp-037",
     records := [
@@ -737,28 +932,42 @@ example : mb004.records.all wellFormed = true := by native_decide
 example : me001.records.all wellFormed = true := by native_decide
 example : me002.records.all wellFormed = true := by native_decide
 example : me003.records.all wellFormed = true := by native_decide
+example : mp012.records.all wellFormed = true := by native_decide
+example : mc008.records.all wellFormed = true := by native_decide
 example : mb005.records.all wellFormed = true := by native_decide
+example : mb006.records.all wellFormed = true := by native_decide
+example : mb008.records.all wellFormed = true := by native_decide
 example : me004.records.all wellFormed = true := by native_decide
+example : me005.records.all wellFormed = true := by native_decide
 example : me006.records.all wellFormed = true := by native_decide
+example : mb009.records.all wellFormed = true := by native_decide
+example : me007.records.all wellFormed = true := by native_decide
 example : me008.records.all wellFormed = true := by native_decide
 example : mc011.records.all wellFormed = true := by native_decide
 example : mc012.records.all wellFormed = true := by native_decide
 example : mb011.records.all wellFormed = true := by native_decide
 example : mb013.records.all wellFormed = true := by native_decide
+example : me009.records.all wellFormed = true := by native_decide
 example : me010.records.all wellFormed = true := by native_decide
 example : me011.records.all wellFormed = true := by native_decide
 example : me012.records.all wellFormed = true := by native_decide
 example : me013.records.all wellFormed = true := by native_decide
 example : mp022.records.all wellFormed = true := by native_decide
 example : mc014.records.all wellFormed = true := by native_decide
+example : mb014.records.all wellFormed = true := by native_decide
+example : mb015.records.all wellFormed = true := by native_decide
 example : mc016.records.all wellFormed = true := by native_decide
 example : mc017.records.all wellFormed = true := by native_decide
 example : mc022.records.all wellFormed = true := by native_decide
 example : mc023.records.all wellFormed = true := by native_decide
+example : me015.records.all wellFormed = true := by native_decide
 example : me017.records.all wellFormed = true := by native_decide
 example : me018.records.all wellFormed = true := by native_decide
 example : me021.records.all wellFormed = true := by native_decide
+example : me023.records.all wellFormed = true := by native_decide
+example : mp035.records.all wellFormed = true := by native_decide
 example : mc027.records.all wellFormed = true := by native_decide
+example : mc028.records.all wellFormed = true := by native_decide
 example : mb026.records.all wellFormed = true := by native_decide
 example : me027.records.all wellFormed = true := by native_decide
 example : me028.records.all wellFormed = true := by native_decide
@@ -766,6 +975,7 @@ example : me030.records.all wellFormed = true := by native_decide
 example : me031.records.all wellFormed = true := by native_decide
 example : me032.records.all wellFormed = true := by native_decide
 example : mp036.records.all wellFormed = true := by native_decide
+example : mc029.records.all wellFormed = true := by native_decide
 example : mp037.records.all wellFormed = true := by native_decide
 example : me034.records.all wellFormed = true := by native_decide
 example : mp041.records.all wellFormed = true := by native_decide

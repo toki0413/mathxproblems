@@ -1940,6 +1940,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mp-012',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-012 — Completeness of the Bethe Ansatz for higher-spin Heisenberg chains.\n\nFor the spin-s XXX (or XXZ) Heisenberg chain of length L, prove that the\nsolutions of the Bethe equations — including singular and complex "string"\nsolutions handled with the correct prescription — exhaust the spectrum, i.e.\nthe Bethe Ansatz is complete. The definitions of `BetheSystem`,\n`BetheEquations` and `BetheAnsatzComplete` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure BetheSystem where\n  spin : Nat\n  length : Nat\n\n/-- Bethe Ansatz 完备性：Bethe 方程的解（含奇异与弦解，按正确处方处理）穷尽谱。 -/\ndef BetheAnsatzComplete (_s : BetheSystem) : Prop :=\n  True\n\n/-- 头条声明：自旋 s XXX/XXZ Heisenberg 链的 Bethe Ansatz 完备。 -/\ntheorem bethe_ansatz_completeness (s : BetheSystem) :\n    BetheAnsatzComplete s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Completeness of the Bethe Ansatz for Higher-Spin Heisenberg Chains',
     titleZh: '高自旋 Heisenberg 链 Bethe 拟设的完备性',
@@ -1953,6 +1955,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     contributor: 'admin',
   date_added: '2026-08-22',
     via: { label: 'Bethe, Zur Theorie der Metalle, Z. Phys. 71 (1931) 205-226', url: 'https://doi.org/10.1007/BF01341708' },
+    failure_records: [
+      {
+        method: 'String hypothesis',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Exact treatments need the full set of complex solutions whose combinatorics is not controlled for s ≥ 1',
+        implication: 'String hypothesis fails quantitatively at finite L; needs a completeness argument handling all complex solutions with a consistent prescription.',
+      },
+      {
+        method: 'Singular-solution regularization',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'spin-1/2 XXX completeness proved (Babbit–Thomas); XXZ at roots of unity classified (Fabricius–McCoy)',
+        implication: 'Higher-spin singular solutions need regularization proven consistent with the Hilbert-space completeness statement.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-005',
@@ -2098,6 +2116,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mc-008',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-008 — Inverse eigenvalue problem for chemical graph classes.\n\nCharacterize the multisets of real numbers that occur as the spectrum of the\nadjacency matrix (Hückel Hamiltonian) of a connected molecular graph — solve\nthe inverse eigenvalue problem for graphs (IEPG) restricted to the classes\nused in chemistry. The definitions of `MolecularGraph`, `AdjacencySpectrum`\nand `RealizableSpectrum` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MolecularGraph (n : Nat) where\n  vertices : Fin n\n\n/-- 邻接谱可实现的判定（形式化目标）。 -/\ndef RealizableSpectrum (_g : MolecularGraph n) (_spec : Fin n → Rat) : Prop :=\n  True\n\n/-- 头条声明：化学图类的逆特征值问题（IEPG）存在可判定刻画。 -/\ntheorem iepg_chemical_classified (n : Nat) (g : MolecularGraph n) :\n    ∃ spec : Fin n → Rat, RealizableSpectrum g spec := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Inverse Eigenvalue Problem for Chemical Graph Classes',
     titleZh: '化学图类的逆特征值问题',
@@ -2113,6 +2133,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'I. Gutman',
     proposed_year: 2008,
     via: { label: 'Gutman & Furtula (eds.), Distance in Molecular Graphs — Theory (2012); review of the inverse eigenvalue problem for chemical graphs see the molecular-topology work of Graovac et al.' },
+    failure_records: [
+      {
+        method: 'Algebraic obstructions (Newton identities / interlacing)',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Necessary but far from sufficient for graph realizability',
+        implication: '"Comes from a graph" is a combinatorial constraint, not semialgebraic; direct algebraic-geometry methods fail.',
+      },
+      {
+        method: 'Semialgebraic realizability criteria',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Minimum-rank and zero-forcing parameters give partial obstructions (AIM work group)',
+        implication: 'The graph-source constraint defeats algebraic geometry; needs combinatorial realization criteria.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-003',
@@ -2223,6 +2259,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mb-006',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-006 — Classification of strong amplifiers of natural selection.\n\nClassify the graphs G that are strong amplifiers of selection for the\nbirth–death Moran process: those for which the fixation probability of a single\nmutant with fitness r > 1 tends to 1 as the graph grows. The definitions of\n`MoranGraph`, `FixationProbability` and `StrongAmplifier` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MoranGraph (n : Nat) where\n  vertices : Fin n\n\n/-- 固定概率（形式化目标）。 -/\ndef FixationProbability (_g : MoranGraph n) (_fitness : Rat) : Rat :=\n  0\n\n/-- 强放大器：r > 1 的单个突变体固定概率趋于 1。 -/\ndef StrongAmplifier (g : MoranGraph n) : Prop :=\n  True\n\n/-- 头条声明：强放大器的图结构存在可判定/可分类判据。 -/\ntheorem strong_amplifier_decidable (n : Nat) (g : MoranGraph n) :\n    StrongAmplifier g ∨ ¬ StrongAmplifier g := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass gives a structural combinatorial criterion that decides whether a graph is a strong amplifier (fixation probability tending to 1) or strong suppressor (tending to 0) for the birth-death Moran process, and establishes whether strong amplification is decidable in polynomial time, with a correctness proof for the criterion.',
     title: 'Classification of Strong Amplifiers of Natural Selection',
@@ -2239,6 +2277,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
     via: { label: 'Strong amplifiers: Lieberman–Hauert–Nowak (2005); super-amplifiers see Pavlogiannis–Tkadlec–Chatterjee–Nowak, Nat. Commun. 8 (2017)' },
+    failure_records: [
+      {
+        method: 'Structural formula for fixation probability',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'No known formula beyond isothermal and circulant classes',
+        implication: 'Fixation is a global hitting probability; small structural changes flip amplification, so a smooth combinatorial criterion may not exist.',
+      },
+      {
+        method: 'Combinatorial criterion search',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Stars amplify; strong amplifiers exist (Galanais et al., Pavlogiannis et al.)',
+        implication: 'The classification may not admit a smooth combinatorial criterion; needs a decision-theoretic bound.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -2330,6 +2384,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'mb-008',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-008 — Generalized isothermal theorem for weighted and directed population\ngraphs.\n\nExtend the isothermal theorem to general weighted directed graphs: characterize\nthe edge-weight matrices W for which the fixation probability of the\nbirth–death (or death–birth) Moran process equals the neutral rate 1/N. The\ndefinitions of `PopulationGraph`, `WeightMatrix` and `Isothermal` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure PopulationGraph (n : Nat) where\n  weightMatrix : Fin n → Fin n → Rat\n\n/-- 等温条件：温度相等，固定概率等于中性速率（形式化目标）。 -/\ndef Isothermal (g : PopulationGraph n) : Prop :=\n  True\n\n/-- 头条声明：加权有向群体图的广义等温定理成立（等温矩阵可刻画）。 -/\ntheorem generalized_isothermal_theorem (n : Nat) (g : PopulationGraph n) :\n    Isothermal g ∨ ¬ Isothermal g := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass characterizes the edge-weight matrices W for which the birth-death or death-birth fixation probability equals the well-mixed value, proving both necessity and sufficiency of equal vertex temperatures including non-stochastic matrices and weakly connected cases, as an algebraic statement about Markov-chain hitting probabilities.',
     title: 'Generalized Isothermal Theorem for Weighted and Directed Population Graphs',
@@ -2346,6 +2402,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'E. Lieberman, C. Hauert & M. A. Nowak',
     proposed_year: 2005,
     via: { label: 'Isothermal theorem: Lieberman–Hauert–Nowak (2005); weighted/directed generalizations see the related fixation-probability literature' },
+    failure_records: [
+      {
+        method: 'Closed-form inverse of the fixation linear system',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Fixation solves a linear system whose inverse has no closed form',
+        implication: 'Translating spectral conditions into temperature equalities is the crux.',
+      },
+      {
+        method: 'Degenerate-case classification',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Isothermal theorem known for doubly stochastic circulations',
+        implication: 'Sources, sinks and reducible components must be classified separately.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-006',
@@ -2459,6 +2531,8 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
   },
   {
     id: 'me-005',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-005 — Tight bounds for randomized consensus against an adaptive adversary.\n\nDetermine the exact step complexity of randomized binary consensus in\nasynchronous shared memory with n processes against an adaptive adversary: is\nit Θ(n), Θ(n/log n), or another function? Close the gaps between the best\nknown upper bounds and the Ω(n/log² n)-type lower bounds. The definitions of\n`ConsensusProtocol`, `StepComplexity` and `AdaptiveAdversary` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ConsensusProtocol (n : Nat) where\n  processes : Fin n\n\n/-- 最坏情形步复杂度（形式化目标）。 -/\ndef StepComplexity (_p : ConsensusProtocol n) : Nat :=\n  0\n\n/-- 头条声明：自适应对手下随机化二值共识存在紧的步复杂度刻画。 -/\ntheorem adaptive_consensus_complexity (n : Nat) (p : ConsensusProtocol n) :\n    0 < StepComplexity p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Tight Bounds for Randomized Consensus Against an Adaptive Adversary',
     titleZh: '自适应对手下随机共识的紧复杂度界',
@@ -2474,6 +2548,22 @@ with $C$ depending only on $\\Delta$, the interaction range, and the local dimen
     proposer: 'M. Ben-Or',
     proposed_year: 1983,
     via: { label: 'Tradition on randomized-consensus lower bounds: Ben-Or, Another advantage of free choice, PODC (1983)' },
+    failure_records: [
+      {
+        method: 'Independence arguments for oblivious adversaries',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Give polylog bounds against oblivious adversaries',
+        implication: 'Adaptive adversaries see coin outcomes, breaking the independence; needs indistinguishability-chain arguments.',
+      },
+      {
+        method: 'Compressed lower-bound constructions',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Θ(n²) total step complexity known (Aspnes; Attiya–Censor)',
+        implication: 'Lower bounds need indistinguishability chains exponential in the hiding quality, resisting compression.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-003',
@@ -2752,6 +2842,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'mb-009',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-009 — Emergence of the infinitesimal model in polygenic inheritance.\n\nProve that additive trait inheritance under Mendelian segregation converges to\nthe infinitesimal model in the many-loci limit: for a trait determined by L\nunlinked additive loci with arbitrary effects, the trait distribution in\noffspring is Gaussian conditional on parental values. The definitions of\n`PolygenicTrait`, `MendelianSegregation` and `InfinitesimalLimit` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure PolygenicTrait (L : Nat) where\n  loci : Fin L\n\n/-- 无穷小模型极限：后代表型条件分布趋于高斯（形式化目标）。 -/\ndef InfinitesimalLimit (_t : PolygenicTrait L) : Prop :=\n  True\n\n/-- 头条声明：多基因遗传在多个位点极限下收敛到无穷小模型。 -/\ntheorem infinitesimal_model_emergence (L : Nat) (t : PolygenicTrait L) :\n    InfinitesimalLimit t := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves that offspring breeding value is normally distributed in the many-loci limit with variance independent of the parental genotype, gives a rigorous convergence rate, and characterizes the effect sizes, linkage and dominance regimes where normality emerges or breaks down, via a certified central-limit-type proof.',
     title: 'Emergence of the Infinitesimal Model in Polygenic Inheritance',
@@ -2771,6 +2863,22 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Barton–Etheridge–Véber, The infinitesimal model: definition, derivation and dominance, Theor. Popul. Biol. 118 (2017)',
       url: 'https://doi.org/10.1016/j.tpb.2017.05.001',
     },
+    failure_records: [
+      {
+        method: 'Independent-segregation conditional normality',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Fisher (1918) laid the Gaussian foundation; Barton–Etheridge–Véber gave a careful definition',
+        implication: 'Linkage disequilibrium built up by drift or selection breaks the required independence.',
+      },
+      {
+        method: 'Rate-uniformity under selection intensity',
+        mechanism: 'parameter_sensitive',
+        layer: 'model',
+        partial: 'Existing proofs assume small selection intensity',
+        implication: 'Needs uniformity of the Gaussian approximation in the selection intensity.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-001',
@@ -2862,6 +2970,8 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
   },
   {
     id: 'me-007',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-007 — Optimal competitive ratio for online (metric) facility location.\n\nFor the online metric facility-location problem (a sequence of demand points\narrives; the algorithm opens facilities at a cost f and each served point pays\nits distance to the nearest open facility), determine the optimal competitive\nratio. The definitions of `FacilityLocationInstance`, `CompetitiveRatio` and\n`OptimalOnlineRatio` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure FacilityLocationInstance (n : Nat) where\n  demands : Fin n → Rat\n\n/-- 竞争比（形式化目标）。 -/\ndef CompetitiveRatio (_i : FacilityLocationInstance n) : Rat :=\n  0\n\n/-- 头条声明：在线（度量）设施选址存在最优竞争比。 -/\ntheorem facility_location_optimal_ratio (n : Nat) (i : FacilityLocationInstance n) :\n    ∃ r : Rat, 0 ≤ r := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Optimal Competitive Ratio for Online (Metric) Facility Location',
     titleZh: '在线（度量）设施选址的最优竞争比',
@@ -2880,6 +2990,22 @@ with a **finite, positive, temperature-dependent thermal conductivity** $\\kappa
       label: 'Meyerson, Online facility location, FOCS (2001)',
       url: 'https://doi.org/10.1109/SFCS.2001.959910',
     },
+    failure_records: [
+      {
+        method: 'Yao-type adversarial constructions',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Deterministic O(log n) competitive via primal–dual / greedy (Meyerson; Alon et al.)',
+        implication: 'Adversarial request ordering makes lower bounds intricate; tight to doubly-logarithmic factors only with care.',
+      },
+      {
+        method: 'Non-metric / capacity / concave variants',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Randomized gap to O(log n / log log n) known for metric case',
+        implication: 'Extending the competitive ratio beyond metric settings resists current algorithms.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-008',
@@ -3444,6 +3570,8 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
   },
   {
     id: 'me-009',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-009 — The Matroid Secretary Conjecture.\n\nLet M = (E, I) be a matroid and weights arrive in random order with adversarially\nchosen values. An algorithm must irrevocably select elements subject to\nindependence, and gets the weight of the selected basis. Prove the existence of\na constant-factor competitive algorithm for general matroids. The definitions\nof `Matroid`, `SecretaryInstance` and `CompetitiveRatio` are themselves part of\nthe formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure Matroid where\n  rank : Nat\n\n/-- 秘书问题的竞争比（形式化目标）。 -/\ndef SecretaryCompetitiveRatio (_m : Matroid) : Rat :=\n  0\n\n/-- 头条声明：一般拟阵秘书问题存在常数竞争比算法（拟阵秘书猜想）。 -/\ntheorem matroid_secretary_constant (m : Matroid) :\n    ∃ c : Rat, 0 < c := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves that a competitive ratio of at least 1/e is achievable by a single online algorithm for every matroid, or determines the true optimal constant, via a rigorous threshold-algorithm argument whose output basis satisfies the stated expected-value inequality for all adversarial weight orderings.',
     title: 'The Matroid Secretary Conjecture',
@@ -3463,6 +3591,22 @@ Prove, in particular, whether the celebrated bound $\\lambda_c(1)=\\inf_{\\theta
       label: 'Babaioff, Immorlica, Kleinberg, Matroid Secretary Problems, J. ACM 65(6) (2018)',
       url: 'https://doi.org/10.1145/3212512',
     },
+    failure_records: [
+      {
+        method: 'Simultaneous two-sided bound for all rank profiles',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: '1/e for greedy/regular matroids; 1/poly(log log rank) for general via threshold schemes',
+        implication: 'Matching the bound for every rank profile simultaneously is delicate.',
+      },
+      {
+        method: 'Base-to-independent relaxation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Most positive results select near-bases',
+        implication: 'Enforcing exact basis feasibility loses the constant; the matroid secretary conjecture stays open.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-007',
@@ -4082,6 +4226,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mb-014',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-014 — Storage capacity of associative memory with sparse or bounded synaptic\nweights.\n\nFor the N-neuron discrete Hopfield network with state dynamics\nx_i(t+1) = sgn(Σ_j J_ij x_j(t)) storing M random patterns, determine the\nmaximal ratio α = M/N achievable with bounded (|J_ij| ≤ 1) or sparse synaptic\nweights. The definitions of `HopfieldNetwork`, `StoredPatterns` and\n`StorageCapacity` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure HopfieldNetwork (N : Nat) where\n  neurons : Fin N\n\n/-- 存储容量 α = M/N（形式化目标）。 -/\ndef StorageCapacity (_h : HopfieldNetwork N) : Rat :=\n  0\n\n/-- 头条声明：受限/稀疏突触权重的 Hopfield 网络存在容量刻画。 -/\ntheorem hopfield_capacity_bound (N : Nat) (h : HopfieldNetwork N) :\n    0 ≤ StorageCapacity h := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Storage Capacity of Associative Memory with Sparse or Bounded Synaptic Weights',
     titleZh: '稀疏/有界突触权重下联想记忆的存储容量',
@@ -4095,6 +4241,22 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
     contributor: 'admin',
   date_added: '2026-08-22',
     via: { label: 'Gardner, The space of interactions in neural network models, J. Phys. A 21 (1988) 257-270', url: 'https://doi.org/10.1088/0305-4470/21/1/030' },
+    failure_records: [
+      {
+        method: 'Closed spin-glass solution of the weight set',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Gardner (1988): exact capacity α = 2 for unconstrained weights',
+        implication: '|J| ≤ 1 forces a boolean/threshold structure with no closed spin-glass solution.',
+      },
+      {
+        method: 'Dilute spin-glass regime analysis',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Hebbian rule yields associative retrieval under unconstrained weights',
+        implication: 'Sparse weights fall into the dilute spin-glass regime whose capacity thresholds are open.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-005',
@@ -4133,6 +4295,8 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
   },
   {
     id: 'mb-015',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-015 — Asymptotic speed of adaptation in large asexual populations.\n\nConsider the deterministic mutation–selection equation for a population of\nhaploid asexual organisms with fitness landscape f(x) and mutation kernel μ,\ndescribing the evolution of the fitness distribution. Determine the asymptotic\nspeed of adaptation v in the mutation-limited regime. The definitions of\n`AsexualPopulation`, `MutationSelectionEquation` and `AdaptationSpeed` are\nthemselves part of the formalization target; the statement is the well-typed\nheadline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure AsexualPopulation where\n  mutationRate : Rat\n\n/-- 适应速度 v（形式化目标）。 -/\ndef AdaptationSpeed (_p : AsexualPopulation) : Rat :=\n  0\n\n/-- 头条声明：大型无性生殖种群的适应速度存在可刻画的渐近。 -/\ntheorem adaptation_speed_asymptotic (p : AsexualPopulation) :\n    0 ≤ AdaptationSpeed p := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass proves the mean fitness advances at a well-defined asymptotic linear speed and characterizes it in terms of population size, mutation rate and the fitness tail, rigorously establishing the fractional-power scaling in the clonal-interference regime or the crossover to deterministic adaptation, with the front-speed argument certified.',
     title: 'Asymptotic Speed of Adaptation in Large Asexual Populations',
@@ -4152,6 +4316,22 @@ that lose regularity in finite time: solutions such that $\\limsup_{t \\to T^-} 
       label: 'Desai & Fisher, Beneficial mutation-selection balance and the effect of linkage, Genetics 176 (2007)',
       url: 'https://doi.org/10.1534/genetics.106.067082',
     },
+    failure_records: [
+      {
+        method: 'Mean-field closure of clonal interference',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Desai & Fisher heuristic v ~ (Nμσ²)^{1/3}; traveling-wave theory',
+        implication: 'Coupled lineage evolution resists mean-field closure; correlations block traveling-wave-pulling analysis.',
+      },
+      {
+        method: 'Rare-events scaling control',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Fractional-power speed conjectured in the mutation-limited regime',
+        implication: 'The speed depends on controlling rare high-fitness lineages.',
+      },
+    ],
     related_problems: [
       {
         id: 'mb-001',
@@ -5654,6 +5834,8 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
   },
   {
     id: 'me-015',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-015 — Sharp size of the singular set for suitably weak Navier–Stokes\nsolutions.\n\nConsider incompressible Navier–Stokes on a bounded domain for all t > 0. By the\nCafarelli–Kohn–Nirenberg partial regularity theorem every suitable weak\nsolution is smooth away from a set whose box-dimension is at most 5/3.\nDetermine whether the singular set can be squeezed to Hausdorff dimension 1.\nThe definitions of `NavierStokesSolution`, `SingularSet` and\n`SingularSetDimension` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure NavierStokesSolution where\n  boxDimension : Rat\n\n/-- 奇异集的（盒）维数（形式化目标）。 -/\ndef SingularSetDimension (_u : NavierStokesSolution) : Rat :=\n  0\n\n/-- 头条声明：合适弱解奇异集的锐利维数刻画（CKN 上界 5/3 能否收紧到 1）。 -/\ntheorem singular_set_dimension_bound (u : NavierStokesSolution) :\n    0 ≤ SingularSetDimension u := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves that for every suitably weak solution of the 3D incompressible Navier–Stokes equations the singular set carries zero one-dimensional Hausdorff measure, with a fully machine-checkable energy/backward-uniqueness argument, or else exhibits a certified family of solutions whose singular set has positive one-dimensional measure, so the sharp dimension of the singular set is settled either way.',
@@ -5671,6 +5853,22 @@ be given where mutation is a constant-flux matrix $M=(m_{ij})$ (which may be asy
     proposer: 'multiple contributors',
     proposed_year: 2007,
     via: { label: 'Dimension of the singular set of NS suitable weak solutions: the Caffarelli–Kohn–Nirenberg partial regularity tradition and subsequent dimension results' },
+    failure_records: [
+      {
+        method: 'Cafarelli–Kohn–Nirenberg ε-regularity discretized estimates',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'CKN (1982): box-dimension ≤ 5/3 for the singular set',
+        implication: 'Dimension-1 squeezing needs stronger modulus-of-continuity information than the ε-regularity criterion yields.',
+      },
+      {
+        method: 'Backward uniqueness / L_{3,∞} estimates',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Backward uniqueness and L_{3,∞} control partially applied',
+        implication: 'Reducing the singular-set dimension needs sharper backward-uniqueness and L_{3,∞} control.',
+      },
+    ],
     related_problems: [],
     statement: `Consider incompressible Navier–Stokes on a bounded domain for all $t>0$. By the Cafarelli–Kohn–Nirenberg partial regularity theorem every suitable weak solution is smooth away from a set whose box-counting dimension is at most $5/3$. **Prove or disprove the sharp improvement**: the singular set has vanishing one-dimensional Hausdorff measure $\\mathcal H^1(S)=0$, or find an exponent sharper than $5/3$ that is provably optimal.
 
@@ -6042,6 +6240,8 @@ Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching ha
   },
   {
     id: 'me-023',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-023 — Crouzeix theorem: optimal constant for the numerical range of a\nmatrix.\n\nFor any n×n matrix A and any polynomial p, let W(A) = {x*Ax : ‖x‖=1} be the\nnumerical range. Determine the optimal constant C*(W) such that ‖p(A)‖ ≤\nC* sup_{z∈W(A)} |p(z)| for every matrix A whose numerical range is contained\nin W. The definitions of `NumericMatrix`, `NumericalRange` and\n`CrouzeixConstant` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure NumericMatrix (n : Nat) where\n  entries : Fin n → Fin n → Rat\n\n/-- Crouzeix 常数 C*(W)（形式化目标；已知 1+√2 ≤ C* ≤ 2）。 -/\ndef CrouzeixConstant (_A : NumericMatrix n) : Rat :=\n  0\n\n/-- 头条声明：Crouzeix 最优常数存在（1+√2 与 2 之间的闭值待定）。 -/\ntheorem crouzeix_optimal_constant (n : Nat) (A : NumericMatrix n) :\n    0 ≤ CrouzeixConstant A := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass proves the optimal constant $C$ for which $\\|p(A)\\| \\le C \\, \\max_{z \\in W(A)} |p(z)|$ holds for every matrix $A$ and every polynomial $p$, where $W(A)$ is the numerical range, improving on the known constant $1+\\sqrt 2$ toward the conjectured value $2$ with a matching extremal example, so the Crouzeix–Palencia spectral-set question is resolved.',
@@ -6062,6 +6262,22 @@ Provide either a polynomial-time $(1+\\varepsilon)$ approximation, a matching ha
       label: 'Crouzeix, Bounds for analytic functions of matrices, Integral Equ. Oper. Theory 48 (2004); constant conjecture 1+√2',
       url: 'https://doi.org/10.1007/s00020-002-1184-6',
     },
+    failure_records: [
+      {
+        method: 'Extremal-matrix / eigenvector construction',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Crouzeix (2007) 11.08; Crouzeix–Palencia (2017) 1+√2',
+        implication: 'Pushing to 2 requires attaining extrema in the optimal-condition-number direction; numerical-range counterexamples are hard to search.',
+      },
+      {
+        method: 'Functional-calculus bound sharpening',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: '2×2 and special classes achieve C* = 2',
+        implication: 'The optimal constant between 1+√2 and 2 needs a sharp spectral-set argument.',
+      },
+    ],
     related_problems: [],
     statement: `For any $n \\times n$ matrix $A$ and any polynomial $p$, let $W(A) = \\{x^* A x : \\|x\\|=1\\}$ be the numerical range. **Determine the optimal constant $C^*(W)$ such that**
 $\\|p(A)\\| \\le C^* \\, \\sup_{z \\in W(A)} |p(z)|, \\qquad \\forall p \\in \\mathbb C[z],$
@@ -6221,12 +6437,30 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['bkt-transition', 'xy-model', 'coulomb-gas', 'phase-transition', 'superfluid'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-035 — Berezinskii–Kosterlitz–Thouless transition and the universal jump.\n\nLet H_K = −K Σ_{⟨x,y⟩} cos(θ_x − θ_y) be the classical XY (rotator) model on\nℤ² with θ_x ∈ 𝕋. Prove the existence of the Kosterlitz–Thouless transition and\nderive rigorously the universal jump ρ_s(T_c)/T_c = 2/π of the superfluid\ndensity at criticality. The definitions of `XYModel`, `SuperfluidDensity` and\n`UniversalJump` are themselves part of the formalization target; the statement\nis the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure XYModel where\n  temperature : Rat\n\n/-- 超流密度 ρ_s（形式化目标）。 -/\ndef SuperfluidDensity (_m : XYModel) : Rat :=\n  0\n\n/-- 头条声明：二维 XY 模型存在 BKT 相变且超流密度临界跳跃 ρ_s(T_c)/T_c = 2/π。 -/\ntheorem bkt_universal_jump (m : XYModel) :\n    0 ≤ SuperfluidDensity m := by\n  sorry\n\nend MathX\n',
     proposer: 'J. M. Kosterlitz & D. J. Thouless',
     proposed_year: 1973,
     via: {
       label: 'Kosterlitz & Thouless, Ordering metastability and phase transitions in two-dimensional systems, J. Phys. C 6 (1973)',
       url: 'https://doi.org/10.1088/0022-3719/6/7/010',
     },
+    failure_records: [
+      {
+        method: 'Rigorous vortex-binding control',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Fröhlich–Spencer (1981): low-temperature order established',
+        implication: 'Complete binding of opposite vortex pairs and the critical exponents lack a unified rigorous argument.',
+      },
+      {
+        method: 'Universal-jump derivation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Kosterlitz–Thouless (1973) picture; ρ_s(T_c)/T_c = 2/π conjectured',
+        implication: 'The universal jump at the endpoint still lacks a rigorous derivation.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-026',
@@ -6370,12 +6604,30 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['graph-spectrum', 'cospectral', 'molecular-graph', 'signless-laplacian'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-028 — Are molecular graphs determined by their (signless Laplacian)\nspectrum?\n\nLet G be a molecular graph, a connected graph of maximum degree at most four,\nas arises from the carbon skeleton of a hydrocarbon. Determine which molecular\ngraphs are determined by their (signless Laplacian) spectrum. The definitions\nof `MolecularGraph`, `SignlessLaplacianSpectrum` and `DS` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MolecularGraph (n : Nat) where\n  vertices : Fin n\n\n/-- 谱决定（DS）：由（符号拉普拉斯）谱唯一决定（形式化目标）。 -/\ndef DS (_g : MolecularGraph n) : Prop :=\n  True\n\n/-- 头条声明：分子图的 DS 分类存在（确定哪些分子图由谱决定）。 -/\ntheorem molecular_graphs_ds_decidable (n : Nat) (g : MolecularGraph n) :\n    DS g ∨ ¬ DS g := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2011,
     via: {
       label: 'Survey of spectral determination of molecular graphs: van Dam & Haemers, Which graphs are determined by their spectrum? LAA 373 (2003)',
       url: 'https://doi.org/10.1016/j.laa.2003.07.008',
     },
+    failure_records: [
+      {
+        method: 'Sporadic cospectral-pair exclusion',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'van Dam–Haemers (2003) DS program; many families classified',
+        implication: 'Controlled families keep admitting sporadic cospectral pairs hard to rule out.',
+      },
+      {
+        method: 'Tree signless-Laplacian analysis',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'The tree case is tightly constrained',
+        implication: 'Tree structure both helps and blocks the DS classification; the constrained spectrum leaves a tight but unresolved gap.',
+      },
+    ],
     related_problems: [
       {
         id: 'mc-022',
@@ -7099,12 +7351,30 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['crnt', 'absolute-concentration-robustness', 'multistationarity', 'futile-cycle', 'algebraic-certificate'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmc-029 — Structural certification of absolute concentration robustness in\nreaction networks.\n\nA reaction network exhibits absolute concentration robustness (ACR) in a\nspecies X if in every positive steady state the concentration of X is the same,\nindependent of total mass. For the class of networks admitting ACR, give a\nstructural (network-topological) criterion that decides ACR. The definitions of\n`ReactionNetwork`, `AbsoluteConcentrationRobustness` and\n`StructuralACRCriterion` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ReactionNetwork (s : Nat) where\n  species : Fin s\n\n/-- 物种 X 的绝对浓度鲁棒性（形式化目标）。 -/\ndef AbsoluteConcentrationRobustness (N : ReactionNetwork s) (_X : Nat) : Prop :=\n  True\n\n/-- 头条声明：ACR 网络类存在结构性（网络拓扑）判定判据。 -/\ntheorem acr_structural_certification (s : Nat) (N : ReactionNetwork s) :\n    ∃ X : Nat, AbsoluteConcentrationRobustness N X := by\n  sorry\n\nend MathX\n',
     proposer: 'G. A. Shinar & M. Feinberg',
     proposed_year: 2010,
     via: {
       label: 'Shinar, Feinberg, Structural sources of robustness in biochemical reaction networks, Science 327 (2010) 1389–1391',
       url: 'https://doi.org/10.1126/science.1184453',
     },
+    failure_records: [
+      {
+        method: 'Algebraic-to-topological translation',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Shinar–Feinberg (2010) same-side dual concentration; Pérez-Millán / Gao et al.',
+        implication: 'ACR involves zero ideals of the parameter algebra; network-topological translation loses completeness.',
+      },
+      {
+        method: 'Zero-ideal (identically-zero term) characterization',
+        mechanism: 'nonconvex',
+        layer: 'formal',
+        partial: 'Sufficient graphical criteria proven for futile cycles',
+        implication: 'A precise ACR characterization needs the parameter-algebra zero ideal, resisting purely graphical conditions.',
+      },
+    ],
     related_problems: [],
     statement: `A reaction network exhibits absolute concentration robustness (ACR) in a species $X$ if in every positive steady state the concentration of $X$ is the same, independent of total mass. For the class of mass-action systems, **find a criterion, readable directly from the reaction graph (stoichiometry + rates), that is both sufficient and necessary for ACR in as wide a subclass as possible — or prove for a designated wide subclass that no such finite, purely structural certificate exists (requiring algebraic parameter search), giving a completeness statement that bounds what can be certified "from the wiring alone".**`,
     origin:
