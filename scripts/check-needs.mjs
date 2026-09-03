@@ -67,11 +67,12 @@ for (const block of needsSrc.split("\n  {\n    id: '").slice(1)) {
   const standard = (block.match(/standard: '([^']*)'/) || [])[1]
   const consumable = (block.match(/consumable:\s*\n\s*'([^']*)'/) || [])[1]
   const barrier = (block.match(/barrier:\s*\n?\s*'([^']*)'/) || [])[1]
+  const sourcing = (block.match(/sourcing:\s*\n?\s*'([^']*)'/) || [])[1]
   const chain = []
   for (const m of block.matchAll(CHAIN_STEP_RE)) {
     chain.push({ id: m[1], kind: m[2], role: m[3] })
   }
-  if (id) needs.push({ id, readiness, workflow, standard, consumable, barrier, chain })
+  if (id) needs.push({ id, readiness, workflow, standard, consumable, barrier, sourcing, chain })
 }
 
 const failures = []
@@ -91,6 +92,13 @@ const badConsumable = needs.filter((n) => !n.consumable)
 if (badConsumable.length) failures.push(`need missing consumable: ${badConsumable.map((n) => n.id).join(', ')}`)
 const badBarrier = needs.filter((n) => !n.barrier)
 if (badBarrier.length) failures.push(`need missing barrier: ${badBarrier.map((n) => n.id).join(', ')}`)
+
+// 缺口驱动收题（深化规则）：readiness='gap' 的需求必须说明"该收/推哪道题"，
+// 否则缺口只是死文字——需求层无法驱动收题（从问题收录到解题层的引擎）。
+const missingSourcing = needs.filter((n) => n.readiness === 'gap' && !n.sourcing)
+if (missingSourcing.length) {
+  failures.push(`gap need without sourcing (缺口必须给出收题建议): ${missingSourcing.map((n) => n.id).join(', ')}`)
+}
 
 // chain 步骤：kind 与 id 所在注册表必须匹配；problem 角色枚举合法；law 必须用 role='law'。
 const badKind = []
@@ -156,11 +164,13 @@ const chainKinds = {}
 for (const n of needs) for (const s of n.chain) chainKinds[s.kind] = (chainKinds[s.kind] ?? 0) + 1
 const referencedProblems = new Set(needs.flatMap((n) => n.chain.filter((s) => s.kind === 'problem').map((s) => s.id)))
 const referencedLaws = new Set(needs.flatMap((n) => n.chain.filter((s) => s.kind === 'law').map((s) => s.id)))
+const sourcedNeeds = needs.filter((n) => n.sourcing).length
 console.log(
   `engineering needs: ${needs.length} (${Object.entries(dist)
     .map(([k, v]) => `${k}=${v}`)
     .join(', ')})`,
 )
+console.log(`sourced needs (缺口驱动收题建议): ${sourcedNeeds}/${needs.length}`)
 console.log(
   `chain-derived readiness: (${Object.entries(derivedDist)
     .map(([k, v]) => `${k}=${v}`)

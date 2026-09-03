@@ -65,6 +65,8 @@ export interface EngineeringNeed {
   readiness: NeedReadiness
   /** 诚实的现状/缺口说明。 */
   note: string
+  /** 缺口驱动收题（readiness='gap' 时护栏强制必须有）：要 serve 这条需求，具体该收/推哪道题。 */
+  sourcing?: string
 }
 
 export const NEED_READINESS_LABEL: Record<NeedReadiness, string> = {
@@ -154,6 +156,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'validation',
     readiness: 'gap',
     note: 'The demand side of the closure question: a certified dissipation statement is precisely what RANS/LES validation is missing.',
+    sourcing: '收题：新增「奇异耗散机制的显式可证刻画」（推进 mp-008 的零粘性极限），或为 law-mixinglength 的混合长闭合误差给定一个可证上界。',
   },
   {
     id: 'need-consensus-rate',
@@ -211,6 +214,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'safety-case',
     readiness: 'gap',
     note: 'The Cucker–Smale unconditional-flocking question is the mathematical core a swarm-safety certificate would rest on.',
+    sourcing: '收题：推进 me-003（奇异核 Cucker–Smale 无条件 flocking）；收「非奇异核 flocking 不变集的构造性证明」作为过渡锚点。',
   },
   {
     id: 'need-bioreactor-robustness',
@@ -292,6 +296,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'screening',
     readiness: 'gap',
     note: 'A decidable criterion would make switch design a certified decision instead of a simulation guess.',
+    sourcing: '收题：新增「小网络多稳态的可判定判据」（CRNT 结构性判据，推进 mc-004/mc-011 的 deficiency 理论到算法化）。',
   },
   {
     id: 'need-epidemic-threshold',
@@ -540,6 +545,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'sign-off',
     readiness: 'gap',
     note: 'The rigorous Kubo-conductance quantization is the mathematical core a quantum-metrology sign-off would cite.',
+    sourcing: '收题：新增「相互作用电子 Kubo 电导的严格量化」（推进 mp-022 的量子化平台稳健性），并把 mp-002 的耗散混合作为传输侧前置。',
   },
   {
     id: 'need-learned-control',
@@ -568,6 +574,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'safety-case',
     readiness: 'gap',
     note: 'The demand side of the learned-control verification question.',
+    sourcing: '收题：推进 me-032（学习策略的可证稳定性证书）与 me-018（Brockett–Sontag 充要判据）；先收「ODD 内 LTI 子类的可判定稳定性判据」。',
   },
   {
     id: 'need-composite-bounds',
@@ -590,6 +597,7 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'design-review',
     readiness: 'gap',
     note: 'Sharp attainable bounds are exactly what composite design-allowables are missing.',
+    sourcing: '收题：推进 me-028（G-closure 与多相复合材料的锐可达界）；收「两相/三相各向同性复合材料的可达界」作为过渡。',
   },
   {
     id: 'need-molecular-screening',
@@ -647,6 +655,202 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'monitoring',
     readiness: 'gap',
     note: 'Sharp Arnold tongues would turn seasonal-flu timing from heuristic to certified.',
+    sourcing: '收题：推进 mb-026（季节强迫 SIR 的锐 Arnold 舌）；收「周期强迫下 SIR 的次谐波响应区域地图」作为过渡。',
+  },
+  {
+    id: 'need-eda-routing',
+    name: 'Certified layout / routing budget for chip wiring',
+    area: 'Chip design / EDA',
+    description:
+      'A place-and-route sign-off needs a certified upper bound on wiring cost or layout bandwidth, so \u201cthis netlist fits in this routing budget\u201d is a provable claim instead of an empirical guess.',
+    chain: [
+      {
+        id: 'me-011',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Determine the exact constant-factor approximation for graphic TSP — the wiring-cost ratio behind global routing budgets.',
+      },
+      {
+        id: 'me-010',
+        kind: 'problem',
+        role: 'related',
+        what: 'Decide whether graph bandwidth is constant-approximable — the layout-quality bound that decides fill-in and communication loads in LSI routing.',
+      },
+      {
+        id: 'me-012',
+        kind: 'problem',
+        role: 'related',
+        what: 'Strongly polynomial LP — the solver guarantee that placement / timing optimizers rely on.',
+      },
+    ],
+    standard: 'IEEE CEDA / ISPD & ICCAD benchmark suites (place-and-route)',
+    consumable:
+      'A certified upper bound on routing cost or layout bandwidth with its approximation ratio stated — consumable as a wiring-budget envelope at place-and-route sign-off.',
+    barrier:
+      'me-011 (graphic TSP 4/3) and me-010 (bandwidth constant-approximability) are both open; no certified constant bounds any EDA wiring budget today.',
+    workflow: 'screening',
+    readiness: 'gap',
+    note: 'The EDA demand side: certified layout/routing bounds, not heuristics, are what \u201cguaranteed routability\u201d would rest on.',
+    sourcing: '收题：推进 me-011（4/3 猜想）与 me-010（图带宽常数近似）；收「网格图/稀疏图上布线成本的锐上界」作为过渡锚点。',
+  },
+  {
+    id: 'need-plc-stabilization',
+    name: 'Certified controller-form selection for safety-instrumented functions',
+    area: 'Industrial control / safety instrumented systems',
+    description:
+      'A safety-instrumented function needs a certified decision on which feedback form is implementable (continuous / Lipschitz vs. discontinuous), so the chosen controller structure is provably able to stabilize the process, not just tuned in simulation.',
+    chain: [
+      {
+        id: 'me-018',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'A necessary-and-sufficient criterion for continuous feedback stabilizability (Brockett\u2013Sontag gap) — the boundary of what smooth embedded control can guarantee.',
+      },
+      {
+        id: 'me-001',
+        kind: 'problem',
+        role: 'related',
+        what: 'Certified nonlinear consensus convergence — the multi-loop coordination guarantee safety loops inherit.',
+      },
+    ],
+    standard: 'IEC 61508 / IEC 61511 (functional safety of SIS)',
+    consumable:
+      'A certified \u201ccontinuous feedback exists / does not\u201d criterion for the safety function, with the controller form implied — input to SIS design and FAT/SAT review.',
+    barrier: 'me-018 is open; no necessary-and-sufficient stabilizability criterion exists for the general nonlinear class.',
+    workflow: 'safety-case',
+    readiness: 'gap',
+    note: 'The safety-instrumented demand side: choosing the controller form is currently heuristic; a certified criterion would make it a decision.',
+    sourcing: '收题：推进 me-018（Brockett\u2013Sontag 充要判据）；收「仿射非线性系统的 Lipschitz 镇定可判性」作为过渡。',
+  },
+  {
+    id: 'need-lattice-thermal',
+    name: 'Certified lattice thermal transport for energy materials',
+    area: 'Energy / materials',
+    description:
+      'A materials-screening decision for heat management (thermoelectric, battery, device substrate) needs a certified statement about when a lattice reaches thermal (Fourier) behaviour — the equilibration clock behind conductivity budgets.',
+    chain: [
+      {
+        id: 'mp-003',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove the thermalization time of the FPUT lattice — the equilibration clock bounding how long a lattice takes to approach thermal-transport behaviour.',
+      },
+      {
+        id: 'law-fourier',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the residual of Fourier\u2019s law vs. microscopic phonon transport at device scale — the conduction-side assumption.',
+      },
+      {
+        id: 'mp-041',
+        kind: 'problem',
+        role: 'related',
+        what: 'Certify the convection-side thermal margin — the other half of the heat-management budget.',
+      },
+    ],
+    standard: 'ASTM E1225 / D5470 (thermal conductivity & thermal-resistance measurement)',
+    consumable:
+      'A certified conductivity bound or residual band on Fourier\u2019s law for a stated lattice class — consumable in a thermal-management screening.',
+    barrier:
+      'mp-003 (FPUT thermalization) is open and law-fourier has no strict microscopic derivation; only the convection side (mp-041) is certified.',
+    workflow: 'validation',
+    readiness: 'gap',
+    note: 'The conduction side of thermal budgets lacks any certified microscopic anchor; the convection side is already served.',
+    sourcing: '收题：推进 mp-003（FPUT 热化时间，均匀 N 的 KAM/Nekhoroshev 常数）；收「谐波晶格声子色散的严格界」作为过渡。',
+  },
+  {
+    id: 'need-bioprocess-oscillation',
+    name: 'Certified oscillation / limit-cycle behaviour in bioprocess networks',
+    area: 'Bioprocess engineering',
+    description:
+      'A continuous-culture design needs a certified classification of when a mass-action network admits sustained oscillations vs. a stable operating point, replacing time-series heuristics for \u201cwill this culture cycle?\u201d.',
+    chain: [
+      {
+        id: 'mc-011',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Separate multistationarity from monostationarity for deficiency-one networks — the structural route to deciding multi-regime behaviour.',
+      },
+      {
+        id: 'mc-004',
+        kind: 'problem',
+        role: 'related',
+        what: 'Classify small reaction networks admitting multistationarity — the switch/oscillation detection floor.',
+      },
+      {
+        id: 'law-monod',
+        kind: 'law',
+        role: 'law',
+        what: 'Bound the Monod growth-law residual in reduced culture models — the growth assumption behind oscillation predictions.',
+      },
+    ],
+    standard: 'ICH Q13 (continuous manufacturing of drug substances)',
+    consumable:
+      'A certified multistationarity / oscillation classification for the culture network — a computed yes/no with a witness, consumable in continuous-manufacturing design review.',
+    barrier: 'mc-011 and mc-004 are open; Monod has no mechanistic derivation (law-monod, gap).',
+    workflow: 'monitoring',
+    readiness: 'gap',
+    note: 'Oscillation vs. stable-operating-point is currently a simulation guess; a structural classification would certify it.',
+    sourcing: '收题：新增「mass-action 网络振荡性的可判定判据」（推进 mc-004/mc-011 的 deficiency 分类到动态判据）。',
+  },
+  {
+    id: 'need-provisioning-worstcase',
+    name: 'Worst-case resource provisioning for logistics / packaging',
+    area: 'Supply chain / operations',
+    description:
+      'A capacity-planning decision (containers, warehouse bins, packaging lanes) needs a certified worst-case provisioning ratio, so over-provisioning is justified by a proven bound rather than by rule-of-thumb safety factors.',
+    chain: [
+      {
+        id: 'me-013',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Determine the optimal asymptotic competitive ratio for online bin packing — the certified worst-case provisioning factor.',
+      },
+    ],
+    standard: 'ISO 28000 (supply-chain security management) / capacity-planning practice',
+    consumable:
+      'A certified worst-case packing ratio with its tightness established — directly sets the over-provisioning factor in capacity planning.',
+    barrier: 'me-013 is open; the exact infimum of the competitive ratio is not settled.',
+    workflow: 'deployment',
+    readiness: 'gap',
+    note: 'Capacity over-provisioning currently rests on empirical factors; a tight certified ratio would replace them.',
+    sourcing: '收题：推进 me-013（在线装箱最优渐近竞争比）；收「特定箱型族（如 1D bin packing）的锐界」作为过渡。',
+  },
+  {
+    id: 'need-grid-frequency-control',
+    name: 'Certified frequency-regulator convergence for power grids',
+    area: 'Power / energy systems',
+    description:
+      'A secondary frequency-regulation (AGC) design needs a certified convergence bound for the distributed consensus protocol over time-varying / quantized communication links — the formal basis of \u201cAGC converges this fast\u201d.',
+    chain: [
+      {
+        id: 'me-034',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Optimal worst-case convergence time for finite-rate quantized average consensus — a directly consumable worst-case bound for the deployed AGC protocol.',
+      },
+      {
+        id: 'me-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Tight lower bounds for decentralized optimization over time-varying graphs — how fast frequency regulation is provably impossible to go.',
+      },
+      {
+        id: 'me-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Prove a certified convergence rate for nonlinear multi-agent consensus — the nonlinear guarantee behind AGC under load dynamics.',
+      },
+    ],
+    standard: 'NERC BAL-001 / ENTSO-E frequency-response requirements',
+    consumable:
+      'A certified worst-case convergence-time bound for the AGC consensus protocol under quantization and link dropout — input to frequency-response compliance.',
+    barrier:
+      'The quantized worst-case bound (me-034) is certified and consumable; the time-varying-graph lower bound (me-002) and nonlinear guarantee (me-001) remain open.',
+    workflow: 'monitoring',
+    readiness: 'partial',
+    note: 'One consumable certificate (me-034) with the graph lower bounds still open behind it.',
+    sourcing: '推进 me-002/me-001 的开放下界；收「量化 + 丢包的 AGC 一致性最坏收敛时间」的推广作为过渡。',
   },
 ]
 

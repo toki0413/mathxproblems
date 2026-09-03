@@ -582,6 +582,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'nd.standard': { zh: '对接工程标准', en: 'Engineering standard' },
   'nd.consumable': { zh: '什么算被服务', en: 'What \u201cserved\u201d looks like' },
   'nd.barrier': { zh: '当前障碍', en: 'Current barrier' },
+  'nd.sourcing': { zh: '缺口驱动收题', en: 'Gap-driven sourcing' },
   'nd.st.served': { zh: '可消费', en: 'consumable' },
   'nd.st.partial': { zh: '部分', en: 'partial' },
   'nd.st.open': { zh: '开放', en: 'open' },

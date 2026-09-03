@@ -19,6 +19,7 @@ export function buildNeeds() {
     description: n.description,
     readiness: n.readiness,
     note: n.note,
+    sourcing: n.sourcing || undefined,
     standard: n.standard,
     consumable: n.consumable,
     barrier: n.barrier,

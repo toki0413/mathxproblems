@@ -199,6 +199,13 @@ export default function NeedsPage() {
                     <span className="text-me/90">{n.barrier}</span>
                   </Field>
 
+                  {/* 缺口驱动收题：gap 需求明确"该收/推哪道题"，让需求层驱动收题 */}
+                  {n.sourcing && (
+                    <Field label={t('nd.sourcing')}>
+                      <span className="text-mc/90">{n.sourcing}</span>
+                    </Field>
+                  )}
+
                   <p className="mt-4 text-xs text-ink-3 leading-relaxed border-t border-line pt-3">{n.note}</p>
                 </div>
               </Reveal>
