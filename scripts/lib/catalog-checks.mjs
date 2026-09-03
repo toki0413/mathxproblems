@@ -5,7 +5,7 @@
 
 // 参考核验器（契约 v0.1）：Node 24 以 type-stripping 直接运行 contracts/*.ts，
 // 让结构守卫与共享核验器共用同一实现，而不是各写一套正则。
-import { verifyCertificate } from "../../contracts/verifier.ts";
+import { verifyCertificate, verifyCurrentRecord } from "../../contracts/verifier.ts";
 
 export const RELATIONS = new Set(['depends_on', 'implies', 'shares_tools', 'generalizes', 'analog_of'])
 export const OUTPUT_KINDS = new Set(['verified_behavior', 'verified_truth', 'scaffolding'])
@@ -332,6 +332,7 @@ export function checkCatalog(raw) {
   let vPass = 0
   let vNeedsForm = 0
   const vFail = []
+  const currentRecords = new Map() // id -> { lo, hi }（certificate.current_record 具体数值括区）
   for (const id of certIds) {
     const start = src.indexOf(`\n    id: '${id}',`)
     if (start < 0) { badCert.push(`${id}:block-not-found`); continue }
@@ -352,6 +353,8 @@ export function checkCatalog(raw) {
       total_band: field(/total_band:\s*'([^']*)'/),
       certified_band: (block.match(/certified_band:\s*'([^']*)'/) || [])[1] ?? undefined,
     }
+    const cr = block.match(/current_record:\s*\{\s*lo:\s*(-?\d+(?:\.\d+)?),\s*hi:\s*(-?\d+(?:\.\d+)?)\s*\}/)
+    if (cr) currentRecords.set(id, { lo: Number(cr[1]), hi: Number(cr[2]) })
     const verdict = verifyCertificate(cert)
     const failChecks = Object.entries(verdict.checks)
       .filter(([, s]) => s === 'fail')
@@ -365,6 +368,24 @@ export function checkCatalog(raw) {
   if (vFail.length) failures.push(`certificate verifier (contract v0.1): ${vFail.join(', ')}`)
   else if (certIds.length)
     notes.push(`verifier: ${vPass} certificates machine-verified, ${vNeedsForm} need machine form (${certIds.length} total)`)
+
+  // 当前纪录括区（certificate.current_record）：机器可解析的具体数值带 [lo, hi]。
+  // 与 certified_band（目标规约）分离——目标带开放时，纪录括区仍须良构
+  // （非空 + 非空洞 + 信息门槛内），是 L1 证书良构性的可落锚数值。
+  const badRecord = []
+  let recordVerified = 0
+  for (const [id, rec] of currentRecords) {
+    if (!(Number.isFinite(rec.lo) && Number.isFinite(rec.hi) && rec.lo < rec.hi)) {
+      badRecord.push(`${id}:bounds`)
+      continue
+    }
+    const verdict = verifyCurrentRecord(rec)
+    if (!verdict.well_formed) badRecord.push(`${id}:vacuous`)
+    else recordVerified += 1
+  }
+  if (badRecord.length) failures.push(`certificate.current_record malformed: ${badRecord.join(', ')}`)
+  else if (currentRecords.size)
+    notes.push(`current_record: ${recordVerified} machine-verified record bracket(s) (${[...currentRecords.keys()].join(', ')})`)
 
   // 试点：形式工具映射 + 结构化失败记录契约（工具 id / 机制 / 层 / 角色 枚举合法）。
   const badTool = [...src.matchAll(/tool_id: '([^']+)'/g)]

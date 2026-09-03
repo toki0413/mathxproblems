@@ -127,6 +127,11 @@ const STR: Record<string, { zh: string; en: string }> = {
   },
   'pd.certificate.band': { zh: '判定区间', en: 'Judgement band' },
   'pd.certificate.total': { zh: '总带合成', en: 'Total-band composition' },
+  'pd.certificate.record': { zh: '当前纪录括区', en: 'Current record bracket' },
+  'pd.certificate.recordNote': {
+    zh: '机器可核验的具体数值带（非判定目标；目标带仍开放）。',
+    en: 'Machine-checkable numeric band — not the judgement target, which remains open.',
+  },
   'pd.certificate.layer': { zh: '残差层', en: 'Residual layer' },
   'pd.certificate.derivation': { zh: '复核来源', en: 'Verification source' },
   'pd.dualbridge.title': { zh: '双桥视图', en: 'Dual-bridge view' },

@@ -324,6 +324,44 @@ test('verifier cross-check: catalog r_param clauses match the Lean rParamClauseO
   )
 })
 
+// ── certificate.current_record（当前纪录括区：L1 可落锚的具体数值带）──
+function recordProblem(id, recordLine) {
+  const rec = recordLine ? `${recordLine}\n` : ''
+  return `export const PROBLEMS = [ {
+    id: '${id}',
+    output: 'verified_behavior',
+    judgment: 'R_model 模型残差；R_param 测量不确定度输入残差；R_num 数值残差。',
+    impact_domains: ['d'],
+    engineering_value: 'v',
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+    certificate: {
+      r_model: { bound: 'b', derivation: 'd' },
+      r_param: { bound: '测量不确定度传播', derivation: 'd' },
+      r_num: { bound: 'b', derivation: 'd' },
+      total_band: 'T',
+      certified_band: '描述性',
+${rec}    },
+} ]`
+}
+
+test('current_record well-formed passes', () => {
+  const src = recordProblem('x-050', "      current_record: { lo: 1.44, hi: 1.58 },")
+  assert.ok(!failures(src).some((f) => f.includes('current_record malformed')))
+  assert.ok(checkCatalog(src).notes.some((n) => n.includes('machine-verified record bracket')))
+})
+
+test('current_record with lo >= hi fails', () => {
+  const src = recordProblem('x-051', "      current_record: { lo: 2, hi: 1 },")
+  assert.ok(failures(src).some((f) => f.includes('current_record malformed') && f.includes('x-051:bounds')))
+})
+
+test('current_record vacuous band fails', () => {
+  const src = recordProblem('x-052', "      current_record: { lo: 0, hi: 100 },")
+  assert.ok(failures(src).some((f) => f.includes('current_record malformed') && f.includes('x-052:vacuous')))
+})
+
 // ── 诚实标签（provenance）──
 // provLine/leanLine 自带 4 空格缩进（与解析器要求的列宽一致），
 // 因此放在模板第 0 列，避免模板自身空格造成 8 空格双重缩进而解析不到。

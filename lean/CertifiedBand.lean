@@ -125,7 +125,8 @@ section Mc017
     native_decide
 
   /-- 当前纪录括区（Lewin–Lieb–Seiringer 2022）：1.44 < C_opt < 1.58（开括区）。
-      作为带 [1.44, 1.58]（闭合包络）做良构性核验。 -/
+      作为带 [1.44, 1.58]（闭合包络）做良构性核验。
+      对应目录里 mc-017 的 certificate.current_record = { lo: 1.44, hi: 1.58 }。 -/
   def CurrentBracketLo : Rat := 36 / 25  -- 1.44
   def CurrentBracketHi : Rat := 79 / 50  -- 1.58
 

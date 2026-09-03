@@ -162,3 +162,35 @@ export interface JudgementLike {
 export function verifyJudgement(j: JudgementLike, opts?: { infoGateThreshold?: number }): JudgementVerdict {
   return verifyCertificate(j.certificate, opts);
 }
+
+/**
+ * 核验"当前纪录括区"（certificate.current_record）：机器可解析的具体数值带 [lo, hi]。
+ * 复用 checkInformation 的良构性三件套——非空（lo < hi）、非空洞（相对宽度 ≤ 1）、
+ * 信息门槛（相对宽度 ≤ 0.2）。与 certified_band（目标规约）明确分离：目标带开放时，
+ * 纪录括区仍可被独立机器核验，是 L1 证书良构性的可落锚数值。
+ */
+export function verifyCurrentRecord(record: { lo: number; hi: number }): {
+  well_formed: boolean;
+  nonempty: boolean;
+  within_vacuous: boolean;
+  within_info_gate: boolean;
+  relative_width: number | null;
+} {
+  if (!(record.hi > record.lo)) {
+    return {
+      well_formed: false,
+      nonempty: false,
+      within_vacuous: false,
+      within_info_gate: false,
+      relative_width: null,
+    };
+  }
+  const info = checkInformation(`[${record.lo}, ${record.hi}]`);
+  return {
+    well_formed: info.within_vacuous,
+    nonempty: true,
+    within_vacuous: info.within_vacuous,
+    within_info_gate: info.within_info_gate,
+    relative_width: info.relative_width,
+  };
+}

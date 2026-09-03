@@ -80,6 +80,11 @@ export interface Certificate {
   total_band: string
   /** 带证区间表达，如 "[Nu_lo, Nu_hi]" */
   certified_band?: string
+  /** 当前最佳（纪录）括区：机器可解析的具体数值带 [lo, hi]，如 { lo: 1.44, hi: 1.58 }。
+   *  这是"迄今已证实的括区"，不是判定目标（certified_band 才是目标规约）。
+   *  与 certified_band 明确分离：目标带开放时，纪录括区仍可被机器核验良构性
+   *  （非空 + 非空洞 + 信息门槛内），是 L1 证书良构性的可落锚数值。 */
+  current_record?: { lo: number; hi: number }
 }
 
 /** 形式视图侧 AI4Math 端状态;verified_truth/verified_behavior 均可填 provable,缺省 conjectured。 */
@@ -4544,6 +4549,9 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
       },
       total_band: 'C_0 - c ≤ R_model + R_num',
       certified_band: '[c, C_0]',
+      // 当前纪录括区（Lewin–Lieb–Seiringer 2022）：1.44 < C_opt < 1.58。
+      // 非判定目标；作为机器可核验的纪录带，与 lean/CertifiedBand.lean 交叉核验。
+      current_record: { lo: 1.44, hi: 1.58 },
     },
     engineering_deliverables: ['DFT functional lower-bound compliance review', 'Exchange-correlation energy contraction bracket'],
     origin:

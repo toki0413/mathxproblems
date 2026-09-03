@@ -343,6 +343,18 @@ export default function ProblemDetailPage() {
                     <div className="font-mono text-sm text-ink mt-1">{p.certificate.total_band}</div>
                   </div>
                 </div>
+                {/* 当前纪录括区：机器可核验的具体数值带（非判定目标） */}
+                {p.certificate.current_record && (
+                  <div className="hairline-t px-5 py-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mr-1">
+                      {t('pd.certificate.record')}
+                    </span>
+                    <span className="font-mono text-sm text-mc" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                      [{p.certificate.current_record.lo}, {p.certificate.current_record.hi}]
+                    </span>
+                    <span className="text-xs text-ink-3">{t('pd.certificate.recordNote')}</span>
+                  </div>
+                )}
                 {/* 三层残差，各给 bound + derivation */}
                 <div className="divide-y divide-line">
                   {(
