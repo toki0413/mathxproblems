@@ -6,6 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { checkCatalog, MECHANISMS, FAILURE_LAYERS } from './lib/catalog-checks.mjs'
@@ -375,6 +376,15 @@ test('L2 cross-check: Lean FailureRecord typology matches the TS guard enums', (
   const cons = (b) => new Set([...b[1].matchAll(/^\s*\| (\w+)/gm)].map((m) => m[1]))
   assert.deepEqual(cons(mechBlock), MECHANISMS)
   assert.deepEqual(cons(layerBlock), FAILURE_LAYERS)
+})
+
+// ── L2 同步守卫：生成的 Lean 档案必须与目录 failure_records 零漂移 ──
+test('L2 sync: generated FailureRecord profiles match the catalog failure_records', () => {
+  execFileSync(
+    process.execPath,
+    [join(dirname(fileURLToPath(import.meta.url)), '..', 'scripts', 'gen-failure-lean.mjs'), '--check'],
+    { stdio: 'pipe' },
+  )
 })
 
 // ── 诚实标签（provenance）──
