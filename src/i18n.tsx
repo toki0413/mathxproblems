@@ -746,6 +746,14 @@ const STR: Record<string, { zh: string; en: string }> = {
   'tl.links': { zh: '条映射', en: 'links' },
   'tl.problems': { zh: '关联题目', en: 'Linked problems' },
   'tl.empty': { zh: '暂无题目挂接此工具——缺口即机会。', en: 'No problem links to this tool yet — a gap, and an opportunity.' },
+  'tl.gaps.title': { zh: 'Mathlib 能力缺口', en: 'Mathlib capability gaps' },
+  'tl.gaps.subtitle': {
+    zh: '把 missing / partial 链接聚合成 mathlib 形式化待办：红色 = mathlib 尚缺的工具族（近似算法、在线竞争比、复杂度理论），琥珀 = mathlib 尚不充分的工具族。每个缺口点回对应题目。',
+    en: 'Aggregated from missing / partial links as a mathlib formalization backlog: red = tool families mathlib lacks (approximation algorithms, competitive analysis, complexity theory), amber = tool families mathlib has but that are not yet sufficient. Each gap links back to its problem.',
+  },
+  'tl.gaps.missing': { zh: '待补（mathlib 尚缺）', en: 'To build (mathlib lacks)' },
+  'tl.gaps.partial': { zh: '待补强（mathlib 尚不充分）', en: 'To strengthen (mathlib partial)' },
+  'tl.gaps.empty': { zh: '无缺口——所有工具都有可支撑或部分支撑的题目。', en: 'No gaps — every tool certifies at least partially. ' },
   // obstacles page
   'ob.title': { zh: '失败机制索引', en: 'Failure mechanism index' },
   'ob.subtitle': {

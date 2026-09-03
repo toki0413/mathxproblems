@@ -64,8 +64,22 @@ if (dangling.length) failures.push(`dangling tool_id (not in registry): ${dangli
 const badRole = links.filter((l) => !ROLES.has(l.role))
 if (badRole.length) failures.push(`invalid tool role: ${badRole.map((l) => `${l.srcId}->${l.tool_id}:${l.role}`).join(', ')}`)
 
-// 3. 注册表 id 唯一
+// 4. 注册表 id 唯一
 if (dupIds.length) failures.push(`duplicate tool ids: ${dupIds.join(', ')}`)
+
+// 5. 供给侧空壳（增强）：注册表工具若只有 'missing' 链接——mathlib 对它支撑的每道题
+//    都是"尚缺"——那它作为"mathlib 工具族"条目名不副实（mathlib 根本没提供它）。
+//    必须有 ≥1 条 available 或 partial 链接，否则报 FAIL。
+const perToolRole = {}
+for (const l of links) {
+  perToolRole[l.tool_id] ??= { available: 0, partial: 0, missing: 0 }
+  perToolRole[l.tool_id][l.role]++
+}
+const onlyMissing = toolIds.filter((id) => {
+  const r = perToolRole[id]
+  return r && r.available === 0 && r.partial === 0 && r.missing > 0
+})
+if (onlyMissing.length) failures.push(`registered tool with only 'missing' links (空壳条目——mathlib 未提供该工具族): ${onlyMissing.join(', ')}`)
 
 // 4. 供给侧空壳：注册了却没人引用的工具
 const used = new Set(links.map((l) => l.tool_id))
