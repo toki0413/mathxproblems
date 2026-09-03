@@ -110,6 +110,11 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '这些条目仅有题面 + 来源 + AI 草拟元数据，尚未通过审计。与精选核心明确分离——评审通过后升级为已认证题面，再补齐元数据进入主目录。',
     en: 'These entries carry only a statement, source and AI-drafted metadata, and have not passed the audit. Kept clearly separate from the curated core — they upgrade to Vetted after review, then to the main catalog once metadata is completed.',
   },
+  'pl.candidates.proposals': { zh: '由需求缺口生成的收题提案（待实采）', en: 'Sourcing proposals from demand gaps (awaiting intake)' },
+  'pl.candidates.proposals.hint': {
+    zh: '由工程反向需求清单的缺口直接派生：给稳定 id、挂来源需求，待实采（补题面/来源/逐字引文）后升级为正式候选题。这是"从问题收录到解题层"的需求侧入口。',
+    en: 'Derived directly from gaps in the engineering-needs list: stable id, linked to the source need, awaiting intake (statement / source / verbatim citation) before promotion to a full candidate problem. This is the demand-side entry of the problem-intake to solution-layer pipeline.',
+  },
   'pd.tier.candidateNote': {
     zh: '候选条目：题面与来源已记录，但未经审计。元数据为 AI 草拟，待人工评审。勿当作已确认的开放问题引用。',
     en: 'Candidate entry: statement and source are recorded, but this has not been audited. Metadata is AI-drafted and pending human review. Do not cite as a confirmed open problem.',

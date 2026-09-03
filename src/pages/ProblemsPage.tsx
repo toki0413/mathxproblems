@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router'
 import Fuse from 'fuse.js'
 import { AUDITED_PROBLEMS } from '@/data/audits'
 import { MATHLIB_TOOLS } from '@/data/mathlibTools'
+import { sourcingProposals } from '@/data/sourcingCandidates'
 import {
   DOMAINS,
   ALL_IMPACT_DOMAINS,
@@ -71,6 +72,8 @@ export default function ProblemsPage() {
   const approved = trpc.submissions.approved.useQuery(undefined, { retry: false })
   // 候选池：未经审计的 Tier 3 条目，单独分区、明确标注，不混入已过审主目录。
   const candidatePool = useMemo(() => PROBLEMS.filter((p) => tierOf(p) === 'candidate'), [])
+  // 收题流水线提案：需求缺口（sourcing.kind='new'）派生，待实采为正式候选题。
+  const proposals = useMemo(() => sourcingProposals(), [])
 
   const setParam = (k: string, v: string) => {
     const next = new URLSearchParams(params)
@@ -317,7 +320,7 @@ export default function ProblemsPage() {
 
       {/* 候选池（Tier 3）：未经审计的题面 + 来源 + AI 草拟元数据，供评审升级。
           明确与主目录分离——扩量不稀释旗舰层可信度。 */}
-      {candidatePool.length > 0 && (
+      {(candidatePool.length > 0 || proposals.length > 0) && (
         <section className="mt-16 border border-dashed border-line-strong p-6">
           <h2 className="font-statement text-2xl font-bold">{t('pl.candidates')}</h2>
           <p className="mt-2 text-sm text-ink-2 leading-relaxed">{t('pl.candidates.hint')}</p>
@@ -338,6 +341,34 @@ export default function ProblemsPage() {
               </Link>
             ))}
           </div>
+
+          {/* 由需求缺口生成的收题提案（待实采）——与正式候选题分离，落成候选池条目 */}
+          {proposals.length > 0 && (
+            <div className="mt-6">
+              <div className="flex items-baseline gap-2">
+                <h3 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">{t('pl.candidates.proposals')}</h3>
+                <span className="font-mono2 text-[10px] text-ink-3">({proposals.length})</span>
+              </div>
+              <p className="mt-1 text-xs text-ink-3 leading-relaxed">{t('pl.candidates.proposals.hint')}</p>
+              <div className="mt-3 divide-y divide-line border-t border-b border-line">
+                {proposals.map((p) => (
+                  <div key={p.id} className="flex items-baseline gap-4 py-3">
+                    <span className="font-mono2 text-[11px] text-ink-3 shrink-0 uppercase w-14">{p.id}</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-ink leading-snug">{p.title}</div>
+                      <div className="text-xs text-ink-3 truncate mt-0.5">{p.what}</div>
+                    </div>
+                    <Link
+                      to={`/needs#${p.needId}`}
+                      className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4 shrink-0 hidden sm:inline"
+                    >
+                      {p.needId}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
       )}
     </div>
