@@ -6,7 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { checkCatalog } from './lib/catalog-checks.mjs'
-import { verifyCertificate, checkInformation } from '../contracts/verifier.ts'
+import { verifyCertificate, checkInformation, checkRParamClause } from '../contracts/verifier.ts'
 
 // Minimal but rule-valid problem block. Every field is required by some rule;
 // a "clean" vb problem must satisfy them all so the test targets one axis only.
@@ -295,6 +295,33 @@ test('checkInformation: crossing-zero band defers the vacuous gate', () => {
   const info = checkInformation('[-1, 1]')
   assert.equal(info.relative_width, null)
   assert.equal(info.within_vacuous, true)
+})
+
+// ── 双实现交叉核验（verifier.ts ↔ lean/CertifiedBand.lean）──
+// 同一判定标准在两个独立实现里成立：这里用与 Lean 参考核验器相同的样例复核。
+test('verifier cross-check: Lieb–Oxford current bracket [1.44, 1.58] matches the Lean CertifiedBand reference', () => {
+  const v = verifyCertificate({ ...GOOD_CERT, certified_band: '[1.44, 1.58]' })
+  assert.equal(v.pass, true)
+  const info = checkInformation('[1.44, 1.58]')
+  assert.equal(info.within_vacuous, true)
+  assert.equal(info.within_info_gate, true)
+  // Lean 侧 relWidth = 14/151 ≈ 0.0927；两侧必须一致。
+  assert.ok(info.relative_width !== null && Math.abs(info.relative_width - 14 / 151) < 1e-9)
+})
+
+test('verifier cross-check: catalog r_param clauses match the Lean rParamClauseOk reference', () => {
+  // mc-017 / mc-024：≡0 条款。
+  assert.equal(
+    checkRParamClause({ bound: '≡0 (purely mathematical structure; no input measurement residual layer)' }),
+    'pass',
+  )
+  // mp-037：测量不确定度条款。
+  assert.equal(
+    checkRParamClause({
+      bound: 'Input residual from the propagation of heat-load and ambient temperature/flow-speed measurement uncertainty to the Nu upper bound',
+    }),
+    'pass',
+  )
 })
 
 // ── 诚实标签（provenance）──

@@ -26,6 +26,10 @@ if (ids.length < 5) {
 let failed = 0
 for (const id of ids) {
   const file = join(leanDir, `${id}.lean`)
+  const canonical = readFileSync(file, 'utf8')
+  // 共享模块（内容含 SHARED-MODULE 标记，如 lean/CertifiedBand.lean 参考核验器）：
+  // 只要求编译通过，不要求目录里某道题的 inline lean_statement 与它逐字匹配。
+  const isShared = canonical.includes('SHARED-MODULE')
   try {
     run('lean', [file], { stdio: ['ignore', 'pipe', 'pipe'], cwd: leanDir })
   } catch (e) {
@@ -36,8 +40,12 @@ for (const id of ids) {
   }
   console.log(`  ok compile: ${id}.lean`)
 
+  if (isShared) {
+    console.log(`  ok shared module (no inline statement required): ${id}`)
+    continue
+  }
+
   // inline copy must match the canonical file
-  const canonical = readFileSync(file, 'utf8')
   const blockStart = src.indexOf(`\n    id: '${id}',`)
   if (blockStart < 0) {
     failed++
