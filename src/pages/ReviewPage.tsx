@@ -222,6 +222,11 @@ export default function ReviewPage() {
                   {t('pd.attempts.band')}：{a.newBand}
                 </div>
               )}
+              {a.kind === 'formal' && a.formalStatus && (
+                <div className="mt-1 font-mono2 text-sm text-[#2563eb]">
+                  {t('rv.atFormal')}：{a.formalStatus}
+                </div>
+              )}
               <p className="mt-1 text-sm whitespace-pre-wrap leading-relaxed text-ink-2">{a.content}</p>
               {a.narrative && (
                 <div className="mt-2 border-l-2 border-[#9a5b13]/50 bg-[#9a5b13]/5 px-3 py-2">

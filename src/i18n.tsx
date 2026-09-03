@@ -358,6 +358,7 @@ const STR: Record<string, { zh: string; en: string }> = {
     en: 'Community-proposed progress / solution sketches / revisions for existing problems. Approved ones appear in the detail page’s “Community attempts” area.',
   },
   'rv.atBy': { zh: '提交于', en: 'submitted' },
+  'rv.atFormal': { zh: '声称的形式化状态', en: 'Claimed formal status' },
   'rv.atEmpty': { zh: '没有待审候选。', en: 'No pending attempts.' },
   // review page - import fragment (通过后完整入库)
   'rv.importHeading': { zh: '已通过投稿 · 入库片段', en: 'Approved submissions · import fragments' },
@@ -431,6 +432,15 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.attempts.verificationHint': {
     zh: '验证型投稿：声明把该题的带证区间收窄到给定上下界，附证明要点。审批通过后会出现在下方的验证账本，成为社区记录。',
     en: 'A verified-narrowing post: claim a tighter certified band (lower/upper) for this problem, with the key argument. Once approved it lands in the verification ledger below.',
+  },
+  'pd.attempts.formalHint': {
+    zh: '形式化补证：声明该题在双桥 M 侧应迁移到的形式化状态——可证（给出证明/Lean 编译证据）、仍为猜想、或被反例否证。审批通过后进入变更 feed，供下游同步。',
+    en: 'A formalization post: claim the target formal status this problem should migrate to on the M-side of the bridge — provable (with proof / Lean-compiling evidence), still conjectured, or refuted by a counterexample. Once approved it enters the change feed for downstream sync.',
+  },
+  'pd.attempts.formalStatus': { zh: '声称的形式化状态', en: 'Claimed formal status' },
+  'pd.attempts.via': {
+    zh: '出处/来源链接（Lean 文件、预印本、benchmark 条目，可选）',
+    en: 'Source / link (Lean file, preprint, benchmark entry — optional)',
   },
   'pd.attempts.title': { zh: '一句话标题', en: 'Short title' },
   'pd.attempts.content': { zh: '内容（可含 LaTeX $…$）', en: 'Content (LaTeX $…$ supported)' },
@@ -731,6 +741,11 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     revision: { zh: '修订建议', en: 'Revision' },
     verification: { zh: '验证收窄', en: 'Verified narrowing' },
     formal: { zh: '形式化补证', en: 'Formal proof/refutation' },
+  },
+  formalStatus: {
+    provable: { zh: '可证', en: 'Provable' },
+    conjectured: { zh: '仍为猜想', en: 'Conjectured' },
+    refuted: { zh: '已被否证', en: 'Refuted' },
   },
 }
 

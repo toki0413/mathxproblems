@@ -81,13 +81,16 @@ export default function ProblemDetailPage() {
   const [copied, setCopied] = useState(false)
   const dbUpdates = trpc.updates.byProblem.useQuery({ problemId: id ?? '' })
   const attempts = trpc.attempts.approved.useQuery({ problemId: id ?? '' })
-  const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision' | 'verification'>('progress')
+  const [atKind, setAtKind] = useState<'progress' | 'solution' | 'revision' | 'verification' | 'formal'>('progress')
   const [atTitle, setAtTitle] = useState('')
   const [atAuthor, setAtAuthor] = useState('')
   const [atContent, setAtContent] = useState('')
   const [atNarrative, setAtNarrative] = useState('')
   const [atBandLo, setAtBandLo] = useState('')
   const [atBandHi, setAtBandHi] = useState('')
+  // M 侧（形式化补证）：声称的 formal_view.status 目标 + 出处来源
+  const [atFormalStatus, setAtFormalStatus] = useState<'provable' | 'conjectured' | 'refuted'>('provable')
+  const [atVia, setAtVia] = useState('')
   const submitAttempt = trpc.attempts.submit.useMutation({
     onSuccess: () => {
       setAtTitle('')
@@ -96,6 +99,8 @@ export default function ProblemDetailPage() {
       setAtNarrative('')
       setAtBandLo('')
       setAtBandHi('')
+      setAtFormalStatus('provable')
+      setAtVia('')
     },
   })
 
@@ -846,6 +851,19 @@ export default function ProblemDetailPage() {
                     <span className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-3">
                       {enumLabel(lang, 'attemptKind', a.kind)}
                     </span>
+                    {a.kind === 'formal' && a.formalStatus && (
+                      <span
+                        className={`border rounded-full px-2 py-0.5 font-mono2 text-[10px] uppercase tracking-wider ${
+                          a.formalStatus === 'refuted'
+                            ? 'text-me border-me/50'
+                            : a.formalStatus === 'provable'
+                              ? 'text-mc border-mc/50'
+                              : 'text-ink-3 border-line-strong'
+                        }`}
+                      >
+                        {enumLabel(lang, 'formalStatus', a.formalStatus)}
+                      </span>
+                    )}
                     {a.authorName && (
                       <span className="font-mono2 text-[11px] text-ink-3">· {t('pd.attempts.by')} {a.authorName}</span>
                     )}
@@ -889,7 +907,7 @@ export default function ProblemDetailPage() {
                   <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-2">
                     {t('pd.attempts.kind')}
                   </div>
-                  {(['progress', 'solution', 'revision', 'verification'] as const).map((k) => (
+                  {(['progress', 'solution', 'revision', 'verification', 'formal'] as const).map((k) => (
                     <button
                       key={k}
                       onClick={() => setAtKind(k)}
@@ -935,6 +953,37 @@ export default function ProblemDetailPage() {
                     </div>
                   </>
                 )}
+                {atKind === 'formal' && (
+                  <>
+                    <p className="text-xs text-ink-3 leading-relaxed">{t('pd.attempts.formalHint')}</p>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="font-mono2 text-[11px] uppercase tracking-[0.15em] text-ink-2">
+                        {t('pd.attempts.formalStatus')}
+                      </div>
+                      {(['provable', 'conjectured', 'refuted'] as const).map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => setAtFormalStatus(s)}
+                          className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                            atFormalStatus === s
+                              ? s === 'refuted'
+                                ? 'bg-me text-paper border-me'
+                                : 'bg-ink text-paper border-ink'
+                              : 'border-line-strong text-ink-2 hover:border-ink'
+                          }`}
+                        >
+                          {enumLabel(lang, 'formalStatus', s)}
+                        </button>
+                      ))}
+                    </div>
+                    <input
+                      value={atVia}
+                      onChange={(e) => setAtVia(e.target.value)}
+                      placeholder={t('pd.attempts.via')}
+                      className="w-full bg-paper border border-line px-3 py-1.5 text-sm focus:outline-none focus:border-ink"
+                    />
+                  </>
+                )}
                 <textarea
                   value={atContent}
                   onChange={(e) => setAtContent(e.target.value)}
@@ -955,13 +1004,17 @@ export default function ProblemDetailPage() {
                       problemId: p.id,
                       kind: atKind,
                       title: atTitle,
-                      content: atContent,
+                      content:
+                        atKind === 'formal' && atVia.trim()
+                          ? `${atContent}\n\nvia: ${atVia.trim()}`
+                          : atContent,
                       narrative: atNarrative.trim() || undefined,
                       authorName: atAuthor.trim() || undefined,
                       newBand:
                         atKind === 'verification' && atBandLo && atBandHi
                           ? `[${atBandLo}, ${atBandHi}]`
                           : undefined,
+                      formalStatus: atKind === 'formal' ? atFormalStatus : undefined,
                     })
                   }
                   disabled={
