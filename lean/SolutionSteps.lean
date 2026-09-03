@@ -27,6 +27,17 @@ SHARED-MODULE: SolutionSteps
      苯并类 Kekulé 结构即完美匹配；双计数（covered_length_eq_two_mul）
      证明被覆盖顶点数 = 2 × 匹配边数，故覆盖 n 个顶点 ⇒ n 是偶数
      （kekule_requires_even_vertices）——Kekulé 结构存在性的必要条件。
+  7. me-001（第四台阶）：完整图总量守恒（均值不变）
+     所有有序对耦合项之和为零（pairSum_zero，逐对抵消）；
+     故一步后 Σ x_i' = Σ x_i（consensus_step_mass_conserved）——
+     "极限只能等于初始均值"的最后一块：一致不动点 + 质量守恒 ⇒ 极限 = 初始均值。
+  8. me-013（第二台阶）：Next-Fit 密度引理（双计数）
+     相邻 bin 负载和 > C 时，双计数恒等式 2·totalLoad = Σ相邻对 + 首 + 尾
+     （double_count）给出 (n-1)(C+1) ≤ 2·totalLoad（adjacent_over_total_bound）——
+     Next-Fit 竞争比 ≤ 2 论证的核心。
+  9. mc-022（第二台阶）：偶环有完美匹配（苯环 C₆ 的一般化）
+     偶环 C_{2k} 的交替双键 {0-1, 2-3, …, (2k-2)-(2k-1)} 覆盖全部顶点
+     （even_cycle_has_perfect_matching）——Kekulé 结构存在性的充分方向。
 -/
 namespace MathX.SolutionSteps
 
@@ -286,5 +297,332 @@ example : IsEven 6 := by
       have hv' : v = 0 ∨ v = 1 ∨ v = 2 ∨ v = 3 ∨ v = 4 ∨ v = 5 := by
         omega
       rcases hv' with rfl | rfl | rfl | rfl | rfl | rfl <;> simp [covered, edgeVerts])
+
+/-! ── me-001 第四台阶：完整图总量守恒（均值不变） ───────────────────── -/
+
+/-- 列表和（Int）。 -/
+def isum (xs : List Int) : Int := xs.foldl (fun acc x => acc + x) 0
+
+/-- foldl 提取首项（Int 版）：foldl (λ a b, a + w b) x ys = x + foldl (λ a b, a + w b) 0 ys。 -/
+theorem foldl_extract_sum_int {α : Type} (ys : List α) (w : α → Int) :
+    ∀ x : Int, ys.foldl (fun a b => a + w b) x = x + ys.foldl (fun a b => a + w b) 0 := by
+  intro x
+  induction ys generalizing x with
+  | nil => simp [List.foldl]
+  | cons y ys ih =>
+      rw [List.foldl_cons]
+      rw [List.foldl_cons]
+      have ih1 := ih (x + w y)
+      rw [ih1]
+      have ih2 := ih (0 + w y)
+      rw [ih2]
+      omega
+
+/-- isum 的 cons 单步：isum (x :: xs) = x + isum xs。 -/
+theorem isum_cons (x : Int) (xs : List Int) : isum (x :: xs) = x + isum xs := by
+  unfold isum
+  rw [List.foldl_cons]
+  rw [foldl_extract_sum_int xs (fun y : Int => y) (0 + x)]
+  simp
+
+/-- 求和可分配进加法：foldl (λ a b, a + (w b + v b)) = foldl w + foldl v。 -/
+theorem foldl_add_distrib {α : Type} (w v : α → Int) (xs : List α) :
+    xs.foldl (fun acc a => acc + (w a + v a)) 0
+      = xs.foldl (fun acc a => acc + w a) 0 + xs.foldl (fun acc a => acc + v a) 0 := by
+  induction xs with
+  | nil => simp [List.foldl]
+  | cons y ys ih =>
+      rw [List.foldl_cons]
+      rw [List.foldl_cons]
+      rw [List.foldl_cons]
+      rw [foldl_extract_sum_int ys (fun a => w a + v a) (0 + (w y + v y))]
+      rw [foldl_extract_sum_int ys w (0 + w y)]
+      rw [foldl_extract_sum_int ys v (0 + v y)]
+      rw [ih]
+      omega
+
+/-- map 后再求和 = 原和 + 逐项增量：sum (xs.map (λ x, x + w x)) = sum xs + Σ w。 -/
+theorem sum_map_add (w : Int → Int) (xs : List Int) :
+    isum (xs.map (fun x => x + w x)) = isum xs + xs.foldl (fun acc x => acc + w x) 0 := by
+  induction xs with
+  | nil => simp [isum]
+  | cons x xs ih =>
+      simp [List.map]
+      rw [isum_cons]
+      rw [ih]
+      rw [isum_cons]
+      rw [foldl_extract_sum_int xs w (w x)]
+      omega
+
+/-- 完整图所有有序对耦合项之和：Σ_{a∈xs} Σ_{b∈xs} φ(b - a)。 -/
+def pairSum (φ : Int → Int) (xs : List Int) : Int :=
+  xs.foldl (fun acc x => acc + xs.foldl (fun acc y => acc + φ (y - x)) 0) 0
+
+/-- 内层和的首项提取：(x :: xs) 上求和 = φ(x-a) + xs 上求和。 -/
+theorem inner_cons (φ : Int → Int) (x : Int) (xs : List Int) (a : Int) :
+    (x :: xs).foldl (fun acc y => acc + φ (y - a)) 0
+      = φ (x - a) + xs.foldl (fun acc y => acc + φ (y - a)) 0 := by
+  rw [List.foldl_cons]
+  rw [foldl_extract_sum_int xs (fun y => φ (y - a)) (0 + φ (x - a))]
+  omega
+
+/-- Σ_{b∈xs} (φ(b-x) + φ(x-b)) = 0：奇耦合下逐项抵消（局部配对）。 -/
+theorem pair_sum_local_zero (φ : Int → Int) (hφ : OddCoupling φ) (x : Int) (xs : List Int) :
+    xs.foldl (fun acc b => acc + (φ (b - x) + φ (x - b))) 0 = 0 := by
+  induction xs with
+  | nil => simp [List.foldl]
+  | cons y ys ih2 =>
+      rw [List.foldl_cons]
+      rw [foldl_extract_sum_int ys (fun b => φ (b - x) + φ (x - b)) (0 + (φ (y - x) + φ (x - y)))]
+      rw [odd_pair_cancels φ hφ y x]
+      rw [ih2]
+      omega
+
+/-- pairSum 的 cons 展开：新增元素 x 的"出/入"双向贡献 + 其余元素内部。
+    证明要点：对角项 φ(x - x) = φ 0 = 0（奇耦合）自动消失。 -/
+theorem pairSum_cons (φ : Int → Int) (hφ : OddCoupling φ) (x : Int) (xs : List Int) :
+    pairSum φ (x :: xs)
+      = pairSum φ xs
+      + xs.foldl (fun acc b => acc + φ (b - x)) 0
+      + xs.foldl (fun acc a => acc + φ (x - a)) 0 := by
+  unfold pairSum
+  rw [List.foldl_cons]
+  rw [foldl_extract_sum_int xs (fun a => (x :: xs).foldl (fun acc y => acc + φ (y - a)) 0) (0 + (x :: xs).foldl (fun acc y => acc + φ (y - x)) 0)]
+  simp only [inner_cons]
+  rw [foldl_add_distrib (fun a => φ (x - a)) (fun a => xs.foldl (fun acc y => acc + φ (y - a)) 0) xs]
+  have h00 : φ (x - x) = 0 := by
+    simpa using odd_coupling_zero φ hφ
+  rw [h00]
+  have hps : xs.foldl (fun acc a => acc + xs.foldl (fun acc y => acc + φ (y - a)) 0) 0 = pairSum φ xs := rfl
+  rw [hps]
+  omega
+
+/-- 奇耦合下完整图总量守恒的原子事实：所有有序对耦合项之和为零。
+    证明：cons 展开后，新元素 x 与其余元素的"出/入"双向贡献逐对抵消（odd_pair_cancels），
+    其余元素内部的贡献由归纳假设归零。这是共识动态均值不变的核心。 -/
+theorem pairSum_zero (φ : Int → Int) (hφ : OddCoupling φ) (xs : List Int) :
+    pairSum φ xs = 0 := by
+  induction xs with
+  | nil => rfl
+  | cons x xs ih =>
+      rw [pairSum_cons φ hφ x xs]
+      have hpair :
+          xs.foldl (fun acc b => acc + φ (b - x)) 0
+            + xs.foldl (fun acc a => acc + φ (x - a)) 0 = 0 := by
+        have hsum := foldl_add_distrib (fun b => φ (b - x)) (fun b => φ (x - b)) xs
+        have hzero := pair_sum_local_zero φ hφ x xs
+        have hab :
+            xs.foldl (fun acc b => acc + φ (b - x)) 0
+              + xs.foldl (fun acc b => acc + φ (x - b)) 0 = 0 := by
+          omega
+        simpa using hab
+      omega
+
+/-- 完整图离散共识一步的总质量守恒：Σ x_i' = Σ x_i（均值不变）。
+    这是"极限只能等于初始均值"的最后一块：一致状态是不动点（第三台阶）
+    且质量守恒 ⇒ 一致极限必为初始均值。 -/
+theorem consensus_step_mass_conserved (φ : Int → Int) (hφ : OddCoupling φ) (xs : List Int) :
+    isum (consensusStep φ xs) = isum xs := by
+  unfold consensusStep
+  rw [sum_map_add (fun x => xs.foldl (fun acc y => acc + φ (y - x)) 0)]
+  change isum xs + pairSum φ xs = isum xs
+  rw [pairSum_zero φ hφ xs]
+  simp
+
+-- 机器核验样例：一致状态 [5,5,5] 一步后总量 15 不变。
+example (φ : Int → Int) (hφ : OddCoupling φ) :
+    isum (consensusStep φ [5, 5, 5]) = 15 := by
+  rw [consensus_step_mass_conserved φ hφ [5, 5, 5]]
+  native_decide
+
+/-! ── me-013 第二台阶：Next-Fit 密度引理 ───────────────────────────── -/
+
+/-- 相邻 bin 负载和都严格大于容量 C（Next-Fit 未合并的堆叠不变量）。 -/
+def AdjacentOver (C : Nat) : BinPacking → Prop
+  | [] => True
+  | [_] => True
+  | b1 :: b2 :: rest => binLoad b1 + binLoad b2 > C ∧ AdjacentOver C (b2 :: rest)
+
+/-- 首 bin 负载（空表为 0）。 -/
+def headLoad : BinPacking → Nat
+  | [] => 0
+  | b :: _ => binLoad b
+
+/-- 尾 bin 负载（空表为 0）。 -/
+def lastLoad : BinPacking → Nat
+  | [] => 0
+  | [b] => binLoad b
+  | _ :: b :: rest => lastLoad (b :: rest)
+
+/-- 相邻负载对之和：Σ_{i=0}^{n-2} (load_i + load_{i+1})。 -/
+def adjSum : BinPacking → Nat
+  | [] => 0
+  | [_] => 0
+  | b1 :: b2 :: rest => (binLoad b1 + binLoad b2) + adjSum (b2 :: rest)
+
+/-- 双计数恒等式：2·总负载 = 相邻对之和 + 首负载 + 尾负载。
+    证明：每条相邻对各计一次（中项被左右两对覆盖、首尾各计一次）。 -/
+theorem double_count (p : BinPacking) :
+    2 * totalLoad p = adjSum p + headLoad p + lastLoad p := by
+  induction p with
+  | nil => simp [totalLoad, adjSum, headLoad, lastLoad]
+  | cons b p ih =>
+      cases p with
+      | nil => simp [totalLoad, binLoad, adjSum, headLoad, lastLoad]
+               omega
+      | cons b2 p' =>
+          rw [totalLoad_cons]
+          rw [totalLoad_cons]
+          simp [adjSum, headLoad, lastLoad]
+          have ht := ih
+          rw [totalLoad_cons] at ht
+          have ht' : 2 * (binLoad b2 + totalLoad p')
+              = adjSum (b2 :: p') + binLoad b2 + lastLoad (b2 :: p') := by
+            simpa [headLoad] using ht
+          omega
+
+/-- 相邻对之和被相邻下界钉住：每对 ≥ C+1 ⇒ adjSum ≥ (len-1)(C+1)。 -/
+theorem adjSum_ge {C : Nat} (p : BinPacking) (h : AdjacentOver C p) :
+    (p.length - 1) * (C + 1) ≤ adjSum p := by
+  induction p with
+  | nil => simp [adjSum]
+  | cons b p ih =>
+      cases p with
+      | nil => simp [adjSum]
+      | cons b2 p' =>
+          have hpair : binLoad b + binLoad b2 > C := h.1
+          have ih'' : p'.length * (C + 1) ≤ adjSum (b2 :: p') := by
+            simpa using ih h.2
+          have hb : binLoad b + binLoad b2 ≥ C + 1 := by omega
+          simp [adjSum, Nat.succ_mul]
+          omega
+
+/-- Next-Fit 密度引理：若任意相邻两 bin 负载和 > C（未合并），则 n 个 bin 的总负载
+    至少 (n-1)(C+1)——成对下界把总负载钉住，bin 数不可能成倍超过最优。
+    证明：双计数 2·totalLoad = Σ相邻对 + 首 + 尾 ≥ (n-1)(C+1)。
+    这是 Next-Fit 竞争比 ≤ 2 论证的核心。 -/
+theorem adjacent_over_total_bound {C : Nat} (p : BinPacking) (h : AdjacentOver C p) :
+    (p.length - 1) * (C + 1) ≤ totalLoad p * 2 := by
+  have hdc := double_count p
+  have hge := adjSum_ge p h
+  omega
+
+-- 机器核验样例：相邻 bin 负载和 > 1 时，3 个 bin 的总负载 ≥ (3-1)·2 = 4。
+example : totalLoad [[1, 1], [1, 1], [2]] = 6 := by
+  native_decide
+example : AdjacentOver 1 [[1, 1], [1, 1], [2]] := by
+  simp [AdjacentOver, binLoad]
+example : ((([[1, 1], [1, 1], [2]] : BinPacking).length - 1) * (1 + 1)) ≤ totalLoad [[1, 1], [1, 1], [2]] * 2 := by
+  native_decide
+
+/-! ── mc-022 第二台阶：偶环有完美匹配（苯环 C₆ 的一般化） ───────────── -/
+
+/-- 偶环 C_{2k} 的交替匹配：{(0,1),(2,3),…,(2k-2,2k-1)}（k 条边，覆盖 2k 个顶点）。 -/
+def cycleMatching : Nat → List (Nat × Nat)
+  | 0 => []
+  | k + 1 => (2 * k, 2 * k + 1) :: cycleMatching k
+
+/-- cycleMatching k 含第 i 对 (2i, 2i+1)（对任意 i < k）。 -/
+theorem cycle_matching_has_pair (k i : Nat) (h : i < k) :
+    (2 * i, 2 * i + 1) ∈ cycleMatching k := by
+  induction k with
+  | zero => omega
+  | succ k ih =>
+      by_cases hik : i = k
+      · subst i
+        simp [cycleMatching]
+      · simp [cycleMatching]
+        right
+        apply ih
+        omega
+
+/-- 被覆盖列表的元素都 < 2k（覆盖不越界）。 -/
+theorem cycle_matching_covered_lt (k : Nat) :
+    ∀ a ∈ covered (cycleMatching k), a < 2 * k := by
+  induction k with
+  | zero =>
+      intro a ha
+      simp [covered, cycleMatching] at ha
+  | succ k ih =>
+      intro a ha
+      have hc : covered (cycleMatching (k + 1)) = [2 * k, 2 * k + 1] ++ covered (cycleMatching k) := by
+        simp [covered, cycleMatching, edgeVerts]
+      rw [hc] at ha
+      rw [List.mem_append] at ha
+      rcases ha with ha | ha
+      · simp at ha
+        omega
+      · have : a < 2 * k := ih a ha
+        omega
+
+/-- covered (cycleMatching k) 无重复。 -/
+theorem cycle_matching_covered_nodup (k : Nat) : (covered (cycleMatching k)).Nodup := by
+  induction k with
+  | zero => simp [covered, cycleMatching]
+  | succ k ih =>
+      have hc : covered (cycleMatching (k + 1)) = [2 * k, 2 * k + 1] ++ covered (cycleMatching k) := by
+        simp [covered, cycleMatching, edgeVerts]
+      rw [hc]
+      rw [List.nodup_append]
+      refine ⟨?_, ?_, ?_⟩
+      · simp
+      · exact ih
+      · intro a ha
+        intro b hb
+        have hlt := cycle_matching_covered_lt k b hb
+        simp at ha
+        omega
+
+/-- 偶数 2i 被覆盖（i < k）。 -/
+theorem cycle_matching_even_covered (k i : Nat) (h : i < k) :
+    2 * i ∈ covered (cycleMatching k) := by
+  have hp := cycle_matching_has_pair k i h
+  unfold covered
+  exact List.mem_flatMap.mpr ⟨(2 * i, 2 * i + 1), hp, by simp [edgeVerts]⟩
+
+/-- 奇数 2i+1 被覆盖（i < k）。 -/
+theorem cycle_matching_odd_covered (k i : Nat) (h : i < k) :
+    2 * i + 1 ∈ covered (cycleMatching k) := by
+  have hp := cycle_matching_has_pair k i h
+  unfold covered
+  exact List.mem_flatMap.mpr ⟨(2 * i, 2 * i + 1), hp, by simp [edgeVerts]⟩
+
+/-- 每个 v < 2k 都被覆盖：偶环 C_{2k} 的交替匹配是完美匹配的第三条件。
+    证明：v 偶则 v = 2·(v/2)、v 奇则 v = 2·(v/2)+1，对应第 v/2 条边。 -/
+theorem cycle_matching_covers_all (k : Nat) :
+    ∀ v, v < 2 * k → v ∈ covered (cycleMatching k) := by
+  intro v hv
+  by_cases h2 : v % 2 = 0
+  · have hmem : 2 * (v / 2) ∈ covered (cycleMatching k) :=
+      cycle_matching_even_covered k (v / 2) (by omega)
+    have h : v = 2 * (v / 2) := by omega
+    rw [h]
+    exact hmem
+  · have hmod : v % 2 = 1 := by
+      have : v % 2 = 0 ∨ v % 2 = 1 := by omega
+      omega
+    have hmem : 2 * (v / 2) + 1 ∈ covered (cycleMatching k) :=
+      cycle_matching_odd_covered k (v / 2) (by omega)
+    have h : v = 2 * (v / 2) + 1 := by omega
+    rw [h]
+    exact hmem
+
+/-- 偶环 C_{2k}（k 条双键）有完美匹配（Kekulé 结构）——苯环 C₆ 的一般化：
+    只要碳环为偶长环，交替双键即构成覆盖全部碳原子的 Kekulé 结构。 -/
+theorem even_cycle_has_perfect_matching (k : Nat) :
+    PerfectMatching (cycleMatching k) (2 * k) := by
+  refine ⟨?_, ?_, ?_⟩
+  · exact cycle_matching_covered_nodup k
+  · have hlen : (cycleMatching k).length = k := by
+      induction k with
+      | zero => simp [cycleMatching]
+      | succ k ih => simp [cycleMatching, ih]
+    rw [covered_length_eq_two_mul (edges := cycleMatching k) (cycle_matching_covered_nodup k)]
+    rw [hlen]
+  · exact cycle_matching_covers_all k
+
+-- 机器核验样例：苯环 C₆（k = 3）的交替双键是完美匹配。
+example : PerfectMatching (cycleMatching 3) 6 := even_cycle_has_perfect_matching 3
+example : PerfectMatching (cycleMatching 4) 8 := even_cycle_has_perfect_matching 4
 
 end MathX.SolutionSteps

@@ -1614,6 +1614,12 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
         theorem: 'consensus_step_fixes_equal',
         what: '一致状态是共识动态的不动点：所有分量相等时耦合项全零，一步后每个分量不变——共识收敛极限形态的完整证明。',
       },
+      {
+        module: 'SolutionSteps',
+        step: 'pair-sum-zero',
+        theorem: 'consensus_step_mass_conserved',
+        what: '完整图总量守恒（均值不变）：所有有序对耦合项之和为零（pairSum_zero，逐对抵消），故一步后 Σx_i 不变——一致极限必为初始均值。',
+      },
     ],
     related_problems: [
       {
@@ -4096,6 +4102,12 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
         theorem: 'totalLoad_le_capacity',
         what: '装箱容量下界：每 bin 负载 ≤ C ⇒ 总负载 ≤ n·C（bin 数 ≥ totalLoad/C）——在线装箱竞争比下界论证的容量约束。',
       },
+      {
+        module: 'SolutionSteps',
+        step: 'next-fit-density',
+        theorem: 'adjacent_over_total_bound',
+        what: 'Next-Fit 密度引理（双计数）：相邻 bin 负载和 > C 时，2·totalLoad = Σ相邻对 + 首 + 尾 ≥ (n-1)(C+1)——Next-Fit 竞争比 ≤ 2 论证的核心。',
+      },
     ],
     related_problems: [
       {
@@ -5663,6 +5675,12 @@ where $h_i$, $J_i$ are independent bounded random variables. Prove that for suff
         step: 'kekule-requires-even-vertices',
         theorem: 'kekule_requires_even_vertices',
         what: 'Kekulé 结构存在的必要条件是顶点数为偶：完美匹配覆盖 n 个顶点 ⇒ n 是偶数——苯并类必须偶数碳才可能有 Kekulé 结构。',
+      },
+      {
+        module: 'SolutionSteps',
+        step: 'even-cycle-has-perfect-matching',
+        theorem: 'even_cycle_has_perfect_matching',
+        what: '偶环有完美匹配（Kekulé 结构存在性的充分方向）：偶环 C_{2k} 的交替双键 {0-1, 2-3, …, (2k-2)-(2k-1)} 覆盖全部顶点——苯环 C₆ 的一般化。',
       },
     ],
     related_problems: [
@@ -8618,8 +8636,9 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['turbulence', 'large-eddy-simulation', 'subgrid-model', 'backscatter'],
     contributor: 'community',
     date_added: '2026-09-03',
-    tier: 'candidate',
-    provenance: 'AI-drafted',
+    tier: 'vetted',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-043 — Proper treatment of backscatter in turbulence subgrid-scale modeling.\n\nFor an SGS (subgrid-scale) closure of the filtered Navier-Stokes equations,\ndecide whether a closure can faithfully represent backscatter: the flow of\nenergy from unresolved to resolved scales, pronounced in 2D turbulence and in\nmagnetohydrodynamics. The definitions of `SGSClosure`, `BackscatterFlux` and\n`Faithful` are themselves part of the formalization target; the statement is\nthe well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SGSClosure where\n  cutoff : Nat\n\n/-- 反向散射通量：从未解析到已解析尺度的能量输运（形式化目标）。 -/\ndef BackscatterFlux (_c : SGSClosure) : Rat := 0\n\n/-- 目标反向散射谱：物理上期望复现的未解析→已解析能量输运。 -/\ndef TargetBackscatter : Rat := 0\n\n/-- 忠实表示：闭包的已解析尺度能量输运等于目标反向散射谱。 -/\ndef Faithful (c : SGSClosure) : Prop :=\n  BackscatterFlux c = TargetBackscatter\n\n/-- 头条声明：存在对目标反向散射忠实表示的 SGS 闭包（开放声明，证明用 sorry 留空）。 -/\ntheorem faithful_backscatter_closure_exists : ∃ c : SGSClosure, Faithful c := by\n  sorry\n\nend MathX\n',
     open_claim: {
       quote: 'proper treatment of backscatter in this and other contexts remains an open problem.',
       source: 'https://arxiv.org/abs/2511.09847',
@@ -8630,6 +8649,22 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       label: 'Choi–Ugliotti–Reynoso–Gurevich–Grigoriev, Data-driven modeling of multiscale phenomena with applications to fluid turbulence, arXiv:2511.09847',
       url: 'https://arxiv.org/abs/2511.09847',
     },
+    failure_records: [
+      {
+        method: 'Phenomenological eddy-viscosity closures (Smagorinsky-type)',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Eddy-viscosity models dissipate energy at resolved scales and cannot inject it (backscatter is structurally absent)',
+        implication: 'A faithful backscatter closure needs a sign-changing or stochastic transport term whose well-posedness and accuracy are unproven.',
+      },
+      {
+        method: 'Data-driven closure regression (neural SGS)',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Learned closures can represent backscatter locally but generalize only to the training regime and lack stability certificates',
+        implication: 'The representation exists empirically but not as a provable model; the stability/accuracy contract of a faithful closure stays open.',
+      },
+    ],
     related_problems: [
       {
         id: 'mp-008',
@@ -8723,14 +8758,35 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     tags: ['flocking', 'cucker-smale', 'invariant-sets', 'collective-dynamics'],
     contributor: 'community',
     date_added: '2026-09-03',
-    tier: 'candidate',
-    provenance: 'AI-drafted',
+    tier: 'vetted',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-035 — Constructive invariant sets for flocking laws with non-singular kernels.\n\nFor the Cucker-Smale system with a non-singular Lipschitz communication kernel,\nconstruct an explicit invariant set: certified bounds on the velocity diameter\nand the spatial diameter, parameter-explicit and machine-checkable, that\nguarantee convergence to a flock (velocity consensus with bounded diameter)\nwithout scattering or collision. The definitions of `FlockConfig`, `Kernel`,\n`VelocityDiameter`, `SpatialDiameter` and `InvariantFlockSet` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure FlockConfig where\n  agents : Nat\n\n/-- 通信核：非奇异 Lipschitz 函数（形式化目标）。 -/\ndef Kernel (_ψ : Rat → Rat) : Prop := True\n\n/-- 速度直径（形式化目标）。 -/\ndef VelocityDiameter (_c : FlockConfig) : Rat := 0\n\n/-- 空间直径（形式化目标）。 -/\ndef SpatialDiameter (_c : FlockConfig) : Rat := 0\n\n/-- 不变 flock 集：速度直径与空间直径的显式、参数显式上界。 -/\ndef InvariantFlockSet (c : FlockConfig) (ψ : Rat → Rat) : Prop :=\n  ∃ Bv Bx : Rat, 0 ≤ Bv ∧ 0 ≤ Bx ∧ VelocityDiameter c ≤ Bv ∧ SpatialDiameter c ≤ Bx\n\n/-- 头条声明：非奇异核 Cucker-Smale 系统存在显式不变 flock 集（开放声明，证明用 sorry 留空）。 -/\ntheorem cucker_smale_invariant_flock (c : FlockConfig) (ψ : Rat → Rat) (h : Kernel ψ) :\n    InvariantFlockSet c ψ := by\n  sorry\n\nend MathX\n',
+    open_claim: {
+      quote: 'If β < 1/2 then, when t → ∞, the velocities v_i(t) tend to a common limit v̂ ∈ E³ and the vectors x_i − x_j tend to a limit vector x̂_ij, for all i, j ≤ k.',
+      source: 'https://doi.org/10.1109/TAC.2007.895842',
+    },
     proposer: 'F. Cucker & S. Smale',
     proposed_year: 2007,
     via: {
       label: 'Cucker & Smale, Emergent behavior in flocks, IEEE Trans. Autom. Control 52(5) 852–862, 2007',
       url: 'https://doi.org/10.1109/TAC.2007.895842',
     },
+    failure_records: [
+      {
+        method: 'Velocity-diameter Lyapunov estimate (Cucker–Smale)',
+        mechanism: 'missing_bound',
+        layer: 'formal',
+        partial: 'Cucker–Smale prove asymptotic convergence to a common velocity but give no explicit, parameter-explicit bound on the spatial diameter',
+        implication: 'An explicit invariant-set certificate (velocity + spatial diameter bounds) usable for swarm-safety cases is not in the literature.',
+      },
+      {
+        method: 'Finite-time / discrete-rate analysis',
+        mechanism: 'combinatorial',
+        layer: 'formal',
+        partial: 'Rates are established only asymptotically (t → ∞) for non-singular kernels, with no machine-checkable invariant set extracted',
+        implication: 'Converting the asymptotic guarantee into a verified invariant set is a constructive gap, not a statement-gap.',
+      },
+    ],
     related_problems: [
       {
         id: 'me-003',

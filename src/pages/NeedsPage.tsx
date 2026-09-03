@@ -84,6 +84,30 @@ export default function NeedsPage() {
     return { news, pushes, intaked: proposals.filter((p) => p.status === 'intaked') }
   }, [proposals])
 
+  // 需求旅程（收题闭环的可视化）：缺口 → 收题提案 → 实采正式题 → 机器锚点(L0/L2) → L3 证明台阶。
+  // 由 sourcingProposals + byId 派生，零漂移；显示"收题只是起点，解题层才是终点"的纵深。
+  const journeys = useMemo(
+    () =>
+      proposals
+        .filter((p) => p.status === 'intaked' && p.problemId)
+        .map((p) => {
+          const prob = byId.get(p.problemId!)
+          return {
+            needId: p.needId,
+            needName: p.needName,
+            area: p.area,
+            readiness: ENGINEERING_NEEDS.find((n) => n.id === p.needId)?.readiness ?? 'gap',
+            proposalId: p.id,
+            proposalTitle: p.title,
+            problemId: p.problemId!,
+            problemTitle: prob?.title,
+            anchors: { l0: !!prob?.lean_statement, l2: !!(prob?.failure_records && prob.failure_records.length > 0) },
+            proofSteps: prob?.proof_steps?.length ?? 0,
+          }
+        }),
+    [proposals, byId],
+  )
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
       <Reveal>
@@ -226,6 +250,83 @@ export default function NeedsPage() {
               </ul>
             </div>
           </div>
+        </div>
+      </Reveal>
+
+      {/* 需求旅程（收题闭环可视化）：缺口 → 收题 → 实采 → 机器锚点 → L3 证明台阶 */}
+      <Reveal delay={120}>
+        <div className="mt-6 border border-line bg-[#faf9f4] p-6">
+          <div className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">{t('nd.journey.title')}</div>
+          <p className="mt-2 text-sm text-ink-2 leading-relaxed max-w-3xl">{t('nd.journey.body')}</p>
+
+          {journeys.length === 0 ? (
+            <p className="mt-4 text-sm text-ink-3">{t('nd.journey.empty')}</p>
+          ) : (
+            <div className="mt-4 space-y-3">
+              {journeys.map((j) => (
+                <div key={j.problemId} className="flex flex-col gap-2 border border-line bg-white/60 p-4">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span className="font-mono2 text-[11px] text-ink-3">{j.area}</span>
+                    <span className={`rounded-full border px-2 py-px font-mono2 text-[10px] uppercase tracking-wider ${READINESS_COLOR[j.readiness]}`}>
+                      {t(`nd.${j.readiness}`)}
+                    </span>
+                    <span className="text-[13px] text-ink-2 font-medium min-w-0">{j.needName}</span>
+                  </div>
+
+                  {/* 五段旅程链 */}
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-2">
+                    {/* 1. 缺口需求 */}
+                    <Link to={`/needs#${j.needId}`} className="group">
+                      <div className="flex items-center gap-1.5 border border-me/40 bg-[#fdf6f5] px-2.5 py-1.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-me" />
+                        <span className="font-mono2 text-[11px] text-ink group-hover:underline">{j.needId}</span>
+                      </div>
+                    </Link>
+                    <span className="text-ink-3">→</span>
+
+                    {/* 2. 收题提案 */}
+                    <div className="flex items-center gap-1.5 border border-line-strong bg-[#f2f0e8] px-2.5 py-1.5">
+                      <span className="font-mono2 text-[11px] text-ink-3">{j.proposalId}</span>
+                      <span className="font-mono2 text-[9px] uppercase tracking-wider text-ink-3">{t('nd.journey.sourcing')}</span>
+                    </div>
+                    <span className="text-ink-3">→</span>
+
+                    {/* 3. 实采正式题 */}
+                    <Link to={`/problems/${j.problemId}`} className="group">
+                      <div className="flex items-center gap-1.5 border border-mc/50 bg-[#f5f8f2] px-2.5 py-1.5">
+                        <span className="font-mono2 text-[11px] text-mc group-hover:underline">{j.problemId}</span>
+                        <span className="font-mono2 text-[9px] uppercase tracking-wider text-mc">{t('nd.journey.intaked')}</span>
+                      </div>
+                    </Link>
+                    <span className="text-ink-3">→</span>
+
+                    {/* 4. 机器锚点 L0/L2 */}
+                    <div className="flex items-center gap-1.5 border border-line-strong bg-white px-2.5 py-1.5">
+                      <span className="font-mono2 text-[10px] text-[#2563eb]">{t('nd.journey.l0')}</span>
+                      <span className={j.anchors.l0 ? 'text-mc' : 'text-ink-3'}>{j.anchors.l0 ? '✓' : '·'}</span>
+                      <span className="mx-0.5 text-ink-3">/</span>
+                      <span className="font-mono2 text-[10px] text-[#9a5b13]">{t('nd.journey.l2')}</span>
+                      <span className={j.anchors.l2 ? 'text-mc' : 'text-ink-3'}>{j.anchors.l2 ? '✓' : '·'}</span>
+                    </div>
+                    <span className="text-ink-3">→</span>
+
+                    {/* 5. L3 证明台阶 */}
+                    <div
+                      className={`flex items-center gap-1.5 border px-2.5 py-1.5 ${
+                        j.proofSteps > 0 ? 'border-mc/60 bg-[#f5f8f2]' : 'border-line-strong bg-[#f2f0e8]'
+                      }`}
+                    >
+                      <span className={`font-mono2 text-[11px] ${j.proofSteps > 0 ? 'text-mc' : 'text-ink-3'}`}>
+                        {j.proofSteps > 0 ? `L3 · ${j.proofSteps}` : t('nd.journey.noL3')}
+                      </span>
+                    </div>
+                  </div>
+
+                  {j.problemTitle && <p className="mt-1 text-[12px] text-ink-3 truncate">{j.problemTitle}</p>}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </Reveal>
 

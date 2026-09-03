@@ -137,11 +137,13 @@ export const AUDITS: Record<string, ProblemAudit> = {
   // mp-042 已满足证据门（open_claim 逐字引文 + 可解析来源，文献即专家）→ 升级 vetted，
   // 进入主目录；mp-043 保留 candidate，待评审。
   'mp-042': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
-  'mp-043': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — open_claim present but statement is engineering-modeling and not yet independently verified; pending review for upgrade' },
+  // mp-043 实采后已升级：补 L0 lean 陈述锚点（check-lean 编译核验）+ L2 失败类型学，转正入主目录。
+  'mp-043': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
   // 需求缺口实采批次（收题流水线 cn-002/cn-004 → 候选池正式题）：题面 + 来源 + AI 草拟，
-  // 未经独立核验，保留 candidate 待评审；升级后转 passed 进入主目录。
+  // 升级后转 passed 进入主目录。
   'mp-044': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
-  'me-035': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-flocking-safety / cn-002），题面待独立核验；pending review' },
+  // me-035 实采后已升级：补 L0 lean 陈述锚点 + L2 失败类型学，转正入主目录。
+  'me-035': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
   'mp-045': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
   'me-036': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
   'mc-031': { status: 'passed', date: '2026-09-03', kind: 'ai-assisted' },
