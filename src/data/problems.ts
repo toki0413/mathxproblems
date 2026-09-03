@@ -181,6 +181,22 @@ export interface Problem {
   failure_records?: FailureRecord[]
   /** 形式工具映射：本题 ↔ mathlib 工具的 m:n 双向索引（试点）。 */
   tool_links?: ToolLink[]
+  /** 解题层证明台阶（L3）：已真实形式化的核心可证子结果（非 sorry），以 lean/ 共享模块落锚。
+   *  机器核验 = 对应模块被 CI 用 `lean <file>` 编译通过（check-lean）。
+   *  诚实语义：只证明子结果，绝不假装整道题已解决（题本身仍 open）。 */
+  proof_steps?: ProofStep[]
+}
+
+/** 解题层证明台阶的一级：一道题里被真实证明（非 sorry）的核心可证子结果。 */
+export interface ProofStep {
+  /** lean/ 共享模块文件名（不含 .lean；如 'SolutionSteps'）。 */
+  module: string
+  /** 台阶名（机器可读，如 'mass-preservation'）。 */
+  step: string
+  /** 对应定理名（该模块内已证的定理/命名段）。 */
+  theorem?: string
+  /** 证明了什么（一句）。 */
+  what: string
 }
 
 /** 机器核验锚点状态：目录条目的形式化信任信号（L0 陈述 / L1 证书括区 / L2 失败类型学）。
@@ -1578,6 +1594,14 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     tool_links: [
       { tool_id: 'combinatorics-graph', role: 'partial' },
       { tool_id: 'dynamical-systems', role: 'partial' },
+    ],
+    proof_steps: [
+      {
+        module: 'SolutionSteps',
+        step: 'odd-coupling-zero',
+        theorem: 'odd_coupling_zero',
+        what: '奇耦合在 0 处取 0：一致状态是共识动态的不动点——非线性共识收敛证明的起点。',
+      },
     ],
     related_problems: [
       {
@@ -8191,6 +8215,14 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       { tool_id: 'combinatorics-graph', role: 'partial' },
       { tool_id: 'analysis-asymptotics', role: 'partial' },
       { tool_id: 'dynamical-systems', role: 'partial' },
+    ],
+    proof_steps: [
+      {
+        module: 'SolutionSteps',
+        step: 'mass-preservation',
+        theorem: 'mass_preserved_iterated',
+        what: '质量守恒不变量：量化平均共识任意轮后总量不变——可收敛到精确平均的必要前提（极限只能是初始均值）。',
+      },
     ],
     related_problems: [],
     statement: `Let a connected graph $G=(V,E)$ hold integer initial values $c_i\\in\\mathbb Z$; agents exchange states only along edges and only in discrete (quantized) rounds, so each transmission carries an integer. A quantized averaging scheme must drive every node to a value within one step of the exact average $\\bar c=\\sum_i c_i/n$ and then stop with a distributed certificate. **Determine, for an arbitrary connected $G$ on $n$ nodes, the optimal worst-case number of communication rounds $T^*(G,n)$ to reach finite-time quantized average consensus, and construct a distributed algorithm attaining it (matching the lower bound up to constants) — or give a network class on which every such algorithm requires a certified number of rounds that beats the known polynomial bounds by a stated factor.**`,

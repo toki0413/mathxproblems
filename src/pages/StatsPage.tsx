@@ -40,12 +40,13 @@ export default function StatsPage() {
       count: AUDITED_PROBLEMS.filter((p) => p.output === v).length,
     }))
     const relations = AUDITED_PROBLEMS.reduce((s, p) => s + p.related_problems.length, 0)
-    // 机器核验锚点覆盖率（L0/L1/L2）：由 anchorOf 派生，零漂移。核验结构性质，≠ 已解决。
+    // 机器核验锚点覆盖率（L0/L1/L2/L3）：由 anchorOf + proof_steps 派生，零漂移。核验结构性质，≠ 已解决。
     const anchors = AUDITED_PROBLEMS.map((p) => anchorOf(p))
     const anchorCoverage = {
       l0: anchors.filter((a) => a.statement_anchor).length,
       l1: anchors.filter((a) => a.certificate_record).length,
       l2: anchors.filter((a) => a.failure_typology).length,
+      l3: AUDITED_PROBLEMS.filter((p) => p.proof_steps?.length).length,
       any: anchors.filter((a) => a.statement_anchor || a.certificate_record || a.failure_typology).length,
     }
     return { byDomain, byPotential, byVerification, byStatus, byOutput, relations, anchorCoverage }
@@ -92,12 +93,13 @@ export default function StatsPage() {
               {stats.anchorCoverage.any}/{AUDITED_PROBLEMS.length} {t('st.anchors.any')}
             </span>
           </div>
-          <div className="mt-4 grid md:grid-cols-3 gap-px bg-line border border-line">
+          <div className="mt-4 grid md:grid-cols-4 gap-px bg-line border border-line">
             {(
               [
                 ['l0', '#2563eb'],
                 ['l1', '#1e7a5a'],
                 ['l2', '#9a5b13'],
+                ['l3', '#7c3aed'],
               ] as const
             ).map(([key, color]) => (
               <div key={key} className="bg-[#faf9f4] p-4">

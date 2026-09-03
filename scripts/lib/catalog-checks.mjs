@@ -408,6 +408,42 @@ export function checkCatalog(raw) {
   if (badLayer.length) failures.push(`failure_records use invalid layer: ${[...new Set(badLayer)].join(', ')}`)
   else notes.push(`pilot index: ${toolCount} tool_links blocks, ${failureCount} failure_records blocks`)
 
+  // 解题层证明台阶（L3）：字段结构护栏——module/step/what 非空；同一题内 (module,step) 不重复。
+  // 对应 lean 模块必须存在且为 SHARED-MODULE，由 check-lean（可读文件系统）核验。
+  const proofBlocks = [...src.matchAll(/proof_steps:\s*\[\s*([\s\S]*?)\]\s*,\n/g)]
+  const emptyProof = []
+  const dupProof = []
+  const proofOf = new Map() // problemId -> step 数
+  for (const m of proofBlocks) {
+    const before = src.slice(0, m.index)
+    const idMatch = [...before.matchAll(/^    id: '([^']+)'/gm)].pop()
+    const id = idMatch ? idMatch[1] : '(unknown)'
+    const items = [...m[1].matchAll(/\{\s*module: '([^']*)',\s*step: '([^']*)'(?:,\s*(?:theorem: '[^']*',\s*)?what: '([^']*)')?/g)]
+    if (items.length === 0) {
+      emptyProof.push(`${id}:(no steps)`)
+      continue
+    }
+    for (const it of items) {
+      if (!it[1] || !it[2] || !it[3]) emptyProof.push(`${id}:${it[2] || '(no step)'}`)
+    }
+    const seen = new Set()
+    for (const it of items) {
+      const key = `${it[1]}:${it[2]}`
+      if (seen.has(key)) dupProof.push(`${id}:${key}`)
+      seen.add(key)
+    }
+    proofOf.set(id, items.length)
+  }
+  if (emptyProof.length) failures.push(`proof_steps missing module/step/what: ${[...new Set(emptyProof)].join(', ')}`)
+  if (dupProof.length) failures.push(`duplicate proof_steps in problem: ${[...new Set(dupProof)].join(', ')}`)
+  if (proofBlocks.length) {
+    notes.push(
+      `proof_steps (L3 解题层): ${proofBlocks.length} problem(s) carry real proof anchors (${[...proofOf.entries()]
+        .map(([k, v]) => `${k}=${v}`)
+        .join(', ')})`,
+    )
+  }
+
   const delivIds = [...hasDeliverables]
   if (delivIds.length) notes.push(`engineering_deliverables: ${delivIds.length} problems have structured deliverables`)
 

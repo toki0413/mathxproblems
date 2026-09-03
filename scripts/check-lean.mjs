@@ -85,6 +85,33 @@ function unescape(s) {
   return out
 }
 
+// ── 解题层证明台阶（L3）：proof_steps.module 必须对应 lean/ 里真实存在的
+//    SHARED-MODULE 文件（该模块已被 CI 编译通过——证明台阶机器可核验，非虚构）。──
+const proofModules = new Set(
+  [...src.matchAll(/proof_steps:\s*\[\s*([\s\S]*?)\]\s*,\n/g)].flatMap((m) =>
+    [...m[1].matchAll(/module: '([^']+)'/g)].map((x) => x[1]),
+  ),
+)
+const sharedDirs = new Set(
+  readdirSync(leanDir)
+    .filter((f) => f.endsWith('.lean'))
+    .map((f) => f.replace(/\.lean$/, '')),
+)
+for (const mod of proofModules) {
+  if (!sharedDirs.has(mod)) {
+    failed++
+    console.error(`FAIL: proof_steps references missing lean module '${mod}' (no lean/${mod}.lean)`)
+    continue
+  }
+  const canonical = readFileSync(join(leanDir, `${mod}.lean`), 'utf8')
+  if (!canonical.includes('SHARED-MODULE')) {
+    failed++
+    console.error(`FAIL: proof_steps module '${mod}' must be a SHARED-MODULE (no inline statement)`)
+  } else {
+    console.log(`  ok proof_steps module: ${mod} (SHARED-MODULE, compiled above)`)
+  }
+}
+
 if (failed > 0) {
   console.error(`check:lean FAIL (${failed} problem(s))`)
   process.exit(1)

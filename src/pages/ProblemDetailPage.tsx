@@ -756,6 +756,34 @@ export default function ProblemDetailPage() {
             </Section>
           )}
 
+          {p.proof_steps && p.proof_steps.length > 0 && (
+            <Section title={t('pd.proofs')}>
+              <p className="text-xs text-ink-3 leading-relaxed mb-4">{t('pd.proofs.hint')}</p>
+              <div className="space-y-3">
+                {p.proof_steps.map((ps, i) => (
+                  <div key={i} className="border border-mc/40 bg-[#f5f8f2] p-5">
+                    <div className="flex items-start justify-between gap-3 flex-wrap">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono2 text-[11px] text-mc shrink-0">{ps.module}</span>
+                        <span className="text-ink-2">/</span>
+                        <span className="font-mono2 text-[11px] font-semibold text-ink shrink-0">{ps.step}</span>
+                      </div>
+                      <span className="border border-mc/50 text-mc rounded-full px-2 py-0.5 font-mono2 text-[9px] uppercase tracking-wider shrink-0">
+                        {t('pd.proofs.machine')}
+                      </span>
+                    </div>
+                    {ps.theorem && (
+                      <div className="mt-2 font-mono2 text-[11px] text-ink-3 uppercase tracking-[0.15em]">
+                        {t('pd.proofs.theorem')}: {ps.theorem}
+                      </div>
+                    )}
+                    <p className="font-statement leading-[1.85] text-ink-2 mt-2">{ps.what}</p>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
           <Section title={t('pd.formalization')}>
             <div className="bg-[#f2f0e8] p-5 border border-line">
               <p className="font-statement leading-[1.9] text-ink-2">{p.formalization_notes}</p>

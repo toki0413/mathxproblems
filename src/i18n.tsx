@@ -204,6 +204,14 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.tools.role': { zh: '角色', en: 'Role' },
   'pd.tools.area': { zh: 'mathlib 区域', en: 'mathlib area' },
   'pd.tools.none': { zh: '暂未收录工具映射。', en: 'No tool mapping yet.' },
+  'pd.proofs': { zh: '解题层证明台阶 (L3)', en: 'Proof steps (L3)' },
+  'pd.proofs.hint': {
+    zh: '本题已被真实形式化的核心可证子结果（非 sorry）——题本身仍开放，但这些子证明已由 CI 用 Lean 编译机器核验。这是"从问题收录到解题层"的可见进展。',
+    en: 'Core sub-results of this problem that have been genuinely formalized (no sorry). The problem itself stays open, but these sub-proofs are machine-verified by CI compilation in Lean — visible progress from cataloging toward the solution layer.',
+  },
+  'pd.proofs.machine': { zh: '机器已核验', en: 'Machine-verified' },
+  'pd.proofs.theorem': { zh: '定理', en: 'Theorem' },
+  'pd.proofs.what': { zh: '证明了什么', en: 'What is proved' },
   'pd.references': { zh: '参考文献', en: 'References' },
   'pd.related': { zh: '关联问题', en: 'Related problems' },
   'pd.demanded': { zh: '被哪些工程需求倒查', en: 'Demanded by engineering needs' },
@@ -260,6 +268,16 @@ const STR: Record<string, { zh: string; en: string }> = {
   // stats
   'st.title': { zh: '统计', en: 'Statistics' },
   'st.milestone': { zh: '收录里程碑 {goal} 题 · 当前 {n} 题', en: 'Milestone: {goal} problems · currently {n}' },
+  'st.anchors': { zh: '机器核验锚点覆盖率', en: 'Machine-verified anchor coverage' },
+  'st.anchors.any': { zh: '道题带锚点', en: 'problems carry an anchor' },
+  'st.anchors.l0': { zh: 'L0 陈述', en: 'L0 statements' },
+  'st.anchors.l1': { zh: 'L1 证书括区', en: 'L1 cert bands' },
+  'st.anchors.l2': { zh: 'L2 失败类型学', en: 'L2 failure records' },
+  'st.anchors.l3': { zh: 'L3 真实证明台阶', en: 'L3 proof steps' },
+  'st.anchors.hint': {
+    zh: '结构性质核验 ≠ 已解决：L0 陈述由 CI 编译类型核验，L1 证书括区携带机器可核验纪录，L2 失败记录已生成 Lean 类型化档案，L3 是已被真实证明（非 sorry）的核心子结果。',
+    en: 'Structural verification ≠ solved: L0 statements are type-checked by CI compilation, L1 certificate bands carry machine-verifiable records, L2 failure records are backed by Lean-typed archives, and L3 are core sub-results genuinely proved (no sorry).',
+  },
   'st.goal': { zh: '收录里程碑 100 题', en: 'Milestone: 100 problems' },
   // impact
   'im.title': { zh: '从定理到证书', en: 'From theorem to certificate' },
