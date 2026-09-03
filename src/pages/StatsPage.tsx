@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { AUDITED_PROBLEMS } from '@/data/audits'
-import { DOMAINS, type Domain } from '@/data/problems'
+import { DOMAINS, anchorOf, type Domain } from '@/data/problems'
 import { DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
 import { useI18n, domainLabel, enumLabel } from '@/i18n'
@@ -40,7 +40,15 @@ export default function StatsPage() {
       count: AUDITED_PROBLEMS.filter((p) => p.output === v).length,
     }))
     const relations = AUDITED_PROBLEMS.reduce((s, p) => s + p.related_problems.length, 0)
-    return { byDomain, byPotential, byVerification, byStatus, byOutput, relations }
+    // 机器核验锚点覆盖率（L0/L1/L2）：由 anchorOf 派生，零漂移。核验结构性质，≠ 已解决。
+    const anchors = AUDITED_PROBLEMS.map((p) => anchorOf(p))
+    const anchorCoverage = {
+      l0: anchors.filter((a) => a.statement_anchor).length,
+      l1: anchors.filter((a) => a.certificate_record).length,
+      l2: anchors.filter((a) => a.failure_typology).length,
+      any: anchors.filter((a) => a.statement_anchor || a.certificate_record || a.failure_typology).length,
+    }
+    return { byDomain, byPotential, byVerification, byStatus, byOutput, relations, anchorCoverage }
   }, [])
 
   const potentialLabel = (v: string) => enumLabel(lang, 'potential', v)
@@ -73,6 +81,40 @@ export default function StatsPage() {
             .replace('{goal}', String(GOAL_PROBLEMS))
             .replace('{n}', String(AUDITED_PROBLEMS.length))}
         </p>
+      </Reveal>
+
+      {/* 机器核验锚点覆盖率：L0/L1/L2 在目录中的覆盖（结构性质核验 ≠ 已解决） */}
+      <Reveal delay={30}>
+        <section className="mt-12 border border-line bg-[#faf9f4] p-6">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">{t('st.anchors')}</h2>
+            <span className="font-mono2 text-[11px] text-ink-3">
+              {stats.anchorCoverage.any}/{AUDITED_PROBLEMS.length} {t('st.anchors.any')}
+            </span>
+          </div>
+          <div className="mt-4 grid md:grid-cols-3 gap-px bg-line border border-line">
+            {(
+              [
+                ['l0', '#2563eb'],
+                ['l1', '#1e7a5a'],
+                ['l2', '#9a5b13'],
+              ] as const
+            ).map(([key, color]) => (
+              <div key={key} className="bg-[#faf9f4] p-4">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t(`st.anchors.${key}`)}</span>
+                  <span className="font-statement text-2xl font-bold" style={{ color }}>
+                    {stats.anchorCoverage[key]}
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <Bar value={stats.anchorCoverage[key]} max={AUDITED_PROBLEMS.length} color={color} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-ink-3 leading-relaxed">{t('st.anchors.hint')}</p>
+        </section>
       </Reveal>
 
       <div className="mt-12 grid md:grid-cols-2 gap-x-16 gap-y-14">

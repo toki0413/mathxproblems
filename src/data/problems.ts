@@ -295,6 +295,8 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     tags: ['stochastic-navier-stokes', 'mixing', 'hypoellipticity', 'ergodicity'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-002 — Sharp exponential mixing rate for 2D Navier–Stokes with degenerate noise.\n\nFor the 2D incompressible Navier–Stokes equations on 𝕋² driven by white-in-time\nforcing acting only on finitely many Fourier modes, ergodicity and exponential\nmixing are known. Determine the sharp dependence of the mixing rate on the\nviscosity ν and on the set of forced modes: prove that the spectral gap of the\nMarkov semigroup scales as ν^a and identify the optimal exponent a. The\ndefinitions of `MixingSystem`, `SpectralGap` and `ScalesAs` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MixingSystem where\n  viscosity : Rat\n  forcedModes : Nat\n\n/-- 马尔可夫半群的谱间隙（混合率，形式化目标）。 -/\ndef SpectralGap (_s : MixingSystem) : Rat :=\n  0\n\n/-- 谱间隙按 ν^a 标度（形式化目标：与受迫模式集相关的最优指数 a）。 -/\ndef ScalesAs (s : MixingSystem) (a : Rat) : Prop :=\n  True\n\n/-- 头条声明：存在最优指数 a 使混合率谱间隙随 ν^a 标度。 -/\ntheorem sharp_mixing_exponent (s : MixingSystem) :\n    ∃ a : Rat, ScalesAs s a := by\n  sorry\n\nend MathX\n',
     proposer: 'M. Hairer & J. C. Mattingly',
     proposed_year: 2006,
     via: {
@@ -369,6 +371,8 @@ Precisely: show that the first marginal of the BBGKY hierarchy converges, on an 
     tags: ['fput', 'thermalization', 'kams-theory', 'ergodic-hypothesis'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-003 — Thermalization time of the Fermi–Pasta–Ulam–Tsingou lattice.\n\nFor the FPUT β-chain with N particles and Hamiltonian\nH = Σ_j p_j²/2 + (q_{j+1}-q_j)²/2 + β(q_{j+1}-q_j)⁴/4, fix energy per particle\nε > 0. Prove that for generic initial data concentrated on low Fourier modes,\nthe time-averaged mode energies equilibrate toward equipartition, and give an\nasymptotic formula for the equilibration time T_eq(N, ε) in the scaling limit.\nThe definitions of `FPUTChain`, `ModeEnergy`, `Equipartition` and\n`EquilibrationTime` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure FPUTChain where\n  particles : Nat\n  energyPerParticle : Rat\n  nonlinearity : Rat\n\n/-- 模式能量（按 Fourier 模式分解）（形式化目标）。 -/\ndef ModeEnergy (_c : FPUTChain) (_mode : Nat) : Rat :=\n  0\n\n/-- 能量均分：时间平均模式能量趋近等分（形式化目标）。 -/\ndef Equipartition (_c : FPUTChain) : Prop :=\n  True\n\n/-- 热化（均衡）时间 T_eq(N, ε)（形式化目标）。 -/\ndef EquilibrationTime (c : FPUTChain) : Rat :=\n  0\n\n/-- 头条声明：FPUT β 链从低模式初态向能量均分热化，且均衡时间具有可刻画的\n    渐近公式。 -/\ntheorem thermalization_time_fput (c : FPUTChain) (hε : 0 < c.energyPerParticle) :\n    Equipartition c := by\n  sorry\n\nend MathX\n',
     failure_records: [
       {
         method: 'KAM / Nekhoroshev perturbation theory',
@@ -742,6 +746,8 @@ with $V_\\omega(n)$ i.i.d. (e.g. Bernoulli or uniform). **Prove that for every $
     tags: ['navier-stokes', 'turbulence', 'anomalous-dissipation', 'weak-solutions'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmp-008 — Anomalous dissipation in the zero-viscosity limit of forced Navier–Stokes.\n\nZeroth law of turbulence: for the 3D incompressible Navier–Stokes equations with\nsmooth body forcing at fixed scale, the mean energy dissipation rate of\nstationary (or long-time-averaged) solutions satisfies liminf_{ν→0}\nν ⟨‖∇u_ν‖²_{L²}⟩ > 0 — dissipation does not vanish with viscosity. The\ndefinitions of `ForcedNavierStokes`, `DissipationRate` and\n`AnomalousDissipation` are themselves part of the formalization target; the\nstatement is the well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ForcedNavierStokes where\n  viscosity : Rat\n\n/-- 平均能量耗散率 ν⟨‖∇u_ν‖²_{L²}⟩（形式化目标）。 -/\ndef DissipationRate (_u : ForcedNavierStokes) : Rat :=\n  0\n\n/-- 奇异耗散：耗散率在零粘性极限下保持为正。 -/\ndef AnomalousDissipation (u : ForcedNavierStokes) : Prop :=\n  0 < DissipationRate u\n\n/-- 头条声明（湍流第零定律）：受迫 3D 不可压 Navier–Stokes 平稳解的耗散率\n    在 ν→0 下不消失。 -/\ntheorem zeroth_law_turbulence (u : ForcedNavierStokes) :\n    AnomalousDissipation u := by\n  sorry\n\nend MathX\n',
     proposer: 'L. Onsager',
     proposed_year: 1949,
     via: {
@@ -1535,6 +1541,8 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
     tags: ['multi-agent-systems', 'spectral-graph-theory', 'lyapunov-methods', 'consensus'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-001 — Nonlinear multi-agent consensus convergence rate.\n\nFor a multi-agent system with Lipschitz nonlinear coupling φ on a fixed\nconnected undirected graph G, ẋ_i = Σ_{j∈N(i)} φ(x_j - x_i), the distributed\nprotocol achieves asymptotic agreement x_i(t) → x̄, and the question is to\ncharacterize an explicit convergence rate bound in terms of the Lipschitz\nconstant of φ and the spectrum of the graph Laplacian L(G). The definitions of\n`LipschitzCoupling`, `ConsensusError` and `ConsensusRateBound` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure ConsensusSystem (n : Nat) where\n  state : Fin n → Rat\n  lipschitzConstant : Rat\n\n/-- 渐近一致：x_i(t) → x̄（形式化目标）。 -/\ndef ConsensusError (_s : ConsensusSystem n) : Rat :=\n  0\n\n/-- 显式收敛速率界（形式化目标：Lipschitz 常数与图 Laplacian 谱的函数）。 -/\ndef ConsensusRateBound (s : ConsensusSystem n) : Prop :=\n  True\n\n/-- 头条声明：Lipschitz 非线性耦合在固定连通图上达成渐近一致，且存在以\n    Lipschitz 常数与 Laplacian 谱表达的显式收敛速率界。 -/\ntheorem consensus_rate_bound (n : Nat) (s : ConsensusSystem n) :\n    ConsensusRateBound s := by\n  sorry\n\nend MathX\n',
     proposer: 'R. Olfati-Saber, J. A. Fax & R. M. Murray',
     proposed_year: 2007,
     via: {
@@ -1618,6 +1626,8 @@ the distributed protocol achieves asymptotic agreement $x_i(t) \\to \\bar{x}$, a
     tags: ['decentralized-optimization', 'lower-bounds', 'gossip-algorithms', 'time-varying-graphs'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-002 — Tight lower bounds for decentralized optimization over time-varying\ngraphs.\n\nFor decentralized minimization of a sum of n smooth strongly convex local\nfunctions by m agents communicating over a sequence of B-connected time-varying\ngraphs, determine the optimal worst-case iteration complexity as a function of\ncondition number κ, network size m, and connectivity parameter B: prove a lower\nbound matching (up to constants) the best known accelerated gossip algorithms,\nor improve the lower bound. The definitions of `DecentralizedProblem`,\n`SmoothStronglyConvex`, `BCConnectedGraphSequence` and `WorstCaseIterations`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure DecentralizedProblem (m : Nat) where\n  conditionNumber : Rat\n  connectivity : Nat\n  agents : Fin m\n\n/-- B-连通时变图序列（形式化目标）。 -/\ndef BCConnectedGraphSequence (_p : DecentralizedProblem m) : Prop :=\n  True\n\n/-- 最坏情形迭代复杂度（形式化目标）。 -/\ndef WorstCaseIterations (p : DecentralizedProblem m) : Nat :=\n  0\n\n/-- 头条声明：B-连通时变图上的去中心化优化存在与加速 gossip 最优算法匹配\n    （至多常数因子）的最坏情形迭代复杂度下界。 -/\ntheorem decentralized_lower_bound (m : Nat) (p : DecentralizedProblem m)\n    (hconn : BCConnectedGraphSequence p) :\n    0 < WorstCaseIterations p := by\n  sorry\n\nend MathX\n',
     proposer: 'K. Scaman et al.',
     proposed_year: 2017,
     via: {
@@ -1691,6 +1701,8 @@ Formally: any black-box decentralized first-order method requires $\\Omega\\big(
     tags: ['cucker-smale', 'flocking', 'singular-kernels', 'swarm-robotics'],
     contributor: 'admin',
     date_added: '2026-08-21',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-003 — Unconditional flocking for Cucker–Smale dynamics with singular kernels.\n\nFor the Cucker–Smale system with singular communication weight ψ(s) = s^{-α},\nẋ_i = v_i, v̇_i = (1/N) Σ_j ψ(|x_j - x_i|)(v_j - v_i), prove unconditional\nflocking (velocity alignment ‖v_i(t) - v_j(t)‖ → 0 with uniformly bounded\nspatial diameter) for all initial configurations and all α ≥ 1 — or find the\ncritical α separating conditional from unconditional flocking. The definitions\nof `CuckerSmaleState`, `VelocityAlignment`, `BoundedDiameter` and `Flocking`\nare themselves part of the formalization target; the statement is the\nwell-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure CuckerSmaleState (N : Nat) where\n  position : Fin N → Rat\n  velocity : Fin N → Rat\n\n/-- 速度对齐：‖v_i(t) - v_j(t)‖ → 0（形式化目标）。 -/\ndef VelocityAlignment (N : Nat) (_v : Fin N → Rat) : Prop :=\n  True\n\n/-- 空间直径一致有界（形式化目标）。 -/\ndef BoundedDiameter (N : Nat) (_x : Fin N → Rat) : Prop :=\n  True\n\n/-- flocking：速度对齐且空间直径一致有界。 -/\ndef Flocking (s : CuckerSmaleState N) : Prop :=\n  VelocityAlignment N s.velocity ∧ BoundedDiameter N s.position\n\n/-- 头条声明：奇异核 ψ(s)=s^{-α}（α ≥ 1）下 Cucker–Smale 对所有初始位形无条件\n    flocking。 -/\ntheorem unconditional_flocking_singular (N : Nat) (α : Nat) (hα : 1 ≤ α) :\n    ∀ s : CuckerSmaleState N, Flocking s := by\n  sorry\n\nend MathX\n',
     proposer: 'F. Cucker & S. Smale',
     proposed_year: 2007,
     via: {
@@ -3404,6 +3416,8 @@ Prove that $1/e$ is achievable (or determine the true optimal constant) for ever
   },
   {
     id: 'me-010',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-010 — Constant approximability of the graph bandwidth problem.\n\nFor a graph G=(V,E), the bandwidth bw(G) is the minimum over bijective\norderings π:V→{1,…,n} of max_{(u,v)∈E} |π(u)-π(v)|. Decide whether bw is\napproximable within a constant: prove whether there exists C ≥ 1 and a\npolynomial algorithm that, for every input G, outputs an ordering of bandwidth\n≤ C·bw(G) (or exhibit an inapproximability result). The definitions of `Graph`,\n`Bandwidth` and `ApproximableWithin` are themselves part of the formalization\ntarget; the statement is the well-typed headline claim (proof left open via\n`sorry`).\n-/\nnamespace MathX\n\nstructure Graph (n : Nat) where\n  adjacency : Fin n → Fin n → Prop\n  edge : Prop := True\n\n/-- 带宽 bw(G)：最小化最大 |π(u)-π(v)|（形式化目标）。 -/\ndef Bandwidth (_g : Graph n) : Nat :=\n  0\n\n/-- 常数近似：存在 C ≥ 1 与多项式算法使输出带宽 ≤ C·bw(G)（形式化目标）。 -/\ndef ApproximableWithin (g : Graph n) (C : Rat) : Prop :=\n  True\n\n/-- 头条声明：图带宽问题可在常数因子内近似（存在 C ≥ 1）。 -/\ntheorem bandwidth_constant_approximation (n : Nat) (g : Graph n) :\n    ∃ C : Rat, 1 ≤ C ∧ ApproximableWithin g C := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     title: 'Constant Approximability of the Graph Bandwidth Problem',
     titleZh: '图带宽问题的常数近似性',
@@ -3574,6 +3588,8 @@ for a rational $m \\times n$ system. The system is polynomial-time solvable (Kha
   },
   {
     id: 'me-013',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-013 — Optimal asymptotic competitive ratio of online bin packing.\n\nIn online bin packing, items of size in (0,1] arrive one at a time and must be\nassigned to a bin before the next item is seen, with no reassignment; the goal\nis to minimize the total number of bins used. The asymptotic competitive ratio\nR_∞(A) of an algorithm A is the infimum over c such that A(I) ≤ c·opt(I) +\no(opt(I)) for every input sequence I. Determine the exact value of the optimal\nasymptotic competitive ratio. The definitions of `BinPackingAlgorithm`,\n`AsymptoticCompetitiveRatio` and `OptimalAsymptoticRatio` are themselves part\nof the formalization target; the statement is the well-typed headline claim\n(proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure BinPackingAlgorithm where\n  name : String\n\n/-- 渐近竞争比 R_∞(A)（形式化目标）。 -/\ndef AsymptoticCompetitiveRatio (_a : BinPackingAlgorithm) : Rat :=\n  0\n\n/-- 最优渐近竞争比：所有在线算法竞争比的下确界（形式化目标）。 -/\ndef OptimalAsymptoticRatio (r : Rat) : Prop :=\n  True\n\n/-- 头条声明：在线装箱存在唯一的最优渐近竞争比 r（精确值待定）。 -/\ntheorem optimal_asymptotic_ratio_exists :\n    ∃ r : Rat, OptimalAsymptoticRatio r := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment: 'A pass determines the exact infimum of asymptotic competitive ratios for deterministic online bin packing, proving tightness of the 1.58889 bound or finding a new value, via matching harmonic-type upper and weighting-function adversary constructions whose optimality is rigorous.',
     title: 'Optimal Asymptotic Competitive Ratio of Online Bin Packing',
@@ -5534,6 +5550,8 @@ The known route reduces the problem to a complex-phasor substructure (the Brown�
   },
   {
     id: 'me-018',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-018 — Necessary and sufficient feedback stabilizability: closing the\nBrockett–Sontag gap.\n\nFor a control-affine system ẋ = f(x) + Σ_i g_i(x) u_i on ℝⁿ, Brockett\'s\nf(0) ∈ int conv̄ U(x) condition is necessary for continuous feedback\nstabilizability; Sontag\'s criterion is sufficient (for asymptotic\ncontrollability plus a known class of Lyapunov functions). Find a tractable\ncondition that is both necessary and sufficient. The definitions of\n`ControlAffineSystem`, `BrockettCondition`, `SontagCondition`,\n`FeedbackStabilizable` and `Tractable` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure ControlAffineSystem (n m : Nat) where\n  state : Fin n → Rat\n  controls : Fin m → Rat\n\n/-- Brockett 必要条件（形式化目标）。 -/\ndef BrockettCondition (_s : ControlAffineSystem n m) : Prop :=\n  True\n\n/-- Sontag 充分判据（形式化目标）。 -/\ndef SontagCondition (_s : ControlAffineSystem n m) : Prop :=\n  True\n\n/-- 连续反馈镇定（形式化目标）。 -/\ndef FeedbackStabilizable (_s : ControlAffineSystem n m) : Prop :=\n  True\n\n/-- 可计算的"可判定条件"（形式化目标）。 -/\ndef Tractable (cond : ControlAffineSystem n m → Prop) : Prop :=\n  True\n\n/-- 头条声明：Brockett（必要）与 Sontag（充分）之间存在一个既必要又充分的\n    可处理判据（Brockett–Sontag 间隙可闭合）。 -/\ntheorem brockett_sontag_gap_closed (n m : Nat) :\n    ∃ cond : ControlAffineSystem n m → Prop,\n      Tractable cond ∧\n        ∀ s : ControlAffineSystem n m, FeedbackStabilizable s ↔ cond s := by\n  sorry\n\nend MathX\n',
     output: 'verified_truth',
     judgment:
       'A pass gives a verifiable necessary-and-sufficient condition under which a control-affine nonlinear system admits a globally asymptotically stabilizing continuous time-invariant state feedback, thereby closing the gap between the Brockett necessary condition and the Sontag sufficient condition, or else exhibits a system that is asymptotically controllable but admits no such continuous feedback, so the stabilization characterization is settled.',
@@ -6151,6 +6169,8 @@ at inverse temperature $\\beta$ and chemical potential $\\mu$, with a repulsive 
     tags: ['seasonal-forcing', 'arnold-tongue', 'subharmonic-response', 'intermittent-chaos'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nmb-026 — Sharp Arnold tongues for subharmonic response in seasonally forced SIR.\n\nFor the seasonally forced SIR epidemic model, the parameter regions where the\nforcing frequency locks to a subharmonic response (p:q resonance) form Arnold\ntongues. Determine the sharp boundary of these tongues: characterize the\nresonance regions in the (amplitude, frequency) parameter plane for subharmonic\nresponse, and prove whether the boundaries are sharp. The definitions of\n`SeasonallyForcedSIR`, `SubharmonicResponse` and `ArnoldTongue` are themselves\npart of the formalization target; the statement is the well-typed headline\nclaim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure SeasonallyForcedSIR where\n  amplitude : Rat\n  frequency : Rat\n\n/-- (p:q) 次谐波响应：周期轨道以 p/q 倍强迫频率锁定（形式化目标）。 -/\ndef SubharmonicResponse (s : SeasonallyForcedSIR) (p q : Nat) : Prop :=\n  True\n\n/-- Arnold 舌：参数平面上出现次谐波锁定的区域（形式化目标）。 -/\ndef ArnoldTongue (s : SeasonallyForcedSIR) (p q : Nat) : Prop :=\n  True\n\n/-- 头条声明：季节强迫 SIR 的次谐波响应具有可精确刻画的尖锐 Arnold 舌边界。 -/\ntheorem sharp_arnold_tongues (s : SeasonallyForcedSIR) (p q : Nat)\n    (hq : 1 ≤ q) :\n    SubharmonicResponse s p q → ArnoldTongue s p q := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2014,
     via: { label: 'Harmonic response and Arnold tongues of seasonally driven SIR: epidemiological reviews (e.g. Keeling & Rohani)' },
@@ -6336,6 +6356,8 @@ Numerically discovered nonlinear policies beat the best linear ones for large $\
     tags: ['G-closure', 'hashin-shtrikman-bounds', 'composite-conductivity', 'homogenization'],
     contributor: 'community',
     date_added: '2026-08-22',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-028 — The G-closure and sharp attainable bounds for multiphase composite\nconductors.\n\nMix m ≥ 3 perfectly conducting isotropic phases with positive conductivities\nσ_1, …, σ_m and prescribed volume fractions to form a periodic composite; let\nσ* be the effective conductivity tensor. Determine the full set of attainable\npairs (f, σ*) as the microstructure varies — the G-closure — and decide whether\nthe Hashin–Shtrikman type bounds are simultaneously attainable. The definitions\nof `MultiphaseComposite`, `VolumeFractions`, `EffectiveConductivity` and\n`GClosure` are themselves part of the formalization target; the statement is\nthe well-typed headline claim (proof left open via `sorry`).\n-/\nnamespace MathX\n\nstructure MultiphaseComposite (m : Nat) where\n  phases : Fin m → Rat\n  volumeFractions : Fin m → Rat\n\n/-- 有效电导张量（形式化目标）。 -/\ndef EffectiveConductivity (_c : MultiphaseComposite m) : Rat :=\n  0\n\n/-- 可达对 (f, σ*) 的完整集合 G-闭包（形式化目标）。 -/\ndef GClosure (m : Nat) (_f : Fin m → Rat) : Prop :=\n  True\n\n/-- 头条声明：m ≥ 3 相复合导体的 G-闭包由 (f, σ*) 完全确定，且 Hashin–Shtrikman\n    型界可同时达到（G-闭包问题可解）。 -/\ntheorem g_closure_determined (m : Nat) (hm : 3 ≤ m) (f : Fin m → Rat) :\n    GClosure m f := by\n  sorry\n\nend MathX\n',
     proposer: 'multiple contributors',
     proposed_year: 2002,
     via: {
@@ -6605,6 +6627,8 @@ For monotone submodular objectives the greedy $1-\\nicefrac{1}{e}$ guarantee is 
     tags: ['neural-network-verification', 'lyapunov-functions', 'learning-based-control', 'formal-methods'],
     contributor: 'community',
     date_added: '2026-08-23',
+    provenance: 'lean-compilable',
+    lean_statement: 'import Std\n\n/-!\nme-032 — Sound and scalable stability certification of learned feedback policies.\n\nFor a closed-loop system ẋ = f(x, π_θ(x)) where π_θ is a ReLU neural-network\ncontroller, a Lyapunov candidate V and a piecewise-affine partition of the\nregion X, determine the tightest computable upper bound on\nmax_{x∈X}(V̇(x) + λV(x)) — close the gap between the SDP/MILP-relaxed\nover-estimate used today and the true value, using the activation-pattern\nstructure of the ReLU network. The definitions of `LearnedPolicy`,\n`StabilityMargin` and `CertifiableStable` are themselves part of the\nformalization target; the statement is the well-typed headline claim (proof\nleft open via `sorry`).\n-/\nnamespace MathX\n\nstructure LearnedPolicy where\n  layers : Nat\n  params : Nat\n\n/-- 稳定性裕度 max_{x∈X}(V̇(x) + λV(x)) 的可计算上界（形式化目标）。 -/\ndef StabilityMargin (_θ : LearnedPolicy) : Rat :=\n  0\n\n/-- 学习型策略可被可靠地证明稳定（证书存在且可扩）。 -/\ndef CertifiableStable (θ : LearnedPolicy) : Prop :=\n  0 < StabilityMargin θ\n\n/-- 头条声明：ReLU 学习策略存在可靠且可扩的稳定性证书（松弛间隙可闭合）。 -/\ntheorem sound_scalable_stability_certificate (θ : LearnedPolicy) :\n    CertifiableStable θ := by\n  sorry\n\nend MathX\n',
     proposer: 'M. Fazlyab, M. Morari & G. J. Pappas',
     proposed_year: 2020,
     via: {
