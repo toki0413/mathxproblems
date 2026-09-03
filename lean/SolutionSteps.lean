@@ -20,6 +20,9 @@ SHARED-MODULE: SolutionSteps
   4. me-013（在线装箱·最优渐近竞争比）：容量下界
      每个 bin 负载 ≤ C ⇒ n 个 bin 总负载 ≤ n·C（bin 数 ≥ totalLoad/C），
      在线装箱竞争比下界论证的平凡但可证的容量约束。
+  5. me-001（第三台阶）：一致状态是共识动态的不动点
+     所有分量相等时，耦合项 Σ_j φ(x_j - x_i) 全零，一步后每个分量不变
+     （consensus_step_fixes_equal）——共识收敛极限形态的完整证明。
 -/
 namespace MathX.SolutionSteps
 
@@ -91,6 +94,62 @@ theorem odd_pair_cancels (φ : Int → Int) (hφ : OddCoupling φ) (a b : Int) :
 -- 机器核验样例：两节点共识 a=1, b=3 上，反向贡献 φ(-2)+φ(2) 抵消。
 example (φ : Int → Int) (hφ : OddCoupling φ) : φ (-2) + φ 2 = 0 :=
   odd_pair_cancels φ hφ 1 3
+
+/-! ── me-001 第三台阶：一致状态是共识动态的不动点 ─────────────────── -/
+
+/-- 一致状态：所有分量相等（共识收敛的极限形态）。 -/
+def AllEqual (xs : List Int) : Prop :=
+  ∀ a ∈ xs, ∀ b ∈ xs, a = b
+
+/-- 一致状态中任意两分量的耦合项为零：a = b ⇒ φ(a - b) = φ(0) = 0。
+    这是"一致状态是不动点"的原子事实。 -/
+theorem all_equal_pairs_zero (φ : Int → Int) (hφ : OddCoupling φ) {xs : List Int}
+    (h : AllEqual xs) : ∀ a ∈ xs, ∀ b ∈ xs, φ (a - b) = 0 := by
+  intro a ha b hb
+  have hab : a - b = 0 := by
+    have hab' : a = b := h a ha b hb
+    omega
+  rw [hab]
+  exact odd_coupling_zero φ hφ
+
+/-- 全零项求和为零：Σ w(x) 全为 0 ⇒ foldl 和 = 0（w 泛化）。 -/
+theorem sum_zero_of_all_zero {xs : List Int} (w : Int → Int) (h : ∀ x ∈ xs, w x = 0) :
+    xs.foldl (fun acc x => acc + w x) 0 = 0 := by
+  induction xs with
+  | nil => simp
+  | cons x xs ih =>
+      simp
+      have hx : w x = 0 := h x (by simp)
+      have ih' : xs.foldl (fun acc x => acc + w x) 0 = 0 := ih (fun y hy => h y (by simp [hy]))
+      rw [hx, ih']
+
+/-- 完整图离散共识一步（含自环，步长 1）：x_i' = x_i + Σ_{j} φ(x_j - x_i)。 -/
+def consensusStep (φ : Int → Int) (xs : List Int) : List Int :=
+  xs.map (fun x => x + xs.foldl (fun acc y => acc + φ (y - x)) 0)
+
+/-- 一致状态是共识动态的不动点：所有分量相等时，一步后每个分量不变。
+    证明：逐分量看，耦合项 Σ_j φ(x_j - x_i) 因全零而抵消，x_i' = x_i。 -/
+theorem consensus_step_fixes_equal (φ : Int → Int) (hφ : OddCoupling φ) (xs : List Int)
+    (h : AllEqual xs) : consensusStep φ xs = xs := by
+  unfold consensusStep
+  have hmap :
+      List.map (fun x => x + xs.foldl (fun acc y => acc + φ (y - x)) 0) xs = List.map id xs := by
+    apply List.map_congr_left
+    intro x hx
+    have hsum : xs.foldl (fun acc y => acc + φ (y - x)) 0 = 0 := by
+      apply sum_zero_of_all_zero (fun z => φ (z - x))
+      intro z hz
+      exact all_equal_pairs_zero φ hφ h z hz x hx
+    simp [hsum]
+  rw [hmap, List.map_id xs]
+
+-- 机器核验样例：一致状态 [5,5,5] 是恒等/共识动态的不动点。
+example (φ : Int → Int) (hφ : OddCoupling φ) : consensusStep φ [5, 5, 5] = [5, 5, 5] :=
+  consensus_step_fixes_equal φ hφ [5, 5, 5] (by
+    intro a ha b hb
+    · simp at ha
+      simp at hb
+      rw [ha, hb])
 
 /-! ── me-013 台阶：装箱容量下界 ───────────────────────────────────── -/
 

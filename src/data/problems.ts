@@ -1608,6 +1608,12 @@ on the simplex $\\Delta^n$, with payoff matrix $A$ and mutation kernel $Q$. **Cl
         theorem: 'odd_pair_cancels',
         what: '奇耦合配对抵消：反向有序对 (j,i) 与 (i,j) 的贡献之和为零——共识动态总量/均值守恒论证的原子步。',
       },
+      {
+        module: 'SolutionSteps',
+        step: 'consensus-step-fixes-equal',
+        theorem: 'consensus_step_fixes_equal',
+        what: '一致状态是共识动态的不动点：所有分量相等时耦合项全零，一步后每个分量不变——共识收敛极限形态的完整证明。',
+      },
     ],
     related_problems: [
       {
