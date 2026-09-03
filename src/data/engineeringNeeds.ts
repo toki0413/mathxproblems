@@ -66,7 +66,17 @@ export interface EngineeringNeed {
   /** 诚实的现状/缺口说明。 */
   note: string
   /** 缺口驱动收题（readiness='gap' 时护栏强制必须有）：要 serve 这条需求，具体该收/推哪道题。 */
-  sourcing?: string
+  sourcing?: NeedSourcingItem[]
+}
+
+/** 收题流水线条目：缺口 → 该收/推哪道题。由需求层驱动"从问题收录到解题层"。 */
+export interface NeedSourcingItem {
+  /** push = 推进已有目录问题；new = 新增候选题（进入收题流水线/候选池提案）。 */
+  kind: 'push' | 'new'
+  /** push 时的目标题 id（必须真实存在于目录）；new 时省略。 */
+  target?: string
+  /** 收题建议一句话（机器可核验的非空承诺）。 */
+  what: string
 }
 
 export const NEED_READINESS_LABEL: Record<NeedReadiness, string> = {
@@ -156,7 +166,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'validation',
     readiness: 'gap',
     note: 'The demand side of the closure question: a certified dissipation statement is precisely what RANS/LES validation is missing.',
-    sourcing: '收题：新增「奇异耗散机制的显式可证刻画」（推进 mp-008 的零粘性极限），或为 law-mixinglength 的混合长闭合误差给定一个可证上界。',
+    sourcing: [
+      { kind: 'push', target: 'mp-008', what: '零粘性极限下奇异耗散的显式可证刻画' },
+      { kind: 'new', what: '混合长闭合（law-mixinglength）误差的可证上界' },
+    ],
   },
   {
     id: 'need-consensus-rate',
@@ -214,7 +227,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'safety-case',
     readiness: 'gap',
     note: 'The Cucker–Smale unconditional-flocking question is the mathematical core a swarm-safety certificate would rest on.',
-    sourcing: '收题：推进 me-003（奇异核 Cucker–Smale 无条件 flocking）；收「非奇异核 flocking 不变集的构造性证明」作为过渡锚点。',
+    sourcing: [
+      { kind: 'push', target: 'me-003', what: '奇异核 Cucker–Smale 无条件 flocking' },
+      { kind: 'new', what: '非奇异核 flocking 不变集的构造性证明（过渡锚点）' },
+    ],
   },
   {
     id: 'need-bioreactor-robustness',
@@ -296,7 +312,9 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'screening',
     readiness: 'gap',
     note: 'A decidable criterion would make switch design a certified decision instead of a simulation guess.',
-    sourcing: '收题：新增「小网络多稳态的可判定判据」（CRNT 结构性判据，推进 mc-004/mc-011 的 deficiency 理论到算法化）。',
+    sourcing: [
+      { kind: 'new', what: '小网络多稳态的可判定判据（CRNT 结构性判据，deficiency 理论算法化）' },
+    ],
   },
   {
     id: 'need-epidemic-threshold',
@@ -545,7 +563,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'sign-off',
     readiness: 'gap',
     note: 'The rigorous Kubo-conductance quantization is the mathematical core a quantum-metrology sign-off would cite.',
-    sourcing: '收题：新增「相互作用电子 Kubo 电导的严格量化」（推进 mp-022 的量子化平台稳健性），并把 mp-002 的耗散混合作为传输侧前置。',
+    sourcing: [
+      { kind: 'new', what: '相互作用电子 Kubo 电导的严格量化（mp-022 量子化平台稳健性）' },
+      { kind: 'push', target: 'mp-002', what: '耗散混合作为传输侧前置' },
+    ],
   },
   {
     id: 'need-learned-control',
@@ -574,7 +595,11 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'safety-case',
     readiness: 'gap',
     note: 'The demand side of the learned-control verification question.',
-    sourcing: '收题：推进 me-032（学习策略的可证稳定性证书）与 me-018（Brockett–Sontag 充要判据）；先收「ODD 内 LTI 子类的可判定稳定性判据」。',
+    sourcing: [
+      { kind: 'push', target: 'me-032', what: '学习策略的可证稳定性证书' },
+      { kind: 'push', target: 'me-018', what: 'Brockett–Sontag 充要判据' },
+      { kind: 'new', what: 'ODD 内 LTI 子类的可判定稳定性判据' },
+    ],
   },
   {
     id: 'need-composite-bounds',
@@ -597,7 +622,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'design-review',
     readiness: 'gap',
     note: 'Sharp attainable bounds are exactly what composite design-allowables are missing.',
-    sourcing: '收题：推进 me-028（G-closure 与多相复合材料的锐可达界）；收「两相/三相各向同性复合材料的可达界」作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'me-028', what: 'G-closure 与多相复合材料的锐可达界' },
+      { kind: 'new', what: '两相/三相各向同性复合材料的可达界（过渡）' },
+    ],
   },
   {
     id: 'need-molecular-screening',
@@ -655,7 +683,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'monitoring',
     readiness: 'gap',
     note: 'Sharp Arnold tongues would turn seasonal-flu timing from heuristic to certified.',
-    sourcing: '收题：推进 mb-026（季节强迫 SIR 的锐 Arnold 舌）；收「周期强迫下 SIR 的次谐波响应区域地图」作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'mb-026', what: '季节强迫 SIR 的锐 Arnold 舌' },
+      { kind: 'new', what: '周期强迫下 SIR 的次谐波响应区域地图（过渡）' },
+    ],
   },
   {
     id: 'need-eda-routing',
@@ -691,7 +722,11 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'screening',
     readiness: 'gap',
     note: 'The EDA demand side: certified layout/routing bounds, not heuristics, are what \u201cguaranteed routability\u201d would rest on.',
-    sourcing: '收题：推进 me-011（4/3 猜想）与 me-010（图带宽常数近似）；收「网格图/稀疏图上布线成本的锐上界」作为过渡锚点。',
+    sourcing: [
+      { kind: 'push', target: 'me-011', what: '图 TSP 4/3 猜想' },
+      { kind: 'push', target: 'me-010', what: '图带宽常数近似' },
+      { kind: 'new', what: '网格图/稀疏图上布线成本的锐上界（过渡锚点）' },
+    ],
   },
   {
     id: 'need-plc-stabilization',
@@ -720,7 +755,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'safety-case',
     readiness: 'gap',
     note: 'The safety-instrumented demand side: choosing the controller form is currently heuristic; a certified criterion would make it a decision.',
-    sourcing: '收题：推进 me-018（Brockett\u2013Sontag 充要判据）；收「仿射非线性系统的 Lipschitz 镇定可判性」作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'me-018', what: 'Brockett–Sontag 充要判据' },
+      { kind: 'new', what: '仿射非线性系统的 Lipschitz 镇定可判性（过渡）' },
+    ],
   },
   {
     id: 'need-lattice-thermal',
@@ -756,7 +794,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'validation',
     readiness: 'gap',
     note: 'The conduction side of thermal budgets lacks any certified microscopic anchor; the convection side is already served.',
-    sourcing: '收题：推进 mp-003（FPUT 热化时间，均匀 N 的 KAM/Nekhoroshev 常数）；收「谐波晶格声子色散的严格界」作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'mp-003', what: 'FPUT 热化时间（均匀 N 的 KAM/Nekhoroshev 常数）' },
+      { kind: 'new', what: '谐波晶格声子色散的严格界（过渡）' },
+    ],
   },
   {
     id: 'need-bioprocess-oscillation',
@@ -791,7 +832,9 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'monitoring',
     readiness: 'gap',
     note: 'Oscillation vs. stable-operating-point is currently a simulation guess; a structural classification would certify it.',
-    sourcing: '收题：新增「mass-action 网络振荡性的可判定判据」（推进 mc-004/mc-011 的 deficiency 分类到动态判据）。',
+    sourcing: [
+      { kind: 'new', what: 'mass-action 网络振荡性的可判定判据（deficiency 分类 → 动态判据）' },
+    ],
   },
   {
     id: 'need-provisioning-worstcase',
@@ -814,7 +857,10 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'deployment',
     readiness: 'gap',
     note: 'Capacity over-provisioning currently rests on empirical factors; a tight certified ratio would replace them.',
-    sourcing: '收题：推进 me-013（在线装箱最优渐近竞争比）；收「特定箱型族（如 1D bin packing）的锐界」作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'me-013', what: '在线装箱最优渐近竞争比' },
+      { kind: 'new', what: '特定箱型族（如 1D bin packing）的锐界（过渡）' },
+    ],
   },
   {
     id: 'need-grid-frequency-control',
@@ -850,7 +896,11 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
     workflow: 'monitoring',
     readiness: 'partial',
     note: 'One consumable certificate (me-034) with the graph lower bounds still open behind it.',
-    sourcing: '推进 me-002/me-001 的开放下界；收「量化 + 丢包的 AGC 一致性最坏收敛时间」的推广作为过渡。',
+    sourcing: [
+      { kind: 'push', target: 'me-002', what: '时变图下界' },
+      { kind: 'push', target: 'me-001', what: '非线性共识收敛保证' },
+      { kind: 'new', what: '量化 + 丢包的 AGC 一致性最坏收敛时间推广（过渡）' },
+    ],
   },
 ]
 

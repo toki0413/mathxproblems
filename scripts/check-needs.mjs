@@ -67,7 +67,14 @@ for (const block of needsSrc.split("\n  {\n    id: '").slice(1)) {
   const standard = (block.match(/standard: '([^']*)'/) || [])[1]
   const consumable = (block.match(/consumable:\s*\n\s*'([^']*)'/) || [])[1]
   const barrier = (block.match(/barrier:\s*\n?\s*'([^']*)'/) || [])[1]
-  const sourcing = (block.match(/sourcing:\s*\n?\s*'([^']*)'/) || [])[1]
+  // 结构化收题流水线：sourcing: [ { kind, target?, what } ]。
+  const sourcing = []
+  const si = block.indexOf('sourcing:')
+  if (si >= 0) {
+    for (const m of block.slice(si).matchAll(/\{\s*kind: '([^']+)'(?:,\s*target: '([^']+)')?,\s*what: '([^']*)'\s*\}/g)) {
+      sourcing.push({ kind: m[1], target: m[2] ?? null, what: m[3] })
+    }
+  }
   const chain = []
   for (const m of block.matchAll(CHAIN_STEP_RE)) {
     chain.push({ id: m[1], kind: m[2], role: m[3] })
@@ -93,12 +100,22 @@ if (badConsumable.length) failures.push(`need missing consumable: ${badConsumabl
 const badBarrier = needs.filter((n) => !n.barrier)
 if (badBarrier.length) failures.push(`need missing barrier: ${badBarrier.map((n) => n.id).join(', ')}`)
 
-// 缺口驱动收题（深化规则）：readiness='gap' 的需求必须说明"该收/推哪道题"，
+// 缺口驱动收题（深化规则）：readiness='gap' 的需求必须给出至少一条收题建议，
 // 否则缺口只是死文字——需求层无法驱动收题（从问题收录到解题层的引擎）。
-const missingSourcing = needs.filter((n) => n.readiness === 'gap' && !n.sourcing)
+const missingSourcing = needs.filter((n) => n.readiness === 'gap' && n.sourcing.length === 0)
 if (missingSourcing.length) {
   failures.push(`gap need without sourcing (缺口必须给出收题建议): ${missingSourcing.map((n) => n.id).join(', ')}`)
 }
+
+// 收题流水线结构（CI 护栏）：kind 枚举合法；push 必须有真实目录目标；what 非空。
+const badSrcKind = needs.flatMap((n) => n.sourcing.filter((s) => !['push', 'new'].includes(s.kind)).map((s) => `${n.id}:${s.kind}`))
+if (badSrcKind.length) failures.push(`invalid sourcing kind: ${badSrcKind.join(', ')}`)
+const badPushTarget = needs.flatMap((n) =>
+  n.sourcing.filter((s) => s.kind === 'push' && (!s.target || !problemIds.has(s.target))).map((s) => `${n.id}->${s.target ?? '(none)'}`),
+)
+if (badPushTarget.length) failures.push(`push sourcing must target a real catalog problem: ${badPushTarget.join(', ')}`)
+const badWhat = needs.flatMap((n) => n.sourcing.filter((s) => !s.what).map((s) => `${n.id}`))
+if (badWhat.length) failures.push(`sourcing item without what: ${[...new Set(badWhat)].join(', ')}`)
 
 // chain 步骤：kind 与 id 所在注册表必须匹配；problem 角色枚举合法；law 必须用 role='law'。
 const badKind = []
@@ -164,13 +181,16 @@ const chainKinds = {}
 for (const n of needs) for (const s of n.chain) chainKinds[s.kind] = (chainKinds[s.kind] ?? 0) + 1
 const referencedProblems = new Set(needs.flatMap((n) => n.chain.filter((s) => s.kind === 'problem').map((s) => s.id)))
 const referencedLaws = new Set(needs.flatMap((n) => n.chain.filter((s) => s.kind === 'law').map((s) => s.id)))
-const sourcedNeeds = needs.filter((n) => n.sourcing).length
+const sourcedNeeds = needs.filter((n) => n.sourcing.length).length
+const allItems = needs.flatMap((n) => n.sourcing)
+const pipelinePush = allItems.filter((s) => s.kind === 'push').length
+const pipelineNew = allItems.filter((s) => s.kind === 'new').length
 console.log(
   `engineering needs: ${needs.length} (${Object.entries(dist)
     .map(([k, v]) => `${k}=${v}`)
     .join(', ')})`,
 )
-console.log(`sourced needs (缺口驱动收题建议): ${sourcedNeeds}/${needs.length}`)
+console.log(`sourced needs: ${sourcedNeeds}/${needs.length}; 收题流水线 ${allItems.length} 条（push 推进 ${pipelinePush} / new 候选题 ${pipelineNew}）`)
 console.log(
   `chain-derived readiness: (${Object.entries(derivedDist)
     .map(([k, v]) => `${k}=${v}`)

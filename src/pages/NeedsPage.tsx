@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { PROBLEMS } from '@/data/problems'
 import { LAWS } from '@/data/laws'
@@ -56,6 +57,31 @@ export default function NeedsPage() {
   }
   // 需求侧聚合覆盖（倒查的密度：多少题、多少定律被需求点名）
   const cov = demandCoverage()
+
+  // 视图切换：缺口驱动（gap 置顶）/ 按领域分组
+  const [mode, setMode] = useState<'gap' | 'area'>('gap')
+  const RANK = { gap: 0, partial: 1, served: 2 }
+  const gapSorted = useMemo(
+    () => [...ENGINEERING_NEEDS].sort((a, b) => RANK[a.readiness] - RANK[b.readiness] || a.id.localeCompare(b.id)),
+    [],
+  )
+  const groups =
+    mode === 'area'
+      ? areas
+      : [{ area: t('nd.view.gapArea'), needs: gapSorted }]
+
+  // 收题流水线聚合：所有需求缺口 → 候选题提案（new）与推进目标（push）
+  const pipeline = useMemo(() => {
+    const news: { needId: string; needName: string; what: string }[] = []
+    const pushes: { needId: string; needName: string; target: string; what: string }[] = []
+    for (const n of ENGINEERING_NEEDS) {
+      for (const s of n.sourcing ?? []) {
+        if (s.kind === 'new') news.push({ needId: n.id, needName: n.name, what: s.what })
+        else if (s.target) pushes.push({ needId: n.id, needName: n.name, target: s.target, what: s.what })
+      }
+    }
+    return { news, pushes }
+  }, [])
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -121,7 +147,67 @@ export default function NeedsPage() {
         </div>
       </Reveal>
 
-      {areas.map(({ area, needs }, gi) => (
+      {/* 视图切换：缺口驱动（gap 置顶）/ 按领域 */}
+      <Reveal delay={100}>
+        <div className="mt-8 flex items-center gap-2">
+          {(['gap', 'area'] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => setMode(m)}
+              className={`rounded-full border px-3 py-1 font-mono2 text-[11px] uppercase tracking-wider transition-colors ${
+                mode === m ? 'border-ink bg-ink text-white' : 'border-line-strong text-ink-3 hover:text-ink'
+              }`}
+            >
+              {t(`nd.view.${m}`)}
+            </button>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* 收题流水线：需求缺口直接生成候选题提案（new）与推进目标（push） */}
+      <Reveal delay={110}>
+        <div className="mt-6 border border-line bg-[#faf9f4] p-6">
+          <div className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3">{t('nd.pipeline.title')}</div>
+          <p className="mt-2 text-sm text-ink-2 leading-relaxed max-w-3xl">{t('nd.pipeline.body')}</p>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-px bg-line border border-line">
+            <div className="bg-[#faf9f4] p-4">
+              <div className="flex items-baseline gap-2">
+                <span className="font-statement text-2xl font-bold text-mc">{pipeline.news.length}</span>
+                <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.pipeline.new')}</span>
+              </div>
+              <ul className="mt-3 space-y-1.5">
+                {pipeline.news.map((x, i) => (
+                  <li key={i} className="text-[13px] text-ink-2 leading-snug">
+                    <Link to={`/needs#${x.needId}`} className="font-mono2 text-[10px] text-ink-3 hover:text-ink underline underline-offset-4">
+                      {x.needId}
+                    </Link>
+                    <span className="mx-1 text-ink-3">·</span>
+                    {x.what}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-[#faf9f4] p-4">
+              <div className="flex items-baseline gap-2">
+                <span className="font-statement text-2xl font-bold text-[#2563eb]">{pipeline.pushes.length}</span>
+                <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3">{t('nd.pipeline.push')}</span>
+              </div>
+              <ul className="mt-3 space-y-1.5">
+                {pipeline.pushes.map((x, i) => (
+                  <li key={i} className="flex items-start gap-2 text-[13px] text-ink-2 leading-snug">
+                    <Link to={`/problems/${x.target}`} className="font-mono2 text-[10px] text-[#2563eb] hover:underline shrink-0 pt-px">
+                      {x.target}
+                    </Link>
+                    <span>{x.what}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {groups.map(({ area, needs }, gi) => (
         <section key={area} className="mt-14">
           <Reveal delay={gi * 40}>
             <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-4">{area}</h2>
@@ -140,6 +226,11 @@ export default function NeedsPage() {
                     <span className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono2 text-[11px] uppercase tracking-wider text-ink-3">
                       {NEED_WORKFLOW_LABEL[n.workflow]}
                     </span>
+                    {mode === 'gap' && (
+                      <span className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono2 text-[11px] uppercase tracking-wider text-ink-3">
+                        {n.area}
+                      </span>
+                    )}
                   </div>
                   <p className="mt-3 text-sm text-ink-2 leading-relaxed max-w-3xl">{n.description}</p>
 
@@ -199,10 +290,31 @@ export default function NeedsPage() {
                     <span className="text-me/90">{n.barrier}</span>
                   </Field>
 
-                  {/* 缺口驱动收题：gap 需求明确"该收/推哪道题"，让需求层驱动收题 */}
-                  {n.sourcing && (
+                  {/* 缺口驱动收题：结构化流水线条目（push=推进 / new=候选题） */}
+                  {n.sourcing && n.sourcing.length > 0 && (
                     <Field label={t('nd.sourcing')}>
-                      <span className="text-mc/90">{n.sourcing}</span>
+                      <ul className="space-y-1.5">
+                        {n.sourcing.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span
+                              className={`rounded-full border px-1.5 py-px font-mono2 text-[9px] uppercase tracking-wider shrink-0 mt-1 ${
+                                s.kind === 'new' ? 'text-mc border-mc/50' : 'text-[#2563eb] border-[#2563eb]/50'
+                              }`}
+                            >
+                              {t(`nd.src.${s.kind}`)}
+                            </span>
+                            {s.kind === 'push' && s.target && (
+                              <Link
+                                to={`/problems/${s.target}`}
+                                className="font-mono2 text-[11px] text-[#2563eb] hover:text-ink underline underline-offset-4 shrink-0 mt-0.5"
+                              >
+                                {s.target}
+                              </Link>
+                            )}
+                            <span className="text-sm text-ink-2 leading-relaxed">{s.what}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </Field>
                   )}
 
