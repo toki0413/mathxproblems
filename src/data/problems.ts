@@ -7535,6 +7535,65 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'mc-031',
+    output: 'verified_truth',
+    judgment:
+      'Resolve the Joshi–Shiu conjecture: prove that the sequestration networks \\tilde{K}_{m,n} (m ≥ 2, n ≥ 3 odd) exhibit multiple non-degenerate positive mass-action steady states, for all such m, n — or exhibit a counterexample for some pair; a pass extends the Félix–Shiu–Woodstock subcase resolution to the full family, and a machine-checkable certificate of non-degeneracy of the steady states is the accepted form.',
+    title: 'Multiple Non-Degenerate Steady States in Sequestration Networks: The Joshi–Shiu Conjecture',
+    titleZh: '隔离网络多重非退化稳态：Joshi–Shiu 猜想',
+    domain: 'mathematical-chemistry',
+    subdomain: 'crnt',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['crnt', 'multistationarity', 'sequestration-networks', 'joshishiu-conjecture'],
+    contributor: 'community',
+    date_added: '2026-09-03',
+    tier: 'candidate',
+    provenance: 'AI-drafted',
+    open_claim: {
+      quote: 'Additionally, our results allow us to prove the existence of nondegenerate steady states for some of these sequestration networks, thereby resolving a subcase of a conjecture of Joshi and Shiu.',
+      source: 'https://arxiv.org/abs/1508.07522',
+    },
+    proposer: 'B. Félix, A. Shiu & Z. Woodstock',
+    proposed_year: 2015,
+    via: {
+      label: 'Félix–Shiu–Woodstock, Analyzing Multistationarity in Chemical Reaction Networks using the Determinant Optimization Method, arXiv:1508.07522',
+      url: 'https://arxiv.org/abs/1508.07522',
+    },
+    related_problems: [
+      {
+        id: 'mc-004',
+        relation: 'analog_of',
+        note: 'mc-004 asks the general classification of small multistationary networks; this candidate is the specific Joshi–Shiu conjecture on non-degeneracy within the minimal sequestration family \\tilde{K}_{m,n}.',
+      },
+      {
+        id: 'mc-011',
+        relation: 'shares_tools',
+        note: 'Both use deficiency-based / structural CRNT methods: mc-011 the deficiency-one classification, this candidate the determinant-optimization route to non-degeneracy.',
+      },
+    ],
+    statement:
+      'The sequestration networks \\tilde{K}_{m,n} (m ≥ 2, n ≥ 3 odd) are a minimal infinite family (no embedded multistationary subnetwork with inflow/outflow) that Joshi and Shiu proved multistationary for all such m, n. The Joshi–Shiu conjecture asks whether they admit multiple non-degenerate positive mass-action steady states: Félix–Shiu–Woodstock (arXiv:1508.07522) prove existence of non-degenerate steady states for some of these networks via the determinant optimization method of Craciun–Feinberg, resolving a subcase, with the full conjecture open. Generated as a demand-gap candidate from need-multistationarity (cn-003).',
+    origin:
+      'Joshi and Shiu identified the family \\tilde{K}_{m,n} as the minimal multistationary sequestration networks and conjectured they exhibit multiple non-degenerate steady states; Félix–Shiu–Woodstock (arXiv:1508.07522) resolved a subcase using the Craciun–Feinberg determinant optimization method, leaving the conjecture open in general. This is the concrete, citable form of the decidable-multistationarity demand (need-multistationarity / cn-003).',
+    progress: [],
+    obstacles: [],
+    formalization_notes:
+      'Candidate entry — statement not yet independently verified. The statement reduces to polynomial systems over rate constants (real algebraic geometry), decidable in principle, so formalization is of medium effort.',
+    references: [
+      {
+        label: 'B. Félix, A. Shiu, Z. Woodstock, Analyzing Multistationarity in Chemical Reaction Networks using the Determinant Optimization Method, arXiv:1508.07522 (2015)',
+        url: 'https://arxiv.org/abs/1508.07522',
+      },
+      {
+        label: 'B. Joshi, A. Shiu, A survey of methods for deciding whether a reaction network is multistationary, Math. Model. Nat. Phenom. (2015)',
+        url: '',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<

@@ -144,6 +144,7 @@ export const AUDITS: Record<string, ProblemAudit> = {
   'me-035': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-flocking-safety / cn-002），题面待独立核验；pending review' },
   'mp-045': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-turbulence-closure / cn-001），引文待独立核验；pending review' },
   'me-036': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-composite-bounds / cn-006），引文待独立核验；pending review' },
+  'mc-031': { status: 'flagged', date: '2026-09-03', kind: 'ai-assisted', reason: 'candidate pool — 需求缺口实采（need-multistationarity / cn-003），引文待独立核验；pending review' },
 };
 
 /** 已通过审计、可在公共站点展示的问题 id 集合。 */

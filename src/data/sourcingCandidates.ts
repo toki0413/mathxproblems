@@ -54,6 +54,7 @@ const INTAKED: Record<string, string> = {
   "need-flocking-safety": "me-035",
   "need-turbulence-closure": "mp-045",
   "need-composite-bounds": "me-036",
+  "need-multistationarity": "mc-031",
 };
 
 /** 从需求数据派生全部候选池提案（new 条目 → 提案）。零漂移：无独立事实来源。 */
