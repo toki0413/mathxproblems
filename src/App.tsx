@@ -11,6 +11,8 @@ const StatsPage = lazy(() => import('@/pages/StatsPage'))
 const ApiPage = lazy(() => import('@/pages/ApiPage'))
 const ImpactPage = lazy(() => import('@/pages/ImpactPage'))
 const NeedsPage = lazy(() => import('@/pages/NeedsPage'))
+const ToolsPage = lazy(() => import('@/pages/ToolsPage'))
+const ObstaclesPage = lazy(() => import('@/pages/ObstaclesPage'))
 const LedgerPage = lazy(() => import('@/pages/LedgerPage'))
 const GraphPage = lazy(() => import('@/pages/GraphPage'))
 const LawsPage = lazy(() => import('@/pages/LawsPage'))
@@ -41,6 +43,8 @@ export default function App() {
             <Route path="/api" element={<ApiPage />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/needs" element={<NeedsPage />} />
+            <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/obstacles" element={<ObstaclesPage />} />
             <Route path="/ledger" element={<LedgerPage />} />
             <Route path="/laws" element={<LawsPage />} />
             <Route path="/submit" element={<SubmitPage />} />

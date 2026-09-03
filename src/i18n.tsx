@@ -617,6 +617,53 @@ const STR: Record<string, { zh: string; en: string }> = {
   'ab.notdoing': { zh: '不做清单', en: 'What we do not do' },
   'ab.maintenance': { zh: '实时更新与维护机制', en: 'Live maintenance' },
   'ab.contribute': { zh: '贡献指南', en: 'How to contribute' },
+  // nav
+  'nav.tools': { zh: '工具索引', en: 'Tools' },
+  'nav.obstacles': { zh: '障碍索引', en: 'Obstacles' },
+  // tools page
+  'tl.title': { zh: '形式工具索引', en: 'Formal tools index' },
+  'tl.subtitle': {
+    zh: 'Mathlib 工具族与工程问题的双向映射——从工具出发找题，从题出发找工具支撑。',
+    en: 'Bidirectional mapping between mathlib tool families and engineering problems — find problems by tool, or tools by problem.',
+  },
+  'tl.tools': { zh: '个工具', en: 'tools' },
+  'tl.links': { zh: '条映射', en: 'links' },
+  'tl.problems': { zh: '关联题目', en: 'Linked problems' },
+  'tl.empty': { zh: '暂无题目挂接此工具——缺口即机会。', en: 'No problem links to this tool yet — a gap, and an opportunity.' },
+  // obstacles page
+  'ob.title': { zh: '失败机制索引', en: 'Failure mechanism index' },
+  'ob.subtitle': {
+    zh: '按已知方法失败的机制类型学组织——为什么这条路走不通，以及它对 AI/形式化的启示。',
+    en: 'Organized by the typology of known method failures — why this path is blocked, and its implications for AI and formalization.',
+  },
+  'ob.mechanisms': { zh: '类机制', en: 'mechanisms' },
+  'ob.records': { zh: '条失败记录', en: 'failure records' },
+  'ob.problems': { zh: '道题目', en: 'problems' },
+  'ob.layer': { zh: '残差层', en: 'Layer' },
+  'ob.method': { zh: '失败方法', en: 'Failed method' },
+  'ob.partial': { zh: '部分进展', en: 'Partial progress' },
+  'ob.implication': { zh: '对 AI/形式化的启示', en: 'Implication' },
+  'ob.empty': { zh: '该机制暂无失败记录。', en: 'No failure records under this mechanism yet.' },
+  'ob.m.combinatorial': {
+    zh: '解空间组合爆炸：候选集合随规模指数或阶乘增长，穷举不可行，且未找到结构性剪枝。',
+    en: 'Combinatorial explosion: the candidate space grows exponentially or factorially, exhaustive search is infeasible, and no structural pruning is known.',
+  },
+  'ob.m.missing_bound': {
+    zh: '缺少关键界：证明所需的关键不等式或先验估计缺失，导致方法在关键一步卡死。',
+    en: 'A critical bound is missing: the key inequality or a-priori estimate needed by the proof is absent, stalling the method at the critical step.',
+  },
+  'ob.m.nonconvex': {
+    zh: '非凸性：目标或约束非凸，全局最优性无法由局部一阶条件保证，优化或判定算法只能停在局部解。',
+    en: 'Non-convexity: the objective or constraints are non-convex, so global optimality cannot follow from local first-order conditions; methods stall at local solutions.',
+  },
+  'ob.m.unbounded_residual': {
+    zh: '残差无界：近似方法留下的误差项无法被一致控制，收敛性论证在边界处失效。',
+    en: 'Unbounded residual: the error term left by an approximation cannot be controlled uniformly, so convergence arguments fail at the boundary.',
+  },
+  'ob.m.parameter_sensitive': {
+    zh: '参数敏感：结果对模型参数或初始条件的依赖高度不稳定，微小摄动改变定性行为，判定对输入不可鲁棒。',
+    en: 'Parameter sensitivity: the outcome depends unstably on model parameters or initial data; small perturbations change the qualitative behaviour, so judgement is not input-robust.',
+  },
 }
 
 const LangCtx = createContext<{

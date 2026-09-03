@@ -11,6 +11,8 @@ const NAV = [
   { to: '/needs', key: 'nav.needs' },
   { to: '/ledger', key: 'nav.ledger' },
   { to: '/laws', key: 'nav.laws' },
+  { to: '/tools', key: 'nav.tools' },
+  { to: '/obstacles', key: 'nav.obstacles' },
   { to: '/stats', key: 'nav.stats' },
   { to: '/about', key: 'nav.about' },
   { to: '/api', key: 'nav.api' },
