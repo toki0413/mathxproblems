@@ -8,7 +8,7 @@
 - 语言/运行时：TypeScript（`strict`，`verbatimModuleSyntax`，`erasableSyntaxOnly`，见 `tsconfig.app.json`）、Node.js、React 19
 - 前端构建：Vite + React + Tailwind CSS + shadcn/ui 组件（`src/components/ui/*`）
 - 数据：无构建期数据库依赖实体；目录数据为静态 TS 数据 `src/data/problems.ts`；社区提交与更新写入 Cloudflare D1（SQLite，`drizzle-orm/sqlite-core`）
-- 后端：Hono + tRPC v11（`@trpc/server`），Drizzle ORM + D1（`drizzle-orm/sqlite-core`），会话用 Kimi OAuth + `jose`
+- 后端：Hono + tRPC v11（`@trpc/server`），Drizzle ORM + D1（`drizzle-orm/sqlite-core`），匿名社区（访客 cookie）+ 独立管理入口（Bearer 令牌）
 - 环境：Docker、GitHub Actions（`vite.config.ts` 由 `api/lib/vite.ts` 注入 dev server）
 
 ## entry
@@ -23,10 +23,10 @@
 - 后端统一入口：`api/boot.ts`，tRPC 挂载于 `/api/trpc/*`，其余 `/api/*` 返回 404
 - 双桥写路径门面：`api/claims-write.ts` 在 `/api/v1/claims/:id/narrow|formal` 注册审稿中介的写接口（spec `docs/superpowers/specs/2026-08-30-dual-bridge-design.md` §6 方案 C 第一版），默认闭门返回 501，置 `CLAIMS_WRITE_ENABLED=1` 放开；放开后与 tRPC `attempts.submit` 共用 `problem_attempts` 账本与审稿闭环，不产生第二份事实来源
 - 障碍路由层：`api/obstacle-graph.ts` 启动时从目录 obstacles 构建跨题相似链（双语签名 + Jaccard），`/api/v1/obstacles.json` 暴露链与「方法→可解锁问题」unlocks；`feed.json` 的 verification 事件附 `bits`（题内链式信息量增益，定义在 `contracts/band.ts`）
-- tRPC router：`api/router.ts` 聚合 `auth / submissions / updates / attempts` 四个子 router；`AppRouter` 由 `typeof appRouter` 导出，供前端 `src/providers/trpc.tsx` 类型推导
-- 中间件分层（`api/middleware.ts`）：`publicQuery` / `authedQuery` / `adminQuery`；`authedQuery` 抛 `UNAUTHORIZED`，`adminQuery` 抛 `FORBIDDEN`
+- tRPC router：`api/router.ts` 聚合 `submissions / updates / attempts / comments / flags` 五个子 router；`AppRouter` 由 `typeof appRouter` 导出，供前端 `src/providers/trpc.tsx` 类型推导
+- 中间件分层（`api/middleware.ts`）：`publicQuery` / `adminQuery`；`adminQuery` 校验 `Authorization: Bearer <ADMIN_TOKEN>`，失败抛 `FORBIDDEN`（匿名社区无登录，审核接口不对社区用户开放）
 - 错误约定：`contracts/errors.ts` 的 `Errors.{badRequest,unauthorized,forbidden,notFound,internal,notImplemented}` 返回 `{tag:'app_error',status,message}`
-- 审计常量：`contracts/constants.ts`（会话 cookie 名、错误文案、OAuth 回调路径、`PROBLEM_ID_RE`、`FORMAL_STATUSES`）；前端里程碑常量在 `src/const.ts`（`GOAL_PROBLEMS=120`）
+- 审计常量：`contracts/constants.ts`（访客 cookie / 管理员 Bearer 方案、错误文案、`PROBLEM_ID_RE`、`FORMAL_STATUSES`）；前端里程碑常量在 `src/const.ts`（`GOAL_PROBLEMS=120`）
 - 数据库表：`db/schema.ts` — `users`、`submissions`、`problem_updates`、`problem_attempts`（后三者外键指向 `users.id`，类型为 `integer`，SQLite/D1 方言）。`problem_updates` 为管理员直写；`problem_attempts` 为社区对已有问题提交的进展/解答候选（`kind` ∈ progress/solution/revision/verification/formal；`kind='formal'` 的形式化补证声明另携 `formalStatus` ∈ provable/conjectured/refuted；可选 `method` 自由文本标签供障碍图路由），静默待审、审核通过后在详情页「社区候选」区展示；已通过的 verification/formal 事件经 `feed.json` 暴露给下游 agent/prover 流水线
 
 ## convention

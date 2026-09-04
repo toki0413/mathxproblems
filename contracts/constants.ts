@@ -1,17 +1,3 @@
-export const Session = {
-  cookieName: "kimi_sid",
-  // 会话 30 天有效（此前为一年，过长放大 token 泄露窗口）。JWT 过期与 cookie
-  // maxAgeMs 同源于此，见 api/kimi/session.ts。
-  maxAgeMs: 30 * 24 * 60 * 60 * 1000,
-} as const;
-
-// OAuth 登录握手用的 CSRF 防伪 state：httpOnly cookie 存一次性 nonce，
-// 回调时与 state 比对并消费，防止攻击者劫持受害者发起的 OAuth 流。
-export const OAuthState = {
-  cookieName: "kimi_oauth_state",
-  maxAgeMs: 10 * 60 * 1000, // 10 分钟，足够完成一次授权
-} as const;
-
 export const ErrorMessages = {
   unauthenticated: "Authentication required",
   insufficientPermissions: "Insufficient permissions",
@@ -31,12 +17,6 @@ export const Visitor = {
 export const AdminAuth = {
   header: "authorization",
   scheme: "Bearer ",
-} as const;
-
-export const Paths = {
-  login: "/login",
-  oauthInit: "/api/oauth/login",
-  oauthCallback: "/api/oauth/callback",
 } as const;
 
 /** 问题所属领域（跨前端题库与后端投稿共享的唯一事实来源） */

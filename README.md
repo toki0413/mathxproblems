@@ -69,7 +69,7 @@ POST /api/v1/claims/:id/formal   形式化补证（M 侧）
 - **前端**：React 19 + TypeScript（strict）+ Vite + Tailwind CSS + shadcn/ui
 - **后端**：Hono + tRPC v11 + Drizzle ORM，路由级懒加载 + vendor 按内容哈希长缓存
 - **存储**：Cloudflare D1 (SQLite)，Drizzle migrations 管理
-- **认证**：Kimi OAuth + jose 会话；独立管理入口走 Bearer 令牌
+- **认证**：匿名社区模型（访客 cookie + 限流 + 可选 Turnstile 人机验证）；独立管理入口走 Bearer 令牌（无第三方登录）
 - **部署**：GitHub Actions（守卫 + lint/tsc + Lean 编译 + 构建）→ Cloudflare Pages（Advanced Mode，单入口 `_worker.ts`）
 - **安全**：全站 CSP / HSTS / X-Frame-Options 等安全响应头由 Worker 统一注入；写路径默认闭门（安全默认）
 
