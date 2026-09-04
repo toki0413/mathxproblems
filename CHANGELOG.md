@@ -5,6 +5,15 @@
 
 ## [Unreleased]
 
+### 安全
+
+- **全站安全响应头**：CSP / HSTS / X-Frame-Options / X-Content-Type-Options / Referrer-Policy / Permissions-Policy 由 Worker 统一注入（API 与静态资源一致），补齐 Cloudflare 侧产业级验收项
+
+### 性能与清理
+
+- **构建体积告警文档化**：`chunkSizeWarningLimit` 显式标注目录数据 chunk（~700KB，按内容哈希长缓存）为刻意权衡，非告警遗漏
+- **临时脚本清理**：删除一次性 `scripts/tmp-dump.mjs`、`scripts/tmp-scan-cjk.mjs`
+
 ## [0.1.0] - 2026-09-04
 
 首个产业级预发布。开放数学问题目录 + 社区协作站（数学物理/化学/生物/工程四领域）。

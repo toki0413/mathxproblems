@@ -26,6 +26,11 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    // 目录数据 chunk（problems-*.js，约 700KB / gzip ~200KB）是刻意的体积权衡：
+    // 121 道题全部内联以支持首页/统计/图谱的即时聚合与随机抽样，不引入网络往返；
+    // 该 chunk 按内容哈希命名、长期缓存，且路由级懒加载 + vendor 拆分已就位，
+    // 因此超过默认 500KB 阈值属预期，而非待拆的失控 chunk。
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         // 拆 vendor：让 React/图表/KaTeX/Radix 各自成 chunk，首屏只加载需要的，
