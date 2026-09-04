@@ -14,6 +14,7 @@
 - **构建体积告警文档化**：`chunkSizeWarningLimit` 显式标注目录数据 chunk（~700KB，按内容哈希长缓存）为刻意权衡，非告警遗漏
 - **临时脚本清理**：删除一次性 `scripts/tmp-dump.mjs`、`scripts/tmp-scan-cjk.mjs`
 - **移除 Kimi OAuth 残留**：删除 `contracts/constants.ts` 死代码（`Session`/`OAuthState`/`Paths`）与未用依赖 `jose`；同步修正 README / tech-spec / wrangler 注释中过时的 OAuth 表述（当前认证 = 匿名访客 cookie + Bearer 管理令牌）
+- **移除开发期调试插件**：卸载 `kimi-plugin-inspect-react`（仅 `vite serve` 生效的「浏览器定位源码」插件，与已删 OAuth 无关，对生产零影响）
 
 ## [0.1.0] - 2026-09-04
 
