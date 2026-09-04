@@ -15,7 +15,7 @@ namespace MathX
 structure NoseHooverSystem where
   temperature : Rat
 
-/-- 头条声明：Nosé–Hoover 恒温器的哈密顿结构与遍历性成立（正则系综复现）。 -/
+/-- Headline claim: the Hamiltonian structure and ergodicity of the Nosé–Hoover thermostat hold (canonical ensemble reproduced). -/
 def CanonicalEnsemble (_s : NoseHooverSystem) : Prop :=
   True
 

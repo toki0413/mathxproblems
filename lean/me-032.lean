@@ -19,15 +19,15 @@ structure LearnedPolicy where
   layers : Nat
   params : Nat
 
-/-- 稳定性裕度 max_{x∈X}(V̇(x) + λV(x)) 的可计算上界（形式化目标）。 -/
+/-- Computable upper bound on the stability margin max_{x∈X}(V̇(x) + λV(x)) (formalization target). -/
 def StabilityMargin (_θ : LearnedPolicy) : Rat :=
   0
 
-/-- 学习型策略可被可靠地证明稳定（证书存在且可扩）。 -/
+/-- Learned policies can be reliably certified stable (certificates exist and are scalable). -/
 def CertifiableStable (θ : LearnedPolicy) : Prop :=
   0 < StabilityMargin θ
 
-/-- 头条声明：ReLU 学习策略存在可靠且可扩的稳定性证书（松弛间隙可闭合）。 -/
+/-- Headline claim: ReLU learned policies admit reliable and scalable stability certificates (the relaxation gap can be closed). -/
 theorem sound_scalable_stability_certificate (θ : LearnedPolicy) :
     CertifiableStable θ := by
   sorry

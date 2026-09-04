@@ -15,7 +15,7 @@ namespace MathX
 structure BoseGas (N : Nat) where
   particles : Nat
 
-/-- 头条声明：稀薄玻色气体的动力学 Gross–Pitaevskii 极限成立。 -/
+/-- Headline claim: the dynamical Gross–Pitaevskii limit holds for dilute Bose gases. -/
 def GrossPitaevskiiLimit (_g : BoseGas N) : Prop :=
   True
 

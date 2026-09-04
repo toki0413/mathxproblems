@@ -17,11 +17,11 @@ namespace MathX
 structure WalshSystem (L : Nat) where
   loci : Fin L
 
-/-- 矩闭合：Walsh 变换下有限维闭合描述（形式化目标）。 -/
+/-- Moment closure: a finite-dimensional closed description under the Walsh transform (formalization target). -/
 def MomentClosure (_s : WalshSystem L) : Prop :=
   True
 
-/-- 头条声明：任意适应度曲面下选择—重组动力学在 Walsh 基下闭合（或存在反例）。 -/
+/-- Headline claim: selection–recombination dynamics close under the Walsh basis for arbitrary fitness landscapes (or a counterexample exists). -/
 theorem walsh_moment_closure (L : Nat) (s : WalshSystem L) :
     MomentClosure s := by
   sorry

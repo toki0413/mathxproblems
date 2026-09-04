@@ -16,11 +16,11 @@ namespace MathX
 structure FermionWaveFunction (N : Nat) where
   density : Rat
 
-/-- 动能（形式化目标）。 -/
+/-- Kinetic energy (formalization target). -/
 def KineticEnergy (_ψ : FermionWaveFunction N) : Rat :=
   0
 
-/-- 头条声明：Lieb–Thirring 不等式的最优常数由动能-密度下界唯一确定。 -/
+/-- Headline claim: the optimal constant in the Lieb–Thirring inequality is uniquely determined by the kinetic-energy–density lower bound. -/
 theorem sharp_lieb_thirring_constant (N : Nat) (ψ : FermionWaveFunction N) :
     0 ≤ KineticEnergy ψ := by
   sorry

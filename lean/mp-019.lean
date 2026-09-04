@@ -15,11 +15,11 @@ namespace MathX
 structure EulerSolution3D where
   vorticity : Rat
 
-/-- 有限时间奇点（形式化目标）。 -/
+/-- Finite-time singularity (formalization target). -/
 def FiniteTimeSingularity (_u : EulerSolution3D) : Prop :=
   True
 
-/-- 头条声明：光滑 3D 不可压 Euler 是否存在有限时间奇点（可判定为开放问题）。 -/
+/-- Headline claim: whether smooth 3D incompressible Euler develops finite-time singularities (formulated as an open problem). -/
 theorem euler_singularity_decidable (u : EulerSolution3D) :
     FiniteTimeSingularity u ∨ ¬ FiniteTimeSingularity u := by
   sorry

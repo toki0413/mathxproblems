@@ -16,11 +16,11 @@ namespace MathX
 structure CubicNLS where
   dimension : Nat
 
-/-- 波动能方程的长时有效性（形式化目标）。 -/
+/-- Long-time validity of the wave kinetic equation (formalization target). -/
 def WaveKineticValidity (_u : CubicNLS) : Prop :=
   True
 
-/-- 头条声明：三次 NLS 的波动能方程在长时间窗口内有效。 -/
+/-- Headline claim: the wave kinetic equation for cubic NLS is valid over long time windows. -/
 theorem wave_kinetic_long_time (u : CubicNLS) :
     WaveKineticValidity u := by
   sorry

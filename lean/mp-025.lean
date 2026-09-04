@@ -16,11 +16,11 @@ namespace MathX
 structure NavierStokes3D where
   viscosity : Rat
 
-/-- 全局正则性（形式化目标）。 -/
+/-- Global regularity (formalization target). -/
 def GlobalRegularity (_u : NavierStokes3D) : Prop :=
   True
 
-/-- 头条声明：三维不可压 Navier–Stokes 的光滑解全局存在。 -/
+/-- Headline claim: smooth solutions of the three-dimensional incompressible Navier–Stokes equations exist globally. -/
 theorem nse_global_regularity (u : NavierStokes3D) :
     GlobalRegularity u := by
   sorry

@@ -16,19 +16,19 @@ namespace MathX
 structure FlowClass where
   Re : Rat
 
-/-- 混合长标度在该流类下与 RANS 一致（ℓ_m ~ δ 成立）：形式化目标。 -/
+/-- The mixing-length scaling is consistent with RANS for this flow class (ℓ_m ~ δ holds): formalization target. -/
 def Consistent (_f : FlowClass) : Prop :=
   True
 
-/-- 闭合残差（相对 RANS 平均流）：形式化目标。 -/
+/-- Closure residual (relative to the RANS mean flow): formalization target. -/
 def ClosureResidual (_f : FlowClass) : Rat :=
   0
 
-/-- 显式可证误差界：残差被一个显式、可机器核验的上界控制。 -/
+/-- Explicit provable error bound: the residual is controlled by an explicit, machine-verifiable upper bound. -/
 def AdmitsCertifiedBound (f : FlowClass) : Prop :=
   ∃ b : Rat, 0 ≤ b ∧ ClosureResidual f ≤ b
 
-/-- 头条声明：一致性流类要么被可证界覆盖，要么（在非平衡类）残差无界。 -/
+/-- Headline claim: consistent flow classes are either covered by provable bounds or (in the non-equilibrium class) have unbounded residual. -/
 theorem mixing_length_closure_bound (f : FlowClass) :
     Consistent f → AdmitsCertifiedBound f := by
   sorry

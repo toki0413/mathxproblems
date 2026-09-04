@@ -17,11 +17,11 @@ namespace MathX
 structure StochasticMassActionNetwork (s : Nat) where
   species : Fin s
 
-/-- 乘积形式平稳分布（形式化目标）。 -/
+/-- Product-form stationary distribution (formalization target). -/
 def ProductForm (_N : StochasticMassActionNetwork s) : Prop :=
   True
 
-/-- 头条声明：随机质量作用网络存在乘积形式平稳分布的完整刻画。 -/
+/-- Headline claim: stochastic mass-action networks admit a complete characterization of product-form stationary distributions. -/
 theorem product_form_characterization (s : Nat) (N : StochasticMassActionNetwork s) :
     ProductForm N := by
   sorry

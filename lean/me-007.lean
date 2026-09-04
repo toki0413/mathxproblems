@@ -15,11 +15,11 @@ namespace MathX
 structure FacilityLocationInstance (n : Nat) where
   demands : Fin n → Rat
 
-/-- 竞争比（形式化目标）。 -/
+/-- Competitive ratio (formalization target). -/
 def CompetitiveRatio (_i : FacilityLocationInstance n) : Rat :=
   0
 
-/-- 头条声明：在线（度量）设施选址存在最优竞争比。 -/
+/-- Headline claim: online (metric) facility location admits an optimal competitive ratio. -/
 theorem facility_location_optimal_ratio (n : Nat) (i : FacilityLocationInstance n) :
     ∃ r : Rat, 0 ≤ r := by
   sorry

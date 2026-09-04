@@ -17,11 +17,11 @@ namespace MathX
 structure FinHeatSink where
   heatLoad : Rat
 
-/-- Nusselt 数总带 [Nu_lo, Nu_hi]（形式化目标）。 -/
+/-- Enclosure band [Nu_lo, Nu_hi] for the Nusselt number (formalization target). -/
 def NusseltBand (_h : FinHeatSink) : Prop :=
   True
 
-/-- 头条声明：翅片散热器存在三层残差总带 [Nu_lo, Nu_hi] 的可核验热裕度。 -/
+/-- Headline claim: fin heat sinks have a verifiable thermal margin via a three-level residual enclosure band [Nu_lo, Nu_hi]. -/
 theorem heat_sink_thermal_margin (h : FinHeatSink) :
     NusseltBand h := by
   sorry

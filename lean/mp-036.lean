@@ -17,11 +17,11 @@ namespace MathX
 structure PassiveScalar where
   smoothness : Rat
 
-/-- 混合效率的锐利指数 e（形式化目标）。 -/
+/-- Sharp exponent e for mixing efficiency (formalization target). -/
 def MixingEfficiency (_p : PassiveScalar) : Rat :=
   0
 
-/-- 头条声明：临界光滑度 s 下被动标量混合效率存在锐利指数。 -/
+/-- Headline claim: at critical smoothness s there is a sharp exponent for passive-scalar mixing efficiency. -/
 theorem sharp_mixing_exponent_passive (p : PassiveScalar) :
     0 ≤ MixingEfficiency p := by
   sorry

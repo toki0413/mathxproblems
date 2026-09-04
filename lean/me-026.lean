@@ -18,11 +18,11 @@ structure PolynomialSystem (n d : Nat) where
   unknowns : Nat
   degree : Nat
 
-/-- 平均情形求解复杂度（形式化目标）。 -/
+/-- Average-case solution complexity (formalization target). -/
 def AverageCaseComplexity (_s : PolynomialSystem n d) : Nat :=
   0
 
-/-- 头条声明：实多项式系统的平均情形求解复杂度存在刻画。 -/
+/-- Headline claim: there is a characterization of the average-case solution complexity of real polynomial systems. -/
 theorem polynomial_solving_complexity (n d : Nat) (s : PolynomialSystem n d) :
     0 < AverageCaseComplexity s := by
   sorry

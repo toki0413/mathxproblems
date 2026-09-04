@@ -15,11 +15,11 @@ namespace MathX
 structure ParticleSystem (N : Nat) where
   particles : Nat
 
-/-- 平均场极限（形式化目标）。 -/
+/-- Mean-field limit (formalization target). -/
 def MeanFieldLimit (_s : ParticleSystem N) : Prop :=
   True
 
-/-- 头条声明：奇异库仑/牛顿力的平均场极限收敛到 Vlasov–Poisson。 -/
+/-- Headline claim: the mean-field limit for singular Coulomb/Newton forces converges to Vlasov–Poisson. -/
 theorem mean_field_limit_singular (N : Nat) (s : ParticleSystem N) :
     MeanFieldLimit s := by
   sorry

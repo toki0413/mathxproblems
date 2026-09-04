@@ -15,7 +15,7 @@ namespace MathX
 structure HeisenbergChain (S : Nat) where
   spin : Nat
 
-/-- 头条声明（Haldane 猜想）：整数自旋反铁磁 Heisenberg 链有均匀谱隙。 -/
+/-- Headline claim (Haldane conjecture): integer-spin antiferromagnetic Heisenberg chains have a uniform spectral gap. -/
 def SpectralGap (_c : HeisenbergChain S) : Prop :=
   True
 

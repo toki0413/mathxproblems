@@ -16,24 +16,24 @@ namespace MathX
 structure ReactionNetwork (s : Nat) where
   species : Fin s
 
-/-- 复平衡：在每个复形处进等于出（形式化目标）。 -/
+/-- Complex-balanced: inflow equals outflow at every complex (formalization target). -/
 def ComplexBalanced (_N : ReactionNetwork s) : Prop :=
   True
 
-/-- 化学计量兼容类（形式化目标）。 -/
+/-- Stoichiometric compatibility class (formalization target). -/
 def StoichiometricClass (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=
   True
 
-/-- 唯一正平衡点（形式化目标）。 -/
+/-- Unique positive equilibrium (formalization target). -/
 def PositiveEquilibrium (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=
   True
 
-/-- 全局吸引：轨道收敛到兼容类中唯一正平衡点（形式化目标）。 -/
+/-- Global attraction: orbits converge to the unique positive equilibrium in the compatibility class (formalization target). -/
 def GloballyAttracting (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=
   True
 
-/-- 头条声明（全局吸引子猜想）：复平衡质量作用网络的每个正初值都收敛到其
-    兼容类中的唯一正平衡点。 -/
+/-- Headline claim (Global Attractor Conjecture): every positive initial value of a complex-balanced mass-action network converges to the
+    unique positive equilibrium in its compatibility class. -/
 theorem global_attractor_conjecture (s : Nat) (N : ReactionNetwork s)
     (h : ComplexBalanced N) (x0 : Fin s → Rat) :
     PositiveEquilibrium N x0 → GloballyAttracting N x0 := by

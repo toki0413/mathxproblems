@@ -16,11 +16,11 @@ namespace MathX
 structure AsexualPopulation where
   mutationRate : Rat
 
-/-- 适应速度 v（形式化目标）。 -/
+/-- Adaptation speed v (formalization target). -/
 def AdaptationSpeed (_p : AsexualPopulation) : Rat :=
   0
 
-/-- 头条声明：大型无性生殖种群的适应速度存在可刻画的渐近。 -/
+/-- Headline claim: the adaptation speed of large asexual populations has characterizable asymptotics. -/
 theorem adaptation_speed_asymptotic (p : AsexualPopulation) :
     0 ≤ AdaptationSpeed p := by
   sorry

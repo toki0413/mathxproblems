@@ -19,20 +19,20 @@ structure FPUTChain where
   energyPerParticle : Rat
   nonlinearity : Rat
 
-/-- 模式能量（按 Fourier 模式分解）（形式化目标）。 -/
+/-- Mode energy (decomposition into Fourier modes) (formalization target). -/
 def ModeEnergy (_c : FPUTChain) (_mode : Nat) : Rat :=
   0
 
-/-- 能量均分：时间平均模式能量趋近等分（形式化目标）。 -/
+/-- Equipartition of energy: time-averaged mode energies tend toward equal shares (formalization target). -/
 def Equipartition (_c : FPUTChain) : Prop :=
   True
 
-/-- 热化（均衡）时间 T_eq(N, ε)（形式化目标）。 -/
+/-- Thermalization (equilibration) time T_eq(N, ε) (formalization target). -/
 def EquilibrationTime (c : FPUTChain) : Rat :=
   0
 
-/-- 头条声明：FPUT β 链从低模式初态向能量均分热化，且均衡时间具有可刻画的
-    渐近公式。 -/
+/-- Headline claim: the FPUT β chain thermalizes from low-mode initial states toward energy equipartition, and the equilibration time has a characterizable
+    asymptotic formula. -/
 theorem thermalization_time_fput (c : FPUTChain) (hε : 0 < c.energyPerParticle) :
     Equipartition c := by
   sorry

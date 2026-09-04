@@ -18,11 +18,11 @@ namespace MathX
 structure RayleighBenardSystem where
   rayleigh : Rat
 
-/-- Nusselt 数 Nu（形式化目标）。 -/
+/-- Nusselt number Nu (formalization target). -/
 def NusseltNumber (_s : RayleighBenardSystem) : Rat :=
   0
 
-/-- 头条声明：Rayleigh–Bénard 对流的 Nusselt 数存在可核验的上界（前缀可改进）。 -/
+/-- Headline claim: the Nusselt number for Rayleigh–Bénard convection has a verifiable upper bound (the prefactor can be improved). -/
 theorem nusselt_upper_bound (s : RayleighBenardSystem) :
     0 ≤ NusseltNumber s := by
   sorry

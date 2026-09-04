@@ -16,11 +16,11 @@ namespace MathX
 structure HopfieldNetwork (N : Nat) where
   neurons : Fin N
 
-/-- 存储容量 α = M/N（形式化目标）。 -/
+/-- Storage capacity α = M/N (formalization target). -/
 def StorageCapacity (_h : HopfieldNetwork N) : Rat :=
   0
 
-/-- 头条声明：受限/稀疏突触权重的 Hopfield 网络存在容量刻画。 -/
+/-- Headline claim: Hopfield networks with constrained/sparse synaptic weights admit a capacity characterization. -/
 theorem hopfield_capacity_bound (N : Nat) (h : HopfieldNetwork N) :
     0 ≤ StorageCapacity h := by
   sorry

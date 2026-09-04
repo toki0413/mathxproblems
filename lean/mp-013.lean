@@ -15,11 +15,11 @@ namespace MathX
 structure GrowthModel where
   scaling : Rat
 
-/-- KPZ 普适性（形式化目标）。 -/
+/-- KPZ universality (formalization target). -/
 def KPZUniversality (_m : GrowthModel) : Prop :=
   True
 
-/-- 头条声明：非可积一维随机生长模型在 1:2:3 标度下收敛到 KPZ 不动点。 -/
+/-- Headline claim: non-integrable one-dimensional random growth models converge to the KPZ fixed point under 1:2:3 scaling. -/
 theorem kpz_universality_beyond_integrable (m : GrowthModel) :
     KPZUniversality m := by
   sorry

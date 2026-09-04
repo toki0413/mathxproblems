@@ -18,11 +18,11 @@ structure FermionSystem (N d : Nat) where
   particles : Nat
   orbitals : Nat
 
-/-- 广义 Pauli 约束下的钉扎（形式化目标）。 -/
+/-- Pinning under generalized Pauli constraints (formalization target). -/
 def PauliPinning (_s : FermionSystem N d) : Prop :=
   True
 
-/-- 头条声明：费米子基态在广义 Pauli 约束多面体面上的精确钉扎可刻画。 -/
+/-- Headline claim: exact pinning of fermionic ground states on faces of the generalized Pauli constraints polytope is characterizable. -/
 theorem pauli_pinning_exact (N d : Nat) (s : FermionSystem N d) :
     PauliPinning s := by
   sorry

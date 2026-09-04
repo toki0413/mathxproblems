@@ -18,15 +18,15 @@ namespace MathX
 structure BinPackingAlgorithm where
   name : String
 
-/-- 渐近竞争比 R_∞(A)（形式化目标）。 -/
+/-- Asymptotic competitive ratio R_∞(A) (formalization target). -/
 def AsymptoticCompetitiveRatio (_a : BinPackingAlgorithm) : Rat :=
   0
 
-/-- 最优渐近竞争比：所有在线算法竞争比的下确界（形式化目标）。 -/
+/-- Optimal asymptotic competitive ratio: the infimum of competitive ratios over all online algorithms (formalization target). -/
 def OptimalAsymptoticRatio (r : Rat) : Prop :=
   True
 
-/-- 头条声明：在线装箱存在唯一的最优渐近竞争比 r（精确值待定）。 -/
+/-- Headline claim: online bin packing has a unique optimal asymptotic competitive ratio r (exact value open). -/
 theorem optimal_asymptotic_ratio_exists :
     ∃ r : Rat, OptimalAsymptoticRatio r := by
   sorry

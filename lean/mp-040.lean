@@ -16,11 +16,11 @@ namespace MathX
 structure SpinHamiltonian where
   size : Nat
 
-/-- 面积律证书（形式化目标）。 -/
+/-- Area-law certificate (formalization target). -/
 def AreaLawCertificate (_h : SpinHamiltonian) : Prop :=
   True
 
-/-- 头条声明：有能隙 2D 局域自旋哈密顿量的基态满足（或反例否定）面积律。 -/
+/-- Headline claim: ground states of gapped 2D local spin Hamiltonians satisfy the area law (or a counterexample refutes it). -/
 theorem area_law_certificate (h : SpinHamiltonian) :
     AreaLawCertificate h ∨ ¬ AreaLawCertificate h := by
   sorry

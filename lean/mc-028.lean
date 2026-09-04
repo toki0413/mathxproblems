@@ -16,11 +16,11 @@ namespace MathX
 structure MolecularGraph (n : Nat) where
   vertices : Fin n
 
-/-- 谱决定（DS）：由（符号拉普拉斯）谱唯一决定（形式化目标）。 -/
+/-- Spectral determination (DS): uniquely determined by the (signed Laplacian) spectrum (formalization target). -/
 def DS (_g : MolecularGraph n) : Prop :=
   True
 
-/-- 头条声明：分子图的 DS 分类存在（确定哪些分子图由谱决定）。 -/
+/-- Headline claim: a DS classification of molecular graphs exists (determining which molecular graphs are determined by their spectrum). -/
 theorem molecular_graphs_ds_decidable (n : Nat) (g : MolecularGraph n) :
     DS g ∨ ¬ DS g := by
   sorry

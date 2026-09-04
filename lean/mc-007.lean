@@ -14,15 +14,15 @@ namespace MathX
 structure ReactionNetwork (s : Nat) where
   species : Fin s
 
-/-- 复平衡（形式化目标）。 -/
+/-- Complex-balanced (formalization target). -/
 def ComplexBalanced (_N : ReactionNetwork s) : Prop :=
   True
 
-/-- 轨迹有界性：sup ‖x(t)‖ < ∞（形式化目标）。 -/
+/-- Trajectory boundedness: sup ‖x(t)‖ < ∞ (formalization target). -/
 def TrajectoryBounded (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=
   True
 
-/-- 头条声明（有界性猜想）：复平衡质量作用系统的正轨迹一致有界。 -/
+/-- Headline claim (Boundedness Conjecture): positive trajectories of complex-balanced mass-action systems are uniformly bounded. -/
 theorem boundedness_conjecture (s : Nat) (N : ReactionNetwork s)
     (h : ComplexBalanced N) (x0 : Fin s → Rat) :
     TrajectoryBounded N x0 := by

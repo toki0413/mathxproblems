@@ -16,11 +16,11 @@ namespace MathX
 structure NumericMatrix (n : Nat) where
   entries : Fin n → Fin n → Rat
 
-/-- Crouzeix 常数 C*(W)（形式化目标；已知 1+√2 ≤ C* ≤ 2）。 -/
+/-- Crouzeix constant C*(W) (formalization target; known 1+√2 ≤ C* ≤ 2). -/
 def CrouzeixConstant (_A : NumericMatrix n) : Rat :=
   0
 
-/-- 头条声明：Crouzeix 最优常数存在（1+√2 与 2 之间的闭值待定）。 -/
+/-- Headline claim: the optimal Crouzeix constant exists (the exact value between 1+√2 and 2 is yet to be determined). -/
 theorem crouzeix_optimal_constant (n : Nat) (A : NumericMatrix n) :
     0 ≤ CrouzeixConstant A := by
   sorry

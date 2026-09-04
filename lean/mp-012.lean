@@ -17,11 +17,11 @@ structure BetheSystem where
   spin : Nat
   length : Nat
 
-/-- Bethe Ansatz 完备性：Bethe 方程的解（含奇异与弦解，按正确处方处理）穷尽谱。 -/
+/-- Bethe Ansatz completeness: the solutions of the Bethe equations (including singular and string solutions, handled by the correct prescription) exhaust the spectrum. -/
 def BetheAnsatzComplete (_s : BetheSystem) : Prop :=
   True
 
-/-- 头条声明：自旋 s XXX/XXZ Heisenberg 链的 Bethe Ansatz 完备。 -/
+/-- Headline claim: the Bethe Ansatz is complete for spin-s XXX/XXZ Heisenberg chains. -/
 theorem bethe_ansatz_completeness (s : BetheSystem) :
     BetheAnsatzComplete s := by
   sorry

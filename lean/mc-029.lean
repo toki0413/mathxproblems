@@ -17,11 +17,11 @@ namespace MathX
 structure ReactionNetwork (s : Nat) where
   species : Fin s
 
-/-- 物种 X 的绝对浓度鲁棒性（形式化目标）。 -/
+/-- Absolute concentration robustness of species X (formalization target). -/
 def AbsoluteConcentrationRobustness (N : ReactionNetwork s) (_X : Nat) : Prop :=
   True
 
-/-- 头条声明：ACR 网络类存在结构性（网络拓扑）判定判据。 -/
+/-- Headline claim: there is a structural (network-topology) criterion deciding the class of ACR networks. -/
 theorem acr_structural_certification (s : Nat) (N : ReactionNetwork s) :
     ∃ X : Nat, AbsoluteConcentrationRobustness N X := by
   sorry

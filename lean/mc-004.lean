@@ -17,15 +17,15 @@ structure ReactionNetwork (s r : Nat) where
   species : Fin s
   reactions : Fin r
 
-/-- 小规模网络：反应数与物种数受限（形式化目标）。 -/
+/-- Small networks: bounded numbers of reactions and species (formalization target). -/
 def SmallNetwork (N : ReactionNetwork s r) : Prop :=
   True
 
-/-- 多重稳态：某化学计量类内存在多个正稳态（形式化目标）。 -/
+/-- Multistationarity: the existence of multiple positive steady states within a stoichiometric class (formalization target). -/
 def Multistationary (N : ReactionNetwork s r) : Prop :=
   True
 
-/-- 头条声明：小规模质量作用网络可判定的组合分类——是否允许多重稳态。 -/
+/-- Headline claim: a decidable combinatorial classification of small mass-action networks — whether they admit multistationarity. -/
 theorem small_network_classification (s r : Nat) (N : ReactionNetwork s r)
     (hsmall : SmallNetwork N) :
     Multistationary N ∨ ¬ Multistationary N := by

@@ -16,11 +16,11 @@ namespace MathX
 structure ElectronSystem where
   electrons : Nat
 
-/-- Levy–Lieb 泛函 F[N,ρ]（形式化目标）。 -/
+/-- Levy–Lieb functional F[N,ρ] (formalization target). -/
 def LevyLiebFunctional (_s : ElectronSystem) (_ρ : Rat) : Rat :=
   0
 
-/-- 头条声明：Levy–Lieb 泛函凸且其下确界可达（严格存在性与凸性）。 -/
+/-- Headline claim: the Levy–Lieb functional is convex and its infimum is attained (strict existence and convexity). -/
 theorem levy_lieb_convex_attained (s : ElectronSystem) :
     ∀ ρ : Rat, 0 ≤ LevyLiebFunctional s ρ := by
   sorry

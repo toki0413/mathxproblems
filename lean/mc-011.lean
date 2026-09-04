@@ -17,16 +17,16 @@ namespace MathX
 structure ReactionNetwork (s : Nat) where
   species : Fin s
 
-/-- 缺陷一：δ = n - l - s ≤ 1（形式化目标）。 -/
+/-- Deficiency one: δ = n - l - s ≤ 1 (formalization target). -/
 def DeficiencyOne (_N : ReactionNetwork s) : Prop :=
   True
 
-/-- 多重稳态（形式化目标）。 -/
+/-- Multistationarity (formalization target). -/
 def Multistationary (_N : ReactionNetwork s) : Prop :=
   True
 
-/-- 头条声明：缺陷一网络的多重/单一稳态由化学计量子空间与反应向量完全
-    代数刻画（可判）。 -/
+/-- Headline claim: multistationarity/unistationarity of deficiency-one networks is fully characterized algebraically by the stoichiometric subspace and the reaction vectors
+    (decidable). -/
 theorem deficiency_one_characterization (s : Nat) (N : ReactionNetwork s)
     (h : DeficiencyOne N) :
     Multistationary N ∨ ¬ Multistationary N := by

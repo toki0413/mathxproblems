@@ -16,7 +16,7 @@ namespace MathX
 structure SIRDemography (N : Nat) where
   population : Nat
 
-/-- 头条声明：带出生死亡的 SIR 在近临界标度下存在锐利阈值与灭绝时间渐近。 -/
+/-- Headline claim: SIR with births and deaths has a sharp threshold and extinction-time asymptotics under near-critical scaling. -/
 def NearCriticalExtinctionTime (_p : SIRDemography N) : Rat :=
   0
 

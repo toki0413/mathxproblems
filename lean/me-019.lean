@@ -16,11 +16,11 @@ namespace MathX
 structure SolutionManifold (d : Nat) where
   parameters : Fin d
 
-/-- Kolmogorov n-宽度（形式化目标）。 -/
+/-- Kolmogorov n-width (formalization target). -/
 def KolmogorovNWidth (_m : SolutionManifold d) (_n : Nat) : Rat :=
   0
 
-/-- 头条声明：参数化 PDE 解流形的 Kolmogorov n-宽度存在锐利衰减率。 -/
+/-- Headline claim: the Kolmogorov n-width of the solution manifold of parametrized PDEs has a sharp decay rate. -/
 theorem sharp_nwidth_decay (d : Nat) (m : SolutionManifold d) :
     0 ≤ KolmogorovNWidth m 0 := by
   sorry

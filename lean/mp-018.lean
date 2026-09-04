@@ -16,11 +16,11 @@ namespace MathX
 structure InteractingSystem where
   size : Nat
 
-/-- 本征态热化（形式化目标）。 -/
+/-- Eigenstate thermalization (formalization target). -/
 def EigenstateThermalization (_s : InteractingSystem) : Prop :=
   True
 
-/-- 头条声明：相互作用多体系统从第一性原理满足 ETH。 -/
+/-- Headline claim: interacting many-body systems satisfy ETH from first principles. -/
 theorem eth_first_principles (s : InteractingSystem) :
     EigenstateThermalization s := by
   sorry

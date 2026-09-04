@@ -15,11 +15,11 @@ namespace MathX
 structure AnharmonicChain (N : Nat) where
   particles : Nat
 
-/-- 热导率（形式化目标）。 -/
+/-- Thermal conductivity (formalization target). -/
 def ThermalConductivity (_c : AnharmonicChain N) : Rat :=
   0
 
-/-- 头条声明：一维非线性链满足 Fourier 定律且热导率有限。 -/
+/-- Headline claim: one-dimensional nonlinear chains obey Fourier's law and have finite thermal conductivity. -/
 theorem anharmonic_fourier_law (N : Nat) (c : AnharmonicChain N) :
     0 < ThermalConductivity c := by
   sorry

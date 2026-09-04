@@ -15,19 +15,19 @@ namespace MathX
 structure GappedSystem where
   size : Nat
 
-/-- 可逆（短程纠缠）门控相：形式化目标。 -/
+/-- Invertible (short-range entangled) gapped phase: formalization target. -/
 def InvertiblePhase (_s : GappedSystem) : Prop :=
   True
 
-/-- 霍尔电导（单位 e²/h）：形式化目标。 -/
+/-- Hall conductance (in units of e²/h): formalization target. -/
 def HallConductance (_s : GappedSystem) : Rat :=
   0
 
-/-- 量子化：霍尔电导是整数倍 e²/h（k 为整数）。 -/
+/-- Quantization: the Hall conductance is an integer multiple of e²/h (k an integer). -/
 def Quantized (σ : Rat) : Prop :=
   ∃ k : Int, σ = (k : Rat)
 
-/-- 头条声明：无穷体积下任意可逆门控相的霍尔电导量子化。 -/
+/-- Headline claim: in the infinite-volume limit the Hall conductance of any invertible gapped phase is quantized. -/
 theorem hall_quantization_invertible_phase (s : GappedSystem) (h : InvertiblePhase s) :
     Quantized (HallConductance s) := by
   sorry

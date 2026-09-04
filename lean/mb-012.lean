@@ -17,11 +17,11 @@ structure CyclicCompetition (d : Nat) where
   dimension : Nat
   reproductionRate : Rat
 
-/-- 共存：三物种长期并存（形式化目标）。 -/
+/-- Coexistence: the long-term coexistence of three species (formalization target). -/
 def Coexistence (_p : CyclicCompetition d) : Prop :=
   True
 
-/-- 头条声明：环状三物种竞争的共存阈值存在可刻画区域。 -/
+/-- Headline claim: the coexistence threshold for cyclic three-species competition has a characterizable region. -/
 theorem coexistence_threshold (d : Nat) (p : CyclicCompetition d) :
     Coexistence p ∨ ¬ Coexistence p := by
   sorry

@@ -16,11 +16,11 @@ namespace MathX
 structure Matroid where
   rank : Nat
 
-/-- 秘书问题的竞争比（形式化目标）。 -/
+/-- Competitive ratio of the secretary problem (formalization target). -/
 def SecretaryCompetitiveRatio (_m : Matroid) : Rat :=
   0
 
-/-- 头条声明：一般拟阵秘书问题存在常数竞争比算法（拟阵秘书猜想）。 -/
+/-- Headline claim: the general matroid secretary problem admits a constant-competitive-ratio algorithm (matroid secretary conjecture). -/
 theorem matroid_secretary_constant (m : Matroid) :
     ∃ c : Rat, 0 < c := by
   sorry

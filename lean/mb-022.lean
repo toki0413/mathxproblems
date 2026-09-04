@@ -17,7 +17,7 @@ namespace MathX
 structure FoodWeb (n : Nat) where
   species : Fin n
 
-/-- 头条声明：符号结构食物网的复杂度—稳定性阈值存在可刻画定量界。 -/
+/-- Headline claim: the complexity–stability threshold for sign-structured food webs admits characterizable quantitative bounds. -/
 def StabilityThreshold (_w : FoodWeb n) : Rat :=
   0
 

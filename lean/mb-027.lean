@@ -17,11 +17,11 @@ namespace MathX
 structure EvolutionaryGraph (N : Nat) where
   vertices : Fin N
 
-/-- 极端放大（形式化目标）。 -/
+/-- Extreme amplification (formalization target). -/
 def AmplificationRatio (_g : EvolutionaryGraph N) (_fitness : Rat) : Rat :=
   0
 
-/-- 头条声明：演化图上的固定概率存在极端放大刻画。 -/
+/-- Headline claim: there is a characterization of extreme amplification of fixation probability on evolutionary graphs. -/
 theorem extremal_amplification (N : Nat) (g : EvolutionaryGraph N) :
     ∃ ρ : Rat, 0 ≤ ρ := by
   sorry

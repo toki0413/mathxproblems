@@ -18,15 +18,15 @@ structure CatalyticNetwork (s : Nat) where
   species : Fin s
   rateConstants : Fin s → Rat
 
-/-- 速率常数测量区间（形式化目标）。 -/
+/-- Measurement intervals for the rate constants (formalization target). -/
 def MeasurementIntervals (_N : CatalyticNetwork s) : Prop :=
   True
 
-/-- 目标中间体稳态浓度的可核验区间 [c_lo, c_hi]（形式化目标）。 -/
+/-- Verifiable interval [c_lo, c_hi] for the steady-state concentration of the target intermediate (formalization target). -/
 def CertifiedConcentrationBand (_N : CatalyticNetwork s) (_c : Rat) : Prop :=
   True
 
-/-- 头条声明：测量区间下目标中间体稳态浓度的可判定核验区间存在。 -/
+/-- Headline claim: under measurement intervals, a decidable verifiable interval exists for the target intermediate's steady-state concentration. -/
 theorem certified_concentration_band (s : Nat) (N : CatalyticNetwork s)
     (hm : MeasurementIntervals N) :
     ∃ c : Rat, CertifiedConcentrationBand N c := by

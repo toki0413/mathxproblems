@@ -17,15 +17,15 @@ namespace MathX
 structure LatticeHamiltonian where
   size : Nat
 
-/-- 线性响应（Kubo）电导（形式化目标）。 -/
+/-- Linear response (Kubo) conductivity (formalization target). -/
 def KuboConductance (_h : LatticeHamiltonian) : Rat :=
   0
 
-/-- 量子化：电导是整数倍（形式化目标）。 -/
+/-- Quantization: the conductivity is an integer multiple (formalization target). -/
 def Quantized (σ : Rat) : Prop :=
   ∃ k : Int, σ = (k : Rat)
 
-/-- 头条声明：相互作用电子体系基态的 Kubo 电导由非交换指标给出并量子化。 -/
+/-- Headline claim: the Kubo conductivity of the ground state of an interacting electron system is given by a noncommutative index and is quantized. -/
 theorem kubo_quantization (h : LatticeHamiltonian) :
     Quantized (KuboConductance h) := by
   sorry

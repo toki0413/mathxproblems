@@ -17,11 +17,11 @@ namespace MathX
 structure StructuredPopulation (N : Nat) where
   individuals : Fin N
 
-/-- Hamilton 规则（形式化目标）。 -/
+/-- Hamilton’s rule (formalization target). -/
 def HamiltonRule (_p : StructuredPopulation N) : Prop :=
   True
 
-/-- 头条声明：有限结构化种群中 Hamilton 规则与零亲缘度断言的成立条件可判定。 -/
+/-- Headline claim: the conditions under which Hamilton’s rule and the zero-relatedness assertion hold in finite structured populations are decidable. -/
 theorem hamilton_rule_validity (N : Nat) (p : StructuredPopulation N) :
     HamiltonRule p ∨ ¬ HamiltonRule p := by
   sorry

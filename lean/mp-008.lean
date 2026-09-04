@@ -16,16 +16,16 @@ namespace MathX
 structure ForcedNavierStokes where
   viscosity : Rat
 
-/-- 平均能量耗散率 ν⟨‖∇u_ν‖²_{L²}⟩（形式化目标）。 -/
+/-- Mean energy dissipation rate ν⟨‖∇u_ν‖²_{L²}⟩ (formalization target). -/
 def DissipationRate (_u : ForcedNavierStokes) : Rat :=
   0
 
-/-- 奇异耗散：耗散率在零粘性极限下保持为正。 -/
+/-- Anomalous dissipation: the dissipation rate remains positive in the zero-viscosity limit. -/
 def AnomalousDissipation (u : ForcedNavierStokes) : Prop :=
   0 < DissipationRate u
 
-/-- 头条声明（湍流第零定律）：受迫 3D 不可压 Navier–Stokes 平稳解的耗散率
-    在 ν→0 下不消失。 -/
+/-- Headline claim (zeroth law of turbulence): the dissipation rate of stationary solutions of the forced 3D incompressible Navier–Stokes equations
+    does not vanish as ν→0. -/
 theorem zeroth_law_turbulence (u : ForcedNavierStokes) :
     AnomalousDissipation u := by
   sorry

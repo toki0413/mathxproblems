@@ -15,11 +15,11 @@ namespace MathX
 structure Conductivity where
   dimension : Nat
 
-/-- 由 Dirichlet-to-Neumann 映射唯一决定电导率（形式化目标）。 -/
+/-- The conductivity is uniquely determined by the Dirichlet-to-Neumann map (formalization target). -/
 def DtNUniqueness (γ₁ γ₂ : Conductivity) : Prop :=
   True
 
-/-- 头条声明：三维 Calderón 问题全局唯一（Λ_γ 决定 γ）。 -/
+/-- Headline claim: the three-dimensional Calderón problem is globally unique (Λ_γ determines γ). -/
 theorem calderon_global_uniqueness (γ₁ γ₂ : Conductivity) :
     DtNUniqueness γ₁ γ₂ := by
   sorry

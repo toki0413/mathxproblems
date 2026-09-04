@@ -16,11 +16,11 @@ namespace MathX
 structure ConsensusProtocol (n : Nat) where
   processes : Fin n
 
-/-- 最坏情形步复杂度（形式化目标）。 -/
+/-- Worst-case step complexity (formalization target). -/
 def StepComplexity (_p : ConsensusProtocol n) : Nat :=
   0
 
-/-- 头条声明：自适应对手下随机化二值共识存在紧的步复杂度刻画。 -/
+/-- Headline claim: randomized binary consensus under an adaptive adversary admits a tight step-complexity characterization. -/
 theorem adaptive_consensus_complexity (n : Nat) (p : ConsensusProtocol n) :
     0 < StepComplexity p := by
   sorry

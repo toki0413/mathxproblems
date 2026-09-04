@@ -17,11 +17,11 @@ namespace MathX
 structure NoisyPopulation where
   fluctuation : Rat
 
-/-- 几乎必然持久（形式化目标）。 -/
+/-- Almost-sure persistence (formalization target). -/
 def AlmostSurePersistence (_p : NoisyPopulation) : Prop :=
   True
 
-/-- 头条声明：噪声种群存在几乎必然持久判据与锐利随机灭绝率。 -/
+/-- Headline claim: noisy populations admit an almost-sure persistence criterion and a sharp stochastic extinction rate. -/
 theorem persistence_extinction_rates (p : NoisyPopulation) :
     AlmostSurePersistence p ∨ ¬ AlmostSurePersistence p := by
   sorry

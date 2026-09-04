@@ -18,15 +18,15 @@ structure MixingSystem where
   viscosity : Rat
   forcedModes : Nat
 
-/-- 马尔可夫半群的谱间隙（混合率，形式化目标）。 -/
+/-- Spectral gap of a Markov semigroup (mixing rate, formalization target). -/
 def SpectralGap (_s : MixingSystem) : Rat :=
   0
 
-/-- 谱间隙按 ν^a 标度（形式化目标：与受迫模式集相关的最优指数 a）。 -/
+/-- The spectral gap scales as ν^a (formalization target: the optimal exponent a associated with the set of forced modes). -/
 def ScalesAs (s : MixingSystem) (a : Rat) : Prop :=
   True
 
-/-- 头条声明：存在最优指数 a 使混合率谱间隙随 ν^a 标度。 -/
+/-- Headline claim: there exists an optimal exponent a such that the mixing-rate spectral gap scales as ν^a. -/
 theorem sharp_mixing_exponent (s : MixingSystem) :
     ∃ a : Rat, ScalesAs s a := by
   sorry

@@ -17,11 +17,11 @@ namespace MathX
 structure LinearProgram (m n : Nat) where
   constraints : Fin m → Fin n → Rat
 
-/-- 强多项式算法：运行时间仅依赖 m,n 而非输入位长（形式化目标）。 -/
+/-- Strongly polynomial algorithm: running time depends only on m, n, not on the input bit length (formalization target). -/
 def StronglyPolynomial (_p : LinearProgram m n) : Prop :=
   True
 
-/-- 头条声明：线性规划存在强多项式算法。 -/
+/-- Headline claim: linear programming admits a strongly polynomial algorithm. -/
 theorem strongly_polynomial_lp (m n : Nat) (p : LinearProgram m n) :
     StronglyPolynomial p := by
   sorry

@@ -17,11 +17,11 @@ namespace MathX
 structure ParallelTemperingChain (L : Nat) where
   temperatures : Fin L → Rat
 
-/-- 混合时间（形式化目标）。 -/
+/-- Mixing time (formalization target). -/
 def MixingTime (_c : ParallelTemperingChain L) : Nat :=
   0
 
-/-- 头条声明：并行回火链存在混合时间刻画并出现（或不出现）cutoff。 -/
+/-- Headline claim: parallel tempering chains admit a mixing-time characterization and exhibit (or do not exhibit) cutoff. -/
 theorem parallel_tempering_mixing (L : Nat) (c : ParallelTemperingChain L) :
     0 < MixingTime c := by
   sorry

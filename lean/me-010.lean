@@ -18,15 +18,15 @@ structure Graph (n : Nat) where
   adjacency : Fin n → Fin n → Prop
   edge : Prop := True
 
-/-- 带宽 bw(G)：最小化最大 |π(u)-π(v)|（形式化目标）。 -/
+/-- Bandwidth bw(G): minimize the maximum |π(u)-π(v)| (formalization target). -/
 def Bandwidth (_g : Graph n) : Nat :=
   0
 
-/-- 常数近似：存在 C ≥ 1 与多项式算法使输出带宽 ≤ C·bw(G)（形式化目标）。 -/
+/-- Constant approximation: there exist C ≥ 1 and a polynomial-time algorithm such that the output bandwidth ≤ C·bw(G) (formalization target). -/
 def ApproximableWithin (g : Graph n) (C : Rat) : Prop :=
   True
 
-/-- 头条声明：图带宽问题可在常数因子内近似（存在 C ≥ 1）。 -/
+/-- Headline claim: the graph bandwidth problem is approximable within a constant factor (there exists C ≥ 1). -/
 theorem bandwidth_constant_approximation (n : Nat) (g : Graph n) :
     ∃ C : Rat, 1 ≤ C ∧ ApproximableWithin g C := by
   sorry

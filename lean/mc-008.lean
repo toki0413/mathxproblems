@@ -15,11 +15,11 @@ namespace MathX
 structure MolecularGraph (n : Nat) where
   vertices : Fin n
 
-/-- 邻接谱可实现的判定（形式化目标）。 -/
+/-- Decidability of adjacency-spectrum realizability (formalization target). -/
 def RealizableSpectrum (_g : MolecularGraph n) (_spec : Fin n → Rat) : Prop :=
   True
 
-/-- 头条声明：化学图类的逆特征值问题（IEPG）存在可判定刻画。 -/
+/-- Headline claim: the inverse eigenvalue problem for graphs (IEPG) on chemical graph classes admits a decidable characterization. -/
 theorem iepg_chemical_classified (n : Nat) (g : MolecularGraph n) :
     ∃ spec : Fin n → Rat, RealizableSpectrum g spec := by
   sorry

@@ -17,11 +17,11 @@ namespace MathX
 structure InviscidLimit where
   viscosity : Rat
 
-/-- 正则性门槛（形式化目标）。 -/
+/-- Regularity threshold (formalization target). -/
 def RegularityThreshold (_l : InviscidLimit) : Nat :=
   0
 
-/-- 头条声明：无粘极限与 Prandtl 边界层的有效性存在锐利正则性门槛。 -/
+/-- Headline claim: there is a sharp regularity threshold for the inviscid limit and the validity of the Prandtl boundary layer. -/
 theorem prandtl_regularity_threshold (l : InviscidLimit) :
     0 < RegularityThreshold l := by
   sorry

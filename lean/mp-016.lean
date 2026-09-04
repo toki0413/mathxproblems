@@ -16,11 +16,11 @@ namespace MathX
 structure CompactManifold (d : Nat) where
   dimension : Nat
 
-/-- 量子唯一遍历性（形式化目标）。 -/
+/-- Quantum unique ergodicity (formalization target). -/
 def QuantumUniqueErgodicity (_m : CompactManifold d) : Prop :=
   True
 
-/-- 头条声明：负曲率紧流形（一般情形）的 Laplace 特征函数满足 QUE。 -/
+/-- Headline claim: Laplace eigenfunctions on compact negatively curved manifolds (general case) satisfy QUE. -/
 theorem que_general_case (d : Nat) (m : CompactManifold d) :
     QuantumUniqueErgodicity m := by
   sorry

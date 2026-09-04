@@ -17,11 +17,11 @@ namespace MathX
 structure BenzenoidGraph (n : Nat) where
   vertices : Fin n
 
-/-- 邻接谱（形式化目标）：[-3,3] 中多重集可实现的刻画。 -/
+/-- Adjacency spectrum (formalization target): a characterization of which multisets in [-3,3] are realizable. -/
 def RealizableSpectrum (_g : BenzenoidGraph n) (_spec : Fin n → Rat) : Prop :=
   True
 
-/-- 头条声明：苯环型分子图存在可实现谱的完整刻画（逆特征值问题可判）。 -/
+/-- Headline claim: there is a complete characterization of realizable spectra for benzenoid molecular graphs (the inverse eigenvalue problem is decidable). -/
 theorem benzenoid_spectra_classified (n : Nat) (g : BenzenoidGraph n) :
     ∃ spec : Fin n → Rat, RealizableSpectrum g spec := by
   sorry

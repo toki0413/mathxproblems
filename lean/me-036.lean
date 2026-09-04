@@ -17,16 +17,16 @@ structure Composite where
   phases : Nat
   volume : Nat → Rat
 
-/-- HS 界（下界, 上界）：形式化目标。 -/
+/-- HS bounds (lower bound, upper bound): formalization target. -/
 def HashinShtrikman (_c : Composite) : Prod Rat Rat :=
   (0, 1)
 
-/-- 有效电导 σ 是否可由某微观结构达到：形式化目标。 -/
+/-- Whether the effective conductivity σ can be attained by some microstructure: formalization target. -/
 def Attainable (_σ : Rat) (_c : Composite) : Prop :=
   True
 
-/-- 头条声明：三相及以上各向同性复合材料存在 HS 界内不可达的有效电导
-    （HS 界非最优的参数范围非空）。 -/
+/-- Headline claim: for isotropic composites with three or more phases there exist effective conductivities inside the HS bounds that are not attainable
+    (the parameter range where the HS bounds are not optimal is nonempty). -/
 theorem hs_bounds_not_optimal (c : Composite) (hc : 3 ≤ c.phases) :
     ∃ σ : Rat,
       (HashinShtrikman c).1 ≤ σ ∧ σ ≤ (HashinShtrikman c).2 ∧ ¬ Attainable σ c := by

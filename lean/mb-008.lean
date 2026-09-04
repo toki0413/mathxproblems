@@ -16,11 +16,11 @@ namespace MathX
 structure PopulationGraph (n : Nat) where
   weightMatrix : Fin n → Fin n → Rat
 
-/-- 等温条件：温度相等，固定概率等于中性速率（形式化目标）。 -/
+/-- Isothermal condition: temperatures are equal, and the fixation probability equals the neutral rate (formalization target). -/
 def Isothermal (g : PopulationGraph n) : Prop :=
   True
 
-/-- 头条声明：加权有向群体图的广义等温定理成立（等温矩阵可刻画）。 -/
+/-- Headline claim: a generalized isothermal theorem holds for weighted directed population graphs (the isothermal matrix is characterizable). -/
 theorem generalized_isothermal_theorem (n : Nat) (g : PopulationGraph n) :
     Isothermal g ∨ ¬ Isothermal g := by
   sorry

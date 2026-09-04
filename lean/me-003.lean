@@ -18,20 +18,20 @@ structure CuckerSmaleState (N : Nat) where
   position : Fin N → Rat
   velocity : Fin N → Rat
 
-/-- 速度对齐：‖v_i(t) - v_j(t)‖ → 0（形式化目标）。 -/
+/-- Velocity alignment: ‖v_i(t) - v_j(t)‖ → 0 (formalization target). -/
 def VelocityAlignment (N : Nat) (_v : Fin N → Rat) : Prop :=
   True
 
-/-- 空间直径一致有界（形式化目标）。 -/
+/-- Spatial diameter uniformly bounded (formalization target). -/
 def BoundedDiameter (N : Nat) (_x : Fin N → Rat) : Prop :=
   True
 
-/-- flocking：速度对齐且空间直径一致有界。 -/
+/-- Flocking: velocity alignment and uniformly bounded spatial diameter. -/
 def Flocking (s : CuckerSmaleState N) : Prop :=
   VelocityAlignment N s.velocity ∧ BoundedDiameter N s.position
 
-/-- 头条声明：奇异核 ψ(s)=s^{-α}（α ≥ 1）下 Cucker–Smale 对所有初始位形无条件
-    flocking。 -/
+/-- Headline claim: under the singular kernel ψ(s)=s^{-α} (α ≥ 1), the Cucker–Smale model exhibits unconditional
+    flocking for all initial configurations. -/
 theorem unconditional_flocking_singular (N : Nat) (α : Nat) (hα : 1 ≤ α) :
     ∀ s : CuckerSmaleState N, Flocking s := by
   sorry

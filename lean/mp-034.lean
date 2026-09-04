@@ -16,11 +16,11 @@ namespace MathX
 structure BoseGas (N : Nat) where
   temperature : Rat
 
-/-- 玻色-爱因斯坦凝聚（形式化目标）。 -/
+/-- Bose–Einstein condensation (formalization target). -/
 def BoseEinsteinCondensation (_g : BoseGas N) : Prop :=
   True
 
-/-- 头条声明：正温度下相互作用玻色气体发生玻色-爱因斯坦凝聚。 -/
+/-- Headline claim: interacting Bose gases at positive temperature undergo Bose–Einstein condensation. -/
 theorem bec_positive_temperature (N : Nat) (g : BoseGas N) :
     BoseEinsteinCondensation g := by
   sorry

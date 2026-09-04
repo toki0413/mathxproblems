@@ -18,16 +18,16 @@ structure ConsensusSystem (n : Nat) where
   state : Fin n → Rat
   lipschitzConstant : Rat
 
-/-- 渐近一致：x_i(t) → x̄（形式化目标）。 -/
+/-- Asymptotic consensus: x_i(t) → x̄ (formalization target). -/
 def ConsensusError (_s : ConsensusSystem n) : Rat :=
   0
 
-/-- 显式收敛速率界（形式化目标：Lipschitz 常数与图 Laplacian 谱的函数）。 -/
+/-- Explicit convergence-rate bound (formalization target: a function of the Lipschitz constant and the spectrum of the graph Laplacian). -/
 def ConsensusRateBound (s : ConsensusSystem n) : Prop :=
   True
 
-/-- 头条声明：Lipschitz 非线性耦合在固定连通图上达成渐近一致，且存在以
-    Lipschitz 常数与 Laplacian 谱表达的显式收敛速率界。 -/
+/-- Headline claim: Lipschitz nonlinear couplings on a fixed connected graph reach asymptotic consensus, with an explicit convergence-rate bound expressed in
+    terms of the Lipschitz constant and the Laplacian spectrum. -/
 theorem consensus_rate_bound (n : Nat) (s : ConsensusSystem n) :
     ConsensusRateBound s := by
   sorry

@@ -15,11 +15,11 @@ namespace MathX
 structure ReducedOrderModel (r : Nat) where
   basisRank : Nat
 
-/-- 可计算后验误差界 Δ(μ)（形式化目标）。 -/
+/-- Computable a posteriori error bound Δ(μ) (formalization target). -/
 def AposterioriErrorBound (_m : ReducedOrderModel r) (_μ : Rat) : Rat :=
   0
 
-/-- 头条声明：非线性模型降阶存在同时锐利且廉价的可计算后验误差界。 -/
+/-- Headline claim: nonlinear model order reduction admits a computable a posteriori error bound that is both sharp and cheap. -/
 theorem certifiable_aposteriori_bound (r : Nat) (m : ReducedOrderModel r) :
     ∃ Δ : Rat, 0 ≤ Δ := by
   sorry

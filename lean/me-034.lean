@@ -18,11 +18,11 @@ namespace MathX
 structure QuantizedConsensus (n : Nat) where
   initialValues : Fin n → Int
 
-/-- 最坏情形通信轮数（形式化目标）。 -/
+/-- Worst-case number of communication rounds (formalization target). -/
 def WorstCaseRounds (_c : QuantizedConsensus n) : Nat :=
   0
 
-/-- 头条声明：有限速率量化平均共识存在最优最坏情形轮数刻画。 -/
+/-- Headline claim: quantized average consensus at finite rates has an optimal worst-case round-complexity characterization. -/
 theorem quantized_consensus_optimal (n : Nat) (c : QuantizedConsensus n) :
     0 < WorstCaseRounds c := by
   sorry

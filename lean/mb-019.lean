@@ -15,7 +15,7 @@ namespace MathX
 structure ReactionDiffusion where
   domainGrowth : Rat
 
-/-- 头条声明：光滑生长区域上反应扩散系统的 Turing 图样选择可刻画。 -/
+/-- Headline claim: Turing pattern selection for reaction–diffusion systems on smoothly growing domains is characterizable. -/
 def TuringPattern (_r : ReactionDiffusion) : Prop :=
   True
 

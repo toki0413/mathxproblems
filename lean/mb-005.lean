@@ -16,11 +16,11 @@ namespace MathX
 structure ClusteredNetwork (n : Nat) where
   vertices : Fin n
 
-/-- 基本再生数 R_0（形式化目标）。 -/
+/-- Basic reproduction number R_0 (formalization target). -/
 def BasicReproductionNumber (_g : ClusteredNetwork n) : Rat :=
   0
 
-/-- 头条声明：聚集网络上的 SIR 存在严格的基本再生数与流行阈值刻画。 -/
+/-- Headline claim: SIR on clustered networks admits a rigorous characterization of the basic reproduction number and the epidemic threshold. -/
 theorem clustered_epidemic_threshold (n : Nat) (g : ClusteredNetwork n) :
     0 ≤ BasicReproductionNumber g := by
   sorry

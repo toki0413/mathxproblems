@@ -17,11 +17,11 @@ namespace MathX
 structure EulerSolution where
   holderExponent : Rat
 
-/-- 能量守恒（形式化目标）。 -/
+/-- Energy conservation (formalization target). -/
 def EnergyConservation (_u : EulerSolution) : Prop :=
   True
 
-/-- 头条声明（Onsager 猜想）：α > 1/3 守恒能量，α < 1/3 存在不守恒解。 -/
+/-- Headline claim (Onsager conjecture): α > 1/3 conserves energy, while for α < 1/3 there exist non-conserving solutions. -/
 theorem onsager_threshold (u : EulerSolution) (h : 1 / 3 < u.holderExponent) :
     EnergyConservation u := by
   sorry

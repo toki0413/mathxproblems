@@ -17,11 +17,11 @@ namespace MathX
 structure SingleEnzymeReaction where
   totalEnzyme : Rat
 
-/-- tQSSA 约化过程与原主方程的误差界（形式化目标）。 -/
+/-- Error bound between the tQSSA-reduced process and the original master equation (formalization target). -/
 def QSSAErrorBound (_r : SingleEnzymeReaction) : Rat :=
   0
 
-/-- 头条声明：单酶反应的 tQSSA 存在严格、可计算的误差界。 -/
+/-- Headline claim: tQSSA for single-enzyme reactions admits a rigorous, computable error bound. -/
 theorem sqssa_error_bound (r : SingleEnzymeReaction) :
     0 ≤ QSSAErrorBound r := by
   sorry

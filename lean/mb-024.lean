@@ -16,11 +16,11 @@ namespace MathX
 structure MorphogenGradient where
   moleculeCount : Nat
 
-/-- 位置感知误差的信息论下界（形式化目标）。 -/
+/-- Information-theoretic lower bound for position-sensing error (formalization target). -/
 def SensingErrorFloor (_g : MorphogenGradient) : Rat :=
   0
 
-/-- 头条声明：形态素梯度浓度感知存在信息论误差下界。 -/
+/-- Headline claim: concentration sensing of morphogen gradients has an information-theoretic error lower bound. -/
 theorem sensing_error_floor (g : MorphogenGradient) :
     0 ≤ SensingErrorFloor g := by
   sorry

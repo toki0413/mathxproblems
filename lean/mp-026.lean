@@ -15,11 +15,11 @@ namespace MathX
 structure CoulombSystem where
   dimension : Nat
 
-/-- 结晶化：基态为刚性晶格（形式化目标）。 -/
+/-- Crystallization: the ground state is a rigid lattice (formalization target). -/
 def Crystallization (_c : CoulombSystem) : Prop :=
   True
 
-/-- 头条声明：二维库仑凝胶基态结晶化为三角晶格。 -/
+/-- Headline claim: the ground state of the two-dimensional Coulomb gas crystallizes into a triangular lattice. -/
 theorem jellium_crystallization (c : CoulombSystem) :
     Crystallization c := by
   sorry

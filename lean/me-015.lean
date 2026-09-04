@@ -17,11 +17,11 @@ namespace MathX
 structure NavierStokesSolution where
   boxDimension : Rat
 
-/-- 奇异集的（盒）维数（形式化目标）。 -/
+/-- (Box) dimension of the singular set (formalization target). -/
 def SingularSetDimension (_u : NavierStokesSolution) : Rat :=
   0
 
-/-- 头条声明：合适弱解奇异集的锐利维数刻画（CKN 上界 5/3 能否收紧到 1）。 -/
+/-- Headline claim: a sharp dimension characterization of the singular set of suitable weak solutions (whether the CKN upper bound 5/3 can be sharpened to 1). -/
 theorem singular_set_dimension_bound (u : NavierStokesSolution) :
     0 ≤ SingularSetDimension u := by
   sorry

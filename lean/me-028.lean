@@ -19,16 +19,16 @@ structure MultiphaseComposite (m : Nat) where
   phases : Fin m → Rat
   volumeFractions : Fin m → Rat
 
-/-- 有效电导张量（形式化目标）。 -/
+/-- Effective conductivity tensor (formalization target). -/
 def EffectiveConductivity (_c : MultiphaseComposite m) : Rat :=
   0
 
-/-- 可达对 (f, σ*) 的完整集合 G-闭包（形式化目标）。 -/
+/-- G-closure of the full set of attainable pairs (f, σ*) (formalization target). -/
 def GClosure (m : Nat) (_f : Fin m → Rat) : Prop :=
   True
 
-/-- 头条声明：m ≥ 3 相复合导体的 G-闭包由 (f, σ*) 完全确定，且 Hashin–Shtrikman
-    型界可同时达到（G-闭包问题可解）。 -/
+/-- Headline claim: the G-closure of composite conductors with m ≥ 3 phases is fully determined by (f, σ*), and Hashin–Shtrikman-type bounds
+    can be attained simultaneously (the G-closure problem is solvable). -/
 theorem g_closure_determined (m : Nat) (hm : 3 ≤ m) (f : Fin m → Rat) :
     GClosure m f := by
   sorry

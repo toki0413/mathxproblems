@@ -17,11 +17,11 @@ namespace MathX
 structure MutationSelectionModel where
   mutationRate : Rat
 
-/-- 闭合形式平稳密度（形式化目标）。 -/
+/-- Closed-form stationary density (formalization target). -/
 def ClosedFormDensity (_m : MutationSelectionModel) : Prop :=
   True
 
-/-- 头条声明：非可逆突变—选择模型的平稳密度存在闭合形式刻画。 -/
+/-- Headline claim: the stationary density of the irreversible mutation–selection model admits a closed-form characterization. -/
 theorem closed_form_stationary_density (m : MutationSelectionModel) :
     ClosedFormDensity m := by
   sorry

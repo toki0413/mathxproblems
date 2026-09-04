@@ -18,11 +18,11 @@ namespace MathX
 structure SensorPlacement (n k : Nat) where
   candidates : Fin n
 
-/-- 信息增益集函数 f（形式化目标）。 -/
+/-- Information-gain set function f (formalization target). -/
 def InformationGain (_p : SensorPlacement n k) (_subset : Nat) : Rat :=
   0
 
-/-- 头条声明：次模（非单调）传感器布点存在多项式时间的可证近似比。 -/
+/-- Headline claim: submodular (non-monotone) sensor placement admits a polynomial-time provable approximation ratio. -/
 theorem sensor_placement_approximation (n k : Nat) (p : SensorPlacement n k) :
     ∃ α : Rat, 1 ≤ α := by
   sorry

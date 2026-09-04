@@ -16,11 +16,11 @@ namespace MathX
 structure GappedHamiltonian where
   size : Nat
 
-/-- 面积律：纠缠熵至多随界面面积线性增长（形式化目标）。 -/
+/-- Area law: the entanglement entropy grows at most linearly with the interface area (formalization target). -/
 def AreaLaw (_h : GappedHamiltonian) : Prop :=
   True
 
-/-- 头条声明：二维有能隙局域哈密顿量基态满足面积律。 -/
+/-- Headline claim: ground states of two-dimensional gapped local Hamiltonians satisfy the area law. -/
 theorem area_law_2d (h : GappedHamiltonian) :
     AreaLaw h := by
   sorry

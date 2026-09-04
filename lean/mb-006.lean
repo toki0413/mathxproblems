@@ -15,15 +15,15 @@ namespace MathX
 structure MoranGraph (n : Nat) where
   vertices : Fin n
 
-/-- 固定概率（形式化目标）。 -/
+/-- Fixation probability (formalization target). -/
 def FixationProbability (_g : MoranGraph n) (_fitness : Rat) : Rat :=
   0
 
-/-- 强放大器：r > 1 的单个突变体固定概率趋于 1。 -/
+/-- Strong amplifier: the fixation probability of a single mutant with r > 1 tends to 1. -/
 def StrongAmplifier (g : MoranGraph n) : Prop :=
   True
 
-/-- 头条声明：强放大器的图结构存在可判定/可分类判据。 -/
+/-- Headline claim: there is a decidable/classifiable criterion for the graph structures that are strong amplifiers. -/
 theorem strong_amplifier_decidable (n : Nat) (g : MoranGraph n) :
     StrongAmplifier g ∨ ¬ StrongAmplifier g := by
   sorry

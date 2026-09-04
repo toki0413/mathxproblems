@@ -17,20 +17,20 @@ namespace MathX
 structure FlockConfig where
   agents : Nat
 
-/-- 通信核：非奇异 Lipschitz 函数（形式化目标）。 -/
+/-- Communication kernel: a nonsingular Lipschitz function (formalization target). -/
 def Kernel (_ψ : Rat → Rat) : Prop := True
 
-/-- 速度直径（形式化目标）。 -/
+/-- Velocity diameter (formalization target). -/
 def VelocityDiameter (_c : FlockConfig) : Rat := 0
 
-/-- 空间直径（形式化目标）。 -/
+/-- Spatial diameter (formalization target). -/
 def SpatialDiameter (_c : FlockConfig) : Rat := 0
 
-/-- 不变 flock 集：速度直径与空间直径的显式、参数显式上界。 -/
+/-- Invariant flock set: explicit, parameter-explicit upper bounds on the velocity and spatial diameters. -/
 def InvariantFlockSet (c : FlockConfig) (ψ : Rat → Rat) : Prop :=
   ∃ Bv Bx : Rat, 0 ≤ Bv ∧ 0 ≤ Bx ∧ VelocityDiameter c ≤ Bv ∧ SpatialDiameter c ≤ Bx
 
-/-- 头条声明：非奇异核 Cucker-Smale 系统存在显式不变 flock 集（开放声明，证明用 sorry 留空）。 -/
+/-- Headline claim: the Cucker–Smale system with nonsingular kernel has an explicit invariant flock set (open claim, proof left as sorry). -/
 theorem cucker_smale_invariant_flock (c : FlockConfig) (ψ : Rat → Rat) (h : Kernel ψ) :
     InvariantFlockSet c ψ := by
   sorry

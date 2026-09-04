@@ -16,11 +16,11 @@ namespace MathX
 structure DisorderedChain (N : Nat) where
   disorder : Rat
 
-/-- 多体局域化（形式化目标）。 -/
+/-- Many-body localization (formalization target). -/
 def ManyBodyLocalization (_c : DisorderedChain N) : Prop :=
   True
 
-/-- 头条声明：强无序量子链从第一性原理存在 MBL。 -/
+/-- Headline claim: strongly disordered quantum chains exhibit MBL from first principles. -/
 theorem mbl_first_principles (N : Nat) (c : DisorderedChain N) :
     ManyBodyLocalization c := by
   sorry

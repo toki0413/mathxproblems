@@ -15,11 +15,11 @@ namespace MathX
 structure SubcriticalContactProcess (d : Nat) where
   dimension : Nat
 
-/-- 灭绝时间（形式化目标）。 -/
+/-- Extinction time (formalization target). -/
 def ExtinctionTime (_p : SubcriticalContactProcess d) : Rat :=
   0
 
-/-- 头条声明：次临界接触过程的灭绝时间存在锐利渐近。 -/
+/-- Headline claim: the extinction time of a subcritical contact process admits a sharp asymptotic. -/
 theorem sharp_extinction_time (d : Nat) (p : SubcriticalContactProcess d) :
     0 < ExtinctionTime p := by
   sorry

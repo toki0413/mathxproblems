@@ -14,11 +14,11 @@ namespace MathX
 structure YangMillsTheory where
   dimension : Nat
 
-/-- 质量隙：最轻粒子质量严格为正（形式化目标）。 -/
+/-- Mass gap: the mass of the lightest particle is strictly positive (formalization target). -/
 def MassGap (_t : YangMillsTheory) : Prop :=
   True
 
-/-- 头条声明：四维 Yang–Mills 理论存在且具有严格正的质量隙。 -/
+/-- Headline claim: the four-dimensional Yang–Mills theory exists and has a strictly positive mass gap. -/
 theorem yang_mills_mass_gap (t : YangMillsTheory) :
     MassGap t := by
   sorry

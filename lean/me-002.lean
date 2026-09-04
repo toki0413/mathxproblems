@@ -21,16 +21,16 @@ structure DecentralizedProblem (m : Nat) where
   connectivity : Nat
   agents : Fin m
 
-/-- B-连通时变图序列（形式化目标）。 -/
+/-- B-connected time-varying graph sequences (formalization target). -/
 def BCConnectedGraphSequence (_p : DecentralizedProblem m) : Prop :=
   True
 
-/-- 最坏情形迭代复杂度（形式化目标）。 -/
+/-- Worst-case iteration complexity (formalization target). -/
 def WorstCaseIterations (p : DecentralizedProblem m) : Nat :=
   0
 
-/-- 头条声明：B-连通时变图上的去中心化优化存在与加速 gossip 最优算法匹配
-    （至多常数因子）的最坏情形迭代复杂度下界。 -/
+/-- Headline claim: decentralized optimization on B-connected time-varying graphs has a worst-case iteration-complexity lower bound matching the optimal accelerated gossip algorithm
+    (up to a constant factor). -/
 theorem decentralized_lower_bound (m : Nat) (p : DecentralizedProblem m)
     (hconn : BCConnectedGraphSequence p) :
     0 < WorstCaseIterations p := by

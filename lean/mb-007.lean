@@ -16,11 +16,11 @@ namespace MathX
 structure MullerRatchet where
   populationSize : Nat
 
-/-- 棘轮点击率（形式化目标）。 -/
+/-- Ratchet click rate (formalization target). -/
 def ClickRate (_m : MullerRatchet) : Rat :=
   0
 
-/-- 头条声明：Muller 棘轮在速度限制机制下存在可刻画的点击率渐近。 -/
+/-- Headline claim: Muller's ratchet admits a characterizable asymptotic for the click rate in the speed-limited regime. -/
 theorem muller_ratchet_click_rate (m : MullerRatchet) :
     0 ≤ ClickRate m := by
   sorry

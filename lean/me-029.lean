@@ -17,11 +17,11 @@ namespace MathX
 structure IntegrandClass (d : Nat) where
   dimension : Nat
 
-/-- 最坏情形积分误差（形式化目标）。 -/
+/-- Worst-case integration error (formalization target). -/
 def WorstCaseError (_c : IntegrandClass d) (_n : Nat) : Rat :=
   0
 
-/-- 头条声明：高维数值积分存在锐利指数对 (α, β) 刻画。 -/
+/-- Headline claim: high-dimensional numerical integration has a sharp characterization in terms of the exponent pair (α, β). -/
 theorem sharp_integration_exponents (d : Nat) (c : IntegrandClass d) :
     0 ≤ WorstCaseError c 0 := by
   sorry

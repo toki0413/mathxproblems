@@ -16,11 +16,11 @@ namespace MathX
 structure SISProcess (n : Nat) where
   infectionRate : Rat
 
-/-- 亚稳态存活时间的期望（形式化目标）。 -/
+/-- Expectation of the metastable survival time (formalization target). -/
 def MetastableLifetime (_p : SISProcess n) : Rat :=
   0
 
-/-- 头条声明：SIS 网络流行存在亚稳态存活时间的精确指数渐近。 -/
+/-- Headline claim: SIS network epidemics admit an exact exponential asymptotic for the metastable survival time. -/
 theorem sharp_metastable_lifetime (n : Nat) (p : SISProcess n) :
     0 < MetastableLifetime p := by
   sorry

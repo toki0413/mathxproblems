@@ -16,11 +16,11 @@ namespace MathX
 structure HamiltonianChain (N : Nat) where
   particles : Nat
 
-/-- Fourier 定律：热流正比于温度梯度（形式化目标）。 -/
+/-- Fourier's law: heat flux is proportional to the temperature gradient (formalization target). -/
 def FourierLaw (_c : HamiltonianChain N) : Prop :=
   True
 
-/-- 头条声明：确定性哈密顿链在流体动力学极限下满足 Fourier 定律。 -/
+/-- Headline claim: deterministic Hamiltonian chains satisfy Fourier's law in the hydrodynamic limit. -/
 theorem fourier_law_derivation (N : Nat) (c : HamiltonianChain N) :
     FourierLaw c := by
   sorry

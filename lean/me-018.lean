@@ -20,24 +20,24 @@ structure ControlAffineSystem (n m : Nat) where
   state : Fin n → Rat
   controls : Fin m → Rat
 
-/-- Brockett 必要条件（形式化目标）。 -/
+/-- Brockett necessary condition (formalization target). -/
 def BrockettCondition (_s : ControlAffineSystem n m) : Prop :=
   True
 
-/-- Sontag 充分判据（形式化目标）。 -/
+/-- Sontag sufficient criterion (formalization target). -/
 def SontagCondition (_s : ControlAffineSystem n m) : Prop :=
   True
 
-/-- 连续反馈镇定（形式化目标）。 -/
+/-- Continuous feedback stabilization (formalization target). -/
 def FeedbackStabilizable (_s : ControlAffineSystem n m) : Prop :=
   True
 
-/-- 可计算的"可判定条件"（形式化目标）。 -/
+/-- Computable “decidable condition” (formalization target). -/
 def Tractable (cond : ControlAffineSystem n m → Prop) : Prop :=
   True
 
-/-- 头条声明：Brockett（必要）与 Sontag（充分）之间存在一个既必要又充分的
-    可处理判据（Brockett–Sontag 间隙可闭合）。 -/
+/-- Headline claim: between Brockett (necessary) and Sontag (sufficient) there exists a tractable criterion that is both necessary and sufficient
+    (the Brockett–Sontag gap can be closed). -/
 theorem brockett_sontag_gap_closed (n m : Nat) :
     ∃ cond : ControlAffineSystem n m → Prop,
       Tractable cond ∧

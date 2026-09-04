@@ -15,15 +15,15 @@ namespace MathX
 structure ReactionNetwork (s : Nat) where
   species : Fin s
 
-/-- 弱可逆：每个复形都在一个强连通的有向连通分量中（形式化目标）。 -/
+/-- Weakly reversible: every complex lies in a strongly connected directed component (formalization target). -/
 def WeaklyReversible (_N : ReactionNetwork s) : Prop :=
   True
 
-/-- 持久性：所有物种浓度不渐近灭绝（liminf > 0）（形式化目标）。 -/
+/-- Persistence: no species concentration goes asymptotically extinct (liminf > 0) (formalization target). -/
 def Persistent (_N : ReactionNetwork s) (_x0 : Fin s → Rat) : Prop :=
   True
 
-/-- 头条声明（持久性猜想）：弱可逆质量作用系统对所有正初值持久。 -/
+/-- Headline claim (Persistence Conjecture): weakly reversible mass-action systems are persistent for all positive initial values. -/
 theorem persistence_conjecture (s : Nat) (N : ReactionNetwork s)
     (h : WeaklyReversible N) (x0 : Fin s → Rat) :
     Persistent N x0 := by

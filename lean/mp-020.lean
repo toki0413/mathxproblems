@@ -15,11 +15,11 @@ namespace MathX
 structure ScalarFieldTheory where
   dimension : Nat
 
-/-- 平凡性：连续极限下重整化耦合消失（形式化目标）。 -/
+/-- Triviality: the renormalized coupling vanishes in the continuum limit (formalization target). -/
 def Triviality (_t : ScalarFieldTheory) : Prop :=
   True
 
-/-- 头条声明：四维标量 λφ⁴ 场论平凡（自由场）。 -/
+/-- Headline claim: the four-dimensional scalar λφ⁴ field theory is trivial (free field). -/
 theorem phi4_triviality (t : ScalarFieldTheory) :
     Triviality t := by
   sorry

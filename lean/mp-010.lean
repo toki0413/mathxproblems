@@ -16,11 +16,11 @@ namespace MathX
 structure AndersonModel (d : Nat) where
   disorder : Rat
 
-/-- 离域化（形式化目标）。 -/
+/-- Delocalization (formalization target). -/
 def Delocalization (_m : AndersonModel d) : Prop :=
   True
 
-/-- 头条声明：三维 Anderson 模型在弱无序下离域化。 -/
+/-- Headline claim: the three-dimensional Anderson model is delocalized under weak disorder. -/
 theorem anderson_delocalization_3d (m : AndersonModel 3) :
     Delocalization m := by
   sorry

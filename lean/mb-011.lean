@@ -16,11 +16,11 @@ namespace MathX
 structure ContactProcess (d : Nat) where
   dimension : Nat
 
-/-- 临界感染率 λ_c(d)（形式化目标）。 -/
+/-- Critical infection rate λ_c(d) (formalization target). -/
 def CriticalInfectionRate (_p : ContactProcess d) : Rat :=
   0
 
-/-- 头条声明：整格接触过程的精确临界值存在且可刻画。 -/
+/-- Headline claim: the exact critical value of the contact process on the whole lattice exists and is characterizable. -/
 theorem exact_critical_value (d : Nat) (p : ContactProcess d) :
     0 < CriticalInfectionRate p := by
   sorry

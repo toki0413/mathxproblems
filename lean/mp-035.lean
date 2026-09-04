@@ -15,11 +15,11 @@ namespace MathX
 structure XYModel where
   temperature : Rat
 
-/-- 超流密度 ρ_s（形式化目标）。 -/
+/-- Superfluid density ρ_s (formalization target). -/
 def SuperfluidDensity (_m : XYModel) : Rat :=
   0
 
-/-- 头条声明：二维 XY 模型存在 BKT 相变且超流密度临界跳跃 ρ_s(T_c)/T_c = 2/π。 -/
+/-- Headline claim: the two-dimensional XY model has a BKT transition with superfluid-density critical jump ρ_s(T_c)/T_c = 2/π. -/
 theorem bkt_universal_jump (m : XYModel) :
     0 ≤ SuperfluidDensity m := by
   sorry

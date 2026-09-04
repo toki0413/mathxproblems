@@ -16,11 +16,11 @@ namespace MathX
 structure ElectronWaveFunction (N : Nat) where
   density : Rat
 
-/-- 间接（交换+关联）库仑能 W(ψ)（形式化目标）。 -/
+/-- Indirect (exchange + correlation) Coulomb energy W(ψ) (formalization target). -/
 def IndirectCoulombEnergy (_ψ : ElectronWaveFunction N) : Rat :=
   0
 
-/-- 头条声明：Lieb–Oxford 最优常数存在（当前纪录括区 1.44 < C_opt < 1.58）。 -/
+/-- Headline claim: the optimal Lieb–Oxford constant exists (current record range 1.44 < C_opt < 1.58). -/
 theorem lieb_oxford_constant_exists (N : Nat) (ψ : ElectronWaveFunction N) :
     0 ≤ IndirectCoulombEnergy ψ := by
   sorry

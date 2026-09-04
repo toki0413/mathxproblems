@@ -15,11 +15,11 @@ namespace MathX
 structure EulerWeakSolution where
   vorticity : Rat
 
-/-- 非唯一性（形式化目标）。 -/
+/-- Non-uniqueness (formalization target). -/
 def NonUniqueness (_u : EulerWeakSolution) : Prop :=
   True
 
-/-- 头条声明：无外力 2D Euler 弱解在涡度 L^∞_t(L^1∩L^p) 下非唯一。 -/
+/-- Headline claim: weak solutions of unforced 2D Euler are non-unique in the vorticity class L^∞_t(L^1∩L^p). -/
 theorem euler_2d_nonuniqueness (u : EulerWeakSolution) :
     NonUniqueness u := by
   sorry
