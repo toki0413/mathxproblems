@@ -9,6 +9,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { execFileSync as run } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { screenProvenModule } from './lib/lean-checks.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const leanDir = join(root, 'lean')
@@ -41,7 +42,15 @@ for (const id of ids) {
   console.log(`  ok compile: ${id}.lean`)
 
   if (isShared) {
-    console.log(`  ok shared module (no inline statement required): ${id}`)
+    // 防伪形式化（对标 Vero 的声明筛选 / axiom allowlist）：已证模块声称机器可查，
+    // 不得藏 axiom/sorry/admit/unsafe。陈述文件（mb-*.lean）合法含 by sorry，不在此列。
+    const cheat = screenProvenModule(canonical)
+    if (cheat.length) {
+      failed++
+      console.error(`FAIL anti-cheat: ${id}.lean is a SHARED-MODULE (claimed proven) but contains: ${cheat.join(', ')}`)
+    } else {
+      console.log(`  ok shared module (no inline statement required) + anti-cheat clean: ${id}`)
+    }
     continue
   }
 

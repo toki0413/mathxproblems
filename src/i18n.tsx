@@ -385,6 +385,10 @@ const STR: Record<string, { zh: string; en: string }> = {
     zh: '需求侧聚合覆盖：被倒查的问题/定律数、就绪度分布、工作流落点',
     en: 'Demand-side coverage: anchored problems/laws, readiness mix, workflow slots',
   },
+  'api.prooftasks.desc': {
+    zh: 'Vero 式 proof-only 任务清单：high 形式化潜力 + 可编译 Lean 陈述的证明义务',
+    en: 'Vero-style proof-only tasks: high-formalization problems with compilable Lean statements',
+  },
   'api.feed.desc': {
     zh: '最新收录的 RSS 订阅源（自动从目录生成）',
     en: 'RSS feed of the latest catalog additions (generated from the catalog)',

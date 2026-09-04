@@ -9,6 +9,7 @@ import { buildCatalog, buildBenchmark, buildTools, buildImpact, snapshotVersion 
 import { buildLaws } from "./laws.json";
 import { buildNeeds, buildCoverage } from "./needs.json";
 import { buildLedger } from "./ledger.json";
+import { buildProofTasks } from "./proof-tasks.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
 import { registerClaimsWriteRoutes } from "./claims-write";
@@ -96,6 +97,10 @@ app.get("/api/v1/impact.json", (c) => jsonReply(JSON.stringify(buildImpact()), c
 app.get("/api/v1/needs.json", (c) => jsonReply(JSON.stringify(buildNeeds()), c));
 // 需求侧聚合覆盖：被倒查的问题/定律数、就绪度分布、工作流落点（C，深化）。
 app.get("/api/v1/needs/coverage.json", (c) => jsonReply(JSON.stringify(buildCoverage()), c));
+// Vero 式 proof-only 任务清单（契约 v0.1）：formalization_potential=high 且有
+// 可编译 Lean 陈述的题，导出为规范+判定的证明义务，供 prover/agent 流水线消费
+// （对标 Vero arXiv 2608.13522 proof-only 模式；任务数量由 check-proof-tasks 守卫）。
+app.get("/api/v1/proof-tasks.json", (c) => jsonReply(JSON.stringify(buildProofTasks()), c));
 // 协议账本的可核验导出：只追加 + 参考核验器判定（契约 v0.1）。
 // 无数据库时（如纯前端 dev）降级为空的契约外壳，不因 DB 缺失而 500。
 app.get("/api/v1/ledger.json", async (c) => {

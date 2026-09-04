@@ -46,7 +46,9 @@ jobs:
           node scripts/check-needs.mjs
           node scripts/check-audits.mjs
           node scripts/check-tools.mjs
+          node scripts/check-proof-tasks.mjs
           node --test scripts/catalog-checks.test.mjs
+          node --test scripts/lean-checks.test.mjs
       - name: Lint & type-check
         # 产业级门禁：代码质量（eslint 0 error）+ 类型（tsc -b）与数据不变量
         # 守卫并列，任何一项失败即阻断部署，避免 lint/类型错误一路上线。

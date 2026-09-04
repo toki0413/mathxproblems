@@ -64,6 +64,7 @@ export function parseCatalog(src) {
   const hasCertificate = new Set()
   const hasDeliverables = new Set()
   const lifecycleStatuses = new Map() // id -> lifecycle_status 值
+  const formalizationPotentials = new Map() // id -> formalization_potential 值
   const formalViews = new Set()
   const formalStatuses = new Map() // id -> formal_view.status 值
   const formalJudgments = new Set() // id 含 formal_view.judgment(6 空格缩进,与顶层 4 空格不冲突)
@@ -104,6 +105,8 @@ export function parseCatalog(src) {
     const ocSource = line.match(/^      source: '((?:[^'\\]|\\.)*)'/)
     if (ocSource && cur) openClaimSources.set(cur, ocSource[1])
     if (/^    lean_statement:/.test(line) && cur) hasLeanStatement.add(cur)
+    const fpMatch = line.match(/^    formalization_potential: '([^']+)',/)
+    if (fpMatch && cur) formalizationPotentials.set(cur, fpMatch[1])
     if (/^    engineering_value:/.test(line) && cur) hasEngValue.add(cur)
     if (/^    impact_domains:/.test(line) && cur) hasImpact.add(cur)
     if (/^    certificate:/.test(line) && cur) hasCertificate.add(cur)
@@ -142,7 +145,7 @@ export function parseCatalog(src) {
       pendingNote = false
     }
   }
-  return { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasOpenClaim, openClaimQuotes, openClaimSources, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
+  return { src, ids, edges, judged, judgments, outputs, provenances, tiers, hasOpenClaim, openClaimQuotes, openClaimSources, hasLeanStatement, hasEngValue, hasImpact, hasTrace, dates, hasCertificate, hasDeliverables, lifecycleStatuses, formalizationPotentials, formalViews, formalStatuses, formalJudgments, bridges, bridgeDirections, bridgeResiduals }
 }
 
 // Run all checks over a parsed catalog. Returns structured findings so the CLI
@@ -454,4 +457,31 @@ export function checkCatalog(raw) {
   if (noTraceLegacy.length) warnings.push(`legacy problems missing proposer/via: ${noTraceLegacy.join(', ')}`)
 
   return { notes, failures, warnings }
+}
+
+// ── Vero 式 proof-only 任务清单（任务 1）────────────────────────────
+// 与 api/proof-tasks.json.ts 的 buildProofTasks 同源（都从 problems.ts 派生）：
+// 筛 formalization_potential='high' 且带 lean_statement（L0 锚点）的题，导出为
+// 可被 prover/agent 消费的证明义务。语义对标 Vero (arXiv 2608.13522) 的
+// proof-only 模式——给规范 + 判定，求机器可查证明；不是仓库级 code-and-proof。
+// 这里用正则从源码派生同一筛选，作为运行时出口的 CI 守卫（零漂移）。
+export const PROOF_TASK_MIN = 5 // 下限：低于说明筛选逻辑回归或目录被掏空
+export function deriveProofTasks(cat) {
+  const { ids, formalizationPotentials, hasLeanStatement, judgments } = cat
+  const notes = []
+  const failures = []
+  const warnings = []
+  const taskIds = ids
+    .filter((id) => formalizationPotentials.get(id) === 'high' && hasLeanStatement.has(id))
+    .sort()
+  const dup = taskIds.filter((id, i) => taskIds.indexOf(id) !== i)
+  const noJudge = taskIds.filter((id) => !(judgments.get(id) ?? '').trim())
+  if (taskIds.length < PROOF_TASK_MIN)
+    failures.push(`proof tasks below floor (${PROOF_TASK_MIN}): only ${taskIds.length}`)
+  if (dup.length) failures.push(`duplicate proof task ids: ${[...new Set(dup)].join(', ')}`)
+  if (noJudge.length) failures.push(`proof tasks missing judgment: ${noJudge.join(', ')}`)
+  notes.push(
+    `proof tasks (Vero-style proof-only, high + lean_statement): ${taskIds.length} (${taskIds.join(', ')})`,
+  )
+  return { notes, failures, warnings, tasks: taskIds }
 }

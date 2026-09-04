@@ -23,6 +23,8 @@
 - 后端统一入口：`api/boot.ts`，tRPC 挂载于 `/api/trpc/*`，其余 `/api/*` 返回 404
 - 双桥写路径门面：`api/claims-write.ts` 在 `/api/v1/claims/:id/narrow|formal` 注册审稿中介的写接口（spec `docs/superpowers/specs/2026-08-30-dual-bridge-design.md` §6 方案 C 第一版），默认闭门返回 501，置 `CLAIMS_WRITE_ENABLED=1` 放开；放开后与 tRPC `attempts.submit` 共用 `problem_attempts` 账本与审稿闭环，不产生第二份事实来源
 - 障碍路由层：`api/obstacle-graph.ts` 启动时从目录 obstacles 构建跨题相似链（双语签名 + Jaccard），`/api/v1/obstacles.json` 暴露链与「方法→可解锁问题」unlocks；`feed.json` 的 verification 事件附 `bits`（题内链式信息量增益，定义在 `contracts/band.ts`）
+- Vero 式 proof-only 任务清单：`api/proof-tasks.json.ts` 从目录筛 `formalization_potential=high` 且有 `lean_statement` 的题，`/api/v1/proof-tasks.json` 暴露「规范（lean_statement）+ 判定（judgment）」证明义务（对标 Vero arXiv 2608.13522 proof-only 模式，无实现层）；`scripts/check-proof-tasks.mjs` 守卫与运行时零漂移（同源筛选）
+- Lean 守卫：`scripts/check-lean.mjs` 逐字编译 `lean/*.lean`（std-only）+ 内联一致性比对；SHARED-MODULE（已证）模块经 `scripts/lib/lean-checks.mjs` 的 axiom/sorry/admit/unsafe 防作弊筛查（先剥注释与字符串字面量，避免散文误报）
 - tRPC router：`api/router.ts` 聚合 `submissions / updates / attempts / comments / flags` 五个子 router；`AppRouter` 由 `typeof appRouter` 导出，供前端 `src/providers/trpc.tsx` 类型推导
 - 中间件分层（`api/middleware.ts`）：`publicQuery` / `adminQuery`；`adminQuery` 校验 `Authorization: Bearer <ADMIN_TOKEN>`，失败抛 `FORBIDDEN`（匿名社区无登录，审核接口不对社区用户开放）
 - 错误约定：`contracts/errors.ts` 的 `Errors.{badRequest,unauthorized,forbidden,notFound,internal,notImplemented}` 返回 `{tag:'app_error',status,message}`

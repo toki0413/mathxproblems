@@ -5,9 +5,14 @@
 
 ## [Unreleased]
 
+### 新增
+
+- **Vero 式 proof-only 任务清单**：新出口 `GET /api/v1/proof-tasks.json`，把 formalization_potential=high 且有可编译 Lean 陈述的题（38 个）导出为「规范 + 判定」的证明义务，供 prover/agent 流水线消费（对标 Vero arXiv 2608.13522 proof-only 模式）；`check-proof-tasks` 守卫 + 零漂移测试保证与运行时一致
+
 ### 安全
 
 - **全站安全响应头**：CSP / HSTS / X-Frame-Options / X-Content-Type-Options / Referrer-Policy / Permissions-Policy 由 Worker 统一注入（API 与静态资源一致），补齐 Cloudflare 侧产业级验收项
+- **formal 审稿防作弊**：已证共享 Lean 模块（SHARED-MODULE / proof_steps）经 axiom/sorry/admit/unsafe 筛查（剥注释与字符串后），防止"伪形式化"通过 CI（对标 Vero 声明筛选 / axiom allowlist）
 
 ### 性能与清理
 

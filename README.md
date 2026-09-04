@@ -25,7 +25,7 @@ MathX Problems 是面向"AI for math"的基础设施：过去两年 AI 在纯数
 | **双语切换** | 全站中英一键切换（~350 键 i18n），数据字段按语言渲染，杜绝混排 |
 | **关系网络图** | 五类关系 `depends_on / implies / shares_tools / generalizes / analog_of`，对称边由数据侧自动派生，交互式图谱浏览 |
 | **障碍路由层** | 从目录构建跨题"已知障碍"相似链 + 方法解锁（方法 → 还能松哪些题的绑），`/api/v1/obstacles.json` 暴露 |
-| **Lean 形式化锚点** | 112 个陈述由 CI 用 Lean 4 工具链逐字编译 + 内联一致性守卫（L0 锚点），UI 文案与已验证内容零漂移 |
+| **Lean 形式化锚点** | 112 个陈述由 CI 用 Lean 4 工具链逐字编译 + 内联一致性守卫（L0 锚点），UI 文案与已验证内容零漂移；已证共享模块经 axiom/sorry 防作弊筛查（对标 Vero） |
 | **经验定律图谱** | 6 条经验定律（Michaelis–Menten、Monod、mixing-length、Fourier、Darcy、S–N/Miner）的边界/失效域/形式化缺口 |
 | **工程反向需求清单** | 24 条需求，判定链锚定 41 道题 + 4 条定律，缺口驱动收题流水线 |
 | **影响域证据链** | 30 个影响域注册表，18 篇 arXiv 论文逐篇人工核验（非生成），26 道题挂接 |
@@ -49,6 +49,7 @@ GET /api/v1/laws.json          经验定律边界图谱
 GET /api/v1/impact.json        影响域实证链（arXiv 证据锚点）
 GET /api/v1/needs.json         工程反向需求清单
 GET /api/v1/needs/coverage.json 需求侧聚合覆盖
+GET /api/v1/proof-tasks.json   Vero 式 proof-only 任务清单（规范 + 判定，供 prover 消费）
 GET /api/v1/ledger.json        协议账本导出
 GET /api/v1/feed.json          变更 feed（带证收窄 + 形式化补证）
 GET /api/v1/obstacles.json     障碍路由层

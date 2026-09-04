@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import { checkCatalog, MECHANISMS, FAILURE_LAYERS } from './lib/catalog-checks.mjs'
+import { checkCatalog, deriveProofTasks, parseCatalog, MECHANISMS, FAILURE_LAYERS, PROOF_TASK_MIN } from './lib/catalog-checks.mjs'
 import { verifyCertificate, checkInformation, checkRParamClause } from '../contracts/verifier.ts'
 
 // Minimal but rule-valid problem block. Every field is required by some rule;
@@ -512,4 +512,67 @@ test('open_claim missing quote or source fails the structure check', () => {
     },`
   const src = claimProblem('x-042', "    tier: 'vetted',\n", partial)
   assert.ok(failures(src).some((f) => f.includes('open_claim must carry both') && f.includes('x-042')))
+})
+
+// ── Vero 式 proof-only 任务清单（任务 1）──
+function taskProblem(id, fp, withLean) {
+  const lean = withLean ? "    lean_statement: 'theorem t : True := by trivial',\n" : ''
+  return `export const PROBLEMS = [ {
+    id: '${id}',
+    output: 'verified_truth',
+    judgment: 'A pass proves the claim.',
+    formalization_potential: '${fp}',
+${lean}    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+} ]`
+}
+
+test('deriveProofTasks selects only high + lean_statement and sorts', () => {
+  // 6 个 high+lean（≥ 下限 5，避免 floor 告警干扰断言）混入 2 个应被排除的题。
+  const src = [
+    taskProblem('me-002', 'high', true),
+    taskProblem('mp-001', 'high', false), // high 但无陈述 → 排除
+    taskProblem('mb-001', 'medium', true), // 有陈述但 medium → 排除
+    taskProblem('mc-001', 'high', true),
+    taskProblem('mc-002', 'high', true),
+    taskProblem('me-001', 'high', true),
+    taskProblem('mp-002', 'high', true),
+    taskProblem('mb-002', 'high', true),
+  ].join('')
+  const { tasks, failures } = deriveProofTasks(parseCatalog(src))
+  assert.deepEqual(tasks, ['mb-002', 'mc-001', 'mc-002', 'me-001', 'me-002', 'mp-002'])
+  assert.ok(!failures.some((f) => f.includes('below floor')))
+})
+
+test('deriveProofTasks flags an empty selection against the floor', () => {
+  const src = taskProblem('mp-001', 'low', false)
+  const { tasks, failures } = deriveProofTasks(parseCatalog(src))
+  assert.deepEqual(tasks, [])
+  assert.ok(failures.some((f) => f.includes(`below floor (${PROOF_TASK_MIN})`)))
+})
+
+test('deriveProofTasks flags tasks missing a judgment', () => {
+  const src = `export const PROBLEMS = [ {
+    id: 'mc-002',
+    output: 'verified_truth',
+    formalization_potential: 'high',
+    lean_statement: 'theorem t : True := by trivial',
+    impact_domains: ['d'],
+    proposer: 'X',
+    date_added: '2026-08-22',
+    related_problems: [],
+} ]`
+  const { failures } = deriveProofTasks(parseCatalog(src))
+  assert.ok(failures.some((f) => f.includes('missing judgment') && f.includes('mc-002')))
+})
+
+test('real catalog derives a non-trivial proof-task set (zero-drift vs runtime)', () => {
+  const src = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'src/data/problems.ts'), 'utf8')
+  const { tasks, failures } = deriveProofTasks(parseCatalog(src))
+  // 数量锚点与 api/proof-tasks.test.ts 的 PROOF_TASK_COUNT 对齐（=38）。
+  assert.equal(tasks.length, 38, `expected 38 proof tasks, got ${tasks.length}`)
+  assert.equal(failures.length, 0)
+  assert.equal(new Set(tasks).size, tasks.length)
 })
