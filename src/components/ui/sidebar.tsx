@@ -607,7 +607,10 @@ function SidebarMenuSkeleton({
   showIcon?: boolean
 }) {
   // Random width between 50 to 90%.
+  // shadcn 模板的 Skeleton 演示写法：未被业务引用（未参与生产渲染树），
+  // Math.random() 属渲染期不纯调用，但仅存在于未用模板组件，豁免该规则。
   const width = React.useMemo(() => {
+    // eslint-disable-next-line react-hooks/purity
     return `${Math.floor(Math.random() * 40) + 50}%`
   }, [])
 

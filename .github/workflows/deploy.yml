@@ -47,6 +47,12 @@ jobs:
           node scripts/check-audits.mjs
           node scripts/check-tools.mjs
           node --test scripts/catalog-checks.test.mjs
+      - name: Lint & type-check
+        # 产业级门禁：代码质量（eslint 0 error）+ 类型（tsc -b）与数据不变量
+        # 守卫并列，任何一项失败即阻断部署，避免 lint/类型错误一路上线。
+        run: |
+          npm run lint
+          npm run check
       - name: Lean anchor guard (compile lean/*.lean + inline sync)
         # Lean 4 工具链（elan, Std-only）——陈述必须真实编译通过，否则部署失败。
         run: |

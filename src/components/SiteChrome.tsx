@@ -47,6 +47,9 @@ export function SiteHeader() {
   const loc = useLocation()
   const [open, setOpen] = useState(false)
   const { t } = useI18n()
+  // 路由切换时关闭移动端菜单：这是有意的"effect 内同步 setState"（导航副作
+  // 用，非级联渲染反模式），关闭 react-hooks/set-state-in-effect 误报。
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setOpen(false), [loc.pathname])
   useEffect(() => {
     window.scrollTo(0, 0)

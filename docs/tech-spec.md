@@ -7,15 +7,15 @@
 
 - 语言/运行时：TypeScript（`strict`，`verbatimModuleSyntax`，`erasableSyntaxOnly`，见 `tsconfig.app.json`）、Node.js、React 19
 - 前端构建：Vite + React + Tailwind CSS + shadcn/ui 组件（`src/components/ui/*`）
-- 数据：无构建期数据库依赖实体；目录数据为静态 TS 数据 `src/data/problems.ts`；社区提交与更新写入 MySQL（Drizzle ORM）
-- 后端：Hono + tRPC v11（`@trpc/server`），Drizzle ORM + `mysql2`，会话用 Kimi OAuth + `jose`
+- 数据：无构建期数据库依赖实体；目录数据为静态 TS 数据 `src/data/problems.ts`；社区提交与更新写入 Cloudflare D1（SQLite，`drizzle-orm/sqlite-core`）
+- 后端：Hono + tRPC v11（`@trpc/server`），Drizzle ORM + D1（`drizzle-orm/sqlite-core`），会话用 Kimi OAuth + `jose`
 - 环境：Docker、GitHub Actions（`vite.config.ts` 由 `api/lib/vite.ts` 注入 dev server）
 
 ## entry
 
 - 前端：`src/main.tsx` → 挂载顺序 `BrowserRouter → TRPCProvider → LanguageProvider → App`（见 `src/App.tsx` 路由表）
 - 服务端：`api/boot.ts`（Hono app；生产环境 `PORT` 默认 3000，若 `NODE_ENV=production` 则同时 `serveStaticFiles`）
-- 数据源：`src/data/problems.ts`（约 65 题，静态目录，唯一事实来源，不含查库）
+- 数据源：`src/data/problems.ts`（121 题，静态目录，唯一事实来源，不含查库）
 
 ## contract
 
@@ -27,7 +27,7 @@
 - 中间件分层（`api/middleware.ts`）：`publicQuery` / `authedQuery` / `adminQuery`；`authedQuery` 抛 `UNAUTHORIZED`，`adminQuery` 抛 `FORBIDDEN`
 - 错误约定：`contracts/errors.ts` 的 `Errors.{badRequest,unauthorized,forbidden,notFound,internal,notImplemented}` 返回 `{tag:'app_error',status,message}`
 - 审计常量：`contracts/constants.ts`（会话 cookie 名、错误文案、OAuth 回调路径、`PROBLEM_ID_RE`、`FORMAL_STATUSES`）；前端里程碑常量在 `src/const.ts`（`GOAL_PROBLEMS=120`）
-- 数据库表：`db/schema.ts` — `users`、`submissions`、`problem_updates`、`problem_attempts`（后三者外键指向 `users.id`，类型为 `bigint(...unsigned)`）。`problem_updates` 为管理员直写；`problem_attempts` 为社区对已有问题提交的进展/解答候选（`kind` ∈ progress/solution/revision/verification/formal；`kind='formal'` 的形式化补证声明另携 `formalStatus` ∈ provable/conjectured/refuted；可选 `method` 自由文本标签供障碍图路由），静默待审、审核通过后在详情页「社区候选」区展示；已通过的 verification/formal 事件经 `feed.json` 暴露给下游 agent/prover 流水线
+- 数据库表：`db/schema.ts` — `users`、`submissions`、`problem_updates`、`problem_attempts`（后三者外键指向 `users.id`，类型为 `integer`，SQLite/D1 方言）。`problem_updates` 为管理员直写；`problem_attempts` 为社区对已有问题提交的进展/解答候选（`kind` ∈ progress/solution/revision/verification/formal；`kind='formal'` 的形式化补证声明另携 `formalStatus` ∈ provable/conjectured/refuted；可选 `method` 自由文本标签供障碍图路由），静默待审、审核通过后在详情页「社区候选」区展示；已通过的 verification/formal 事件经 `feed.json` 暴露给下游 agent/prover 流水线
 
 ## convention
 

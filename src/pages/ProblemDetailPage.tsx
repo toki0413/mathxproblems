@@ -147,6 +147,8 @@ export default function ProblemDetailPage() {
     const url = `${window.location.origin}/problems/${p.id}`
     const desc = `${p.domain} · ${p.subdomain} · ${p.status} · ${p.provenance ?? 'AI-drafted'} · added ${p.date_added}`
     const prevTitle = document.title
+    // document.title 是浏览器合法可写属性，react-hooks/immutability 在此为误报。
+    // eslint-disable-next-line react-hooks/immutability
     document.title = `${p.title} — ${base}`
 
     const setMeta = (prop: string, content: string) => {
@@ -210,24 +212,12 @@ export default function ProblemDetailPage() {
     ].join('\n')
   }, [p])
 
-  if (!p) {
-    return (
-      <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-        <p className="font-statement text-2xl">{t('pd.notFound')}</p>
-        <Link to="/problems" className="mt-4 inline-block text-ink-2 underline underline-offset-4">
-          {t('pd.back')}
-        </Link>
-      </div>
-    )
-  }
-
-  // 需求侧倒查：哪些工程需求把这道题当作支撑（从 /needs 反查回来），并给出本问题
-  // 在每条需求链里扮演的角色、此刻状态与"解出即推进"的落点。
-  const demandingLinks = demandLinksForProblem(p.id)
   // 障碍路由层（P1-2 复用市场）：跨题障碍链 + 方法解锁，供「同障碍问题」面板使用。
+  // hook 必须在早退（if !p）之前调用，保证渲染间顺序稳定（rules-of-hooks）。
   const obstacleGraph = useObstacleGraph()
   // 与本题共享已知障碍的邻题（按 Jaccard 相似度取最高、截 8 条）。
   const obstacleNeighbors = useMemo(() => {
+    if (!p) return []
     const links = obstacleGraph?.links ?? []
     const map = new Map<string, { head: string; score: number }>()
     for (const l of links) {
@@ -244,7 +234,22 @@ export default function ProblemDetailPage() {
       .filter((x) => x.target)
       .sort((a, b) => b.score - a.score)
       .slice(0, 8)
-  }, [obstacleGraph, p.id])
+  }, [obstacleGraph, p])
+
+  if (!p) {
+    return (
+      <div className="mx-auto max-w-6xl px-5 py-24 text-center">
+        <p className="font-statement text-2xl">{t('pd.notFound')}</p>
+        <Link to="/problems" className="mt-4 inline-block text-ink-2 underline underline-offset-4">
+          {t('pd.back')}
+        </Link>
+      </div>
+    )
+  }
+
+  // 需求侧倒查：哪些工程需求把这道题当作支撑（从 /needs 反查回来），并给出本问题
+  // 在每条需求链里扮演的角色、此刻状态与"解出即推进"的落点。
+  const demandingLinks = demandLinksForProblem(p.id)
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">

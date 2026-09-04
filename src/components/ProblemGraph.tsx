@@ -254,7 +254,7 @@ export function ProblemGraph({
     })()
 
     // camera: world→screen is screen = (world - cam) * k + center
-    let cam = { x: W / 2, y: H / 2 }
+    const cam = { x: W / 2, y: H / 2 }
     let k = full ? 0.9 : 1
     const toScreen = (wx: number, wy: number) => ({
       x: (wx - cam.x) * k + W / 2,

@@ -7,8 +7,8 @@
 ## 技术栈
 
 - 前端：React 19 + TypeScript + Vite + Tailwind CSS + shadcn/ui
-- 后端：Hono + tRPC v11 + Drizzle ORM + MySQL
-- 认证：Kimi OAuth + jose 会话
+- 后端：Hono + tRPC v11 + Drizzle ORM + Cloudflare D1 (SQLite)
+- 认证：Kimi OAuth + jose 会话（独立管理入口走 Bearer 令牌）
 
 ## 目录结构
 

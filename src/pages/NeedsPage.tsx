@@ -15,6 +15,9 @@ import { sourcingProposals } from '@/data/sourcingCandidates'
 import { Reveal } from '@/components/Reveal'
 import { useI18n } from '@/i18n'
 
+// 就绪度排序权重（模块级常量：供 useMemo 依赖，避免每次渲染重建）。
+const RANK: Record<string, number> = { gap: 0, partial: 1, served: 2 }
+
 // 角色 → 徽章：certificate=可直接消费（绿），anchor=奠基结构证（蓝），related=支撑（灰），law=经验定律（琥珀）。
 const ROLE_COLOR: Record<NeedChainRole, { cls: string; label: string }> = {
   certificate: { cls: 'text-mc border-mc/50', label: 'certificate' },
@@ -46,8 +49,8 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 export default function NeedsPage() {
   const { lang, t } = useI18n()
-  const byId = new Map(PROBLEMS.map((p) => [p.id, p]))
-  const lawById = new Map(LAWS.map((l) => [l.id, l]))
+  const byId = useMemo(() => new Map(PROBLEMS.map((p) => [p.id, p])), [])
+  const lawById = useMemo(() => new Map(LAWS.map((l) => [l.id, l])), [])
 
   // 按工程领域分组
   const areas: { area: string; needs: typeof ENGINEERING_NEEDS }[] = []
@@ -61,7 +64,6 @@ export default function NeedsPage() {
 
   // 视图切换：缺口驱动（gap 置顶）/ 按领域分组
   const [mode, setMode] = useState<'gap' | 'area'>('gap')
-  const RANK = { gap: 0, partial: 1, served: 2 }
   const gapSorted = useMemo(
     () => [...ENGINEERING_NEEDS].sort((a, b) => RANK[a.readiness] - RANK[b.readiness] || a.id.localeCompare(b.id)),
     [],

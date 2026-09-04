@@ -174,7 +174,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   'pd.lifecycle.superseded': { zh: '已被取代', en: 'Superseded' },
   'pd.lifecycle.refutedHint': {
     zh: '本题核心结论已被反例击穿，不再可信。反例来源见下方更新记录。',
-    en: 'This problem&apos;s core claim has been refuted by a counterexample. See the update records for the source.',
+    en: 'This problem\'s core claim has been refuted by a counterexample. See the update records for the source.',
   },
   'pl.deliverableHint': {
     zh: '从你的工程交付物出发，反向找到由哪个带证问题直接支撑（反向索引）。',

@@ -2,7 +2,7 @@
 // 双桥愿景的需求侧出口：工程师/下游 agent 从工程需求反查支撑它的目录问题与
 // 经验定律（判定链），附就绪度（served/partial/gap）、对接标准、可消费形态、
 // 障碍与工作流落点。随契约 v0.1 版本化。
-import { ENGINEERING_NEEDS, chainStepState, demandCoverage, type NeedStepState } from "../src/data/engineeringNeeds";
+import { ENGINEERING_NEEDS, chainStepState, demandCoverage } from "../src/data/engineeringNeeds";
 import { AUDITED_PROBLEMS } from "../src/data/audits";
 import { LAWS } from "../src/data/laws";
 
