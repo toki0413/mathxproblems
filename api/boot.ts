@@ -9,6 +9,7 @@ import { buildCatalog, buildBenchmark, buildTools, buildImpact, snapshotVersion 
 import { buildLaws } from "./laws.json";
 import { buildNeeds, buildCoverage } from "./needs.json";
 import { buildLedger } from "./ledger.json";
+import { buildAttestations } from "./attestations.json";
 import { buildProofTasks } from "./proof-tasks.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
@@ -101,6 +102,9 @@ app.get("/api/v1/needs/coverage.json", (c) => jsonReply(JSON.stringify(buildCove
 // 可编译 Lean 陈述的题，导出为规范+判定的证明义务，供 prover/agent 流水线消费
 // （对标 Vero arXiv 2608.13522 proof-only 模式；任务数量由 check-proof-tasks 守卫）。
 app.get("/api/v1/proof-tasks.json", (c) => jsonReply(JSON.stringify(buildProofTasks()), c));
+// 机器核验纪录括区的公证快照（Tier 0）：确定性、任何人可复算、ETag 可增量拉取。
+// 与 ledger.json（人/AI 声明事件）严格区分——公证的是"机器核验的既有事实"而非"声明"。
+app.get("/api/v1/attestations.json", (c) => jsonReply(JSON.stringify(buildAttestations()), c));
 // 协议账本的可核验导出：只追加 + 参考核验器判定（契约 v0.1）。
 // 无数据库时（如纯前端 dev）降级为空的契约外壳，不因 DB 缺失而 500。
 app.get("/api/v1/ledger.json", async (c) => {

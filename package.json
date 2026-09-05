@@ -15,6 +15,7 @@
     "check:impact": "node scripts/check-impact.mjs",
     "check:needs": "node scripts/check-needs.mjs",
     "check:audits": "node scripts/check-audits.mjs",
+    "check:attestations": "node scripts/check-attestations.mjs",
     "check:links": "node scripts/check-links.mjs",
     "check:ledger": "node scripts/check-ledger.mjs",
     "check:lean": "node scripts/check-lean.mjs",
