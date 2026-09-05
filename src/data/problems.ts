@@ -9764,6 +9764,250 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'cs-015',
+    output: 'verified_truth',
+    judgment:
+      'Characterize exactly which loss functions are robust to symmetric and asymmetric label noise: van Rooyen–Menon–Williamson (arXiv:1505.07634) prove the unhinged loss is SLN-robust despite convexity by being negatively unbounded; decide whether risk-consistency under symmetric label noise is characterized by a simple algebraic condition on the loss (and whether it is equivalent to the minimizer of the noisy risk being the clean risk minimizer), and whether the negative-unboundedness mechanism is necessary for convex SLN-robust losses; a pass is a machine-checkable statement of the characterization or a counterexample loss.',
+    title: 'Characterizing Loss Robustness to Symmetric and Asymmetric Label Noise',
+    titleZh: '对称与非对称标签噪声下损失鲁棒性的刻画',
+    domain: 'mathematical-computer-science',
+    subdomain: 'noise-robust-learning-theory',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['noise-robust-learning', 'symmetric-label-noise', 'risk-consistency', 'loss-design'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we propose a convex, classification-calibrated loss and prove that it is SLN-robust',
+      source: 'https://arxiv.org/abs/1505.07634',
+    },
+    proposer: 'B. van Rooyen, A. K. Menon, R. C. Williamson',
+    proposed_year: 2015,
+    via: {
+      label: 'B. van Rooyen, A. K. Menon, R. C. Williamson, Learning with Symmetric Label Noise: The Importance of Being Unhinged, arXiv:1505.07634 (2015)',
+      url: 'https://arxiv.org/abs/1505.07634',
+    },
+    related_problems: [
+      {
+        id: 'cs-017',
+        relation: 'shares_tools',
+        note: 'Both characterize which losses are robust to label noise; cs-015 via risk consistency under symmetric noise, cs-017 via sufficient conditions for multiclass.',
+      },
+      {
+        id: 'cs-012',
+        relation: 'shares_tools',
+        note: 'Both are learning-theoretic statements about when noisy/interpolating training still yields the clean risk minimizer.',
+      },
+    ],
+    statement:
+      'Long–Servedio (2010) showed that no convex potential over a linear class is SLN-robust; van Rooyen–Menon–Williamson (arXiv:1505.07634) escape this by the unhinged loss, which is convex, classification-calibrated, and negatively unbounded. Decide whether the full class of SLN-robust losses admits an exact algebraic characterization — e.g., an additivity/symmetry condition relating the noisy and clean risks — and whether negative unboundedness is necessary for a convex SLN-robust loss. The boundary between SLN-robust and SLN-fragile losses is known only through examples, not a theorem.',
+    origin:
+      'The paper proves SLN-robustness of the unhinged loss and shows it is the limiting solution for any convex potential, but the exact characterization of SLN-robust losses and the necessity of the mechanism are not established.',
+    progress: [],
+    obstacles: [
+      'SLN-robustness is a property of the risk over a function class, not just the loss; a characterization must fix the class before the condition is meaningful.',
+    ],
+    formalization_notes:
+      'The statement reduces to a comparison of two risk functionals (noisy vs. clean) over a function class — formalizable in principle once the class and noise model are fixed.',
+    references: [
+      {
+        label: 'B. van Rooyen, A. K. Menon, R. C. Williamson, Learning with Symmetric Label Noise: The Importance of Being Unhinged, arXiv:1505.07634 (2015)',
+        url: 'https://arxiv.org/abs/1505.07634',
+      },
+      {
+        label: 'N. Natarajan, I. S. Dhillon, P. Ravikumar, A. Tewari, Learning with Noisy Labels, NeurIPS 2013',
+        url: '',
+      },
+    ],
+    impact_domains: ['Noise-robust learning engineering'],
+  },
+  {
+    id: 'cs-016',
+    output: 'verified_truth',
+    judgment:
+      'Quantify the memorization of noisy labels and the implicit regularization that coexists with it: prove bounds on how many randomly or adversarially labeled examples a network of given capacity (width, depth, parameters) can fit, and decide whether the learning-order phenomenon — networks fitting simple patterns before memorizing noise (Arpit et al., arXiv:1706.05394) — can be made into a provable statement about gradient dynamics; characterize the regularization (explicit or implicit) that suppresses noise memorization without hurting clean-data generalization; a pass is a machine-checkable statement of a memorization-capacity bound or a proof of the simplicity-first learning order.',
+    title: 'Memorization Capacity of Noisy Labels and the Simplicity-First Learning Order',
+    titleZh: '噪声标签的记忆容量与先简后繁学习顺序',
+    domain: 'mathematical-computer-science',
+    subdomain: 'noise-memorization',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['noise-memorization', 'label-noise', 'implicit-regularization', 'learning-order'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'While deep networks are capable of memorizing noise data, our results suggest that they tend to prioritize learning simple patterns first',
+      source: 'https://arxiv.org/abs/1706.05394',
+    },
+    proposer: 'D. Arpit, S. Jastrzębski, N. Ballas, D. Krueger, E. Bengio, M. S. Kanwal, T. Maharaj, A. Fischer, A. Courville, Y. Bengio, S. Lacoste-Julien',
+    proposed_year: 2017,
+    via: {
+      label: 'D. Arpit et al., A Closer Look at Memorization in Deep Networks (ICML 2017), arXiv:1706.05394',
+      url: 'https://arxiv.org/abs/1706.05394',
+    },
+    related_problems: [
+      {
+        id: 'cs-012',
+        relation: 'shares_tools',
+        note: 'Both concern why overparameterized networks generalize despite fitting noise; cs-012 in the linear interpolating regime, cs-016 in the memorization/learning-order regime.',
+      },
+      {
+        id: 'cs-009',
+        relation: 'shares_tools',
+        note: 'Both are capacity questions about subnetworks/networks; cs-009 trainability of sparse tickets, cs-016 how much noise a full network memorizes.',
+      },
+    ],
+    statement:
+      'Zhang et al. (arXiv:1611.03530) showed deep networks can fit random labels to zero training error; Arpit et al. (arXiv:1706.05394) observed that networks nonetheless learn simple patterns before memorizing noise; Rolnick et al. (arXiv:1705.10694) found networks generalize well even when clean labels are massively diluted with wrong ones. Decide the quantitative content: what is the memorization capacity of a network family (how many noise labels can it fit), and can the simplicity-first learning order be proven from the gradient dynamics under stated assumptions? The observations are empirical; no capacity bound or proof of the learning order exists.',
+    origin:
+      'The three papers establish the phenomenology of noise memorization and robustness empirically. The capacity bound for fitting noise, the provable learning order, and the exact role of implicit regularization are not established.',
+    progress: [],
+    obstacles: [
+      'Memorization capacity depends on the optimization trajectory, not just the function class; a bound must fix the dynamics before it is meaningful.',
+    ],
+    formalization_notes:
+      'A capacity or learning-order statement requires a formal model of gradient dynamics; without one the claim is not structured for formalization.',
+    references: [
+      {
+        label: 'D. Arpit et al., A Closer Look at Memorization in Deep Networks, arXiv:1706.05394 (2017)',
+        url: 'https://arxiv.org/abs/1706.05394',
+      },
+      {
+        label: 'C. Zhang, S. Bengio, M. Hardt, B. Recht, O. Vinyals, Understanding deep learning requires rethinking generalization, arXiv:1611.03530 (2016)',
+        url: 'https://arxiv.org/abs/1611.03530',
+      },
+      {
+        label: 'D. Rolnick, A. Veit, S. Belongie, N. Shavit, Deep Learning is Robust to Massive Label Noise, arXiv:1705.10694 (2017)',
+        url: 'https://arxiv.org/abs/1705.10694',
+      },
+    ],
+    impact_domains: ['Noise-robust learning engineering'],
+  },
+  {
+    id: 'cs-017',
+    output: 'verified_truth',
+    judgment:
+      'Sharpen the sufficient conditions for noise-tolerant loss functions: Ghosh–Kumar–Sastry (arXiv:1712.09482) give sufficient conditions (a symmetry-type condition for binary, boundedness/symmetry for multiclass) under which risk minimization with that loss is inherently tolerant to label noise; decide whether their conditions are also necessary, give the exact class of multiclass loss functions whose noisy risk minimizer equals the clean one for stated noise models, and determine whether the sufficient conditions can be weakened while preserving noise tolerance; a pass is a machine-checkable statement of the characterization or a counterexample loss that is noise-tolerant without satisfying the stated conditions.',
+    title: 'Necessary Conditions for Noise-Tolerant Loss Functions in Multiclass Classification',
+    titleZh: '多分类噪声容忍损失函数的必要条件',
+    domain: 'mathematical-computer-science',
+    subdomain: 'noise-robust-loss',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['noise-robust-loss', 'label-noise', 'loss-design', 'risk-minimization'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we provide some sufficient conditions on a loss function so that risk minimization under that loss function would be inherently tolerant to label noise for multiclass classification problems',
+      source: 'https://arxiv.org/abs/1712.09482',
+    },
+    proposer: 'A. Ghosh, H. Kumar, P. S. Sastry',
+    proposed_year: 2017,
+    via: {
+      label: 'A. Ghosh, H. Kumar, P. S. Sastry, Robust Loss Functions under Label Noise for Deep Neural Networks (AAAI 2017), arXiv:1712.09482',
+      url: 'https://arxiv.org/abs/1712.09482',
+    },
+    related_problems: [
+      {
+        id: 'cs-015',
+        relation: 'shares_tools',
+        note: 'Both characterize noise-tolerant losses; cs-017 the multiclass sufficient conditions, cs-015 the symmetric-noise algebraic structure.',
+      },
+      {
+        id: 'cs-018',
+        relation: 'shares_tools',
+        note: 'Both require an explicit label-noise process model; cs-017 through the loss, cs-018 through the estimated noise matrix.',
+      },
+    ],
+    statement:
+      'Ghosh–Kumar–Sastry (arXiv:1712.09482) prove that a symmetric loss is noise-tolerant for binary classification and give sufficient conditions (bounded, symmetric) for multiclass noise tolerance, showing e.g. the mean-absolute-error loss is robust. Decide whether the sufficient conditions are also necessary: characterize exactly the multiclass losses whose risk minimizer is invariant to stated label-noise models, and whether the boundedness/symmetry conditions can be relaxed. The paper establishes sufficiency for a family; the exact boundary of the noise-tolerant loss class is not characterized.',
+    origin:
+      'The paper generalizes binary noise-tolerance results to multiclass and exhibits sufficient conditions; whether those conditions are tight, and the full boundary of the robust loss class, is not established.',
+    progress: [],
+    obstacles: [
+      'Multiclass noise tolerance depends on the noise transition structure; a necessity result must fix the noise model (symmetric, class-conditional, instance-dependent) before it is meaningful.',
+    ],
+    formalization_notes:
+      'The claim is a statement about risk minimizers under a noise-transition matrix — formalizable in principle once the noise model and loss family are fixed.',
+    references: [
+      {
+        label: 'A. Ghosh, H. Kumar, P. S. Sastry, Robust Loss Functions under Label Noise for Deep Neural Networks, arXiv:1712.09482 (2017)',
+        url: 'https://arxiv.org/abs/1712.09482',
+      },
+      {
+        label: 'Z. Zhang, M. R. Sabuncu, Generalized Cross Entropy Loss for Training Deep Neural Networks with Noisy Labels, arXiv:1805.07836 (2018)',
+        url: 'https://arxiv.org/abs/1805.07836',
+      },
+    ],
+    impact_domains: ['Noise-robust learning engineering'],
+  },
+  {
+    id: 'cs-018',
+    output: 'verified_truth',
+    judgment:
+      'Establish the identifiability and estimation guarantees of label-noise and label-quality estimation: confident learning (arXiv:1911.00068) estimates the joint distribution of noisy and clean labels under a class-conditional noise process and is claimed provably consistent; decide under which conditions the noise transition matrix is identifiable from noisy-labeled data alone (without anchor-point or clean-set assumptions), give finite-sample bounds on the estimation error as a function of sample size and class imbalance, and determine when the estimated noise matrix and cleaned labels are unique; a pass is a machine-checkable statement of an identifiability or consistency theorem with its assumptions, or a counterexample class structure where identifiability provably fails.',
+    title: 'Identifiability and Consistency of Label-Noise Estimation from Noisy Data Alone',
+    titleZh: '仅凭含噪数据估计标签噪声的可辨识性与一致性',
+    domain: 'mathematical-computer-science',
+    subdomain: 'label-noise-estimation',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['label-noise-estimation', 'confident-learning', 'noise-matrix', 'identifiability'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'We present sufficient conditions where CL exactly finds label errors',
+      source: 'https://arxiv.org/abs/1911.00068',
+    },
+    proposer: 'C. G. Northcutt, L. Jiang, I. L. Chuang',
+    proposed_year: 2019,
+    via: {
+      label: 'C. G. Northcutt, L. Jiang, I. L. Chuang, Confident Learning: Estimating Uncertainty in Dataset Labels (JAIR 2021), arXiv:1911.00068',
+      url: 'https://arxiv.org/abs/1911.00068',
+    },
+    related_problems: [
+      {
+        id: 'cs-017',
+        relation: 'shares_tools',
+        note: 'Both need an explicit label-noise process; cs-018 asks when that process is identifiable from data.',
+      },
+      {
+        id: 'cs-011',
+        relation: 'shares_tools',
+        note: 'Both are identifiability questions for latent structure — cs-011 the feature dictionary, cs-018 the noise transition matrix.',
+      },
+    ],
+    statement:
+      'Confident learning (arXiv:1911.00068) estimates the joint distribution of noisy and clean labels under a class-conditional noise process, without assuming the noise matrix is known, and is reported to be provably consistent. Decide the precise conditions: is the noise transition matrix identifiable from noisy-labeled data alone, or does identifiability require additional structure (e.g., near-clean classes or anchor points)? Give finite-sample concentration bounds on the estimated noise matrix and cleaned labels, and determine whether the estimator is unbiased or whether it systematically over- or under-estimates noise. The paper gives sufficient conditions for exact error-finding; the general identifiability and estimation theory is not established.',
+    origin:
+      'The paper introduces the CL framework and claims consistency and exact error-finding under stated sufficient conditions; the boundary of identifiability, finite-sample guarantees, and failure modes are not characterized.',
+    progress: [],
+    obstacles: [
+      'Identifiability of the noise matrix from noisy labels alone is a nontrivial statistical question; the conditions under which it holds depend on the class-conditional structure and are not fully mapped.',
+    ],
+    formalization_notes:
+      'The claim is high-dimensional statistics over the noisy/clean joint distribution; formalizing the identifiability conditions and the concentration bound is the current gap.',
+    references: [
+      {
+        label: 'C. G. Northcutt, L. Jiang, I. L. Chuang, Confident Learning: Estimating Uncertainty in Dataset Labels, arXiv:1911.00068 (2019)',
+        url: 'https://arxiv.org/abs/1911.00068',
+      },
+    ],
+    impact_domains: ['Noise-robust learning engineering'],
+  },
 ]
 
 export const DOMAINS: Record<

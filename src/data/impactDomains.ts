@@ -589,6 +589,22 @@ export const IMPACT_DOMAIN_RECORDS: ImpactDomainRecord[] = [
     status: 'literature-backed',
     retrieved: '2026-09-05',
   },
+  {
+    id: 'noise-robust-learning',
+    name: 'Noise-robust learning engineering',
+    description:
+      'Building and maintaining learning systems that stay accurate when training labels or inputs are noisy — the working model for cheaply collected, low-quality real-world datasets where relabeling is too expensive.',
+    evidence: [
+      ev(
+        'Deep Learning is Robust to Massive Label Noise',
+        ['David Rolnick', 'Andreas Veit', 'Serge Belongie', 'Nir Shavit'],
+        '2017',
+        'https://arxiv.org/abs/1705.10694',
+      ),
+    ],
+    status: 'literature-backed',
+    retrieved: '2026-09-05',
+  },
 ]
 
 const _byName = new Map(IMPACT_DOMAIN_RECORDS.map((r) => [r.name, r]))
