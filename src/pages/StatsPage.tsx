@@ -4,6 +4,7 @@ import { AUDITED_PROBLEMS } from '@/data/audits'
 import { DOMAINS, anchorOf, type Domain } from '@/data/problems'
 import { DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
+import { CatalogGrowth, SubdomainRank, DomainDifficulty } from '@/components/CatalogCharts'
 import { useI18n, domainLabel, enumLabel } from '@/i18n'
 import { GOAL_PROBLEMS } from '@/const'
 
@@ -123,6 +124,34 @@ export default function StatsPage() {
           <p className="mt-3 text-xs text-ink-3 leading-relaxed">{t('st.anchors.hint')}</p>
         </section>
       </Reveal>
+
+      {/* 可视化：目录增长 + 子领域广度 + 领域×难度 */}
+      <div className="mt-12 grid md:grid-cols-2 gap-x-16 gap-y-12">
+        <Reveal>
+          <section>
+            <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-4">
+              {t('st.growth')}
+            </h2>
+            <CatalogGrowth full />
+          </section>
+        </Reveal>
+        <Reveal delay={60}>
+          <div className="space-y-12">
+            <section>
+              <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-4">
+                {t('st.subdomains')}
+              </h2>
+              <SubdomainRank />
+            </section>
+            <section>
+              <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-4">
+                {t('st.domainDifficulty')}
+              </h2>
+              <DomainDifficulty />
+            </section>
+          </div>
+        </Reveal>
+      </div>
 
       <div className="mt-12 grid md:grid-cols-2 gap-x-16 gap-y-14">
         <Reveal>

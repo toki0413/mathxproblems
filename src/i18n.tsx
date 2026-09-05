@@ -75,6 +75,10 @@ const STR: Record<string, { zh: string; en: string }> = {
   'home.graph.open': { zh: '进入全屏图谱', en: 'Open full-screen graph' },
   'home.manifesto': { zh: '宣言', en: 'Manifesto' },
   'home.domains': { zh: '五个领域', en: 'Five domains' },
+  'home.pulse': { zh: '目录脉搏', en: 'Catalog pulse' },
+  'home.pulse.growth': { zh: '收录增长', en: 'Catalog growth' },
+  'home.pulse.domains': { zh: '领域分布', en: 'Domain mix' },
+  'chart.unit': { zh: '题', en: 'problems' },
   'home.monitor': { zh: '实时监控', en: 'Live monitor' },
   'home.verifications.title': { zh: '最近已验证收窄', en: 'Recent verified narrowings' },
   'home.verifications.hint': {
@@ -571,6 +575,9 @@ const STR: Record<string, { zh: string; en: string }> = {
   },
   // stats page
   'st.domainProgress': { zh: '各领域进度 / 六个月目标', en: 'Progress by domain / 6-month target' },
+  'st.growth': { zh: '收录增长（累计）', en: 'Cumulative catalog growth' },
+  'st.subdomains': { zh: '子领域广度 Top', en: 'Subdomain breadth (top)' },
+  'st.domainDifficulty': { zh: '领域 × 难度', en: 'Domain × difficulty' },
   'st.relations': { zh: '关系连线', en: 'Relations' },
   'st.avgObstacles': { zh: '平均每题障碍', en: 'Avg. obstacles' },
   // home page
@@ -905,6 +912,11 @@ const ENUM_LABELS: Record<string, Record<string, { zh: string; en: string }>> = 
     verified_behavior: { zh: '可消费行为证书', en: 'Consumable behavior certificate' },
     verified_truth: { zh: '上游结构证（未直接消费）', en: 'Upstream structural proof (not yet consumable)' },
     scaffolding: { zh: '学科骨架（未接轨应用）', en: 'Bulked scaffold (not yet application-bound)' },
+  },
+  difficulty: {
+    frontier: { zh: '前沿', en: 'Frontier' },
+    research: { zh: '研究级', en: 'Research' },
+    advanced: { zh: '进阶', en: 'Advanced' },
   },
   attemptKind: {
     progress: { zh: '进展', en: 'Progress' },

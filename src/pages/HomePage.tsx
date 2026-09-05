@@ -6,6 +6,7 @@ import { ProblemGraph } from '@/components/ProblemGraph'
 import { ProblemRow, DomainDot } from '@/components/ProblemRow'
 import { Reveal } from '@/components/Reveal'
 import { LiveMonitor } from '@/components/LiveMonitor'
+import { CatalogGrowth, DomainDonut } from '@/components/CatalogCharts'
 import { useI18n, pickLang, domainLabel } from '@/i18n'
 import { trpc } from '@/providers/trpc'
 
@@ -198,6 +199,45 @@ export default function HomePage() {
             </h2>
           </div>
           <LiveMonitor />
+        </div>
+      </section>
+
+      {/* Catalog pulse — 规模与结构可视化（领域分布环形图 + 收录增长面积图） */}
+      <section className="hairline-t">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          <Reveal>
+            <h2 className="font-mono2 text-[11px] uppercase tracking-[0.25em] text-ink-3 mb-8">
+              {t('home.pulse')}
+            </h2>
+          </Reveal>
+          <div className="grid md:grid-cols-2 gap-10">
+            <Reveal>
+              <div className="flex h-full flex-col justify-center border border-line bg-white/40 p-6">
+                <div className="mb-5 flex items-baseline justify-between">
+                  <h3 className="font-mono2 text-[10px] uppercase tracking-[0.22em] text-ink-2">
+                    {t('home.pulse.domains')}
+                  </h3>
+                </div>
+                <DomainDonut />
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="flex h-full flex-col justify-center border border-line bg-white/40 p-6">
+                <div className="mb-5 flex items-baseline justify-between">
+                  <h3 className="font-mono2 text-[10px] uppercase tracking-[0.22em] text-ink-2">
+                    {t('home.pulse.growth')}
+                  </h3>
+                  <span
+                    className="font-mono2 text-[10px] text-ink-3"
+                    style={{ fontVariantNumeric: 'tabular-nums' }}
+                  >
+                    Σ {AUDITED_PROBLEMS.length}
+                  </span>
+                </div>
+                <CatalogGrowth />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
