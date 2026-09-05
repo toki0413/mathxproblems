@@ -573,6 +573,22 @@ export const IMPACT_DOMAIN_RECORDS: ImpactDomainRecord[] = [
     status: 'literature-backed',
     retrieved: '2026-09-05',
   },
+  {
+    id: 'certified-robustness',
+    name: 'Certified robustness engineering',
+    description:
+      'Formal, provable guarantees that a DNN behaves safely inside an input region — the working model for safety-critical AI systems (aviation, autonomous control) that cannot rely on empirical testing alone.',
+    evidence: [
+      ev(
+        'Reluplex: An Efficient SMT Solver for Verifying Deep Neural Networks',
+        ['Guy Katz', 'Clark Barrett', 'David Dill', 'Kyle Julian', 'Mykel Kochenderfer'],
+        '2017',
+        'https://arxiv.org/abs/1702.01135',
+      ),
+    ],
+    status: 'literature-backed',
+    retrieved: '2026-09-05',
+  },
 ]
 
 const _byName = new Map(IMPACT_DOMAIN_RECORDS.map((r) => [r.name, r]))

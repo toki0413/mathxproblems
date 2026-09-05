@@ -9331,6 +9331,439 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'cs-007',
+    output: 'verified_truth',
+    judgment:
+      'Characterize the axiomatic foundation of feature attribution: the SHAP framework (arXiv:1705.07874) singles out the Shapley value as the unique additive feature-attribution method satisfying local accuracy, missingness, and consistency, while Integrated Gradients (arXiv:1703.01365) is singled out among path methods by completeness, symmetry, and sensitivity; decide whether the two axiom sets are equivalent on the class of additive/path attribution rules, whether either set is minimal, and whether dropping or swapping any single axiom yields a distinct non-Shapley unique rule; a pass is a machine-checkable statement of the characterization or a counterexample axiom set.',
+    title: 'Axiomatic Uniqueness and Minimality of Shapley-Value Feature Attribution',
+    titleZh: 'Shapley 值特征归因的公理唯一性与极小性',
+    domain: 'mathematical-computer-science',
+    subdomain: 'attribution-axiomatics',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['attribution-axiomatics', 'shapley-value', 'integrated-gradients', 'local-explanations'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'theoretical results showing there is a unique solution in this class with a set of desirable properties',
+      source: 'https://arxiv.org/abs/1705.07874',
+    },
+    proposer: 'S. Lundberg, S.-I. Lee; M. Sundararajan, A. Taly, Q. Yan',
+    proposed_year: 2017,
+    via: {
+      label: 'S. Lundberg, S.-I. Lee, A Unified Approach to Interpreting Model Predictions (NIPS 2017), arXiv:1705.07874',
+      url: 'https://arxiv.org/abs/1705.07874',
+    },
+    related_problems: [
+      {
+        id: 'cs-004',
+        relation: 'shares_tools',
+        note: 'Both are axiomatic-uniqueness questions over game-theoretic indices on a cooperative game defined by the network.',
+      },
+      {
+        id: 'cs-001',
+        relation: 'shares_tools',
+        note: 'Both study which surrogates of the network output are canonically determined; cs-007 on marginal attributions, cs-001 on AND-OR interaction weights.',
+      },
+    ],
+    statement:
+      'Lundberg–Lee (arXiv:1705.07874) define the class of additive feature-attribution methods and prove that the Shapley value is the unique member satisfying local accuracy, missingness, and consistency. Sundararajan–Taly–Yan (arXiv:1703.01365) prove that Integrated Gradients is the unique path method satisfying completeness, symmetry, and sensitivity-a. Decide whether these two characterizations are compatible — whether every additive method satisfying the SHAP axioms is also a path method satisfying the IG axioms or vice versa — and whether each axiom set is minimal. The boundary between axiom sets that pin down the Shapley value and those that pin down a different rule is not classified.',
+    origin:
+      'The uniqueness claims are stated in the two papers and used pervasively to justify SHAP and Integrated Gradients in practice. The exact logical relationships between the two axiom systems, their minimality, and the full classification of axiom sets yielding unique attribution rules is not established.',
+    progress: [],
+    obstacles: [
+      'The two frameworks quantify over different classes (additive vs. path methods); a formal statement must fix the class and the model family before uniqueness is meaningful.',
+    ],
+    formalization_notes:
+      'Both uniqueness theorems reduce to statements about cooperative-game values and path integrals on the input space — formalizable in principle, but the choice of axioms and their independence need to be pinned down first.',
+    references: [
+      {
+        label: 'S. Lundberg, S.-I. Lee, A Unified Approach to Interpreting Model Predictions, arXiv:1705.07874 (2017)',
+        url: 'https://arxiv.org/abs/1705.07874',
+      },
+      {
+        label: 'M. Sundararajan, A. Taly, Q. Yan, Axiomatic Attribution for Deep Networks, arXiv:1703.01365 (2017)',
+        url: 'https://arxiv.org/abs/1703.01365',
+      },
+    ],
+    impact_domains: ['DNN interpretability engineering'],
+  },
+  {
+    id: 'cs-008',
+    output: 'verified_truth',
+    judgment:
+      'Characterize the computational complexity of certified robustness for ReLU networks: for a network and an L∞ input box, decide whether verifying that no adversarial input exists inside the box is polynomial-time solvable under fixed architecture and precision, prove the NP-hardness of approximation for the certified-robustness radius (the largest ε such that the network is robust within radius ε), or exhibit a network family where the nearest adversarial example cannot be approximated within any constant factor in polynomial time unless P = NP; a pass is a machine-checkable statement of the hardness result or a polynomial-time approximation algorithm with its guarantee.',
+    title: 'Computational Complexity of Certified Robustness for ReLU Networks',
+    titleZh: 'ReLU 网络认证鲁棒性的计算复杂性',
+    domain: 'mathematical-computer-science',
+    subdomain: 'robustness-verification',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['robustness-verification', 'certified-robustness', 'adversarial-examples', 'complexity'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'a major obstacle in applying them to safety-critical systems is the great difficulty in providing formal guarantees about their behavior',
+      source: 'https://arxiv.org/abs/1702.01135',
+    },
+    proposer: 'G. Katz, C. Barrett, D. Dill, K. Julian, M. Kochenderfer',
+    proposed_year: 2017,
+    via: {
+      label: 'G. Katz, C. Barrett, D. Dill, K. Julian, M. Kochenderfer, Reluplex: An Efficient SMT Solver for Verifying Deep Neural Networks (CAV 2017), arXiv:1702.01135',
+      url: 'https://arxiv.org/abs/1702.01135',
+    },
+    related_problems: [],
+    statement:
+      'Local robustness verification — deciding whether a ReLU network classifies every point in an L∞-ball around a given input identically — is known to be NP-complete (Katz et al., arXiv:1702.01135). Given that exact verification is NP-hard, decide the approximation landscape: is there a polynomial-time algorithm computing the certified-robustness radius (or nearest adversarial example) within any constant factor, or does exactness failure extend to a hardness-of-approximation result for stated architecture families? The certified-robustness radius is the quantity the whole formal-verification line (Reluplex, CROWN-style bound propagation) tries to compute; its approximability is not settled.',
+    origin:
+      'Szegedy et al. (arXiv:1312.6199) discovered adversarial examples and argued they are intrinsic to the geometry of the input space; Katz et al. proved exact local verification NP-complete and gave an SMT procedure. The gap between exact NP-hardness and practical bound propagation leaves the approximability of the certified radius open.',
+    progress: [],
+    obstacles: [
+      'The NP-completeness proof is tied to a fixed box and network encoding; transferring hardness to approximation factors requires a gap-producing construction that is not yet structured.',
+    ],
+    formalization_notes:
+      'The statement is a complexity-theoretic claim over real arithmetic and integer encodings of ReLU networks; formalizing the NP-hardness of approximation requires a reduction framework not yet set up.',
+    references: [
+      {
+        label: 'G. Katz, C. Barrett, D. Dill, K. Julian, M. Kochenderfer, Reluplex: An Efficient SMT Solver for Verifying Deep Neural Networks, arXiv:1702.01135 (2017)',
+        url: 'https://arxiv.org/abs/1702.01135',
+      },
+      {
+        label: 'C. Szegedy et al., Intriguing properties of neural networks, arXiv:1312.6199 (2013)',
+        url: 'https://arxiv.org/abs/1312.6199',
+      },
+      {
+        label: 'A. Madry et al., Towards Deep Learning Models Resistant to Adversarial Attacks, arXiv:1706.06083 (2017)',
+        url: 'https://arxiv.org/abs/1706.06083',
+      },
+    ],
+    impact_domains: ['Certified robustness engineering'],
+  },
+  {
+    id: 'cs-009',
+    output: 'verified_truth',
+    judgment:
+      'Decide the Lottery Ticket Hypothesis in a mathematically precise form: for a stated family of feed-forward networks (depth, width, initialization distribution) and a stated training procedure, prove that for any k there exists a subnetwork of at most k% of the parameters that, trained in isolation from its original initialization, matches the accuracy of the full network — or construct a counterexample family where no such winning ticket exists; a pass is a machine-checkable statement of the existence result (with the dependence on k, width, and data distribution) or an explicit counterexample family.',
+    title: 'Existence of Sparse Winning Tickets in Overparameterized Networks',
+    titleZh: '过参数化网络中存在稀疏中奖彩票的判定',
+    domain: 'mathematical-computer-science',
+    subdomain: 'sparse-training',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['sparse-training', 'lottery-ticket', 'pruning', 'overparameterization'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'dense, randomly-initialized, feed-forward networks contain subnetworks ("winning tickets") that - when trained in isolation - reach test accuracy comparable to the original network in a similar number of iterations',
+      source: 'https://arxiv.org/abs/1803.03635',
+    },
+    proposer: 'J. Frankle, M. Carbin',
+    proposed_year: 2018,
+    via: {
+      label: 'J. Frankle, M. Carbin, The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks (ICLR 2019), arXiv:1803.03635',
+      url: 'https://arxiv.org/abs/1803.03635',
+    },
+    related_problems: [
+      {
+        id: 'cs-013',
+        relation: 'shares_tools',
+        note: 'Both bound what a subnetwork of the full parameter set can express or learn; cs-009 through trainability, cs-013 through VC dimension.',
+      },
+    ],
+    statement:
+      'Frankle–Carbin (arXiv:1803.03635) conjecture that dense randomly-initialized feed-forward networks contain sparse subnetworks whose initialization is already well-suited to training, and verify it empirically at 10-20% of the original size. Decide the precise statement: for which network families and training dynamics does a winning ticket of a given sparsity level provably exist, and with what dependence on width, depth, data, and optimization? No existence theorem or counterexample family is known; the hypothesis is currently an empirical regularity.',
+    origin:
+      'The lottery ticket hypothesis is posed as an open conjecture in arXiv:1803.03635 and supported by extensive experiments; a rigorous existence statement, or a family where it fails, has not been given.',
+    progress: [],
+    obstacles: [
+      'Training dynamics couple the subnetwork to the full network through gradient descent; an existence proof needs a precise optimization model (e.g., gradient flow) and a defined accuracy notion before the claim is meaningful.',
+    ],
+    formalization_notes:
+      'The claim is a statement about the training dynamics of a subnetwork family; without a fixed optimization and data model it is not structured for formalization.',
+    references: [
+      {
+        label: 'J. Frankle, M. Carbin, The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks, arXiv:1803.03635 (2018)',
+        url: 'https://arxiv.org/abs/1803.03635',
+      },
+    ],
+  },
+  {
+    id: 'cs-010',
+    output: 'verified_truth',
+    judgment:
+      'Quantify the capacity of linear superposition in a ReLU autoencoder with d hidden units and n sparse features: prove bounds on the maximum number of features representable per dimension with bounded reconstruction interference as a function of feature sparsity and importance, and decide the precise threshold of the sparsity-driven phase transition between a dense regime (features on orthogonal axes) and a sparse regime (superposition); a pass is a machine-checkable statement of the feature-to-dimension ratio bound together with the phase-boundary condition, or a counterexample showing the transition is not sharp.',
+    title: 'Superposition Capacity and Phase Transition in Sparse Feature Representations',
+    titleZh: '稀疏特征表示中叠加容量与相变',
+    domain: 'mathematical-computer-science',
+    subdomain: 'mechanistic-interpretability',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['mechanistic-interpretability', 'superposition', 'polysemanticity', 'sparse-features'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'We demonstrate the existence of a phase change, a surprising connection to the geometry of uniform polytopes, and evidence of a link to adversarial examples',
+      source: 'https://arxiv.org/abs/2209.10652',
+    },
+    proposer: 'N. Elhage, T. Hume, C. Olsson, N. Schiefer, T. Henighan, S. Kravec, Z. Hatfield-Dodds, R. Lasenby, D. Drain, C. Chen, R. Grosse, S. McCandlish, J. Kaplan, D. Amodei, M. Wattenberg, C. Olah',
+    proposed_year: 2022,
+    via: {
+      label: 'N. Elhage et al., Toy Models of Superposition, arXiv:2209.10652 (2022)',
+      url: 'https://arxiv.org/abs/2209.10652',
+    },
+    related_problems: [
+      {
+        id: 'cs-011',
+        relation: 'shares_tools',
+        note: 'Both study when features can be packed into fewer dimensions than there are features; cs-010 the packing capacity, cs-011 the recoverability of the packed dictionary.',
+      },
+      {
+        id: 'cs-001',
+        relation: 'shares_tools',
+        note: 'Both ask how many salient components a trained network needs; cs-010 in feature space, cs-001 in interaction space.',
+      },
+    ],
+    statement:
+      'Elhage et al. (arXiv:2209.10652) show that ReLU networks can store more sparse features than they have dimensions by assigning features to non-orthogonal directions (superposition), with an observed phase transition driven by feature sparsity and importance. Decide the precise mathematical content: for the toy ReLU autoencoder with n features of given importance and sparsity, what is the maximum number of features representable in d dimensions with reconstruction error below a stated threshold, and is the boundary between the orthogonal-feature and superposition regimes a sharp phase transition? The connection to uniform polytopes suggests an exact geometric statement that has not been proved.',
+    origin:
+      'The paper demonstrates the phase change empirically and draws a geometric connection to uniform polytopes; no rigorous bound on the feature-to-dimension ratio or a proof of the phase boundary is given.',
+    progress: [],
+    obstacles: [
+      'Reconstruction interference couples all pairwise feature directions; an exact bound requires solving a packing problem in the sphere with a nonlinear reconstruction criterion that is not yet structured.',
+    ],
+    formalization_notes:
+      'The objects are directions in R^d and a ReLU-reconstruction loss; the bound is a geometric packing statement formalizable in principle once the interference threshold is fixed.',
+    references: [
+      {
+        label: 'N. Elhage, T. Hume, C. Olsson, N. Schiefer, T. Henighan, S. Kravec, Z. Hatfield-Dodds, R. Lasenby, D. Drain, C. Chen, R. Grosse, S. McCandlish, J. Kaplan, D. Amodei, M. Wattenberg, C. Olah, Toy Models of Superposition, arXiv:2209.10652 (2022)',
+        url: 'https://arxiv.org/abs/2209.10652',
+      },
+    ],
+    impact_domains: ['DNN interpretability engineering'],
+  },
+  {
+    id: 'cs-011',
+    output: 'verified_truth',
+    judgment:
+      'Establish identifiability conditions for sparse-autoencoder (SAE) feature dictionaries: given activation data generated from an unknown ground-truth feature dictionary with a sparsity model, decide for which sparsity levels and data distributions the sparse-dictionary-learning objective provably recovers the ground-truth dictionary (exact recovery or uniqueness of the minimizer), and whether the recovered features are stable under perturbations of the data; a pass is a machine-checkable statement of an exact-recovery or identifiability theorem with its assumptions, or a counterexample distribution where recovery provably fails.',
+    title: 'Identifiability and Exact Recovery of Sparse-Autoencoder Feature Dictionaries',
+    titleZh: '稀疏自编码器特征字典的可辨识性与精确恢复',
+    domain: 'mathematical-computer-science',
+    subdomain: 'sparse-dictionary-learning',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['mechanistic-interpretability', 'sparse-dictionary-learning', 'sparse-autoencoder', 'identifiability'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'One hypothesised cause of polysemanticity is superposition, where neural networks represent more features than they have neurons by assigning features to an overcomplete set of directions in activation space',
+      source: 'https://arxiv.org/abs/2309.08600',
+    },
+    proposer: 'H. Cunningham, A. Ewart, L. Riggs, R. Huben, L. Sharkey',
+    proposed_year: 2023,
+    via: {
+      label: 'H. Cunningham, A. Ewart, L. Riggs, R. Huben, L. Sharkey, Sparse Autoencoders Find Highly Interpretable Features in Language Models, arXiv:2309.08600 (2023)',
+      url: 'https://arxiv.org/abs/2309.08600',
+    },
+    related_problems: [
+      {
+        id: 'cs-010',
+        relation: 'depends_on',
+        note: 'SAEs are proposed to resolve the superposition packed by the networks of cs-010; the identifiability question only makes sense when superposition is real.',
+      },
+    ],
+    statement:
+      'Cunningham et al. (arXiv:2309.08600) train sparse autoencoders to recover overcomplete feature dictionaries from transformer activations, framing the task as sparse dictionary learning. Classical dictionary-learning theory gives exact-recovery conditions for incoherent dictionaries and specific generative models, but the SAE setting — ReLU reconstruction, L1-style sparsity penalty, learned rather than fixed dictionaries, and activation distributions from real networks — is not covered by those theorems. Decide under which sparsity and data assumptions the SAE objective is identifiable and its minimizer recovers the ground-truth dictionary, and whether the extracted features are stable.',
+    origin:
+      'The paper argues SAE features are more interpretable and monosemantic than alternatives, but provides no recovery guarantees; whether the learned dictionary is the ground-truth feature set or an artifact is undecided, and classical identifiability results do not transfer directly.',
+    progress: [],
+    obstacles: [
+      'The sparsity penalty and ReLU reconstruction make the objective non-convex and the dictionary overcomplete; exact-recovery conditions must be stated for this specific objective, not the classical one.',
+    ],
+    formalization_notes:
+      'A recovery statement is high-dimensional statistics over a non-convex objective; formalizing the assumptions under which recovery holds is the current gap.',
+    references: [
+      {
+        label: 'H. Cunningham, A. Ewart, L. Riggs, R. Huben, L. Sharkey, Sparse Autoencoders Find Highly Interpretable Features in Language Models, arXiv:2309.08600 (2023)',
+        url: 'https://arxiv.org/abs/2309.08600',
+      },
+    ],
+    impact_domains: ['DNN interpretability engineering'],
+  },
+  {
+    id: 'cs-012',
+    output: 'verified_truth',
+    judgment:
+      'Prove or sharpen the benign-overfitting characterization for linear regression: Bartlett–Long–Lugosi–Tsigler (arXiv:1906.11300) characterize when the minimum-norm interpolator has near-optimal risk in terms of two effective-rank conditions on the data covariance; decide whether the characterization is also necessary, give the sharp constant or phase boundary between benign and catastrophic overfitting, or extend the statement to two-layer ReLU networks in the linearized (NTK) regime; a pass is a machine-checkable statement of the sharp characterization or a counterexample showing the effective-rank conditions are not sufficient.',
+    title: 'Sharp Characterization of Benign Overfitting in Interpolating Linear Regression',
+    titleZh: '内插线性回归中良性过拟合的精确刻画',
+    domain: 'mathematical-computer-science',
+    subdomain: 'generalization-theory',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['generalization-theory', 'benign-overfitting', 'interpolation', 'double-descent'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'It shows that overparameterization is essential for benign overfitting in this setting: the number of directions in parameter space that are unimportant for prediction must significantly exceed the sample size',
+      source: 'https://arxiv.org/abs/1906.11300',
+    },
+    proposer: 'P. L. Bartlett, P. M. Long, G. Lugosi, A. Tsigler',
+    proposed_year: 2019,
+    via: {
+      label: 'P. L. Bartlett, P. M. Long, G. Lugosi, A. Tsigler, Benign Overfitting in Linear Regression, arXiv:1906.11300 (2019)',
+      url: 'https://arxiv.org/abs/1906.11300',
+    },
+    related_problems: [
+      {
+        id: 'cs-014',
+        relation: 'shares_tools',
+        note: 'Both study generalization of overparameterized models; cs-012 via interpolation geometry, cs-014 via the kernel limit.',
+      },
+      {
+        id: 'cs-003',
+        relation: 'shares_tools',
+        note: 'Both concern the gap between training and testing loss; cs-012 in the interpolating linear regime, cs-003 via interaction structure.',
+      },
+    ],
+    statement:
+      'The minimum-norm least-squares interpolator achieves near-optimal prediction exactly when the data covariance satisfies two effective-rank conditions (arXiv:1906.11300). Decide whether these conditions are necessary as well as sufficient, and whether the constants in the characterization are sharp. The authors explicitly leave the extension to nonlinear networks open: for a two-layer ReLU network in the linearized regime, does benign overfitting hold under the same effective-rank conditions, or does nonlinearity break the characterization?',
+    origin:
+      'The paper proves sufficient conditions for benign overfitting and exhibits the role of overparameterization; the necessity of the effective-rank conditions and the extension to nonlinear networks are posed as open in the paper.',
+    progress: [],
+    obstacles: [
+      'The extension to ReLU networks requires controlling the nonlinear component of the predictor, which is not a fixed linear map as in the linear case.',
+    ],
+    formalization_notes:
+      'The statement is high-dimensional asymptotics over the covariance spectrum; formalizing the phase boundary requires real-analysis and concentration tools not yet set up.',
+    references: [
+      {
+        label: 'P. L. Bartlett, P. M. Long, G. Lugosi, A. Tsigler, Benign Overfitting in Linear Regression, arXiv:1906.11300 (2019)',
+        url: 'https://arxiv.org/abs/1906.11300',
+      },
+    ],
+  },
+  {
+    id: 'cs-013',
+    output: 'verified_truth',
+    judgment:
+      'Prove or narrow the VC-dimension bounds for deep ReLU networks: Bartlett–Harvey–Liaw–Mehrabian (arXiv:1703.02930) prove VCdim = O(W L log W) and exhibit Ω(W L log(W/L)); decide whether the gap between the two bounds can be closed for a stated architecture family, give a machine-checkable proof of the upper bound, or determine the exact VC dimension of concrete width/depth families; a pass is a machine-checkable statement of an improved bound or a formalized proof of the known Θ(W U) bound in terms of non-linear units U.',
+    title: 'Closing the Gap in VC-Dimension Bounds for Piecewise-Linear Networks',
+    titleZh: '分段线性网络 VC 维界的缺口收窄',
+    domain: 'mathematical-computer-science',
+    subdomain: 'expressivity-complexity',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['expressivity-complexity', 'vc-dimension', 'capacity', 'relu-networks'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we prove that the VC-dimension is O(W L log(W)), and provide examples with VC-dimension Ω( W L log(W/L) )',
+      source: 'https://arxiv.org/abs/1703.02930',
+    },
+    proposer: 'P. L. Bartlett, N. Harvey, C. Liaw, A. Mehrabian',
+    proposed_year: 2017,
+    via: {
+      label: 'P. L. Bartlett, N. Harvey, C. Liaw, A. Mehrabian, Nearly-tight VC-dimension and pseudodimension bounds for piecewise linear neural networks, arXiv:1703.02930 (2017)',
+      url: 'https://arxiv.org/abs/1703.02930',
+    },
+    related_problems: [
+      {
+        id: 'cs-009',
+        relation: 'shares_tools',
+        note: 'Both bound the power of subnetworks of a network; cs-009 through trainability, cs-013 through shattering capacity.',
+      },
+    ],
+    statement:
+      'For ReLU networks with W weights and L layers, the VC dimension is O(W L log W) with matching lower bound Ω(W L log(W/L)) (arXiv:1703.02930). Decide whether the logarithmic gap can be closed for stated architecture families — in particular whether the exact dependence on depth is L or L log L — and give a machine-checkable (formalized) proof of the known upper bound, whose piecewise-linear counting argument is a candidate for Lean formalization.',
+    origin:
+      'The bounds were proven in arXiv:1703.02930 and match for almost the entire parameter range, but the exact constant and the L log L vs. L depth dependence for intermediate widths remain open; the proof itself has not been formalized.',
+    progress: [],
+    obstacles: [
+      'The upper bound counts activation regions via sign patterns; extracting the exact depth dependence requires controlling the combinatorics of hyperplane arrangements tightly.',
+    ],
+    formalization_notes:
+      'The upper bound is a combinatorial counting argument over sign patterns of piecewise-linear functions — the most formalizable of the eight new problems, with medium effort.',
+    references: [
+      {
+        label: 'P. L. Bartlett, N. Harvey, C. Liaw, A. Mehrabian, Nearly-tight VC-dimension and pseudodimension bounds for piecewise linear neural networks, arXiv:1703.02930 (2017)',
+        url: 'https://arxiv.org/abs/1703.02930',
+      },
+    ],
+  },
+  {
+    id: 'cs-014',
+    output: 'verified_truth',
+    judgment:
+      'Give quantitative convergence rates to the neural tangent kernel (NTK) limit: for a stated feed-forward architecture trained by gradient flow on least-squares, prove an explicit bound on the deviation of the finite-width training dynamics from the infinite-width NTK limit as width → ∞ and training time → ∞, and decide whether the convergence rate matches the spectral structure of the data (fastest along the largest kernel principal components); a pass is a machine-checkable statement of the rate with its dependence on width, depth, and data spectrum, or a counterexample showing the deviation does not vanish at the conjectured rate.',
+    title: 'Quantitative Convergence Rates to the Neural Tangent Kernel Limit',
+    titleZh: '神经正切核极限的定量收敛速率',
+    domain: 'mathematical-computer-science',
+    subdomain: 'learning-dynamics',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['learning-dynamics', 'neural-tangent-kernel', 'infinite-width-limit', 'kernel-regression'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'in the infinite-width limit it converges to an explicit limiting kernel and it stays constant during training',
+      source: 'https://arxiv.org/abs/1806.07572',
+    },
+    proposer: 'A. Jacot, F. Gabriel, C. Hongler',
+    proposed_year: 2018,
+    via: {
+      label: 'A. Jacot, F. Gabriel, C. Hongler, Neural Tangent Kernel: Convergence and Generalization in Neural Networks, arXiv:1806.07572 (2018)',
+      url: 'https://arxiv.org/abs/1806.07572',
+    },
+    related_problems: [
+      {
+        id: 'cs-012',
+        relation: 'shares_tools',
+        note: 'Both concern generalization of overparameterized networks; the NTK limit is exactly the linearized regime where benign overfitting is studied in cs-012.',
+      },
+    ],
+    statement:
+      'Jacot–Gabriel–Hongler (arXiv:1806.07572) prove that in the infinite-width limit the training dynamics of a neural network follow the kernel gradient of a convex functional with respect to the (constant) neural tangent kernel, and that convergence is fastest along the largest kernel principal components of the data. Decide the quantitative content: for a stated architecture and data distribution, give explicit rates at which the finite-width dynamics converge to the NTK dynamics as width grows, and prove or refute the claim that the spectral decomposition of the data with respect to the NTK dictates the ordering of convergence rates. The paper is qualitative at finite width; the quantitative gap is open.',
+    origin:
+      'The NTK limit is proven in arXiv:1806.07572 and the spectral-convergence statement is made and studied numerically; explicit finite-width rates and the precise role of the data spectrum are not established.',
+    progress: [],
+    obstacles: [
+      'Finite-width deviation mixes random-initialization fluctuations with the nonlinearity of the dynamics; a rate requires a coupling argument between the finite and infinite systems that is not yet structured.',
+    ],
+    formalization_notes:
+      'The statement is an approximation theorem in high-dimensional probability and functional analysis; formalizing it needs a full stochastic-dynamics framework that is not yet set up.',
+    references: [
+      {
+        label: 'A. Jacot, F. Gabriel, C. Hongler, Neural Tangent Kernel: Convergence and Generalization in Neural Networks, arXiv:1806.07572 (2018)',
+        url: 'https://arxiv.org/abs/1806.07572',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<
