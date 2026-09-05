@@ -348,18 +348,44 @@ export default function ProblemDetailPage() {
                     <div className="font-mono text-sm text-ink mt-1">{p.certificate.total_band}</div>
                   </div>
                 </div>
-                {/* 当前纪录括区：机器可核验的具体数值带（非判定目标） */}
-                {p.certificate.current_record && (
-                  <div className="hairline-t px-5 py-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                    <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mr-1">
-                      {t('pd.certificate.record')}
-                    </span>
-                    <span className="font-mono text-sm text-mc" style={{ fontVariantNumeric: 'tabular-nums' }}>
-                      [{p.certificate.current_record.lo}, {p.certificate.current_record.hi}]
-                    </span>
-                    <span className="text-xs text-ink-3">{t('pd.certificate.recordNote')}</span>
-                  </div>
-                )}
+                {/* 当前纪录括区：机器可核验的具体数值带（非判定目标），附相对宽度与独立复核入口 */}
+                {p.certificate.current_record &&
+                  (() => {
+                    const rec = p.certificate.current_record
+                    const mid = (rec.lo + rec.hi) / 2
+                    const rel = mid === 0 ? null : Math.abs((rec.hi - rec.lo) / mid)
+                    return (
+                      <div className="hairline-t px-5 py-3">
+                        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                          <span className="font-mono2 text-[10px] uppercase tracking-[0.18em] text-ink-3 mr-1">
+                            {t('pd.certificate.record')}
+                          </span>
+                          <span className="font-mono text-sm text-mc" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                            [{rec.lo}, {rec.hi}]
+                          </span>
+                          <span className="border border-mc/40 text-mc rounded-full px-2 py-0.5 font-mono2 text-[10px] uppercase tracking-wider">
+                            {t('pd.certificate.recordVerified')}
+                          </span>
+                          {rel != null && (
+                            <span className="text-xs text-ink-3">
+                              {t('pd.certificate.recordWidth')}: {rel.toFixed(3)}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-ink-3 leading-relaxed">
+                          <span>{t('pd.certificate.recordNote')}</span>
+                          <a
+                            href="/api/v1/attestations.json"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-ink-2 underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+                          >
+                            {t('pd.certificate.recordVerify')}
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  })()}
                 {/* 三层残差，各给 bound + derivation */}
                 <div className="divide-y divide-line">
                   {(

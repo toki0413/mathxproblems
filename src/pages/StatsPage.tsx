@@ -122,6 +122,14 @@ export default function StatsPage() {
             ))}
           </div>
           <p className="mt-3 text-xs text-ink-3 leading-relaxed">{t('st.anchors.hint')}</p>
+          <a
+            href="/api/v1/attestations.json"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block mt-2 text-xs text-ink-2 underline decoration-line-strong underline-offset-4 hover:decoration-ink"
+          >
+            {t('st.attestLink')}
+          </a>
         </section>
       </Reveal>
 
