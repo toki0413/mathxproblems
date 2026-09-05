@@ -74,7 +74,7 @@ const STR: Record<string, { zh: string; en: string }> = {
   },
   'home.graph.open': { zh: '进入全屏图谱', en: 'Open full-screen graph' },
   'home.manifesto': { zh: '宣言', en: 'Manifesto' },
-  'home.domains': { zh: '四个领域', en: 'Four domains' },
+  'home.domains': { zh: '五个领域', en: 'Five domains' },
   'home.monitor': { zh: '实时监控', en: 'Live monitor' },
   'home.verifications.title': { zh: '最近已验证收窄', en: 'Recent verified narrowings' },
   'home.verifications.hint': {
@@ -329,8 +329,8 @@ const STR: Record<string, { zh: string; en: string }> = {
   'gp.title': { zh: '问题图谱', en: 'Problem Graph' },
   'gp.topology': { zh: '研究网络拓扑', en: 'Research network topology' },
   'gp.desc': {
-    zh: '节点形状区分四个领域（圆=物理，方=化学，三角=生物，六边形=工程），节点大小对应难度；边按关系类型着色，虚线为共享工具与平行类比。',
-    en: 'Node shapes mark the four domains (circle=physics, square=chemistry, triangle=biology, hexagon=engineering); size encodes difficulty. Edges are colored by relation type, dashed for shared tools and analogies.',
+    zh: '节点形状区分五个领域（圆=物理，方=化学，三角=生物，六边形=工程，菱形=计算机），节点大小对应难度；边按关系类型着色，虚线为共享工具与平行类比。',
+    en: 'Node shapes mark the five domains (circle=physics, square=chemistry, triangle=biology, hexagon=engineering, diamond=computer science); size encodes difficulty. Edges are colored by relation type, dashed for shared tools and analogies.',
   },
   // graph component
   'pg.open': { zh: '进入问题页 →', en: 'Open problem →' },

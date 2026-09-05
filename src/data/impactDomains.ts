@@ -556,6 +556,23 @@ export const IMPACT_DOMAIN_RECORDS: ImpactDomainRecord[] = [
     status: 'literature-backed',
     retrieved: '2026-09-02',
   },
+  // ── 计算机（mcs）──
+  {
+    id: 'dnn-interpretability',
+    name: 'DNN interpretability engineering',
+    description:
+      'Rigorous, symbolic explanation of DNN inference logic through AND-OR interaction patterns and per-interaction generalization-power quantification, enabling trustable AI systems in critical applications.',
+    evidence: [
+      ev(
+        'Technical Report: Quantifying and Analyzing the Generalization Power of a DNN',
+        ['Yuxuan He', 'Junpeng Zhang', 'Lei Cheng', 'Hongyuan Zhang', 'Quanshi Zhang'],
+        '2025',
+        'https://arxiv.org/abs/2505.06993',
+      ),
+    ],
+    status: 'literature-backed',
+    retrieved: '2026-09-05',
+  },
 ]
 
 const _byName = new Map(IMPACT_DOMAIN_RECORDS.map((r) => [r.name, r]))

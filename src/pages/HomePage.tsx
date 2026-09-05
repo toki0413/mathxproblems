@@ -26,6 +26,10 @@ const DOMAIN_EN: Record<Domain, { blurb: string; excludes: string }> = {
     blurb: 'Multi-agent coordination and distributed-algorithm lower bounds.',
     excludes: 'Excluded: controller design requiring deployment tests, protocol engineering.',
   },
+  'mathematical-computer-science': {
+    blurb: 'Rigorous analysis of DNN interpretability: AND-OR interaction decompositions, interaction generalization power, and their training dynamics.',
+    excludes: 'Excluded: applied machine learning without mathematical foundations, pure implementation or engineering details.',
+  },
 }
 
 const MANIFESTO: { q?: string; body: string }[] = [
@@ -281,7 +285,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Four domains */}
+      {/* Five domains */}
       <section className="hairline-t">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <Reveal>

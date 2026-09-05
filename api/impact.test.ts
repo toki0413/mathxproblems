@@ -1,9 +1,9 @@
 import { test, expect } from "vitest";
 import { buildImpact } from "./catalog.json";
 
-test("impact registry: 30 literature-backed domains, each with real arXiv evidence", () => {
+test("impact registry: 31 literature-backed domains, each with real arXiv evidence", () => {
   const impact = buildImpact();
-  expect(impact).toHaveLength(30);
+  expect(impact).toHaveLength(31);
   for (const d of impact) {
     expect(d.id).toMatch(/^[a-z0-9-]+$/);
     expect(d.name).toBeTruthy();

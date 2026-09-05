@@ -56,7 +56,7 @@ const POTENTIAL_COLOR: Record<FormalizationPotential, string> = {
   low: '#8b887c',
 }
 
-/** Domain glyph: mp circle, mc square, mb triangle, me hexagon. */
+/** Domain glyph: mp circle, mc square, mb triangle, me hexagon, mcs diamond. */
 function glyph(ctx: CanvasRenderingContext2D, d: Domain, x: number, y: number, r: number) {
   ctx.beginPath()
   if (d === 'mathematical-physics') {
@@ -68,12 +68,19 @@ function glyph(ctx: CanvasRenderingContext2D, d: Domain, x: number, y: number, r
     ctx.lineTo(x + r * 0.95, y + r * 0.72)
     ctx.lineTo(x - r * 0.95, y + r * 0.72)
     ctx.closePath()
-  } else {
+  } else if (d === 'mathematical-engineering') {
     for (let i = 0; i < 6; i++) {
       const a = (Math.PI / 3) * i - Math.PI / 6
       if (i === 0) ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
       else ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a))
     }
+    ctx.closePath()
+  } else {
+    // mathematical-computer-science: diamond
+    ctx.moveTo(x, y - r)
+    ctx.lineTo(x + r, y)
+    ctx.lineTo(x, y + r)
+    ctx.lineTo(x - r, y)
     ctx.closePath()
   }
 }
@@ -194,6 +201,7 @@ export function ProblemGraph({
       'mathematical-chemistry': [1, -1],
       'mathematical-biology': [-1, 1],
       'mathematical-engineering': [1, 1],
+      'mathematical-computer-science': [0, 0],
     }
     const spread = Math.min(W, H) * 0.24
     const nodes: N[] = problems.map((p, i) => {

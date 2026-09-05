@@ -9004,6 +9004,333 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
       },
     ],
   },
+  {
+    id: 'cs-001',
+    output: 'verified_truth',
+    judgment:
+      'Prove a tight bound on the interaction sparsity of the AND-OR decomposition of a DNN: for a network v and an input sample of n variables, the Möbius-inversion weights I_T of the universal matching property (Theorem 1, arXiv:2505.06993) define a surrogate logical model over all 2^n subsets; decide whether the number of salient interactions — those whose removal shifts the surrogate output by more than a stated approximation error ε on any masked input state — is provably sub-exponential in n for a stated DNN family (depth, width, activation), and give an explicit upper bound together with a matching lower bound, or exhibit a network family for which the required interaction count is provably exponential; the accepted form is a machine-checkable statement of the bound with its proof sketch.',
+    title: 'Tight Interaction-Sparsity Bounds for the AND-OR Decomposition of DNN Inference',
+    titleZh: 'DNN 推理的 AND-OR 交互分解的紧稀疏性界',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-explainability',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'and-or-interactions', 'interaction-sparsity', 'boolean-lattice'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'guarantee that using interaction concepts can accurately explain all the detailed inference logic of DNNs',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-003',
+        relation: 'shares_tools',
+        note: 'Both rest on the Möbius-inversion interaction weights of the universal matching property.',
+      },
+      {
+        id: 'cs-004',
+        relation: 'shares_tools',
+        note: 'Both are statements about the AND-OR surrogate logical model on the Boolean lattice of input variables.',
+      },
+    ],
+    statement:
+      'Let v be a DNN and x a sample with n input variables. Theorem 1 of arXiv:2505.06993 (universal matching property) rewrites the network output on every masked input state as a surrogate logical model d(x_mask) = Σ_T I_T^and · δ_and + Σ_T I_T^or · δ_or + b, where the weights I_T are Möbius inversions over the Boolean lattice of subsets. To reproduce the DNN output within a stated error ε on all masked input states, how many interactions are salient? Decide whether the minimal number of salient interactions is provably sub-exponential in n for a stated DNN family, give an explicit bound with a matching lower bound, or exhibit a family requiring exponentially many. This is the formal counterpart of the empirical small-interaction-set claim that the whole interaction-explainability line builds on.',
+    origin:
+      'The AND-OR interaction theory proves that DNN inference can be exactly rewritten as interaction patterns; He–Zhang–Cheng–Zhang–Zhang (arXiv:2505.06993) analyze generalization power on top of it, treating the interaction set as small in practice. No rigorous, architecture-dependent interaction-sparsity bound is known; this is the concrete open question implied by the technical report, posed here explicitly.',
+    progress: [],
+    obstacles: [
+      'Saliency requires a canonical strength threshold and an approximation error ε; different choices change the count, so the bound must be stated relative to them.',
+    ],
+    formalization_notes:
+      'The interaction weights are Möbius inversions on the Boolean lattice — combinatorial objects formalizable in principle — but a DNN-family-dependent sparsity bound requires controlling network dynamics, which is not yet structured for formalization.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+    ],
+  },
+  {
+    id: 'cs-002',
+    output: 'verified_truth',
+    judgment:
+      'Give a mathematically well-founded definition of the generalization power of a single AND-OR interaction — for example as the degree to which its Möbius-inversion weight persists in a model trained on the testing distribution, following the transfer-based measure of arXiv:2505.06993 — and decide whether, under stated assumptions on the loss landscape and optimization dynamics, the generalization power of the interaction set follows the three-phase trajectory reported in the paper: an early phase that removes noisy non-generalizable interactions and learns simple generalizable ones, followed by phases that capture increasingly complex and harder-to-generalize interactions; a pass is a machine-checkable statement of the measure together with the phase-transition claim, or a counterexample model family.',
+    title: 'Formalizing Interaction Generalization Power and the Three-Phase Training Dynamics',
+    titleZh: '交互泛化能力的正式定义与三阶段训练动力学',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-generalization',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'generalization-power', 'three-phase-dynamics', 'training-dynamics'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we discover a distinct three-phase dynamics of the generalization power of interactions during training',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-006',
+        relation: 'shares_tools',
+        note: 'Both concern the transfer-based quantification of interaction generalization power; cs-006 asks for its statistical guarantees.',
+      },
+      {
+        id: 'cs-001',
+        relation: 'depends_on',
+        note: 'Which interactions exist and are salient is fixed by the decomposition of cs-001; cs-002 asks how the generalization power of those interactions evolves.',
+      },
+    ],
+    statement:
+      'He–Zhang–Cheng–Zhang–Zhang (arXiv:2505.06993) quantify the generalization power of each AND-OR interaction by the proportion of interactions that transfer to a baseline DNN trained on the testing set, and observe three phases: early removal of noisy non-generalizable interactions and learning of simple generalizable ones, then capture of increasingly complex, harder-to-generalize interactions. Decide whether there is a mathematically precise measure of single-interaction generalization power under which this three-phase structure is provable from stated assumptions on the model and optimizer, or refute it with a counterexample family. The empirical report leaves both the definition and the phase claim unformalized.',
+    origin:
+      'The paper proposes the transfer-based generalization-power measure and documents the three-phase dynamics empirically on image and language models. The precise mathematical statement of the measure and the phase-transition claim is not given; formalizing it — and deciding whether it holds under assumptions — is the open problem posed here.',
+    progress: [],
+    obstacles: [
+      'The transfer-based measure depends on a baseline model trained on the testing set, coupling the definition to an estimation procedure.',
+      'Phase boundaries are empirical; a rigorous statement needs a quantitative definition of when a phase begins and ends.',
+    ],
+    formalization_notes:
+      'A transfer-based measure is a statistical comparison of Möbius-inversion weights across two models; the claim is training-dynamic and currently only empirically supported, so formalization potential is low.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+    ],
+  },
+  {
+    id: 'cs-003',
+    output: 'verified_truth',
+    judgment:
+      'Prove a bound on the generalization gap of a DNN in terms of its interaction structure: show that the training-testing loss gap is controlled by the accumulated strength of non-generalizable AND-OR interactions — for example gap is O(Σ_{T non-generalizable} |I_T| · Order_T) under stated distributional assumptions — or refute the dependence by exhibiting a model family whose gap grows while the non-generalizable interaction strength stays bounded; the accepted form is an explicit, machine-checkable statement of the bound together with its assumptions.',
+    title: 'Interaction-Conditioned Bounds on the DNN Generalization Gap',
+    titleZh: '基于交互结构的 DNN 泛化间隙界',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-generalization',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'generalization-gap', 'generalization-bound', 'generalization-power'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'if most interactions learned by the DNN can also frequently appear in (be transferred to) unseen testing samples, then the DNN would exhibit a high testing accuracy',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-002',
+        relation: 'depends_on',
+        note: 'A bound on the gap needs a definition of non-generalizable interactions and their generalization power, the subject of cs-002.',
+      },
+    ],
+    statement:
+      'The technical report of arXiv:2505.06993 argues that a DNN generalizes when most of its AND-OR interactions transfer to testing data, and verifies empirically that learning non-generalizable interactions is the direct cause of the training-testing loss gap. Decide whether this dependence can be made into a quantitative bound — the gap controlled by the accumulated strength of non-generalizable interactions weighted by their order — under stated distributional assumptions, or refuted by a counterexample family. The claim is currently an empirical correlation, not a theorem.',
+    origin:
+      'The connection between interaction transferability and the loss gap is asserted and verified empirically in arXiv:2505.06993; no quantitative statement of the dependence is given. Turning the empirical claim into a provable bound (or a precise refutation) is the open problem posed here.',
+    progress: [],
+    obstacles: [
+      'The gap is a distribution-dependent quantity; a bound must fix the data-generating and training assumptions before it is meaningful.',
+    ],
+    formalization_notes:
+      'A generalization gap statement is statistical learning theory over the interaction representation; the objects are definable but the bound is not currently structured for formalization.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+    ],
+  },
+  {
+    id: 'cs-004',
+    output: 'verified_truth',
+    judgment:
+      'Characterize the axiomatic foundation of the AND-OR interaction decomposition: prove which Shapley-style axioms (efficiency, symmetry or linearity, dummy) single out the Möbius-inversion interaction weights of the universal matching property among all exact surrogate logical models, and decide whether the split into AND versus OR interactions is uniquely determined by the constraint o_L^and + o_L^or = v(x_L) on every subset L; a pass is a machine-checkable statement of the characterization or a demonstration that the decomposition is not axiomatically unique.',
+    title: 'Axiomatic Characterization of the AND-OR Interaction Decomposition',
+    titleZh: 'AND-OR 交互分解的公理化刻画',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-explainability',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'and-or-interactions', 'shapley-interaction', 'axiomatics'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'each interaction represents an AND relationship or an OR relationship between input variables encoded by the DNN, and it makes a certain numerical effect on the output',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-001',
+        relation: 'shares_tools',
+        note: 'Both study the surrogate logical model; cs-001 its sparsity, cs-004 its uniqueness and axioms.',
+      },
+    ],
+    statement:
+      'The universal matching property expresses the DNN output on masked inputs as d(x_mask) = Σ_T I_T^and · δ_and + Σ_T I_T^or · δ_or + b, with weights given by Möbius inversion under the constraint o_L^and + o_L^or = v(x_L) for every subset L. The weights are exactly the classical interaction indices on the Boolean lattice, but the AND/OR split is fixed only by the constraint. Decide which Shapley-style axioms characterize this decomposition uniquely among all exact surrogates, and whether the AND/OR split is canonical; the classical interaction-index theory (Shapley 1953; Grabisch–Roubens) provides the candidate axioms, but their fit to the AND-OR decomposition has not been established.',
+    origin:
+      'The decomposition is presented as a theorem in arXiv:2505.06993 building on interaction-based explainability. Whether it is the unique exact surrogate satisfying natural axioms — and whether the AND/OR split is canonical — is a question about the lattice interaction-index theory that has not been answered; posed here as an open problem.',
+    progress: [],
+    obstacles: [
+      'The AND/OR split makes the surrogate richer than an additive interaction index; axioms must be chosen to treat the two interaction types symmetrically.',
+    ],
+    formalization_notes:
+      'The objects are Möbius inversions and game-theoretic interaction indices on a Boolean lattice — the most formalizable of the six problems — but the choice of axioms and the symmetry condition on the AND/OR split need to be pinned down first.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+      {
+        label: 'L. S. Shapley, A value for n-person games, in Contributions to the Theory of Games II (1953)',
+        url: '',
+      },
+    ],
+  },
+  {
+    id: 'cs-005',
+    output: 'verified_truth',
+    judgment:
+      'Extend the AND-OR interaction decomposition from binary masking to heterogeneous inputs — categorical or multi-state variables, and conditional or context-dependent interactions: decide whether the universal matching property, exact prediction of DNN output across all masked input states, survives, and whether interaction sparsity degrades gracefully or is lost entirely; a pass is a machine-checkable statement of the extension, or a counterexample showing the property fails once inputs leave the binary-masking setting.',
+    title: 'Extension of the AND-OR Decomposition to Heterogeneous and Conditional Inputs',
+    titleZh: 'AND-OR 分解对异构与条件输入的推广',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-explainability',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'and-or-interactions', 'conditional-interactions', 'heterogeneous-inputs'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'the constructed logical model is able to accurately predict all outputs of the DNN across an exponential number of masked input states',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-001',
+        relation: 'generalizes',
+        note: 'cs-005 asks whether the Boolean-lattice decomposition behind cs-001 survives when variables are not binary-masked.',
+      },
+    ],
+    statement:
+      'The universal matching property is stated for binary masking: each input variable is either present or masked, and interactions are defined by whether a subset is fully present (AND) or has at least one present variable (OR). Real inputs are rarely binary — features are categorical or continuous, and whether an interaction applies can depend on context. Decide whether the exact surrogate representation and its sub-exponential sparsity survive under a multi-state or conditional generalization of the masking operation, or whether the representation is fundamentally tied to the Boolean lattice; the paper restricts to binary masking and leaves the extension open.',
+    origin:
+      'The interaction formalism in arXiv:2505.06993 (and the theory it builds on) is defined for binary-masked Boolean inputs. Generalizing the decomposition to multi-state and conditional inputs is a natural mathematical question raised by the formalism but not addressed; posed here as an open problem.',
+    progress: [],
+    obstacles: [
+      'A multi-state masking operation changes the lattice of states, and the Möbius inversion that gives the weights may no longer be well-defined or sparse.',
+    ],
+    formalization_notes:
+      'Formalizable once a multi-state masking operation and its lattice are fixed; the current gap is the choice of the correct combinatorial model for the extension.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+    ],
+  },
+  {
+    id: 'cs-006',
+    output: 'verified_truth',
+    judgment:
+      'Establish statistical guarantees for the transfer-based interaction generalization-power estimator of arXiv:2505.06993 — train a baseline DNN on the testing set and measure the proportion of interactions that transfer: prove finite-sample bounds on the estimation error as a function of sample size and network scale, or show that the estimator is biased or statistically inconsistent under stated assumptions; a pass is a machine-checkable statement of the guarantee or a rigorous negative result.',
+    title: 'Statistical Guarantees for Transfer-Based Interaction Generalization-Power Estimation',
+    titleZh: '基于迁移的交互泛化能力估计的统计保证',
+    domain: 'mathematical-computer-science',
+    subdomain: 'interaction-generalization',
+    impact_domains: ['DNN interpretability engineering'],
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['interaction-explainability', 'generalization-power', 'statistical-estimation', 'transfer-learning'],
+    contributor: 'community',
+    date_added: '2026-09-05',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'Up to now, there still lacks an efficient method to quantify the generalization power of each specific interaction',
+      source: 'https://arxiv.org/abs/2505.06993',
+    },
+    proposer: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang',
+    proposed_year: 2025,
+    via: {
+      label: 'He–Zhang–Cheng–Zhang–Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993',
+      url: 'https://arxiv.org/abs/2505.06993',
+    },
+    related_problems: [
+      {
+        id: 'cs-002',
+        relation: 'depends_on',
+        note: 'The estimator whose guarantees are asked here is exactly the measure defined and used in cs-002.',
+      },
+    ],
+    statement:
+      'The paper quantifies each interaction\'s generalization power by training a baseline DNN on the testing set and measuring which interactions transfer to it. This couples the quantity of interest to a particular estimation procedure: the transferred-interaction proportion depends on the baseline model, the sample, and the interaction-extraction algorithm. Decide whether this estimator has finite-sample guarantees (concentration of the measured transfer proportion around a well-defined population quantity as sample size grows), or whether it is biased or inconsistent — the report presents the method without any statistical analysis.',
+    origin:
+      'The transfer-based measure is introduced in arXiv:2505.06993 as the first efficient per-interaction quantification of generalization power; no statistical guarantees are given. Whether the estimator is sound, biased, or inconsistent is the open question posed here.',
+    progress: [],
+    obstacles: [
+      'The estimator depends on two trained models and an interaction-extraction step, so error decomposes into optimization error and extraction error that must be separated.',
+    ],
+    formalization_notes:
+      'A finite-sample concentration statement over two trained models is statistical learning theory; the interaction-extraction dependence is not yet structured for formalization.',
+    references: [
+      {
+        label: 'Y. He, J. Zhang, L. Cheng, H. Zhang, Q. Zhang, Technical Report: Quantifying and Analyzing the Generalization Power of a DNN, arXiv:2505.06993 (2025)',
+        url: 'https://arxiv.org/abs/2505.06993',
+      },
+    ],
+  },
 ]
 
 export const DOMAINS: Record<
@@ -9041,6 +9368,14 @@ export const DOMAINS: Record<
     color: '#8a2f3c',
     blurb: 'Multi-agent coordination and lower bounds for distributed algorithms.',
     excludes: 'Not accepted: controller design requiring deployment testing, protocol engineering implementations.',
+  },
+  'mathematical-computer-science': {
+    label: 'Mathematical Computer Science',
+    labelZh: '数学计算机科学',
+    prefix: 'cs',
+    color: '#6a5acd',
+    blurb: 'Rigorous analysis of DNN interpretability: AND-OR interaction decompositions, interaction generalization power, and their training dynamics.',
+    excludes: 'Not accepted: applied machine learning without mathematical foundations, pure implementation or engineering details.',
   },
 }
 

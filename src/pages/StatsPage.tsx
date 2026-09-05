@@ -13,6 +13,7 @@ const TARGETS: Record<Domain, number> = {
   'mathematical-chemistry': 25,
   'mathematical-biology': 25,
   'mathematical-engineering': 10,
+  'mathematical-computer-science': 15,
 }
 
 export default function StatsPage() {

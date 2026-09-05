@@ -25,6 +25,7 @@ export const DOMAIN_IDS = [
   "mathematical-chemistry",
   "mathematical-biology",
   "mathematical-engineering",
+  "mathematical-computer-science",
 ] as const;
 
 export type Domain = (typeof DOMAIN_IDS)[number];
