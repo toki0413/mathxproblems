@@ -42,7 +42,7 @@ for (const block of lawsSrc.split("id: 'law-").slice(1)) {
 // 否则"这道需求靠一道看不见的题支撑"会是空话。
 const auditsSrc = readFileSync(join(root, 'src/data/audits.ts'), 'utf8')
 const auditedIds = new Set(
-  [...auditsSrc.matchAll(/'((?:mp|mc|mb|me)-\d+)': \{ status: 'passed'/g)].map((m) => m[1]),
+  [...auditsSrc.matchAll(/'((?:mp|mc|mb|me|cs)-\d+)': \{ status: 'passed'/g)].map((m) => m[1]),
 )
 
 const READINESS = new Set(['served', 'partial', 'gap'])
@@ -58,7 +58,7 @@ const WORKFLOWS = new Set([
 ])
 const PROBLEM_ROLES = new Set(['certificate', 'anchor', 'related'])
 // 每条需求至少要有 1 个"可判定的锚点"：要么是问题，要么是定律。
-const CHAIN_STEP_RE = /\{\s*id: '((?:mp|mc|mb|me)-\d+|law-[a-z0-9-]+)',\s*kind: '(problem|law)',\s*role: '([a-z-]+)'/g
+const CHAIN_STEP_RE = /\{\s*id: '((?:mp|mc|mb|me|cs)-\d+|law-[a-z0-9-]+)',\s*kind: '(problem|law)',\s*role: '([a-z-]+)'/g
 
 const needs = []
 for (const block of needsSrc.split("\n  {\n    id: '").slice(1)) {

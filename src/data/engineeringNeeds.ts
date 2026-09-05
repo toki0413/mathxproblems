@@ -1070,6 +1070,262 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
       },
     ],
   },
+  {
+    id: 'need-certified-robustness-gate',
+    name: 'Certified-robustness deployment gate for ML',
+    area: 'AI safety / trustworthy ML',
+    description:
+      'A sign-off decision: before a neural controller / classifier ships in a safety-relevant role, certify a lower bound on the local robustness radius (no adversarial input inside the box), so deployment does not rest on empirical testing alone.',
+    chain: [
+      {
+        id: 'cs-008',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Complexity of certified robustness for ReLU networks — whether a polynomial-time certified-radius bound exists, or approximation is NP-hard.',
+      },
+      {
+        id: 'cs-015',
+        kind: 'problem',
+        role: 'related',
+        what: 'Noise-robust learning theory — the loss/risk robustness that bounds the training-side residual of the deployed model.',
+      },
+    ],
+    standard: 'ISO/IEC TR 24029-1 (AI robustness assessment); ISO 21448 (SOTIF) for automated driving',
+    consumable:
+      'A certified lower bound on the local robustness radius for a stated ReLU network and input box, with R_model + R_param + R_num, consumable at sign-off.',
+    barrier:
+      'Exact local robustness verification is NP-complete (cs-008) and the certified-radius approximation landscape is open; cs-015 is open — no machine-verified radius certificate exists in the ledger.',
+    workflow: 'sign-off',
+    readiness: 'gap',
+    note: 'The demand side of AI safety: a certified radius converts adversarial robustness from empirical anecdotes into an auditable deployment gate.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'cs-008',
+        what: 'ReLU 认证鲁棒半径的近似复杂度下界（gap 归约）',
+        whatEn: 'Approximation-complexity lower bound for the ReLU certified-robustness radius (gap-preserving reduction)',
+      },
+      {
+        kind: 'new',
+        what: '具体网络族（深度/宽度/激活）本地鲁棒半径的下界证书',
+        whatEn: 'Certified local robustness-radius lower bound for a stated network family',
+      },
+    ],
+  },
+  {
+    id: 'need-interpretability-gate',
+    name: 'Interpretability-gated AI deployment',
+    area: 'AI governance',
+    description:
+      'A validation decision: for a high-risk AI system, certify that its inference logic is explainable through a small, checkable interaction/attribution structure — the transparency evidence regulators and safety reviewers can audit.',
+    chain: [
+      {
+        id: 'cs-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Interaction-sparsity bound for the AND-OR decomposition of DNN inference — how few salient interactions explain the output.',
+      },
+      {
+        id: 'cs-010',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Superposition capacity / phase transition — how many sparse features a layer packs, bounding polysemanticity.',
+      },
+      {
+        id: 'cs-007',
+        kind: 'problem',
+        role: 'related',
+        what: 'Axiomatic uniqueness of Shapley attribution — which attribution claim is canonically defensible.',
+      },
+    ],
+    standard: 'EU AI Act Annex III (high-risk transparency obligations); ISO/IEC 42001 (AI management system)',
+    consumable:
+      'A certified upper bound on the number of salient interactions needed to reproduce DNN outputs within error ε, consumable as transparency evidence at validation.',
+    barrier:
+      'All three anchors (cs-001, cs-010, cs-007) are open — no machine-verified interaction-sparsity bound exists, so the transparency claim cannot yet be certified.',
+    workflow: 'validation',
+    readiness: 'gap',
+    note: 'The demand side of explainability: a certified small-interaction bound is exactly the machine-checkable form of "the model is explainable".',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'cs-001',
+        what: 'AND-OR 交互稀疏性界的可判定刻画（首个可消费上界）',
+        whatEn: 'Decidable interaction-sparsity bound for the AND-OR decomposition (first consumable upper bound)',
+      },
+      {
+        kind: 'new',
+        what: '具体部署模型的交互稀疏性证书（误差 ε 下的显著交互数上界）',
+        whatEn: 'Certified salient-interaction count for a deployed model within error ε',
+      },
+    ],
+  },
+  {
+    id: 'need-vaccination-threshold',
+    name: 'Vaccination-threshold certificate for network epidemics',
+    area: 'Public health',
+    description:
+      'A screening decision: given a contact network and an intervention budget, certify the vaccination coverage needed to push the epidemic below its critical threshold — replacing mean-field heuristics with a sharp network-level guarantee.',
+    chain: [
+      {
+        id: 'mb-005',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp epidemic threshold of SIR on clustered networks — the coverage target that pushes R0 below 1.',
+      },
+      {
+        id: 'mb-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Sharp metastable lifetime of the SIS epidemic — how long the outbreak lingers near threshold.',
+      },
+      {
+        id: 'mb-013',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Near-critical epidemic asymptotics — the behavior exactly at the threshold where interventions bind.',
+      },
+    ],
+    standard: 'WHO Expanded Programme on Immunization; ECDC vaccination coverage guidance',
+    consumable:
+      'A certified coverage threshold interval (with R_model + R_param + R_num) such that "coverage above the band ⇒ herd immunity" is machine-checkable for a stated network family.',
+    barrier:
+      'mb-005 is partially solved; mb-002 and mb-013 remain open — the sharp threshold that turns a coverage target into a certificate is not yet machine-verified.',
+    workflow: 'screening',
+    readiness: 'partial',
+    note: 'One partial anchor (mb-005) with the sharp threshold problems open behind it — the demand side of threshold-based immunization planning.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'mb-005',
+        what: '聚类网络 SIR 阈值到可消费覆盖度证书的收窄',
+        whatEn: 'Narrow the clustered-network SIR threshold toward a consumable coverage certificate',
+      },
+    ],
+  },
+  {
+    id: 'need-fixation-risk',
+    name: 'Treatment-resistance fixation-risk certificate',
+    area: 'Public health / AMR',
+    description:
+      'A validation decision: estimate the risk that a resistance-conferring mutation fixes in a treated population, as a certified band over the structured-population fixation probability — the quantitative basis for AMR stewardship limits.',
+    chain: [
+      {
+        id: 'mb-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Exact fixation probability of a mutant on arbitrary graphs — the risk kernel for resistance spread.',
+      },
+      {
+        id: 'mb-027',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Extremal amplification of fixation probability — the worst-case structures that maximize resistance risk.',
+      },
+    ],
+    standard: 'WHO Global Action Plan on AMR; FDA Guidance: antimicrobial drug development',
+    consumable:
+      'A certified band on the fixation probability of a resistance allele under stated treatment regime and population structure (R_model + R_param + R_num), consumable at stewardship validation.',
+    barrier:
+      'Both anchors (mb-001, mb-027) are open — no machine-verified fixation-risk band exists, so stewardship limits still rest on heuristics.',
+    workflow: 'validation',
+    readiness: 'gap',
+    note: 'The demand side of AMR stewardship: a certified fixation band turns resistance-risk assessment from narrative into audit.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'mb-001',
+        what: '图上的固定概率到可判定风险带的推进',
+        whatEn: 'Push fixation probability on graphs toward a decidable risk band',
+      },
+      {
+        kind: 'push',
+        target: 'mb-027',
+        what: '固定概率放大结构的显式刻画',
+        whatEn: 'Explicit characterization of fixation-amplifying structures',
+      },
+    ],
+  },
+  {
+    id: 'need-sensor-coverage',
+    name: 'Certified sensor-placement coverage bound',
+    area: 'Sensor networks / monitoring',
+    description:
+      'A design-review decision: where to place sensors so a monitoring objective is met with a provable coverage/approximation guarantee, replacing simulation-only placement with a certified bound.',
+    chain: [
+      {
+        id: 'me-030',
+        kind: 'problem',
+        role: 'certificate',
+        what: 'Provable approximation for optimal sensor placement — the certified placement bound consumed at design review.',
+      },
+      {
+        id: 'me-002',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Tight lower bounds for decentralized optimization over time-varying graphs — how fast coverage is provably impossible to achieve.',
+      },
+    ],
+    standard: 'IEEE 1451 (smart transducer interface standards); ISO/IEC 30141 (IoT reference architecture)',
+    consumable:
+      'A certified approximation ratio / coverage bound for a stated sensor-placement instance, with R_model + R_param + R_num — directly consumable at design review.',
+    barrier:
+      'me-030 carries a structured certificate and is consumable; the time-varying-graph lower bound (me-002) remains open, bounding how much better any placement could be.',
+    workflow: 'design-review',
+    readiness: 'served',
+    note: 'A consumable certificate (me-030) anchors the demand; the graph lower bound keeps the guarantee honest.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'me-002',
+        what: '时变图下界与 me-030 证书的合成带',
+        whatEn: 'Compose the time-varying-graph lower bound with the me-030 certificate into one band',
+      },
+    ],
+  },
+  {
+    id: 'need-nanoscale-thermal',
+    name: 'Nanoscale thermal-conductivity certificate',
+    area: 'Thermal engineering',
+    description:
+      'A design-review decision: certify a thermal-conductivity band for a nanoscale device where Fourier\u2019s law lacks a rigorous microscopic derivation, so heat-management margins do not silently assume a law that is unproven at device scale.',
+    chain: [
+      {
+        id: 'mp-014',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Derivation of Fourier\u2019s law in deterministic systems — the conduction law that must be proved, not assumed.',
+      },
+      {
+        id: 'mp-032',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Fourier law and thermal conductivity of the FPU / phonon chain — the transport coefficient whose band is wanted.',
+      },
+      {
+        id: 'law-fourier',
+        kind: 'law',
+        role: 'law',
+        what: 'Fourier\u2019s law residual vs. microscopic phonon transport at device scale — the R_model term of the conduction side.',
+      },
+    ],
+    standard: 'ISO 22007 (thermal conductivity / diffusivity measurement); JEDEC JESD51 (package thermal characterization)',
+    consumable:
+      'A certified thermal-conductivity band with R_model (Fourier-law residual) + R_param (measurement) + R_num, consumable at design review for nanoscale heat margins.',
+    barrier:
+      'law-fourier is partial and mp-014 / mp-032 are open — the microscopic conduction residual that would close the band is not yet machine-verified.',
+    workflow: 'design-review',
+    readiness: 'partial',
+    note: 'The demand side of nanoscale thermal management: an explicit, bounded Fourier-law residual instead of an unexamined assumption.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'mp-014',
+        what: '傅里叶定律在确定性系统中的推导推进',
+        whatEn: 'Push the derivation of Fourier\u2019s law in deterministic systems',
+      },
+    ],
+  },
 ]
 
 const _byId = new Map(ENGINEERING_NEEDS.map((n) => [n.id, n]))
