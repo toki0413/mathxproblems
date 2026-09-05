@@ -1028,6 +1028,48 @@ export const ENGINEERING_NEEDS: EngineeringNeed[] = [
       },
     ],
   },
+  {
+    id: 'need-bioreactor-washout',
+    name: 'Certified washout-avoidance for continuous bioreactors',
+    area: 'Biochemical engineering',
+    description:
+      'A control / alarm decision: for a continuous stirred bioreactor with Monod growth, certify a dilution-rate operating envelope — washout occurs iff D > D* = μ_max·S_in/(K_s+S_in) — as a banded judgment (R_model + R_param + R_num) instead of a simulation number, so the dilution-rate alarm set-point is defensible at design review.',
+    chain: [
+      {
+        id: 'mc-001',
+        kind: 'problem',
+        role: 'anchor',
+        what: 'Persistence / global attractor of mass-action reaction networks — the mathematical basis that a positive operating state is reached rather than washed out.',
+      },
+      {
+        id: 'law-monod',
+        kind: 'law',
+        role: 'law',
+        what: 'Monod growth law — the rate law linking substrate concentration to specific growth rate; its residual vs. the ideal chemostat model bounds the washout-threshold prediction.',
+      },
+    ],
+    standard: 'FDA Guidance for Industry: Process Validation (2011); ICH Q8(R2) Pharmaceutical Development',
+    consumable:
+      'A certified band on the washout threshold D* (interval arithmetic over measured μ_max, K_s, S_in) such that "operating dilution rate D < D* ⇒ no washout" is a machine-checkable claim with R_model + R_param + R_num.',
+    barrier:
+      'The washout threshold is classical chemostat theory, but (a) law-monod lacks a rigorous derivation (gap), and (b) the ideal-chemostat idealization residual (imperfect mixing, wall growth, metabolic regulation) is unquantified — no machine-verified certificate exists in the ledger yet.',
+    workflow: 'alarm-setpoint',
+    readiness: 'gap',
+    note: 'The demand side of washout control: a certified threshold band converts the dilution-rate set-point from a tuning heuristic into an auditable operating limit.',
+    sourcing: [
+      {
+        kind: 'push',
+        target: 'mc-001',
+        what: '把复平衡网络全局吸引子收敛推进到可判定的持久性上界（washout 判定的数学基础）',
+        whatEn: 'Push the global-attractor convergence of complex-balanced networks toward a decidable persistence bound (the mathematical basis of washout decisions)',
+      },
+      {
+        kind: 'new',
+        what: 'Chemostat washout 阈值 D* = μ_max·S_in/(K_s+S_in) 的带证区间（R_model/R_param/R_num 三层残差）',
+        whatEn: 'Certified band on the chemostat washout threshold D* = μ_max·S_in/(K_s+S_in) with three-layer residuals',
+      },
+    ],
+  },
 ]
 
 const _byId = new Map(ENGINEERING_NEEDS.map((n) => [n.id, n]))
