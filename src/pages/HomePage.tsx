@@ -321,6 +321,10 @@ export default function HomePage() {
                 </Reveal>
               )
             })}
+            {/* 领域数为奇数时补一格，闭合右下描边（≥md 两列布局；移动端单列本就闭合） */}
+            {(Object.keys(DOMAINS).length % 2 === 1) && (
+              <div aria-hidden className="hidden md:block border-r border-b border-line" />
+            )}
           </div>
         </div>
       </section>

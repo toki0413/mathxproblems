@@ -65,14 +65,18 @@ export default function StatsPage() {
     scaffolding: '#8b887c',
   }
 
-  const Bar = ({ value, max, color }: { value: number; max: number; color?: string }) => (
-    <div className="h-5 bg-[#f0eee7] w-full relative">
-      <div
-        className="h-full transition-all duration-700"
-        style={{ width: `${(value / max) * 100}%`, background: color ?? 'var(--ink)' }}
-      />
-    </div>
-  )
+  const Bar = ({ value, max, color }: { value: number; max: number; color?: string }) => {
+    // 封顶 100%：目标已超额时进度条不再撑出轨道（ME 32/10、CS 18/15 等场景）。
+    const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0
+    return (
+      <div className="h-5 bg-[#f0eee7] w-full relative overflow-hidden">
+        <div
+          className="h-full transition-all duration-700"
+          style={{ width: `${pct}%`, background: color ?? 'var(--ink)' }}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
