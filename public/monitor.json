@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-21T08:49:11.857850+00:00",
-  "since": "2026-09-14",
+  "generated_at": "2026-09-28T09:37:56.347581+00:00",
+  "since": "2026-09-21",
   "problems": [
     {
       "id": "mp-001",
@@ -8,6 +8,10 @@
       "query": "bbgky hierarchy boltzmann equation",
       "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -18,39 +22,12 @@
       "id": "mp-002",
       "title": "Sharp Exponential Mixing Rate for 2D Navier–Stokes with Degenerate Noise",
       "query": "stochastic navier stokes mixing",
-      "new_works": [
-        {
-          "title": "Statistical Modeling of Bifractal Statistics with a Superposition of Characteristic Functionals",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s10955-026-03651-w",
-          "source": "openalex"
-        },
-        {
-          "title": "JRWS, vol. 4, iss. 1 (2026)",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.5070/rw3.69275",
-          "source": "openalex"
-        },
-        {
-          "title": "Computational Role in Thermal Engineering and Chemical Analytics During the Rotating Disk of Generalized Williamson Viscosity and Thermal Conductivity",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1002/apxr.70174",
-          "source": "openalex"
-        },
-        {
-          "title": "Coral connectivity: How biophysical modelling choices shape connectivity inference",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.31223/x5022v",
-          "source": "openalex"
-        },
-        {
-          "title": "JRWS issue 4.1 (2026)",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.5070/rw3.69260",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -61,21 +38,12 @@
       "id": "mp-003",
       "title": "Thermalization Time of the Fermi–Pasta–Ulam–Tsingou Lattice",
       "query": "fput thermalization",
-      "new_works": [
-        {
-          "title": "Thermalization of Weakly Nonintegrable FPUT and Toda Dynamics: A Lyapunov Spectrum Perspective",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1007/s10955-026-03688-x",
-          "source": "openalex"
-        },
-        {
-          "title": "Recent progress on thermal transport in one-dimensional long-range interacting Fermi-Pasta-Ulam-Tsingou lattice systems",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.48550/arxiv.2609.18765",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -90,6 +58,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -102,6 +74,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -110,27 +86,12 @@
       "id": "mp-006",
       "title": "Growth of Higher Sobolev Norms for the Defocusing Cubic NLS on T²",
       "query": "nonlinear schrodinger sobolev norms",
-      "new_works": [
-        {
-          "title": "Pointwise convergence for single-particle Schrödinger equation and Schrödinger equation with infinitely many particles on the torus and waveguide manifolds",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15363",
-          "source": "openalex"
-        },
-        {
-          "title": "Resolvent estimate for asymptotically hyperbolic surfaces without evenness assumption",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.14914",
-          "source": "openalex"
-        },
-        {
-          "title": "Bilinear estimates for Schrödinger equation with repulsive inverse-square potential and its application",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15183",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -141,39 +102,12 @@
       "id": "mp-007",
       "title": "Localization–Delocalization Transition for Random Band Matrices",
       "query": "band matrices anderson transition",
-      "new_works": [
-        {
-          "title": "Classifying coherent peaks in nanoelectronic devices by the presence or absence of spin exchange",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1088/1361-648x/aea9e3",
-          "source": "openalex"
-        },
-        {
-          "title": "adheaping: Characteristic-Function De-Heaping Density Estimation",
-          "date": "2026-09-17",
-          "url": "https://arxiv.org/abs/2606.15450",
-          "source": "openalex"
-        },
-        {
-          "title": "The evolution of anti-visual perception: biomimetics, spectral physics, and artificial intelligence",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1093/nsr/nwag601",
-          "source": "openalex"
-        },
-        {
-          "title": "Geometric Optimization and Penetration Performance of Explosively Formed Projectiles",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.21203/rs.3.rs-10800615/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Large nutritional and environmental improvements can be achieved across the product portfolios of major UK food and beverage manufacturers",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s43016-026-01420-2",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -184,33 +118,12 @@
       "id": "mp-008",
       "title": "Anomalous Dissipation in the Zero-Viscosity Limit of Forced Navier–Stokes",
       "query": "navier stokes turbulence",
-      "new_works": [
-        {
-          "title": "Small-time asymptotics for hypoelliptic diffusions",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1007/s00440-026-01532-7",
-          "source": "openalex"
-        },
-        {
-          "title": "Real-Time Aerodynamic Flow Reconstruction from Ultra-Sparse Sensors via Deep Permutation Networks (DPN) and Idempotent Physical Projections",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22849606",
-          "source": "openalex"
-        },
-        {
-          "title": "TWO CLOUDS ON THE HORIZON OF MODERN PHYSICS",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22848789",
-          "source": "openalex"
-        },
-        {
-          "title": "Validating General Connectivity phenomenon through The Navier–Stokes Equations",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.17605/osf.io/9468f",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -225,6 +138,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -237,6 +154,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -247,27 +168,33 @@
       "query": "molecular graphs inverse eigenvalue problem",
       "new_works": [
         {
-          "title": "Implementing Hamiltonian Renormalization Group Flow on Quantum Computers with VAPOR",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.21203/rs.3.rs-10808746/v1",
+          "title": "Asymptotic stability and cut-off phenomenon for the underdamped Langevin dynamics",
+          "date": "2026-09-25",
+          "url": "https://doi.org/10.1214/26-aap2330",
           "source": "openalex"
         },
         {
-          "title": "Magnetic memory and hysteresis from quantum transitions in theory and experiments on quantum annealers",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1038/s42005-026-02847-6",
+          "title": "Bridging the Training–Application Gap in Kohn–Sham Hamiltonian Learning through Dual-Space Supervision",
+          "date": "2026-09-25",
+          "url": "https://doi.org/10.26434/chemrxiv.15009467/v1",
           "source": "openalex"
         },
         {
-          "title": "DiffGSP: reversing mRNA diffusion to unlock high-fidelity spatial transcriptomics",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.64898/2026.09.10.750095",
+          "title": "Simulating and sampling from quantum circuits with 2D tensor networks",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.1038/s41534-026-01372-2",
           "source": "openalex"
         },
         {
-          "title": "Neural-Network Solutions to Real-Space Charge Density and Generalization",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.14906",
+          "title": "An optimized construction of lie algebra generator pools for variational quantum eigensolvers in chemistry",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.1038/s42005-026-02879-y",
+          "source": "openalex"
+        },
+        {
+          "title": "Automated Structure Discovery for Tip-Enhanced Raman Spectroscopy",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.1103/8k25-7jtd",
           "source": "openalex"
         }
       ],
@@ -282,14 +209,7 @@
       "id": "mc-004",
       "title": "Classification of Small Reaction Networks Admitting Multistationarity",
       "query": "multistationarity real algebraic geometry",
-      "new_works": [
-        {
-          "title": "The Generic Geometry of Steady State Varieties",
-          "date": "2026-09-30",
-          "url": "https://researchprofiles.ku.dk/da/publications/75b6fd7a-db1b-4025-ad30-2905a91e4fa3",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
         {
           "type": "fetch_error",
@@ -301,39 +221,12 @@
       "id": "mc-005",
       "title": "Structural Identifiability Classification of Mass-Action Rate Constants",
       "query": "identifiability parameter estimation",
-      "new_works": [
-        {
-          "title": "Dynamic Bayesian Estimation of Epidemic Prevalence via Pool Testing: Incorporating Viral Load Distributions and Sensitivity Analysis",
-          "date": "2027-01-01",
-          "url": "https://doi.org/10.17638/03195023",
-          "source": "openalex"
-        },
-        {
-          "title": "Preclinical evaluation of PSMA-targeted ultrasound contrast agents in an orthotopic model of prostate cancer in rabbits.",
-          "date": "2027-01-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42621251",
-          "source": "openalex"
-        },
-        {
-          "title": "Educational Management Resilience under Low Fertility: Theoretical Construction and Adaptive Mechanisms of County-Level Education Systems in Demographic Decline",
-          "date": "2026-12-31",
-          "url": "https://philpapers.org/rec/WANEMR-2",
-          "source": "openalex"
-        },
-        {
-          "title": "Differential DNA methylation in blood as potential mediator of the association between ambient PM2.5 and cerebrospinal fluid biomarkers of Alzheimer's disease among a cognitively normal population-based cohort.",
-          "date": "2026-10-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42270761",
-          "source": "openalex"
-        },
-        {
-          "title": "Advancing Mixed Models for Longitudinal Exposome Data",
-          "date": "2026-09-20",
-          "url": "https://doi.org/10.5463/thesis.1911",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -344,21 +237,12 @@
       "id": "mb-001",
       "title": "Exact Fixation Probability of a Mutant on Arbitrary Graphs",
       "query": "evolutionary graph theory moran process",
-      "new_works": [
-        {
-          "title": "Coral connectivity: How biophysical modelling choices shape connectivity inference",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.31223/x5022v",
-          "source": "openalex"
-        },
-        {
-          "title": "Environmental Gradients as a Dominant Force in the Macroevolution of a Host-Associated Marine Bacterium",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1093/ismejo/wrag244",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -373,6 +257,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -381,39 +269,12 @@
       "id": "mb-003",
       "title": "Global Stability Classification of Replicator Dynamics with Mutation",
       "query": "replicator dynamics mutation",
-      "new_works": [
-        {
-          "title": "GLP-1 Receptor Agonist and GIP/GLP-1 Receptor Dual Agonist Therapeutics at the Intersection of Alcohol Use Disorder, Obesity, and Cardiometabolic Dysfunction.",
-          "date": "2026-11-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42741173",
-          "source": "openalex"
-        },
-        {
-          "title": "Engineered mesenchymal stem cell-derived extracellular vesicles overexpressing miR-146a alleviate neuroinflammation in Alzheimer's disease.",
-          "date": "2026-10-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/41017725",
-          "source": "openalex"
-        },
-        {
-          "title": "Muscarinic agonists for schizophrenia: Bridging preclinical evidence and clinical enthusiasm",
-          "date": "2026-10-01",
-          "url": "https://eprints.gla.ac.uk/view/author/2653.html>",
-          "source": "openalex"
-        },
-        {
-          "title": "Mean fitness is maximized in small populations under stabilizing selection on highly polygenic traits",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1093/genetics/iyag254",
-          "source": "openalex"
-        },
-        {
-          "title": "Multidimensional analysis on the potential of cell cycle-related gene STMN1 as a tumor biomarker",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1007/s12672-026-05921-1",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -428,6 +289,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -436,33 +301,12 @@
       "id": "me-001",
       "title": "Nonlinear Multi-Agent Consensus Convergence Rate",
       "query": "multi agent systems spectral graph theory",
-      "new_works": [
-        {
-          "title": "PROCESSING OF SECONDARY RAW MATERIALS FOR THE RECOVERY OF VALUABLE COMPONENTS",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.46299/979-8-90671-558-6",
-          "source": "openalex"
-        },
-        {
-          "title": "Robotics Middleware and Distributed Systems: Communication Topologies, Consensus Protocols, and Fault-Tolerant Architectures",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22822754",
-          "source": "openalex"
-        },
-        {
-          "title": "Fiber optic sensing for structural health monitoring in harsh environments advancing degradation physics signal robustness and long term reliability prediction",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s44290-026-00613-9",
-          "source": "openalex"
-        },
-        {
-          "title": "Adaptive optimization and interaction method for immersive exhibition space experiences integrating multimodal physiological sensing",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s44163-026-02246-4",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -473,39 +317,12 @@
       "id": "me-002",
       "title": "Tight Lower Bounds for Decentralized Optimization over Time-Varying Graphs",
       "query": "decentralized optimization lower bounds",
-      "new_works": [
-        {
-          "title": "Simulation code for \"Real-Time AI Service Economy: A Framework for Agentic Computing Across the Continuum\"",
-          "date": "2026-09-19",
-          "url": "https://arxiv.org/abs/2603.05614",
-          "source": "openalex"
-        },
-        {
-          "title": "FedXWater: A Federated Data-Provenance and Explainable Watermarking Framework for Privacy-Preserving Medical Image Analysis",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.25258/ijddt.16.83s.51",
-          "source": "openalex"
-        },
-        {
-          "title": "Cooperative multi-agent reinforcement learning with entangled state representations and copula-based action coordination for urban navigation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00180-026-01806-7",
-          "source": "openalex"
-        },
-        {
-          "title": "Prioritizing Strategies for the Successful Implementation of Digital Procurement: An Integrated Fuzzy Delphi and Fuzzy Multi-criteria Decision-Making Approach",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s40815-026-02315-x",
-          "source": "openalex"
-        },
-        {
-          "title": "Nonlinear associations and potential pathways of urban polycentricity and transportation carbon emissions in the Yangtze River Delta China",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41598-026-69293-w",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -516,21 +333,12 @@
       "id": "me-003",
       "title": "Unconditional Flocking for Cucker–Smale Dynamics with Singular Kernels",
       "query": "cucker smale flocking",
-      "new_works": [
-        {
-          "title": "On the data-sparsity of the solution of Riccati equations with applications to feedback control",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00211-026-01572-0",
-          "source": "openalex"
-        },
-        {
-          "title": "Asymptotic stability of the high-dimensional Kuramoto model on Stiefel manifolds",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1016/j.na.2026.114276",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -541,39 +349,12 @@
       "id": "mp-009",
       "title": "Area Law for Ground States of Two-Dimensional Gapped Local Hamiltonians",
       "query": "area law entanglement entropy",
-      "new_works": [
-        {
-          "title": "Evaluating Quantum Support Vector Machine for Multiclass Student Performance Prediction: A Comparative Analysis with Machine Learning and Deep Learning Models",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.04",
-          "source": "openalex"
-        },
-        {
-          "title": "Spatial structure of multipartite entanglement at measurement induced phase transitions",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.22331/q-2026-09-18-2211",
-          "source": "openalex"
-        },
-        {
-          "title": "Non-extensive entropy signatures in compact star",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1140/epjp/s13360-026-08269-1",
-          "source": "openalex"
-        },
-        {
-          "title": "A CONSTRUCTIVE QUANTUM FIELD THEORY APPROACH TO YANG–MILLS EXISTENCE AND MASS GAP VIA UNIFORM OPERATOR BOUNDS AND SCALE-INVARIANT EUCLIDEAN MEASURES",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22724866",
-          "source": "openalex"
-        },
-        {
-          "title": "Interface management in relationships between systems",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.56958/jesi.2026.11.1.125",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -584,39 +365,12 @@
       "id": "mp-010",
       "title": "Delocalization of the Anderson Model at Weak Disorder in Dimension Three",
       "query": "anderson model delocalization",
-      "new_works": [
-        {
-          "title": "Checkerboard-type Zhang-Rice states in overdoped cuprate superconductors",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1038/s41467-026-77985-0",
-          "source": "openalex"
-        },
-        {
-          "title": "Beyond electrical stimulation: toward neurotransmitter-mediated synaptic prostheses",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1186/s44495-026-00010-5",
-          "source": "openalex"
-        },
-        {
-          "title": "Transmaxxing , Identity, and Online Male Subcultures: Toward a Feminist Analysis",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1080/01639625.2026.2730480",
-          "source": "openalex"
-        },
-        {
-          "title": "Teaching Music Production",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.4324/9781003648734",
-          "source": "openalex"
-        },
-        {
-          "title": "Disorder on the hyperbolic square lattice I: Anderson delocalization and absolutely continuous spectrum",
-          "date": "2026-09-17",
-          "url": "https://arxiv.org/abs/2609.20798",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -627,39 +381,12 @@
       "id": "mp-011",
       "title": "The Dry Ten Martini Problem for the Almost Mathieu Operator",
       "query": "almost mathieu gap labelling",
-      "new_works": [
-        {
-          "title": "A deep reinforcement learning framework for coastal multi-hazard emergency response",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1016/j.ijdrr.2026.106439",
-          "source": "openalex"
-        },
-        {
-          "title": "A meta-analysis on the effects of pollutants on the earthworm microbiota",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.64898/2026.09.14.751390",
-          "source": "openalex"
-        },
-        {
-          "title": "Transcutaneous auricular vagus nerve stimulation targets the brain-gut axis to treat functional dyspepsia: a scoping review of clinical evidence and mechanistic research",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.3389/fnins.2026.1876591",
-          "source": "openalex"
-        },
-        {
-          "title": "Towards distinguishing cybersecurity attacks and safety faults in distributed energy resources-rich smart grids: a systematic literature review",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s10207-026-01308-z",
-          "source": "openalex"
-        },
-        {
-          "title": "Genome-Wide Mapping of Major Histone Modifications Reveals Distinct Epigenetic Regulatory States in a Reef-Building Coral",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.64898/2026.09.10.745915",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -670,39 +397,12 @@
       "id": "mp-012",
       "title": "Completeness of the Bethe Ansatz for Higher-Spin Heisenberg Chains",
       "query": "bethe ansatz integrability",
-      "new_works": [
-        {
-          "title": "Statistical Modeling of Bifractal Statistics with a Superposition of Characteristic Functionals",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s10955-026-03651-w",
-          "source": "openalex"
-        },
-        {
-          "title": "Integrability of the deformed Toda systems",
-          "date": "2026-09-17",
-          "url": "https://arxiv.org/abs/2609.20679",
-          "source": "openalex"
-        },
-        {
-          "title": "Quantum computing solution of the Bethe–Salpeter equation for relativistic scalar bound states via tensor-network VQE",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1140/epja/s10050-026-01957-7",
-          "source": "openalex"
-        },
-        {
-          "title": "Breaking Symmetries: $\\mathcal{N} = 2$ Spin Chains and Conformal Field Theory at Finite Temperature",
-          "date": "2026-09-16",
-          "url": "https://bib-pubdb1.desy.de/record/653152",
-          "source": "openalex"
-        },
-        {
-          "title": "Power-law distributions out of the aggregation process: Asymptotic analysis of the random domino automaton",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1088/1751-8121/aea7e8",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -713,21 +413,12 @@
       "id": "mp-013",
       "title": "Universality of the KPZ Fixed Point Beyond Integrable Models",
       "query": "kpz universality",
-      "new_works": [
-        {
-          "title": "As Above, So Below — The algebra and geometry of the framework, tested against the macro-world",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5281/zenodo.22812983",
-          "source": "openalex"
-        },
-        {
-          "title": "A universality result for the critical 2d stochastic heat flow",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15832",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -742,6 +433,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -750,39 +445,12 @@
       "id": "mc-008",
       "title": "Inverse Eigenvalue Problem for Chemical Graph Classes",
       "query": "inverse eigenvalue graph spectra",
-      "new_works": [
-        {
-          "title": "On the data-sparsity of the solution of Riccati equations with applications to feedback control",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00211-026-01572-0",
-          "source": "openalex"
-        },
-        {
-          "title": "Can one hear the shape of a crack in a drum? Spectral fingerprints and a data-driven perspective",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s40324-026-00444-9",
-          "source": "openalex"
-        },
-        {
-          "title": "A direct algebraic proof for the non-positivity of Liouvillian spectral values and controlling the dissipative gap of systems with normal Lindblad operators",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1088/1751-8121/aea8a9",
-          "source": "openalex"
-        },
-        {
-          "title": "Iwasawa-type spectral resultant growth laws for Grover walks on graph towers",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1007/s40316-026-00290-1",
-          "source": "openalex"
-        },
-        {
-          "title": "From torpid to rapid mixing: group averaging for a weakly interacting Ising star",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15023",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -793,39 +461,12 @@
       "id": "mb-005",
       "title": "Epidemic Threshold of SIR Epidemics on Clustered Networks",
       "query": "sir epidemic clustering",
-      "new_works": [
-        {
-          "title": "Lipid raft protein Flotillin 2 facilitates alphavirus infection through promoting viral release",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1111/1744-7917.70361",
-          "source": "openalex"
-        },
-        {
-          "title": "Symmetry-breaking and hysteresis in a duplex voter model",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1088/1367-2630/aea895",
-          "source": "openalex"
-        },
-        {
-          "title": "Parallelizing SIR Epidemic Spread Simulation Using Pthreads, OpenMP, and MPI",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.21203/rs.3.rs-11019863/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Integrating Leaf-Image Deep Learning, Meteorological Risk-State Discovery, and Stochastic SICR Dynamics for Potato Early and Late Blight: A Data-Science and Intelligent-Systems Framework",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.47852/bonviewjdsis620210658",
-          "source": "openalex"
-        },
-        {
-          "title": "Stability Analysis and Simulation of a Dynamical Systems Trendy in Computer-Generated Criminality Detection and Its Optimal Control Measures",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.56201/ijasmt.vol.12.no2.2026pg38.55",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -836,39 +477,12 @@
       "id": "mb-006",
       "title": "Classification of Strong Amplifiers of Natural Selection",
       "query": "moran process fixation probability",
-      "new_works": [
-        {
-          "title": "ZEP1 orchestrates template choice and crossover pathways to ensure meiotic genome integrity in rice",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s44318-026-00910-0",
-          "source": "openalex"
-        },
-        {
-          "title": "Evolutionary genomics, tumor dynamics, and mathematical modeling of cancer progression: Implications for precision oncology",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1016/j.meegid.2026.106019",
-          "source": "openalex"
-        },
-        {
-          "title": "Title: The Cyanobacterial dnaX Intein Encodes an Out-of-Frame Homing Endonuclease and is Sporadically Distributed in the Phylum",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.64898/2026.09.14.751524",
-          "source": "openalex"
-        },
-        {
-          "title": "The evolutionary origins of the parthenogenetic lizard Aspidoscelis tesselatus",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1093/jhered/esag077",
-          "source": "openalex"
-        },
-        {
-          "title": "Unravelling the role of IRX4 variants in non-syndromic and Down syndrome associated congenital heart disease",
-          "date": "2026-09-14",
-          "url": "https://doi.org/10.64898/2026.09.07.749900",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -879,15 +493,12 @@
       "id": "mb-007",
       "title": "Rigorous Click Rate of Muller’s Ratchet in the Speed-Limit Regime",
       "query": "mullers ratchet fixation",
-      "new_works": [
-        {
-          "title": "The evolutionary origins of the parthenogenetic lizard Aspidoscelis tesselatus",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1093/jhered/esag077",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -902,6 +513,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -910,39 +525,12 @@
       "id": "me-004",
       "title": "Optimal Round Complexity of Triangle Detection and Listing in the CONGEST Model",
       "query": "congest distributed complexity",
-      "new_works": [
-        {
-          "title": "Simulation code for \"Real-Time AI Service Economy: A Framework for Agentic Computing Across the Continuum\"",
-          "date": "2026-09-19",
-          "url": "https://arxiv.org/abs/2603.05614",
-          "source": "openalex"
-        },
-        {
-          "title": "A Security-driven Hierarchical Cognitive Fractional Routing Framework for Adaptive Flow Control Integrating Spiking Neural Inference and Metaheuristic DAG Optimization",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.12",
-          "source": "openalex"
-        },
-        {
-          "title": "Effects of a three-month exercise programme on cognition, mood and neurogenesis: the NeuroFit randomised controlled trial",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41514-026-00439-w",
-          "source": "openalex"
-        },
-        {
-          "title": "HierX: Fast multi-scale distance-decay interaction on million-node networks",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1093/pnasnexus/pgag317",
-          "source": "openalex"
-        },
-        {
-          "title": "Domino and Cascade Reactions in Sustainable Synthesis: Activation Modes, Assessment Boundaries, and the Molecular-Process Discrepancy",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.26434/chemrxiv.15005436/v4",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -953,39 +541,12 @@
       "id": "me-005",
       "title": "Tight Bounds for Randomized Consensus Against an Adaptive Adversary",
       "query": "byzantine consensus randomized algorithms",
-      "new_works": [
-        {
-          "title": "Training Machine Learning Models at the Edge: A Survey",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1145/3848509",
-          "source": "openalex"
-        },
-        {
-          "title": "A Theory of Smarandache Structures: Volume II. Computational Sciences",
-          "date": "2026-09-16",
-          "url": "https://philpapers.org/rec/CORATO-12",
-          "source": "openalex"
-        },
-        {
-          "title": "Blockchain-based real-estate tokenization in regulated markets: A systematic review and socio-technical governance framework",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s44443-026-01255-8",
-          "source": "openalex"
-        },
-        {
-          "title": "A Security Model for Real‑Time Fraud Detection and Prevention in Digital Payment Platforms Using Neural Networks and Blockchain",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.56201/ijcsmt.vol.12.no2.2026.pg1.26",
-          "source": "openalex"
-        },
-        {
-          "title": "Bridging Explanation and Operations: A Systematic Review and Taxonomy of XAI-Enabled Cybersecurity Detection",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.21203/rs.3.rs-10669512/v1",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -996,39 +557,12 @@
       "id": "me-006",
       "title": "Optimal Oblivious Rumor Spreading: Push–Pull on General Graphs",
       "query": "rumor spreading push pull",
-      "new_works": [
-        {
-          "title": "Revue européenne des migrations internationales",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.4000/remi",
-          "source": "openalex"
-        },
-        {
-          "title": "Who Killed Lucio Blanco? Border Incursions & Sovereignty Along the Rio Grande",
-          "date": "2026-09-17",
-          "url": "https://digitalcommons.liberty.edu/doctoral/8900",
-          "source": "openalex"
-        },
-        {
-          "title": "If a Bomb Detonates in the Forest and Only the FBI Hears It: The Sting Operation That Triggered Ruby Ridge",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.5070/rw3.19377",
-          "source": "openalex"
-        },
-        {
-          "title": "The Hive",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1201/9781003740056",
-          "source": "openalex"
-        },
-        {
-          "title": "Introduction: The Cheated Player",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.7551/mitpress/16008.003.0003",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1039,39 +573,12 @@
       "id": "mp-014",
       "title": "Derivation of Fourier\\u2019s Law in Deterministic Hamiltonian Chains",
       "query": "fouriers law heat conduction",
-      "new_works": [
-        {
-          "title": "Градиентная модель нестационарной термоупругости для составного стержня",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.46698/v0156-6205-6438-l",
-          "source": "openalex"
-        },
-        {
-          "title": "Multi-formulation isogeometric analysis and physics-informed machine learning for heat conduction in composite plates",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1177/00219983261486598",
-          "source": "openalex"
-        },
-        {
-          "title": "Geometry-independent limits of passive thermal rectification: optimal bilayers and gains from material diversity",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.21203/rs.3.rs-11058050/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Global energy solutions for a thermoelastic system with nonlinear temperature-gradient forcing and anisotropic heat conduction",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5281/zenodo.22807557",
-          "source": "openalex"
-        },
-        {
-          "title": "A Novel Signal Validation Framework for Short-Circuit Transient Analysis with a Bidirectional Diode-Clamp Circuit Design",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1016/j.meadig.2026.100058",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1082,15 +589,12 @@
       "id": "mp-015",
       "title": "Sharp Energy Conservation Threshold in the Onsager Theory of Turbulence",
       "query": "onsager anomalous dissipation",
-      "new_works": [
-        {
-          "title": "Quasilocal transport in the integer quantised Hall effect: adiabatic separation, local Ohm's law, and Joule heating of the incompressible strips",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15231",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1105,6 +609,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1117,6 +625,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1125,39 +637,12 @@
       "id": "mb-010",
       "title": "Sharp Extinction-Time Asymptotics for the Subcritical Contact Process",
       "query": "contact process metastability",
-      "new_works": [
-        {
-          "title": "REFINED CHEMICAL-EQUILIBRIUM COMBUSTION MODELING FOR PROPULSION APPLICATIONS: NUMERICAL STABILIZATION, PHASE-BOUNDARY TREATMENT, AND NOZZLE-DESIGN CONSEQUENCES",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.30546/emnaa.2026.02.28.105",
-          "source": "openalex"
-        },
-        {
-          "title": "Li5FeO4 as a cathode prelithiation additive: Doping engineering and first-principles research",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.55713/jmmm.v36i3.2819",
-          "source": "openalex"
-        },
-        {
-          "title": "Reviewer #3 (Public review): VDAC2 stabilizes a membrane-inserted, primed intermediate of BAX activation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.7554/elife.112461.1.sa0",
-          "source": "openalex"
-        },
-        {
-          "title": "Mineral-specific ligand and redox dynamics of adsorbed platinum: Pathway-dependent mobility during terrestrial weathering",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.31223/x55n6s",
-          "source": "openalex"
-        },
-        {
-          "title": "Reviewer #1 (Public review): VDAC2 stabilizes a membrane-inserted, primed intermediate of BAX activation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.7554/elife.112461.1.sa2",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1168,39 +653,12 @@
       "id": "me-007",
       "title": "Optimal Competitive Ratio for Online (Metric) Facility Location",
       "query": "online facility location competitive ratio",
-      "new_works": [
-        {
-          "title": "Scalable growth in high-contact, on-site service firms: Ambidextrous competitive logics and a dual-governance mechanism of replication quality",
-          "date": "2026-10-01",
-          "url": "https://ink.library.smu.edu.sg/etd_coll/926",
-          "source": "openalex"
-        },
-        {
-          "title": "Vegetation of Ski Pistes in the Lesser Caucasus (Bakuriani, Georgia): Species Composition, Functional Traits, and Temporal Dynamics",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.3897/caucasiana.5.e207119",
-          "source": "openalex"
-        },
-        {
-          "title": "Academic vocabulary use in research publications in the AI era: human-authored vs AI-mediated texts",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.29140/jaltcall.2026.103271",
-          "source": "openalex"
-        },
-        {
-          "title": "Structural framework for the assembly of the human tRNA ligase complex",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41467-026-77450-y",
-          "source": "openalex"
-        },
-        {
-          "title": "Best practice examples: Demo Applications and Success Stories of Thermosyphon and PV Hot Water Systems",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.18777/ieashc-task69-2026-0008",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1211,39 +669,12 @@
       "id": "me-008",
       "title": "The k-Server Conjecture: Tight Competitive Ratio on Metric Spaces",
       "query": "k server competitive ratio",
-      "new_works": [
-        {
-          "title": "Sequence-based artificial intelligence-guided inhibitory peptides to counteract AAV neutralizing antibodies in gene therapy.",
-          "date": "2026-12-10",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42740894",
-          "source": "openalex"
-        },
-        {
-          "title": "Adaptive Edge Filtering and Priority-aware Aggregation for Energy-QoS Management in Dense Smart Greenhouse IoT Networks",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.54",
-          "source": "openalex"
-        },
-        {
-          "title": "SPARCOF: A Two-stage Decision-Support Framework for Efficient Feature Sets in Network Intrusion Detection Datasets",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.17",
-          "source": "openalex"
-        },
-        {
-          "title": "Business Intelligence Systems for Data-Driven Decision Making: Cloud-Based Analytics Frameworks for Executive Intelligence and Operational Monitoring",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.54536/ajmri.v5i5.7171",
-          "source": "openalex"
-        },
-        {
-          "title": "Ensemble of Artificial Neural Network and Deep Learning for the Prevention of Real-Time Phishing of Financial Data: A Systematic Literature Review",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.56201/ijcsmt.vol.12.no2.2026.pg82.120",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1258,6 +689,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1266,39 +701,12 @@
       "id": "mp-018",
       "title": "Eigenstate Thermalization Hypothesis (ETH) from First Principles",
       "query": "eth thermalization",
-      "new_works": [
-        {
-          "title": "A gradient flow for the porous medium equations with Dirichlet boundary conditions",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1016/j.jmaa.2026.131102",
-          "source": "openalex"
-        },
-        {
-          "title": "Data for: \"Chiral Surface Phonons\"",
-          "date": "2026-09-17",
-          "url": "https://arxiv.org/abs/2606.08820",
-          "source": "openalex"
-        },
-        {
-          "title": "Tuning the Optoelectronic Properties of Wide Bandgap Perovskites: Data‐Driven Insights from Combinatorial Synthesis and High‐Throughput Experimentation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1002/adfm.77319",
-          "source": "openalex"
-        },
-        {
-          "title": "Thermo-hydro-mechanical response of the operation style in a faulted Malm reservoir: Storage triplet vs. hydrothermal doublet",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s12665-026-13141-7",
-          "source": "openalex"
-        },
-        {
-          "title": "Species-Specific Growth Responses and Biomass Accumulation in Native Korean Duckweeds Under Diverse Cultivation Conditions",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s12374-026-09530-x",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1313,6 +721,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1325,6 +737,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1333,39 +749,12 @@
       "id": "mb-011",
       "title": "Exact Critical Value of the Contact Process on the Integer Lattice",
       "query": "contact process critical value",
-      "new_works": [
-        {
-          "title": "Diasporic Sikh masculinities in Ranj Dhaliwal’s \"Daaku\" and Gautam Malkani’s \"Londonstani\"",
-          "date": "2027-01-01",
-          "url": "http://hdl.handle.net/2429/35756",
-          "source": "openalex"
-        },
-        {
-          "title": "Contested urbanisms: The politics of heritage and housing in Jakarta’s kampungs",
-          "date": "2027-01-01",
-          "url": "https://eprints.bbk.ac.uk/id/eprint/56687/1/Binte%20Masron%20I%2C%20final%20thesis%20for%20library.pdf",
-          "source": "openalex"
-        },
-        {
-          "title": "NUISS: A User-Centered Prototype for International Student Administrative Support",
-          "date": "2026-12-31",
-          "url": "https://pub.respai.de/articles/1-1/10jhuang.html",
-          "source": "openalex"
-        },
-        {
-          "title": "The Role of Generative Artificial Intelligence in Korean Language Learning: Applications, Challenges, and Instructional Strategies",
-          "date": "2026-12-31",
-          "url": "https://pub.respai.de/articles/1-2/5ywu.html",
-          "source": "openalex"
-        },
-        {
-          "title": "GEM Global Flatfile",
-          "date": "2026-12-31",
-          "url": "https://doi.org/10.5281/zenodo.20732304",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1380,6 +769,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1388,51 +781,15 @@
       "id": "mb-013",
       "title": "Sharp Epidemic Threshold and Near-Critical Extinction Time for SIR with Demography",
       "query": "sir model epidemic threshold",
-      "new_works": [
-        {
-          "title": "Spatially resolved infectious disease models for localized outbreak mitigation (and efficient mathematical software)",
-          "date": "2026-10-10",
-          "url": "https://elib.dlr.de/217518/1/kuehn_spatial.pdf",
-          "source": "openalex"
-        },
-        {
-          "title": "Lipid raft protein Flotillin 2 facilitates alphavirus infection through promoting viral release",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1111/1744-7917.70361",
-          "source": "openalex"
-        },
-        {
-          "title": "A Fokker-Planck framework for control of epidemics",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s00285-026-02462-7",
-          "source": "openalex"
-        },
-        {
-          "title": "Modeling the effects of pandemics on physiology-related fertility decline in society",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.3389/fepid.2026.1740829",
-          "source": "openalex"
-        },
-        {
-          "title": "Integrating Leaf-Image Deep Learning, Meteorological Risk-State Discovery, and Stochastic SICR Dynamics for Potato Early and Late Blight: A Data-Science and Intelligent-Systems Framework",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.47852/bonviewjdsis620210658",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "arxiv: HTTP Error 406: Not Acceptable"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
-          "type": "possible_resolution",
-          "work": {
-            "title": "Spatially resolved infectious disease models for localized outbreak mitigation (and efficient mathematical software)",
-            "date": "2026-10-10",
-            "url": "https://elib.dlr.de/217518/1/kuehn_spatial.pdf",
-            "source": "openalex"
-          }
+          "type": "fetch_error",
+          "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
     },
@@ -1440,15 +797,12 @@
       "id": "me-009",
       "title": "The Matroid Secretary Conjecture",
       "query": "matroid secretary online selection",
-      "new_works": [
-        {
-          "title": "Study of Modern Hiring Strategies Stemmed from the Secretary Problem",
-          "date": "2026-09-14",
-          "url": "https://doi.org/10.54097/ghmvha73",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1459,39 +813,12 @@
       "id": "me-010",
       "title": "Constant Approximability of the Graph Bandwidth Problem",
       "query": "graph bandwidth approximation",
-      "new_works": [
-        {
-          "title": "LW-Sync: A Low-complexity Event-driven Offset Correction Scheme for Underwater Pairwise Acoustic Communication",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.59",
-          "source": "openalex"
-        },
-        {
-          "title": "Spectrum occupies pseudospectrum for random matrices with diagonal deformation and variance profile",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1142/s2010326326500139",
-          "source": "openalex"
-        },
-        {
-          "title": "On the data-sparsity of the solution of Riccati equations with applications to feedback control",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00211-026-01572-0",
-          "source": "openalex"
-        },
-        {
-          "title": "An energy-aware federated intelligence framework for sustainable WSN-IoT ecosystems",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s12083-026-02291-x",
-          "source": "openalex"
-        },
-        {
-          "title": "An S-Band Radar Method for Early Detection of Stealth Fighters in Air-to-Air Combat",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.13164/re.2026.0425",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1506,6 +833,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -1514,33 +845,12 @@
       "id": "me-012",
       "title": "Existence of a Strongly Polynomial Algorithm for Linear Programming",
       "query": "linear programming strong polynomiality",
-      "new_works": [
-        {
-          "title": "Fast Solution Methods for the Classical 0–1 Knapsack Problem",
-          "date": "2026-12-31",
-          "url": "https://refuture.respai.de/articles/1-1/fast-solution-methods-for-the-classical-01-knapsack-problem-20260722-e6b499.html",
-          "source": "openalex"
-        },
-        {
-          "title": "The Generic Geometry of Steady State Varieties",
-          "date": "2026-09-30",
-          "url": "https://researchprofiles.ku.dk/da/publications/75b6fd7a-db1b-4025-ad30-2905a91e4fa3",
-          "source": "openalex"
-        },
-        {
-          "title": "Simulation code for \"Real-Time AI Service Economy: A Framework for Agentic Computing Across the Continuum\"",
-          "date": "2026-09-19",
-          "url": "https://arxiv.org/abs/2603.05614",
-          "source": "openalex"
-        },
-        {
-          "title": "Anonymous Causal Decks and Cosmological Histories: Reconstruction, Identifiability and Quantitative Stability",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22850286",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1551,39 +861,12 @@
       "id": "me-013",
       "title": "Optimal Asymptotic Competitive Ratio of Online Bin Packing",
       "query": "bin packing online algorithms",
-      "new_works": [
-        {
-          "title": "Exact Identity Aware Evaluation of Static Malware Images and API Sequences Using Multi Scale Features and Confidence Aware Selective Prediction",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.68",
-          "source": "openalex"
-        },
-        {
-          "title": "RunSoC 2.0: Scheduling and Allocating Automotive Software Tasks to Hardware Partitions in Heterogeneous MPSoCs",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1007/978-3-032-39143-8_13",
-          "source": "openalex"
-        },
-        {
-          "title": "The GPCRVP score reliably predicts the impact of GLP1R human variants on receptor function",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00125-026-06859-3",
-          "source": "openalex"
-        },
-        {
-          "title": "A model carbonized papyrus scroll opens a novel path to identifying readable scrolls of the Herculaneum Library",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1371/journal.pone.0353485",
-          "source": "openalex"
-        },
-        {
-          "title": "Structural transition of the immature poxvirus scaffold from preassembly to the scaffold lattice",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1038/s41467-026-77815-3",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1594,15 +877,12 @@
       "id": "me-014",
       "title": "Algorithmic Threshold of the Planted Clique Detection Problem",
       "query": "planted clique detection threshold",
-      "new_works": [
-        {
-          "title": "MOUFLON: multi-group modularity-based fairness-aware community detection",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s10618-026-01260-5",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1613,33 +893,12 @@
       "id": "mp-019",
       "title": "Finite-Time Singularity Formation for Smooth 3D Incompressible Euler",
       "query": "3d euler blow up",
-      "new_works": [
-        {
-          "title": "The OpenAI Navier-Stokes and Euler Blow-Up Proofs: A Physical Reading, Not a Physical Refutation (v5.8.0)",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22696717",
-          "source": "openalex"
-        },
-        {
-          "title": "The OpenAI Navier-Stokes and Euler Blow-Up Proofs: A Physical Reading, Not a Physical Refutation (v5.6.1)",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22828106",
-          "source": "openalex"
-        },
-        {
-          "title": "The OpenAI Navier-Stokes and Euler Blow-Up Proofs: A Physical Reading, Not a Physical Refutation (v5.7.0)",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22836538",
-          "source": "openalex"
-        },
-        {
-          "title": "The OpenAI Navier-Stokes and Euler Blow-Up Proofs: A Physical Reading, Not a Physical Refutation (v5.6.0)",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22823647",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1650,15 +909,12 @@
       "id": "mp-020",
       "title": "Triviality of the Scalar λφ^4 Quantum Field Theory in 4 Dimensions",
       "query": "constructive qft triviality",
-      "new_works": [
-        {
-          "title": "Implementing Hamiltonian Renormalization Group Flow on Quantum Computers with VAPOR",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.21203/rs.3.rs-10808746/v1",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1669,21 +925,12 @@
       "id": "mp-022",
       "title": "Rigorous Kubo Conductance and Quantization for Interacting Electrons",
       "query": "kubo formula quantum hall",
-      "new_works": [
-        {
-          "title": "Quantum geometry of gravitons",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15237",
-          "source": "openalex"
-        },
-        {
-          "title": "Unified contact-free formulation of linear-response transport theory",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15371",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1694,15 +941,12 @@
       "id": "mc-014",
       "title": "Rigorous Existence and Convexity of the Levy–Lieb Universal Density Functional",
       "query": "dft levy lieb",
-      "new_works": [
-        {
-          "title": "Exchange-Correlation Potentials and Energies from Inverse Generalized Kohn-Sham Calculations",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15845",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1713,39 +957,12 @@
       "id": "mb-014",
       "title": "Storage Capacity of Associative Memory with Sparse or Bounded Synaptic Weights",
       "query": "hopfield associative memory",
-      "new_works": [
-        {
-          "title": "Neural state reduction: a quantum-inspired framework for how latent conscious thought becomes reportable",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.3389/fncom.2026.1865388",
-          "source": "openalex"
-        },
-        {
-          "title": "Balance Between Order and Disorder: Quantum-Epigenetic Pathways for the Emergence and Continuous Evolution of Life",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s10441-026-09541-8",
-          "source": "openalex"
-        },
-        {
-          "title": "Fractional Hammerstein Modeling of the Heating Process With Exponential Static Nonlinearity Identified Via The Honey Badger Approach",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.37394/232012.2026.21.7",
-          "source": "openalex"
-        },
-        {
-          "title": "Inter-regional interactions uncouple within-region inhibition stabilization and paradoxical responses",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.64898/2026.09.09.750483",
-          "source": "openalex"
-        },
-        {
-          "title": "Improvement and Application of Sampling Neural Network Using Virtual Space",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.5152/electrica.2026.25337",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1756,39 +973,12 @@
       "id": "mb-015",
       "title": "Asymptotic Speed of Adaptation in Large Asexual Populations",
       "query": "adaptation desai fisher",
-      "new_works": [
-        {
-          "title": "High growth as a double-edged sword:Burden of expectations, strategic choices, and the long-run performance",
-          "date": "2026-09-18",
-          "url": "https://pure.eur.nl/en/publications/87caf531-5612-4c64-80e1-fc806bd6e69a",
-          "source": "openalex"
-        },
-        {
-          "title": "Maternal metformin treatment in obese pregnant dams normalizes neonatal sensory-motor reflexes",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1186/s40348-026-00259-8",
-          "source": "openalex"
-        },
-        {
-          "title": "Microbiome-host communication via vaccenic acid modulates LRH-1/NR5A2 activity and ameliorates metabolic liver disease",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s44321-026-00516-3",
-          "source": "openalex"
-        },
-        {
-          "title": "An electrified small-scale bioreactor for different cultivation modes and adaptive laboratory evolution of Cupriavidus necator",
-          "date": "2026-09-16",
-          "url": "https://publikationen.bibliothek.kit.edu/1000197034",
-          "source": "openalex"
-        },
-        {
-          "title": "Environmental stress promotes entry into a pre-existing latent state in Plasmodium falciparum",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.64898/2026.09.13.751295",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1799,33 +989,12 @@
       "id": "mp-023",
       "title": "Existence and Mass Gap for Four-Dimensional Yang–Mills Theory",
       "query": "yang mills mass gap",
-      "new_works": [
-        {
-          "title": "Visceral adipose tissue and incident cardiovascular disease among individuals without diabetes: an analysis of 15 prospective cohorts from 7 countries in Latin America.",
-          "date": "2026-11-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42724639",
-          "source": "openalex"
-        },
-        {
-          "title": "Een functionele aanpak van het Casimireffect. Van scalairen tot gluonen",
-          "date": "2026-09-25",
-          "url": "https://lirias.kuleuven.be/handle/20.500.12942/789534",
-          "source": "openalex"
-        },
-        {
-          "title": "The Treaty of Vacuum Torsional Rigidity: The Geometric Quantification of Newton's Gravitational Constant and the Emergence of the Grand Unified Continuum Invariant",
-          "date": "2026-09-20",
-          "url": "https://doi.org/10.5281/zenodo.22850659",
-          "source": "openalex"
-        },
-        {
-          "title": "The Yang-Mills Mass Gap Trilogy: A Geometric and Metric-Measure Framework",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22301093",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1836,27 +1005,12 @@
       "id": "mp-024",
       "title": "Rigorous Gross–Pitaevskii Limit for the Dynamics of a Dilute Bose Gas",
       "query": "bose einstein condensation gross pitaevskii",
-      "new_works": [
-        {
-          "title": "Impact of the Confinement Strength on the Energy Spectra of Two Atoms Interacting via Zero-Range or Realistic Potentials",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s00601-026-02081-4",
-          "source": "openalex"
-        },
-        {
-          "title": "GT Note 2 — Extensions to Ketterle's Framework Structural Onset, Generative Layer, and Pre‑Coherence in Ultracold Quantum Systems",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.5281/zenodo.22802067",
-          "source": "openalex"
-        },
-        {
-          "title": "Course on two-dimensional quantum gases",
-          "date": "2026-09-15",
-          "url": "https://arxiv.org/abs/2609.17097",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1867,27 +1021,12 @@
       "id": "mp-025",
       "title": "Global Regularity of the Three-Dimensional Incompressible Navier–Stokes Equations",
       "query": "navier stokes millennium problem",
-      "new_works": [
-        {
-          "title": "The Ogdoēkonta Tessara & The Dodecad: The 96-Key Ultimaton Master Canon of Procedural Cosmology",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.21776983",
-          "source": "openalex"
-        },
-        {
-          "title": "The OpenAI Navier-Stokes and Euler Blow-Up Proofs: A Physical Reading, Not a Physical Refutation (v5.8.0)",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22696717",
-          "source": "openalex"
-        },
-        {
-          "title": "Navier–Stokes After OpenAI: The Hidden Time Assumption in the Millennium Problem",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22825593",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1898,27 +1037,12 @@
       "id": "mp-026",
       "title": "Crystallization of the Two-Dimensional Coulomb (Jellium) Ground State",
       "query": "wigner crystal coulomb gas",
-      "new_works": [
-        {
-          "title": "Robust valley-polarized excitonic Mott states and doublons enabled by stacking-controlled moiré geometry",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s41467-026-77907-0",
-          "source": "openalex"
-        },
-        {
-          "title": "Electron scattering cross-sections for molecular iodine",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1088/1361-6595/aea7ce",
-          "source": "openalex"
-        },
-        {
-          "title": "Thermal and Mechanical Characteristics of Silicon and Germanium Oxynitrides from First Principles",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1088/2053-1591/aea80f",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1929,15 +1053,12 @@
       "id": "mp-027",
       "title": "The Haldane Conjecture for Antiferromagnetic Heisenberg Chains",
       "query": "haldane conjecture spectral gap",
-      "new_works": [
-        {
-          "title": "Charge order before superconductivity in the doped kagome Dirac spin liquid",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15947",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1948,39 +1069,12 @@
       "id": "mp-028",
       "title": "Long-Time Validity of the Wave Kinetic Equation for the Cubic NLS",
       "query": "wave kinetic equation wave turbulence",
-      "new_works": [
-        {
-          "title": "Strengthening of the f mode due to subsurface magnetic fields in simulations of convection",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1051/0004-6361/202658853",
-          "source": "openalex"
-        },
-        {
-          "title": "Self-consistent fragmentation in dynamically dense turbulent fibre suspensions",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1017/jfm.2026.12044",
-          "source": "openalex"
-        },
-        {
-          "title": "Shear-free, inhomogeneous turbulence in a stably stratified fluid. Part 2. A wave–turbulence decomposition",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1017/jfm.2026.11994",
-          "source": "openalex"
-        },
-        {
-          "title": "Statistical Modeling of Bifractal Statistics with a Superposition of Characteristic Functionals",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s10955-026-03651-w",
-          "source": "openalex"
-        },
-        {
-          "title": "Asymmetric basin-wide responses of coastal phytoplankton biomass to the Indian Ocean dipole",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41467-026-77809-1",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -1991,39 +1085,12 @@
       "id": "mp-029",
       "title": "Mean-Field Limit with Singular Coulomb/Newtonian Force",
       "query": "vlasov poisson mean field limit",
-      "new_works": [
-        {
-          "title": "Impact of spacetime backreaction from finite boundary on particle trajectory",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.21203/rs.3.rs-10830641/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Triangular MCKean-Vlasov Forward Backward System with Jumps, Law-dependent Monotone Source, and Propagation of Chaos",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15346",
-          "source": "openalex"
-        },
-        {
-          "title": "Large-Box Transition in Nonlinear Landau Damping for the Vlasov--Yukawa Equation",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15238",
-          "source": "openalex"
-        },
-        {
-          "title": "The relativistic Euler-Poisson equation as a mean-field limit",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.14880",
-          "source": "openalex"
-        },
-        {
-          "title": "Nexus-CDM: Isolated Galaxy Simulations with Cosmologically Evolving Dark-Matter Halos I. Method and Validation",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.15002",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2034,33 +1101,12 @@
       "id": "mp-030",
       "title": "Many-Body Localization from First Principles in Disordered Quantum Chains",
       "query": "many body localization quantum many body",
-      "new_works": [
-        {
-          "title": "A phenomenological multiscale framework for orientational interactions and viscoelasticity in migrating epithelial monolayer",
-          "date": "2026-09-30",
-          "url": "https://eprints.lancs.ac.uk/id/eprint/238396/3/Postprint_IPL_interactions_Biosystems_R2p.pdf",
-          "source": "openalex"
-        },
-        {
-          "title": "Checkerboard-type Zhang-Rice states in overdoped cuprate superconductors",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1038/s41467-026-77985-0",
-          "source": "openalex"
-        },
-        {
-          "title": "K-Protocol Unified Research Suite: From Analytic Number Theory to 2D High-Tc Superconductor Inverse Design (Parts I–IV)",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22763956",
-          "source": "openalex"
-        },
-        {
-          "title": "A quantum gate architecture via teleportation and entanglement",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1088/2058-9565/aea970",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2071,39 +1117,12 @@
       "id": "mc-016",
       "title": "The Sharp Constant in the Lieb–Thirring Inequality for Fermion Kinetic Energy",
       "query": "many body bound kinetic energy",
-      "new_works": [
-        {
-          "title": "The human adenosine A2A receptor co-isolates with anionic phospholipids in SMALPs from Pichia pastoris membranes",
-          "date": "2026-10-01",
-          "url": "https://publications.aston.ac.uk/view/author/de779560bb2880b7db3e4647931e022d.html>",
-          "source": "openalex"
-        },
-        {
-          "title": "PROCESSING OF SECONDARY RAW MATERIALS FOR THE RECOVERY OF VALUABLE COMPONENTS",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.46299/979-8-90671-558-6",
-          "source": "openalex"
-        },
-        {
-          "title": "Modeling thermal cross-talk and cooling kinetics in clustered melanosomes after nanosecond laser heating",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41598-026-71967-4",
-          "source": "openalex"
-        },
-        {
-          "title": "The smallest stalagmites: a hydrochemical lower bound on stalagmite radius",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1017/jfm.2026.11986",
-          "source": "openalex"
-        },
-        {
-          "title": "Efficient Fluoride Removal Using Cerium-Modified Red Mud: Adsorption Mechanism, Interference Resistance and Environmental Safety",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1021/acsomega.6c05790",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2114,15 +1133,12 @@
       "id": "mc-017",
       "title": "The Sharp Constant in the Lieb–Oxford Inequality",
       "query": "exchange correlation energy lieb oxford",
-      "new_works": [
-        {
-          "title": "Quantum electrodynamics of equilibrium systems: A rigorous Maxwell-regularized functional-theoretic formulation",
-          "date": "2026-09-16",
-          "url": "https://arxiv.org/abs/2609.18327",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2133,33 +1149,12 @@
       "id": "mc-018",
       "title": "Exact Pinning by Generalized Pauli Constraints in Fermionic Ground States",
       "query": "generalized pauli constraints reduced density matrix",
-      "new_works": [
-        {
-          "title": "Emergent problem-graph alignment in RL-discovered entanglement topologies for QAOA",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.3389/frqst.2026.1912763",
-          "source": "openalex"
-        },
-        {
-          "title": "閉因果連続体宇宙論 C4 Ver.2.0.0: Closed Causal Continuum Cosmology",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22831017",
-          "source": "openalex"
-        },
-        {
-          "title": "Composable Security and Finite-Key Analysis ofMulti-Basis BB84 and Phase-Engineered E91Protocols Under Noisy Quantum Channels",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.21203/rs.3.rs-9814197/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Non-associativity induced modifications of open-system quantum dynamics: General master equation and a two-qubit Ising case study",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1088/1751-8121/aea8aa",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2170,33 +1165,12 @@
       "id": "mc-019",
       "title": "Hamiltonian Structure and Ergodicity of the Nosé–Hoover Thermostat",
       "query": "molecular dynamics thermostat",
-      "new_works": [
-        {
-          "title": "The human adenosine A2A receptor co-isolates with anionic phospholipids in SMALPs from Pichia pastoris membranes",
-          "date": "2026-10-01",
-          "url": "https://publications.aston.ac.uk/view/author/de779560bb2880b7db3e4647931e022d.html>",
-          "source": "openalex"
-        },
-        {
-          "title": "Investigation of the Penetration Effects of Amphipathic Molecules",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22841603",
-          "source": "openalex"
-        },
-        {
-          "title": "Coupling Quantum Mechanical Modeling and Molecular Dynamics on Heterogeneous Supercomputers for Studying Distal Mutation Effects on Drug Binding in HIV-1",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1021/acs.jctc.6c01377",
-          "source": "openalex"
-        },
-        {
-          "title": "Reviewer #3 (Public review): VDAC2 stabilizes a membrane-inserted, primed intermediate of BAX activation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.7554/elife.112461.1.sa0",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2207,39 +1181,12 @@
       "id": "mc-020",
       "title": "Rapid Mixing and Cutoff for the Parallel Tempering (Replica Exchange) Chain",
       "query": "monte carlo parallel tempering",
-      "new_works": [
-        {
-          "title": "Vestigial chirality from fluctuating loop currents on the kagome lattice",
-          "date": "2026-09-17",
-          "url": "https://arxiv.org/abs/2609.19618",
-          "source": "openalex"
-        },
-        {
-          "title": "Evolving beyond collapse: an adaptive particle batch smoother for cryospheric data assimilation",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.5194/gmd-19-8565-2026",
-          "source": "openalex"
-        },
-        {
-          "title": "First principles reactive flux theory for surface reactions revealing multiple channels and recrossing dynamics",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s41467-026-77226-4",
-          "source": "openalex"
-        },
-        {
-          "title": "Towards distinguishing cybersecurity attacks and safety faults in distributed energy resources-rich smart grids: a systematic literature review",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1007/s10207-026-01308-z",
-          "source": "openalex"
-        },
-        {
-          "title": "Fast replica exchange stochastic gradient Langevin dynamics",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1007/s00362-026-01896-x",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2250,33 +1197,12 @@
       "id": "mc-021",
       "title": "Complete Characterization of Product-Form Stationary Distributions in Stochastic Reaction Networks",
       "query": "stochastic reaction network product form",
-      "new_works": [
-        {
-          "title": "A framework for system reliability, updating and residual life assessment of existing concrete bridges subjected to corrosion",
-          "date": "2026-10-02",
-          "url": "https://lup.lub.lu.se/record/f1b25654-75b7-4015-a4b3-d0ddb6cb2c3b",
-          "source": "openalex"
-        },
-        {
-          "title": "Identifying Memorization of Diffusion Models through p-Laplace Analysis: Estimators, Bounds and Applications",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1007/s10851-026-01338-1",
-          "source": "openalex"
-        },
-        {
-          "title": "ankitgupta83/SpectralKoopman: SKA1.0.0",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22831465",
-          "source": "openalex"
-        },
-        {
-          "title": "Interpolatory dynamical low-rank approximation: theoretical foundations and algorithms",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1090/mcom/4260",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2291,6 +1217,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -2299,51 +1229,15 @@
       "id": "mc-023",
       "title": "Complete N-Representability Conditions for the Two-Electron Reduced Density Matrix",
       "query": "reduced density matrix n representability",
-      "new_works": [
-        {
-          "title": "Journal of GIS based Historical Studies",
-          "date": "2029-05-06",
-          "url": "https://zenodo.org/record/7368979",
-          "source": "openalex"
-        },
-        {
-          "title": "Spin dynamics and ortho–para conversion in $H_{2}O$ during the phase transition from gas to solid in external magnetic fields",
-          "date": "2027-01-01",
-          "url": "https://arxiv.org/abs/2606.04242",
-          "source": "openalex"
-        },
-        {
-          "title": "Preclinical evaluation of PSMA-targeted ultrasound contrast agents in an orthotopic model of prostate cancer in rabbits.",
-          "date": "2027-01-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42621251",
-          "source": "openalex"
-        },
-        {
-          "title": "Measuring Activity-Space Segregation with Multi-Source Big Data: A Physical--Digital Framework with Simulation Validation and a Real-Data Proof of Concept",
-          "date": "2026-12-31",
-          "url": "https://philpapers.org/rec/WANMAS",
-          "source": "openalex"
-        },
-        {
-          "title": "Spider venom peptides Ht1a and Gg1a are toxic to honeybee parasite Varroa destructor by topical application.",
-          "date": "2026-12-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42253431",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "arxiv: HTTP Error 406: Not Acceptable"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
-          "type": "possible_resolution",
-          "work": {
-            "title": "Measuring Activity-Space Segregation with Multi-Source Big Data: A Physical--Digital Framework with Simulation Validation and a Real-Data Proof of Concept",
-            "date": "2026-12-31",
-            "url": "https://philpapers.org/rec/WANMAS",
-            "source": "openalex"
-          }
+          "type": "fetch_error",
+          "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
     },
@@ -2351,39 +1245,12 @@
       "id": "mc-024",
       "title": "Computing the Clar Number and Enumerating Clar Covers of Benzenoid Systems",
       "query": "clar number clar cover",
-      "new_works": [
-        {
-          "title": "Proximity biotinylation at the host-Shigella interface reveals UFMylation as an antibacterial pathway",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41467-026-77860-y",
-          "source": "openalex"
-        },
-        {
-          "title": "Immunization with a multisubunit vaccine induces immunological memory and cross-protective immunity against heterologous Chlamydia serovars",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.3389/fcimb.2026.1941899",
-          "source": "openalex"
-        },
-        {
-          "title": "DIG-ging deeper: soil selection drives hydraulic performance in highway rain gardens",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.3389/fenvs.2026.1901519",
-          "source": "openalex"
-        },
-        {
-          "title": "Network science reveals the structure and lasting impact of the Roman road system",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1038/s41467-026-75453-3",
-          "source": "openalex"
-        },
-        {
-          "title": "Unearthing the secrets of the Brahmans in seventeenth-century leiden. Ethnography, antiquarianism, and missionary ambition in the open door to hidden paganism",
-          "date": "2026-09-14",
-          "url": "https://hdl.handle.net/10803/698163",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2398,6 +1265,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -2406,21 +1277,12 @@
       "id": "mb-017",
       "title": "Almost-Sure Persistence and Sharp Stochastic Extinction Rates in Noisy Lotka–Volterra Communities",
       "query": "stochastic persistence lotka volterra",
-      "new_works": [
-        {
-          "title": "Institutional particularism reverses the sign of frequency-dependent selection on beliefs about effort in 66 societies",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.21203/rs.3.rs-10568342/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Quantifying immunosuppressive barriers using a mathematical framework of tumor-associated myeloid cell mediated resistance in oncolytic virotherapy",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s41598-026-69218-7",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2431,39 +1293,12 @@
       "id": "mb-019",
       "title": "Turing Pattern Selection under Smooth Domain Growth",
       "query": "turing instability pattern selection",
-      "new_works": [
-        {
-          "title": "Advancing Health Equity In Long Covid: Bioethical Considerations And System-Level Strategies For Post-Acute Care And Recovery",
-          "date": "2026-10-01",
-          "url": "http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S1726-569X2026000200319",
-          "source": "openalex"
-        },
-        {
-          "title": "Interlayer-engineering of charge order wavevector in kagome metals",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1103/8ssl-ms2t",
-          "source": "openalex"
-        },
-        {
-          "title": "Slow-moving pattern interfaces in general directions for a two-dimensional Swift–Hohenberg-type equation",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s00526-026-03366-6",
-          "source": "openalex"
-        },
-        {
-          "title": "An energy-aware federated intelligence framework for sustainable WSN-IoT ecosystems",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s12083-026-02291-x",
-          "source": "openalex"
-        },
-        {
-          "title": "Measurement Validity of AI-Text Detection in Turkish Academic Writing: Temporal, Provider, and Intervention Shifts",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.70030/sjmakeu.2033004",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2474,21 +1309,12 @@
       "id": "mb-020",
       "title": "Closed-Form Stationary Densities under Non-Reversible Mutation–Selection–Drift",
       "query": "wright fisher diffusion stationary density",
-      "new_works": [
-        {
-          "title": "Hybrid reality and public administration: how operators negotiate the ecosystem of a 'Digital PA' in small italian municipalities",
-          "date": "2026-09-14",
-          "url": "https://amsdottorato.unibo.it/view/dottorati/DOT555/>,",
-          "source": "openalex"
-        },
-        {
-          "title": "Localized disruption of the presynaptic endoplasmic reticulum in Atlastin mutants",
-          "date": "2026-09-14",
-          "url": "https://doi.org/10.1242/jcs.265223",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2501,27 +1327,15 @@
       "query": "kin selection inclusive fitness",
       "new_works": [
         {
-          "title": "Sport participation and healthy aging among older adults: a social ecological analysis of individual, contextual, and policy mechanisms",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.3389/fpubh.2026.1890213",
+          "title": "Effects of a 10-week need-supportive teaching program on motor competence in children ages 7–10 with motor difficulties: a single-group repeated-measures design",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.3389/fpsyg.2026.1909241",
           "source": "openalex"
         },
         {
-          "title": "Supplementary material from \"The evolution of group size and kin structure in complex societies\"",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.6084/m9.figshare.c.8721452.v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Associations between physical activity, physical fitness, sedentary behavior, and mathematics achievement in school-aged children: a cross-sectional study",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.3389/fcogn.2026.1903208",
-          "source": "openalex"
-        },
-        {
-          "title": "The evolution of plastic sex ratio strategies in cooperative breeders",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1016/j.anbehav.2026.123714",
+          "title": "On the nature of grief: uncovering the evolutionary roots of loss across the animal realm",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.1098/rstb.2025.0147",
           "source": "openalex"
         }
       ],
@@ -2536,39 +1350,12 @@
       "id": "mb-022",
       "title": "Quantitative Complexity-Stability Threshold for Sign-Structured Food Webs",
       "query": "complexity stability random matrices",
-      "new_works": [
-        {
-          "title": "Preclinical evaluation of PSMA-targeted ultrasound contrast agents in an orthotopic model of prostate cancer in rabbits.",
-          "date": "2027-01-01",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42621251",
-          "source": "openalex"
-        },
-        {
-          "title": "Bluefin Trevally Optimization Driven CNN-Transformer Hybrid Framework for Privacy-preserving Secure Cloud Storage Systems",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.26",
-          "source": "openalex"
-        },
-        {
-          "title": "A Hybrid CNN-LSTM Approach with MediaPipe Landmarks for Enhanced Facial Expression Recognition in Stylized Characters",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.27",
-          "source": "openalex"
-        },
-        {
-          "title": "A Detector-aware Curriculum CNN Framework for Image-in-image Steganography with Independent Security Evaluation",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.57",
-          "source": "openalex"
-        },
-        {
-          "title": "Green and Adaptive Intrusion Detection via Hybrid Transformer-Q Learning -inspired Based Feature Optimization",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.53",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2583,6 +1370,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -2591,33 +1382,12 @@
       "id": "me-015",
       "title": "Sharp Size of the Singular Set for Suitably Weak Navier–Stokes Solutions",
       "query": "navier stokes partial regularity",
-      "new_works": [
-        {
-          "title": "On Hyperbolic Approximations for a Class of Dispersive and Diffusive-Dispersive Equations",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1007/s00332-026-10321-4",
-          "source": "openalex"
-        },
-        {
-          "title": "Contact in Fluid-Plate Interaction: Formation and Detachment",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1007/s00205-026-02239-8",
-          "source": "openalex"
-        },
-        {
-          "title": "Stable and Unstable Singularities in Navier-Stokes?",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.20944/preprints202609.1593.v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Signature Emergence from Orthogonal Spectral Decomposition: A Toy Model Inspired by Penrose Conformal Boundary",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5281/zenodo.22806344",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2632,6 +1402,10 @@
       "alerts": [
         {
           "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
+        {
+          "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
         }
       ]
@@ -2640,33 +1414,12 @@
       "id": "me-018",
       "title": "Necessary and Sufficient Feedback Stabilizability: Closing the Brockett–Sontag Gap",
       "query": "feedback stabilization nonlinear control",
-      "new_works": [
-        {
-          "title": "Educational Management Resilience under Low Fertility: Theoretical Construction and Adaptive Mechanisms of County-Level Education Systems in Demographic Decline",
-          "date": "2026-12-31",
-          "url": "https://philpapers.org/rec/WANEMR-2",
-          "source": "openalex"
-        },
-        {
-          "title": "Nonlinear Industrial Robot Stabilization Based on Differential Topology",
-          "date": "2026-11-05",
-          "url": "https://doi.org/10.5281/zenodo.19484072",
-          "source": "openalex"
-        },
-        {
-          "title": "Scalable growth in high-contact, on-site service firms: Ambidextrous competitive logics and a dual-governance mechanism of replication quality",
-          "date": "2026-10-01",
-          "url": "https://ink.library.smu.edu.sg/etd_coll/926",
-          "source": "openalex"
-        },
-        {
-          "title": "CLEAR: Channel Learning and Enhanced Adaptive Reconstruction for Semantic Communication in Complex Time-Varying Environments",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.1007/978-3-032-39125-4_8",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2677,39 +1430,12 @@
       "id": "me-019",
       "title": "Sharp Kolmogorov n-Width Decay for Parametrized PDE Solution Manifolds",
       "query": "model order reduction kolmogorov n width",
-      "new_works": [
-        {
-          "title": "Mesh refinement and optimization for keys and sectional geometries using cohort intelligence algorithm",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s44245-026-00355-z",
-          "source": "openalex"
-        },
-        {
-          "title": "FakeMark: gradient-guided false watermark claims via robust feature fusion",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1186/s42400-026-00654-8",
-          "source": "openalex"
-        },
-        {
-          "title": "DETECTX: a novel deep learning approach for detecting pneumonia, tuberculosis, and aspergillosis from chest X-rays",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.3389/fcimb.2026.1915083",
-          "source": "openalex"
-        },
-        {
-          "title": "Application of Hybrid Transported-Tabulated Chemistry for Efficient Large-Eddy Simulation of Turbulent Combustion",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1007/s10494-026-00794-4",
-          "source": "openalex"
-        },
-        {
-          "title": "Asymmetric class-conditional routing in a federated quantum mixture-of-experts improves imbalanced intrusion detection in edge industrial IoT networks",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41598-026-71421-5",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2720,15 +1446,12 @@
       "id": "me-020",
       "title": "Sharp Sobolev Regularity Loss in the Inviscid Limit and the Prandtl Boundary Layer",
       "query": "prandtl boundary layer inviscid limit",
-      "new_works": [
-        {
-          "title": "Tollmien-Schlichting waves for compressible Navier-Stokes equations with large bulk viscosity",
-          "date": "2026-09-14",
-          "url": "https://doi.org/10.3934/dcds.2026177",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2739,39 +1462,12 @@
       "id": "me-021",
       "title": "Minimal Number of Projection Directions for Uniqueness in Discrete Tomography",
       "query": "discrete tomography limited data",
-      "new_works": [
-        {
-          "title": "A framework for system reliability, updating and residual life assessment of existing concrete bridges subjected to corrosion",
-          "date": "2026-10-02",
-          "url": "https://lup.lub.lu.se/record/f1b25654-75b7-4015-a4b3-d0ddb6cb2c3b",
-          "source": "openalex"
-        },
-        {
-          "title": "An Enhanced Ensemble Alzheimer Disease Detection Network with a Refined Line Segment Feature Analysis",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.51",
-          "source": "openalex"
-        },
-        {
-          "title": "RA-UNetX: A Lightweight Residual–Attention U-Net with Segmentation-guided ConvNeXt-Tiny for Multi-class Lung Disease Diagnosis from Chest X-rays",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.14",
-          "source": "openalex"
-        },
-        {
-          "title": "CGMF-CT-SR: A Frequency-aware Dual-branch Framework with Confidence-guided Max Fusion for CT Image Super-resolution: Balancing Reconstruction Fidelity and Perceptual Quality",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.42",
-          "source": "openalex"
-        },
-        {
-          "title": "Creep damage initiation in high-temperature steel: a comparative study of ferritic, martensitic and austenitic microstructures",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.1038/s41529-026-00881-x",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2782,39 +1478,12 @@
       "id": "me-022",
       "title": "Hardness and Approximation of Minimum Leader Selection for Network Controllability",
       "query": "network controllability leader selection",
-      "new_works": [
-        {
-          "title": "Journal of GIS based Historical Studies",
-          "date": "2029-05-06",
-          "url": "https://zenodo.org/record/7368979",
-          "source": "openalex"
-        },
-        {
-          "title": "Contested urbanisms: The politics of heritage and housing in Jakarta’s kampungs",
-          "date": "2027-01-01",
-          "url": "https://eprints.bbk.ac.uk/id/eprint/56687/1/Binte%20Masron%20I%2C%20final%20thesis%20for%20library.pdf",
-          "source": "openalex"
-        },
-        {
-          "title": "Podejście uwzględniające kwestie płci w polityce zagranicznej : studium przypadku Gruzji w ramach szwedzkiej feministycznej polityki zagranicznej",
-          "date": "2026-10-06",
-          "url": "https://ruj.uj.edu.pl/handle/item/580926",
-          "source": "openalex"
-        },
-        {
-          "title": "Shaping innovation : Studies of public funding for applied research in Sweden, 1970–2021.",
-          "date": "2026-10-02",
-          "url": "https://lup.lub.lu.se/record/1c8c1203-00f7-46c4-850c-8db9304515fb",
-          "source": "openalex"
-        },
-        {
-          "title": "Psychological reliance and ethical orientation in entrepreneurial intentions among university students: an applied psychology approach to employment and innovation",
-          "date": "2026-10-01",
-          "url": "http://www.scielo.cl/scielo.php?script=sci_arttext&pid=S1726-569X2026000200393",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2825,39 +1494,12 @@
       "id": "me-023",
       "title": "Crouzeix Theorem: Optimal Constant for the Numerical Range of a Matrix",
       "query": "numerical range spectral sets",
-      "new_works": [
-        {
-          "title": "Can symmetric positive definite (SPD) coarse spaces perform well for indefinite Helmholtz problems?",
-          "date": "2026-10-01",
-          "url": "https://strathprints.strath.ac.uk/view/author/922517.html>",
-          "source": "openalex"
-        },
-        {
-          "title": "Разработка подхода к комплексной оценке состояния нарушенных земель горными работами",
-          "date": "2026-09-30",
-          "url": "https://pmi.spmi.ru/pmi/article/view/16825",
-          "source": "openalex"
-        },
-        {
-          "title": "Temporal Focusing Enables Distortion-Resistant High-Intensity Spatiotemporal Optical Vortices",
-          "date": "2026-09-19",
-          "url": "http://arxiv.org/abs/2603.25154",
-          "source": "openalex"
-        },
-        {
-          "title": "Agouti Optimization Algorithm: A Novel Bio-inspired Metaheuristic based on Wide Forest Foraging and Spatial Memory-guided Local Foraging for Global Optimization",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.41",
-          "source": "openalex"
-        },
-        {
-          "title": "Kinkajou Optimization Algorithm: A Novel Bio-inspired Metaheuristic Algorithm Based on Wide Tree-canopy Exploration and Local Branch Inspection for Global Optimization",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.33",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2868,39 +1510,12 @@
       "id": "mp-032",
       "title": "Fourier Law and the Thermal Conductivity of Anharmonic Chains",
       "query": "fourier law heat conduction",
-      "new_works": [
-        {
-          "title": "Градиентная модель нестационарной термоупругости для составного стержня",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.46698/v0156-6205-6438-l",
-          "source": "openalex"
-        },
-        {
-          "title": "Multi-formulation isogeometric analysis and physics-informed machine learning for heat conduction in composite plates",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1177/00219983261486598",
-          "source": "openalex"
-        },
-        {
-          "title": "Geometry-independent limits of passive thermal rectification: optimal bilayers and gains from material diversity",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.21203/rs.3.rs-11058050/v1",
-          "source": "openalex"
-        },
-        {
-          "title": "Global energy solutions for a thermoelastic system with nonlinear temperature-gradient forcing and anisotropic heat conduction",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5281/zenodo.22807557",
-          "source": "openalex"
-        },
-        {
-          "title": "A Novel Signal Validation Framework for Short-Circuit Transient Analysis with a Bidirectional Diode-Clamp Circuit Design",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1016/j.meadig.2026.100058",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2911,27 +1526,12 @@
       "id": "mp-034",
       "title": "Bose-Einstein Condensation of the Interacting Gas at Positive Temperature",
       "query": "bose einstein condensation superfluidity",
-      "new_works": [
-        {
-          "title": "温度、相变与宏观闭环 ——维度光落理论对凝聚态现象的拓扑统一解释",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5281/zenodo.22806494",
-          "source": "openalex"
-        },
-        {
-          "title": "Borromean Criticality in Two Dimensions",
-          "date": "2026-09-15",
-          "url": "https://arxiv.org/abs/2609.15259",
-          "source": "openalex"
-        },
-        {
-          "title": "Course on two-dimensional quantum gases",
-          "date": "2026-09-15",
-          "url": "https://arxiv.org/abs/2609.17097",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2942,27 +1542,12 @@
       "id": "mp-035",
       "title": "Berezinskii-Kosterlitz-Thouless Transition and the Universal Jump",
       "query": "bkt transition xy model",
-      "new_works": [
-        {
-          "title": "When does a topological-sector escape count? Definition-sensitive finite-size first-passage statistics across planar XY models",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.5281/zenodo.22177771",
-          "source": "openalex"
-        },
-        {
-          "title": "Borromean Criticality in Two Dimensions",
-          "date": "2026-09-15",
-          "url": "https://arxiv.org/abs/2609.15259",
-          "source": "openalex"
-        },
-        {
-          "title": "Optical and magnetic signatures of drive-enhanced coherence in phase-disordered superconducting bilayers",
-          "date": "2026-09-14",
-          "url": "https://arxiv.org/abs/2609.16137",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -2973,39 +1558,12 @@
       "id": "mc-027",
       "title": "Rigorous Error Bounds for the Stochastic Quasi-Steady-State Approximation",
       "query": "quasi steady state stochastic kinetics",
-      "new_works": [
-        {
-          "title": "Topological defects mediate collective transport of confluent cells.",
-          "date": "2026-09-17",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/42751762",
-          "source": "openalex"
-        },
-        {
-          "title": "Beyond behavioural models: equifinality and overparameterisation undermine confidence in predictions by soil organic matter models",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.5194/gmd-19-8651-2026",
-          "source": "openalex"
-        },
-        {
-          "title": "A physics-informed neural network approach to diffusion and auto-oxidation in Fricke gel dosimeters",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s41598-026-70154-9",
-          "source": "openalex"
-        },
-        {
-          "title": "Reconciling the O3-P3 phase transition in layered oxides to reduce particle strain for stable sodium battery cycling",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1038/s41467-026-77622-w",
-          "source": "openalex"
-        },
-        {
-          "title": "Closed‐Loop Wearable Energy Management: From Biomechanical Energy Harvesting to Full‐Cycle Battery Charging",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.1002/adma.75016",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -3018,9 +1576,21 @@
       "query": "graph spectrum cospectral",
       "new_works": [
         {
-          "title": "Are sparse graphs typically determined by their spectrum?",
-          "date": "2026-09-15",
-          "url": "https://doi.org/10.1016/j.ejc.2026.104438",
+          "title": "Dynamic Spectral Information in Modular Quantum Dynamics: Limits of Static Spectral Invariants",
+          "date": "2026-09-24",
+          "url": "https://doi.org/10.5281/zenodo.22939845",
+          "source": "openalex"
+        },
+        {
+          "title": "Three Hardness Results for Graph Similarity Problems",
+          "date": "2026-09-23",
+          "url": "https://doi.org/10.46298/dmtcs.12508",
+          "source": "openalex"
+        },
+        {
+          "title": "Structural Characterizations and Algebraic Realizations of a Family of Regular Integral Graphs",
+          "date": "2026-09-22",
+          "url": "https://arxiv.org/abs/2609.25957",
           "source": "openalex"
         }
       ],
@@ -3035,21 +1605,12 @@
       "id": "mb-026",
       "title": "Sharp Arnold Tongues for Subharmonic Response in Seasonally Forced SIR",
       "query": "seasonal forcing arnold tongue",
-      "new_works": [
-        {
-          "title": "Extreme drought disrupts the bottom-up regulation of ground-dwelling invertebrate diversity under climate warming",
-          "date": "2026-09-17",
-          "url": "https://doi.org/10.64898/2026.09.15.751501",
-          "source": "openalex"
-        },
-        {
-          "title": "Integrated satellite monitoring and field validation of the periodically outbursting glacier-dammed lake Nedre Demmevatnet, Norway",
-          "date": "2026-09-16",
-          "url": "https://doi.org/10.5194/egusphere-2026-5025",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 429: Too Many Requests"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -3072,33 +1633,12 @@
       "id": "me-027",
       "title": "Optimality of Nonlinear vs. Linear Control in Witsenhausen’s Decentralized Problem",
       "query": "decentralized control stochastic control",
-      "new_works": [
-        {
-          "title": "Simulation code for \"Real-Time AI Service Economy: A Framework for Agentic Computing Across the Continuum\"",
-          "date": "2026-09-19",
-          "url": "https://arxiv.org/abs/2603.05614",
-          "source": "openalex"
-        },
-        {
-          "title": "Swarm and Multi-Agent Robotics: Graph Laplacian Consensus, Formation Control, and Decentralized Learning",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.5281/zenodo.22846762",
-          "source": "openalex"
-        },
-        {
-          "title": "A Novel Federated and Quantum-resistant Security Framework for Edge-cloud Systems",
-          "date": "2026-09-19",
-          "url": "https://doi.org/10.22266/ijies2026.1031.29",
-          "source": "openalex"
-        },
-        {
-          "title": "Diffusion Model-Based Video Editing: A Survey",
-          "date": "2026-09-18",
-          "url": "https://doi.org/10.1007/s11263-026-03040-6",
-          "source": "openalex"
-        }
-      ],
+      "new_works": [],
       "alerts": [
+        {
+          "type": "fetch_error",
+          "message": "openalex: HTTP Error 503: Service Unavailable"
+        },
         {
           "type": "fetch_error",
           "message": "arxiv: HTTP Error 406: Not Acceptable"
@@ -3113,7 +1653,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3129,7 +1669,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3145,7 +1685,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3161,7 +1701,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3177,7 +1717,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3193,7 +1733,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3209,7 +1749,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3225,7 +1765,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3241,7 +1781,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3257,7 +1797,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3273,7 +1813,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3289,7 +1829,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3305,7 +1845,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3321,7 +1861,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3337,7 +1877,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3353,7 +1893,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3369,7 +1909,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3385,7 +1925,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3401,7 +1941,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3417,7 +1957,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3433,7 +1973,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3449,7 +1989,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3465,7 +2005,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3481,7 +2021,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3497,7 +2037,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3513,7 +2053,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3529,7 +2069,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3545,7 +2085,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3561,7 +2101,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3577,7 +2117,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3593,7 +2133,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3609,7 +2149,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3625,7 +2165,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3641,7 +2181,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3657,7 +2197,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3673,7 +2213,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3689,7 +2229,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3705,7 +2245,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
@@ -3721,7 +2261,7 @@
       "alerts": [
         {
           "type": "fetch_error",
-          "message": "openalex: HTTP Error 429: Too Many Requests"
+          "message": "openalex: HTTP Error 503: Service Unavailable"
         },
         {
           "type": "fetch_error",
