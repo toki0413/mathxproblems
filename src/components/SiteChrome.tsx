@@ -19,6 +19,13 @@ const NAV = [
   { to: '/api', key: 'nav.api' },
 ]
 
+// 平台新页：收进"更多"下拉（桌面端），避免顶栏溢出；移动端平铺进菜单。
+const MORE_NAV = [
+  { to: '/trails', key: 'nav.trails' },
+  { to: '/timeline', key: 'nav.timeline' },
+  { to: '/benchmark', key: 'nav.bench' },
+]
+
 /** 语言切换（EN / 中文）：英文为主，切中文时 UI/标题/页面长文随语言变化。 */
 function LangSwitch() {
   const { lang, setLang } = useI18n()
@@ -47,11 +54,15 @@ function LangSwitch() {
 export function SiteHeader() {
   const loc = useLocation()
   const [open, setOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
   const { t } = useI18n()
   // 路由切换时关闭移动端菜单：这是有意的"effect 内同步 setState"（导航副作
   // 用，非级联渲染反模式），关闭 react-hooks/set-state-in-effect 误报。
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setOpen(false), [loc.pathname])
+  // 路由切换时关闭"更多"下拉：同上，导航副作用。
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => setMoreOpen(false), [loc.pathname])
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [loc.pathname])
@@ -83,6 +94,38 @@ export function SiteHeader() {
               {t(n.key)}
             </NavLink>
           ))}
+          <div className="relative">
+            <button
+              className={`px-3 py-1.5 text-sm transition-colors ${
+                MORE_NAV.some((n) => loc.pathname.startsWith(n.to))
+                  ? 'text-ink font-medium underline decoration-ink decoration-[1.5px] underline-offset-[7px]'
+                  : 'text-ink-3 hover:text-ink'
+              }`}
+              onClick={() => setMoreOpen(!moreOpen)}
+            >
+              {t('nav.more')} ▾
+            </button>
+            {moreOpen && (
+              <div className="absolute right-0 top-full pt-1 z-50">
+                <div className="min-w-40 border border-line bg-paper shadow-sm">
+                  {MORE_NAV.map((n) => (
+                    <NavLink
+                      key={n.to}
+                      to={n.to}
+                      onClick={() => setMoreOpen(false)}
+                      className={({ isActive }) =>
+                        `block px-4 py-2 text-sm transition-colors ${
+                          isActive ? 'text-ink font-medium' : 'text-ink-2 hover:text-ink hover:bg-[#f4f2ec]'
+                        }`
+                      }
+                    >
+                      {t(n.key)}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
           <Link
             to="/submit"
             className="ml-2 px-3 py-1.5 text-sm border border-line rounded-full text-ink-2 hover:bg-ink hover:text-paper hover:border-ink transition-colors"
@@ -107,6 +150,11 @@ export function SiteHeader() {
       {open && (
         <nav className="md:hidden hairline-t px-5 py-3 flex flex-col gap-1">
           {NAV.map((n) => (
+            <NavLink key={n.to} to={n.to} className="py-2 text-sm text-ink-2">
+              {t(n.key)}
+            </NavLink>
+          ))}
+          {MORE_NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className="py-2 text-sm text-ink-2">
               {t(n.key)}
             </NavLink>

@@ -11,6 +11,7 @@ import { buildNeeds, buildCoverage } from "./needs.json";
 import { buildLedger } from "./ledger.json";
 import { buildAttestations } from "./attestations.json";
 import { buildProofTasks } from "./proof-tasks.json";
+import { buildEvalTasks, evalTaskStats } from "./eval-tasks.json";
 import { buildObstaclesPayload } from "./obstacle-graph";
 import { listLatestClaimEvents, listMethodEvents } from "./queries/attempts";
 import { registerClaimsWriteRoutes } from "./claims-write";
@@ -102,6 +103,10 @@ app.get("/api/v1/needs/coverage.json", (c) => jsonReply(JSON.stringify(buildCove
 // 可编译 Lean 陈述的题，导出为规范+判定的证明义务，供 prover/agent 流水线消费
 // （对标 Vero arXiv 2608.13522 proof-only 模式；任务数量由 check-proof-tasks 守卫）。
 app.get("/api/v1/proof-tasks.json", (c) => jsonReply(JSON.stringify(buildProofTasks()), c));
+// LLM 数学推理评测集（公开版）：verified_behavior/certificate 题导出为评测任务，
+// 带 L0/L1/L2 机器核验锚点标注；统计端点是给评测集的消费方（页面/agent）用的。
+app.get("/api/v1/benchmark/tasks.json", (c) => jsonReply(JSON.stringify(buildEvalTasks()), c));
+app.get("/api/v1/benchmark/stats.json", (c) => jsonReply(JSON.stringify(evalTaskStats()), c));
 // 机器核验纪录括区的公证快照（Tier 0）：确定性、任何人可复算、ETag 可增量拉取。
 // 与 ledger.json（人/AI 声明事件）严格区分——公证的是"机器核验的既有事实"而非"声明"。
 app.get("/api/v1/attestations.json", (c) => jsonReply(JSON.stringify(buildAttestations()), c));

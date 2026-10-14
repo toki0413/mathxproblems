@@ -13,6 +13,10 @@ const ImpactPage = lazy(() => import('@/pages/ImpactPage'))
 const NeedsPage = lazy(() => import('@/pages/NeedsPage'))
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'))
 const SolveStationPage = lazy(() => import('@/pages/SolveStationPage'))
+const TrailsListPage = lazy(() => import('@/pages/TrailsListPage'))
+const TrailDetailPage = lazy(() => import('@/pages/TrailDetailPage'))
+const TimelinePage = lazy(() => import('@/pages/TimelinePage'))
+const BenchmarkPage = lazy(() => import('@/pages/BenchmarkPage'))
 const ObstaclesPage = lazy(() => import('@/pages/ObstaclesPage'))
 const LedgerPage = lazy(() => import('@/pages/LedgerPage'))
 const GraphPage = lazy(() => import('@/pages/GraphPage'))
@@ -46,6 +50,10 @@ export default function App() {
             <Route path="/needs" element={<NeedsPage />} />
             <Route path="/tools" element={<ToolsPage />} />
             <Route path="/solve" element={<SolveStationPage />} />
+            <Route path="/trails" element={<TrailsListPage />} />
+            <Route path="/trails/:trailId" element={<TrailDetailPage />} />
+            <Route path="/timeline" element={<TimelinePage />} />
+            <Route path="/benchmark" element={<BenchmarkPage />} />
             <Route path="/obstacles" element={<ObstaclesPage />} />
             <Route path="/ledger" element={<LedgerPage />} />
             <Route path="/laws" element={<LawsPage />} />
