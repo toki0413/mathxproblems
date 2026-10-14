@@ -5,6 +5,7 @@ export type Lang = 'zh' | 'en'
 const STR: Record<string, { zh: string; en: string }> = {
   // nav
   'nav.problems': { zh: '问题库', en: 'Problems' },
+  'nav.solve': { zh: '求解台', en: 'Solve' },
   'nav.graph': { zh: '问题图谱', en: 'Graph' },
   'nav.impact': { zh: '工程价值', en: 'Impact' },
   'nav.laws': { zh: '经验定律', en: 'Laws' },
@@ -18,6 +19,27 @@ const STR: Record<string, { zh: string; en: string }> = {
   'nav.menu': { zh: '菜单', en: 'Menu' },
   'nav.close': { zh: '关闭', en: 'Close' },
   'nav.count': { zh: '题', en: 'problems' },
+  // solve station（求解台）
+  'sol.title': { zh: '求解台', en: 'Solve Station' },
+  'sol.subtitle': {
+    zh: '目录里「形式化潜力高 + 有可编译 Lean 陈述」的题目，导出为 proof-only 任务：给出规范与判定，求机器可查的证明。任务与 /api/v1/proof-tasks.json 同源同筛选；提交动作在每题详情页的双桥写路径完成。',
+    en: 'Catalog problems with high formalization potential and a compilable Lean statement, exported as proof-only tasks: a spec plus a judgment, calling for a machine-checkable proof. This list is the same filter as /api/v1/proof-tasks.json; submissions happen on each problem page via the dual-bridge write path.',
+  },
+  'sol.tasks': { zh: '证明任务', en: 'Proof tasks' },
+  'sol.anchored': { zh: '陈述锚点', en: 'Statement anchors' },
+  'sol.status.open': { zh: '开放', en: 'Open' },
+  'sol.status.provable': { zh: '已证成', en: 'Provable' },
+  'sol.filter.all': { zh: '全部', en: 'All' },
+  'sol.search': { zh: '按编号 / 标题搜索…', en: 'Search id / title…' },
+  'sol.anchor': { zh: 'L0 陈述锚点', en: 'L0 statement anchor' },
+  'sol.view': { zh: '查看题目并提交', en: 'Open problem & submit' },
+  'sol.tools': { zh: '工具', en: 'Tools' },
+  'sol.lean': { zh: 'Lean 陈述（待证）', en: 'Lean statement (to prove)' },
+  'sol.empty': { zh: '没有符合条件的任务——调整过滤条件试试。', en: 'No tasks match the current filters.' },
+  'sol.footnote': {
+    zh: '任务语义：L0 陈述锚点表示该 Lean 陈述已被 CI 编译核验（check-lean）；证明本身仍开放。任务状态取自 formal_view.status，refuted 表示核心结论已被反例击穿（不删除，标记并链接反例）。',
+    en: 'Task semantics: a statement anchor means the Lean statement is CI-compiled (check-lean); the proof itself stays open. Status comes from formal_view.status; refuted marks a core claim broken by a counterexample (kept, linked, and flagged, not deleted).',
+  },
   // footer
   'footer.tagline': {
     zh: 'AI for math 向自然科学和工程系统传导的翻译层与接口层。',

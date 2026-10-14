@@ -6,6 +6,7 @@ import { useI18n } from '@/i18n'
 
 const NAV = [
   { to: '/problems', key: 'nav.problems' },
+  { to: '/solve', key: 'nav.solve' },
   { to: '/graph', key: 'nav.graph' },
   { to: '/impact', key: 'nav.impact' },
   { to: '/needs', key: 'nav.needs' },
