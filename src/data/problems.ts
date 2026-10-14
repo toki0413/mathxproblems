@@ -10012,6 +10012,540 @@ A negative result (a config whose relaxation necessarily loses a fixed fraction 
     ],
     impact_domains: ['Noise-robust learning engineering'],
   },
+  {
+    id: 'cs-019',
+    output: 'verified_truth',
+    judgment:
+      'Give tight resource bounds for compiling RASP programs into Transformers: RASP (Weiss et al., arXiv:2106.06981) is a programming language whose primitives map to attention and feed-forward computation, and Tracr (Lindner et al., arXiv:2301.05062) compiles human-readable RASP programs into decoder-only transformer weights; decide the exact minimal width, depth and number of attention heads required to realize a stated family of RASP programs (e.g. histograms, sorting, Dyck-language acceptance) as an exact transformer computation, prove a matching lower bound for at least one family, or exhibit a program family whose compilation cost provably grows with input length; a pass is a machine-checkable statement of a resource bound with proof sketch.',
+    title: 'Tight Resource Bounds for Compiling RASP Programs into Transformers',
+    titleZh: 'RASP 程序编译进 Transformer 的紧资源界',
+    domain: 'mathematical-computer-science',
+    subdomain: 'rasp-compilation',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['rasp', 'transformer-compilation', 'tracr', 'resource-bounds'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'We show how RASP can be used to program solutions to tasks that could conceivably be learned by a Transformer, and how a Transformer can be trained to mimic a RASP solution.',
+      source: 'https://arxiv.org/abs/2106.06981',
+    },
+    proposer: 'G. Weiss, Y. Goldberg, E. Yahav',
+    proposed_year: 2021,
+    via: {
+      label: 'G. Weiss, Y. Goldberg, E. Yahav, Thinking Like Transformers (ICML 2021), arXiv:2106.06981',
+      url: 'https://arxiv.org/abs/2106.06981',
+    },
+    related_problems: [
+      {
+        id: 'cs-023',
+        relation: 'shares_tools',
+        note: 'Both rest on RASP as the formal model of transformer computation; cs-023 asks when a short RASP program implies length generalization, cs-019 the compile-time cost of such programs.',
+      },
+      {
+        id: 'cs-020',
+        relation: 'shares_tools',
+        note: 'Both are realizability questions about RASP; cs-019 bounds the cost when compilation succeeds, cs-020 the programs that provably cannot be realized with bounded resources.',
+      },
+    ],
+    statement:
+      'Weiss–Goldberg–Yahav (arXiv:2106.06981) introduce RASP, a programming language whose primitives (select, aggregate, sequence operations) map to the components of a transformer-encoder, and show that analyzing a RASP program implies an upper bound on the number of heads and layers needed to encode a task in a transformer; Tracr (Lindner et al., arXiv:2301.05062) provides a concrete compiler from RASP to transformer weights but makes no optimality claim. Decide the quantitative content: for a stated RASP program family (histograms, sorting, Dyck-1 acceptance, n-ary Boolean expressions), what are the minimal width, depth and head counts of an exactly-equivalent transformer computation, and can a matching lower bound be proven for at least one family, or does the required resource provably grow with input length? The upper bounds from RASP analysis and the heuristic Tracr compilation are known; tightness is not.',
+    origin:
+      'RASP establishes that transformer computation can be understood as a programming language, and Tracr makes compilation concrete, but neither gives tight or optimal resource bounds; the exact cost of compiling a RASP program into a transformer is open.',
+    progress: [],
+    obstacles: [
+      'A tight lower bound must separate what is saved by parallel/hierarchical computation from what the attention mechanism provably cannot compress; such separation arguments are the difficulty.',
+    ],
+    formalization_notes:
+      'RASP has a formal operational semantics (select/aggregate over sequences), so a statement of the form "program P needs at least k layers" is formalizable in principle; the lower-bound proof is the open content.',
+    references: [
+      {
+        label: 'G. Weiss, Y. Goldberg, E. Yahav, Thinking Like Transformers, arXiv:2106.06981 (2021)',
+        url: 'https://arxiv.org/abs/2106.06981',
+      },
+      {
+        label: 'D. Lindner, J. Kramár, S. Farquhar, M. Rahtz, T. McGrath, V. Mikulik, Tracr: Compiled Transformers as a Laboratory for Interpretability, arXiv:2301.05062 (2023)',
+        url: 'https://arxiv.org/abs/2301.05062',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-020',
+    output: 'verified_truth',
+    judgment:
+      'Characterize the expressive gap of RASP under bounded resources: Weiss–Goldberg–Yahav (arXiv:2106.06981) show RASP programs exist for histograms, sorting and Dyck-languages, and Bhattamishra et al. (arXiv:2009.11264) find empirically that transformers succeed on only a subset of regular languages with degrading performance under a well-known complexity measure; decide which RASP programs are realizable exactly by transformers of bounded width and depth and which provably require resources growing with input length, by either giving a constructive bounded-resource realization for a stated family or exhibiting a RASP program that no bounded-width transformer can simulate exactly; a pass is a machine-checkable statement of the realizability classification with proof sketch.',
+    title: 'Expressive Gap of Bounded-Resource Transformers over RASP Programs',
+    titleZh: '有界资源 Transformer 对 RASP 程序的表达力缺口',
+    domain: 'mathematical-computer-science',
+    subdomain: 'rasp-expressivity',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['rasp', 'expressivity', 'regular-languages', 'resource-limits'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'in contrast to LSTMs, Transformers do well only on a subset of regular languages with degrading performance as we make languages more complex according to a well-known measure of complexity',
+      source: 'https://arxiv.org/abs/2009.11264',
+    },
+    proposer: 'S. Bhattamishra, K. Ahuja, N. Goyal',
+    proposed_year: 2020,
+    via: {
+      label: 'S. Bhattamishra, K. Ahuja, N. Goyal, On the Ability and Limitations of Transformers to Recognize Formal Languages (EMNLP 2020), arXiv:2009.11264',
+      url: 'https://arxiv.org/abs/2009.11264',
+    },
+    related_problems: [
+      {
+        id: 'cs-019',
+        relation: 'shares_tools',
+        note: 'Both are RASP realizability questions; cs-020 the existence side (which programs are impossible), cs-019 the cost side (how expensive the possible ones are).',
+      },
+      {
+        id: 'cs-021',
+        relation: 'shares_tools',
+        note: 'Both concern which formal languages transformers can handle; cs-021 via finite-state automata simulation, cs-020 via RASP programs.',
+      },
+    ],
+    statement:
+      'RASP can express histograms, sorting and Dyck-language recognition, but a transformer realization of a program requires heads and layers whose number depends on the program; Bhattamishra et al. (arXiv:2009.11264) find empirically that on regular languages, transformers do well only on a subset, with performance degrading as languages become more complex. Decide the exact boundary: which RASP programs are realizable exactly by transformers of bounded width and depth, and which provably require resources that grow with input length? The empirical degradation curve and the RASP upper-bound analysis are known; a provable realizability classification is not.',
+    origin:
+      'RASP gives the language side and Bhattamishra et al. the empirical side of the same phenomenon; a formal boundary between RASP-realizable and RASP-unrealizable programs under bounded resources is not established.',
+    progress: [],
+    obstacles: [
+      'The gap depends on both width (embedding capacity) and depth (composition capacity); separating the two contributions is required for a meaningful classification.',
+    ],
+    formalization_notes:
+      'The realizability claim is a statement about which functions of a formal sequence language a bounded-width/depth transformer can compute; formalizable once the transformer model is fixed, but the lower-bound technique is the open content.',
+    references: [
+      {
+        label: 'S. Bhattamishra, K. Ahuja, N. Goyal, On the Ability and Limitations of Transformers to Recognize Formal Languages, arXiv:2009.11264 (2020)',
+        url: 'https://arxiv.org/abs/2009.11264',
+      },
+      {
+        label: 'G. Weiss, Y. Goldberg, E. Yahav, Thinking Like Transformers, arXiv:2106.06981 (2021)',
+        url: 'https://arxiv.org/abs/2106.06981',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-021',
+    output: 'verified_truth',
+    judgment:
+      'Sharpen the depth characterization of transformer simulation of finite-state automata: Liu et al. (arXiv:2210.10749) prove that a transformer with o(T) layers can exactly replicate the computation of any automaton on a length-T input — O(log T)-depth solutions always exist, O(1)-depth shortcuts exist for solvable semiautomata, and constant-depth shortcuts for non-solvable ones would imply TC⁰ = NC¹; decide the tight frontier between automata admitting O(1)-depth simulation and those requiring logarithmic depth, and give a machine-checkable statement of the classification together with a proof sketch, or exhibit an automaton family whose minimal shortcut depth is provably Ω(log T); a pass is a machine-checkable statement of the depth classification.',
+    title: 'Tight Depth Frontier for Transformer Shortcuts to Finite-State Automata',
+    titleZh: 'Transformer 到有限自动机捷径的紧深度前沿',
+    domain: 'mathematical-computer-science',
+    subdomain: 'regular-language-recognition',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['automata', 'shortcut-learning', 'depth-complexity', 'krohn-rhodes'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'We show that a low-depth Transformer can represent the computations of any finite-state automaton (thus, any bounded-memory algorithm), by hierarchically reparameterizing its recurrent dynamics.',
+      source: 'https://arxiv.org/abs/2210.10749',
+    },
+    proposer: 'B. Liu, J. T. Ash, S. Goel, A. Krishnamurthy, C. Zhang',
+    proposed_year: 2023,
+    via: {
+      label: 'B. Liu, J. T. Ash, S. Goel, A. Krishnamurthy, C. Zhang, Transformers Learn Shortcuts to Automata (ICLR 2023), arXiv:2210.10749',
+      url: 'https://arxiv.org/abs/2210.10749',
+    },
+    related_problems: [
+      {
+        id: 'cs-022',
+        relation: 'shares_tools',
+        note: 'Both use circuit-complexity reasoning about transformers; the O(1)-depth-vs-Ω(log T) frontier of cs-021 is conditioned on the TC⁰/NC¹ separation studied in cs-022.',
+      },
+      {
+        id: 'cs-020',
+        relation: 'shares_tools',
+        note: 'Both classify what shallow transformers can exactly compute; cs-021 over automata, cs-020 over RASP programs.',
+      },
+    ],
+    statement:
+      'Liu–Ash–Goel–Krishnamurthy–Zhang (arXiv:2210.10749) prove that low-depth transformers can exactly replicate the computation of any finite-state automaton on inputs of length T: polynomial-size O(log T)-depth simulators always exist; O(1)-depth shortcuts exist for solvable semiautomata (understood via Krohn–Rhodes theory) and are ruled out for non-solvable ones unless TC⁰ = NC¹; empirically, trained transformers converge to shortcut solutions across many automata but these solutions are brittle out of distribution. Decide the tight frontier: which automata families admit O(1)-depth simulation, which provably require logarithmic depth, and is there an automaton family whose minimal shortcut depth is Ω(log T)? The existence results and the TC⁰ = NC¹ conditional barrier are known; the exact classification boundary is not.',
+    origin:
+      'The paper establishes existence of shallow shortcuts and a conditional barrier, but the tight frontier — which automata sit at constant depth and which are forced to logarithmic depth — is left open, as is the formal link to shortcut brittleness.',
+    progress: [],
+    obstacles: [
+      'Separating the depth frontier requires resolving or bypassing the TC⁰ vs NC¹ question for non-solvable semiautomata, a known conditional barrier.',
+    ],
+    formalization_notes:
+      'Automata and transformer layers are finite discrete objects; a depth-classification statement is formalizable, but lower bounds against transformer families are the open mathematical content.',
+    references: [
+      {
+        label: 'B. Liu, J. T. Ash, S. Goel, A. Krishnamurthy, C. Zhang, Transformers Learn Shortcuts to Automata, arXiv:2210.10749 (2023)',
+        url: 'https://arxiv.org/abs/2210.10749',
+      },
+      {
+        label: 'S. Bhattamishra, K. Ahuja, N. Goyal, On the Ability and Limitations of Transformers to Recognize Formal Languages, arXiv:2009.11264 (2020)',
+        url: 'https://arxiv.org/abs/2009.11264',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-022',
+    output: 'verified_truth',
+    judgment:
+      'Decide the tightness of the log-precision transformer upper bound: Merrill–Sabharwal (arXiv:2207.00729) prove that transformers whose arithmetic precision is logarithmic in the number of input tokens (with feed-forward nets computable in space linear in their input) can be simulated by constant-depth logspace-uniform threshold circuits, i.e. solve only problems in uniform TC⁰; decide whether this inclusion is strict and tight — exhibit a problem in uniform TC⁰ that no log-precision transformer of stated size can solve, or prove that the class is exactly TC⁰ for a stated model family; a pass is a machine-checkable statement of the separation or characterization with proof sketch.',
+    title: 'Tightness of the Log-Precision Transformer Inclusion in Uniform TC⁰',
+    titleZh: 'log-precision Transformer 含于均匀 TC⁰ 的紧性',
+    domain: 'mathematical-computer-science',
+    subdomain: 'complexity-spectrum',
+    status: 'open',
+    difficulty: 'frontier',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['circuit-complexity', 'tc0', 'log-precision', 'parallelism-tradeoff'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'We prove that transformers whose arithmetic precision is logarithmic in the number of input tokens (and whose feedforward nets are computable using space linear in their input) can be simulated by constant-depth logspace-uniform threshold circuits.',
+      source: 'https://arxiv.org/abs/2207.00729',
+    },
+    proposer: 'W. Merrill, A. Sabharwal',
+    proposed_year: 2023,
+    via: {
+      label: 'W. Merrill, A. Sabharwal, The Parallelism Tradeoff: Limitations of Log-Precision Transformers (TACL 2023), arXiv:2207.00729',
+      url: 'https://arxiv.org/abs/2207.00729',
+    },
+    related_problems: [
+      {
+        id: 'cs-021',
+        relation: 'shares_tools',
+        note: 'Both place transformers in circuit-complexity classes; the TC⁰/NC¹ barrier for shortcut depth in cs-021 is the same separation question studied here.',
+      },
+      {
+        id: 'cs-024',
+        relation: 'shares_tools',
+        note: 'Both bound transformer computation by attention structure; cs-024 at the level of soft-attention sensitivity, cs-022 at the level of uniform threshold circuits.',
+      },
+      {
+        id: 'cs-008',
+        relation: 'shares_tools',
+        note: 'Both are complexity classifications of what transformers can guarantee; cs-008 certified robustness, cs-022 the uniform TC⁰ upper bound.',
+      },
+    ],
+    statement:
+      'Merrill–Sabharwal (arXiv:2207.00729) prove log-precision transformers are simulated by constant-depth logspace-uniform threshold circuits, placing them in uniform TC⁰; they note this is strikingly weak compared with the Turing-completeness of infinite-precision transformers, and introduce the parallelism tradeoff thesis that any architecture as parallelizable as a transformer inherits similar limits. Decide the tightness: is uniform TC⁰ exactly the class of problems solvable by log-precision transformers of polynomial size and constant depth, or is the inclusion strict — i.e. does there exist a problem in uniform TC⁰ that such transformers provably cannot solve (for instance a recursive-majority task on deep hierarchies, or linear algebra of a stated form)? The upper bound is proven; the converse or a separation is not.',
+    origin:
+      'The paper establishes the uniform TC⁰ upper bound and speculates on a parallelism tradeoff; whether the bound is tight, and which specific TC⁰ problems resist log-precision transformers, is left open.',
+    progress: [],
+    obstacles: [
+      'Separating the class from uniform TC⁰ requires new lower-bound techniques for transformer families; existing results are conditional (e.g. on L ≠ P or on TC⁰-hard separation questions).',
+    ],
+    formalization_notes:
+      'The claim is a circuit-complexity statement; formalizable in principle, but proving transformer lower bounds is beyond current formalized complexity theory.',
+    references: [
+      {
+        label: 'W. Merrill, A. Sabharwal, The Parallelism Tradeoff: Limitations of Log-Precision Transformers (TACL 11:531–545), arXiv:2207.00729 (2023)',
+        url: 'https://arxiv.org/abs/2207.00729',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-023',
+    output: 'verified_truth',
+    judgment:
+      'Decide the RASP-Generalization Conjecture: Zhou et al. (arXiv:2310.16028) conjecture that transformers tend to length generalize on a task if and only if the task can be solved by a short RASP program that works for all input lengths; give a precise formal statement of the conjecture for a stated transformer family and training protocol, then either prove it, exhibit a counterexample task where a short all-length RASP program exists but transformers provably fail to length generalize (or vice versa), or reduce it to a known complexity-theoretic statement; a pass is a machine-checkable statement of the conjecture together with a proof, counterexample, or reduction.',
+    title: 'The RASP-Generalization Conjecture for Transformer Length Generalization',
+    titleZh: 'Transformer 长度泛化的 RASP-泛化猜想',
+    domain: 'mathematical-computer-science',
+    subdomain: 'length-generalization',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['length-generalization', 'rasp', 'out-of-distribution', 'conjecture'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we introduce the RASP-Generalization Conjecture: Transformers tend to length generalize on a task if the task can be solved by a short RASP program which works for all input lengths.',
+      source: 'https://arxiv.org/abs/2310.16028',
+    },
+    proposer: 'H. Zhou, A. Bradley, E. Littwin, N. Razin, O. Saremi, J. Susskind, S. Bengio, P. Nakkiran',
+    proposed_year: 2023,
+    via: {
+      label: 'H. Zhou et al., What Algorithms can Transformers Learn? A Study in Length Generalization (ICLR 2024), arXiv:2310.16028',
+      url: 'https://arxiv.org/abs/2310.16028',
+    },
+    related_problems: [
+      {
+        id: 'cs-019',
+        relation: 'shares_tools',
+        note: 'The conjecture is stated in RASP; cs-023 asks when a short RASP program transfers to unseen lengths, cs-019 the cost of compiling such programs.',
+      },
+      {
+        id: 'cs-026',
+        relation: 'analog_of',
+        note: 'Both explain an emergent transformer behavior (length generalization / in-context learning) by a conjectured mechanism whose formal truth is open.',
+      },
+    ],
+    statement:
+      'Zhou et al. (arXiv:2310.16028) propose a unifying framework for transformer length generalization: the RASP-Generalization Conjecture asserts transformers tend to length generalize on a task exactly when the task admits a short RASP program working for all input lengths; the conjecture captures most known instances (arithmetic, parity, addition) and the paper improves generalization on traditionally hard tasks by acting on it. Decide whether the conjecture is true as stated for a formalized transformer family and training protocol: prove it, exhibit a counterexample (a short all-length RASP program whose learning provably fails to length generalize, or a task that length generalizes with no short RASP program), or reduce it to a known statement. The conjecture is explicitly open in the paper.',
+    origin:
+      'The paper states the conjecture to organize a large body of empirical evidence and shows it beats an alternative model of learning on one example; its truth as a formal statement is not resolved.',
+    progress: [],
+    obstacles: [
+      'The conjecture mixes expressivity (existence of a short program) with learnability and optimization (what training converges to), two regimes that are hard to hold in one formal statement.',
+    ],
+    formalization_notes:
+      'RASP and the task family are formalizable; the learning side (what a trained transformer converges to) is the part that resists current formalization.',
+    references: [
+      {
+        label: 'H. Zhou et al., What Algorithms can Transformers Learn? A Study in Length Generalization, arXiv:2310.16028 (2023)',
+        url: 'https://arxiv.org/abs/2310.16028',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-024',
+    output: 'verified_truth',
+    judgment:
+      'Sharpen the quantitative limits of soft-attention transformers on regular languages: Hahn (arXiv:1906.06755) proves strong theoretical limitations of self-attention — it cannot model periodic finite-state languages nor hierarchical structure unless the number of layers or heads grows with input length; Chiang–Cholak (arXiv:2202.12172) settle an open question by constructing transformers that recognize PARITY and FIRST with perfect accuracy and use layer normalization to bring cross-entropy arbitrarily close to zero; decide the exact class of regular languages recognizable by soft-attention transformers of fixed depth and heads (or the precise head/layer growth rate forced by Hahn\u0027s lemma), give a machine-checkable statement of the classification with proof sketch, or exhibit a regular language family whose recognition requires a provably growing number of heads; a pass is a machine-checkable statement of the classification.',
+    title: 'Sharp Limits of Soft-Attention Transformers on Regular Languages',
+    titleZh: 'soft-attention Transformer 对正则语言的尖锐限制',
+    domain: 'mathematical-computer-science',
+    subdomain: 'attention-limiting',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['soft-attention', 'regular-languages', 'hahn-lemma', 'parity'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'Across both soft and hard attention, we show strong theoretical limitations of the computational abilities of self-attention, finding that it cannot model periodic finite-state languages, nor hierarchical structure, unless the number of layers or heads increases with input length.',
+      source: 'https://arxiv.org/abs/1906.06755',
+    },
+    proposer: 'M. Hahn',
+    proposed_year: 2020,
+    via: {
+      label: 'M. Hahn, Theoretical Limitations of Self-Attention in Neural Sequence Models (TACL 2020), arXiv:1906.06755',
+      url: 'https://arxiv.org/abs/1906.06755',
+    },
+    related_problems: [
+      {
+        id: 'cs-022',
+        relation: 'shares_tools',
+        note: 'Both bound transformers by attention structure; cs-024 via soft-attention sensitivity on languages, cs-022 via the uniform TC⁰ circuit bound.',
+      },
+      {
+        id: 'cs-021',
+        relation: 'shares_tools',
+        note: 'Hahn\u0027s lemma concerns the same periodic finite-state languages whose automata simulation cs-021 classifies by depth.',
+      },
+      {
+        id: 'cs-008',
+        relation: 'shares_tools',
+        note: 'Both analyze what fixed-structure transformers can guarantee on hard instances; cs-008 certified robustness, cs-024 language recognition.',
+      },
+    ],
+    statement:
+      'Hahn (arXiv:1906.06755) proves that self-attention cannot model periodic finite-state languages (e.g. PARITY) nor hierarchical structure unless layers or heads grow with input length; Chiang–Cholak (arXiv:2202.12172) construct transformers recognizing PARITY and FIRST with perfect accuracy, use layer normalization to make cross-entropy arbitrarily small, and find that transformers can fail to generalize to longer strings when they must focus on a single position. Decide the sharp content: for a soft-attention transformer with fixed depth and a fixed number of heads, what is the exact class of regular languages it can recognize, and what growth rate in heads or layers is forced by Hahn\u0027s lemma for the languages outside it? Hahn\u0027s limitation and the explicit PARITY/FIRST constructions are known; the exact classification is not.',
+    origin:
+      'Hahn establishes the limitation and Chiang–Cholak exhibit explicit circumventions; the boundary between languages that admit fixed-resource soft-attention recognition and those that force growing resources is not characterized.',
+    progress: [],
+    obstacles: [
+      'Soft attention\u0027s O(1/n) sensitivity on single-symbol dependence (Hahn\u0027s lemma) is architecture-level and interacts with layer normalization and positional encoding, making a clean classification delicate.',
+    ],
+    formalization_notes:
+      'The recognition claim is a statement about transformer encoders over finite strings; formalizable once the encoder model is fixed, but the classification proof is the open content.',
+    references: [
+      {
+        label: 'M. Hahn, Theoretical Limitations of Self-Attention in Neural Sequence Models, arXiv:1906.06755 (2020)',
+        url: 'https://arxiv.org/abs/1906.06755',
+      },
+      {
+        label: 'D. Chiang, P. Cholak, Overcoming a Theoretical Limitation of Self-Attention (ACL 2022), arXiv:2202.12172',
+        url: 'https://arxiv.org/abs/2202.12172',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-025',
+    output: 'verified_truth',
+    judgment:
+      'Establish the exact boundary of the in-context-learning-equals-optimization equivalence: Von Oswald et al. (arXiv:2212.07677) show a single linear self-attention layer induces the same data transformation as one gradient-descent step on a regression loss and that trained transformers become mesa-optimizers performing gradient descent in their forward pass; decide under which precise conditions (softmax vs linear attention, presence of MLP blocks, loss family, data distribution) the in-context behavior of a stated transformer family is provably equivalent to a stated optimization algorithm, or exhibit a transformer/task pair where in-context learning provably diverges from every such algorithm; a pass is a machine-checkable statement of the equivalence boundary with proof sketch.',
+    title: 'Exact Boundary of the In-Context-Learning-as-Optimization Equivalence',
+    titleZh: '上下文学习即优化等价性的精确边界',
+    domain: 'mathematical-computer-science',
+    subdomain: 'in-context-learning',
+    status: 'open',
+    difficulty: 'research',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['in-context-learning', 'mesa-optimization', 'gradient-descent', 'linear-attention'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we show how trained Transformers become mesa-optimizers i.e. learn models by gradient descent in their forward pass.',
+      source: 'https://arxiv.org/abs/2212.07677',
+    },
+    proposer: 'J. von Oswald, E. Niklasson, E. Randazzo, J. Sacramento, A. Mordvintsev, A. Zhmoginov, M. Vladymyrov',
+    proposed_year: 2023,
+    via: {
+      label: 'J. von Oswald et al., Transformers Learn In-Context by Gradient Descent (ICML 2023), arXiv:2212.07677',
+      url: 'https://arxiv.org/abs/2212.07677',
+    },
+    related_problems: [
+      {
+        id: 'cs-026',
+        relation: 'shares_tools',
+        note: 'Both attempt a formal mechanism for in-context learning; cs-026 the induction-head hypothesis, cs-025 the gradient-descent equivalence.',
+      },
+      {
+        id: 'cs-014',
+        relation: 'shares_tools',
+        note: 'Both use linearized/limiting models of network dynamics — cs-014 the neural tangent kernel limit, cs-025 linear self-attention as gradient descent.',
+      },
+    ],
+    statement:
+      'Von Oswald et al. (arXiv:2212.07677) prove that a single linear self-attention layer implements the same data transformation as one gradient-descent step on a regression loss, and that trained self-attention-only transformers match gradient descent (or the explicitly constructed weights) on regression tasks, while surpassing plain GD via curvature correction and learned features; the equivalence is established for linear attention and regression losses, and softmax/MLP variants are handled empirically. Decide the exact boundary: under which conditions on attention type, normalization, block structure, loss family and data distribution is the in-context mapping of a stated transformer provably equal to a stated optimization algorithm, and does there exist a transformer/task pair whose in-context behavior provably matches no such algorithm? The linear-case equivalence is proven; the nonlinear boundary is open.',
+    origin:
+      'The paper establishes the equivalence for linear self-attention and observes empirically that trained transformers behave as mesa-optimizers; the exact conditions under which the equivalence holds with softmax attention, MLPs and nonlinear losses are not characterized.',
+    progress: [],
+    obstacles: [
+      'Softmax introduces nonlinearity that breaks the linear-algebraic identity; the equivalence then depends on the training dynamics, which are not yet structurally analyzable.',
+    ],
+    formalization_notes:
+      'The linear case is a clean algebraic identity, formalizable now; the nonlinear boundary requires a formal account of the learned weights, which is the open content.',
+    references: [
+      {
+        label: 'J. von Oswald et al., Transformers Learn In-Context by Gradient Descent, arXiv:2212.07677 (2023)',
+        url: 'https://arxiv.org/abs/2212.07677',
+      },
+    ],
+    impact_domains: ['Transformer architecture engineering'],
+  },
+  {
+    id: 'cs-026',
+    output: 'verified_truth',
+    judgment:
+      'Turn the induction-head hypothesis into a decidable statement: Olsson et al. (arXiv:2209.11895) present preliminary evidence for the hypothesis that induction heads — attention heads completing [A][B] ... [A] → [B] — might constitute the mechanism for the majority of in-context learning in large transformers, with strong causal evidence in small attention-only models and correlational evidence in larger models; formalize the hypothesis for a stated transformer family (induction heads necessary, sufficient, or both for the observed loss drop at increasing token indices) and decide it, or exhibit a transformer/task family where in-context learning provably occurs without induction heads; a pass is a machine-checkable statement of the hypothesis with proof, counterexample, or reduction.',
+    title: 'Decidable Form of the Induction-Head Hypothesis for In-Context Learning',
+    titleZh: '上下文学习之归纳头假说的可判定形式',
+    domain: 'mathematical-computer-science',
+    subdomain: 'induction-heads',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'low',
+    verification_path: 'analytical',
+    tags: ['induction-heads', 'in-context-learning', 'mechanistic-interpretability'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'we present preliminary and indirect evidence for a hypothesis that induction heads might constitute the mechanism for the majority of all "in-context learning" in large transformer models',
+      source: 'https://arxiv.org/abs/2209.11895',
+    },
+    proposer: 'C. Olsson, N. Elhage, N. Nanda, N. Joseph, N. DasSarma, T. Henighan, B. Mann, A. Askell, Y. Bai, A. Chen, T. Conerly, D. Drain, D. Ganguli, Z. Hatfield-Dodds, D. Hernandez, S. Johnston, A. Jones, J. Kernion, L. Lovitt, K. Ndousse, D. Amodei, T. Brown, J. Clark, J. Kaplan, S. McCandlish, C. Olah',
+    proposed_year: 2022,
+    via: {
+      label: 'C. Olsson et al., In-context Learning and Induction Heads (Transformer Circuits Thread, 2022), arXiv:2209.11895',
+      url: 'https://arxiv.org/abs/2209.11895',
+    },
+    related_problems: [
+      {
+        id: 'cs-025',
+        relation: 'shares_tools',
+        note: 'Both propose a mechanism for in-context learning; the paper itself argues induction heads may be a specific case of in-context learning by gradient descent.',
+      },
+      {
+        id: 'cs-023',
+        relation: 'analog_of',
+        note: 'Both explain an emergent transformer behavior by a conjectured mechanism whose formal truth is open.',
+      },
+    ],
+    statement:
+      'Olsson et al. (arXiv:2209.11895) define induction heads — attention heads completing [A][B] ... [A] → [B] — and present six lines of evidence that they may be the mechanistic source of general in-context learning, developing at precisely the same point as a sharp increase in in-context ability; evidence is causal for small attention-only models and correlational for larger models with MLPs. Decide the formal content: for a stated transformer family and training protocol, are induction heads necessary, sufficient, or both for the observed in-context learning phenomenon (decreasing loss at increasing token indices), and does there exist a transformer/task pair exhibiting in-context learning without induction heads? The paper states the hypothesis explicitly as unproven; deciding it is the open question.',
+    origin:
+      'The paper presents the induction-head hypothesis as preliminary and indirect evidence; no formal necessity or sufficiency statement is claimed.',
+    progress: [],
+    obstacles: [
+      'A formal statement needs a precise definition of induction heads as computational primitives and of the in-context learning phenomenon; the causal-to-correlational evidence gradient across model sizes complicates a single formal claim.',
+    ],
+    formalization_notes:
+      'Induction heads and the [A][B] ... [A] → [B] behavior are discrete and formalizable; the training-dynamics side (when heads develop) is the part resisting formalization.',
+    references: [
+      {
+        label: 'C. Olsson et al., In-context Learning and Induction Heads, arXiv:2209.11895 (2022)',
+        url: 'https://arxiv.org/abs/2209.11895',
+      },
+    ],
+    impact_domains: ['DNN interpretability engineering'],
+  },
+  {
+    id: 'cs-027',
+    output: 'verified_truth',
+    judgment:
+      'Sharpen the expressive-power bounds for the self-attention matrix: Likhosherstov–Choromanski–Weller (arXiv:2106.03764) prove that a fixed self-attention module can approximate any sparse attention matrix (bounded nonzero entries per row/column) by only modifying the inputs, with hidden size d = O(log L) for sequence length L up to a precision defined by preserving matrix element ratios; decide whether d = O(log L) is tight for sparse patterns, give tight lower bounds on d for approximating dense-structured patterns (e.g. all-pairs, banded, or low-rank targets), and determine the expressivity gap between fixed and input-dependent attention modules; a pass is a machine-checkable statement of the bound with proof sketch.',
+    title: 'Tight Hidden-Size Bounds for Expressing Attention Matrices',
+    titleZh: '表达注意力矩阵的紧隐藏维数界',
+    domain: 'mathematical-computer-science',
+    subdomain: 'attention-expressivity',
+    status: 'open',
+    difficulty: 'advanced',
+    formalization_potential: 'medium',
+    verification_path: 'analytical',
+    tags: ['attention-matrix', 'expressivity', 'johnson-lindenstrauss', 'hidden-size'],
+    contributor: 'community',
+    date_added: '2026-09-06',
+    tier: 'vetted',
+    open_claim: {
+      quote: 'in order to approximate any sparse matrix up to a given precision defined in terms of preserving matrix element ratios, d grows only logarithmically with the sequence length L (i.e. d = O(log L))',
+      source: 'https://arxiv.org/abs/2106.03764',
+    },
+    proposer: 'V. Likhosherstov, K. Choromanski, A. Weller',
+    proposed_year: 2021,
+    via: {
+      label: 'V. Likhosherstov, K. Choromanski, A. Weller, On the Expressive Power of Self-Attention Matrices, arXiv:2106.03764 (2021)',
+      url: 'https://arxiv.org/abs/2106.03764',
+    },
+    related_problems: [
+      {
+        id: 'cs-024',
+        relation: 'shares_tools',
+        note: 'Both bound what attention structure can express; cs-024 language recognition under soft attention, cs-027 matrix approximation by attention modules.',
+      },
+    ],
+    statement:
+      'Likhosherstov–Choromanski–Weller (arXiv:2106.03764) show the self-attention matrix can provably approximate sparse matrices (bounded nonzero elements per row and column) with fixed parameters, modifying only the inputs; the constructive proof uses random projections (Johnson–Lindenstrauss) and shows d = O(log L) suffices to preserve element ratios, with the construction turned into an algorithm. Decide the tightness: is d = O(log L) tight for sparse patterns, what is the minimal d for approximating dense-structured attention patterns, and is there a provable expressivity gap between fixed and input-dependent attention modules at the same hidden size? The O(log L) upper bound is proven; matching lower bounds and the dense-pattern regime are open.',
+    origin:
+      'The paper establishes a constructive upper bound for sparse patterns and an algorithm; lower bounds, the dense-pattern regime, and the fixed-vs-input-dependent gap are not established.',
+    progress: [],
+    obstacles: [
+      'Lower bounds must rule out the whole family of possible constructions, not just the random-projection one; the dense-pattern regime lacks even a candidate construction.',
+    ],
+    formalization_notes:
+      'Attention matrices and the approximation guarantee are finitary and formalizable; the lower-bound argument is the open mathematical content.',
+    references: [
+      {
+        label: 'V. Likhosherstov, K. Choromanski, A. Weller, On the Expressive Power of Self-Attention Matrices, arXiv:2106.03764 (2021)',
+        url: 'https://arxiv.org/abs/2106.03764',
+      },
+    ],
+    impact_domains: ['DNN interpretability engineering'],
+  },
 ]
 
 export const DOMAINS: Record<

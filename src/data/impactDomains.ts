@@ -605,6 +605,28 @@ export const IMPACT_DOMAIN_RECORDS: ImpactDomainRecord[] = [
     status: 'literature-backed',
     retrieved: '2026-09-05',
   },
+  {
+    id: 'transformer-architecture',
+    name: 'Transformer architecture engineering',
+    description:
+      'Rigorous characterization of what Transformer architectures can and cannot compute — language-level (RASP) cost bounds, circuit-complexity limits, length-generalization conditions, and in-context-learning mechanisms — informing architecture decisions and safety expectations for deployed LLM systems.',
+    evidence: [
+      ev(
+        'The Parallelism Tradeoff: Limitations of Log-Precision Transformers',
+        ['William Merrill', 'Ashish Sabharwal'],
+        '2023',
+        'https://arxiv.org/abs/2207.00729',
+      ),
+      ev(
+        'Thinking Like Transformers',
+        ['Gail Weiss', 'Yoav Goldberg', 'Eran Yahav'],
+        '2021',
+        'https://arxiv.org/abs/2106.06981',
+      ),
+    ],
+    status: 'literature-backed',
+    retrieved: '2026-09-06',
+  },
 ]
 
 const _byName = new Map(IMPACT_DOMAIN_RECORDS.map((r) => [r.name, r]))
